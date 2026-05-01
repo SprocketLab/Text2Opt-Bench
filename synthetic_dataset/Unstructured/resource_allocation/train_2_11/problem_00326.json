@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All variables, bounds, integrality, objective coefficients, and resource coefficients/limits are explicitly given. Minor nuance: integer cap of 15.35 effectively means 15.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative flavor and long product names add verbosity, but most content conveys necessary coefficients and limits.",
+      "realism": 96,
+      "realism_comment": "Highly plausible production planning scenario with coherent resources and market limits; data and constraints feel realistic."
+    },
+    "prompt_tokens_with_data": 966,
+    "prompt_tokens_without_data": 966
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 367.1381702961673,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 15.0,
+      "Var_2": 8.730182926829269,
+      "Var_3": 5.0,
+      "Var_4": -0.0,
+      "Var_5": 10.0,
+      "Var_6": 7.201361062717771
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 59.4
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 103.02
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 57.91
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 165.81
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 3.77
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 234.5
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 0.75
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.56
+      ],
+      "objective_linear_coefficient": 4.82,
+      "resource_costs": {
+        "C1": 6.39,
+        "C2": 0.97,
+        "C3": 7.94,
+        "C5": 8.46
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.35
+      ],
+      "objective_linear_coefficient": 9.48,
+      "resource_costs": {
+        "C1": 3.05
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.71
+      ],
+      "objective_linear_coefficient": 9.85,
+      "resource_costs": {
+        "C1": 6.56,
+        "C3": 6.35,
+        "C4": 0.17,
+        "C5": 8.0,
+        "C6": 0.04
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 3.43,
+      "resource_costs": {
+        "C2": 0.17,
+        "C3": 7.96,
+        "C5": 4.36
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 3.39,
+      "resource_costs": {
+        "C0": 8.45,
+        "C2": 7.55
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 5.9,
+      "resource_costs": {
+        "C5": 9.27
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.65
+      ],
+      "objective_linear_coefficient": 8.72,
+      "resource_costs": {
+        "C0": 8.02,
+        "C3": 9.8
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.56, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.35, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.48 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.71, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.85 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.43 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.39 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 5.9 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.65, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.72 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.45 * vars['Var_4'] + 8.02 * vars['Var_6'] <= 59.4, name='C0')\n    m.addConstr(6.39 * vars['Var_0'] + 3.05 * vars['Var_1'] + 6.56 * vars['Var_2'] <= 103.02, name='C1')\n    m.addConstr(0.97 * vars['Var_0'] + 0.17 * vars['Var_3'] + 7.55 * vars['Var_4'] <= 57.91, name='C2')\n    m.addConstr(7.94 * vars['Var_0'] + 6.35 * vars['Var_2'] + 7.96 * vars['Var_3'] + 9.8 * vars['Var_6'] <= 165.81, name='C3')\n    m.addConstr(0.17 * vars['Var_2'] <= 3.77, name='C4')\n    m.addConstr(8.46 * vars['Var_0'] + 8.0 * vars['Var_2'] + 4.36 * vars['Var_3'] + 9.27 * vars['Var_5'] <= 234.5, name='C5')\n    m.addConstr(0.04 * vars['Var_2'] <= 0.75, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix decision for the upcoming cycle \u2014 maximize portfolio contribution within plant and market limits\n\nHello team,\n\nFor the next scheduling window, our goal is to maximize total contribution from our portfolio while staying inside the plant\u2019s shared capacities, compliance thresholds, and budget. Below are the seven levers we can adjust this cycle. Each lever is optional (we can choose zero), and the notes specify the maximum we can practically schedule, whether partial runs are permitted, the expected per\u2011unit contribution, and the resources each option draws.\n\nBlue Ridge Barrel Blend\n- Each batch contributes 4.82 in margin. We can schedule up to 17.56 batches this cycle, and partial batches are acceptable.\n- Resource effects per batch: 6.39 skilled crew hours, 0.97 units of specialty botanicals, 7.94 hours on Distillation Column B, and 8.46 in packaging and logistics budget.\n\nHeritage Hand Bottling (limited series)\n- Each batch contributes 9.48 in margin. Capacity allows up to 15.35 batches; however, this program must be scheduled in whole batches only (so in practice, no more than 15 full batches).\n- Resource effects per batch: 3.05 skilled crew hours. No draw on other shared limits.\n\nSignature Botanical Gin \u2014 Reserve\n- Each batch contributes 9.85 in margin. We can schedule up to 15.71 batches, and partial batches are acceptable.\n- Resource effects per batch: 6.56 skilled crew hours, 6.35 hours on Distillation Column B, 0.17 units against the trace aroma emission allowance, 8.0 in packaging and logistics budget, and 0.04 points of the reputational risk buffer.\n\nCask\u2011Aged Rum \u2014 Dark Reserve\n- Each batch contributes 3.43 in margin. Capacity allows up to 7 batches, and these runs must be scheduled as whole batches.\n- Resource effects per batch: 0.17 units of specialty botanicals, 7.96 hours on Distillation Column B, and 4.36 in packaging and logistics budget.\n\nNitro Cold Brew \u2014 Specialty Line\n- Each batch contributes 3.39 in margin. Capacity allows up to 7 batches, scheduled as whole batches.\n- Resource effects per batch: 8.45 units of chilled brine capacity and 7.55 units of specialty botanicals.\n\nSparkling Water \u2014 Seasonal Rotation\n- Each batch contributes 5.9 in margin. Capacity allows up to 10 batches, scheduled as whole batches.\n- Resource effects per batch: 9.27 in packaging and logistics budget.\n\nNeutral Spirit \u2014 Overnight Distillation\n- Each batch contributes 8.72 in margin. We can schedule up to 16.65 batches, and partial batches are acceptable.\n- Resource effects per batch: 8.02 units of chilled brine capacity and 9.8 hours on Distillation Column B.\n\nFacility specs and market limits (do not exceed during the cycle)\n- Chilled brine capacity: up to 59.4 units available.\n- Skilled crew hours: up to 103.02 hours available.\n- Specialty botanicals inventory: up to 57.91 units available.\n- Distillation Column B operating time: up to 165.81 hours available.\n- Trace aroma emission allowance: up to 3.77 units available.\n- Packaging and logistics budget: up to 234.5 available.\n- Reputational risk buffer: up to 0.75 points available.\n\nPlease recommend the production mix that maximizes total contribution while honoring the limits above. If you need any clarifications on run sizes or unit definitions, let me know."
+}

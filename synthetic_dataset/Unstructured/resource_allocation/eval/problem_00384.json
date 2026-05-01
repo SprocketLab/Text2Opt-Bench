@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Precise costs, bounds, and impacts per initiative; min targets stated; variables continuous and bounded; zero contributions noted. One minor gap: variable names not specified.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative and 'no contribution' repetitions add length; code requirements and template also add verbosity, but most content is relevant.",
+      "realism": 95,
+      "realism_comment": "Sustainability initiatives with costs and multi-metric minimums are realistic; linear impacts and availability caps are typical in planning."
+    },
+    "prompt_tokens_with_data": 1205,
+    "prompt_tokens_without_data": 1205
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 150.5670518864187,
+    "optimal_values": {
+      "Var_0": 9.65904748651228,
+      "Var_1": 4.957864549169621,
+      "Var_2": 5.963890893062871,
+      "Var_3": 0.0,
+      "Var_4": 7.606273763574036,
+      "Var_5": 3.123981640903632,
+      "Var_6": 0.0,
+      "Var_7": 3.2722360143796463
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 116.36
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 94.22
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.4
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.94
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 95.4
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 101.05
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 91.96
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.48
+      ],
+      "objective_linear_coefficient": 2.65,
+      "resource_costs": {
+        "C0": 7.68,
+        "C2": 4.83,
+        "C3": 1.21,
+        "C5": 6.67
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.94
+      ],
+      "objective_linear_coefficient": 2.12,
+      "resource_costs": {
+        "C0": 0.47,
+        "C1": 9.27,
+        "C2": 8.64,
+        "C6": 5.84
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.39
+      ],
+      "objective_linear_coefficient": 3.28,
+      "resource_costs": {
+        "C0": 5.48,
+        "C2": 5.38,
+        "C4": 8.14,
+        "C5": 3.65
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.35
+      ],
+      "objective_linear_coefficient": 5.9,
+      "resource_costs": {
+        "C0": 9.0,
+        "C3": 5.88
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.97
+      ],
+      "objective_linear_coefficient": 9.03,
+      "resource_costs": {
+        "C1": 1.3,
+        "C2": 0.98,
+        "C3": 6.94,
+        "C4": 3.17,
+        "C6": 5.87
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.4
+      ],
+      "objective_linear_coefficient": 3.29,
+      "resource_costs": {
+        "C1": 8.24,
+        "C2": 9.59,
+        "C3": 3.67
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.81
+      ],
+      "objective_linear_coefficient": 8.0,
+      "resource_costs": {
+        "C3": 1.08,
+        "C5": 4.32
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.2
+      ],
+      "objective_linear_coefficient": 4.87,
+      "resource_costs": {
+        "C0": 2.19,
+        "C1": 3.86,
+        "C2": 0.78,
+        "C4": 6.95,
+        "C5": 4.54,
+        "C6": 5.61
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.48, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.65 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.94, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.12 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.39, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.28 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.35, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.9 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.97, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.03 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.4, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.29 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.81, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.0 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=12.2, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 4.87 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.68 * vars['Var_0'] + 0.47 * vars['Var_1'] + 5.48 * vars['Var_2'] + 9.0 * vars['Var_3'] + 2.19 * vars['Var_7'] >= 116.36, name='C0')\n    m.addConstr(9.27 * vars['Var_1'] + 1.3 * vars['Var_4'] + 8.24 * vars['Var_5'] + 3.86 * vars['Var_7'] >= 94.22, name='C1')\n    m.addConstr(4.83 * vars['Var_0'] + 8.64 * vars['Var_1'] + 5.38 * vars['Var_2'] + 0.98 * vars['Var_4'] + 9.59 * vars['Var_5'] + 0.78 * vars['Var_7'] >= 153.4, name='C2')\n    m.addConstr(1.21 * vars['Var_0'] + 5.88 * vars['Var_3'] + 6.94 * vars['Var_4'] + 3.67 * vars['Var_5'] + 1.08 * vars['Var_6'] >= 75.94, name='C3')\n    m.addConstr(8.14 * vars['Var_2'] + 3.17 * vars['Var_4'] + 6.95 * vars['Var_7'] >= 95.4, name='C4')\n    m.addConstr(6.67 * vars['Var_0'] + 3.65 * vars['Var_2'] + 4.32 * vars['Var_6'] + 4.54 * vars['Var_7'] >= 101.05, name='C5')\n    m.addConstr(5.84 * vars['Var_1'] + 5.87 * vars['Var_4'] + 5.61 * vars['Var_7'] >= 91.96, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost\u2011efficient portfolio to meet our FY targets\n\nTeam,\n\nAs we finalize the FY plan, we need a cost\u2011efficient mix of initiatives that collectively meets our minimum scorecard commitments across seven areas: carbon abatement, water conservation, clean energy certificates, workforce safety & training, waste diversion, community engagement, and biodiversity offsets. Please build the least\u2011cost blend while honoring the limits and contributions below. Each initiative can be scaled partially (we can buy fractional tranches), but not beyond its stated availability.\n\nLevers we can pull (in selection order)\n\n1) Aurora Retrofit Bundles\n- Unit cost: 2.65 per bundle; available in any amount from zero up to 13.48 bundles.\n- Per bundle impact:\n  - Carbon abatement: 7.68\n  - Clean energy certificates: 4.83\n  - Workforce safety & training: 1.21\n  - Community engagement: 6.67\n  - No contribution to water conservation, waste diversion, or biodiversity offsets.\n\n2) Blue Basin Stewardship Lots\n- Unit cost: 2.12 per lot; available in any amount from zero up to 8.94 lots.\n- Per lot impact:\n  - Carbon abatement: 0.47\n  - Water conservation: 9.27\n  - Clean energy certificates: 8.64\n  - Biodiversity offsets: 5.84\n  - No contribution to workforce safety & training, waste diversion, or community engagement.\n\n3) Zephyr Wind Blocks\n- Unit cost: 3.28 per block; available in any amount from zero up to 13.39 blocks.\n- Per block impact:\n  - Carbon abatement: 5.48\n  - Clean energy certificates: 5.38\n  - Waste diversion: 8.14\n  - Community engagement: 3.65\n  - No contribution to water conservation, workforce safety & training, or biodiversity offsets.\n\n4) Electra Fleet Conversions\n- Unit cost: 5.90 per conversion; available in any amount from zero up to 13.35 conversions.\n- Per conversion impact:\n  - Carbon abatement: 9.00\n  - Workforce safety & training: 5.88\n  - No contribution to water conservation, clean energy certificates, waste diversion, community engagement, or biodiversity offsets.\n\n5) Harbor Safety & Habitat Clinics\n- Unit cost: 9.03 per clinic; available in any amount from zero up to 7.97 clinics.\n- Per clinic impact:\n  - Water conservation: 1.30\n  - Clean energy certificates: 0.98\n  - Workforce safety & training: 6.94\n  - Waste diversion: 3.17\n  - Biodiversity offsets: 5.87\n  - No contribution to carbon abatement or community engagement.\n\n6) AquaLoop Reclamation Modules\n- Unit cost: 3.29 per module; available in any amount from zero up to 18.40 modules.\n- Per module impact:\n  - Water conservation: 8.24\n  - Clean energy certificates: 9.59\n  - Workforce safety & training: 3.67\n  - No contribution to carbon abatement, waste diversion, community engagement, or biodiversity offsets.\n\n7) NeighborLink Volunteer Drives\n- Unit cost: 8.00 per drive; available in any amount from zero up to 16.81 drives.\n- Per drive impact:\n  - Workforce safety & training: 1.08\n  - Community engagement: 4.32\n  - No contribution to carbon abatement, water conservation, clean energy certificates, waste diversion, or biodiversity offsets.\n\n8) Cirrus Zero\u2011Waste Festivals\n- Unit cost: 4.87 per festival; available in any amount from zero up to 12.20 festivals.\n- Per festival impact:\n  - Carbon abatement: 2.19\n  - Water conservation: 3.86\n  - Clean energy certificates: 0.78\n  - Waste diversion: 6.95\n  - Community engagement: 4.54\n  - Biodiversity offsets: 5.61\n  - No contribution to workforce safety & training.\n\nMarket limits (minimums we must achieve this period)\n- Carbon abatement: at least 116.36\n- Water conservation: at least 94.22\n- Clean energy certificates: at least 153.40\n- Workforce safety & training: at least 75.94\n- Waste diversion: at least 95.40\n- Community engagement: at least 101.05\n- Biodiversity offsets: at least 91.96\n\nPlease return a recommended allocation that minimizes total program spend while meeting all of the above minimums and staying within each initiative\u2019s availability."
+}

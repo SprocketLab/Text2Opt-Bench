@@ -1,0 +1,176 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-lever costs, continuous bounds (0 to caps), and metric impacts; five >= minimum targets stated. All coefficients and signs given; model can be reconstructed exactly.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some business narrative and repeated phrasing make it verbose, but all details are relevant and well structured.",
+      "realism": 92,
+      "realism_comment": "A plausible operating-mix planning problem with service, quality, and sustainability targets; tradeoffs and numbers look realistic."
+    },
+    "prompt_tokens_with_data": 1485,
+    "prompt_tokens_without_data": 1485
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 89.3718920273633,
+    "optimal_values": {
+      "Var_0": 8.27116776911603,
+      "Var_1": 5.91,
+      "Var_2": 0.0,
+      "Var_3": 6.04,
+      "Var_4": 0.0,
+      "Var_5": 0.5647029578484496,
+      "Var_6": 2.503384311873116,
+      "Var_7": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -41.1
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 59.87
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.5
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 127.81
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -13.05
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.67
+      ],
+      "objective_linear_coefficient": 4.91,
+      "resource_costs": {
+        "C0": -4.21,
+        "C2": 0.35,
+        "C3": 9.68,
+        "C4": -0.42
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.91
+      ],
+      "objective_linear_coefficient": 5.2,
+      "resource_costs": {
+        "C2": 4.63,
+        "C3": 8.01
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.85
+      ],
+      "objective_linear_coefficient": 8.04,
+      "resource_costs": {
+        "C0": -1.28,
+        "C2": 5.18,
+        "C4": -3.63
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.04
+      ],
+      "objective_linear_coefficient": 1.31,
+      "resource_costs": {
+        "C1": 6.95,
+        "C2": 8.38,
+        "C3": 0.1,
+        "C4": 3.14
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.22
+      ],
+      "objective_linear_coefficient": 8.74,
+      "resource_costs": {
+        "C1": 5.23,
+        "C2": -2.57,
+        "C3": 3.4,
+        "C4": 5.22
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.23
+      ],
+      "objective_linear_coefficient": 4.26,
+      "resource_costs": {
+        "C0": 1.35,
+        "C1": -1.52,
+        "C2": 7.02,
+        "C3": 0.27,
+        "C4": -4.7
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.3
+      ],
+      "objective_linear_coefficient": 3.08,
+      "resource_costs": {
+        "C1": 7.49,
+        "C2": -3.73,
+        "C3": -0.14
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.85
+      ],
+      "objective_linear_coefficient": 8.38,
+      "resource_costs": {
+        "C0": 1.1,
+        "C1": -1.93,
+        "C2": -0.64,
+        "C3": 3.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.67, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.91 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.91, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.2 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.85, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.04 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.04, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.31 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.22, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.74 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.23, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.26 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.3, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.08 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=10.85, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 8.38 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-4.21 * vars['Var_0'] + -1.28 * vars['Var_2'] + 1.35 * vars['Var_5'] + 1.1 * vars['Var_7'] >= -41.1, name='C0')\n    m.addConstr(6.95 * vars['Var_3'] + 5.23 * vars['Var_4'] + -1.52 * vars['Var_5'] + 7.49 * vars['Var_6'] + -1.93 * vars['Var_7'] >= 59.87, name='C1')\n    m.addConstr(0.35 * vars['Var_0'] + 4.63 * vars['Var_1'] + 5.18 * vars['Var_2'] + 8.38 * vars['Var_3'] + -2.57 * vars['Var_4'] + 7.02 * vars['Var_5'] + -3.73 * vars['Var_6'] + -0.64 * vars['Var_7'] >= 75.5, name='C2')\n    m.addConstr(9.68 * vars['Var_0'] + 8.01 * vars['Var_1'] + 0.1 * vars['Var_3'] + 3.4 * vars['Var_4'] + 0.27 * vars['Var_5'] + -0.14 * vars['Var_6'] + 3.46 * vars['Var_7'] >= 127.81, name='C3')\n    m.addConstr(-0.42 * vars['Var_0'] + -3.63 * vars['Var_2'] + 3.14 * vars['Var_3'] + 5.22 * vars['Var_4'] + -4.7 * vars['Var_5'] >= -13.05, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Operating Mix with Service, Quality, and Impact Targets\n\nTeam,\n\nWe\u2019re preparing the next planning cycle and need your help to configure our operating mix to minimize total run-rate cost while still meeting our minimum commitments on five dimensions: our Legacy Contract Credit Ledger, On\u2011Site Support Hours, Service Delivery Units, the Reliability & Quality Index, and Community & Sustainability Credits. All levers below can be scaled anywhere from zero up to the stated cap (partial adoption is allowed). For each lever, I\u2019ve noted its per\u2011unit cost and its incremental effect on each of the five metrics.\n\n- Specialist Escalation Workorders\n  - Cost: 4.91 per workorder, scalable from 0 up to 19.67 units.\n  - Legacy Contract Credit Ledger: each workorder reduces this ledger by 4.21 credit points (\u22124.21).\n  - On\u2011Site Support Hours: no impact (0).\n  - Service Delivery Units: adds 0.35 units per workorder (+0.35).\n  - Reliability & Quality Index: adds 9.68 points per workorder (+9.68).\n  - Community & Sustainability Credits: reduces credits by 0.42 per workorder (\u22120.42).\n\n- Precision Spare Kit Deployments\n  - Cost: 5.2 per deployment, scalable from 0 up to 5.91 units.\n  - Legacy Contract Credit Ledger: no impact (0).\n  - On\u2011Site Support Hours: no impact (0).\n  - Service Delivery Units: adds 4.63 units per deployment (+4.63).\n  - Reliability & Quality Index: adds 8.01 points per deployment (+8.01).\n  - Community & Sustainability Credits: no impact (0).\n\n- Third\u2011Party Overflow Tickets\n  - Cost: 8.04 per ticket batch, scalable from 0 up to 12.85 units.\n  - Legacy Contract Credit Ledger: reduces the ledger by 1.28 credit points per unit (\u22121.28).\n  - On\u2011Site Support Hours: no impact (0).\n  - Service Delivery Units: adds 5.18 units per batch (+5.18).\n  - Reliability & Quality Index: no impact (0).\n  - Community & Sustainability Credits: reduces credits by 3.63 per batch (\u22123.63).\n\n- Union Field Technicians (On\u2011Site Visits)\n  - Cost: 1.31 per visit unit, scalable from 0 up to 6.04 units.\n  - Legacy Contract Credit Ledger: no impact (0).\n  - On\u2011Site Support Hours: adds 6.95 hours per unit (+6.95).\n  - Service Delivery Units: adds 8.38 units per unit (+8.38).\n  - Reliability & Quality Index: adds 0.10 points per unit (+0.10).\n  - Community & Sustainability Credits: adds 3.14 credits per unit (+3.14).\n\n- Staff Training Days\n  - Cost: 8.74 per day, scalable from 0 up to 13.22 units.\n  - Legacy Contract Credit Ledger: no impact (0).\n  - On\u2011Site Support Hours: adds 5.23 hours per day (+5.23).\n  - Service Delivery Units: reduces throughput by 2.57 units per day (\u22122.57).\n  - Reliability & Quality Index: adds 3.4 points per day (+3.4).\n  - Community & Sustainability Credits: adds 5.22 credits per day (+5.22).\n\n- Digital Self\u2011Service Migration\n  - Cost: 4.26 per migration unit, scalable from 0 up to 13.23 units.\n  - Legacy Contract Credit Ledger: adds 1.35 credit points per unit (+1.35).\n  - On\u2011Site Support Hours: reduces hours by 1.52 per unit (\u22121.52).\n  - Service Delivery Units: adds 7.02 units per unit (+7.02).\n  - Reliability & Quality Index: adds 0.27 points per unit (+0.27).\n  - Community & Sustainability Credits: reduces credits by 4.7 per unit (\u22124.7).\n\n- Regulatory Audit Engagements\n  - Cost: 3.08 per engagement, scalable from 0 up to 16.3 units.\n  - Legacy Contract Credit Ledger: no impact (0).\n  - On\u2011Site Support Hours: adds 7.49 hours per engagement (+7.49).\n  - Service Delivery Units: reduces throughput by 3.73 units per engagement (\u22123.73).\n  - Reliability & Quality Index: reduces the index by 0.14 points per engagement (\u22120.14).\n  - Community & Sustainability Credits: no impact (0).\n\n- Remote Monitoring Rollout\n  - Cost: 8.38 per rollout unit, scalable from 0 up to 10.85 units.\n  - Legacy Contract Credit Ledger: adds 1.1 credit points per unit (+1.1).\n  - On\u2011Site Support Hours: reduces hours by 1.93 per unit (\u22121.93).\n  - Service Delivery Units: reduces throughput by 0.64 units per unit (\u22120.64).\n  - Reliability & Quality Index: adds 3.46 points per unit (+3.46).\n  - Community & Sustainability Credits: no impact (0).\n\nTargets and Guardrails (minimums we must meet or exceed)\n- Legacy Contract Credit Ledger: at least \u221241.1 credit points (we cannot allow the net position to be worse than \u221241.1).\n- On\u2011Site Support Hours: at least 59.87 total hours.\n- Service Delivery Units: at least 75.5 units.\n- Reliability & Quality Index: at least 127.81 points.\n- Community & Sustainability Credits: at least \u221213.05 credits (we cannot allow the net position to be worse than \u221213.05).\n\nPlease use this as the basis to develop a cost\u2011minimizing plan that meets all five commitments. Let me know if you need clarifications on any of the levers or measurement definitions."
+}

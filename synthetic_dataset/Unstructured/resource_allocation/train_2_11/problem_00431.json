@@ -1,0 +1,196 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit bounds, costs, additive impacts for six metrics, and >= floors. Negative effects are clear; zero effects listed. Continuous variables implied. Objective is linear cost minimization.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo tone adds some fluff; repeated 'No material effect' lines. Still, most text precisely defines coefficients, bounds, and floors. Moderate verbosity.",
+      "realism": 94,
+      "realism_comment": "Plausible operations planning mix with capacities, costs, and KPI floors; tradeoffs and negative impacts fit real OR contexts."
+    },
+    "prompt_tokens_with_data": 1349,
+    "prompt_tokens_without_data": 1349
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 173.82790962177802,
+    "optimal_values": {
+      "Var_0": 1.5023458266666379,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.9086380660232455,
+      "Var_4": 0.0,
+      "Var_5": 0.0,
+      "Var_6": 9.54,
+      "Var_7": 13.35,
+      "Var_8": 3.6505168463893862
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 67.82
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -19.13
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 118.75
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 239.25
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 29.49
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 49.47
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.77
+      ],
+      "objective_linear_coefficient": 8.64,
+      "resource_costs": {
+        "C3": 9.61,
+        "C4": -0.92,
+        "C5": 8.71
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.46
+      ],
+      "objective_linear_coefficient": 6.35,
+      "resource_costs": {
+        "C2": 1.9,
+        "C4": 4.92
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.18
+      ],
+      "objective_linear_coefficient": 4.1,
+      "resource_costs": {
+        "C2": 7.05,
+        "C3": 2.51,
+        "C5": -2.41
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.18
+      ],
+      "objective_linear_coefficient": 4.89,
+      "resource_costs": {
+        "C0": -0.81,
+        "C1": -3.08,
+        "C2": 7.77,
+        "C3": 5.61,
+        "C5": -4.26
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.06
+      ],
+      "objective_linear_coefficient": 8.94,
+      "resource_costs": {
+        "C0": -0.05,
+        "C2": -4.65,
+        "C3": -1.49,
+        "C5": -1.81
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.19
+      ],
+      "objective_linear_coefficient": 3.03,
+      "resource_costs": {
+        "C0": 2.26,
+        "C1": 0.58,
+        "C4": 3.9
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.54
+      ],
+      "objective_linear_coefficient": 6.86,
+      "resource_costs": {
+        "C0": 7.25,
+        "C3": 9.66,
+        "C4": 1.12
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.35
+      ],
+      "objective_linear_coefficient": 5.49,
+      "resource_costs": {
+        "C0": 3.73,
+        "C1": -0.29,
+        "C2": 9.98,
+        "C3": 8.71,
+        "C5": 0.97
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.88
+      ],
+      "objective_linear_coefficient": 4.84,
+      "resource_costs": {
+        "C0": 4.61,
+        "C2": -4.42,
+        "C3": 3.09,
+        "C4": 5.53,
+        "C5": 7.48
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.77, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.64 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.46, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.35 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.18, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.1 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.18, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.89 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.06, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.94 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.19, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.03 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.54, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.86 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.35, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 5.49 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=6.88, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 4.84 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-0.81 * vars['Var_3'] + -0.05 * vars['Var_4'] + 2.26 * vars['Var_5'] + 7.25 * vars['Var_6'] + 3.73 * vars['Var_7'] + 4.61 * vars['Var_8'] >= 67.82, name='C0')\n    m.addConstr(-3.08 * vars['Var_3'] + 0.58 * vars['Var_5'] + -0.29 * vars['Var_7'] >= -19.13, name='C1')\n    m.addConstr(1.9 * vars['Var_1'] + 7.05 * vars['Var_2'] + 7.77 * vars['Var_3'] + -4.65 * vars['Var_4'] + 9.98 * vars['Var_7'] + -4.42 * vars['Var_8'] >= 118.75, name='C2')\n    m.addConstr(9.61 * vars['Var_0'] + 2.51 * vars['Var_2'] + 5.61 * vars['Var_3'] + -1.49 * vars['Var_4'] + 9.66 * vars['Var_6'] + 8.71 * vars['Var_7'] + 3.09 * vars['Var_8'] >= 239.25, name='C3')\n    m.addConstr(-0.92 * vars['Var_0'] + 4.92 * vars['Var_1'] + 3.9 * vars['Var_5'] + 1.12 * vars['Var_6'] + 5.53 * vars['Var_8'] >= 29.49, name='C4')\n    m.addConstr(8.71 * vars['Var_0'] + -2.41 * vars['Var_2'] + -4.26 * vars['Var_3'] + -1.81 * vars['Var_4'] + 0.97 * vars['Var_7'] + 7.48 * vars['Var_8'] >= 49.47, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 Operations Mix \u2013 Minimizing Run-Rate Cost while Meeting Performance Floors\n\nTeam,\n\nFor the upcoming cycle, our objective is to configure the most cost-effective mix of nine operational levers while meeting or exceeding our performance floors across six areas: Safety & Compliance Index, Community Impact Score, Certified Output Credits, Operations Throughput Points, Quality Coverage Hours, and Maintenance Burn-Down Points. Each lever can be scheduled in any nonnegative quantity up to its cap.\n\nBelow are the levers, in the order we want you to evaluate them, with their unit costs, scheduling limits, and how they move each performance area.\n\n- Express Assembly Cells\n  - Schedule window: 0 to 10.77 units.\n  - Cost: 8.64 per unit.\n  - Impact: adds 9.61 Operations Throughput Points per unit; reduces Quality Coverage Hours by 0.92 per unit; adds 8.71 Maintenance Burn-Down Points per unit.\n  - No material effect on Safety & Compliance Index, Community Impact Score, or Certified Output Credits.\n\n- Lean Improvement Workshops\n  - Schedule window: 0 to 15.46 units.\n  - Cost: 6.35 per unit.\n  - Impact: adds 1.90 Certified Output Credits per unit; adds 4.92 Quality Coverage Hours per unit.\n  - No material effect on Safety & Compliance Index, Community Impact Score, Operations Throughput Points, or Maintenance Burn-Down Points.\n\n- Supplier Co\u2011Production Lots\n  - Schedule window: 0 to 9.18 units.\n  - Cost: 4.10 per unit.\n  - Impact: adds 7.05 Certified Output Credits per unit; adds 2.51 Operations Throughput Points per unit; reduces Maintenance Burn-Down Points by 2.41 per unit (i.e., adds to backlog).\n  - No material effect on Safety & Compliance Index, Community Impact Score, or Quality Coverage Hours.\n\n- Overtime Manufacturing Shifts\n  - Schedule window: 0 to 12.18 units.\n  - Cost: 4.89 per unit.\n  - Impact: reduces Safety & Compliance Index by 0.81 per unit; reduces Community Impact Score by 3.08 per unit; adds 7.77 Certified Output Credits per unit; adds 5.61 Operations Throughput Points per unit; reduces Maintenance Burn-Down Points by 4.26 per unit.\n  - No material effect on Quality Coverage Hours.\n\n- R&D Pilot Trials\n  - Schedule window: 0 to 8.06 units.\n  - Cost: 8.94 per unit.\n  - Impact: reduces Safety & Compliance Index by 0.05 per unit; reduces Certified Output Credits by 4.65 per unit; reduces Operations Throughput Points by 1.49 per unit; reduces Maintenance Burn-Down Points by 1.81 per unit.\n  - No material effect on Community Impact Score or Quality Coverage Hours.\n\n- Preventive Maintenance Blitzes\n  - Schedule window: 0 to 14.19 units.\n  - Cost: 3.03 per unit.\n  - Impact: adds 2.26 Safety & Compliance Index points per unit; adds 0.58 Community Impact Score per unit; adds 3.90 Quality Coverage Hours per unit.\n  - No material effect on Certified Output Credits, Operations Throughput Points, or Maintenance Burn-Down Points.\n\n- Automation Commissioning Runs\n  - Schedule window: 0 to 9.54 units.\n  - Cost: 6.86 per unit.\n  - Impact: adds 7.25 Safety & Compliance Index points per unit; adds 9.66 Operations Throughput Points per unit; adds 1.12 Quality Coverage Hours per unit.\n  - No material effect on Community Impact Score, Certified Output Credits, or Maintenance Burn-Down Points.\n\n- Premium Production Lots\n  - Schedule window: 0 to 13.35 units.\n  - Cost: 5.49 per unit.\n  - Impact: adds 3.73 Safety & Compliance Index points per unit; reduces Community Impact Score by 0.29 per unit; adds 9.98 Certified Output Credits per unit; adds 8.71 Operations Throughput Points per unit; adds 0.97 Maintenance Burn-Down Points per unit.\n  - No material effect on Quality Coverage Hours.\n\n- Customer Retrofit Visits\n  - Schedule window: 0 to 6.88 units.\n  - Cost: 4.84 per unit.\n  - Impact: adds 4.61 Safety & Compliance Index points per unit; reduces Certified Output Credits by 4.42 per unit; adds 3.09 Operations Throughput Points per unit; adds 5.53 Quality Coverage Hours per unit; adds 7.48 Maintenance Burn-Down Points per unit.\n  - No material effect on Community Impact Score.\n\nOperating commitments and floors we must meet or exceed:\n- Safety & Compliance Index: at least 67.82 points.\n- Community Impact Score: no less than -19.13 points.\n- Certified Output Credits: at least 118.75 credits.\n- Operations Throughput Points: at least 239.25 points.\n- Quality Coverage Hours: at least 29.49 hours.\n- Maintenance Burn-Down Points: at least 49.47 points.\n\nOur goal is to meet these minimums at the lowest possible total run-rate cost by choosing how many units of each lever to schedule within its cap. Please review and propose the portfolio that achieves this."
+}

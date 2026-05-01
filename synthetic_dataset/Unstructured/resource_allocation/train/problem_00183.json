@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and nutrient coefficients are precise; five >= demand constraints and min-cost objective clear. Minor code-level gap: variable names (Var_i) not specified.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Email-style framing adds some fluff (greeting, sign-off) but most text delivers parameters; not overly repetitive.",
+      "realism": 96,
+      "realism_comment": "Genuine nutrition procurement LP with plausible data and constraints; integer SKUs and fractional shipments are realistic, though decimal caps for integer items are slightly artificial."
+    },
+    "prompt_tokens_with_data": 901,
+    "prompt_tokens_without_data": 901
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 99.01332589385527,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 2.5879682179341654,
+      "Var_2": 1.87236794708059,
+      "Var_3": 6.048433048433049,
+      "Var_4": 10.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 120.66
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 102.72
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.8
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 42.46
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 102.9
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.65
+      ],
+      "objective_linear_coefficient": 3.96,
+      "resource_costs": {
+        "C0": 2.05
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.63
+      ],
+      "objective_linear_coefficient": 8.96,
+      "resource_costs": {
+        "C1": 0.12,
+        "C2": 8.81,
+        "C4": 3.79
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.84
+      ],
+      "objective_linear_coefficient": 4.23,
+      "resource_costs": {
+        "C0": 8.7,
+        "C4": 8.56
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.27
+      ],
+      "objective_linear_coefficient": 3.82,
+      "resource_costs": {
+        "C0": 5.17,
+        "C1": 5.43,
+        "C3": 7.02,
+        "C4": 4.51
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.19
+      ],
+      "objective_linear_coefficient": 4.48,
+      "resource_costs": {
+        "C0": 7.31,
+        "C1": 7.01,
+        "C4": 6.04
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.65, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 3.96 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.63, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.96 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.84, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.23 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.27, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.82 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.19, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 4.48 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.05 * vars['Var_0'] + 8.7 * vars['Var_2'] + 5.17 * vars['Var_3'] + 7.31 * vars['Var_4'] >= 120.66, name='C0')\n    m.addConstr(0.12 * vars['Var_1'] + 5.43 * vars['Var_3'] + 7.01 * vars['Var_4'] >= 102.72, name='C1')\n    m.addConstr(8.81 * vars['Var_1'] >= 22.8, name='C2')\n    m.addConstr(7.02 * vars['Var_3'] >= 42.46, name='C3')\n    m.addConstr(3.79 * vars['Var_1'] + 8.56 * vars['Var_2'] + 4.51 * vars['Var_3'] + 6.04 * vars['Var_4'] >= 102.9, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Nutrition Procurement Plan \u2014 Inputs for Optimization\n\nTeam,\n\nAs discussed, our objective for the upcoming cycle is to assemble a cost-effective mix of food items that meets our internal nutrition standards across five categories. We want to minimize total spend while ensuring we hit the minimum thresholds for energy, protein, vitamin C, calcium, and fiber. Below are the purchase levers, their unit costs, availability limits, and exactly how each one contributes to our nutrition targets.\n\n- Base Grain Packs\n  - Unit cost: 3.96 per case.\n  - Ordering window: anywhere from 0 up to a cap of 10.65 case-equivalents this cycle, but these must be purchased in whole cases.\n  - Nutrition contributions (per case): provides 2.05 energy units; does not add to protein, vitamin C, calcium, or fiber (no contribution to those four categories).\n  \n- Citrus & Greens Crates\n  - Unit cost: 8.96 per crate.\n  - Ordering window: 0 to 6.63 crates, and partial crates are acceptable (supplier will split shipments).\n  - Nutrition contributions (per crate): adds 0.12 protein units, 8.81 vitamin C units, and 3.79 fiber units; it does not contribute to energy or calcium.\n\n- Whole Grain Bread Batches\n  - Unit cost: 4.23 per batch.\n  - Ordering window: 0 to 17.84 batches, partial batches allowed.\n  - Nutrition contributions (per batch): delivers 8.7 energy units and 8.56 fiber units; it does not contribute to protein, vitamin C, or calcium.\n\n- Breakfast Combo Cases\n  - Unit cost: 3.82 per case.\n  - Ordering window: 0 to 10.27 cases, partial cases allowed (these can be broken down for delivery).\n  - Nutrition contributions (per case): provides 5.17 energy units, 5.43 protein units, 7.02 calcium units, and 4.51 fiber units; it does not add to vitamin C.\n\n- Protein Meal Kits\n  - Unit cost: 4.48 per kit.\n  - Ordering window: 0 up to a cap of 11.19 kit-equivalents this cycle, and these must be booked in whole kits.\n  - Nutrition contributions (per kit): adds 7.31 energy units, 7.01 protein units, and 6.04 fiber units; it does not contribute to vitamin C or calcium.\n\nFacility Specs and Minimum Nutrition Standards (must meet or exceed):\n- Energy: at least 120.66 units in total.\n- Protein: at least 102.72 units in total.\n- Vitamin C: at least 22.8 units in total.\n- Calcium: at least 42.46 units in total.\n- Fiber: at least 102.9 units in total.\n\nPlease use the above to construct the lowest-cost purchasing plan that respects the item-specific ordering limits and the whole-unit requirements for Base Grain Packs and Protein Meal Kits, while ensuring our aggregate nutrition totals across energy, protein, vitamin C, calcium, and fiber are at or above the stated thresholds. Ordering any item is optional (minimum order is zero for each), subject to its availability cap.\n\nThanks,\n[Your Name]\nProcurement & Nutrition Programs Lead"
+}

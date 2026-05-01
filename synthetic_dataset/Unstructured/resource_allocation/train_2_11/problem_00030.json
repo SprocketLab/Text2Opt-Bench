@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, capacities, integrality, bounds, and objective are explicit. Zero VOC for Obsidian is clear. A human can reconstruct the exact MIP without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds context and minor operational notes; somewhat verbose but not repetitive. All data needed are clearly stated.",
+      "realism": 100,
+      "realism_comment": "Highly realistic plant planning scenario with reactor, lab hours, VOC permits, packaging, batch integrality, and contribution margins."
+    },
+    "prompt_tokens_with_data": 812,
+    "prompt_tokens_without_data": 812
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 36.81,
+    "optimal_values": {
+      "Var_0": 8.0,
+      "Var_1": 1.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.89
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 23.45
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 3.05
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 24.8
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.66
+      ],
+      "objective_linear_coefficient": 3.76,
+      "resource_costs": {
+        "C0": 0.8,
+        "C1": 2.35,
+        "C2": 0.05,
+        "C3": 2.85
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.95
+      ],
+      "objective_linear_coefficient": 6.73,
+      "resource_costs": {
+        "C0": 9.06,
+        "C1": 1.87,
+        "C3": 0.57
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.66, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 3.76 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.95, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.73 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.8 * vars['Var_0'] + 9.06 * vars['Var_1'] <= 17.89, name='C0')\n    m.addConstr(2.35 * vars['Var_0'] + 1.87 * vars['Var_1'] <= 23.45, name='C1')\n    m.addConstr(0.05 * vars['Var_0'] <= 3.05, name='C2')\n    m.addConstr(2.85 * vars['Var_0'] + 0.57 * vars['Var_1'] <= 24.8, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance for Q1 Mix Decision \u2013 Two Coating Lines and Shared Plant Limits\n\nTeam,\n\nAs we lock the Q1 plan, we need to decide how to split our limited plant resources between two specialty coating families to maximize total contribution for the quarter. The goal is to push overall contribution as high as possible while staying within our operating limits and policy commitments.\n\nLevers we can pull\n\n- Azure Shield (standard coating line)\n  - Financials: Each full batch of Azure Shield contributes 3.76 in unit contribution margin.\n  - Capacity policy: We run in whole batches only (no partial runs). There is no minimum commitment (we can run zero if that proves best), and we cannot exceed 19.66 batches this quarter due to market and formulation availability.\n  - Resource draw per batch:\n    - Reactor Bay A time: 0.8 unit-hours per batch.\n    - Quality & Lab support: 2.35 technician-hours per batch.\n    - Environmental permits (VOC): 0.05 permit units per batch.\n    - Packline 3 time: 2.85 line-hours per batch.\n  - Operational note: This stream does use a small amount of the environmental permit pool each time we run it, and it is relatively heavier on packline and lab compared to its reactor demand.\n\n- Obsidian Prime (premium coating line)\n  - Financials: Each full batch of Obsidian Prime contributes 6.73 in unit contribution margin.\n  - Capacity policy: We run in whole batches only (no partial runs). There is no minimum commitment (we can run zero if that proves best), and we cannot exceed 11.95 batches this quarter based on material allocations and booked demand.\n  - Resource draw per batch:\n    - Reactor Bay A time: 9.06 unit-hours per batch.\n    - Quality & Lab support: 1.87 technician-hours per batch.\n    - Environmental permits (VOC): does not use any of the environmental permit pool.\n    - Packline 3 time: 0.57 line-hours per batch.\n  - Operational note: This stream is reactor-intensive but relatively light on packaging and requires no VOC permits, which may help when the permit pool is tight.\n\nMarket and facility limits for the quarter\n\n- Reactor Bay A time: total available 17.89 unit-hours.\n- Quality & Lab support: total available 23.45 technician-hours.\n- Environmental permits (VOC pool): total available 3.05 permit units.\n- Packline 3 time: total available 24.8 line-hours.\n\nPlease use the above to frame the production mix recommendation. The quantities for each line must be whole batches, cannot be negative, and must respect the maximums indicated for each product family. The objective is to prioritize the combination that delivers the highest total contribution while staying within the time, lab, permit, and packaging limits noted.\n\nRegards,\n\n[Client Name]\nVP, Operations Planning"
+}

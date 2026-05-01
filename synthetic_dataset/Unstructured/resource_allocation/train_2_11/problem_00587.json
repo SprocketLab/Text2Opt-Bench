@@ -1,0 +1,269 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 11,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact per-unit returns, bounds (with integrality), and resource usage by category are specified; capacities are clear <= limits. A linear max-profit mix model is reconstructible without guessing.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative/flavor and repeated bullet structure; mostly relevant to convey data but somewhat verbose.",
+      "realism": 98,
+      "realism_comment": "Very realistic mix-planning with shared capacities (QA, packaging, freight, warehouse, cold-chain) and integer batches; data and constraints are plausible."
+    },
+    "prompt_tokens_with_data": 1704,
+    "prompt_tokens_without_data": 1704
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 408.82346222156815,
+    "optimal_values": {
+      "Var_0": 11.063107260765806,
+      "Var_1": 8.505653199337884,
+      "Var_2": 7.59,
+      "Var_3": 0.0,
+      "Var_4": 0.0,
+      "Var_5": 15.0,
+      "Var_6": 2.4062790154421743,
+      "Var_7": 0.0,
+      "Var_8": 1.9834433409372263,
+      "Var_9": 0.0,
+      "Var_10": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 113.48
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 153.08
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 168.72
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 157.9
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 145.86
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 201.12
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 96.93
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 183.5
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 201.99
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.27
+      ],
+      "objective_linear_coefficient": 9.28,
+      "resource_costs": {
+        "C3": 0.08,
+        "C4": 8.55,
+        "C5": 8.97,
+        "C7": 9.58,
+        "C8": 9.9
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.28
+      ],
+      "objective_linear_coefficient": 7.9,
+      "resource_costs": {
+        "C0": 6.72,
+        "C1": 8.67,
+        "C2": 0.8,
+        "C7": 1.05,
+        "C8": 3.36
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.59
+      ],
+      "objective_linear_coefficient": 8.48,
+      "resource_costs": {
+        "C0": 4.6,
+        "C2": 4.0,
+        "C3": 4.27,
+        "C4": 1.26,
+        "C5": 0.97,
+        "C6": 2.99,
+        "C7": 8.49,
+        "C8": 4.02
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.49
+      ],
+      "objective_linear_coefficient": 7.11,
+      "resource_costs": {
+        "C0": 0.52,
+        "C1": 1.36,
+        "C3": 8.14,
+        "C4": 1.64,
+        "C5": 2.89,
+        "C6": 6.21,
+        "C7": 9.93,
+        "C8": 8.75
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.21
+      ],
+      "objective_linear_coefficient": 7.34,
+      "resource_costs": {
+        "C1": 8.74,
+        "C2": 6.86,
+        "C3": 4.9,
+        "C5": 5.71,
+        "C7": 9.77
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.95
+      ],
+      "objective_linear_coefficient": 8.09,
+      "resource_costs": {
+        "C1": 1.74,
+        "C2": 2.05,
+        "C5": 3.94,
+        "C6": 0.79
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.8
+      ],
+      "objective_linear_coefficient": 4.41,
+      "resource_costs": {
+        "C0": 1.45,
+        "C1": 5.57,
+        "C3": 9.89,
+        "C4": 1.96,
+        "C5": 7.98,
+        "C8": 1.8
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.99
+      ],
+      "objective_linear_coefficient": 3.37,
+      "resource_costs": {
+        "C0": 2.54,
+        "C1": 1.48,
+        "C2": 8.7,
+        "C3": 6.42,
+        "C4": 4.69,
+        "C6": 9.86,
+        "C7": 4.71,
+        "C8": 8.87
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.97
+      ],
+      "objective_linear_coefficient": 5.54,
+      "resource_costs": {
+        "C0": 3.69,
+        "C1": 1.63,
+        "C2": 7.72,
+        "C4": 6.6,
+        "C5": 2.2,
+        "C7": 2.09,
+        "C8": 3.14
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.17
+      ],
+      "objective_linear_coefficient": 1.61,
+      "resource_costs": {
+        "C0": 9.1,
+        "C1": 9.33,
+        "C5": 8.98,
+        "C6": 1.45,
+        "C7": 1.43,
+        "C8": 7.09
+      }
+    },
+    "Var_10": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.06
+      ],
+      "objective_linear_coefficient": 6.33,
+      "resource_costs": {
+        "C0": 2.12,
+        "C1": 7.32,
+        "C2": 4.45,
+        "C3": 9.71,
+        "C4": 4.78,
+        "C5": 2.1,
+        "C8": 0.24
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.27, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.28, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.9 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=11.06, vtype=GRB.INTEGER, name='Var_10')\n    lin_expr += 6.33 * vars['Var_10']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.59, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.48 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.49, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.11 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.21, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.34 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.95, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.09 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=6.8, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.41 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=6.99, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.37 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=8.97, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 5.54 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=7.17, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 1.61 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.72 * vars['Var_1'] + 2.12 * vars['Var_10'] + 4.6 * vars['Var_2'] + 0.52 * vars['Var_3'] + 1.45 * vars['Var_6'] + 2.54 * vars['Var_7'] + 3.69 * vars['Var_8'] + 9.1 * vars['Var_9'] <= 113.48, name='C0')\n    m.addConstr(8.67 * vars['Var_1'] + 7.32 * vars['Var_10'] + 1.36 * vars['Var_3'] + 8.74 * vars['Var_4'] + 1.74 * vars['Var_5'] + 5.57 * vars['Var_6'] + 1.48 * vars['Var_7'] + 1.63 * vars['Var_8'] + 9.33 * vars['Var_9'] <= 153.08, name='C1')\n    m.addConstr(0.8 * vars['Var_1'] + 4.45 * vars['Var_10'] + 4.0 * vars['Var_2'] + 6.86 * vars['Var_4'] + 2.05 * vars['Var_5'] + 8.7 * vars['Var_7'] + 7.72 * vars['Var_8'] <= 168.72, name='C2')\n    m.addConstr(0.08 * vars['Var_0'] + 9.71 * vars['Var_10'] + 4.27 * vars['Var_2'] + 8.14 * vars['Var_3'] + 4.9 * vars['Var_4'] + 9.89 * vars['Var_6'] + 6.42 * vars['Var_7'] <= 157.9, name='C3')\n    m.addConstr(8.55 * vars['Var_0'] + 4.78 * vars['Var_10'] + 1.26 * vars['Var_2'] + 1.64 * vars['Var_3'] + 1.96 * vars['Var_6'] + 4.69 * vars['Var_7'] + 6.6 * vars['Var_8'] <= 145.86, name='C4')\n    m.addConstr(8.97 * vars['Var_0'] + 2.1 * vars['Var_10'] + 0.97 * vars['Var_2'] + 2.89 * vars['Var_3'] + 5.71 * vars['Var_4'] + 3.94 * vars['Var_5'] + 7.98 * vars['Var_6'] + 2.2 * vars['Var_8'] + 8.98 * vars['Var_9'] <= 201.12, name='C5')\n    m.addConstr(2.99 * vars['Var_2'] + 6.21 * vars['Var_3'] + 0.79 * vars['Var_5'] + 9.86 * vars['Var_7'] + 1.45 * vars['Var_9'] <= 96.93, name='C6')\n    m.addConstr(9.58 * vars['Var_0'] + 1.05 * vars['Var_1'] + 8.49 * vars['Var_2'] + 9.93 * vars['Var_3'] + 9.77 * vars['Var_4'] + 4.71 * vars['Var_7'] + 2.09 * vars['Var_8'] + 1.43 * vars['Var_9'] <= 183.5, name='C7')\n    m.addConstr(9.9 * vars['Var_0'] + 3.36 * vars['Var_1'] + 0.24 * vars['Var_10'] + 4.02 * vars['Var_2'] + 8.75 * vars['Var_3'] + 1.8 * vars['Var_6'] + 8.87 * vars['Var_7'] + 3.14 * vars['Var_8'] + 7.09 * vars['Var_9'] <= 201.99, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Plan for the Next Cycle \u2013 Maximizing Total Contribution Within Facility Limits\n\nTeam,\n\nWe\u2019re planning the next cycle\u2019s mix across eleven specialty product bundles with the aim of maximizing total contribution while staying within our shared resource and logistics limits. Each bundle draws from the same set of capacities\u2014Material A, Skilled Assembly, Component R, QA Lab, Packaging Line, Outbound Freight, Compliance Allowance, Warehouse Slots, and Cold-Chain capacity. Most bundles can be scheduled in partial runs, but a few must be set in whole batches. Below are the levers at our disposal, laid out with their per\u2011unit returns, allowable planning ranges, and how each one uses our shared resources.\n\n- Aurora Pack\n  - Contribution: 9.28 per unit.\n  - Planning range: any amount from 0 up to 19.27 units (partial runs allowed).\n  - Per\u2011unit draw on shared resources: Material A none; Skilled Assembly none; Component R none; QA Lab 0.08; Packaging Line 8.55; Outbound Freight 8.97; Compliance Allowance none; Warehouse Slots 9.58; Cold\u2011Chain 9.90.\n\n- Borealis Pack\n  - Contribution: 7.90 per unit.\n  - Planning range: any amount from 0 up to 19.28 units (partial runs allowed).\n  - Per\u2011unit draw on shared resources: Material A 6.72; Skilled Assembly 8.67; Component R 0.80; QA Lab none; Packaging Line none; Outbound Freight none; Compliance Allowance none; Warehouse Slots 1.05; Cold\u2011Chain 3.36.\n\n- Cassiopeia Kit\n  - Contribution: 8.48 per unit.\n  - Planning range: any amount from 0 up to 7.59 units (partial runs allowed).\n  - Per\u2011unit draw on shared resources: Material A 4.60; Skilled Assembly none; Component R 4.00; QA Lab 4.27; Packaging Line 1.26; Outbound Freight 0.97; Compliance Allowance 2.99; Warehouse Slots 8.49; Cold\u2011Chain 4.02.\n\n- Draco Set\n  - Contribution: 7.11 per unit.\n  - Planning range: any amount from 0 up to 14.49 units (partial runs allowed).\n  - Per\u2011unit draw on shared resources: Material A 0.52; Skilled Assembly 1.36; Component R none; QA Lab 8.14; Packaging Line 1.64; Outbound Freight 2.89; Compliance Allowance 6.21; Warehouse Slots 9.93; Cold\u2011Chain 8.75.\n\n- Equinox Bundle\n  - Contribution: 7.34 per unit.\n  - Planning range: any amount from 0 up to 6.21 units (partial runs allowed).\n  - Per\u2011unit draw on shared resources: Material A none; Skilled Assembly 8.74; Component R 6.86; QA Lab 4.90; Packaging Line none; Outbound Freight 5.71; Compliance Allowance none; Warehouse Slots 9.77; Cold\u2011Chain none.\n\n- Frontier Batch\n  - Contribution: 8.09 per batch.\n  - Planning range: any whole\u2011batch amount from 0 up to 15.95 batches (whole batches only; no partials).\n  - Per\u2011unit draw on shared resources: Material A none; Skilled Assembly 1.74; Component R 2.05; QA Lab none; Packaging Line none; Outbound Freight 3.94; Compliance Allowance 0.79; Warehouse Slots none; Cold\u2011Chain none.\n\n- Gemini Run\n  - Contribution: 4.41 per unit.\n  - Planning range: any amount from 0 up to 6.80 units (partial runs allowed).\n  - Per\u2011unit draw on shared resources: Material A 1.45; Skilled Assembly 5.57; Component R none; QA Lab 9.89; Packaging Line 1.96; Outbound Freight 7.98; Compliance Allowance none; Warehouse Slots none; Cold\u2011Chain 1.80.\n\n- Helios Module\n  - Contribution: 3.37 per unit.\n  - Planning range: any amount from 0 up to 6.99 units (partial runs allowed).\n  - Per\u2011unit draw on shared resources: Material A 2.54; Skilled Assembly 1.48; Component R 8.70; QA Lab 6.42; Packaging Line 4.69; Outbound Freight none; Compliance Allowance 9.86; Warehouse Slots 4.71; Cold\u2011Chain 8.87.\n\n- Ion Assembly\n  - Contribution: 5.54 per unit.\n  - Planning range: any amount from 0 up to 8.97 units (partial runs allowed).\n  - Per\u2011unit draw on shared resources: Material A 3.69; Skilled Assembly 1.63; Component R 7.72; QA Lab none; Packaging Line 6.60; Outbound Freight 2.20; Compliance Allowance none; Warehouse Slots 2.09; Cold\u2011Chain 3.14.\n\n- Juno Build\n  - Contribution: 1.61 per unit.\n  - Planning range: any amount from 0 up to 7.17 units (partial runs allowed).\n  - Per\u2011unit draw on shared resources: Material A 9.10; Skilled Assembly 9.33; Component R none; QA Lab none; Packaging Line none; Outbound Freight 8.98; Compliance Allowance 1.45; Warehouse Slots 1.43; Cold\u2011Chain 7.09.\n\n- Keystone Lot\n  - Contribution: 6.33 per lot.\n  - Planning range: any whole\u2011lot amount from 0 up to 11.06 lots (whole lots only; no partials).\n  - Per\u2011unit draw on shared resources: Material A 2.12; Skilled Assembly 7.32; Component R 4.45; QA Lab 9.71; Packaging Line 4.78; Outbound Freight 2.10; Compliance Allowance none; Warehouse Slots none; Cold\u2011Chain 0.24.\n\nFacility specs and market limits (do not exceed):\n- Material A availability: up to 113.48 units.\n- Skilled Assembly capacity: up to 153.08 hours.\n- Component R availability: up to 168.72 units.\n- QA Lab time: up to 157.90 hours.\n- Packaging Line capacity: up to 145.86 units.\n- Outbound Freight allocation: up to 201.12 units.\n- Compliance Allowance (regulatory/hazmat quota): up to 96.93 units.\n- Warehouse Slots: up to 183.50 slot\u2011units.\n- Cold\u2011Chain capacity: up to 201.99 units.\n\nOur objective is to configure the above mix to maximize total contribution while staying within each of these caps. Please review and advise if any of the capacity ceilings are expected to change before we lock the cycle plan."
+}

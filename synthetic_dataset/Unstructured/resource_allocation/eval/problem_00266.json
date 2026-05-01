@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, integrality, per-product resource usages, and capacity limits are explicit; 'No draw' clarifies zeros; objective is maximize total contribution.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style narrative adds some fluff and repeated phrasing, but structured bullets clearly convey all needed numeric data.",
+      "realism": 100,
+      "realism_comment": "A realistic production planning LP with plausible resources, capacities, and an integer run decision; consistent with real operations contexts."
+    },
+    "prompt_tokens_with_data": 1079,
+    "prompt_tokens_without_data": 1079
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 236.72682644924396,
+    "optimal_values": {
+      "Var_0": 10.24,
+      "Var_1": 3.1648821733293593,
+      "Var_2": 5.430120822399725,
+      "Var_3": 9.31,
+      "Var_4": 7.0,
+      "Var_5": 5.719999999999999
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 128.72
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 170.18
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 262.03
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 109.97
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 104.44
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.99
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 178.95
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.24
+      ],
+      "objective_linear_coefficient": 3.46,
+      "resource_costs": {
+        "C1": 4.75,
+        "C2": 5.52,
+        "C3": 5.95,
+        "C5": 0.78,
+        "C6": 5.24
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.06
+      ],
+      "objective_linear_coefficient": 4.83,
+      "resource_costs": {
+        "C1": 9.24,
+        "C2": 7.38,
+        "C4": 7.92,
+        "C6": 1.13
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.44
+      ],
+      "objective_linear_coefficient": 2.86,
+      "resource_costs": {
+        "C0": 8.56,
+        "C2": 9.68,
+        "C4": 1.93,
+        "C6": 9.08
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.31
+      ],
+      "objective_linear_coefficient": 8.69,
+      "resource_costs": {
+        "C2": 4.76,
+        "C4": 7.4,
+        "C6": 2.65
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.67
+      ],
+      "objective_linear_coefficient": 5.81,
+      "resource_costs": {
+        "C0": 4.71,
+        "C1": 1.29,
+        "C2": 8.21,
+        "C5": 2.37,
+        "C6": 4.03
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.17
+      ],
+      "objective_linear_coefficient": 8.55,
+      "resource_costs": {
+        "C0": 5.19,
+        "C1": 9.88,
+        "C2": 4.86,
+        "C3": 7.37,
+        "C5": 7.24,
+        "C6": 1.96
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.24, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.46 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.06, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.83 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.44, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.86 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.31, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.69 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.67, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.81 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.17, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.55 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.56 * vars['Var_2'] + 4.71 * vars['Var_4'] + 5.19 * vars['Var_5'] <= 128.72, name='C0')\n    m.addConstr(4.75 * vars['Var_0'] + 9.24 * vars['Var_1'] + 1.29 * vars['Var_4'] + 9.88 * vars['Var_5'] <= 170.18, name='C1')\n    m.addConstr(5.52 * vars['Var_0'] + 7.38 * vars['Var_1'] + 9.68 * vars['Var_2'] + 4.76 * vars['Var_3'] + 8.21 * vars['Var_4'] + 4.86 * vars['Var_5'] <= 262.03, name='C2')\n    m.addConstr(5.95 * vars['Var_0'] + 7.37 * vars['Var_5'] <= 109.97, name='C3')\n    m.addConstr(7.92 * vars['Var_1'] + 1.93 * vars['Var_2'] + 7.4 * vars['Var_3'] <= 104.44, name='C4')\n    m.addConstr(0.78 * vars['Var_0'] + 2.37 * vars['Var_4'] + 7.24 * vars['Var_5'] <= 65.99, name='C5')\n    m.addConstr(5.24 * vars['Var_0'] + 1.13 * vars['Var_1'] + 9.08 * vars['Var_2'] + 2.65 * vars['Var_3'] + 4.03 * vars['Var_4'] + 1.96 * vars['Var_5'] <= 178.95, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Q1 Production Mix Decision \u2014 Maximize Total Contribution Within Plant Limits\n\nTeam,\n\nAs we set the Q1 production slate, our goal is to maximize total gross contribution from six build options while staying within our current material, labor, testing, packaging, storage, and cash limits. Below are the levers we can pull, listed in the order we\u2019ll evaluate them. For each option, I\u2019ve included the contribution per batch/run, the feasible scheduling window, and how it draws on each plant resource.\n\n- Aurora Drone Kit\n  - Financials and volume: Each batch delivers 3.46 in contribution. We can plan anywhere from 0 up to 10.24 batches this quarter, with partial batches allowed.\n  - Resource impacts per batch: 4.75 machining hours, 5.52 assembly hours, 5.95 quality lab hours, 0.78 pallet positions, and 5.24 in cash outlay.\n  - No draw on Alloy A feedstock or Packaging Line C.\n\n- Borealis Sensor Module\n  - Financials and volume: Each batch delivers 4.83 in contribution. We can plan between 0 and 12.06 batches, partial batches allowed.\n  - Resource impacts per batch: 9.24 machining hours, 7.38 assembly hours, 7.92 hours on Packaging Line C, and 1.13 in cash outlay.\n  - No draw on Alloy A feedstock, the quality lab, or pallet positions.\n\n- Cumulus Control Board\n  - Financials and volume: Each batch delivers 2.86 in contribution. We can plan between 0 and 10.44 batches, partial batches allowed.\n  - Resource impacts per batch: 8.56 units of Alloy A feedstock, 9.68 assembly hours, 1.93 hours on Packaging Line C, and 9.08 in cash outlay.\n  - No draw on machining, the quality lab, or pallet positions.\n\n- Delta Power Core\n  - Financials and volume: Each batch delivers 8.69 in contribution. We can plan between 0 and 9.31 batches, partial batches allowed.\n  - Resource impacts per batch: 4.76 assembly hours, 7.40 hours on Packaging Line C, and 2.65 in cash outlay.\n  - No draw on Alloy A feedstock, machining, the quality lab, or pallet positions.\n\n- Eclipse Base Frame\n  - Financials and volume: Each run delivers 5.81 in contribution. We can plan from 0 up to 7.67 runs within the window; runs must be scheduled in whole units (no partial runs).\n  - Resource impacts per run: 4.71 units of Alloy A feedstock, 1.29 machining hours, 8.21 assembly hours, 2.37 pallet positions, and 4.03 in cash outlay.\n  - No draw on the quality lab or Packaging Line C.\n\n- Fjord Navigation Bundle\n  - Financials and volume: Each batch delivers 8.55 in contribution. We can plan between 0 and 8.17 batches, partial batches allowed.\n  - Resource impacts per batch: 5.19 units of Alloy A feedstock, 9.88 machining hours, 4.86 assembly hours, 7.37 quality lab hours, 7.24 pallet positions, and 1.96 in cash outlay.\n  - No draw on Packaging Line C.\n\nFacility Specs and Market Limits (do not exceed)\n- Alloy A feedstock availability: 128.72 units\n- Machining Center hours: 170.18 hours\n- Assembly Cell hours: 262.03 hours\n- Quality Lab availability: 109.97 hours\n- Packaging Line C hours: 104.44 hours\n- Warehouse pallet positions: 65.99 positions\n- Cash operating outlay (for the period): 178.95\n\nPlease use the above to shape a mix that maximizes total contribution without breaching any of the listed limits. Let me know if you need clarifications on the batch/run assumptions or the feasibility caps.\n\nThanks,\n[Your Name]\nOperations & Finance Lead"
+}

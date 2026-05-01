@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "All coefficients, bounds, and constraint directions are specified; the negative-ledger convention clarifies <= signs. A human can reconstruct the exact LP with 3 variables and 3 constraints.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative email style and sensitivity-test notes add verbosity, but specs (values, bounds, and 'no impact' statements) are clear and not overly repetitive.",
+      "realism": 92,
+      "realism_comment": "A plausible planning/capacity/compliance problem. Negative-ledger convention is sensible; fractional activity levels are slightly stylized but acceptable."
+    },
+    "prompt_tokens_with_data": 781,
+    "prompt_tokens_without_data": 781
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 115.6193679389313,
+    "optimal_values": {
+      "Var_0": 15.46,
+      "Var_1": 10.05,
+      "Var_2": 9.841603053435113
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 51.57
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -20.56
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -19.87
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.46
+      ],
+      "objective_linear_coefficient": 4.32,
+      "resource_costs": {
+        "C2": -8.82
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.05
+      ],
+      "objective_linear_coefficient": 1.03,
+      "resource_costs": {
+        "C1": -2.55
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.77
+      ],
+      "objective_linear_coefficient": 3.91,
+      "resource_costs": {
+        "C0": 5.24
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.46, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.32 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.05, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.03 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.77, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.91 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.24 * vars['Var_2'] <= 51.57, name='C0')\n    m.addConstr(-2.55 * vars['Var_1'] <= -20.56, name='C1')\n    m.addConstr(-8.82 * vars['Var_0'] <= -19.87, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Maximizing next-period contribution within capacity and compliance limits\n\nTeam,\n\nWe\u2019re preparing the next planning window and want to maximize our net economic contribution while staying squarely within our operating capacity and environmental commitments. Below are the three levers available to us in this window, with their economic value, scale limits, and how each one touches our capacities and compliance ledgers.\n\nThe levers we can pull\n\n- Thermal Loop Upgrade Blocks (TRU Blocks)\n  \u2022 Economic impact: Each standardized block adds 4.32 units of net contribution.\n  \u2022 Scale: We can deploy anywhere from 0 up to 15.46 blocks this period.\n  \u2022 Compliance/operations touchpoints:\n    \u2013 Process Carbon Abatement Ledger: Each block moves this ledger by -8.82 units (we record abatement as a negative figure).\n    \u2013 No draw on Line A runtime.\n    \u2013 No impact on the Local Air Quality Compliance Ledger.\n\n- Urban Fleet Conversion Kits\n  \u2022 Economic impact: Each kit adds 1.03 units of net contribution.\n  \u2022 Scale: We can complete anywhere from 0 up to 10.05 kits this period.\n  \u2022 Compliance/operations touchpoints:\n    \u2013 Local Air Quality Compliance Ledger: Each kit moves this ledger by -2.55 units (again, abatement is recorded as a negative figure).\n    \u2013 No draw on Line A runtime.\n    \u2013 No impact on the Process Carbon Abatement Ledger.\n\n- Line A Specialty Production Runs\n  \u2022 Economic impact: Each run contributes 3.91 units of net margin.\n  \u2022 Scale: We can schedule anywhere from 0 up to 12.77 runs this period.\n  \u2022 Compliance/operations touchpoints:\n    \u2013 Line A runtime: Each run consumes 5.24 hours of Line A capacity.\n    \u2013 No impact on the Local Air Quality Compliance Ledger.\n    \u2013 No impact on the Process Carbon Abatement Ledger.\n\nFacility specs and policy limits for the period\n\n- Line A runtime available: Not to exceed 51.57 hours in total.\n- Local Air Quality Compliance Ledger: Must be at or below -20.56 credits for the period (in our accounting convention, a more negative balance reflects more abatement).\n- Process Carbon Abatement Ledger: Must be at or below -19.87 units for the period (also recorded as a negative balance to reflect abatement).\n\nPlease review and confirm we should proceed with the mix that delivers the highest net contribution while honoring the above scale limits and thresholds. If you want us to stress test edge scenarios (e.g., fully loading TRU Blocks to the 15.46 cap, pushing conversions to the 10.05 cap, or saturating Line A up to 51.57 hours via 5.24-hour increments), we can circulate that sensitivity promptly."
+}

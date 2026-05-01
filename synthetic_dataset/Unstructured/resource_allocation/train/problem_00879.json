@@ -1,0 +1,343 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 15,
+    "num_constraints": 14,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All levers specify bounds, integrality, objective coefficients, and resource usages; resource caps are explicit, so the model is reconstructible. Minor quirk: fractional UBs on integer vars.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Lengthy narrative but mainly enumerates needed coefficients and capacities; minimal repetition; could be more concise.",
+      "realism": 90,
+      "realism_comment": "Plausible capacity allocation MILP with realistic resources and limits; slight oddities (fractional integer UBs, events using reactor/sterilizer) but overall credible."
+    },
+    "prompt_tokens_with_data": 2206,
+    "prompt_tokens_without_data": 2206
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 762.42553678422,
+    "optimal_values": {
+      "Var_0": 15.0,
+      "Var_1": 9.0,
+      "Var_2": 0.7560889381621104,
+      "Var_3": 16.0,
+      "Var_4": 12.673204225352103,
+      "Var_5": 13.636363636363635,
+      "Var_6": 3.0,
+      "Var_7": 10.0,
+      "Var_8": -0.0,
+      "Var_9": 6.77,
+      "Var_10": 6.0,
+      "Var_11": 7.7503607503607554,
+      "Var_12": 0.10287525148428737,
+      "Var_13": 0.0,
+      "Var_14": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 127.45
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 121.32
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 265.74
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 271.08
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 201.59
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 247.04
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 95.46
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 190.23
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 168.47
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 187.39
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 161.99
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.43
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 122.13
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 55.37
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.3
+      ],
+      "objective_linear_coefficient": 5.48,
+      "resource_costs": {
+        "C11": 3.19
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 7.4,
+      "resource_costs": {
+        "C3": 9.36,
+        "C4": 6.35,
+        "C5": 3.06,
+        "C7": 7.85
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.01
+      ],
+      "objective_linear_coefficient": 2.3,
+      "resource_costs": {
+        "C1": 3.65,
+        "C2": 0.56,
+        "C4": 8.02,
+        "C5": 6.56,
+        "C8": 2.16,
+        "C12": 6.64
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.06
+      ],
+      "objective_linear_coefficient": 6.5,
+      "resource_costs": {
+        "C2": 7.11,
+        "C5": 5.27,
+        "C8": 2.86
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.43
+      ],
+      "objective_linear_coefficient": 9.84,
+      "resource_costs": {
+        "C2": 5.22,
+        "C3": 1.26,
+        "C11": 2.84
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.8
+      ],
+      "objective_linear_coefficient": 9.07,
+      "resource_costs": {
+        "C6": 3.23,
+        "C7": 6.93,
+        "C10": 8.66,
+        "C12": 4.63
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.58
+      ],
+      "objective_linear_coefficient": 5.15,
+      "resource_costs": {
+        "C3": 6.31,
+        "C4": 1.87,
+        "C7": 7.2,
+        "C10": 3.24
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 9.93,
+      "resource_costs": {
+        "C0": 4.31,
+        "C3": 6.34,
+        "C5": 9.77,
+        "C6": 0.92
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.94
+      ],
+      "objective_linear_coefficient": 5.63,
+      "resource_costs": {
+        "C0": 4.89,
+        "C5": 2.68,
+        "C6": 1.29,
+        "C7": 2.71,
+        "C8": 2.16,
+        "C9": 8.48,
+        "C11": 2.34,
+        "C12": 5.51
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.77
+      ],
+      "objective_linear_coefficient": 7.34,
+      "resource_costs": {
+        "C3": 3.67,
+        "C5": 2.72,
+        "C6": 0.48,
+        "C8": 9.99,
+        "C9": 9.47,
+        "C11": 0.53,
+        "C12": 7.22
+      }
+    },
+    "Var_10": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.25
+      ],
+      "objective_linear_coefficient": 8.36,
+      "resource_costs": {
+        "C1": 6.33,
+        "C2": 9.39,
+        "C7": 0.58,
+        "C8": 8.53
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.23
+      ],
+      "objective_linear_coefficient": 5.77,
+      "resource_costs": {
+        "C0": 3.36,
+        "C1": 1.19,
+        "C2": 3.71,
+        "C3": 4.75,
+        "C5": 1.82,
+        "C6": 2.77,
+        "C9": 4.99,
+        "C10": 4.41
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.47
+      ],
+      "objective_linear_coefficient": 1.74,
+      "resource_costs": {
+        "C2": 3.0,
+        "C4": 8.85,
+        "C13": 4.4
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.24
+      ],
+      "objective_linear_coefficient": 3.1,
+      "resource_costs": {
+        "C1": 6.86,
+        "C2": 4.26,
+        "C6": 7.82,
+        "C7": 8.23,
+        "C10": 7.62,
+        "C11": 7.44,
+        "C13": 4.87
+      }
+    },
+    "Var_14": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.6
+      ],
+      "objective_linear_coefficient": 2.96,
+      "resource_costs": {
+        "C0": 5.6,
+        "C1": 4.03,
+        "C2": 6.87,
+        "C3": 5.8,
+        "C4": 8.95,
+        "C8": 2.68,
+        "C9": 7.24,
+        "C10": 7.69
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.3, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.48 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.4 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=19.25, vtype=GRB.INTEGER, name='Var_10')\n    lin_expr += 8.36 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=15.23, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 5.77 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=10.47, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 1.74 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=16.24, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 3.1 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=12.6, vtype=GRB.INTEGER, name='Var_14')\n    lin_expr += 2.96 * vars['Var_14']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.01, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.3 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.06, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.5 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.43, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.84 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.8, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.07 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.58, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 5.15 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 9.93 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=12.94, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 5.63 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=6.77, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 7.34 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.36 * vars['Var_11'] + 5.6 * vars['Var_14'] + 4.31 * vars['Var_7'] + 4.89 * vars['Var_8'] <= 127.45, name='C0')\n    m.addConstr(6.33 * vars['Var_10'] + 1.19 * vars['Var_11'] + 6.86 * vars['Var_13'] + 4.03 * vars['Var_14'] + 3.65 * vars['Var_2'] <= 121.32, name='C1')\n    m.addConstr(4.41 * vars['Var_11'] + 7.62 * vars['Var_13'] + 7.69 * vars['Var_14'] + 8.66 * vars['Var_5'] + 3.24 * vars['Var_6'] <= 161.99, name='C10')\n    m.addConstr(3.19 * vars['Var_0'] + 7.44 * vars['Var_13'] + 2.84 * vars['Var_4'] + 2.34 * vars['Var_8'] + 0.53 * vars['Var_9'] <= 87.43, name='C11')\n    m.addConstr(6.64 * vars['Var_2'] + 4.63 * vars['Var_5'] + 5.51 * vars['Var_8'] + 7.22 * vars['Var_9'] <= 122.13, name='C12')\n    m.addConstr(4.4 * vars['Var_12'] + 4.87 * vars['Var_13'] <= 55.37, name='C13')\n    m.addConstr(9.39 * vars['Var_10'] + 3.71 * vars['Var_11'] + 3.0 * vars['Var_12'] + 4.26 * vars['Var_13'] + 6.87 * vars['Var_14'] + 0.56 * vars['Var_2'] + 7.11 * vars['Var_3'] + 5.22 * vars['Var_4'] <= 265.74, name='C2')\n    m.addConstr(9.36 * vars['Var_1'] + 4.75 * vars['Var_11'] + 5.8 * vars['Var_14'] + 1.26 * vars['Var_4'] + 6.31 * vars['Var_6'] + 6.34 * vars['Var_7'] + 3.67 * vars['Var_9'] <= 271.08, name='C3')\n    m.addConstr(6.35 * vars['Var_1'] + 8.85 * vars['Var_12'] + 8.95 * vars['Var_14'] + 8.02 * vars['Var_2'] + 1.87 * vars['Var_6'] <= 201.59, name='C4')\n    m.addConstr(3.06 * vars['Var_1'] + 1.82 * vars['Var_11'] + 6.56 * vars['Var_2'] + 5.27 * vars['Var_3'] + 9.77 * vars['Var_7'] + 2.68 * vars['Var_8'] + 2.72 * vars['Var_9'] <= 247.04, name='C5')\n    m.addConstr(2.77 * vars['Var_11'] + 7.82 * vars['Var_13'] + 3.23 * vars['Var_5'] + 0.92 * vars['Var_7'] + 1.29 * vars['Var_8'] + 0.48 * vars['Var_9'] <= 95.46, name='C6')\n    m.addConstr(7.85 * vars['Var_1'] + 0.58 * vars['Var_10'] + 8.23 * vars['Var_13'] + 6.93 * vars['Var_5'] + 7.2 * vars['Var_6'] + 2.71 * vars['Var_8'] <= 190.23, name='C7')\n    m.addConstr(8.53 * vars['Var_10'] + 2.68 * vars['Var_14'] + 2.16 * vars['Var_2'] + 2.86 * vars['Var_3'] + 2.16 * vars['Var_8'] + 9.99 * vars['Var_9'] <= 168.47, name='C8')\n    m.addConstr(4.99 * vars['Var_11'] + 7.24 * vars['Var_14'] + 8.48 * vars['Var_8'] + 9.47 * vars['Var_9'] <= 187.39, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Capacity Allocation Plan to Maximize Contribution This Cycle\n\nHi team,\n\nFor the upcoming cycle, we need to decide how to deploy our limited operations capacity across production lines, field programs, and market activities to maximize total contribution. Below are the levers we can pull. Some can be set in fractional amounts, while others must be scheduled in whole units only. Each lever\u2019s expected per-unit contribution and its draw on shared resources are detailed so we can balance them intelligently.\n\nAlpha Pilot Batches (whole lots only, anywhere from 0 to 16.3 lots)\n- Each lot adds 5.48 to contribution.\n- Compliance workload: each lot requires 3.19 Regulatory Compliance Reviews.\n- No other shared capacities are impacted.\n\nPremium Assembly Packages (whole packages only, anywhere from 0 to 9 packages)\n- Each package adds 7.4 to contribution.\n- Assembly: 9.36 hours on Assembly Line B per package.\n- Quality: 6.35 units of Quality Lab capacity per package.\n- Packaging: 3.06 units of Packaging Materials inventory per package.\n- Labor: 7.85 Union Overtime Shifts per package.\n\nSolvent Blend Omega (can be set fractionally, anywhere from 0 to 19.01 blend units)\n- Each blend unit adds 2.3 to contribution.\n- Materials: 3.65 units of Refined Solvent S stock per unit.\n- Reactor: 0.56 hours of Reactor A per unit.\n- Quality: 8.02 units of Quality Lab capacity per unit.\n- Packaging: 6.56 units of Packaging Materials inventory per unit.\n- Environmental: 2.16 units of Wastewater Treatment throughput per unit.\n- Certifications: 6.64 External Audits & Certifications per unit.\n\nReactor Batch Gamma (whole batches only, anywhere from 0 to 16.06 batches)\n- Each batch adds 6.5 to contribution.\n- Reactor: 7.11 hours on Reactor A per batch.\n- Packaging: 5.27 units of Packaging Materials inventory per batch.\n- Environmental: 2.86 units of Wastewater Treatment throughput per batch.\n\nDistillation Column B Runs (can be set fractionally, anywhere from 0 to 13.43 run units)\n- Each run unit adds 9.84 to contribution.\n- Reactor: 5.22 hours on Reactor A per unit.\n- Assembly: 1.26 hours on Assembly Line B per unit.\n- Compliance: 2.84 Regulatory Compliance Reviews per unit.\n\nSterile Packaging Night Shift (can be set fractionally, anywhere from 0 to 19.8 shift units)\n- Each shift unit adds 9.07 to contribution.\n- Utilities: 3.23 units of Plant Steam supply per unit.\n- Labor: 6.93 Union Overtime Shifts per unit.\n- Sterilization: 8.66 hours of Sterilizer Bay time per unit.\n- Certifications: 4.63 External Audits & Certifications per unit.\n\nOvertime Team C (whole team shifts only, anywhere from 0 to 11.58 shifts)\n- Each shift adds 5.15 to contribution.\n- Assembly: 6.31 hours on Assembly Line B per shift.\n- Quality: 1.87 units of Quality Lab capacity per shift.\n- Labor: 7.2 Union Overtime Shifts per shift.\n- Sterilization: 3.24 hours of Sterilizer Bay time per shift.\n\nLaunch Kit Production (whole kit runs only, anywhere from 0 to 10 runs)\n- Each run adds 9.93 to contribution.\n- Logistics: 4.31 units of East Warehouse Loading Dock time per run.\n- Assembly: 6.34 hours on Assembly Line B per run.\n- Packaging: 9.77 units of Packaging Materials inventory per run.\n- Utilities: 0.92 units of Plant Steam supply per run.\n\nCold Chain Bundle D Shipments (whole shipment waves only, anywhere from 0 to 12.94 waves)\n- Each wave adds 5.63 to contribution.\n- Logistics: 4.89 units of East Warehouse Loading Dock time per wave.\n- Packaging: 2.68 units of Packaging Materials inventory per wave.\n- Utilities: 1.29 units of Plant Steam supply per wave.\n- Labor: 2.71 Union Overtime Shifts per wave.\n- Environmental: 2.16 units of Wastewater Treatment throughput per wave.\n- Storage: 8.48 Cold Storage slots per wave.\n- Compliance: 2.34 Regulatory Compliance Reviews per wave.\n- Certifications: 5.51 External Audits & Certifications per wave.\n\nSpecialty Waste Processing Contract E (can be set fractionally, anywhere from 0 to 6.77 contract units)\n- Each unit adds 7.34 to contribution.\n- Assembly: 3.67 hours on Assembly Line B per unit.\n- Packaging: 2.72 units of Packaging Materials inventory per unit.\n- Utilities: 0.48 units of Plant Steam supply per unit.\n- Environmental: 9.99 units of Wastewater Treatment throughput per unit.\n- Storage: 9.47 Cold Storage slots per unit.\n- Compliance: 0.53 Regulatory Compliance Reviews per unit.\n- Certifications: 7.22 External Audits & Certifications per unit.\n\nProduction Run Zeta (whole runs only, anywhere from 0 to 19.25 runs)\n- Each run adds 8.36 to contribution.\n- Materials: 6.33 units of Refined Solvent S stock per run.\n- Reactor: 9.39 hours on Reactor A per run.\n- Labor: 0.58 Union Overtime Shifts per run.\n- Environmental: 8.53 units of Wastewater Treatment throughput per run.\n\nField Trials & Sampling Program (can be set fractionally, anywhere from 0 to 15.23 program units)\n- Each unit adds 5.77 to contribution.\n- Logistics: 3.36 units of East Warehouse Loading Dock time per unit.\n- Materials: 1.19 units of Refined Solvent S stock per unit.\n- Reactor: 3.71 hours on Reactor A per unit.\n- Assembly: 4.75 hours on Assembly Line B per unit.\n- Packaging: 1.82 units of Packaging Materials inventory per unit.\n- Utilities: 2.77 units of Plant Steam supply per unit.\n- Storage: 4.99 Cold Storage slots per unit.\n- Sterilization: 4.41 hours of Sterilizer Bay time per unit.\n\nR&D Small Pilot Tests (can be set fractionally, anywhere from 0 to 10.47 test units)\n- Each unit adds 1.74 to contribution.\n- Reactor: 3.0 hours on Reactor A per unit.\n- Quality: 8.85 units of Quality Lab capacity per unit.\n- Emissions: 4.4 units of Hazardous Emissions quota per unit.\n\nEnvironmental Mitigation Projects (can be set fractionally, anywhere from 0 to 16.24 project units)\n- Each unit adds 3.1 to contribution.\n- Materials: 6.86 units of Refined Solvent S stock per unit.\n- Reactor: 4.26 hours on Reactor A per unit.\n- Utilities: 7.82 units of Plant Steam supply per unit.\n- Labor: 8.23 Union Overtime Shifts per unit.\n- Sterilization: 7.62 hours of Sterilizer Bay time per unit.\n- Compliance: 7.44 Regulatory Compliance Reviews per unit.\n- Emissions: 4.87 units of Hazardous Emissions quota per unit.\n\nRegional Launch Events (whole events only, anywhere from 0 to 12.6 events)\n- Each event adds 2.96 to contribution.\n- Logistics: 5.6 units of East Warehouse Loading Dock time per event.\n- Materials: 4.03 units of Refined Solvent S stock per event.\n- Reactor: 6.87 hours on Reactor A per event.\n- Assembly: 5.8 hours on Assembly Line B per event.\n- Quality: 8.95 units of Quality Lab capacity per event.\n- Environmental: 2.68 units of Wastewater Treatment throughput per event.\n- Storage: 7.24 Cold Storage slots per event.\n- Sterilization: 7.69 hours of Sterilizer Bay time per event.\n\nFacility Specs and Operating Limits\n- East Warehouse Loading Dock time: do not exceed 127.45 total units.\n- Refined Solvent S stock: do not exceed 121.32 total units.\n- Reactor A hours: do not exceed 265.74 total hours.\n- Assembly Line B hours: do not exceed 271.08 total hours.\n- Quality Lab capacity: do not exceed 201.59 total units.\n- Packaging Materials inventory: do not exceed 247.04 total units.\n- Plant Steam supply: do not exceed 95.46 total units.\n- Union Overtime Shifts: do not exceed 190.23 total shifts.\n- Wastewater Treatment throughput: do not exceed 168.47 total units.\n- Cold Storage slots: do not exceed 187.39 total slots.\n- Sterilizer Bay time: do not exceed 161.99 total hours.\n- Regulatory Compliance Reviews: do not exceed 87.43 total reviews.\n- External Audits & Certifications: do not exceed 122.13 total windows.\n- Hazardous Emissions quota: do not exceed 55.37 total units.\n\nPlease use this as the basis for the optimization and come back with the recommended mix that maximizes contribution while staying within the above limits."
+}

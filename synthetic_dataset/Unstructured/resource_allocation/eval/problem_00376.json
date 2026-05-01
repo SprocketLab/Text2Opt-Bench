@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "All coefficients, bounds, and constraint signs are explicit; objective is sum of contributions. A human can reconstruct the LP mechanically without guessing.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business email framing adds fluff, but the bullet specifications are concise and necessary.",
+      "realism": 94,
+      "realism_comment": "Feels like a real portfolio/resource allocation with plausible capacities and credits; only slight unrealism from fractional counts."
+    },
+    "prompt_tokens_with_data": 1023,
+    "prompt_tokens_without_data": 1023
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 353.4701892502283,
+    "optimal_values": {
+      "Var_0": 1.8826822289375367,
+      "Var_1": 16.82,
+      "Var_2": 0.9927347787002181,
+      "Var_3": 12.79,
+      "Var_4": 18.65,
+      "Var_5": 6.7407886754297275,
+      "Var_6": 9.92,
+      "Var_7": 5.119067243984623
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -1.25
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 39.54
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 62.29
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.94
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 90.2
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 3.13
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.61
+      ],
+      "objective_linear_coefficient": 1.08,
+      "resource_costs": {
+        "C1": 8.31,
+        "C3": -0.84,
+        "C5": 0.8
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.82
+      ],
+      "objective_linear_coefficient": 8.39,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.46
+      ],
+      "objective_linear_coefficient": 4.61,
+      "resource_costs": {
+        "C2": -2.59,
+        "C3": 7.87
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.79
+      ],
+      "objective_linear_coefficient": 3.27,
+      "resource_costs": {
+        "C0": -0.38,
+        "C4": 1.84
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.65
+      ],
+      "objective_linear_coefficient": 1.14,
+      "resource_costs": {}
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.36
+      ],
+      "objective_linear_coefficient": 5.99,
+      "resource_costs": {
+        "C1": 6.18,
+        "C3": -1.62,
+        "C4": 9.89
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.92
+      ],
+      "objective_linear_coefficient": 7.08,
+      "resource_costs": {
+        "C2": 4.98
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.41
+      ],
+      "objective_linear_coefficient": 6.26,
+      "resource_costs": {
+        "C1": -3.47,
+        "C2": 3.02,
+        "C3": 6.96
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.61, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.08 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.82, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.39 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.46, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.61 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.79, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.27 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.65, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.14 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.36, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.99 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.92, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 7.08 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=12.41, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 6.26 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-0.38 * vars['Var_3'] <= -1.25, name='C0')\n    m.addConstr(8.31 * vars['Var_0'] + 6.18 * vars['Var_5'] + -3.47 * vars['Var_7'] <= 39.54, name='C1')\n    m.addConstr(-2.59 * vars['Var_2'] + 4.98 * vars['Var_6'] + 3.02 * vars['Var_7'] <= 62.29, name='C2')\n    m.addConstr(-0.84 * vars['Var_0'] + 7.87 * vars['Var_2'] + -1.62 * vars['Var_5'] + 6.96 * vars['Var_7'] <= 30.94, name='C3')\n    m.addConstr(1.84 * vars['Var_3'] + 9.89 * vars['Var_5'] <= 90.2, name='C4')\n    m.addConstr(0.8 * vars['Var_0'] <= 3.13, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio allocation plan to maximize value under our operating limits\n\nTeam,\n\nWe\u2019re preparing our next planning cycle and want to maximize total contribution from a set of initiatives while staying within the limits of our people, plant, storage, and governance capacity. Below is how each lever behaves financially and operationally, along with the facility and market limits we need to respect. We can scale each lever anywhere from zero up to its maximum, and the figures below reflect per\u2011unit impacts.\n\nCompliance Automation Kits\n- Financial impact: Each kit adds 1.08 units of contribution.\n- Capacity draw: Requires 8.31 Field Team Hours per kit, eases Quality Assurance load by 0.84 (treated as a reduction), and uses 0.8 Executive Approval slots per kit.\n- Scale: We can deploy between 0 and 16.61 kits.\n\nDigital Upsell Initiative\n- Financial impact: Each upsell adds 8.39 units of contribution.\n- Capacity draw: Does not engage the tracked field, throughput, QA, storage, or approval capacities.\n- Scale: We can run between 0 and 16.82 upsells.\n\nLean Process Tune\u2011Ups\n- Financial impact: Each tune\u2011up adds 4.61 units of contribution.\n- Capacity draw: Frees 2.59 units of Process Throughput capacity per tune\u2011up (treated as a credit), but requires 7.87 units of Quality Assurance bandwidth.\n- Scale: We can schedule between 0 and 16.46 tune\u2011ups.\n\nPeak\u2011Shaving Dispatches\n- Financial impact: Each dispatch adds 3.27 units of contribution.\n- Capacity draw: Earns 0.38 units of drawdown credit on the Net Emissions Reduction ledger (registered as a negative load) and uses 1.84 Warehouse Pallet slots per dispatch.\n- Scale: We can run between 0 and 12.79 dispatches.\n\nLicensing Micro\u2011Deals\n- Financial impact: Each micro\u2011deal adds 1.14 units of contribution.\n- Capacity draw: No material draw on Field Team Hours, Process Throughput, Quality Assurance, storage, or approvals.\n- Scale: We can execute between 0 and 18.65 micro\u2011deals.\n\nSKU Consolidation Packouts\n- Financial impact: Each packout adds 5.99 units of contribution.\n- Capacity draw: Requires 6.18 Field Team Hours per packout, eases Quality Assurance load by 1.62 (treated as a reduction), and uses 9.89 Warehouse Pallet slots.\n- Scale: We can complete between 0 and 14.36 packouts.\n\nCustom Fabrication Workorders\n- Financial impact: Each workorder adds 7.08 units of contribution.\n- Capacity draw: Uses 4.98 units of Process Throughput capacity per workorder.\n- Scale: We can accept between 0 and 9.92 workorders.\n\nSelf\u2011Service Deployment Tools\n- Financial impact: Each tool adds 6.26 units of contribution.\n- Capacity draw: Returns 3.47 Field Team Hours per tool (treated as a time credit against the hour cap), uses 3.02 units of Process Throughput, and requires 6.96 units of Quality Assurance bandwidth.\n- Scale: We can roll out between 0 and 12.41 tools.\n\nFacility Specs and Market Limits\n- Net Emissions Reduction ledger must be kept at or below \u22121.25 units. Actions that register as negative on this ledger count toward meeting this drawdown requirement.\n- Field Team Hours available this period: 39.54 hours.\n- Process Throughput capacity: 62.29 units.\n- Quality Assurance bandwidth: 30.94 units.\n- Warehouse Pallet slots: 90.2 slots.\n- Executive Approval slots: 3.13 approvals.\n\nPlease use this as the basis for the allocation plan that maximizes total contribution while respecting the limits above.\n\nRegards,\nClient Operations Lead"
+}

@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and caps are explicit; negatives ('returns/frees') clarified; objective and \u2264 caps clear; 0..max ranges imply continuous. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some narrative/branding and repeated 'no draw' entries add length, but all details map directly to the model.",
+      "realism": 98,
+      "realism_comment": "A credible production planning scenario with plausible resources, capacities, and offset/return effects (e.g., credits, cross-docking)."
+    },
+    "prompt_tokens_with_data": 1667,
+    "prompt_tokens_without_data": 1667
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 245.00412012701977,
+    "optimal_values": {
+      "Var_0": 7.93,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 4.218890444727996,
+      "Var_4": 8.64319967382888,
+      "Var_5": 0.0,
+      "Var_6": 7.1468969935257425,
+      "Var_7": 14.695687772925766
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 182.16
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 88.57
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 132.57
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 62.59
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 84.69
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 196.07
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 126.15
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 187.24
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.93
+      ],
+      "objective_linear_coefficient": 6.03,
+      "resource_costs": {
+        "C1": 0.14,
+        "C2": 8.87,
+        "C4": -0.57,
+        "C5": 7.75,
+        "C6": 0.27,
+        "C7": -2.82
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.35
+      ],
+      "objective_linear_coefficient": 3.82,
+      "resource_costs": {
+        "C1": 3.36,
+        "C4": -1.67,
+        "C5": 5.14,
+        "C6": 1.34,
+        "C7": 1.39
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.9
+      ],
+      "objective_linear_coefficient": 3.64,
+      "resource_costs": {
+        "C0": 8.42,
+        "C1": 3.87,
+        "C2": 5.91,
+        "C4": 9.61,
+        "C5": 4.35,
+        "C7": 9.56
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.06
+      ],
+      "objective_linear_coefficient": 2.24,
+      "resource_costs": {
+        "C0": 3.9,
+        "C1": 0.83,
+        "C2": 1.58,
+        "C6": 5.01
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.85
+      ],
+      "objective_linear_coefficient": 7.36,
+      "resource_costs": {
+        "C0": 9.98,
+        "C1": 4.63,
+        "C6": 7.9,
+        "C7": 8.31
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.69
+      ],
+      "objective_linear_coefficient": 3.45,
+      "resource_costs": {
+        "C2": 3.91,
+        "C3": 4.39,
+        "C5": 9.63,
+        "C6": -0.69
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.81
+      ],
+      "objective_linear_coefficient": 2.11,
+      "resource_costs": {
+        "C2": -1.98,
+        "C3": 4.45,
+        "C6": 4.84,
+        "C7": 6.92
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.9
+      ],
+      "objective_linear_coefficient": 7.42,
+      "resource_costs": {
+        "C0": 3.09,
+        "C1": 2.99,
+        "C2": 3.33,
+        "C4": 5.13,
+        "C5": 9.16,
+        "C7": 6.01
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.93, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.03 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.35, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.82 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.9, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.64 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.06, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.24 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.85, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.36 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.69, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.45 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.81, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.11 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=18.9, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.42 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.42 * vars['Var_2'] + 3.9 * vars['Var_3'] + 9.98 * vars['Var_4'] + 3.09 * vars['Var_7'] <= 182.16, name='C0')\n    m.addConstr(0.14 * vars['Var_0'] + 3.36 * vars['Var_1'] + 3.87 * vars['Var_2'] + 0.83 * vars['Var_3'] + 4.63 * vars['Var_4'] + 2.99 * vars['Var_7'] <= 88.57, name='C1')\n    m.addConstr(8.87 * vars['Var_0'] + 5.91 * vars['Var_2'] + 1.58 * vars['Var_3'] + 3.91 * vars['Var_5'] + -1.98 * vars['Var_6'] + 3.33 * vars['Var_7'] <= 132.57, name='C2')\n    m.addConstr(4.39 * vars['Var_5'] + 4.45 * vars['Var_6'] <= 62.59, name='C3')\n    m.addConstr(-0.57 * vars['Var_0'] + -1.67 * vars['Var_1'] + 9.61 * vars['Var_2'] + 5.13 * vars['Var_7'] <= 84.69, name='C4')\n    m.addConstr(7.75 * vars['Var_0'] + 5.14 * vars['Var_1'] + 4.35 * vars['Var_2'] + 9.63 * vars['Var_5'] + 9.16 * vars['Var_7'] <= 196.07, name='C5')\n    m.addConstr(0.27 * vars['Var_0'] + 1.34 * vars['Var_1'] + 5.01 * vars['Var_3'] + 7.9 * vars['Var_4'] + -0.69 * vars['Var_5'] + 4.84 * vars['Var_6'] <= 126.15, name='C6')\n    m.addConstr(-2.82 * vars['Var_0'] + 1.39 * vars['Var_1'] + 9.56 * vars['Var_2'] + 8.31 * vars['Var_4'] + 6.92 * vars['Var_6'] + 6.01 * vars['Var_7'] <= 187.24, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Planning \u2014 Maximizing Contribution Under Current Capacity Limits\n\nTeam,\n\nWe\u2019re setting up the production mix for the next cycle with the aim of maximizing total operating contribution across our portfolio. Below are the eight levers we can turn, each with its per\u2011unit contribution and resource interactions. All items can be scheduled anywhere from zero up to their stated maximums.\n\nAurora Line \u2013 Premium Bottles\n- Financial impact: each batch contributes 6.03 toward operating results.\n- Scale: up to 7.93 batches this cycle (can be reduced to zero if needed).\n- Resource interactions per batch:\n  - Quality Lab Hours: draws 0.14 hours.\n  - Warehouse Slots (Aisle A): draws 8.87 slots.\n  - Sustainability Credits Bank: returns 0.57 credits back to the pool (reduces net usage).\n  - Raw Material Resin Allocation: draws 7.75 units of resin.\n  - Skilled Technician Hours: draws 0.27 hours.\n  - Carbon Offset Ledger Allowance: improves the ledger by 2.82 units per batch (adds offsets; reduces net draw).\n  - Blending & Packaging Line Hours: no draw.\n  - Customer Service Handling Capacity: no draw.\n\nNimbus Line \u2013 Value Bottles\n- Financial impact: each batch contributes 3.82.\n- Scale: up to 18.35 batches.\n- Resource interactions per batch:\n  - Quality Lab Hours: draws 3.36 hours.\n  - Sustainability Credits Bank: returns 1.67 credits per batch.\n  - Raw Material Resin Allocation: draws 5.14 units of resin.\n  - Skilled Technician Hours: draws 1.34 hours.\n  - Carbon Offset Ledger Allowance: draws 1.39 units on the ledger.\n  - Blending & Packaging Line Hours: no draw.\n  - Warehouse Slots (Aisle A): no draw.\n  - Customer Service Handling Capacity: no draw.\n\nOrion Line \u2013 Specialty Kits\n- Financial impact: each batch contributes 3.64.\n- Scale: up to 8.90 batches.\n- Resource interactions per batch:\n  - Blending & Packaging Line Hours: draws 8.42 hours.\n  - Quality Lab Hours: draws 3.87 hours.\n  - Warehouse Slots (Aisle A): draws 5.91 slots.\n  - Sustainability Credits Bank: consumes 9.61 credits.\n  - Raw Material Resin Allocation: draws 4.35 units of resin.\n  - Carbon Offset Ledger Allowance: draws 9.56 units on the ledger.\n  - Customer Service Handling Capacity: no draw.\n  - Skilled Technician Hours: no draw.\n\nZephyr Line \u2013 Accessories\n- Financial impact: each batch contributes 2.24.\n- Scale: up to 15.06 batches.\n- Resource interactions per batch:\n  - Blending & Packaging Line Hours: draws 3.90 hours.\n  - Quality Lab Hours: draws 0.83 hours.\n  - Warehouse Slots (Aisle A): draws 1.58 slots.\n  - Skilled Technician Hours: draws 5.01 hours.\n  - Sustainability Credits Bank: no draw.\n  - Raw Material Resin Allocation: no draw.\n  - Carbon Offset Ledger Allowance: no draw.\n  - Customer Service Handling Capacity: no draw.\n\nHelios Line \u2013 Deluxe Packs\n- Financial impact: each batch contributes 7.36.\n- Scale: up to 19.85 batches.\n- Resource interactions per batch:\n  - Blending & Packaging Line Hours: draws 9.98 hours.\n  - Quality Lab Hours: draws 4.63 hours.\n  - Skilled Technician Hours: draws 7.90 hours.\n  - Carbon Offset Ledger Allowance: draws 8.31 units on the ledger.\n  - Warehouse Slots (Aisle A): no draw.\n  - Customer Service Handling Capacity: no draw.\n  - Raw Material Resin Allocation: no draw.\n  - Sustainability Credits Bank: no draw.\n\nEcho Line \u2013 Recycled Units\n- Financial impact: each batch contributes 3.45.\n- Scale: up to 12.69 batches.\n- Resource interactions per batch:\n  - Warehouse Slots (Aisle A): draws 3.91 slots.\n  - Customer Service Handling Capacity: draws 4.39 units of handling capacity.\n  - Raw Material Resin Allocation: draws 9.63 units of resin.\n  - Skilled Technician Hours: returns 0.69 hours (automation frees technician time).\n  - Blending & Packaging Line Hours: no draw.\n  - Quality Lab Hours: no draw.\n  - Sustainability Credits Bank: no draw.\n  - Carbon Offset Ledger Allowance: no draw.\n\nVega Line \u2013 Bulk Orders\n- Financial impact: each batch contributes 2.11.\n- Scale: up to 19.81 batches.\n- Resource interactions per batch:\n  - Warehouse Slots (Aisle A): frees 1.98 slots (cross\u2011dock effect; reduces net slot usage).\n  - Customer Service Handling Capacity: draws 4.45 units of handling capacity.\n  - Skilled Technician Hours: draws 4.84 hours.\n  - Carbon Offset Ledger Allowance: draws 6.92 units on the ledger.\n  - Blending & Packaging Line Hours: no draw.\n  - Quality Lab Hours: no draw.\n  - Sustainability Credits Bank: no draw.\n  - Raw Material Resin Allocation: no draw.\n\nSolstice Line \u2013 Limited Edition\n- Financial impact: each batch contributes 7.42.\n- Scale: up to 18.90 batches.\n- Resource interactions per batch:\n  - Blending & Packaging Line Hours: draws 3.09 hours.\n  - Quality Lab Hours: draws 2.99 hours.\n  - Warehouse Slots (Aisle A): draws 3.33 slots.\n  - Sustainability Credits Bank: consumes 5.13 credits.\n  - Raw Material Resin Allocation: draws 9.16 units of resin.\n  - Carbon Offset Ledger Allowance: draws 6.01 units on the ledger.\n  - Customer Service Handling Capacity: no draw.\n  - Skilled Technician Hours: no draw.\n\nFacility Specs & Market Limits (caps for the current cycle)\n- Blending & Packaging Line Hours: up to 182.16 hours.\n- Quality Lab Hours: up to 88.57 hours.\n- Warehouse Slots (Aisle A): up to 132.57 slots.\n- Customer Service Handling Capacity: up to 62.59 units of handling capacity.\n- Sustainability Credits Bank: up to 84.69 credits available (net usage after any credits returned by certain lines).\n- Raw Material Resin Allocation: up to 196.07 units of resin.\n- Skilled Technician Hours: up to 126.15 hours.\n- Carbon Offset Ledger Allowance: up to 187.24 units on the ledger.\n\nPlease use these figures to set the production plan that maximizes our overall contribution while staying comfortably within the above limits. If you need clarifications on any of the resource definitions or the per\u2011batch impacts, let me know."
+}

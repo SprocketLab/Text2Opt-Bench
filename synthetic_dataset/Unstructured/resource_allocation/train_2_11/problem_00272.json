@@ -1,0 +1,183 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, signs, and KPI floors are explicit. Variables are continuous (fractional allowed). Neutral impacts imply zero coefficients. Objective is linear cost minimization.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business memo tone adds minor fluff; most content is the necessary per-unit impacts and bounds.",
+      "realism": 90,
+      "realism_comment": "Plausible production planning with environmental/compliance KPIs and throughput floor; numbers consistent. Negative floors are unusual but acceptable."
+    },
+    "prompt_tokens_with_data": 1499,
+    "prompt_tokens_without_data": 1499
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 93.3181688649597,
+    "optimal_values": {
+      "Var_0": 7.026681315268986,
+      "Var_1": 4.275193869618638,
+      "Var_2": 5.810655652055305,
+      "Var_3": 0.0,
+      "Var_4": 0.7258609293879236,
+      "Var_5": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -18.33
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -87.15
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -66.62
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -13.18
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -25.81
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 48.23
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 52.84
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -15.29
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.74
+      ],
+      "objective_linear_coefficient": 3.98,
+      "resource_costs": {
+        "C0": -5.94,
+        "C2": -7.82,
+        "C3": -0.11,
+        "C4": 3.7,
+        "C5": 2.34,
+        "C6": 6.83,
+        "C7": 7.84
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.77
+      ],
+      "objective_linear_coefficient": 3.95,
+      "resource_costs": {
+        "C0": 7.12,
+        "C1": -7.02,
+        "C2": 8.36,
+        "C3": 2.44,
+        "C4": 9.01,
+        "C5": -4.8,
+        "C6": 3.63,
+        "C7": -6.02
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.77
+      ],
+      "objective_linear_coefficient": 7.5,
+      "resource_costs": {
+        "C0": -1.21,
+        "C1": -9.79,
+        "C2": -5.64,
+        "C3": -2.71,
+        "C4": -7.52,
+        "C5": 8.49,
+        "C6": -2.2,
+        "C7": -7.54
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.78
+      ],
+      "objective_linear_coefficient": 6.0,
+      "resource_costs": {
+        "C0": -0.85,
+        "C1": -9.22,
+        "C2": -7.11,
+        "C5": -3.46,
+        "C6": 7.61,
+        "C7": 0.65
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.99
+      ],
+      "objective_linear_coefficient": 6.73,
+      "resource_costs": {
+        "C1": 8.99,
+        "C2": -4.1,
+        "C3": -9.77,
+        "C4": -4.6,
+        "C5": 4.1,
+        "C6": 2.91
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.53
+      ],
+      "objective_linear_coefficient": 1.55,
+      "resource_costs": {
+        "C0": -0.63,
+        "C1": 8.76,
+        "C2": -0.36,
+        "C3": 0.74,
+        "C4": -6.24,
+        "C5": -3.46,
+        "C6": 1.87,
+        "C7": 7.53
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.74, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.98 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.77, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.95 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.77, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.5 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.78, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.0 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.99, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.73 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.53, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.55 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-5.94 * vars['Var_0'] + 7.12 * vars['Var_1'] + -1.21 * vars['Var_2'] + -0.85 * vars['Var_3'] + -0.63 * vars['Var_5'] >= -18.33, name='C0')\n    m.addConstr(-7.02 * vars['Var_1'] + -9.79 * vars['Var_2'] + -9.22 * vars['Var_3'] + 8.99 * vars['Var_4'] + 8.76 * vars['Var_5'] >= -87.15, name='C1')\n    m.addConstr(-7.82 * vars['Var_0'] + 8.36 * vars['Var_1'] + -5.64 * vars['Var_2'] + -7.11 * vars['Var_3'] + -4.1 * vars['Var_4'] + -0.36 * vars['Var_5'] >= -66.62, name='C2')\n    m.addConstr(-0.11 * vars['Var_0'] + 2.44 * vars['Var_1'] + -2.71 * vars['Var_2'] + -9.77 * vars['Var_4'] + 0.74 * vars['Var_5'] >= -13.18, name='C3')\n    m.addConstr(3.7 * vars['Var_0'] + 9.01 * vars['Var_1'] + -7.52 * vars['Var_2'] + -4.6 * vars['Var_4'] + -6.24 * vars['Var_5'] >= -25.81, name='C4')\n    m.addConstr(2.34 * vars['Var_0'] + -4.8 * vars['Var_1'] + 8.49 * vars['Var_2'] + -3.46 * vars['Var_3'] + 4.1 * vars['Var_4'] + -3.46 * vars['Var_5'] >= 48.23, name='C5')\n    m.addConstr(6.83 * vars['Var_0'] + 3.63 * vars['Var_1'] + -2.2 * vars['Var_2'] + 7.61 * vars['Var_3'] + 2.91 * vars['Var_4'] + 1.87 * vars['Var_5'] >= 52.84, name='C6')\n    m.addConstr(7.84 * vars['Var_0'] + -6.02 * vars['Var_1'] + -7.54 * vars['Var_2'] + 0.65 * vars['Var_3'] + 7.53 * vars['Var_5'] >= -15.29, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Minimizing operating cost across six production levers while meeting KPI floors\n\nTeam,\n\nWe\u2019re preparing the monthly run plan and need to decide how much to deploy of six distinct production levers to minimize total variable spend while keeping our service and compliance KPIs at or above their required floors. Below is the decision context and the per\u2011unit impact of each lever on every KPI, along with the practical volume limits for each lever. All six can be scheduled fractionally within the bounds shown.\n\nLevers we can adjust\n\n- Atlas Milling Runs (variable cost: 3.98 per unit; allowable volume: minimum 0, maximum 18.74)\n  \u2022 Water Stewardship Balance: each unit reduces the balance by 5.94.  \n  \u2022 Carbon Balance: no impact (neutral).  \n  \u2022 Landfill Diversion Balance: each unit reduces the balance by 7.82.  \n  \u2022 Community Disturbance Score: each unit reduces the score by 0.11.  \n  \u2022 Hazardous Handling Score: each unit adds 3.7.  \n  \u2022 Core Throughput Equivalent: each unit adds 2.34.  \n  \u2022 Energy Efficiency Credits: each unit adds 6.83.  \n  \u2022 Noise & Vibration Index: each unit adds 7.84.\n\n- Bravo Molding Orders (variable cost: 3.95 per unit; allowable volume: minimum 0, maximum 7.77)\n  \u2022 Water Stewardship Balance: each unit adds 7.12.  \n  \u2022 Carbon Balance: each unit reduces the balance by 7.02.  \n  \u2022 Landfill Diversion Balance: each unit adds 8.36.  \n  \u2022 Community Disturbance Score: each unit adds 2.44.  \n  \u2022 Hazardous Handling Score: each unit adds 9.01.  \n  \u2022 Core Throughput Equivalent: each unit reduces the equivalent by 4.8.  \n  \u2022 Energy Efficiency Credits: each unit adds 3.63.  \n  \u2022 Noise & Vibration Index: each unit reduces the index by 6.02.\n\n- Cobalt Casting Campaigns (variable cost: 7.5 per unit; allowable volume: minimum 0, maximum 9.77)\n  \u2022 Water Stewardship Balance: each unit reduces the balance by 1.21.  \n  \u2022 Carbon Balance: each unit reduces the balance by 9.79.  \n  \u2022 Landfill Diversion Balance: each unit reduces the balance by 5.64.  \n  \u2022 Community Disturbance Score: each unit reduces the score by 2.71.  \n  \u2022 Hazardous Handling Score: each unit reduces the score by 7.52.  \n  \u2022 Core Throughput Equivalent: each unit adds 8.49.  \n  \u2022 Energy Efficiency Credits: each unit reduces credits by 2.2.  \n  \u2022 Noise & Vibration Index: each unit reduces the index by 7.54.\n\n- Delta Fabrication Lots (variable cost: 6.0 per unit; allowable volume: minimum 0, maximum 10.78)\n  \u2022 Water Stewardship Balance: each unit reduces the balance by 0.85.  \n  \u2022 Carbon Balance: each unit reduces the balance by 9.22.  \n  \u2022 Landfill Diversion Balance: each unit reduces the balance by 7.11.  \n  \u2022 Community Disturbance Score: no impact (neutral).  \n  \u2022 Hazardous Handling Score: no impact (neutral).  \n  \u2022 Core Throughput Equivalent: each unit reduces the equivalent by 3.46.  \n  \u2022 Energy Efficiency Credits: each unit adds 7.61.  \n  \u2022 Noise & Vibration Index: each unit adds 0.65.\n\n- Eclipse Finishing Batches (variable cost: 6.73 per unit; allowable volume: minimum 0, maximum 13.99)\n  \u2022 Water Stewardship Balance: no impact (neutral).  \n  \u2022 Carbon Balance: each unit adds 8.99.  \n  \u2022 Landfill Diversion Balance: each unit reduces the balance by 4.1.  \n  \u2022 Community Disturbance Score: each unit reduces the score by 9.77.  \n  \u2022 Hazardous Handling Score: each unit reduces the score by 4.6.  \n  \u2022 Core Throughput Equivalent: each unit adds 4.1.  \n  \u2022 Energy Efficiency Credits: each unit adds 2.91.  \n  \u2022 Noise & Vibration Index: no impact (neutral).\n\n- Forge Assembly Hours (variable cost: 1.55 per unit; allowable volume: minimum 0, maximum 18.53)\n  \u2022 Water Stewardship Balance: each unit reduces the balance by 0.63.  \n  \u2022 Carbon Balance: each unit adds 8.76.  \n  \u2022 Landfill Diversion Balance: each unit reduces the balance by 0.36.  \n  \u2022 Community Disturbance Score: each unit adds 0.74.  \n  \u2022 Hazardous Handling Score: each unit reduces the score by 6.24.  \n  \u2022 Core Throughput Equivalent: each unit reduces the equivalent by 3.46.  \n  \u2022 Energy Efficiency Credits: each unit adds 1.87.  \n  \u2022 Noise & Vibration Index: each unit adds 7.53.\n\nFacility specs and KPI floors\n\n- Water Stewardship Balance must not fall below \u221218.33.  \n- Carbon Balance must not fall below \u221287.15.  \n- Landfill Diversion Balance must not fall below \u221266.62.  \n- Community Disturbance Score must not fall below \u221213.18.  \n- Hazardous Handling Score must not fall below \u221225.81.  \n- Core Throughput Equivalent must be at least 48.23.  \n- Energy Efficiency Credits must be at least 52.84.  \n- Noise & Vibration Index must not fall below \u221215.29.\n\nOur objective is to choose volumes for the six levers within their respective ranges so that the sum of their per\u2011unit effects keeps all eight KPIs at or above these floors while minimizing total variable spend based on the costs noted above. Please use this as the basis for the optimization run and share the lowest\u2011cost feasible mix."
+}

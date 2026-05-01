@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, per-unit resource coefficients, and capacity limits are clearly listed; objective is linear contribution. A human can reconstruct the LP exactly without guesswork.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative/context and repeated phrasing plus coding instructions add verbosity, but most text conveys needed coefficients and limits.",
+      "realism": 96,
+      "realism_comment": "Very plausible production planning with multiple shared resources and capacities; numbers make sense. Fractional units can represent batches, so still realistic."
+    },
+    "prompt_tokens_with_data": 1163,
+    "prompt_tokens_without_data": 1163
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 151.8725694969281,
+    "optimal_values": {
+      "Var_0": 5.578486580135668,
+      "Var_1": 7.447082487148584,
+      "Var_2": 0.7774516242906713,
+      "Var_3": 1.705394953259605,
+      "Var_4": 0.0,
+      "Var_5": 7.637531501669492
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 122.53
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 197.03
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.99
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 44.31
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 78.37
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 96.5
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 158.19
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 124.47
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.88
+      ],
+      "objective_linear_coefficient": 6.73,
+      "resource_costs": {
+        "C0": 4.33,
+        "C1": 9.62,
+        "C2": 5.34,
+        "C4": 3.64,
+        "C5": 0.29,
+        "C6": 9.26,
+        "C7": 1.61
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.43
+      ],
+      "objective_linear_coefficient": 4.04,
+      "resource_costs": {
+        "C0": 8.87,
+        "C1": 9.98,
+        "C3": 4.24,
+        "C5": 5.82,
+        "C6": 7.4,
+        "C7": 3.11
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.75
+      ],
+      "objective_linear_coefficient": 6.64,
+      "resource_costs": {
+        "C0": 1.49,
+        "C1": 7.85,
+        "C2": 2.74,
+        "C3": 3.89,
+        "C4": 6.41,
+        "C5": 1.26,
+        "C6": 3.77,
+        "C7": 3.96
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.45
+      ],
+      "objective_linear_coefficient": 2.93,
+      "resource_costs": {
+        "C1": 8.11,
+        "C2": 1.93,
+        "C3": 3.39,
+        "C5": 8.37,
+        "C6": 2.9,
+        "C7": 8.4
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.91
+      ],
+      "objective_linear_coefficient": 4.91,
+      "resource_costs": {
+        "C0": 4.42,
+        "C1": 8.12,
+        "C2": 4.68,
+        "C3": 6.71,
+        "C5": 5.7,
+        "C6": 4.48,
+        "C7": 7.25
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.49
+      ],
+      "objective_linear_coefficient": 9.7,
+      "resource_costs": {
+        "C0": 4.08,
+        "C1": 6.43,
+        "C2": 4.03,
+        "C4": 6.95,
+        "C5": 4.51,
+        "C6": 5.69,
+        "C7": 9.81
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.88, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.73 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.43, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.04 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.75, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.64 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.45, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.93 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.91, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.91 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.49, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.7 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.33 * vars['Var_0'] + 8.87 * vars['Var_1'] + 1.49 * vars['Var_2'] + 4.42 * vars['Var_4'] + 4.08 * vars['Var_5'] <= 122.53, name='C0')\n    m.addConstr(9.62 * vars['Var_0'] + 9.98 * vars['Var_1'] + 7.85 * vars['Var_2'] + 8.11 * vars['Var_3'] + 8.12 * vars['Var_4'] + 6.43 * vars['Var_5'] <= 197.03, name='C1')\n    m.addConstr(5.34 * vars['Var_0'] + 2.74 * vars['Var_2'] + 1.93 * vars['Var_3'] + 4.68 * vars['Var_4'] + 4.03 * vars['Var_5'] <= 65.99, name='C2')\n    m.addConstr(4.24 * vars['Var_1'] + 3.89 * vars['Var_2'] + 3.39 * vars['Var_3'] + 6.71 * vars['Var_4'] <= 44.31, name='C3')\n    m.addConstr(3.64 * vars['Var_0'] + 6.41 * vars['Var_2'] + 6.95 * vars['Var_5'] <= 78.37, name='C4')\n    m.addConstr(0.29 * vars['Var_0'] + 5.82 * vars['Var_1'] + 1.26 * vars['Var_2'] + 8.37 * vars['Var_3'] + 5.7 * vars['Var_4'] + 4.51 * vars['Var_5'] <= 96.5, name='C5')\n    m.addConstr(9.26 * vars['Var_0'] + 7.4 * vars['Var_1'] + 3.77 * vars['Var_2'] + 2.9 * vars['Var_3'] + 4.48 * vars['Var_4'] + 5.69 * vars['Var_5'] <= 158.19, name='C6')\n    m.addConstr(1.61 * vars['Var_0'] + 3.11 * vars['Var_1'] + 3.96 * vars['Var_2'] + 8.4 * vars['Var_3'] + 7.25 * vars['Var_4'] + 9.81 * vars['Var_5'] <= 124.47, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix decision for the upcoming cycle \u2014 please maximize contribution under plant and logistics limits\n\nHi team,\n\nWe need your help to set the production mix across six product lines for the next cycle, with the clear goal of maximizing total contribution margin while staying within our operational and logistics capacities. Below is the context you\u2019ll need. Each line item notes how much margin we make per unit, the allowable volume window (with a minimum of 0.0), and the way a unit consumes our shared resources.\n\nAurora Home Generator\n- Contribution: every unit adds 6.73 to margin.\n- Volume window: we can schedule anywhere from 0.0 up to 11.88 units.\n- Per-unit resource usage: 4.33 hours on Machining Center A, 9.62 hours on the Final Assembly Line, 5.34 units of Quality Lab inspection, 3.64 units of Packaging Line B throughput, 0.29 weekend overtime shifts, 9.26 warehouse slotting units, and 1.61 outbound freight pallet equivalents.\n\nBorealis Portable Battery\n- Contribution: every unit adds 4.04 to margin.\n- Volume window: we can schedule anywhere from 0.0 up to 13.43 units.\n- Per-unit resource usage: 8.87 hours on Machining Center A, 9.98 hours on the Final Assembly Line, 4.24 hours on the Certification Test Bench, 5.82 weekend overtime shifts, 7.40 warehouse slotting units, and 3.11 outbound freight pallet equivalents.\n\nCascade Smart Thermostat\n- Contribution: every unit adds 6.64 to margin.\n- Volume window: we can schedule anywhere from 0.0 up to 8.75 units.\n- Per-unit resource usage: 1.49 hours on Machining Center A, 7.85 hours on the Final Assembly Line, 2.74 units of Quality Lab inspection, 3.89 hours on the Certification Test Bench, 6.41 units of Packaging Line B throughput, 1.26 weekend overtime shifts, 3.77 warehouse slotting units, and 3.96 outbound freight pallet equivalents.\n\nDiligent Solar Inverter\n- Contribution: every unit adds 2.93 to margin.\n- Volume window: we can schedule anywhere from 0.0 up to 14.45 units.\n- Per-unit resource usage: 8.11 hours on the Final Assembly Line, 1.93 units of Quality Lab inspection, 3.39 hours on the Certification Test Bench, 8.37 weekend overtime shifts, 2.90 warehouse slotting units, and 8.40 outbound freight pallet equivalents.\n\nEclipse HVAC Controller\n- Contribution: every unit adds 4.91 to margin.\n- Volume window: we can schedule anywhere from 0.0 up to 13.91 units.\n- Per-unit resource usage: 4.42 hours on Machining Center A, 8.12 hours on the Final Assembly Line, 4.68 units of Quality Lab inspection, 6.71 hours on the Certification Test Bench, 5.70 weekend overtime shifts, 4.48 warehouse slotting units, and 7.25 outbound freight pallet equivalents.\n\nFjord EV Wall Charger\n- Contribution: every unit adds 9.70 to margin.\n- Volume window: we can schedule anywhere from 0.0 up to 11.49 units.\n- Per-unit resource usage: 4.08 hours on Machining Center A, 6.43 hours on the Final Assembly Line, 4.03 units of Quality Lab inspection, 6.95 units of Packaging Line B throughput, 4.51 weekend overtime shifts, 5.69 warehouse slotting units, and 9.81 outbound freight pallet equivalents.\n\nFacility specs and market limits for this cycle (do not exceed):\n- Machining Center A: at most 122.53 hours available.\n- Final Assembly Line: at most 197.03 hours available.\n- Quality Lab inspections: at most 65.99 units available.\n- Certification Test Bench: at most 44.31 hours available.\n- Packaging Line B throughput: at most 78.37 units available.\n- Weekend overtime shifts: at most 96.5 shifts available.\n- Warehouse slotting capacity: at most 158.19 units available.\n- Outbound freight capacity: at most 124.47 pallet equivalents available.\n\nPlease use the above to recommend the allocation across the six lines that maximizes total margin without breaching any of the noted limits. Let us know if you need any further clarification."
+}

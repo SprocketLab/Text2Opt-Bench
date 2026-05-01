@@ -1,0 +1,210 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Costs, bounds, integrality, and per-unit contributions for all 9 levers are explicit. Seven >= constraints and a minimize total spend objective are fully specified.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some business narrative and an optional note on rebranding; otherwise a clear enumeration of coefficients, caps, and types. Minimal fluff.",
+      "realism": 95,
+      "realism_comment": "Plausible operations planning mix with costs, caps, and service metrics; integer vs fractional choices make sense; contributions are consistent and realistic."
+    },
+    "prompt_tokens_with_data": 1483,
+    "prompt_tokens_without_data": 1483
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 262.1343882227277,
+    "optimal_values": {
+      "Var_0": 11.0,
+      "Var_1": 7.0,
+      "Var_2": 6.0,
+      "Var_3": 4.0,
+      "Var_4": 9.047746834665494,
+      "Var_5": 6.374749498997996,
+      "Var_6": 0.8389594314942096,
+      "Var_7": 11.0,
+      "Var_8": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 194.95
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 148.63
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 171.26
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 362.86
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 154.1
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 176.19
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 144.66
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.98
+      ],
+      "objective_linear_coefficient": 1.7,
+      "resource_costs": {
+        "C0": 4.5,
+        "C1": 3.14,
+        "C3": 8.57,
+        "C4": 0.67,
+        "C5": 1.55
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.71
+      ],
+      "objective_linear_coefficient": 5.32,
+      "resource_costs": {
+        "C4": 6.3,
+        "C5": 3.31,
+        "C6": 3.64
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.98
+      ],
+      "objective_linear_coefficient": 6.98,
+      "resource_costs": {
+        "C1": 4.98,
+        "C3": 5.94,
+        "C5": 7.17,
+        "C6": 4.08
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.57
+      ],
+      "objective_linear_coefficient": 3.19,
+      "resource_costs": {
+        "C0": 5.03,
+        "C1": 3.4,
+        "C2": 4.52,
+        "C3": 8.7,
+        "C4": 0.71,
+        "C5": 0.37
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.11
+      ],
+      "objective_linear_coefficient": 3.56,
+      "resource_costs": {
+        "C0": 1.44,
+        "C1": 0.52,
+        "C2": 3.98,
+        "C3": 4.96,
+        "C5": 5.22,
+        "C6": 1.27
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.47
+      ],
+      "objective_linear_coefficient": 8.29,
+      "resource_costs": {
+        "C0": 3.38,
+        "C1": 7.7,
+        "C2": 2.4,
+        "C3": 8.16,
+        "C4": 4.99,
+        "C5": 6.94,
+        "C6": 4.36
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.73
+      ],
+      "objective_linear_coefficient": 2.56,
+      "resource_costs": {
+        "C0": 5.11,
+        "C1": 6.15,
+        "C2": 9.89,
+        "C3": 0.91
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.18
+      ],
+      "objective_linear_coefficient": 5.85,
+      "resource_costs": {
+        "C0": 8.06,
+        "C1": 1.06,
+        "C2": 8.53,
+        "C3": 9.95,
+        "C4": 6.18,
+        "C6": 5.18
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.95
+      ],
+      "objective_linear_coefficient": 5.06,
+      "resource_costs": {
+        "C0": 0.74
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.98, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.7 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.71, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.32 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.98, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.98 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.57, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.19 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.11, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.56 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=6.47, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.29 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.73, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.56 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.18, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 5.85 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=12.95, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 5.06 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.5 * vars['Var_0'] + 5.03 * vars['Var_3'] + 1.44 * vars['Var_4'] + 3.38 * vars['Var_5'] + 5.11 * vars['Var_6'] + 8.06 * vars['Var_7'] + 0.74 * vars['Var_8'] >= 194.95, name='C0')\n    m.addConstr(3.14 * vars['Var_0'] + 4.98 * vars['Var_2'] + 3.4 * vars['Var_3'] + 0.52 * vars['Var_4'] + 7.7 * vars['Var_5'] + 6.15 * vars['Var_6'] + 1.06 * vars['Var_7'] >= 148.63, name='C1')\n    m.addConstr(4.52 * vars['Var_3'] + 3.98 * vars['Var_4'] + 2.4 * vars['Var_5'] + 9.89 * vars['Var_6'] + 8.53 * vars['Var_7'] >= 171.26, name='C2')\n    m.addConstr(8.57 * vars['Var_0'] + 5.94 * vars['Var_2'] + 8.7 * vars['Var_3'] + 4.96 * vars['Var_4'] + 8.16 * vars['Var_5'] + 0.91 * vars['Var_6'] + 9.95 * vars['Var_7'] >= 362.86, name='C3')\n    m.addConstr(0.67 * vars['Var_0'] + 6.3 * vars['Var_1'] + 0.71 * vars['Var_3'] + 4.99 * vars['Var_5'] + 6.18 * vars['Var_7'] >= 154.1, name='C4')\n    m.addConstr(1.55 * vars['Var_0'] + 3.31 * vars['Var_1'] + 7.17 * vars['Var_2'] + 0.37 * vars['Var_3'] + 5.22 * vars['Var_4'] + 6.94 * vars['Var_5'] >= 176.19, name='C5')\n    m.addConstr(3.64 * vars['Var_1'] + 4.08 * vars['Var_2'] + 1.27 * vars['Var_4'] + 4.36 * vars['Var_5'] + 5.18 * vars['Var_7'] >= 144.66, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Plan to Meet Minimum Commitments at the Lowest Total Spend\n\nTeam,\n\nWe\u2019re finalizing our operational mix for the upcoming period with the single aim of meeting or exceeding all of our minimum service and compliance commitments at the lowest possible total spend. Below are the deployable levers, what each one costs us per unit, how they contribute to each of the seven commitments we track, and any quantity limits we face. Unless noted as \u201cfractional allowed,\u201d these must be scheduled in whole-number increments and can range from zero up to the cap stated.\n\n- Core Response Teams\n  - Cost: 1.70 per team-day.\n  - Quantity: from 0 up to 11.98 team-days, whole units only.\n  - Contribution per team-day:\n    - Essential Service Hours: +4.50\n    - Community Outreach Points: +3.14\n    - Quality Assurance Audits: no contribution\n    - Network Coverage Miles: +8.57\n    - Sustainability Credits: +0.67\n    - Customer Touchpoints: +1.55\n    - Training Hours: no contribution\n\n- Mobile Clinic Days\n  - Cost: 5.32 per clinic day.\n  - Quantity: from 0 up to 15.71 days, whole units only.\n  - Contribution per day:\n    - Essential Service Hours: no contribution\n    - Community Outreach Points: no contribution\n    - Quality Assurance Audits: no contribution\n    - Network Coverage Miles: no contribution\n    - Sustainability Credits: +6.30\n    - Customer Touchpoints: +3.31\n    - Training Hours: +3.64\n\n- Digital Outreach Campaigns\n  - Cost: 6.98 per campaign.\n  - Quantity: from 0 up to 15.98 campaigns, whole units only.\n  - Contribution per campaign:\n    - Essential Service Hours: no contribution\n    - Community Outreach Points: +4.98\n    - Quality Assurance Audits: no contribution\n    - Network Coverage Miles: +5.94\n    - Sustainability Credits: no contribution\n    - Customer Touchpoints: +7.17\n    - Training Hours: +4.08\n\n- Facility Maintenance Runs\n  - Cost: 3.19 per run.\n  - Quantity: from 0 up to 9.57 runs, whole units only.\n  - Contribution per run:\n    - Essential Service Hours: +5.03\n    - Community Outreach Points: +3.40\n    - Quality Assurance Audits: +4.52\n    - Network Coverage Miles: +8.70\n    - Sustainability Credits: +0.71\n    - Customer Touchpoints: +0.37\n    - Training Hours: no contribution\n\n- Contractor Support Hours\n  - Cost: 3.56 per hour.\n  - Quantity: from 0 up to 13.11 hours, fractional allowed.\n  - Contribution per hour:\n    - Essential Service Hours: +1.44\n    - Community Outreach Points: +0.52\n    - Quality Assurance Audits: +3.98\n    - Network Coverage Miles: +4.96\n    - Sustainability Credits: no contribution\n    - Customer Touchpoints: +5.22\n    - Training Hours: +1.27\n\n- Premium Vendor Package\n  - Cost: 8.29 per package.\n  - Quantity: from 0 up to 6.47 packages, fractional allowed.\n  - Contribution per package:\n    - Essential Service Hours: +3.38\n    - Community Outreach Points: +7.70\n    - Quality Assurance Audits: +2.40\n    - Network Coverage Miles: +8.16\n    - Sustainability Credits: +4.99\n    - Customer Touchpoints: +6.94\n    - Training Hours: +4.36\n\n- Training Modules\n  - Cost: 2.56 per module.\n  - Quantity: from 0 up to 11.73 modules, fractional allowed.\n  - Contribution per module:\n    - Essential Service Hours: +5.11\n    - Community Outreach Points: +6.15\n    - Quality Assurance Audits: +9.89\n    - Network Coverage Miles: +0.91\n    - Sustainability Credits: no contribution\n    - Customer Touchpoints: no contribution\n    - Training Hours: no contribution\n\n- Emergency Surge Shifts\n  - Cost: 5.85 per shift.\n  - Quantity: from 0 up to 13.18 shifts, whole units only.\n  - Contribution per shift:\n    - Essential Service Hours: +8.06\n    - Community Outreach Points: +1.06\n    - Quality Assurance Audits: +8.53\n    - Network Coverage Miles: +9.95\n    - Sustainability Credits: +6.18\n    - Customer Touchpoints: no contribution\n    - Training Hours: +5.18\n\n- Auxiliary Volunteer Slots\n  - Cost: 5.06 per slot.\n  - Quantity: from 0 up to 12.95 slots, whole units only.\n  - Contribution per slot:\n    - Essential Service Hours: +0.74\n    - Community Outreach Points: no contribution\n    - Quality Assurance Audits: no contribution\n    - Network Coverage Miles: no contribution\n    - Sustainability Credits: no contribution\n    - Customer Touchpoints: no contribution\n    - Training Hours: no contribution\n\nMarket and Compliance Minimums (must be met or exceeded):\n- Essential Service Hours: at least 194.95\n- Community Outreach Points: at least 148.63\n- Quality Assurance Audits: at least 171.26\n- Network Coverage Miles: at least 362.86\n- Sustainability Credits: at least 154.10\n- Customer Touchpoints: at least 176.19\n- Training Hours: at least 144.66\n\nPlease structure the plan to minimize total spend while honoring the quantity limits above and ensuring we meet or exceed every minimum listed. If you see any opportunities to rebrand or consolidate levers without changing these per-unit impacts or caps, I\u2019m open to recommendations."
+}

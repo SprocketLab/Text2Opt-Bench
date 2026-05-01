@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, costs, and per-unit effects are explicit; thresholds and inequality directions are clear; zero effects noted. Minimization objective is stated. The LP can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative adds context and repeats 'no material effect' to indicate zeros; long but needed to define the matrix. Some extra framing (Subject/Team) is nonessential.",
+      "realism": 90,
+      "realism_comment": "A plausible planning problem with scorecard thresholds and trade-offs; continuous scaling/partial crews is slightly stylized but acceptable for planning approximations."
+    },
+    "prompt_tokens_with_data": 1360,
+    "prompt_tokens_without_data": 1360
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 105.70103636531218,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 3.1500003880139515,
+      "Var_2": 5.261771490685551,
+      "Var_3": 1.4862063969761554,
+      "Var_4": 4.166250074340633
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 42.78
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.23
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -24.26
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 39.0
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -43.62
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -6.73
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -106.65
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -4.12
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.26
+      ],
+      "objective_linear_coefficient": 1.08,
+      "resource_costs": {
+        "C0": -4.83,
+        "C1": 5.16,
+        "C4": -9.92,
+        "C5": 5.49,
+        "C6": -4.77,
+        "C7": 3.18
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.38
+      ],
+      "objective_linear_coefficient": 2.05,
+      "resource_costs": {
+        "C1": -5.35,
+        "C2": -7.19,
+        "C4": -2.52,
+        "C5": 4.96,
+        "C6": -7.91,
+        "C7": -1.41
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.73
+      ],
+      "objective_linear_coefficient": 9.86,
+      "resource_costs": {
+        "C0": 6.04,
+        "C1": 7.47,
+        "C4": -3.01,
+        "C6": -9.16
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.09
+      ],
+      "objective_linear_coefficient": 7.9,
+      "resource_costs": {
+        "C1": -0.15,
+        "C2": 5.07,
+        "C3": 4.6,
+        "C5": 2.9,
+        "C6": -1.55,
+        "C7": 6.52
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.45
+      ],
+      "objective_linear_coefficient": 8.55,
+      "resource_costs": {
+        "C0": 2.64,
+        "C2": -0.46,
+        "C3": 7.72,
+        "C4": -2.76,
+        "C5": -6.4,
+        "C6": -4.23,
+        "C7": -1.28
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.26, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.08 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.38, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.05 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.73, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.86 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.09, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.9 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.45, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.55 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-4.83 * vars['Var_0'] + 6.04 * vars['Var_2'] + 2.64 * vars['Var_4'] >= 42.78, name='C0')\n    m.addConstr(5.16 * vars['Var_0'] + -5.35 * vars['Var_1'] + 7.47 * vars['Var_2'] + -0.15 * vars['Var_3'] >= 22.23, name='C1')\n    m.addConstr(-7.19 * vars['Var_1'] + 5.07 * vars['Var_3'] + -0.46 * vars['Var_4'] >= -24.26, name='C2')\n    m.addConstr(4.6 * vars['Var_3'] + 7.72 * vars['Var_4'] >= 39.0, name='C3')\n    m.addConstr(-9.92 * vars['Var_0'] + -2.52 * vars['Var_1'] + -3.01 * vars['Var_2'] + -2.76 * vars['Var_4'] >= -43.62, name='C4')\n    m.addConstr(5.49 * vars['Var_0'] + 4.96 * vars['Var_1'] + 2.9 * vars['Var_3'] + -6.4 * vars['Var_4'] >= -6.73, name='C5')\n    m.addConstr(-4.77 * vars['Var_0'] + -7.91 * vars['Var_1'] + -9.16 * vars['Var_2'] + -1.55 * vars['Var_3'] + -4.23 * vars['Var_4'] >= -106.65, name='C6')\n    m.addConstr(3.18 * vars['Var_0'] + -1.41 * vars['Var_1'] + 6.52 * vars['Var_3'] + -1.28 * vars['Var_4'] >= -4.12, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the 2025 Reliability Mix \u2014 Meet All Thresholds at the Lowest Total Cost\n\nTeam,\n\nAs we finalize the 2025 operating plan, I need your help selecting the least\u2011cost mix of five deployable workstreams to meet our minimum reliability, coverage, capacity, and compliance thresholds. Each workstream carries a unit cost and moves multiple scorecards up or down. We can scale each workstream continuously up to its available capacity; partial deployments are acceptable.\n\nBelow are the levers we can pull, in the order we\u2019re evaluating them:\n\n1) Blue Shield Preventive Rounds\n- Deployable range: between 0 and 17.26 rounds (partial rounds allowed).\n- Unit cost: 1.08 per round.\n- Per\u2011round effects on our scorecards:\n  \u2022 Reliability Reserve Index: decreases by 4.83 points per round.\n  \u2022 Service Coverage Score: increases by 5.16 points per round.\n  \u2022 Thermal Load Balance: no material effect.\n  \u2022 Critical Response Capacity: no material effect.\n  \u2022 Environmental Footprint Score: decreases by 9.92 points per round.\n  \u2022 Training & Compliance Score: increases by 5.49 points per round.\n  \u2022 Operating Risk Exposure (negative numbers reflect higher risk): decreases the index by 4.77 points per round (i.e., pushes risk downward).\n  \u2022 Community Impact Metric: increases by 3.18 points per round.\n\n2) Copper Ridge Thermography Sweeps\n- Deployable range: between 0 and 9.38 sweeps (partial sweeps allowed).\n- Unit cost: 2.05 per sweep.\n- Per\u2011sweep effects on our scorecards:\n  \u2022 Reliability Reserve Index: no material effect.\n  \u2022 Service Coverage Score: decreases by 5.35 points per sweep.\n  \u2022 Thermal Load Balance: decreases by 7.19 units per sweep.\n  \u2022 Critical Response Capacity: no material effect.\n  \u2022 Environmental Footprint Score: decreases by 2.52 points per sweep.\n  \u2022 Training & Compliance Score: increases by 4.96 points per sweep.\n  \u2022 Operating Risk Exposure: decreases the index by 7.91 points per sweep.\n  \u2022 Community Impact Metric: decreases by 1.41 points per sweep.\n\n3) Granite Grid Hardening Kits\n- Deployable range: between 0 and 17.73 kits (partial kits allowed).\n- Unit cost: 9.86 per kit.\n- Per\u2011kit effects on our scorecards:\n  \u2022 Reliability Reserve Index: increases by 6.04 points per kit.\n  \u2022 Service Coverage Score: increases by 7.47 points per kit.\n  \u2022 Thermal Load Balance: no material effect.\n  \u2022 Critical Response Capacity: no material effect.\n  \u2022 Environmental Footprint Score: decreases by 3.01 points per kit.\n  \u2022 Training & Compliance Score: no material effect.\n  \u2022 Operating Risk Exposure: decreases the index by 9.16 points per kit.\n  \u2022 Community Impact Metric: no material effect.\n\n4) Rapid Response Standby Crews\n- Deployable range: between 0 and 8.09 crews (partial crews allowed).\n- Unit cost: 7.90 per crew.\n- Per\u2011crew effects on our scorecards:\n  \u2022 Reliability Reserve Index: no material effect.\n  \u2022 Service Coverage Score: decreases slightly by 0.15 points per crew.\n  \u2022 Thermal Load Balance: increases by 5.07 units per crew.\n  \u2022 Critical Response Capacity: increases by 4.6 units per crew.\n  \u2022 Environmental Footprint Score: no material effect.\n  \u2022 Training & Compliance Score: increases by 2.9 points per crew.\n  \u2022 Operating Risk Exposure: decreases the index by 1.55 points per crew.\n  \u2022 Community Impact Metric: increases by 6.52 points per crew.\n\n5) Demand Flexibility Contracts\n- Deployable range: between 0 and 19.45 contracts (partial contracts allowed).\n- Unit cost: 8.55 per contract.\n- Per\u2011contract effects on our scorecards:\n  \u2022 Reliability Reserve Index: increases by 2.64 points per contract.\n  \u2022 Service Coverage Score: no material effect.\n  \u2022 Thermal Load Balance: decreases by 0.46 units per contract.\n  \u2022 Critical Response Capacity: increases by 7.72 units per contract.\n  \u2022 Environmental Footprint Score: decreases by 2.76 points per contract.\n  \u2022 Training & Compliance Score: decreases by 6.4 points per contract.\n  \u2022 Operating Risk Exposure: decreases the index by 4.23 points per contract.\n  \u2022 Community Impact Metric: decreases by 1.28 points per contract.\n\nFacility Specs & Policy Thresholds (must meet or exceed)\n- Reliability Reserve Index: at least 42.78 points.\n- Service Coverage Score: at least 22.23 points.\n- Thermal Load Balance: must not fall below \u221224.26 units.\n- Critical Response Capacity: at least 39.0 units.\n- Environmental Footprint Score: must not fall below \u221243.62 points.\n- Training & Compliance Score: must not fall below \u22126.73 points.\n- Operating Risk Exposure (more negative is worse): must not fall below \u2212106.65 points.\n- Community Impact Metric: must not fall below \u22124.12 points.\n\nOur mandate is to satisfy or exceed every threshold above at the lowest total outlay, observing each workstream\u2019s availability cap and the fact that we won\u2019t deploy negative quantities. Please review and propose the lowest\u2011cost mix consistent with these specifications."
+}

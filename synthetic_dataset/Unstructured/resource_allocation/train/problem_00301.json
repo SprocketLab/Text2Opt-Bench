@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "Every lever has explicit cost, cap, type, and contributions; minimums stated; objective is minimize spend. Lower bounds 0 are implied, but otherwise fully specified.",
+      "ambiguity": false,
+      "redundancy": 34,
+      "redundancy_comment": "Narrative is lengthy with repeated structure per lever and extra prose, but it's organized and adds context; not excessive.",
+      "realism": 93,
+      "realism_comment": "Scenario resembles real quarterly planning with service floors and resource caps; coefficients plausible. Slight oddity: fractional caps on integer units."
+    },
+    "prompt_tokens_with_data": 1127,
+    "prompt_tokens_without_data": 1127
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 184.9343137254902,
+    "optimal_values": {
+      "Var_0": 5.490196078431372,
+      "Var_1": 10.0,
+      "Var_2": 0.0,
+      "Var_3": 6.0,
+      "Var_4": 2.0,
+      "Var_5": 1.0,
+      "Var_6": 8.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 69.59
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 51.72
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.79
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 5.6
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.84
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.12
+      ],
+      "objective_linear_coefficient": 4.15,
+      "resource_costs": {
+        "C3": 1.02
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.53
+      ],
+      "objective_linear_coefficient": 6.8,
+      "resource_costs": {
+        "C0": 6.33,
+        "C1": 4.91
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.76
+      ],
+      "objective_linear_coefficient": 8.52,
+      "resource_costs": {
+        "C0": 7.01
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.95
+      ],
+      "objective_linear_coefficient": 5.27,
+      "resource_costs": {
+        "C1": 1.64,
+        "C4": 4.33
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.86
+      ],
+      "objective_linear_coefficient": 9.52,
+      "resource_costs": {
+        "C2": 5.22,
+        "C4": 0.66
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.9
+      ],
+      "objective_linear_coefficient": 5.41,
+      "resource_costs": {
+        "C2": 3.2
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.7
+      ],
+      "objective_linear_coefficient": 4.76,
+      "resource_costs": {
+        "C0": 0.87,
+        "C2": 1.01,
+        "C4": 2.09
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.12, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.15 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.53, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.8 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.76, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.52 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.95, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 5.27 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.86, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 9.52 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.9, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 5.41 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=14.7, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 4.76 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.33 * vars['Var_1'] + 7.01 * vars['Var_2'] + 0.87 * vars['Var_6'] >= 69.59, name='C0')\n    m.addConstr(4.91 * vars['Var_1'] + 1.64 * vars['Var_3'] >= 51.72, name='C1')\n    m.addConstr(5.22 * vars['Var_4'] + 3.2 * vars['Var_5'] + 1.01 * vars['Var_6'] >= 20.79, name='C2')\n    m.addConstr(1.02 * vars['Var_0'] >= 5.6, name='C3')\n    m.addConstr(4.33 * vars['Var_3'] + 0.66 * vars['Var_4'] + 2.09 * vars['Var_6'] >= 43.84, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed least\u2011cost mix to meet our Q3 service commitments\n\nHello team,\n\nAs discussed, our aim this quarter is to meet or exceed our minimum service commitments across five dimensions while keeping total spend as low as possible. Those dimensions are: Core Output, Customer Support Coverage, Compliance & Audit Hours, Emergency Response Standby, and Field Maintenance Coverage. With the exception of one flexible, hour-based option, all decisions below are in whole units only (crews, packages, blocks, etc.). Availability caps reflect the maximum we can practically field this period.\n\nThe levers we can pull\n\n1) On\u2011Call Emergency Specialists (flex hours)\n- Cost profile: 4.15 per hour.\n- Availability: can book anywhere from 0 up to 11.12 hours, fractional hours allowed.\n- Impact on service dimensions:\n  \u2022 Emergency Response Standby: each hour adds 1.02 standby units.\n  \u2022 No effect on Core Output, Customer Support Coverage, Compliance & Audit Hours, or Field Maintenance Coverage.\n\n2) Blue Assembly Teams (discrete team blocks)\n- Cost profile: 6.8 per team block.\n- Availability: up to 18.53 team blocks this period; we will schedule whole teams only.\n- Impact on service dimensions:\n  \u2022 Core Output: each team block contributes 6.33 output credits.\n  \u2022 Customer Support Coverage: each team block contributes 4.91 coverage credits.\n  \u2022 No effect on Compliance & Audit Hours, Emergency Response Standby, or Field Maintenance Coverage.\n\n3) Premium Production Lots (discrete lots)\n- Cost profile: 8.52 per lot.\n- Availability: up to 7.76 lots; whole lots only.\n- Impact on service dimensions:\n  \u2022 Core Output: each lot contributes 7.01 output credits.\n  \u2022 No effect on Customer Support Coverage, Compliance & Audit Hours, Emergency Response Standby, or Field Maintenance Coverage.\n\n4) Mobile Service Crews (discrete crew shifts)\n- Cost profile: 5.27 per crew shift.\n- Availability: up to 15.95 crew shifts; whole crew shifts only.\n- Impact on service dimensions:\n  \u2022 Customer Support Coverage: each crew shift contributes 1.64 coverage credits.\n  \u2022 Field Maintenance Coverage: each crew shift contributes 4.33 coverage credits.\n  \u2022 No effect on Core Output, Compliance & Audit Hours, or Emergency Response Standby.\n\n5) Regulatory Audit Packages (discrete packages)\n- Cost profile: 9.52 per package.\n- Availability: up to 8.86 packages; whole packages only.\n- Impact on service dimensions:\n  \u2022 Compliance & Audit Hours: each package delivers 5.22 compliance hours.\n  \u2022 Field Maintenance Coverage: side benefit of 0.66 coverage credits per package.\n  \u2022 No effect on Core Output, Customer Support Coverage, or Emergency Response Standby.\n\n6) Compliance Assistant Blocks (discrete support blocks)\n- Cost profile: 5.41 per block.\n- Availability: up to 18.9 blocks; whole blocks only.\n- Impact on service dimensions:\n  \u2022 Compliance & Audit Hours: each block contributes 3.2 compliance hours.\n  \u2022 No effect on Core Output, Customer Support Coverage, Emergency Response Standby, or Field Maintenance Coverage.\n\n7) Utility Support Vans (discrete van\u2011days)\n- Cost profile: 4.76 per van\u2011day.\n- Availability: up to 14.7 van\u2011days; whole van\u2011days only.\n- Impact on service dimensions:\n  \u2022 Core Output: 0.87 output credits per van\u2011day.\n  \u2022 Compliance & Audit Hours: 1.01 compliance hours per van\u2011day.\n  \u2022 Field Maintenance Coverage: 2.09 coverage credits per van\u2011day.\n  \u2022 No effect on Customer Support Coverage or Emergency Response Standby.\n\nFacility specs and minimum service floors for the planning window\n- Core Output: at least 69.59 output credits this quarter.\n- Customer Support Coverage: at least 51.72 coverage credits.\n- Compliance & Audit Hours: at least 20.79 hours.\n- Emergency Response Standby: at least 5.6 standby units.\n- Field Maintenance Coverage: at least 43.84 coverage credits.\n\nPlease use the above as the basis for a recommended mix that satisfies all minimums while minimizing the total cost based on the unit rates provided. Happy to review any trade\u2011offs or sensitivity to caps if you see tightness in any single dimension."
+}

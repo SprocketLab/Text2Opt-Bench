@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, variable types, and resource capacities are explicit, enabling mechanical reconstruction of the LP. Minor code-level variable naming not specified.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business email styling adds context; some verbosity but little repetition. Technical data is concise and clear.",
+      "realism": 97,
+      "realism_comment": "Feels like a real distillery scheduling problem with plausible capacities and per-unit resource use; objective and constraints fit a practical OR model."
+    },
+    "prompt_tokens_with_data": 919,
+    "prompt_tokens_without_data": 919
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 139.47621742567995,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 8.0,
+      "Var_2": 1.4022770398481974,
+      "Var_3": 16.862745098039216,
+      "Var_4": 0.11547619047619051
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 51.6
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 7.39
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 76.65
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 33.06
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.51
+      ],
+      "objective_linear_coefficient": 9.71,
+      "resource_costs": {
+        "C0": 8.33,
+        "C2": 1.57,
+        "C3": 0.5
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.74
+      ],
+      "objective_linear_coefficient": 9.65,
+      "resource_costs": {
+        "C2": 9.46,
+        "C3": 4.03
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.18
+      ],
+      "objective_linear_coefficient": 4.02,
+      "resource_costs": {
+        "C1": 5.27
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.14
+      ],
+      "objective_linear_coefficient": 3.32,
+      "resource_costs": {
+        "C0": 3.06
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.83
+      ],
+      "objective_linear_coefficient": 5.67,
+      "resource_costs": {
+        "C2": 8.4
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.51, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.71 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.74, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.65 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.18, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.02 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.14, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.32 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=16.83, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.67 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.33 * vars['Var_0'] + 3.06 * vars['Var_3'] <= 51.6, name='C0')\n    m.addConstr(5.27 * vars['Var_2'] <= 7.39, name='C1')\n    m.addConstr(1.57 * vars['Var_0'] + 9.46 * vars['Var_1'] + 8.4 * vars['Var_4'] <= 76.65, name='C2')\n    m.addConstr(0.5 * vars['Var_0'] + 4.03 * vars['Var_1'] <= 33.06, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Scheduling levers and bottlenecks for the next production window\n\nHi team,\n\nAs discussed, we\u2019re looking to set the production and packaging schedule for the upcoming window with a single objective in mind: maximize total gross contribution while respecting the bottlenecks across our plant and permits. We have five programs we can run; each delivers a known contribution per unit and draws on different parts of the operation. Here is what we\u2019re working with, in the order we\u2019d like you to evaluate them:\n\n- Autumn Gin small-batch runs\n  - Financials: each run contributes 9.71.\n  - Scope: we can schedule anywhere from 0 up to 10.51 runs this window, including partial runs if helpful.\n  - Bottlenecks it draws on:\n    - Fermentation Bay A: 8.33 hours per run.\n    - Bottling Line throughput: 1.57 hours per run.\n    - Master Distiller supervision: 0.5 hours per run.\n    - Sweetener quota credits: none required.\n\n- Barrel-Proof Limited Bottlings\n  - Financials: each bottling run contributes 9.65.\n  - Scope: we can schedule a whole-number count of runs only (no partials), from 0 up to 15.74 runs.\n  - Bottlenecks it draws on:\n    - Bottling Line throughput: 9.46 hours per run.\n    - Master Distiller supervision: 4.03 hours per run.\n    - Fermentation Bay A and sweetener quota credits: no draw.\n\n- Sweet Reserve Set-Aside\n  - Financials: each unit allocated contributes 4.02.\n  - Scope: we can allocate anywhere from 0 up to 16.18 units; fractional allocations are acceptable.\n  - Bottlenecks it draws on:\n    - Sweetener quota credits: 5.27 credits per unit.\n    - Fermentation Bay A, Bottling Line, and Master Distiller supervision: no draw.\n\n- House Seltzer Ferments for Taproom\n  - Financials: each batch contributes 3.32.\n  - Scope: we can schedule anywhere from 0 up to 19.14 batches; partial batches are acceptable.\n  - Bottlenecks it draws on:\n    - Fermentation Bay A: 3.06 hours per batch.\n    - Sweetener quota credits, Bottling Line, and Master Distiller supervision: no draw.\n\n- Private-Label Bottling Service\n  - Financials: each client batch contributes 5.67.\n  - Scope: we can schedule anywhere from 0 up to 16.83 batches; partial batches are acceptable.\n  - Bottlenecks it draws on:\n    - Bottling Line throughput: 8.4 hours per batch.\n    - Fermentation Bay A, sweetener quota credits, and Master Distiller supervision: no draw.\n\nFacility and permit limits for this window\n- Fermentation Bay A availability: up to 51.6 hours total.\n- Sweetener quota credits available: up to 7.39 credits total.\n- Bottling Line throughput available: up to 76.65 hours total.\n- Master Distiller supervision available: up to 33.06 hours total.\n\nPlease use the above to recommend the mix that maximizes our total contribution while staying within these limits. Happy to clarify definitions or unit assumptions if needed.\n\nBest,\n[Your Name]\nCOO, Riverside Craft & Co."
+}

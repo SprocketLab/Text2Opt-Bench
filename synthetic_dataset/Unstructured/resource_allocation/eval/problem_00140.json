@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and capacities are explicit. Variables are continuous with clear UBs and zero-usage noted. Objective and constraints are fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated 'not required (0)' entries add verbosity, but they don\u2019t obscure the model.",
+      "realism": 98,
+      "realism_comment": "Very realistic production planning scenario with plausible resources, capacities, and contributions; consistent and practical details."
+    },
+    "prompt_tokens_with_data": 989,
+    "prompt_tokens_without_data": 989
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 142.26081967184035,
+    "optimal_values": {
+      "Var_0": 4.193870726533823,
+      "Var_1": 8.479768205055061,
+      "Var_2": 3.8050719902264287,
+      "Var_3": 5.758891441589953
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.7
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 82.66
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 126.72
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 54.98
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 55.43
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 33.6
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.78
+      ],
+      "objective_linear_coefficient": 7.83,
+      "resource_costs": {
+        "C1": 9.6,
+        "C2": 0.15,
+        "C3": 6.84,
+        "C5": 7.79
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.65
+      ],
+      "objective_linear_coefficient": 8.17,
+      "resource_costs": {
+        "C0": 6.17,
+        "C1": 5.0,
+        "C2": 4.02,
+        "C4": 1.1
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.49
+      ],
+      "objective_linear_coefficient": 6.07,
+      "resource_costs": {
+        "C0": 6.67,
+        "C2": 9.71,
+        "C3": 5.69,
+        "C4": 3.02
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.35
+      ],
+      "objective_linear_coefficient": 2.96,
+      "resource_costs": {
+        "C2": 9.56,
+        "C3": 0.74,
+        "C4": 6.01
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.78, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.83 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.65, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.17 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.49, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.07 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.35, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.96 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.17 * vars['Var_1'] + 6.67 * vars['Var_2'] <= 77.7, name='C0')\n    m.addConstr(9.6 * vars['Var_0'] + 5.0 * vars['Var_1'] <= 82.66, name='C1')\n    m.addConstr(0.15 * vars['Var_0'] + 4.02 * vars['Var_1'] + 9.71 * vars['Var_2'] + 9.56 * vars['Var_3'] <= 126.72, name='C2')\n    m.addConstr(6.84 * vars['Var_0'] + 5.69 * vars['Var_2'] + 0.74 * vars['Var_3'] <= 54.98, name='C3')\n    m.addConstr(1.1 * vars['Var_1'] + 3.02 * vars['Var_2'] + 6.01 * vars['Var_3'] <= 55.43, name='C4')\n    m.addConstr(7.79 * vars['Var_0'] <= 33.6, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for production mix plan to maximize contribution under Q1 constraints\n\nHi team,\n\nWe\u2019re looking for your help to set our Q1 production mix so that total contribution is maximized while staying within our plant and material limits. We can schedule fractional lots where it makes sense, and there are no minimum commitments on any item\u2014only ceilings based on equipment, labor, materials, and storage.\n\nBelow are the four levers we can pull, in the order we\u2019d like you to consider them, with their per\u2011lot contribution, practical volume caps, and how each one draws on our constrained resources.\n\n- Aurora Premium Gel\n  - Economic impact: contributes 7.83 per lot.\n  - Volume flexibility: any nonnegative quantity up to 19.78 lots.\n  - Resource usage per lot:\n    - High\u2011Shear Mixer A: 9.6 hours.\n    - Resin R\u201112 feedstock: 0.15 units.\n    - Certified Technician coverage: 6.84 shifts.\n    - Cold\u2011Chain Storage: 7.79 pallet\u2011equivalents.\n    - Furnace Bay A: not required (0 hours).\n    - Packaging Line B: not required (0 hours).\n\n- Borealis Shield Coating\n  - Economic impact: contributes 8.17 per lot.\n  - Volume flexibility: any nonnegative quantity up to 10.65 lots.\n  - Resource usage per lot:\n    - Furnace Bay A: 6.17 hours.\n    - High\u2011Shear Mixer A: 5.0 hours.\n    - Resin R\u201112 feedstock: 4.02 units.\n    - Packaging Line B: 1.1 hours.\n    - Certified Technician coverage: not required (0 shifts).\n    - Cold\u2011Chain Storage: not required (0 pallets).\n\n- Cobalt Flex Polymer\n  - Economic impact: contributes 6.07 per lot.\n  - Volume flexibility: any nonnegative quantity up to 8.49 lots.\n  - Resource usage per lot:\n    - Furnace Bay A: 6.67 hours.\n    - Resin R\u201112 feedstock: 9.71 units.\n    - Certified Technician coverage: 5.69 shifts.\n    - Packaging Line B: 3.02 hours.\n    - High\u2011Shear Mixer A: not required (0 hours).\n    - Cold\u2011Chain Storage: not required (0 pallets).\n\n- DuneSeal Primer\n  - Economic impact: contributes 2.96 per lot.\n  - Volume flexibility: any nonnegative quantity up to 9.35 lots.\n  - Resource usage per lot:\n    - Resin R\u201112 feedstock: 9.56 units.\n    - Certified Technician coverage: 0.74 shifts.\n    - Packaging Line B: 6.01 hours.\n    - Furnace Bay A: not required (0 hours).\n    - High\u2011Shear Mixer A: not required (0 hours).\n    - Cold\u2011Chain Storage: not required (0 pallets).\n\nFacility specs and period limits (do not exceed):\n- Furnace Bay A time: up to 77.7 hours in total.\n- High\u2011Shear Mixer A time: up to 82.66 hours in total.\n- Resin R\u201112 feedstock: up to 126.72 units in total.\n- Certified Technician coverage: up to 54.98 shifts in total.\n- Packaging Line B time: up to 55.43 hours in total.\n- Cold\u2011Chain Storage: up to 33.6 pallet\u2011equivalents in total.\n\nPlease set up the production plan to maximize total contribution across these four items while observing the per\u2011lot draws and the capacity ceilings above. Let me know if you need any clarifications on units or if we should test sensitivity around any of the limits."
+}

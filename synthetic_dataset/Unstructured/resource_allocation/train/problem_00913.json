@@ -1,0 +1,438 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 15,
+    "num_constraints": 18,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All levers have clear bounds, integrality, costs, and per-unit contributions. Commitments are explicit (>=). Objective is the sum of budget rates. No missing values; fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style context adds fluff, but most length comes from necessary coefficient listings. Moderately verbose yet focused on essential data.",
+      "realism": 95,
+      "realism_comment": "Very plausible cross-service planning problem with budgets, caps, and service minimums; a classic OR resource allocation setup."
+    },
+    "prompt_tokens_with_data": 2929,
+    "prompt_tokens_without_data": 2929
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 428.6849231060606,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 3.0,
+      "Var_2": 9.0,
+      "Var_3": 8.0,
+      "Var_4": 8.0,
+      "Var_5": 1.0,
+      "Var_6": 0.07439393939393557,
+      "Var_7": 1.5937499999999973,
+      "Var_8": 10.0,
+      "Var_9": 7.93,
+      "Var_10": 13.0,
+      "Var_11": -0.0,
+      "Var_12": -0.0,
+      "Var_13": 5.0,
+      "Var_14": 19.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 166.01
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 90.27
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 229.47
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 330.56
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 116.38
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.79
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 239.21
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 316.16
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 279.45
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 376.93
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 189.04
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 246.93
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 157.81
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 225.07
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 244.57
+    },
+    "C15": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 276.42
+    },
+    "C16": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 203.75
+    },
+    "C17": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 299.01
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.68
+      ],
+      "objective_linear_coefficient": 3.2,
+      "resource_costs": {
+        "C3": 1.33,
+        "C4": 5.87,
+        "C6": 2.56,
+        "C7": 2.34,
+        "C8": 8.64,
+        "C9": 6.64,
+        "C11": 6.23,
+        "C12": 8.86,
+        "C13": 2.54,
+        "C14": 4.17,
+        "C15": 1.45,
+        "C17": 5.82
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.43
+      ],
+      "objective_linear_coefficient": 7.35,
+      "resource_costs": {
+        "C2": 1.74,
+        "C3": 9.18,
+        "C10": 9.54,
+        "C11": 8.9,
+        "C12": 6.51,
+        "C14": 3.13
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.86
+      ],
+      "objective_linear_coefficient": 7.21,
+      "resource_costs": {
+        "C0": 5.14,
+        "C5": 6.18,
+        "C8": 8.19,
+        "C9": 7.65,
+        "C10": 8.48,
+        "C11": 2.71,
+        "C13": 9.48,
+        "C15": 1.94
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 6.25,
+      "resource_costs": {
+        "C2": 8.32,
+        "C6": 3.66,
+        "C7": 2.6,
+        "C9": 5.99,
+        "C13": 7.79,
+        "C15": 1.43,
+        "C16": 5.15,
+        "C17": 9.48
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.9
+      ],
+      "objective_linear_coefficient": 6.37,
+      "resource_costs": {
+        "C0": 5.89,
+        "C1": 7.22,
+        "C2": 2.2,
+        "C3": 6.6,
+        "C4": 6.04,
+        "C6": 5.79,
+        "C9": 1.07,
+        "C11": 6.13,
+        "C12": 0.95,
+        "C13": 3.34,
+        "C14": 7.32,
+        "C16": 7.01,
+        "C17": 6.29
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 6.8,
+      "resource_costs": {
+        "C1": 9.71,
+        "C3": 0.95,
+        "C4": 4.15,
+        "C7": 7.51,
+        "C8": 5.97,
+        "C9": 9.63,
+        "C12": 2.38,
+        "C15": 7.33
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.95
+      ],
+      "objective_linear_coefficient": 8.81,
+      "resource_costs": {
+        "C3": 3.78,
+        "C4": 7.21,
+        "C7": 0.59,
+        "C8": 6.04,
+        "C9": 6.15,
+        "C10": 5.28,
+        "C12": 3.53,
+        "C14": 8.23
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.26
+      ],
+      "objective_linear_coefficient": 8.99,
+      "resource_costs": {
+        "C2": 2.23,
+        "C6": 8.34,
+        "C7": 7.29,
+        "C8": 1.03,
+        "C11": 8.97,
+        "C14": 5.21,
+        "C15": 1.78,
+        "C16": 5.76
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 8.05,
+      "resource_costs": {
+        "C3": 2.51,
+        "C6": 5.0,
+        "C10": 4.1,
+        "C14": 7.03,
+        "C16": 9.17,
+        "C17": 9.18
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.93
+      ],
+      "objective_linear_coefficient": 4.69,
+      "resource_costs": {
+        "C0": 3.32,
+        "C3": 8.48,
+        "C4": 3.17,
+        "C5": 2.01,
+        "C6": 5.21,
+        "C7": 7.76,
+        "C9": 9.79,
+        "C10": 4.04,
+        "C11": 0.99,
+        "C12": 3.24,
+        "C14": 4.99,
+        "C17": 8.82
+      }
+    },
+    "Var_10": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.06
+      ],
+      "objective_linear_coefficient": 2.24,
+      "resource_costs": {
+        "C0": 9.27,
+        "C1": 4.29,
+        "C2": 4.11,
+        "C3": 6.15,
+        "C4": 1.78,
+        "C6": 4.78,
+        "C7": 3.66,
+        "C8": 4.96,
+        "C9": 9.86,
+        "C11": 8.22,
+        "C12": 4.97,
+        "C13": 0.65,
+        "C14": 5.01,
+        "C15": 0.71,
+        "C16": 0.43
+      }
+    },
+    "Var_11": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.84
+      ],
+      "objective_linear_coefficient": 9.48,
+      "resource_costs": {
+        "C2": 7.11,
+        "C3": 2.08,
+        "C5": 5.88,
+        "C6": 3.05,
+        "C7": 4.26,
+        "C8": 9.35,
+        "C9": 8.53,
+        "C10": 3.34,
+        "C11": 2.24,
+        "C12": 1.19,
+        "C13": 1.03,
+        "C14": 5.61,
+        "C17": 5.41
+      }
+    },
+    "Var_12": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.98
+      ],
+      "objective_linear_coefficient": 9.77,
+      "resource_costs": {
+        "C0": 4.43,
+        "C2": 2.67,
+        "C5": 4.58,
+        "C6": 5.78,
+        "C7": 6.34,
+        "C8": 3.22,
+        "C9": 1.47,
+        "C13": 8.37,
+        "C15": 4.81,
+        "C16": 2.28,
+        "C17": 6.43
+      }
+    },
+    "Var_13": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.91
+      ],
+      "objective_linear_coefficient": 5.28,
+      "resource_costs": {
+        "C3": 6.43,
+        "C5": 1.35,
+        "C7": 0.53,
+        "C8": 3.4,
+        "C9": 2.12,
+        "C10": 0.88,
+        "C11": 5.87,
+        "C13": 2.89,
+        "C15": 9.11,
+        "C17": 2.55
+      }
+    },
+    "Var_14": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.16
+      ],
+      "objective_linear_coefficient": 2.41,
+      "resource_costs": {
+        "C0": 8.17,
+        "C2": 8.37,
+        "C3": 9.63,
+        "C4": 1.99,
+        "C7": 8.67,
+        "C8": 8.35,
+        "C9": 6.13,
+        "C10": 0.33,
+        "C12": 3.97,
+        "C13": 6.2,
+        "C15": 9.61
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.68, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.2 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.43, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.35 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=13.06, vtype=GRB.INTEGER, name='Var_10')\n    lin_expr += 2.24 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=17.84, vtype=GRB.INTEGER, name='Var_11')\n    lin_expr += 9.48 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=11.98, vtype=GRB.INTEGER, name='Var_12')\n    lin_expr += 9.77 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=15.91, vtype=GRB.INTEGER, name='Var_13')\n    lin_expr += 5.28 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=19.16, vtype=GRB.INTEGER, name='Var_14')\n    lin_expr += 2.41 * vars['Var_14']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.86, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.21 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.25 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.9, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.37 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 6.8 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=17.95, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.81 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=16.26, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 8.99 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 8.05 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=7.93, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 4.69 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.27 * vars['Var_10'] + 4.43 * vars['Var_12'] + 8.17 * vars['Var_14'] + 5.14 * vars['Var_2'] + 5.89 * vars['Var_4'] + 3.32 * vars['Var_9'] >= 166.01, name='C0')\n    m.addConstr(4.29 * vars['Var_10'] + 7.22 * vars['Var_4'] + 9.71 * vars['Var_5'] >= 90.27, name='C1')\n    m.addConstr(9.54 * vars['Var_1'] + 3.34 * vars['Var_11'] + 0.88 * vars['Var_13'] + 0.33 * vars['Var_14'] + 8.48 * vars['Var_2'] + 5.28 * vars['Var_6'] + 4.1 * vars['Var_8'] + 4.04 * vars['Var_9'] >= 189.04, name='C10')\n    m.addConstr(6.23 * vars['Var_0'] + 8.9 * vars['Var_1'] + 8.22 * vars['Var_10'] + 2.24 * vars['Var_11'] + 5.87 * vars['Var_13'] + 2.71 * vars['Var_2'] + 6.13 * vars['Var_4'] + 8.97 * vars['Var_7'] + 0.99 * vars['Var_9'] >= 246.93, name='C11')\n    m.addConstr(8.86 * vars['Var_0'] + 6.51 * vars['Var_1'] + 4.97 * vars['Var_10'] + 1.19 * vars['Var_11'] + 3.97 * vars['Var_14'] + 0.95 * vars['Var_4'] + 2.38 * vars['Var_5'] + 3.53 * vars['Var_6'] + 3.24 * vars['Var_9'] >= 157.81, name='C12')\n    m.addConstr(2.54 * vars['Var_0'] + 0.65 * vars['Var_10'] + 1.03 * vars['Var_11'] + 8.37 * vars['Var_12'] + 2.89 * vars['Var_13'] + 6.2 * vars['Var_14'] + 9.48 * vars['Var_2'] + 7.79 * vars['Var_3'] + 3.34 * vars['Var_4'] >= 225.07, name='C13')\n    m.addConstr(4.17 * vars['Var_0'] + 3.13 * vars['Var_1'] + 5.01 * vars['Var_10'] + 5.61 * vars['Var_11'] + 7.32 * vars['Var_4'] + 8.23 * vars['Var_6'] + 5.21 * vars['Var_7'] + 7.03 * vars['Var_8'] + 4.99 * vars['Var_9'] >= 244.57, name='C14')\n    m.addConstr(1.45 * vars['Var_0'] + 0.71 * vars['Var_10'] + 4.81 * vars['Var_12'] + 9.11 * vars['Var_13'] + 9.61 * vars['Var_14'] + 1.94 * vars['Var_2'] + 1.43 * vars['Var_3'] + 7.33 * vars['Var_5'] + 1.78 * vars['Var_7'] >= 276.42, name='C15')\n    m.addConstr(0.43 * vars['Var_10'] + 2.28 * vars['Var_12'] + 5.15 * vars['Var_3'] + 7.01 * vars['Var_4'] + 5.76 * vars['Var_7'] + 9.17 * vars['Var_8'] >= 203.75, name='C16')\n    m.addConstr(5.82 * vars['Var_0'] + 5.41 * vars['Var_11'] + 6.43 * vars['Var_12'] + 2.55 * vars['Var_13'] + 9.48 * vars['Var_3'] + 6.29 * vars['Var_4'] + 9.18 * vars['Var_8'] + 8.82 * vars['Var_9'] >= 299.01, name='C17')\n    m.addConstr(1.74 * vars['Var_1'] + 4.11 * vars['Var_10'] + 7.11 * vars['Var_11'] + 2.67 * vars['Var_12'] + 8.37 * vars['Var_14'] + 8.32 * vars['Var_3'] + 2.2 * vars['Var_4'] + 2.23 * vars['Var_7'] >= 229.47, name='C2')\n    m.addConstr(1.33 * vars['Var_0'] + 9.18 * vars['Var_1'] + 6.15 * vars['Var_10'] + 2.08 * vars['Var_11'] + 6.43 * vars['Var_13'] + 9.63 * vars['Var_14'] + 6.6 * vars['Var_4'] + 0.95 * vars['Var_5'] + 3.78 * vars['Var_6'] + 2.51 * vars['Var_8'] + 8.48 * vars['Var_9'] >= 330.56, name='C3')\n    m.addConstr(5.87 * vars['Var_0'] + 1.78 * vars['Var_10'] + 1.99 * vars['Var_14'] + 6.04 * vars['Var_4'] + 4.15 * vars['Var_5'] + 7.21 * vars['Var_6'] + 3.17 * vars['Var_9'] >= 116.38, name='C4')\n    m.addConstr(5.88 * vars['Var_11'] + 4.58 * vars['Var_12'] + 1.35 * vars['Var_13'] + 6.18 * vars['Var_2'] + 2.01 * vars['Var_9'] >= 75.79, name='C5')\n    m.addConstr(2.56 * vars['Var_0'] + 4.78 * vars['Var_10'] + 3.05 * vars['Var_11'] + 5.78 * vars['Var_12'] + 3.66 * vars['Var_3'] + 5.79 * vars['Var_4'] + 8.34 * vars['Var_7'] + 5.0 * vars['Var_8'] + 5.21 * vars['Var_9'] >= 239.21, name='C6')\n    m.addConstr(2.34 * vars['Var_0'] + 3.66 * vars['Var_10'] + 4.26 * vars['Var_11'] + 6.34 * vars['Var_12'] + 0.53 * vars['Var_13'] + 8.67 * vars['Var_14'] + 2.6 * vars['Var_3'] + 7.51 * vars['Var_5'] + 0.59 * vars['Var_6'] + 7.29 * vars['Var_7'] + 7.76 * vars['Var_9'] >= 316.16, name='C7')\n    m.addConstr(8.64 * vars['Var_0'] + 4.96 * vars['Var_10'] + 9.35 * vars['Var_11'] + 3.22 * vars['Var_12'] + 3.4 * vars['Var_13'] + 8.35 * vars['Var_14'] + 8.19 * vars['Var_2'] + 5.97 * vars['Var_5'] + 6.04 * vars['Var_6'] + 1.03 * vars['Var_7'] >= 279.45, name='C8')\n    m.addConstr(6.64 * vars['Var_0'] + 9.86 * vars['Var_10'] + 8.53 * vars['Var_11'] + 1.47 * vars['Var_12'] + 2.12 * vars['Var_13'] + 6.13 * vars['Var_14'] + 7.65 * vars['Var_2'] + 5.99 * vars['Var_3'] + 1.07 * vars['Var_4'] + 9.63 * vars['Var_5'] + 6.15 * vars['Var_6'] + 9.79 * vars['Var_9'] >= 376.93, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix to meet our cross-service commitments\n\nTeam,\n\nWe\u2019re preparing the next cycle\u2019s deployment plan across our service lines with a clear goal: minimize total operating spend while still meeting at least the baseline commitments in every service category outlined below. To that end, please treat the following as the levers we can pull\u2014each with a per\u2011unit budget rate, a practical cap, and specific per\u2011unit contributions to our service commitments. Some levers can be adjusted in fractional increments; others must be scheduled in whole units only. All levers may be left at zero.\n\nDecision levers\n\n1) OmniDesk Automation Hours\n- Budget rate: 3.20 per unit\n- Adjustable from 0.0 up to 9.68 units; partial units allowed\n- Per unit contributions:\n  - 1.33 to Operations Control Room Coverage\n  - 5.87 to Technical Support Tickets\n  - 2.56 to Logistics Movements\n  - 2.34 to On\u2011Site Service Visits\n  - 8.64 to Digital Self\u2011Service Transactions\n  - 6.64 to Emergency Dispatches\n  - 6.23 to Training Hours Delivered\n  - 8.86 to Customer Resolutions\n  - 2.54 to Compliance Audits\n  - 4.17 to Quality Assurance Checks\n  - 1.45 to After\u2011Hours Coverage\n  - 5.82 to Incident Reports Closed\n\n2) Senior Specialist Rotations\n- Budget rate: 7.35 per unit\n- Adjustable from 0.0 up to 12.43 units; whole units only\n- Per unit contributions:\n  - 1.74 to Field Inspections Completed\n  - 9.18 to Operations Control Room Coverage\n  - 9.54 to Clinical Appointments\n  - 8.90 to Training Hours Delivered\n  - 6.51 to Customer Resolutions\n  - 3.13 to Quality Assurance Checks\n\n3) Mobile Compliance Crews\n- Budget rate: 7.21 per unit\n- Adjustable from 0.0 up to 9.86 units; whole units only\n- Per unit contributions:\n  - 5.14 to Intake & Triage Minutes\n  - 6.18 to Preventive Maintenance Jobs\n  - 8.19 to Digital Self\u2011Service Transactions\n  - 7.65 to Emergency Dispatches\n  - 8.48 to Clinical Appointments\n  - 2.71 to Training Hours Delivered\n  - 9.48 to Compliance Audits\n  - 1.94 to After\u2011Hours Coverage\n\n4) Rapid Response Units\n- Budget rate: 6.25 per unit\n- Adjustable from 0.0 up to 10.0 units; whole units only\n- Per unit contributions:\n  - 8.32 to Field Inspections Completed\n  - 3.66 to Logistics Movements\n  - 2.60 to On\u2011Site Service Visits\n  - 5.99 to Emergency Dispatches\n  - 7.79 to Compliance Audits\n  - 1.43 to After\u2011Hours Coverage\n  - 5.15 to Community Workshops\n  - 9.48 to Incident Reports Closed\n\n5) Integrated Service Pods\n- Budget rate: 6.37 per unit\n- Adjustable from 0.0 up to 9.9 units; whole units only\n- Per unit contributions:\n  - 5.89 to Intake & Triage Minutes\n  - 7.22 to Neighborhood Outreach Sessions\n  - 2.20 to Field Inspections Completed\n  - 6.60 to Operations Control Room Coverage\n  - 6.04 to Technical Support Tickets\n  - 5.79 to Logistics Movements\n  - 1.07 to Emergency Dispatches\n  - 6.13 to Training Hours Delivered\n  - 0.95 to Customer Resolutions\n  - 3.34 to Compliance Audits\n  - 7.32 to Quality Assurance Checks\n  - 7.01 to Community Workshops\n  - 6.29 to Incident Reports Closed\n\n6) Community Liaison Shifts\n- Budget rate: 6.80 per unit\n- Adjustable from 0.0 up to 8.0 units; whole units only\n- Per unit contributions:\n  - 9.71 to Neighborhood Outreach Sessions\n  - 0.95 to Operations Control Room Coverage\n  - 4.15 to Technical Support Tickets\n  - 7.51 to On\u2011Site Service Visits\n  - 5.97 to Digital Self\u2011Service Transactions\n  - 9.63 to Emergency Dispatches\n  - 2.38 to Customer Resolutions\n  - 7.33 to After\u2011Hours Coverage\n\n7) Digital Platform Capacity\n- Budget rate: 8.81 per unit\n- Adjustable from 0.0 up to 17.95 units; partial units allowed\n- Per unit contributions:\n  - 3.78 to Operations Control Room Coverage\n  - 7.21 to Technical Support Tickets\n  - 0.59 to On\u2011Site Service Visits\n  - 6.04 to Digital Self\u2011Service Transactions\n  - 6.15 to Emergency Dispatches\n  - 5.28 to Clinical Appointments\n  - 3.53 to Customer Resolutions\n  - 8.23 to Quality Assurance Checks\n\n8) Mobile Operations Hubs\n- Budget rate: 8.99 per unit\n- Adjustable from 0.0 up to 16.26 units; partial units allowed\n- Per unit contributions:\n  - 2.23 to Field Inspections Completed\n  - 8.34 to Logistics Movements\n  - 7.29 to On\u2011Site Service Visits\n  - 1.03 to Digital Self\u2011Service Transactions\n  - 8.97 to Training Hours Delivered\n  - 5.21 to Quality Assurance Checks\n  - 1.78 to After\u2011Hours Coverage\n  - 5.76 to Community Workshops\n\n9) Community Response Taskforce\n- Budget rate: 8.05 per unit\n- Adjustable from 0.0 up to 11.0 units; whole units only\n- Per unit contributions:\n  - 2.51 to Operations Control Room Coverage\n  - 5.00 to Logistics Movements\n  - 4.10 to Clinical Appointments\n  - 7.03 to Quality Assurance Checks\n  - 9.17 to Community Workshops\n  - 9.18 to Incident Reports Closed\n\n10) All\u2011Purpose Vehicles\n- Budget rate: 4.69 per unit\n- Adjustable from 0.0 up to 7.93 units; partial units allowed\n- Per unit contributions:\n  - 3.32 to Intake & Triage Minutes\n  - 8.48 to Operations Control Room Coverage\n  - 3.17 to Technical Support Tickets\n  - 2.01 to Preventive Maintenance Jobs\n  - 5.21 to Logistics Movements\n  - 7.76 to On\u2011Site Service Visits\n  - 9.79 to Emergency Dispatches\n  - 4.04 to Clinical Appointments\n  - 0.99 to Training Hours Delivered\n  - 3.24 to Customer Resolutions\n  - 4.99 to Quality Assurance Checks\n  - 8.82 to Incident Reports Closed\n\n11) Versatile Associate Shifts\n- Budget rate: 2.24 per unit\n- Adjustable from 0.0 up to 13.06 units; whole units only\n- Per unit contributions:\n  - 9.27 to Intake & Triage Minutes\n  - 4.29 to Neighborhood Outreach Sessions\n  - 4.11 to Field Inspections Completed\n  - 6.15 to Operations Control Room Coverage\n  - 1.78 to Technical Support Tickets\n  - 4.78 to Logistics Movements\n  - 3.66 to On\u2011Site Service Visits\n  - 4.96 to Digital Self\u2011Service Transactions\n  - 9.86 to Emergency Dispatches\n  - 8.22 to Training Hours Delivered\n  - 4.97 to Customer Resolutions\n  - 0.65 to Compliance Audits\n  - 5.01 to Quality Assurance Checks\n  - 0.71 to After\u2011Hours Coverage\n  - 0.43 to Community Workshops\n\n12) Crisis Surge Teams\n- Budget rate: 9.48 per unit\n- Adjustable from 0.0 up to 17.84 units; whole units only\n- Per unit contributions:\n  - 7.11 to Field Inspections Completed\n  - 2.08 to Operations Control Room Coverage\n  - 5.88 to Preventive Maintenance Jobs\n  - 3.05 to Logistics Movements\n  - 4.26 to On\u2011Site Service Visits\n  - 9.35 to Digital Self\u2011Service Transactions\n  - 8.53 to Emergency Dispatches\n  - 3.34 to Clinical Appointments\n  - 2.24 to Training Hours Delivered\n  - 1.19 to Customer Resolutions\n  - 1.03 to Compliance Audits\n  - 5.61 to Quality Assurance Checks\n  - 5.41 to Incident Reports Closed\n\n13) Regional Coordinators\n- Budget rate: 9.77 per unit\n- Adjustable from 0.0 up to 11.98 units; whole units only\n- Per unit contributions:\n  - 4.43 to Intake & Triage Minutes\n  - 2.67 to Field Inspections Completed\n  - 4.58 to Preventive Maintenance Jobs\n  - 5.78 to Logistics Movements\n  - 6.34 to On\u2011Site Service Visits\n  - 3.22 to Digital Self\u2011Service Transactions\n  - 1.47 to Emergency Dispatches\n  - 8.37 to Compliance Audits\n  - 4.81 to After\u2011Hours Coverage\n  - 2.28 to Community Workshops\n  - 6.43 to Incident Reports Closed\n\n14) Quality & Training Cadre\n- Budget rate: 5.28 per unit\n- Adjustable from 0.0 up to 15.91 units; whole units only\n- Per unit contributions:\n  - 6.43 to Operations Control Room Coverage\n  - 1.35 to Preventive Maintenance Jobs\n  - 0.53 to On\u2011Site Service Visits\n  - 3.40 to Digital Self\u2011Service Transactions\n  - 2.12 to Emergency Dispatches\n  - 0.88 to Clinical Appointments\n  - 5.87 to Training Hours Delivered\n  - 2.89 to Compliance Audits\n  - 9.11 to After\u2011Hours Coverage\n  - 2.55 to Incident Reports Closed\n\n15) Seasonal Assistants\n- Budget rate: 2.41 per unit\n- Adjustable from 0.0 up to 19.16 units; whole units only\n- Per unit contributions:\n  - 8.17 to Intake & Triage Minutes\n  - 8.37 to Field Inspections Completed\n  - 9.63 to Operations Control Room Coverage\n  - 1.99 to Technical Support Tickets\n  - 8.67 to On\u2011Site Service Visits\n  - 8.35 to Digital Self\u2011Service Transactions\n  - 6.13 to Emergency Dispatches\n  - 0.33 to Clinical Appointments\n  - 3.97 to Customer Resolutions\n  - 6.20 to Compliance Audits\n  - 9.61 to After\u2011Hours Coverage\n\nService commitment minimums (must meet or exceed)\n- Intake & Triage Minutes: 166.01\n- Neighborhood Outreach Sessions: 90.27\n- Field Inspections Completed: 229.47\n- Operations Control Room Coverage: 330.56\n- Technical Support Tickets: 116.38\n- Preventive Maintenance Jobs: 75.79\n- Logistics Movements: 239.21\n- On\u2011Site Service Visits: 316.16\n- Digital Self\u2011Service Transactions: 279.45\n- Emergency Dispatches: 376.93\n- Clinical Appointments: 189.04\n- Training Hours Delivered: 246.93\n- Customer Resolutions: 157.81\n- Compliance Audits: 225.07\n- Quality Assurance Checks: 244.57\n- After\u2011Hours Coverage: 276.42\n- Community Workshops: 203.75\n- Incident Reports Closed: 299.01\n\nPlease build the cost\u2011minimizing plan using the levers and caps above while ensuring each service line meets at least the stated commitment. Happy to review any scenario outputs or trade\u2011offs you uncover.\n\nBest,\n[Client Name]"
+}

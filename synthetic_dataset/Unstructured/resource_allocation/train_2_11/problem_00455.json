@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit costs, bounds, and nutrient coefficients per item; eight RHS minima stated; objective is minimize spend. One can mechanically reconstruct the exact LP.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some narrative/flavor and repeated 'no effect' notes, but most text is necessary specification of coefficients, bounds, and targets.",
+      "realism": 98,
+      "realism_comment": "Menu planning to meet nutrition floors at minimum cost with availability caps is a realistic OR application; numbers and structure are plausible."
+    },
+    "prompt_tokens_with_data": 1435,
+    "prompt_tokens_without_data": 1435
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 227.34373708087202,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 10.58456027355579,
+      "Var_3": 5.708752167295168,
+      "Var_4": 7.199869029577382,
+      "Var_5": 11.0,
+      "Var_6": 12.91,
+      "Var_7": 0.0,
+      "Var_8": 2.371373162499019
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 90.17
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 145.63
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 290.54
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 127.28
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 71.41
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 98.14
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 143.78
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 58.32
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.38
+      ],
+      "objective_linear_coefficient": 3.48,
+      "resource_costs": {
+        "C1": 3.55,
+        "C2": 3.58,
+        "C3": 3.68,
+        "C5": 2.0,
+        "C6": 0.59
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.97
+      ],
+      "objective_linear_coefficient": 5.7,
+      "resource_costs": {
+        "C0": 7.88,
+        "C2": 1.48,
+        "C5": 6.82,
+        "C6": 5.08,
+        "C7": 0.15
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.97
+      ],
+      "objective_linear_coefficient": 3.84,
+      "resource_costs": {
+        "C0": 3.0,
+        "C3": 3.82,
+        "C5": 8.12,
+        "C6": 6.66
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.21
+      ],
+      "objective_linear_coefficient": 9.04,
+      "resource_costs": {
+        "C1": 4.12,
+        "C2": 9.57,
+        "C3": 0.13,
+        "C5": 2.33,
+        "C6": 8.6
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.57
+      ],
+      "objective_linear_coefficient": 8.7,
+      "resource_costs": {
+        "C2": 8.08,
+        "C4": 2.02,
+        "C6": 3.36,
+        "C7": 5.9
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 2.43,
+      "resource_costs": {
+        "C1": 9.76,
+        "C2": 7.32,
+        "C3": 6.12,
+        "C4": 3.19
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.91
+      ],
+      "objective_linear_coefficient": 2.84,
+      "resource_costs": {
+        "C0": 7.57,
+        "C2": 7.53,
+        "C3": 7.66,
+        "C4": 3.26,
+        "C5": 4.84
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.52
+      ],
+      "objective_linear_coefficient": 8.41,
+      "resource_costs": {
+        "C1": 6.08,
+        "C2": 4.88,
+        "C3": 7.53,
+        "C4": 2.03,
+        "C6": 0.19,
+        "C7": 7.74
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.47
+      ],
+      "objective_linear_coefficient": 3.82,
+      "resource_costs": {
+        "C1": 6.22,
+        "C4": 7.58,
+        "C7": 6.68
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.38, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.48 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.97, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.7 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.97, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.84 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.21, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.04 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.57, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.7 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.43 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.91, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.84 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=19.52, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 8.41 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=12.47, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 3.82 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.88 * vars['Var_1'] + 3.0 * vars['Var_2'] + 7.57 * vars['Var_6'] >= 90.17, name='C0')\n    m.addConstr(3.55 * vars['Var_0'] + 4.12 * vars['Var_3'] + 9.76 * vars['Var_5'] + 6.08 * vars['Var_7'] + 6.22 * vars['Var_8'] >= 145.63, name='C1')\n    m.addConstr(3.58 * vars['Var_0'] + 1.48 * vars['Var_1'] + 9.57 * vars['Var_3'] + 8.08 * vars['Var_4'] + 7.32 * vars['Var_5'] + 7.53 * vars['Var_6'] + 4.88 * vars['Var_7'] >= 290.54, name='C2')\n    m.addConstr(3.68 * vars['Var_0'] + 3.82 * vars['Var_2'] + 0.13 * vars['Var_3'] + 6.12 * vars['Var_5'] + 7.66 * vars['Var_6'] + 7.53 * vars['Var_7'] >= 127.28, name='C3')\n    m.addConstr(2.02 * vars['Var_4'] + 3.19 * vars['Var_5'] + 3.26 * vars['Var_6'] + 2.03 * vars['Var_7'] + 7.58 * vars['Var_8'] >= 71.41, name='C4')\n    m.addConstr(2.0 * vars['Var_0'] + 6.82 * vars['Var_1'] + 8.12 * vars['Var_2'] + 2.33 * vars['Var_3'] + 4.84 * vars['Var_6'] >= 98.14, name='C5')\n    m.addConstr(0.59 * vars['Var_0'] + 5.08 * vars['Var_1'] + 6.66 * vars['Var_2'] + 8.6 * vars['Var_3'] + 3.36 * vars['Var_4'] + 0.19 * vars['Var_7'] >= 143.78, name='C6')\n    m.addConstr(0.15 * vars['Var_1'] + 5.9 * vars['Var_4'] + 7.74 * vars['Var_7'] + 6.68 * vars['Var_8'] >= 58.32, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Menu Mix for the Cafeteria Program \u2014 Meet Nutrition Floors at the Lowest Total Ingredient Spend\n\nTeam,\n\nWe\u2019re preparing the next cycle of our cafeteria menu and need your help selecting the lowest-cost combination of ingredients that still satisfies our company\u2019s nutrition commitments. Each ingredient brings a different profile of nutrition credits across eight pillars, and each has an availability cap. Our intent is to keep total ingredient spend down while meeting or exceeding the minimum totals in every pillar listed at the end of this note.\n\nHere are the levers we can pull, in the order we\u2019d like you to consider them:\n\n- Golden Oats Blend\n  \u2022 Budget impact: 3.48 per case.\n  \u2022 Availability: anywhere from 0 up to 19.38 cases.\n  \u2022 Nutrition profile per case: adds 3.55 Protein Points, 3.58 Complex Carbohydrate Units, 3.68 Dietary Fiber Units, 2.0 Iron Units, and 0.59 Omega-3 Equivalents.\n  \u2022 No meaningful effect on our Vitamin A Equivalents, Calcium Equivalents, or Potassium Units pillars.\n\n- Fortified Lentil Stew\n  \u2022 Budget impact: 5.7 per tray.\n  \u2022 Availability: anywhere from 0 up to 5.97 trays.\n  \u2022 Nutrition profile per tray: contributes 7.88 Vitamin A Equivalents, 1.48 Complex Carbohydrate Units, 6.82 Iron Units, 5.08 Omega-3 Equivalents, and 0.15 Potassium Units.\n  \u2022 Does not move Protein Points, Dietary Fiber Units, or Calcium Equivalents.\n\n- Soy Protein Crumble\n  \u2022 Budget impact: 3.84 per pan.\n  \u2022 Availability: anywhere from 0 up to 12.97 pans.\n  \u2022 Nutrition profile per pan: delivers 3.0 Vitamin A Equivalents, 3.82 Dietary Fiber Units, 8.12 Iron Units, and 6.66 Omega-3 Equivalents.\n  \u2022 No contribution to Protein Points, Complex Carbohydrate Units, Calcium Equivalents, or Potassium Units.\n\n- Andean Quinoa\n  \u2022 Budget impact: 9.04 per sack.\n  \u2022 Availability: anywhere from 0 up to 19.21 sacks.\n  \u2022 Nutrition profile per sack: supplies 4.12 Protein Points, 9.57 Complex Carbohydrate Units, 0.13 Dietary Fiber Units, 2.33 Iron Units, and 8.6 Omega-3 Equivalents.\n  \u2022 Does not affect Vitamin A Equivalents, Calcium Equivalents, or Potassium Units.\n\n- Chickpea Pur\u00e9e\n  \u2022 Budget impact: 8.7 per tub.\n  \u2022 Availability: anywhere from 0 up to 15.57 tubs.\n  \u2022 Nutrition profile per tub: provides 8.08 Complex Carbohydrate Units, 2.02 Calcium Equivalents, 3.36 Omega-3 Equivalents, and 5.9 Potassium Units.\n  \u2022 No impact on Vitamin A Equivalents, Protein Points, Dietary Fiber Units, or Iron Units.\n\n- Long-Grain Brown Rice\n  \u2022 Budget impact: 2.43 per sack.\n  \u2022 Availability: anywhere from 0 up to 11.0 sacks.\n  \u2022 Nutrition profile per sack: adds 9.76 Protein Points, 7.32 Complex Carbohydrate Units, 6.12 Dietary Fiber Units, and 3.19 Calcium Equivalents.\n  \u2022 No contribution to Vitamin A Equivalents, Iron Units, Omega-3 Equivalents, or Potassium Units.\n\n- Kale & Greens Mix\n  \u2022 Budget impact: 2.84 per crate.\n  \u2022 Availability: anywhere from 0 up to 12.91 crates.\n  \u2022 Nutrition profile per crate: contributes 7.57 Vitamin A Equivalents, 7.53 Complex Carbohydrate Units, 7.66 Dietary Fiber Units, 3.26 Calcium Equivalents, and 4.84 Iron Units.\n  \u2022 No effect on Protein Points, Omega-3 Equivalents, or Potassium Units.\n\n- Lean Turkey Mince\n  \u2022 Budget impact: 8.41 per case.\n  \u2022 Availability: anywhere from 0 up to 19.52 cases.\n  \u2022 Nutrition profile per case: delivers 6.08 Protein Points, 4.88 Complex Carbohydrate Units, 7.53 Dietary Fiber Units, 2.03 Calcium Equivalents, 0.19 Omega-3 Equivalents, and 7.74 Potassium Units.\n  \u2022 No contribution to Vitamin A Equivalents or Iron Units.\n\n- Aged Cheddar Shreds\n  \u2022 Budget impact: 3.82 per carton.\n  \u2022 Availability: anywhere from 0 up to 12.47 cartons.\n  \u2022 Nutrition profile per carton: provides 6.22 Protein Points, 7.58 Calcium Equivalents, and 6.68 Potassium Units.\n  \u2022 No effect on Vitamin A Equivalents, Complex Carbohydrate Units, Dietary Fiber Units, Iron Units, or Omega-3 Equivalents.\n\nProgram standards and minimums we must hit across the full menu:\n- Vitamin A Equivalents: at least 90.17\n- Protein Points: at least 145.63\n- Complex Carbohydrate Units: at least 290.54\n- Dietary Fiber Units: at least 127.28\n- Calcium Equivalents: at least 71.41\n- Iron Units: at least 98.14\n- Omega-3 Equivalents: at least 143.78\n- Potassium Units: at least 58.32\n\nPlease propose the most cost-effective mix, abiding by each item\u2019s availability range (from zero up to its cap as listed) while meeting or exceeding all eight nutrition pillars above."
+}

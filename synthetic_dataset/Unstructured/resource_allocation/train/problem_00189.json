@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, objective coefficients, and constraint coefficients/signs with <= RHS are explicitly given. Zero effects are stated. Continuous/fractional deployment is clear.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style narrative adds some fluff, but each quantitative parameter is given once and clearly; minimal repetition beyond context.",
+      "realism": 95,
+      "realism_comment": "Highly plausible planning scenario balancing contribution with capacity and environmental/risk indices; metrics and trade-offs feel real-world."
+    },
+    "prompt_tokens_with_data": 1058,
+    "prompt_tokens_without_data": 1058
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 264.83124083500024,
+    "optimal_values": {
+      "Var_0": 12.53424926740606,
+      "Var_1": 6.152279297804303,
+      "Var_2": 9.95,
+      "Var_3": 12.48,
+      "Var_4": 15.840020463172474
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -46.44
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -88.73
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -6.4
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 125.53
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -83.29
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.19
+      ],
+      "objective_linear_coefficient": 2.3,
+      "resource_costs": {
+        "C0": -7.15,
+        "C1": -4.19,
+        "C2": -8.7,
+        "C3": 6.62,
+        "C4": -5.68
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.56
+      ],
+      "objective_linear_coefficient": 6.47,
+      "resource_costs": {
+        "C1": -2.11,
+        "C3": 6.48,
+        "C4": -0.96
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.95
+      ],
+      "objective_linear_coefficient": 8.92,
+      "resource_costs": {
+        "C0": -2.06,
+        "C1": 3.17,
+        "C2": 8.27,
+        "C3": 0.27
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.48
+      ],
+      "objective_linear_coefficient": 7.34,
+      "resource_costs": {
+        "C1": -7.8,
+        "C2": 9.78,
+        "C4": -6.37
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.87
+      ],
+      "objective_linear_coefficient": 1.0,
+      "resource_costs": {
+        "C0": 4.02,
+        "C2": -6.42,
+        "C4": 2.47
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.19, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.3 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.56, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.47 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.95, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.92 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.48, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.34 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.87, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.0 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-7.15 * vars['Var_0'] + -2.06 * vars['Var_2'] + 4.02 * vars['Var_4'] <= -46.44, name='C0')\n    m.addConstr(-4.19 * vars['Var_0'] + -2.11 * vars['Var_1'] + 3.17 * vars['Var_2'] + -7.8 * vars['Var_3'] <= -88.73, name='C1')\n    m.addConstr(-8.7 * vars['Var_0'] + 8.27 * vars['Var_2'] + 9.78 * vars['Var_3'] + -6.42 * vars['Var_4'] <= -6.4, name='C2')\n    m.addConstr(6.62 * vars['Var_0'] + 6.48 * vars['Var_1'] + 0.27 * vars['Var_2'] <= 125.53, name='C3')\n    m.addConstr(-5.68 * vars['Var_0'] + -0.96 * vars['Var_1'] + -6.37 * vars['Var_3'] + 2.47 * vars['Var_4'] <= -83.29, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation brief for maximizing FY25 contribution under plant and compliance limits\n\nTeam,\n\nAs we finalize the operating plan, I need us to determine how much to deploy across five scalable initiatives so we maximize contribution while staying within our plant time and compliance commitments. Each initiative can be partially deployed and has a clear economic uplift per unit, along with measurable effects\u2014positive or negative\u2014on our water footprint, operational risk, effluent chemistry, and community disturbance indices. Below are the levers and their impacts.\n\nThe levers\n\n1) Aquila Heat-Recovery Upgrade (Line A)\n- Economic effect: Each unit adds 2.3 to contribution.\n- Scale: Optional from zero up to 13.19 units; we can deploy fractions within this range.\n- Compliance and capacity effects per unit:\n  - Water Impact Score: reduces the score by 7.15 points (a larger negative is better for our pledge).\n  - Operational Risk Index: reduces risk by 4.19 points.\n  - Effluent Chemical Load Index: reduces by 8.7 points.\n  - Main Line Production Hours: consumes 6.62 hours.\n  - Community Disturbance Score: reduces by 5.68 points.\n\n2) Beacon Packaging Automation (Line B)\n- Economic effect: Each unit adds 6.47 to contribution.\n- Scale: Optional from zero up to 10.56 units; fractional deployment allowed.\n- Compliance and capacity effects per unit:\n  - Operational Risk Index: reduces risk by 2.11 points.\n  - Main Line Production Hours: consumes 6.48 hours.\n  - Community Disturbance Score: reduces by 0.96 points.\n  - No measurable effect on the water footprint or effluent chemistry indices.\n\n3) Cobalt Solvent Recovery Loop (Utilities)\n- Economic effect: Each unit adds 8.92 to contribution.\n- Scale: Optional from zero up to 9.95 units; fractional deployment allowed.\n- Compliance and capacity effects per unit:\n  - Water Impact Score: reduces the score by 2.06 points.\n  - Operational Risk Index: increases risk by 3.17 points (we must be mindful of this).\n  - Effluent Chemical Load Index: increases by 8.27 points.\n  - Main Line Production Hours: consumes 0.27 hours.\n  - No measurable effect on the community disturbance index.\n\n4) Delta Catalyst Campaign (Toll Processing)\n- Economic effect: Each unit adds 7.34 to contribution.\n- Scale: Optional from zero up to 12.48 units; fractional deployment allowed.\n- Compliance and capacity effects per unit:\n  - Operational Risk Index: reduces risk by 7.8 points.\n  - Effluent Chemical Load Index: increases by 9.78 points.\n  - Community Disturbance Score: reduces by 6.37 points.\n  - No incremental hours on our main lines, and no measurable effect on the water footprint.\n\n5) Eclipse Blending Run (Formulations)\n- Economic effect: Each unit adds 1.0 to contribution.\n- Scale: Optional from zero up to 17.87 units; fractional deployment allowed.\n- Compliance and capacity effects per unit:\n  - Water Impact Score: increases the score by 4.02 points.\n  - Effluent Chemical Load Index: reduces by 6.42 points.\n  - Community Disturbance Score: increases by 2.47 points.\n  - No incremental main line hours and no measurable effect on operational risk.\n\nFacility specs and compliance limits\n\n- Water Impact Score: The combined portfolio\u2019s score must be at or below -46.44 points.\n- Operational Risk Index: The combined portfolio\u2019s score must be at or below -88.73 points.\n- Effluent Chemical Load Index: The combined portfolio\u2019s score must be at or below -6.4 points.\n- Main Line Production Hours: Total use cannot exceed 125.53 hours.\n- Community Disturbance Score: The combined portfolio\u2019s score must be at or below -83.29 points.\n\nPlease use this as the basis for the recommended mix that delivers the highest total contribution while respecting the above limits."
+}

@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, bounds, and contributions are explicit; constraints and objective clear. Variables are continuous nonnegative with caps. Minor lack of variable names; otherwise fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business-letter framing and coding template add verbosity; core specs appear once and are clear.",
+      "realism": 88,
+      "realism_comment": "Plausible compliance purchasing with thresholds, costs, and caps. An option with zero compliance contribution is unusual but believable."
+    },
+    "prompt_tokens_with_data": 518,
+    "prompt_tokens_without_data": 518
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 51.674755332496865,
+    "optimal_values": {
+      "Var_0": 9.464240903387704,
+      "Var_1": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 16.28
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.43
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.6
+      ],
+      "objective_linear_coefficient": 5.46,
+      "resource_costs": {
+        "C0": 1.83,
+        "C1": 7.97
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.61
+      ],
+      "objective_linear_coefficient": 8.87,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.6, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.46 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.61, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.87 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.83 * vars['Var_0'] >= 16.28, name='C0')\n    m.addConstr(7.97 * vars['Var_0'] >= 75.43, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for guidance on the most cost\u2011efficient compliance allocation\n\nTeam,\n\nWe need your help structuring a simple purchasing mix for Q1 that keeps total spend as low as possible while still clearing our mandated thresholds for two tracked outcomes: Community Impact Credits and Verified Emissions Reductions. Volumes can be fractional, and nothing below zero is permitted.\n\nThe levers available to us, in order of consideration, are:\n\n1) Borealis Certified Abatement Lots\n- What it costs: 5.46 per lot.\n- How far we can go: anywhere from 0 up to 17.6 lots.\n- What it achieves: each lot contributes 1.83 toward our Community Impact Credit tally and 7.97 toward our Verified Emissions Reductions tally.\n\n2) Brand Visibility Sponsorships\n- What it costs: 8.87 per sponsorship.\n- How far we can go: anywhere from 0 up to 10.61 sponsorships.\n- What it achieves: these are not recognized in the two compliance tallies; they add 0.00 to Community Impact Credits and 0.00 to Verified Emissions Reductions.\n\nFacility and market limits we must honor:\n- Community Impact Credits must be at least 16.28 in total.\n- Verified Emissions Reductions must be at least 75.43 in total.\n\nPlease confirm the least\u2011cost mix of the above that satisfies both minimums, taking into account the per\u2011unit contributions and the maximum availability for each option."
+}

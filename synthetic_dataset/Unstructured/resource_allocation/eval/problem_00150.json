@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, integrality, objective coefficients, and resource use per unit are explicitly given. Facility caps map cleanly to linear constraints; no guessing needed.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Clear but somewhat verbose with business context and repeated 'no-demand' statements. Could be more concise without losing any model details.",
+      "realism": 98,
+      "realism_comment": "Very realistic production planning scenario with plausible capacities, per-unit resource draws, and an integer lot requirement for packaged products."
+    },
+    "prompt_tokens_with_data": 1041,
+    "prompt_tokens_without_data": 1041
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 74.14884793235805,
+    "optimal_values": {
+      "Var_0": 10.49,
+      "Var_1": 3.500579374275782,
+      "Var_2": 3.0,
+      "Var_3": 0.7781623795164854
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.21
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 33.23
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.78
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.72
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 107.75
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.52
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 20.88
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.49
+      ],
+      "objective_linear_coefficient": 2.52,
+      "resource_costs": {
+        "C2": 4.34,
+        "C3": 2.44,
+        "C4": 8.47,
+        "C6": 1.95
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.21
+      ],
+      "objective_linear_coefficient": 9.8,
+      "resource_costs": {
+        "C0": 8.63,
+        "C1": 6.29,
+        "C2": 0.67,
+        "C3": 0.76,
+        "C4": 2.48
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.24
+      ],
+      "objective_linear_coefficient": 4.07,
+      "resource_costs": {
+        "C1": 3.73,
+        "C4": 1.58
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.19
+      ],
+      "objective_linear_coefficient": 1.54,
+      "resource_costs": {
+        "C2": 4.22,
+        "C3": 1.73,
+        "C4": 7.04,
+        "C5": 6.15
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.49, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.52 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.21, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.8 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.24, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.07 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.19, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.54 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.63 * vars['Var_1'] <= 30.21, name='C0')\n    m.addConstr(6.29 * vars['Var_1'] + 3.73 * vars['Var_2'] <= 33.23, name='C1')\n    m.addConstr(4.34 * vars['Var_0'] + 0.67 * vars['Var_1'] + 4.22 * vars['Var_3'] <= 52.78, name='C2')\n    m.addConstr(2.44 * vars['Var_0'] + 0.76 * vars['Var_1'] + 1.73 * vars['Var_3'] <= 29.72, name='C3')\n    m.addConstr(8.47 * vars['Var_0'] + 2.48 * vars['Var_1'] + 1.58 * vars['Var_2'] + 7.04 * vars['Var_3'] <= 107.75, name='C4')\n    m.addConstr(6.15 * vars['Var_3'] <= 12.52, name='C5')\n    m.addConstr(1.95 * vars['Var_0'] <= 20.88, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Recommendation to Maximize Contribution Under Current Plant Limits\n\nTeam,\n\nWe need to set our next production mix to maximize total contribution while staying within this period\u2019s plant and market limits. Below are the four levers we can pull\u2014each product family\u2019s per\u2011unit contribution, feasible range, and how each one draws on our constrained capacities.\n\n- AquaSol Degreaser (blended cleaner)\n  - Financial impact: Each batch contributes 2.52 in net margin.\n  - Feasible range: We may schedule any amount from 0 up to 10.49 batches, and this can be split into partial batches.\n  - Capacity draw per batch:\n    - Mixing Line hours: 4.34 hours\n    - Quality Lab time: 2.44 hours\n    - Operating budget: 8.47\n    - Outbound railcar slots: 1.95\n    - No run-time needed on Reactor A, no chilled water demand, and no hazardous storage occupancy.\n\n- VaporGuard Coating (reactor-based coating)\n  - Financial impact: Each batch contributes 9.80 in net margin.\n  - Feasible range: We may schedule any amount from 0 up to 5.21 batches, and this can be split into partial batches.\n  - Capacity draw per batch:\n    - Reactor A run-time: 8.63 hours\n    - Chilled water usage: 6.29 units\n    - Mixing Line hours: 0.67 hours\n    - Quality Lab time: 0.76 hours\n    - Operating budget: 2.48\n    - No hazardous storage occupancy and no outbound railcar slots required.\n\n- ResinPellet Industrial Packs (packaged resins)\n  - Financial impact: Each lot contributes 4.07 in net margin.\n  - Feasible range: We may schedule from 0 up to 13.24 lots, but these must be planned in whole lots only.\n  - Capacity draw per lot:\n    - Chilled water usage: 3.73 units\n    - Operating budget: 1.58\n    - No run-time on Reactor A, no Mixing Line time, no Quality Lab time, no hazardous storage occupancy, and no outbound railcar slots.\n\n- NightShield Solvent (regulated solvent blend)\n  - Financial impact: Each batch contributes 1.54 in net margin.\n  - Feasible range: We may schedule any amount from 0 up to 19.19 batches, and this can be split into partial batches.\n  - Capacity draw per batch:\n    - Mixing Line hours: 4.22 hours\n    - Quality Lab time: 1.73 hours\n    - Operating budget: 7.04\n    - Hazardous storage occupancy: 6.15 units\n    - No run-time on Reactor A, no chilled water demand, and no outbound railcar slots.\n\nFacility Specs and Market Limits (do not exceed):\n- Reactor A run-time: up to 30.21 hours available this period.\n- Chilled water usage: up to 33.23 units available.\n- Mixing Line hours: up to 52.78 hours available.\n- Quality Lab time: up to 29.72 hours available.\n- Operating budget: up to 107.75 available for this mix.\n- Hazardous storage occupancy: up to 12.52 units available.\n- Outbound railcar slots: up to 20.88 slots available.\n\nAs a reminder, AquaSol Degreaser, VaporGuard Coating, and NightShield Solvent can be run in partial batches within their ranges; ResinPellet Industrial Packs must be planned in whole lots within its range. Our goal is to choose the combination within these limits that maximizes total contribution (2.52 per AquaSol batch, 9.80 per VaporGuard batch, 4.07 per ResinPellet lot, and 1.54 per NightShield batch). Please review and confirm if any of the facility caps above are expected to shift before we finalize the run plan."
+}

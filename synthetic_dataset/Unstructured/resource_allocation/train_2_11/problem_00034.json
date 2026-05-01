@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, variable types, and floors are specified; linear objective and >= constraints are explicit. A reader can reconstruct the exact model without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business narrative and 'next steps' fluff adds length, but technical specs are clear and non-repetitive.",
+      "realism": 94,
+      "realism_comment": "Very plausible delivery planning with cost minimization and service floors; slight oddity of a non-integer cap for integer days, but overall realistic."
+    },
+    "prompt_tokens_with_data": 773,
+    "prompt_tokens_without_data": 773
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 121.9547612156295,
+    "optimal_values": {
+      "Var_0": 10.0,
+      "Var_1": 5.855282199710563
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.5
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 9.12
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 104.66
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 13.03
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 2.48
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.15
+      ],
+      "objective_linear_coefficient": 7.4,
+      "resource_costs": {
+        "C0": 2.41,
+        "C1": 1.2,
+        "C2": 6.42
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.58
+      ],
+      "objective_linear_coefficient": 8.19,
+      "resource_costs": {
+        "C2": 6.91,
+        "C3": 2.31,
+        "C4": 0.65
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.15, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.4 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.58, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.19 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.41 * vars['Var_0'] >= 22.5, name='C0')\n    m.addConstr(1.2 * vars['Var_0'] >= 9.12, name='C1')\n    m.addConstr(6.42 * vars['Var_0'] + 6.91 * vars['Var_1'] >= 104.66, name='C2')\n    m.addConstr(2.31 * vars['Var_1'] >= 13.03, name='C3')\n    m.addConstr(0.65 * vars['Var_1'] >= 2.48, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Minimizing Delivery Cost While Meeting Our Program Commitments\n\nTeam,\n\nAs discussed, we need to set the lowest-cost mix of delivery modes to satisfy our contractual floors for the current reporting period. Our objective is to minimize total spend while ensuring we hit all minimum deliverables across field activity, accreditation, engagement, live support, and conversions.\n\nDelivery levers under consideration\n\n1) Onsite Workshop Days (Field Delivery)\n- Budget impact: Each full workshop day carries a unit cost of 7.4.\n- Deployment bounds: We may schedule anywhere from 0 up to 13.15 workshop days, and these must be booked in whole-day increments only.\n- How this helps us meet our floors:\n  \u2022 Contributes 2.41 units toward our Field Facilitation Hours requirement.\n  \u2022 Contributes 1.2 units toward our Accredited Learning Credits requirement.\n  \u2022 Contributes 6.42 units toward our Total Participant Engagements requirement.\n  \u2022 Has no impact on Live Q&A Hours or Conversion Deliverables (zero contribution to those).\n- Practical note: Because these are full-day sessions, the count must be a whole number, but we cannot exceed the 13.15-day cap.\n\n2) Online Learning Units (Digital Delivery)\n- Budget impact: Each unit of online delivery carries a unit cost of 8.19.\n- Deployment bounds: We may dial this lever anywhere from 0 up to 9.58 units, with fractional adjustments allowed.\n- How this helps us meet our floors:\n  \u2022 Contributes 6.91 units toward our Total Participant Engagements requirement.\n  \u2022 Contributes 2.31 units toward our Live Q&A Hours requirement.\n  \u2022 Contributes 0.65 units toward our Conversion Deliverables requirement.\n  \u2022 Has no impact on Field Facilitation Hours or Accredited Learning Credits (zero contribution to those).\n\nCommitments and floors we must meet\n\n- Field Facilitation Hours: At least 22.5 units.\n- Accredited Learning Credits: At least 9.12 units.\n- Total Participant Engagements: At least 104.66 units.\n- Live Q&A Hours: At least 13.03 units.\n- Conversion Deliverables: At least 2.48 units.\n\nNext steps\n\nWith these parameters, we will compute the least-cost combination of workshop days and online units that collectively deliver at least 22.5 field hours, 9.12 accreditation credits, 104.66 engagements, 13.03 live Q&A hours, and 2.48 conversions, while keeping workshop days within 0\u201313.15 (whole days only) and online units within 0\u20139.58 (fractional allowed). I\u2019ll circulate the recommended mix and the resulting budget once the optimization run is complete."
+}

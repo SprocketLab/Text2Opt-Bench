@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All levers list unit costs, bounds, integrality, and per-unit contributions; seven >= minima are explicit; objective is minimize spend. This fully determines the LP matching the gold code.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style prose and confirmation notes add fluff; some repetition about integrality. The core data are clearly itemized and precise.",
+      "realism": 90,
+      "realism_comment": "Very plausible media mix allocation with realistic goals and costs. Slightly odd fractional caps for integer items, but otherwise consistent with real planning."
+    },
+    "prompt_tokens_with_data": 1557,
+    "prompt_tokens_without_data": 1557
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 160.24805194805194,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 9.0,
+      "Var_2": 14.0,
+      "Var_3": 3.0,
+      "Var_4": 6.0,
+      "Var_5": 4.259740259740251,
+      "Var_6": 8.0,
+      "Var_7": -0.0,
+      "Var_8": 9.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 97.68
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 100.04
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 156.97
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 103.08
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 101.03
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 119.25
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 105.17
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.58
+      ],
+      "objective_linear_coefficient": 7.55,
+      "resource_costs": {
+        "C0": 5.81,
+        "C3": 5.22,
+        "C4": 9.28,
+        "C5": 7.42
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.68
+      ],
+      "objective_linear_coefficient": 3.19,
+      "resource_costs": {
+        "C2": 4.39,
+        "C4": 0.51,
+        "C5": 7.68
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.87
+      ],
+      "objective_linear_coefficient": 1.43,
+      "resource_costs": {
+        "C0": 7.6,
+        "C1": 1.66,
+        "C2": 8.78,
+        "C4": 4.66,
+        "C6": 4.3
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.36
+      ],
+      "objective_linear_coefficient": 7.96,
+      "resource_costs": {
+        "C0": 4.3,
+        "C1": 9.22,
+        "C2": 6.47,
+        "C3": 5.44,
+        "C4": 8.28
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.32
+      ],
+      "objective_linear_coefficient": 1.71,
+      "resource_costs": {
+        "C3": 2.64,
+        "C6": 0.87
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.35
+      ],
+      "objective_linear_coefficient": 2.11,
+      "resource_costs": {
+        "C0": 5.81,
+        "C1": 0.77,
+        "C2": 4.35,
+        "C6": 4.85
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 3.43,
+      "resource_costs": {
+        "C1": 2.11,
+        "C5": 6.5,
+        "C6": 3.6
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.46
+      ],
+      "objective_linear_coefficient": 7.16,
+      "resource_costs": {
+        "C6": 7.0
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 4.55,
+      "resource_costs": {
+        "C0": 3.98,
+        "C1": 3.22,
+        "C2": 5.55,
+        "C3": 8.08,
+        "C4": 3.09
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.58, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.55 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.68, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.19 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.87, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.43 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.36, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.96 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.32, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.71 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.35, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.11 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 3.43 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=10.46, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 7.16 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 4.55 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.81 * vars['Var_0'] + 7.6 * vars['Var_2'] + 4.3 * vars['Var_3'] + 5.81 * vars['Var_5'] + 3.98 * vars['Var_8'] >= 97.68, name='C0')\n    m.addConstr(1.66 * vars['Var_2'] + 9.22 * vars['Var_3'] + 0.77 * vars['Var_5'] + 2.11 * vars['Var_6'] + 3.22 * vars['Var_8'] >= 100.04, name='C1')\n    m.addConstr(4.39 * vars['Var_1'] + 8.78 * vars['Var_2'] + 6.47 * vars['Var_3'] + 4.35 * vars['Var_5'] + 5.55 * vars['Var_8'] >= 156.97, name='C2')\n    m.addConstr(5.22 * vars['Var_0'] + 5.44 * vars['Var_3'] + 2.64 * vars['Var_4'] + 8.08 * vars['Var_8'] >= 103.08, name='C3')\n    m.addConstr(9.28 * vars['Var_0'] + 0.51 * vars['Var_1'] + 4.66 * vars['Var_2'] + 8.28 * vars['Var_3'] + 3.09 * vars['Var_8'] >= 101.03, name='C4')\n    m.addConstr(7.42 * vars['Var_0'] + 7.68 * vars['Var_1'] + 6.5 * vars['Var_6'] >= 119.25, name='C5')\n    m.addConstr(4.3 * vars['Var_2'] + 0.87 * vars['Var_4'] + 4.85 * vars['Var_5'] + 3.6 * vars['Var_6'] + 7.0 * vars['Var_7'] >= 105.17, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed Q1 omnichannel allocation to meet commitments at minimum spend\n\nTeam,\n\nAs discussed, we need a single, coherent media and activation plan that meets our minimum commitments across seven outcome categories while keeping total spend as low as possible. Below are the levers we can pull, what each one costs per unit, the booking limits, and how each unit contributes to our outcome categories. Unless noted otherwise, packages must be booked in whole units; in all cases, we may choose zero units if needed.\n\n- Blue Network Primetime TV (national flight)\n  - Unit cost: 7.55 per spot; book from 0 up to 11.58 spots (whole spots only within that cap).\n  - Per-spot contribution to outcomes:\n    - Mass Market Reach: +5.81\n    - Decision\u2011Maker Reach: +0\n    - Digital Engagements: +0\n    - Footfall Uplift: +5.22\n    - Brand Recall Lift: +9.28\n    - Sales Enablement Touchpoints: +7.42\n    - App Installs: +0\n\n- Regional Radio Blasts\n  - Unit cost: 3.19 per flight; book from 0 up to 12.68 flights (whole flights only).\n  - Per-flight contribution to outcomes:\n    - Mass Market Reach: +0\n    - Decision\u2011Maker Reach: +0\n    - Digital Engagements: +4.39\n    - Footfall Uplift: +0\n    - Brand Recall Lift: +0.51\n    - Sales Enablement Touchpoints: +7.68\n    - App Installs: +0\n\n- Paid Social Campaigns\n  - Unit cost: 1.43 per flight; book from 0 up to 14.87 flights (whole flights only).\n  - Per-flight contribution to outcomes:\n    - Mass Market Reach: +7.60\n    - Decision\u2011Maker Reach: +1.66\n    - Digital Engagements: +8.78\n    - Footfall Uplift: +0\n    - Brand Recall Lift: +4.66\n    - Sales Enablement Touchpoints: +0\n    - App Installs: +4.30\n\n- Industry Events Sponsorships\n  - Unit cost: 7.96 per event; book from 0 up to 9.36 events (whole events only).\n  - Per-event contribution to outcomes:\n    - Mass Market Reach: +4.30\n    - Decision\u2011Maker Reach: +9.22\n    - Digital Engagements: +6.47\n    - Footfall Uplift: +5.44\n    - Brand Recall Lift: +8.28\n    - Sales Enablement Touchpoints: +0\n    - App Installs: +0\n\n- Experiential Pop\u2011ups\n  - Unit cost: 1.71 per pop\u2011up; book from 0 up to 6.32 pop\u2011ups (whole pop\u2011ups only).\n  - Per\u2011pop\u2011up contribution to outcomes:\n    - Mass Market Reach: +0\n    - Decision\u2011Maker Reach: +0\n    - Digital Engagements: +0\n    - Footfall Uplift: +2.64\n    - Brand Recall Lift: +0\n    - Sales Enablement Touchpoints: +0\n    - App Installs: +0.87\n\n- Programmatic Display (open exchange)\n  - Unit cost: 2.11 per block; buy from 0 up to 19.35 blocks (can be fractional).\n  - Per\u2011block contribution to outcomes:\n    - Mass Market Reach: +5.81\n    - Decision\u2011Maker Reach: +0.77\n    - Digital Engagements: +4.35\n    - Footfall Uplift: +0\n    - Brand Recall Lift: +0\n    - Sales Enablement Touchpoints: +0\n    - App Installs: +4.85\n\n- In\u2011Store Activation Teams\n  - Unit cost: 3.43 per team; deploy from 0 up to 8 teams (whole teams only).\n  - Per\u2011team contribution to outcomes:\n    - Mass Market Reach: +0\n    - Decision\u2011Maker Reach: +2.11\n    - Digital Engagements: +0\n    - Footfall Uplift: +0\n    - Brand Recall Lift: +0\n    - Sales Enablement Touchpoints: +6.50\n    - App Installs: +3.60\n\n- App Install Bounty Campaigns\n  - Unit cost: 7.16 per campaign; book from 0 up to 10.46 campaigns (whole campaigns only).\n  - Per\u2011campaign contribution to outcomes:\n    - Mass Market Reach: +0\n    - Decision\u2011Maker Reach: +0\n    - Digital Engagements: +0\n    - Footfall Uplift: +0\n    - Brand Recall Lift: +0\n    - Sales Enablement Touchpoints: +0\n    - App Installs: +7.00\n\n- Flagship Print Magazine Features\n  - Unit cost: 4.55 per feature; book from 0 up to 9 features (whole features only).\n  - Per\u2011feature contribution to outcomes:\n    - Mass Market Reach: +3.98\n    - Decision\u2011Maker Reach: +3.22\n    - Digital Engagements: +5.55\n    - Footfall Uplift: +8.08\n    - Brand Recall Lift: +3.09\n    - Sales Enablement Touchpoints: +0\n    - App Installs: +0\n\nFacility Specs / Market Limits (minimum commitments for the period)\n- Mass Market Reach: at least 97.68\n- Decision\u2011Maker Reach: at least 100.04\n- Digital Engagements: at least 156.97\n- Footfall Uplift: at least 103.08\n- Brand Recall Lift: at least 101.03\n- Sales Enablement Touchpoints: at least 119.25\n- App Installs: at least 105.17\n\nOur objective is to satisfy each of the above minimums at the lowest total spend by selecting the mix of packages within the booking limits noted. Please review and confirm if these category definitions and unit caps reflect the latest inventory and stakeholder expectations; once confirmed, we\u2019ll proceed to run the plan and return with the recommended buy."
+}

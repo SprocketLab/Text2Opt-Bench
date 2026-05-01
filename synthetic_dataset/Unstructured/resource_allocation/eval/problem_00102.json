@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds (incl. integrality), contribution coefficients, and minimum requirements are explicit, so the exact objective and three >= constraints can be reconstructed without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative email adds length, but the bullet lists present the necessary data clearly. Minor fluff without repetition.",
+      "realism": 95,
+      "realism_comment": "Feels like a genuine ops planning problem (coverage, compliance, cost) with plausible capacities and integrality; well-suited to a MILP."
+    },
+    "prompt_tokens_with_data": 789,
+    "prompt_tokens_without_data": 789
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 180.78484767006978,
+    "optimal_values": {
+      "Var_0": 8.164151605544834,
+      "Var_1": -0.0,
+      "Var_2": 12.340717669766624,
+      "Var_3": 7.150031679419586
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 39.07
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 108.35
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 148.01
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.08
+      ],
+      "objective_linear_coefficient": 9.96,
+      "resource_costs": {
+        "C0": 4.06,
+        "C2": 3.86
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.12
+      ],
+      "objective_linear_coefficient": 9.48,
+      "resource_costs": {
+        "C1": 6.15,
+        "C2": 7.13
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.81
+      ],
+      "objective_linear_coefficient": 6.27,
+      "resource_costs": {
+        "C0": 0.48,
+        "C1": 5.46,
+        "C2": 9.44
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.14
+      ],
+      "objective_linear_coefficient": 3.09,
+      "resource_costs": {
+        "C1": 5.73
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.08, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.96 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.12, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.48 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.81, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.27 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.14, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.09 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.06 * vars['Var_0'] + 0.48 * vars['Var_2'] >= 39.07, name='C0')\n    m.addConstr(6.15 * vars['Var_1'] + 5.46 * vars['Var_2'] + 5.73 * vars['Var_3'] >= 108.35, name='C1')\n    m.addConstr(3.86 * vars['Var_0'] + 7.13 * vars['Var_1'] + 9.44 * vars['Var_2'] >= 148.01, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Coverage Mix Proposal to Minimize Spend While Meeting Our Q2 Commitments\n\nTeam,\n\nWe\u2019re preparing the Q2 operating plan and need your help selecting the lowest\u2011cost mix of coverage options that still satisfies our minimum service and compliance commitments. Below is a concise rundown of the four levers we can pull, what each one costs, how much it contributes to our obligations, and how much is available.\n\n- Rapid Response Shifts (On-Call Engineers)\n  - Cost: $9.96 per shift-equivalent.\n  - Availability: We can schedule anywhere from 0 up to 19.08 shift-equivalents; partial shifts are allowed.\n  - Contribution to commitments:\n    - Security Readiness: each shift-equivalent provides 4.06 readiness credits.\n    - Regulatory Assurance: each shift-equivalent provides 3.86 assurance credits.\n    - Customer Care Coverage: no coverage credits from this option.\n\n- Compliance Analyst Blocks (Full Blocks Only)\n  - Cost: $9.48 per block.\n  - Availability: We may book from 0 up to 19.12 blocks; blocks must be whole (no partial blocks).\n  - Contribution to commitments:\n    - Customer Care Coverage: each block provides 6.15 coverage credits.\n    - Regulatory Assurance: each block provides 7.13 assurance credits.\n    - Security Readiness: no readiness credits from this option.\n\n- Cross-Functional Taskforce Packages\n  - Cost: $6.27 per package.\n  - Availability: We can use anywhere from 0 up to 17.81 packages; partial packages are allowed.\n  - Contribution to commitments:\n    - Security Readiness: each package provides 0.48 readiness credits.\n    - Customer Care Coverage: each package provides 5.46 coverage credits.\n    - Regulatory Assurance: each package provides 9.44 assurance credits.\n\n- After-Hours Call Center Shifts\n  - Cost: $3.09 per shift-equivalent.\n  - Availability: We can schedule from 0 up to 9.14 shift-equivalents; partial shifts are allowed.\n  - Contribution to commitments:\n    - Customer Care Coverage: each shift-equivalent provides 5.73 coverage credits.\n    - Security Readiness and Regulatory Assurance: no credits from this option.\n\nService Commitments (Minimums for the Quarter)\n- Security Readiness: at least 39.07 readiness credits are required in total.\n- Customer Care Coverage: at least 108.35 coverage credits are required in total.\n- Regulatory Assurance: at least 148.01 assurance credits are required in total.\n\nOur objective is to minimize total spend while meeting or exceeding all three minimums. Please use the above cost points, contribution rates, and availability limits (including the whole\u2011block requirement for Compliance Analyst Blocks) to determine the recommended mix."
+}

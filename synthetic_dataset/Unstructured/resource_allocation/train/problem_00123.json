@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact costs, bounds, and per-unit impacts for each option are given; constraints are 'at least' thresholds; continuity (fractional allowed) is explicit; signs for negative impacts clear.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Business-style narrative with repeated 'no effect' statements and explanatory phrases; longer than necessary but structured; yet content is relevant to model.",
+      "realism": 95,
+      "realism_comment": "A plausible staffing/capacity planning LP with costs, availabilities, and service/compliance targets; includes negative tradeoffs and a reserve limit, mirroring real operations planning."
+    },
+    "prompt_tokens_with_data": 1070,
+    "prompt_tokens_without_data": 1070
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 82.72820839997219,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 8.215736040609137,
+      "Var_2": 7.945205479452055,
+      "Var_3": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 34.74
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 40.6
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.74
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 8.42
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -51.88
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.14
+      ],
+      "objective_linear_coefficient": 7.99,
+      "resource_costs": {
+        "C1": 5.26,
+        "C4": 0.8
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.38
+      ],
+      "objective_linear_coefficient": 6.53,
+      "resource_costs": {
+        "C2": 7.88,
+        "C3": -3.97
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.52
+      ],
+      "objective_linear_coefficient": 3.66,
+      "resource_costs": {
+        "C0": 4.9,
+        "C1": 5.11,
+        "C3": 6.76,
+        "C4": -3.79
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.14
+      ],
+      "objective_linear_coefficient": 8.02,
+      "resource_costs": {
+        "C1": -4.15,
+        "C2": -1.66,
+        "C4": -4.55
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.14, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.99 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.38, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.53 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.52, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.66 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.14, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.02 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.9 * vars['Var_2'] >= 34.74, name='C0')\n    m.addConstr(5.26 * vars['Var_0'] + 5.11 * vars['Var_2'] + -4.15 * vars['Var_3'] >= 40.6, name='C1')\n    m.addConstr(7.88 * vars['Var_1'] + -1.66 * vars['Var_3'] >= 64.74, name='C2')\n    m.addConstr(-3.97 * vars['Var_1'] + 6.76 * vars['Var_2'] >= 8.42, name='C3')\n    m.addConstr(0.8 * vars['Var_0'] + -3.79 * vars['Var_2'] + -4.55 * vars['Var_3'] >= -51.88, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing staffing mix to meet this period\u2019s service commitments\n\nTeam,\n\nFor the upcoming period, we need to set the mix across four staffing options with the single aim of minimizing total operating spend while still meeting our minimum service and compliance commitments. Below are the levers we can adjust and how each one affects our metrics. We can deploy any amount from zero up to each option\u2019s availability, including fractional blocks, as noted.\n\nBlue Team Rapid-Response Shifts\n- Fully loaded cost: 7.99 per shift-equivalent.\n- Availability: up to 14.14 shift-equivalents; we can choose anywhere from 0.00 to 14.14.\n- Impact on our commitments:\n  - Baseline Coverage Quota: no effect (adds 0 per shift-equivalent).\n  - Priority Response Hours: adds 5.26 hours for every shift-equivalent deployed.\n  - Project Deliverable Milestones: no effect (adds 0).\n  - Safety & Training Credits: no effect (adds 0).\n  - Net Cash Reserve Movement: improves the position by 0.8 points per shift-equivalent (i.e., a positive 0.8 toward the reserve movement score).\n\nGreen Field Project Crews\n- Fully loaded cost: 6.53 per crew-day equivalent.\n- Availability: up to 14.38 crew-day equivalents; we can choose anywhere from 0.00 to 14.38.\n- Impact on our commitments:\n  - Baseline Coverage Quota: no effect (adds 0).\n  - Priority Response Hours: no effect (adds 0).\n  - Project Deliverable Milestones: advances 7.88 milestone points for each crew-day equivalent.\n  - Safety & Training Credits: pulls 3.97 credits away for each crew-day equivalent (i.e., reduces the training credit balance by 3.97).\n  - Net Cash Reserve Movement: no effect (adds 0).\n\nAmber Integrated Coverage Blocks\n- Fully loaded cost: 3.66 per coverage block.\n- Availability: up to 10.52 blocks; we can choose anywhere from 0.00 to 10.52.\n- Impact on our commitments:\n  - Baseline Coverage Quota: contributes 4.9 coverage units per block.\n  - Priority Response Hours: adds 5.11 response hours per block.\n  - Project Deliverable Milestones: no effect (adds 0).\n  - Safety & Training Credits: contributes 6.76 credits per block.\n  - Net Cash Reserve Movement: increases reserve draw by 3.79 points per block (i.e., a negative 3.79 movement).\n\nCrimson Specialist Engagements\n- Fully loaded cost: 8.02 per engagement.\n- Availability: up to 7.14 engagements; we can choose anywhere from 0.00 to 7.14.\n- Impact on our commitments:\n  - Baseline Coverage Quota: no effect (adds 0).\n  - Priority Response Hours: diverts 4.15 hours per engagement (i.e., reduces the response hour balance by 4.15).\n  - Project Deliverable Milestones: cannibalizes 1.66 milestone points per engagement (i.e., reduces the milestone balance by 1.66).\n  - Safety & Training Credits: no effect (adds 0).\n  - Net Cash Reserve Movement: increases reserve draw by 4.55 points per engagement (i.e., a negative 4.55 movement).\n\nService commitments and operating limits\n- Baseline Coverage Quota: deliver at least 34.74 coverage units in total.\n- Priority Response Hours: provide at least 40.6 hours in total.\n- Project Deliverable Milestones: complete at least 64.74 milestone points in total.\n- Safety & Training Credits: maintain at least 8.42 credits in total.\n- Net Cash Reserve Movement: the net weekly movement may be negative (a draw), but it cannot be worse than -51.88; we must keep the final reserve movement at or above -51.88.\n\nPlease review so we can finalize the lowest-cost mix that still satisfies all five commitments within the availability windows above."
+}

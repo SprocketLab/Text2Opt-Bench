@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables have clear bounds and profits; each resource effect has a signed coefficient; all 8 constraints with RHS and senses are explicit. Continuous volumes implied by fractional maxima. No guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative and repeated 'no impact' notes add verbosity; signature/pleasantries are extra but do not hinder clarity.",
+      "realism": 95,
+      "realism_comment": "Highly plausible production planning with capacity, labor, and sustainability metrics; credit vs consumption is explained and parameters are sensible."
+    },
+    "prompt_tokens_with_data": 1371,
+    "prompt_tokens_without_data": 1371
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 199.0279610325903,
+    "optimal_values": {
+      "Var_0": 5.7431657750273715,
+      "Var_1": 11.67,
+      "Var_2": 1.8622954359275594,
+      "Var_3": 5.688941979522185,
+      "Var_4": 5.081364829396326,
+      "Var_5": 0.0,
+      "Var_6": 3.137472766884531
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 45.91
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -4.6
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 15.63
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -5.21
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -5.31
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -21.2
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 19.36
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 60.19
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.67
+      ],
+      "objective_linear_coefficient": 3.77,
+      "resource_costs": {
+        "C3": -0.21,
+        "C5": -2.08,
+        "C7": 6.56
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.67
+      ],
+      "objective_linear_coefficient": 9.99,
+      "resource_costs": {
+        "C0": 2.7,
+        "C2": -3.39,
+        "C4": -4.74
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.92
+      ],
+      "objective_linear_coefficient": 1.08,
+      "resource_costs": {
+        "C2": 2.88,
+        "C3": -2.15,
+        "C7": 8.57
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.7
+      ],
+      "objective_linear_coefficient": 3.28,
+      "resource_costs": {
+        "C4": 8.79
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.4
+      ],
+      "objective_linear_coefficient": 5.21,
+      "resource_costs": {
+        "C1": -1.74,
+        "C5": -4.07,
+        "C6": 3.81,
+        "C7": 1.29
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.7
+      ],
+      "objective_linear_coefficient": 3.69,
+      "resource_costs": {
+        "C1": 9.35,
+        "C2": 6.07,
+        "C3": 3.52,
+        "C4": 1.41,
+        "C5": 4.23,
+        "C6": -2.12
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.23
+      ],
+      "objective_linear_coefficient": 4.35,
+      "resource_costs": {
+        "C0": 4.59,
+        "C1": -0.85,
+        "C5": -0.48
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.67, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.77 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.67, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.99 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.92, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.08 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.7, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.28 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.4, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.21 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.7, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.69 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.23, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.35 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.7 * vars['Var_1'] + 4.59 * vars['Var_6'] <= 45.91, name='C0')\n    m.addConstr(-1.74 * vars['Var_4'] + 9.35 * vars['Var_5'] + -0.85 * vars['Var_6'] <= -4.6, name='C1')\n    m.addConstr(-3.39 * vars['Var_1'] + 2.88 * vars['Var_2'] + 6.07 * vars['Var_5'] <= 15.63, name='C2')\n    m.addConstr(-0.21 * vars['Var_0'] + -2.15 * vars['Var_2'] + 3.52 * vars['Var_5'] <= -5.21, name='C3')\n    m.addConstr(-4.74 * vars['Var_1'] + 8.79 * vars['Var_3'] + 1.41 * vars['Var_5'] <= -5.31, name='C4')\n    m.addConstr(-2.08 * vars['Var_0'] + -4.07 * vars['Var_4'] + 4.23 * vars['Var_5'] + -0.48 * vars['Var_6'] <= -21.2, name='C5')\n    m.addConstr(3.81 * vars['Var_4'] + -2.12 * vars['Var_5'] <= 19.36, name='C6')\n    m.addConstr(6.56 * vars['Var_0'] + 8.57 * vars['Var_2'] + 1.29 * vars['Var_4'] <= 60.19, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Team,\n\nWe need to set next quarter\u2019s volumes across seven advanced materials workstreams with the explicit aim of maximizing total contribution, while staying compliant with our plant limits and sustainability targets. Below are the levers and how each one affects margin and the facility resources. Each lever can be scheduled anywhere from zero units up to its practical maximum noted.\n\n- Aurora Alloy Batch A\n  - Contribution: Adds 3.77 in margin per unit.\n  - Scale: Can be run up to 17.67 units.\n  - Resource effects: No demand on Blending Hall Throughput, Carbon Balance Ledger, Process Water Draw, Hazard Compliance Index, or Skilled Technician Hours. Improves the Solvent Loss Index by 0.21 units per produced unit (a credit), improves the Landfill Waste Position by 2.08 units per produced unit (diversion credit), and consumes 6.56 units of Line 2 Packaging Time per unit.\n\n- Sapphire Resin Run\n  - Contribution: Adds 9.99 in margin per unit.\n  - Scale: Can be run up to 11.67 units.\n  - Resource effects: Draws 2.7 units of Blending Hall Throughput per unit. Does not affect the Carbon Balance Ledger or the Solvent Loss Index. Lowers the Process Water Draw by 3.39 units per unit (recycling credit). Lowers the Hazard Compliance Index by 4.74 units per unit (safer profile). No impact on the Landfill Waste Position, Skilled Technician Hours, or Line 2 Packaging Time.\n\n- Nimbus Coating Batch\n  - Contribution: Adds 1.08 in margin per unit.\n  - Scale: Can be run up to 6.92 units.\n  - Resource effects: No draw on Blending Hall Throughput or the Carbon Balance Ledger. Adds 2.88 units to the Process Water Draw per unit. Improves the Solvent Loss Index by 2.15 units per unit (recovery credit). No impact on the Hazard Compliance Index or the Landfill Waste Position. No change to Skilled Technician Hours. Consumes 8.57 units of Line 2 Packaging Time per unit.\n\n- Obsidian Composite Layup\n  - Contribution: Adds 3.28 in margin per unit.\n  - Scale: Can be run up to 15.7 units.\n  - Resource effects: No demand on Blending Hall Throughput, Carbon Balance Ledger, Process Water Draw, or Solvent Loss Index. Adds 8.79 units to the Hazard Compliance Index per unit (more stringent handling required). No impact on the Landfill Waste Position, Skilled Technician Hours, or Line 2 Packaging Time.\n\n- Helios Bio-Additive Blend\n  - Contribution: Adds 5.21 in margin per unit.\n  - Scale: Can be run up to 6.4 units.\n  - Resource effects: No demand on Blending Hall Throughput or Process Water Draw. Improves the Carbon Balance Ledger by 1.74 units per unit (offset credit). No change to the Solvent Loss Index or Hazard Compliance Index. Improves the Landfill Waste Position by 4.07 units per unit (diversion credit). Requires 3.81 Skilled Technician Hours per unit. Requires 1.29 units of Line 2 Packaging Time per unit.\n\n- Vanguard Automation Cycle\n  - Contribution: Adds 3.69 in margin per unit.\n  - Scale: Can be run up to 16.7 units.\n  - Resource effects: No demand on Blending Hall Throughput. Adds 9.35 units to the Carbon Balance Ledger per unit (emissions load). Adds 6.07 units to the Process Water Draw per unit. Adds 3.52 units to the Solvent Loss Index per unit. Adds 1.41 units to the Hazard Compliance Index per unit. Adds 4.23 units to the Landfill Waste Position per unit. Frees 2.12 Skilled Technician Hours per unit (automation offset). No impact on Line 2 Packaging Time.\n\n- Zephyr Retrofit Package\n  - Contribution: Adds 4.35 in margin per unit.\n  - Scale: Can be run up to 12.23 units.\n  - Resource effects: Draws 4.59 units of Blending Hall Throughput per unit. Improves the Carbon Balance Ledger by 0.85 units per unit (offset credit). No change to the Process Water Draw, Solvent Loss Index, or Hazard Compliance Index. Improves the Landfill Waste Position by 0.48 units per unit (diversion credit). No impact on Skilled Technician Hours or Line 2 Packaging Time.\n\nFacility specs and compliance limits (our totals must not exceed or must meet these thresholds):\n- Blending Hall Throughput Ceiling: Up to 45.91 units in total.\n- Carbon Balance Ledger: Combined score must be at \u22124.6 or lower (more negative reflects greater net offsets).\n- Process Water Draw Limit: Up to 15.63 units in total.\n- Solvent Loss Index Target: Combined score must be at \u22125.21 or lower.\n- Hazard Compliance Index Target: Combined score must be at \u22125.31 or lower.\n- Landfill Waste Position Target: Combined score must be at \u221221.2 or lower (net diversion requirement).\n- Skilled Technician Hours Cap: Up to 19.36 hours in total.\n- Line 2 Packaging Time Cap: Up to 60.19 time units in total.\n\nPlease use this as the basis for the production mix plan so we maximize contribution while staying within the above plant and compliance limits.\n\nBest regards,\nAriella Singh\nVP, Operations Planning"
+}

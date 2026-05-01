@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "All margins, time/storage coefficients, bounds, and integrality are explicit; objective and two constraints clear. Only variable names are not specified.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative adds context but includes non-essential prose; clear bullets make it moderately verbose, not repetitive.",
+      "realism": 98,
+      "realism_comment": "Authentic production planning with line-time and cold storage bottlenecks; parameters plausible; integrality choices realistic."
+    },
+    "prompt_tokens_with_data": 817,
+    "prompt_tokens_without_data": 817
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 171.98989939637826,
+    "optimal_values": {
+      "Var_0": 11.6,
+      "Var_1": 1.3899396378269622,
+      "Var_2": 15.0,
+      "Var_3": 5.0,
+      "Var_4": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 98.39
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 25.31
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.6
+      ],
+      "objective_linear_coefficient": 8.48,
+      "resource_costs": {
+        "C0": 2.39,
+        "C1": 0.25
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.49
+      ],
+      "objective_linear_coefficient": 4.98,
+      "resource_costs": {
+        "C0": 9.94,
+        "C1": 0.16
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.54
+      ],
+      "objective_linear_coefficient": 1.73,
+      "resource_costs": {
+        "C0": 0.61
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.75
+      ],
+      "objective_linear_coefficient": 8.15,
+      "resource_costs": {
+        "C0": 9.54
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.15
+      ],
+      "objective_linear_coefficient": 1.23,
+      "resource_costs": {
+        "C0": 6.24,
+        "C1": 4.33
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.6, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.48 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.49, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.98 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.54, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.73 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=5.75, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.15 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.15, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.23 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.39 * vars['Var_0'] + 9.94 * vars['Var_1'] + 0.61 * vars['Var_2'] + 9.54 * vars['Var_3'] + 6.24 * vars['Var_4'] <= 98.39, name='C0')\n    m.addConstr(0.25 * vars['Var_0'] + 0.16 * vars['Var_1'] + 4.33 * vars['Var_4'] <= 25.31, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan to maximize contribution under Line A time and chilled storage limits\n\nTeam,\n\nFor the upcoming planning window, we need to decide how to allocate production across five offerings to maximize total contribution while staying within two bottlenecks: (1) available time on Line A and (2) space in our chilled warehouse. There is no minimum commitment on any item (we can set volumes to zero), but each is capped by practical limits noted below.\n\n- Emerald Smoothie Packs\n  - Financials: Each unit contributes 8.48 in margin.\n  - Operating impact: Every unit draws 2.39 hours from Line A and uses 0.25 pallet-equivalents in chilled storage.\n  - Flexibility: This line can be dialed up or down in fractional increments; there is no minimum, and we can go as high as 11.6 units this period.\n\n- Copper Protein Shakes\n  - Financials: Each unit contributes 4.98 in margin.\n  - Operating impact: Every unit draws 9.94 hours from Line A and uses 0.16 pallet-equivalents in chilled storage.\n  - Flexibility: Also adjustable continuously with no minimum; we can produce up to 6.49 units.\n\n- Pantry Granola Kits\n  - Financials: Each unit contributes 1.73 in margin.\n  - Operating impact: Every unit draws 0.61 hours from Line A and requires no chilled storage (zero draw on the cold room).\n  - Flexibility: This item is scheduled by whole units only; there is no minimum, and we can commit up to 15.54 units, counted in whole numbers within that ceiling.\n\n- Gift-Box Assemblies\n  - Financials: Each unit contributes 8.15 in margin.\n  - Operating impact: Every unit draws 9.54 hours from Line A and requires no chilled storage (zero draw on the cold room).\n  - Flexibility: Whole-unit decisions only; no minimum, with a maximum of 5.75 units this period (selected as whole units up to that cap).\n\n- Fresh Fruit Medleys\n  - Financials: Each unit contributes 1.23 in margin.\n  - Operating impact: Every unit draws 6.24 hours from Line A and uses 4.33 pallet-equivalents in chilled storage.\n  - Flexibility: Whole-unit decisions only; no minimum, with a maximum of 18.15 units this period (again, whole units within that ceiling).\n\nFacility limits for this planning window\n- Line A time: We cannot exceed a total of 98.39 hours across all items combined.\n- Chilled warehouse: We cannot exceed a total of 25.31 pallet-equivalents across all items that require cold storage.\n\nPlease use this as the basis for the recommended production mix that maximizes total margin while honoring the time and cold-storage bottlenecks and the individual item caps and whole-batch requirements noted above."
+}

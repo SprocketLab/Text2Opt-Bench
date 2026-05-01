@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and inequality directions are clearly specified with sign clarifications (reduces/increases), enabling exact LP reconstruction.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business memo style adds context but is somewhat verbose; some narrative could be trimmed without losing technical clarity.",
+      "realism": 92,
+      "realism_comment": "Feels like a plausible portfolio allocation with capacity, overtime, risk, inventory, and budget trade-offs, including credits and load reductions typical in practice."
+    },
+    "prompt_tokens_with_data": 875,
+    "prompt_tokens_without_data": 875
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 107.41008743136899,
+    "optimal_values": {
+      "Var_0": 9.286430334940214,
+      "Var_1": 6.227978588171785,
+      "Var_2": 0.7986349227665207
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 9.23
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -77.22
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -2.9
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -32.77
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 63.24
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.39
+      ],
+      "objective_linear_coefficient": 8.29,
+      "resource_costs": {
+        "C0": 1.83,
+        "C1": -1.97,
+        "C3": -4.77,
+        "C4": 4.28
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.57
+      ],
+      "objective_linear_coefficient": 4.08,
+      "resource_costs": {
+        "C0": -1.28,
+        "C1": -9.84,
+        "C2": -1.63,
+        "C4": 4.77
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.96
+      ],
+      "objective_linear_coefficient": 6.28,
+      "resource_costs": {
+        "C0": 0.26,
+        "C2": 9.08,
+        "C3": 4.58,
+        "C4": -7.78
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.39, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.29 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.57, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.08 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.96, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.28 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.83 * vars['Var_0'] + -1.28 * vars['Var_1'] + 0.26 * vars['Var_2'] <= 9.23, name='C0')\n    m.addConstr(-1.97 * vars['Var_0'] + -9.84 * vars['Var_1'] <= -77.22, name='C1')\n    m.addConstr(-1.63 * vars['Var_1'] + 9.08 * vars['Var_2'] <= -2.9, name='C2')\n    m.addConstr(-4.77 * vars['Var_0'] + 4.58 * vars['Var_2'] <= -32.77, name='C3')\n    m.addConstr(4.28 * vars['Var_0'] + 4.77 * vars['Var_1'] + -7.78 * vars['Var_2'] <= 63.24, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Q2 Portfolio Decision to Maximize Impact\n\nTeam,\n\nWe are at a decision point on how to allocate effort and budget across three initiatives for Q2 with the simple aim of maximizing total business value delivered. Each initiative can be dialed up or down (including fractional deployments), is capped at a defined level, and has a distinct effect on our operating capacity, overtime reduction goals, risk posture, inventory position, and cash budget.\n\nThe levers\n\n1) Alpha \u2013 Digital Automation Kits\n- Value delivered: Each kit is expected to contribute 8.29 units to our overall value.\n- Deployment bounds: We may deploy anywhere from 0 up to 10.39 kits this quarter.\n- Central Operations load: Each kit draws 1.83 units of Operations capacity.\n- Overtime movement: Each kit reduces overtime by 1.97 units.\n- Compliance risk posture: No material effect (zero change per kit).\n- Inventory position: Each kit reduces inventory days by 4.77 units.\n- Cash budget: Each kit requires 4.28 units of cash spend.\n\n2) Bravo \u2013 Strategic Outsourcing Blocks\n- Value delivered: Each block contributes 4.08 units to our overall value.\n- Deployment bounds: We may deploy anywhere from 0 up to 13.57 blocks.\n- Central Operations load: Each block frees 1.28 units of Operations capacity (i.e., reduces the load by 1.28).\n- Overtime movement: Each block reduces overtime by 9.84 units.\n- Compliance risk posture: Each block reduces our risk exposure by 1.63 units.\n- Inventory position: No material effect (zero change per block).\n- Cash budget: Each block requires 4.77 units of cash spend.\n\n3) Gamma \u2013 Vendor Incentive Credits\n- Value delivered: Each credit contributes 6.28 units to our overall value.\n- Deployment bounds: We may deploy anywhere from 0 up to 7.96 credits.\n- Central Operations load: Each credit adds 0.26 units of Operations capacity usage.\n- Overtime movement: No material effect (zero change per credit).\n- Compliance risk posture: Each credit increases risk exposure by 9.08 units.\n- Inventory position: Each credit increases inventory days by 4.58 units.\n- Cash budget: Each credit brings in a budget credit worth 7.78 units (i.e., reduces net cash needs by 7.78).\n\nFacility specs and limits for Q2\n\n- Central Operations capacity: The net load from all chosen initiatives must not exceed 9.23 units.\n- Overtime reduction commitment: The net effect must deliver at least 77.22 units of overtime reduction across the portfolio.\n- Compliance-risk improvement: The net effect must deliver at least 2.9 units of risk reduction.\n- Inventory days improvement: The net effect must deliver at least 32.77 units of inventory days reduction.\n- Cash budget: Net cash spend across the portfolio must not exceed 63.24 units.\n\nPlease use the figures above when shaping the recommended mix. The goal is to maximize total value while respecting the capacity cap in Operations, hitting the required reductions in overtime, risk, and inventory days, and staying within the net cash budget."
+}

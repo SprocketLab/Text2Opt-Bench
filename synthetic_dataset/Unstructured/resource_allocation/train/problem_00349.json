@@ -1,0 +1,190 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "All coefficients, bounds, and signs are explicitly given; zero-impact statements define zeros. A minor ambiguity is variable naming (lever names vs Var_i), but structure is fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 38,
+      "redundancy_comment": "Some email-style verbosity and repeated 'no impact' notes, but most extra text clarifies signs and zeros and maps directly to coefficients.",
+      "realism": 96,
+      "realism_comment": "A plausible portfolio allocation with plant capacity and compliance targets; interactions and targets feel realistic and consistent with real OR practice."
+    },
+    "prompt_tokens_with_data": 1445,
+    "prompt_tokens_without_data": 1445
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 297.9073634543808,
+    "optimal_values": {
+      "Var_0": 4.4833973297875245,
+      "Var_1": 7.19,
+      "Var_2": 7.70828471411902,
+      "Var_3": 2.955644077836995,
+      "Var_4": 10.36,
+      "Var_5": 8.643661327231122,
+      "Var_6": 12.24
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 66.06
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -61.49
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 90.88
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -2.57
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 72.9
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -62.91
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -36.45
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -80.28
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.7
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.13
+      ],
+      "objective_linear_coefficient": 1.28,
+      "resource_costs": {
+        "C2": 5.19,
+        "C4": 6.88,
+        "C5": -4.8,
+        "C7": -5.16
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.19
+      ],
+      "objective_linear_coefficient": 9.96,
+      "resource_costs": {
+        "C3": 2.62,
+        "C5": -7.73,
+        "C6": -2.71,
+        "C7": -5.62
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.15
+      ],
+      "objective_linear_coefficient": 5.13,
+      "resource_costs": {
+        "C0": 8.57,
+        "C1": 0.17,
+        "C2": -3.16,
+        "C3": 8.76,
+        "C4": -6.37,
+        "C6": 2.18,
+        "C7": -8.21
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.89
+      ],
+      "objective_linear_coefficient": 2.39,
+      "resource_costs": {
+        "C2": 9.7,
+        "C5": 9.3,
+        "C7": 7.02
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.36
+      ],
+      "objective_linear_coefficient": 6.94,
+      "resource_costs": {
+        "C1": -8.51,
+        "C2": 6.11,
+        "C3": -4.66,
+        "C4": 1.84,
+        "C5": -3.69,
+        "C6": 0.94,
+        "C7": 8.38,
+        "C8": 1.52
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.07
+      ],
+      "objective_linear_coefficient": 7.19,
+      "resource_costs": {
+        "C6": -7.34,
+        "C7": 3.67,
+        "C8": 8.74
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.24
+      ],
+      "objective_linear_coefficient": 3.26,
+      "resource_costs": {
+        "C3": -4.09,
+        "C4": 5.89,
+        "C5": -1.88,
+        "C7": -8.96,
+        "C8": -3.97
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.13, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.19, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.96 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.15, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.13 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.89, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.39 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.36, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.94 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.07, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.19 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.24, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.26 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.57 * vars['Var_2'] <= 66.06, name='C0')\n    m.addConstr(0.17 * vars['Var_2'] + -8.51 * vars['Var_4'] <= -61.49, name='C1')\n    m.addConstr(5.19 * vars['Var_0'] + -3.16 * vars['Var_2'] + 9.7 * vars['Var_3'] + 6.11 * vars['Var_4'] <= 90.88, name='C2')\n    m.addConstr(2.62 * vars['Var_1'] + 8.76 * vars['Var_2'] + -4.66 * vars['Var_4'] + -4.09 * vars['Var_6'] <= -2.57, name='C3')\n    m.addConstr(6.88 * vars['Var_0'] + -6.37 * vars['Var_2'] + 1.84 * vars['Var_4'] + 5.89 * vars['Var_6'] <= 72.9, name='C4')\n    m.addConstr(-4.8 * vars['Var_0'] + -7.73 * vars['Var_1'] + 9.3 * vars['Var_3'] + -3.69 * vars['Var_4'] + -1.88 * vars['Var_6'] <= -62.91, name='C5')\n    m.addConstr(-2.71 * vars['Var_1'] + 2.18 * vars['Var_2'] + 0.94 * vars['Var_4'] + -7.34 * vars['Var_5'] <= -36.45, name='C6')\n    m.addConstr(-5.16 * vars['Var_0'] + -5.62 * vars['Var_1'] + -8.21 * vars['Var_2'] + 7.02 * vars['Var_3'] + 8.38 * vars['Var_4'] + 3.67 * vars['Var_5'] + -8.96 * vars['Var_6'] <= -80.28, name='C7')\n    m.addConstr(1.52 * vars['Var_4'] + 8.74 * vars['Var_5'] + -3.97 * vars['Var_6'] <= 42.7, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: FY25 portfolio allocation to maximize impact under plant and compliance limits\n\nTeam,\n\nWe need to decide how to allocate effort and funding across seven scalable initiatives to maximize our overall value delivered this year. Each initiative returns a defined amount of benefit per unit of commitment and draws on, or relieves, specific plant capacities and compliance balances. All seven levers can be partially funded; we can take anywhere from nothing up to their respective maximums.\n\nLevers under consideration (in order):\n\n- Catalytic Retrofit in Plant 1\n  We can commit anywhere between 0 and up to 11.13 units to this retrofit. Each unit delivers 1.28 points of annual value. Operationally, every unit draws 5.19 units from our Grid Energy allocation and uses 6.88 run-hours on Line B. It also offsets 4.8 Union Overtime Shifts per unit and improves our Carbon Compliance Ledger by 5.16 units per unit. No material impact on Distillation Column B runtime, Legacy Waste remediation, Fleet Emissions, or the Green Subsidy Pool.\n\n- Shift Optimization Software\n  We can deploy between 0 and up to 7.19 deployments. Each deployment returns 9.96 points of value. There is an initial trade-off on quality: each deployment adds 2.62 to the Quality Deviation Index. Counterbalancing that, every deployment cuts 7.73 Union Overtime Shifts, reduces Fleet Emissions by 2.71 units, and strengthens our Carbon Compliance Ledger by 5.62 units. No draw on Distillation Column B runtime, Legacy Waste, Grid Energy, Line B hours, or the Green Subsidy Pool.\n\n- Coastal Blending Program\n  We can activate between 0 and up to 12.15 modules. Each module contributes 5.13 points of value. Each module consumes 8.57 hours of Distillation Column B runtime and slightly worsens the Legacy Waste ledger by 0.17 units. On the positive side, it reduces Grid Energy Draw by 3.16 units and frees 6.37 run-hours on Line B per module. It does add 8.76 to the Quality Deviation Index and increases Fleet Emissions by 2.18 units, but it meaningfully improves the Carbon Compliance Ledger by 8.21 units per module. No impact on Union Overtime or the Green Subsidy Pool.\n\n- Emergency Contracting Crew\n  We can schedule between 0 and up to 16.89 crew assignments. Each assignment yields 2.39 points of value. Operational impacts: each assignment adds 9.7 to Grid Energy Draw, increases Union Overtime Shifts by 9.3, and burdens the Carbon Compliance Ledger by 7.02 units. No effect on Distillation Column B runtime, Legacy Waste, Quality Deviation, Line B hours, Fleet Emissions, or the Green Subsidy Pool.\n\n- Circular Packaging Initiative\n  We can roll out between 0 and up to 10.36 phases. Each phase returns 6.94 points of value. On compliance, every phase reduces the Legacy Waste ledger by 8.51 units and also lowers the Quality Deviation Index by 4.66 units. Operationally, each phase draws 6.11 units from Grid Energy, uses 1.84 run-hours on Line B, and cuts Union Overtime by 3.69 shifts. There is a small increase in Fleet Emissions of 0.94 units, and it worsens the Carbon Compliance Ledger by 8.38 units. It also consumes 1.52 units from the Green Subsidy Pool per phase.\n\n- Fleet Electrification Leasing\n  We can take between 0 and up to 19.07 tranches. Each tranche delivers 7.19 points of value. For compliance, each tranche reduces Fleet Emissions by 7.34 units. However, due to certificate retirement timing, it increases the Carbon Compliance Ledger by 3.67 units. It draws 8.74 units from the Green Subsidy Pool. No impact on Distillation Column B runtime, Legacy Waste, Grid Energy, Quality Deviation, Line B hours, or Union Overtime.\n\n- Automation Tune\u2011Up Programme\n  We can run between 0 and up to 12.24 waves. Each wave produces 3.26 points of value. Each wave reduces the Quality Deviation Index by 4.09 units, uses 5.89 run-hours on Line B, and trims Union Overtime by 1.88 shifts. It also strengthens the Carbon Compliance Ledger by 8.96 units and returns 3.97 units to the Green Subsidy Pool. No draw on Distillation Column B runtime, Legacy Waste, Grid Energy, or Fleet Emissions.\n\nFacility specs and compliance limits (caps and targets):\n\n- Distillation Column B runtime: available capacity is 66.06 hours.\n- Legacy Waste remediation target: net effect must be at most \u221261.49 units (i.e., we need to achieve at least 61.49 units of reduction across the portfolio).\n- Grid Energy Draw: cap of 90.88 units.\n- Quality Deviation Index: portfolio must come in at or below \u22122.57 (a net reduction target).\n- Line B run-hours: available capacity is 72.9 hours.\n- Union Overtime Shifts: portfolio must come in at or below \u221262.91 (net savings of at least 62.91 shifts).\n- Fleet Emissions footprint: portfolio must come in at or below \u221236.45 (net emissions reduction target).\n- Carbon Compliance Ledger: portfolio must come in at or below \u221280.28 (overall compliance improvement target).\n- Green Subsidy Pool: available funding is 42.7 units.\n\nPlease review these levers and limits. Our objective is to choose the mix that maximizes total value while staying within the plant capacities and meeting the reduction and compliance targets above. Once you confirm the framing and numbers, we\u2019ll proceed to the recommended allocation."
+}

@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All profits, types (discrete vs divisible), bounds, per-resource coefficients, and capacities are explicit; the model is reconstructible mechanically. Minor nuance: decimal UBs for integer items.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated 'no draw' notes add verbosity, but most text conveys necessary coefficients, bounds, and capacities clearly.",
+      "realism": 98,
+      "realism_comment": "Very realistic production planning with resource capacities, mixed discrete/continuous decisions, and plausible operational constraints."
+    },
+    "prompt_tokens_with_data": 1268,
+    "prompt_tokens_without_data": 1268
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 142.34407801418442,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 8.0,
+      "Var_4": 6.0,
+      "Var_5": 0.4858156028368811
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 57.93
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 66.69
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 82.88
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 37.13
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 46.29
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.56
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.61
+      ],
+      "objective_linear_coefficient": 1.49,
+      "resource_costs": {
+        "C0": 6.1,
+        "C1": 6.75,
+        "C2": 4.4,
+        "C4": 3.25,
+        "C5": 7.87
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.61
+      ],
+      "objective_linear_coefficient": 8.07,
+      "resource_costs": {
+        "C0": 8.31,
+        "C1": 9.38,
+        "C2": 8.96,
+        "C3": 7.46,
+        "C4": 9.39
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.0
+      ],
+      "objective_linear_coefficient": 7.41,
+      "resource_costs": {
+        "C1": 4.34,
+        "C2": 7.95,
+        "C3": 6.24,
+        "C4": 6.76
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.63
+      ],
+      "objective_linear_coefficient": 9.89,
+      "resource_costs": {
+        "C0": 1.05,
+        "C1": 0.59,
+        "C2": 9.63,
+        "C3": 4.47
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.12
+      ],
+      "objective_linear_coefficient": 9.79,
+      "resource_costs": {
+        "C0": 7.8,
+        "C4": 1.47
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.87
+      ],
+      "objective_linear_coefficient": 9.23,
+      "resource_costs": {
+        "C0": 3.33,
+        "C2": 7.3,
+        "C3": 2.82,
+        "C4": 6.71,
+        "C5": 1.66
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.61, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.49 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.61, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.07 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.0, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.41 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.63, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.89 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.12, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 9.79 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.87, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.23 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.1 * vars['Var_0'] + 8.31 * vars['Var_1'] + 1.05 * vars['Var_3'] + 7.8 * vars['Var_4'] + 3.33 * vars['Var_5'] <= 57.93, name='C0')\n    m.addConstr(6.75 * vars['Var_0'] + 9.38 * vars['Var_1'] + 4.34 * vars['Var_2'] + 0.59 * vars['Var_3'] <= 66.69, name='C1')\n    m.addConstr(4.4 * vars['Var_0'] + 8.96 * vars['Var_1'] + 7.95 * vars['Var_2'] + 9.63 * vars['Var_3'] + 7.3 * vars['Var_5'] <= 82.88, name='C2')\n    m.addConstr(7.46 * vars['Var_1'] + 6.24 * vars['Var_2'] + 4.47 * vars['Var_3'] + 2.82 * vars['Var_5'] <= 37.13, name='C3')\n    m.addConstr(3.25 * vars['Var_0'] + 9.39 * vars['Var_1'] + 6.76 * vars['Var_2'] + 1.47 * vars['Var_4'] + 6.71 * vars['Var_5'] <= 46.29, name='C4')\n    m.addConstr(7.87 * vars['Var_0'] + 1.66 * vars['Var_5'] <= 49.56, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed Production Mix to Maximize Contribution Under Current Plant Limits\n\nTeam,\n\nAs we lock the upcoming run plan, our goal is to maximize total gross contribution across six offerings, within the practical limits of our bays, labor, materials, inspection, and shipping. Below is the proposed framing of each lever we can pull, what each earns per unit, how it draws on our constrained capacities, and how many units we can plausibly run. All allocations are non\u2011negative and respect the noted caps.\n\n- Aurora Valve Kits (discrete batches)\n  - Gross contribution: 1.49 per batch.\n  - Capacity draw per batch:\n    - Casting Bay Hours: 6.10\n    - CNC Machining Hours: 6.75\n    - Alloy Feedstock (tonnes): 4.40\n    - Senior Technician Hours: 0.00 (no draw)\n    - Packing & Inspection Slots: 3.25\n    - Outbound Truck Bays: 7.87\n  - Scheduling bounds: may be scheduled from 0 up to 13.61 batches; because these are whole batches, this effectively means no more than 13 full batches within that cap.\n\n- Nimbus Pump Assemblies (divisible lots)\n  - Gross contribution: 8.07 per lot.\n  - Capacity draw per lot:\n    - Casting Bay Hours: 8.31\n    - CNC Machining Hours: 9.38\n    - Alloy Feedstock (tonnes): 8.96\n    - Senior Technician Hours: 7.46\n    - Packing & Inspection Slots: 9.39\n    - Outbound Truck Bays: 0.00 (no draw)\n  - Scheduling bounds: may be scheduled from 0 up to 5.61 lots; partial lots are permissible.\n\n- Stellar Gear Sets (divisible lots)\n  - Gross contribution: 7.41 per lot.\n  - Capacity draw per lot:\n    - Casting Bay Hours: 0.00 (no draw)\n    - CNC Machining Hours: 4.34\n    - Alloy Feedstock (tonnes): 7.95\n    - Senior Technician Hours: 6.24\n    - Packing & Inspection Slots: 6.76\n    - Outbound Truck Bays: 0.00 (no draw)\n  - Scheduling bounds: may be scheduled from 0 up to 14.00 lots; partial lots are permissible.\n\n- Orion Control Panels (discrete builds)\n  - Gross contribution: 9.89 per unit.\n  - Capacity draw per unit:\n    - Casting Bay Hours: 1.05\n    - CNC Machining Hours: 0.59\n    - Alloy Feedstock (tonnes): 9.63\n    - Senior Technician Hours: 4.47\n    - Packing & Inspection Slots: 0.00 (no draw)\n    - Outbound Truck Bays: 0.00 (no draw)\n  - Scheduling bounds: may be scheduled from 0 up to 8.63 units; because these are whole builds, this effectively limits us to at most 8 units within that cap.\n\n- Vega Housing Castings (discrete batches)\n  - Gross contribution: 9.79 per batch.\n  - Capacity draw per batch:\n    - Casting Bay Hours: 7.80\n    - CNC Machining Hours: 0.00 (no draw)\n    - Alloy Feedstock (tonnes): 0.00 (no draw)\n    - Senior Technician Hours: 0.00 (no draw)\n    - Packing & Inspection Slots: 1.47\n    - Outbound Truck Bays: 0.00 (no draw)\n  - Scheduling bounds: may be scheduled from 0 up to 15.12 batches; in practice these are whole batches.\n\n- Nova Sensor Modules (divisible lots)\n  - Gross contribution: 9.23 per lot.\n  - Capacity draw per lot:\n    - Casting Bay Hours: 3.33\n    - CNC Machining Hours: 0.00 (no draw)\n    - Alloy Feedstock (tonnes): 7.30\n    - Senior Technician Hours: 2.82\n    - Packing & Inspection Slots: 6.71\n    - Outbound Truck Bays: 1.66\n  - Scheduling bounds: may be scheduled from 0 up to 17.87 lots; partial lots are permissible.\n\nFacility Specs & Market Limits (do not exceed)\n- Casting Bay Hours available this cycle: 57.93\n- CNC Machining Hours available this cycle: 66.69\n- Alloy Feedstock available (tonnes): 82.88\n- Senior Technician Hours available this cycle: 37.13\n- Packing & Inspection Slots available this cycle: 46.29\n- Outbound Truck Bays available this cycle: 49.56\n\nPlease review these levers and limits so we can lock a mix that maximizes total contribution while staying within each cap. If there are any updates to material deliveries, labor availability, or shipping windows, we should adjust the caps accordingly before finalizing the run plan."
+}

@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Precisely lists costs, bounds, and attribute contributions; floors given. Continuous vars allowed. Direct LP minimize total cost subject to floors. Mapping is mechanical.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business email framing and template add verbosity, but technical data is clear and non-repetitive.",
+      "realism": 95,
+      "realism_comment": "Plausible coating blend formulation with performance floors and availability caps; a typical real-world LP resource allocation scenario."
+    },
+    "prompt_tokens_with_data": 832,
+    "prompt_tokens_without_data": 832
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 89.72446592662979,
+    "optimal_values": {
+      "Var_0": 0.5807558482413833,
+      "Var_1": 9.81,
+      "Var_2": 4.681095925330117,
+      "Var_3": 6.626318418633873
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 101.26
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 65.66
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 67.75
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 125.54
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.01
+      ],
+      "objective_linear_coefficient": 8.16,
+      "resource_costs": {
+        "C0": 9.58,
+        "C1": 3.88,
+        "C2": 6.98,
+        "C3": 0.53
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.81
+      ],
+      "objective_linear_coefficient": 4.02,
+      "resource_costs": {
+        "C0": 8.26,
+        "C1": 0.81,
+        "C2": 2.44,
+        "C3": 5.86
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.58
+      ],
+      "objective_linear_coefficient": 2.95,
+      "resource_costs": {
+        "C0": 2.68,
+        "C1": 0.65,
+        "C2": 1.6,
+        "C3": 7.72
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.26
+      ],
+      "objective_linear_coefficient": 4.79,
+      "resource_costs": {
+        "C0": 0.32,
+        "C1": 8.24,
+        "C2": 4.87,
+        "C3": 4.77
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.01, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.16 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.81, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.02 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.58, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.95 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.26, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.79 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.58 * vars['Var_0'] + 8.26 * vars['Var_1'] + 2.68 * vars['Var_2'] + 0.32 * vars['Var_3'] >= 101.26, name='C0')\n    m.addConstr(3.88 * vars['Var_0'] + 0.81 * vars['Var_1'] + 0.65 * vars['Var_2'] + 8.24 * vars['Var_3'] >= 65.66, name='C1')\n    m.addConstr(6.98 * vars['Var_0'] + 2.44 * vars['Var_1'] + 1.6 * vars['Var_2'] + 4.87 * vars['Var_3'] >= 67.75, name='C2')\n    m.addConstr(0.53 * vars['Var_0'] + 5.86 * vars['Var_1'] + 7.72 * vars['Var_2'] + 4.77 * vars['Var_3'] >= 125.54, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 Exterior Coating Blend \u2014 Please frame the least-cost sourcing plan to meet performance floors\n\nTeam,\n\nAs we finalize the Q2 production run for our exterior-grade coating, we need your help to define the most economical formulation using four additive families. Each input adds measurable performance to the batch across four attributes\u2014Viscosity Index, Adhesion Strength, Opacity Rating, and Weathering Endurance. Our intent is to meet or exceed the required minimums in all four attributes at the lowest total material spend.\n\nHere are the levers available to us, in the order we would like you to consider them:\n\n- Titanium Blend Alpha\n  - Cost: 8.16 per unit.\n  - Availability: optional purchase from 0 up to 9.01 units (no minimum obligation).\n  - Performance contribution per unit:\n    - Viscosity Index: +9.58 points\n    - Adhesion Strength: +3.88 points\n    - Opacity Rating: +6.98 points\n    - Weathering Endurance: +0.53 points\n\n- Acrylic Resin Beta\n  - Cost: 4.02 per unit.\n  - Availability: optional purchase from 0 up to 9.81 units (no minimum obligation).\n  - Performance contribution per unit:\n    - Viscosity Index: +8.26 points\n    - Adhesion Strength: +0.81 points\n    - Opacity Rating: +2.44 points\n    - Weathering Endurance: +5.86 points\n\n- Silicone Fortifier Gamma\n  - Cost: 2.95 per unit.\n  - Availability: optional purchase from 0 up to 16.58 units (no minimum obligation).\n  - Performance contribution per unit:\n    - Viscosity Index: +2.68 points\n    - Adhesion Strength: +0.65 points\n    - Opacity Rating: +1.60 points\n    - Weathering Endurance: +7.72 points\n\n- Fibered Binder Delta\n  - Cost: 4.79 per unit.\n  - Availability: optional purchase from 0 up to 7.26 units (no minimum obligation).\n  - Performance contribution per unit:\n    - Viscosity Index: +0.32 points\n    - Adhesion Strength: +8.24 points\n    - Opacity Rating: +4.87 points\n    - Weathering Endurance: +4.77 points\n\nProduct performance floors we must meet or exceed for the finished blend:\n- Viscosity Index: at least 101.26 points\n- Adhesion Strength: at least 65.66 points\n- Opacity Rating: at least 67.75 points\n- Weathering Endurance: at least 125.54 points\n\nPlease use the above inputs and limits to outline the blend plan that achieves these minimums at the lowest total cost. Partial units may be used as needed, subject to the availability caps listed.\n\nThanks,\nMaya\nDirector, Materials & Formulation Strategy"
+}

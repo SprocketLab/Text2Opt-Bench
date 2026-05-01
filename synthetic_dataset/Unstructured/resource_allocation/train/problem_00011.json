@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All coefficients, bounds, variable types, and >= thresholds are specified and map directly to a linear minimization. Minor oddity: integer variable capped at 18.3 and variable names not explicitly given.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative and headings; details are clear and non-repetitive. Slightly verbose but mostly necessary context.",
+      "realism": 95,
+      "realism_comment": "Realistic staffing/resource allocation with coverage, throughput, and audit targets; continuous hours and integer crews are plausible. Only slight oddity is 18.3 cap for integer crews."
+    },
+    "prompt_tokens_with_data": 596,
+    "prompt_tokens_without_data": 596
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 15.944854368932036,
+    "optimal_values": {
+      "Var_0": 5.5364077669902905,
+      "Var_1": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 3.46
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 19.63
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.81
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.78
+      ],
+      "objective_linear_coefficient": 2.88,
+      "resource_costs": {
+        "C0": 4.28,
+        "C1": 6.85,
+        "C2": 4.12
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.3
+      ],
+      "objective_linear_coefficient": 7.96,
+      "resource_costs": {
+        "C0": 0.32,
+        "C1": 3.69,
+        "C2": 5.32
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.78, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.88 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.3, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.96 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.28 * vars['Var_0'] + 0.32 * vars['Var_1'] >= 3.46, name='C0')\n    m.addConstr(6.85 * vars['Var_0'] + 3.69 * vars['Var_1'] >= 19.63, name='C1')\n    m.addConstr(4.12 * vars['Var_0'] + 5.32 * vars['Var_1'] >= 22.81, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing staffing mix to meet service obligations\n\nTeam,\n\nWe\u2019re looking to set the lowest-cost mix of two resourcing levers to meet our upcoming service commitments. The aim is to minimize our combined outlay while satisfying minimum thresholds in three areas: rapid response coverage, planned maintenance throughput, and audit-readiness points. Below are the levers available and how each one contributes to those obligations.\n\n- Core Operations Hours\n  - Scope: We can assign anywhere from 0 up to 9.78 units over the period, and this can be allocated fractionally; there\u2019s no requirement to use whole increments.\n  - Cost: Each unit carries an internal rate of 2.88.\n  - Impact on targets:\n    - Rapid Response Coverage: Each unit supplies 4.28 coverage points.\n    - Planned Maintenance Throughput: Each unit delivers 6.85 throughput units.\n    - Audit-Readiness Points: Each unit contributes 4.12 readiness points.\n\n- Contracted Specialist Crews\n  - Scope: These must be booked in whole increments only. We can schedule from 0 up to a maximum of 18.3 units across the period.\n  - Cost: Each unit is priced at 7.96.\n  - Impact on targets:\n    - Rapid Response Coverage: Each unit supplies 0.32 coverage points.\n    - Planned Maintenance Throughput: Each unit delivers 3.69 throughput units.\n    - Audit-Readiness Points: Each unit contributes 5.32 readiness points.\n\nFacility and Compliance Minimums\n- Rapid Response Coverage: At least 3.46 coverage points are required.\n- Planned Maintenance Throughput: At least 19.63 throughput units are required.\n- Audit-Readiness Points: At least 22.81 readiness points are required.\n\nPlease configure the above mix to achieve the stated minimums at the lowest combined cost."
+}

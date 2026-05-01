@@ -1,13 +1,25 @@
-# OR-LLM-Bench
+# Text2Opt-Bench
 
 A scalable benchmark for evaluating LLMs on operations research optimization problems (LP, MILP, MIQP, nonlinear) with solver-verified ground truth.
 
-[[Paper]](https://arxiv.org/abs/XXXX.XXXXX)
+[Paper] — coming soon
 
 ## Setup
 
+Requires Python ≥ 3.10.
+
 ```bash
+# Clone and install
+git clone https://github.com/SprocketLab/Text2Opt-Bench.git
+cd Text2Opt-Bench
+python -m venv .venv && source .venv/bin/activate   # optional but recommended
 pip install -r requirements.txt
+```
+
+`requirements.txt` covers the full evaluation and generation pipeline (`gurobipy`, `openai`, `tiktoken`, `tqdm`, `huggingface_hub`, plus `numpy`/`pandas`/`matplotlib`/`seaborn` for analysis). To run open-weight models locally, additionally install `vllm` (commented out in `requirements.txt`):
+
+```bash
+pip install vllm>=0.4
 ```
 
 **API keys** — either set environment variables or add to `api_keys/keys.json`:
@@ -29,6 +41,8 @@ cp api_keys/sample_keys.json api_keys/keys.json
 
 ## Dataset
 
+The **main benchmark** — `Template/` (12 categories, 550 problems) and `Unstructured/resource_allocation/` (1,441 problems) — is bundled in this repo. These are the evaluation sets behind the headline results in the paper, and no download is needed to reproduce them:
+
 ```
 synthetic_dataset/
 ├── Template/                    # 550 small-tier problems (50 per category)
@@ -46,15 +60,29 @@ synthetic_dataset/
 │       ├── stochastic_transportation/      # SAA chance-constrained MILP
 │       ├── multiobjective_transportation/  # Bi-objective cost+emissions MILP
 │       └── modified_facility_location/     # Extended constraints MILP
-├── Template_large/              # Large-tier instances (7K-48K data tokens)
-│   ├── transportation/          # ~90x90 cost matrices
-│   ├── queuing_staffing/
-│   └── multiobjective_transportation/
 └── Unstructured/
-    └── resource_allocation/     # 1,012 LP/MILP instances (prose-embedded data)
+    └── resource_allocation/     # 1,441 LP/MILP instances (prose-embedded data)
 ```
 
 Each problem JSON contains: `LLM_description`, `instance_data`, `gold_solution`, `gurobi_result`, `variables`, `constraints`.
+
+### Optional: supplementary assets on Hugging Face
+
+Three supplementary assets back the auxiliary experiments in the paper — they are not needed for the main results, and live on the Hub at [`ZhiqiGao/Text2Opt-Bench`](https://huggingface.co/datasets/ZhiqiGao/Text2Opt-Bench):
+
+- `Template_train/` — SFT training corpus for the binding-specialist study
+- `Template_large/` — large-tier instances (7K–48K data tokens) for the binding stress test
+- `ruler/samples/` — pre-generated long-context retrieval/aggregation tasks (RULER)
+
+Fetch as needed:
+
+```bash
+pip install huggingface_hub
+python scripts/download_data.py                  # all three bulk assets (~600 MB)
+python scripts/download_data.py --only train     # Template_train (SFT data)
+python scripts/download_data.py --only large     # Template_large (7K-48K-token stress instances)
+python scripts/download_data.py --only ruler     # RULER long-context tasks
+```
 
 ## Quick Start
 
@@ -150,6 +178,26 @@ python ruler/analysis.py
 
 Use the same `--samples-dir` across all models so results are directly comparable.
 
+## Generating more problems
+
+The benchmark is built by a forward-engineering pipeline: each generator instantiates a Gurobi model with sampled size parameters, solves it (retrying on infeasibility, timeout, or trivial-solution cases), then asks an LLM to fill a category-specific template prompt to produce the natural-language `LLM_description`. `scripts/generate.py` exposes the full pipeline through a single CLI:
+
+```bash
+python scripts/generate.py --list                                # supported categories
+python scripts/generate.py jssp -n 50                            # 50 JSSP problems with sampled sizes
+python scripts/generate.py resource_allocation -n 100            # generic LP/MILP
+python scripts/generate.py transportation -n 30 --size large \
+    --output-dir synthetic_dataset/Template_large/transportation/large
+python scripts/generate.py jssp -n 5 --params n_jobs=5 n_machines=4   # fixed sizes
+python scripts/generate.py jssp -n 5 --no-description            # structured data only
+```
+
+Notes:
+
+- The description step requires `OPENAI_API_KEY` (env var or `api_keys/keys.json`) and defaults to `gpt-5`. Override with `--model`.
+- Quality checks are baked in: each generator solves with Gurobi, requires `OPTIMAL` status, and (for the abstract LP/MILP categories) filters trivial-objective solutions, retrying up to 20×.
+- Per-category prompts live as `SYSTEM_PROMPT` class attributes under [`main/generation/`](main/generation/) — open the relevant generator file to inspect or modify the prompt.
+
 ## Repository Structure
 
 ```
@@ -163,6 +211,8 @@ main/
 └── utils.py                     # API client routing
 
 scripts/
+├── generate.py                  # Universal problem generator (forward-engineering pipeline)
+├── download_data.py             # Fetch supplementary assets from the HF Hub
 ├── evaluation/                  # TTC strategies (best-of-k, repair)
 ├── analysis/                    # Failure mode & isomorphism analysis
 └── training/                    # Binding SFT data generation & eval

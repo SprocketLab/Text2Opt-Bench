@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit costs, integer domains, bounds, and metric coefficients for all 8 constraints; >= floors and minimize cost are clear. Only minor mismatch on variable naming vs code.",
+      "ambiguity": false,
+      "redundancy": 24,
+      "redundancy_comment": "Some business email fluff and repeated phrasing; most length is necessary to list coefficients for each metric.",
+      "realism": 94,
+      "realism_comment": "Plausible service planning with capacities, costs, and KPI floors; coefficients and structure resemble real OR applications."
+    },
+    "prompt_tokens_with_data": 1607,
+    "prompt_tokens_without_data": 1607
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 279.63,
+    "optimal_values": {
+      "Var_0": 2.0,
+      "Var_1": 1.0,
+      "Var_2": 2.0,
+      "Var_3": 7.0,
+      "Var_4": 1.0,
+      "Var_5": 11.0,
+      "Var_6": 9.0,
+      "Var_7": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 68.68
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 243.54
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 241.95
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 166.78
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 192.0
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 198.02
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 191.54
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 191.84
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 7.83,
+      "resource_costs": {
+        "C0": 0.03,
+        "C1": 6.28,
+        "C2": 3.35,
+        "C3": 0.86,
+        "C4": 3.89,
+        "C6": 7.66
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.7
+      ],
+      "objective_linear_coefficient": 6.24,
+      "resource_costs": {
+        "C0": 0.16,
+        "C2": 3.05,
+        "C3": 4.9,
+        "C4": 7.81,
+        "C5": 9.18,
+        "C7": 7.72
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.62
+      ],
+      "objective_linear_coefficient": 6.74,
+      "resource_costs": {
+        "C1": 0.7,
+        "C2": 7.59,
+        "C3": 1.68,
+        "C4": 1.44,
+        "C5": 5.48,
+        "C6": 8.74,
+        "C7": 3.64
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.9
+      ],
+      "objective_linear_coefficient": 7.94,
+      "resource_costs": {
+        "C1": 8.21,
+        "C2": 7.99,
+        "C3": 8.33,
+        "C5": 5.03,
+        "C7": 6.7
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.75
+      ],
+      "objective_linear_coefficient": 6.84,
+      "resource_costs": {
+        "C0": 7.14,
+        "C2": 9.43,
+        "C4": 2.22,
+        "C5": 6.35,
+        "C7": 9.2
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 8.46,
+      "resource_costs": {
+        "C0": 5.64,
+        "C1": 4.81,
+        "C2": 8.5,
+        "C3": 9.32,
+        "C4": 5.44,
+        "C5": 7.15,
+        "C6": 8.26,
+        "C7": 8.98
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.51
+      ],
+      "objective_linear_coefficient": 6.07,
+      "resource_costs": {
+        "C0": 0.01,
+        "C1": 7.91,
+        "C2": 1.2,
+        "C4": 6.31,
+        "C5": 6.7,
+        "C6": 4.21
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.8
+      ],
+      "objective_linear_coefficient": 5.69,
+      "resource_costs": {
+        "C1": 8.04,
+        "C2": 9.01,
+        "C4": 9.81,
+        "C5": 2.8,
+        "C6": 5.49,
+        "C7": 4.66
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.83 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.7, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.24 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.62, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.74 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.9, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.94 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.75, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.84 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.46 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=13.51, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 6.07 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=6.8, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 5.69 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.03 * vars['Var_0'] + 0.16 * vars['Var_1'] + 7.14 * vars['Var_4'] + 5.64 * vars['Var_5'] + 0.01 * vars['Var_6'] >= 68.68, name='C0')\n    m.addConstr(6.28 * vars['Var_0'] + 0.7 * vars['Var_2'] + 8.21 * vars['Var_3'] + 4.81 * vars['Var_5'] + 7.91 * vars['Var_6'] + 8.04 * vars['Var_7'] >= 243.54, name='C1')\n    m.addConstr(3.35 * vars['Var_0'] + 3.05 * vars['Var_1'] + 7.59 * vars['Var_2'] + 7.99 * vars['Var_3'] + 9.43 * vars['Var_4'] + 8.5 * vars['Var_5'] + 1.2 * vars['Var_6'] + 9.01 * vars['Var_7'] >= 241.95, name='C2')\n    m.addConstr(0.86 * vars['Var_0'] + 4.9 * vars['Var_1'] + 1.68 * vars['Var_2'] + 8.33 * vars['Var_3'] + 9.32 * vars['Var_5'] >= 166.78, name='C3')\n    m.addConstr(3.89 * vars['Var_0'] + 7.81 * vars['Var_1'] + 1.44 * vars['Var_2'] + 2.22 * vars['Var_4'] + 5.44 * vars['Var_5'] + 6.31 * vars['Var_6'] + 9.81 * vars['Var_7'] >= 192.0, name='C4')\n    m.addConstr(9.18 * vars['Var_1'] + 5.48 * vars['Var_2'] + 5.03 * vars['Var_3'] + 6.35 * vars['Var_4'] + 7.15 * vars['Var_5'] + 6.7 * vars['Var_6'] + 2.8 * vars['Var_7'] >= 198.02, name='C5')\n    m.addConstr(7.66 * vars['Var_0'] + 8.74 * vars['Var_2'] + 8.26 * vars['Var_5'] + 4.21 * vars['Var_6'] + 5.49 * vars['Var_7'] >= 191.54, name='C6')\n    m.addConstr(7.72 * vars['Var_1'] + 3.64 * vars['Var_2'] + 6.7 * vars['Var_3'] + 9.2 * vars['Var_4'] + 8.98 * vars['Var_5'] + 4.66 * vars['Var_7'] >= 191.84, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix to meet our contracted service floors\n\nTeam,\n\nWe need to set our weekly mix of service packages so that we hit all contractual minimums at the lowest total program cost. All packages are bought in whole units only\u2014no fractional teams or partial kits\u2014and each package can be scaled from zero up to its availability cap.\n\nHere are the levers we can pull, in the order we\u2019ll consider them:\n\n- Metro Starter Crew\n  - Availability: anywhere from 0 up to 8.0 crews.\n  - Unit cost: 7.83 per crew per week.\n  - Per-unit impact on our contracted metrics, in order:\n    - Regulatory compliance credits: 0.03 per crew.\n    - On\u2011site service hours: 6.28 per crew.\n    - Order fulfillment throughput: 3.35 per crew.\n    - Quality assurance audits: 0.86 per crew.\n    - Sustainability contributions: 3.89 per crew.\n    - Freight & field mileage: no impact.\n    - Data processing units: 7.66 per crew.\n    - Customer care resolutions: no impact.\n\n- Suburban Support Crew\n  - Availability: anywhere from 0 up to 15.7 crews.\n  - Unit cost: 6.24 per crew per week.\n  - Per-unit impact on our contracted metrics:\n    - Regulatory compliance credits: 0.16 per crew.\n    - On\u2011site service hours: no impact.\n    - Order fulfillment throughput: 3.05 per crew.\n    - Quality assurance audits: 4.90 per crew.\n    - Sustainability contributions: 7.81 per crew.\n    - Freight & field mileage: 9.18 per crew.\n    - Data processing units: no impact.\n    - Customer care resolutions: 7.72 per crew.\n\n- Express Processing Cell\n  - Availability: anywhere from 0 up to 9.62 cells.\n  - Unit cost: 6.74 per cell per week.\n  - Per-unit impact on our contracted metrics:\n    - Regulatory compliance credits: no impact.\n    - On\u2011site service hours: 0.70 per cell.\n    - Order fulfillment throughput: 7.59 per cell.\n    - Quality assurance audits: 1.68 per cell.\n    - Sustainability contributions: 1.44 per cell.\n    - Freight & field mileage: 5.48 per cell.\n    - Data processing units: 8.74 per cell.\n    - Customer care resolutions: 3.64 per cell.\n\n- Premium Field Team\n  - Availability: anywhere from 0 up to 9.9 teams.\n  - Unit cost: 7.94 per team per week.\n  - Per-unit impact on our contracted metrics:\n    - Regulatory compliance credits: no impact.\n    - On\u2011site service hours: 8.21 per team.\n    - Order fulfillment throughput: 7.99 per team.\n    - Quality assurance audits: 8.33 per team.\n    - Sustainability contributions: no impact.\n    - Freight & field mileage: 5.03 per team.\n    - Data processing units: no impact.\n    - Customer care resolutions: 6.70 per team.\n\n- Bulk Handling Unit\n  - Availability: anywhere from 0 up to 17.75 units.\n  - Unit cost: 6.84 per unit per week.\n  - Per-unit impact on our contracted metrics:\n    - Regulatory compliance credits: 7.14 per unit.\n    - On\u2011site service hours: no impact.\n    - Order fulfillment throughput: 9.43 per unit.\n    - Quality assurance audits: no impact.\n    - Sustainability contributions: 2.22 per unit.\n    - Freight & field mileage: 6.35 per unit.\n    - Data processing units: no impact.\n    - Customer care resolutions: 9.20 per unit.\n\n- Integrated Service Van\n  - Availability: anywhere from 0 up to 11.0 vans.\n  - Unit cost: 8.46 per van per week.\n  - Per-unit impact on our contracted metrics:\n    - Regulatory compliance credits: 5.64 per van.\n    - On\u2011site service hours: 4.81 per van.\n    - Order fulfillment throughput: 8.50 per van.\n    - Quality assurance audits: 9.32 per van.\n    - Sustainability contributions: 5.44 per van.\n    - Freight & field mileage: 7.15 per van.\n    - Data processing units: 8.26 per van.\n    - Customer care resolutions: 8.98 per van.\n\n- Digital Assist Pod\n  - Availability: anywhere from 0 up to 13.51 pods.\n  - Unit cost: 6.07 per pod per week.\n  - Per-unit impact on our contracted metrics:\n    - Regulatory compliance credits: 0.01 per pod.\n    - On\u2011site service hours: 7.91 per pod.\n    - Order fulfillment throughput: 1.20 per pod.\n    - Quality assurance audits: no impact.\n    - Sustainability contributions: 6.31 per pod.\n    - Freight & field mileage: 6.70 per pod.\n    - Data processing units: 4.21 per pod.\n    - Customer care resolutions: no impact.\n\n- Agile Night Shift Team\n  - Availability: anywhere from 0 up to 6.8 teams.\n  - Unit cost: 5.69 per team per week.\n  - Per-unit impact on our contracted metrics:\n    - Regulatory compliance credits: no impact.\n    - On\u2011site service hours: 8.04 per team.\n    - Order fulfillment throughput: 9.01 per team.\n    - Quality assurance audits: no impact.\n    - Sustainability contributions: 9.81 per team.\n    - Freight & field mileage: 2.80 per team.\n    - Data processing units: 5.49 per team.\n    - Customer care resolutions: 4.66 per team.\n\nContracted service floors we must meet or exceed each week:\n- Regulatory compliance credits: at least 68.68.\n- On\u2011site service hours: at least 243.54.\n- Order fulfillment throughput: at least 241.95.\n- Quality assurance audits: at least 166.78.\n- Sustainability contributions: at least 192.00.\n- Freight & field mileage: at least 198.02.\n- Data processing units: at least 191.54.\n- Customer care resolutions: at least 191.84.\n\nOur task is to choose a whole\u2011unit mix of the above packages, within each availability cap, that satisfies every one of these minimums at the lowest possible weekly spend.\n\nBest regards,\n[Your Name]\nOperations Planning Lead"
+}

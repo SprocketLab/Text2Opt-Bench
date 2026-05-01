@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and audience contributions are explicitly specified; constraint directions and thresholds are clear; objective is to minimize total spend.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative fluff and repeated no-direct-contribution notes; otherwise details are needed to define coefficients, bounds, and integrality.",
+      "realism": 95,
+      "realism_comment": "Very plausible media mix minimization with reach thresholds and capacities; slight oddity in fractional caps on integer items, but overall realistic."
+    },
+    "prompt_tokens_with_data": 921,
+    "prompt_tokens_without_data": 921
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 85.25345827522082,
+    "optimal_values": {
+      "Var_0": 12.0,
+      "Var_1": 3.0,
+      "Var_2": 0.0347222222222221,
+      "Var_3": 2.271966527196652,
+      "Var_4": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 21.86
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.22
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 85.89
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 37.41
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.59
+      ],
+      "objective_linear_coefficient": 3.07,
+      "resource_costs": {
+        "C1": 2.83,
+        "C2": 7.12,
+        "C3": 1.76
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.99
+      ],
+      "objective_linear_coefficient": 9.09,
+      "resource_costs": {
+        "C0": 7.22,
+        "C1": 6.75
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.14
+      ],
+      "objective_linear_coefficient": 8.26,
+      "resource_costs": {
+        "C0": 5.76,
+        "C1": 2.7,
+        "C2": 9.26
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.14
+      ],
+      "objective_linear_coefficient": 9.18,
+      "resource_costs": {
+        "C2": 0.63,
+        "C3": 7.17
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.54
+      ],
+      "objective_linear_coefficient": 4.92,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.59, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 3.07 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.99, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.09 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.14, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.26 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.14, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.18 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.54, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 4.92 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.22 * vars['Var_1'] + 5.76 * vars['Var_2'] >= 21.86, name='C0')\n    m.addConstr(2.83 * vars['Var_0'] + 6.75 * vars['Var_1'] + 2.7 * vars['Var_2'] >= 43.22, name='C1')\n    m.addConstr(7.12 * vars['Var_0'] + 9.26 * vars['Var_2'] + 0.63 * vars['Var_3'] >= 85.89, name='C2')\n    m.addConstr(1.76 * vars['Var_0'] + 7.17 * vars['Var_3'] >= 37.41, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for least-cost mix to meet audience commitments\n\nHello team,\n\nWe\u2019re preparing the upcoming campaign and need your help selecting the lowest-cost mix of placements that still fulfills our minimum audience commitments across four groups. The intent is to minimize total spend while ensuring we hit or exceed each audience\u2019s required reach credits.\n\nBelow are the levers we can allocate, in the order we evaluate them, with their unit costs, availability limits, and how each one contributes to the four audience groups:\n\n- Regional Radio Flights\n  - Unit cost: 3.07 per flight.\n  - Availability: up to 12.59 flights; must be purchased in whole flights (no partials). The practical lower limit is zero (we can choose none).\n  - Contribution profile:\n    - Mass Consumer Reach: 2.83 reach credits per flight.\n    - Value-Seeker Reach: 7.12 reach credits per flight.\n    - Local Community Engagement: 1.76 reach credits per flight.\n    - Executive Decision Makers: no direct contribution.\n\n- National TV Pods\n  - Unit cost: 9.09 per pod.\n  - Availability: up to 15.99 pods; must be purchased in whole pods. Lower limit is zero.\n  - Contribution profile:\n    - Executive Decision Makers: 7.22 reach credits per pod.\n    - Mass Consumer Reach: 6.75 reach credits per pod.\n    - Value-Seeker Reach and Local Community Engagement: no direct contribution.\n\n- Programmatic Display Packages\n  - Unit cost: 8.26 per package.\n  - Availability: up to 12.14 packages; can be purchased in fractional increments. Lower limit is zero.\n  - Contribution profile:\n    - Executive Decision Makers: 5.76 reach credits per package.\n    - Mass Consumer Reach: 2.70 reach credits per package.\n    - Value-Seeker Reach: 9.26 reach credits per package.\n    - Local Community Engagement: no direct contribution.\n\n- Social Video Boost Hours\n  - Unit cost: 9.18 per boost hour.\n  - Availability: up to 6.14 boost hours; can be purchased in fractional increments. Lower limit is zero.\n  - Contribution profile:\n    - Value-Seeker Reach: 0.63 reach credits per boost hour.\n    - Local Community Engagement: 7.17 reach credits per boost hour.\n    - Executive Decision Makers and Mass Consumer Reach: no direct contribution.\n\n- Brand Lift Research Panels\n  - Unit cost: 4.92 per panel.\n  - Availability: up to 19.54 panels; must be purchased in whole panels. Lower limit is zero.\n  - Contribution profile:\n    - This line does not generate reach credits for any of the four audience groups; it is strictly optional research investment that adds cost but does not help meet the minimums.\n\nMarket limits (minimum reach commitments we must meet or exceed):\n- Executive Decision Makers: at least 21.86 reach credits.\n- Mass Consumer Reach: at least 43.22 reach credits.\n- Value-Seeker Reach: at least 85.89 reach credits.\n- Local Community Engagement: at least 37.41 reach credits.\n\nPlease use the above as the basis for determining the mix that minimizes total spend while respecting each placement\u2019s availability and purchase granularity (whole-unit vs. fractional) and achieving all four audience minimums. If any assumptions are needed around timing or pacing, let me know and I\u2019ll confirm."
+}

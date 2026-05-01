@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and contribution coefficients are explicit; two >= constraints and a cost-min objective are clear. Non-integer caps on integer vars are unusual but unambiguous.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Memo-style prose and repeated booking rules add verbosity, but most content supports the model; limited fluff (greeting, review note).",
+      "realism": 95,
+      "realism_comment": "Plausible operations planning (throughput, oversight, integer days, fractional blocks, caps, costs). Decimal caps are a bit odd but still realistic."
+    },
+    "prompt_tokens_with_data": 735,
+    "prompt_tokens_without_data": 735
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 20.126848101265825,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": -0.0,
+      "Var_2": 7.213924050632912
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 27.92
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 56.99
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.71
+      ],
+      "objective_linear_coefficient": 2.29,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.87
+      ],
+      "objective_linear_coefficient": 8.48,
+      "resource_costs": {
+        "C1": 6.39
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.85
+      ],
+      "objective_linear_coefficient": 2.79,
+      "resource_costs": {
+        "C0": 8.39,
+        "C1": 7.9
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.71, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.29 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.87, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.48 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.85, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.79 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.39 * vars['Var_2'] >= 27.92, name='C0')\n    m.addConstr(6.39 * vars['Var_1'] + 7.9 * vars['Var_2'] >= 56.99, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed Q1 Resourcing Plan to Minimize Spend While Meeting Throughput and Oversight Minimums\n\nTeam,\n\nWe\u2019re finalizing the Q1 operations plan with a clear goal: minimize our total outlay while still hitting two non\u2011negotiable minimums\u2014core processing throughput and oversight coverage. Below are the levers we can pull and how each one affects those obligations.\n\nResourcing levers\n\n- Standby Coordination Team Days\n  - Purpose and impact: These are optional coordination days we can deploy to maintain schedule flexibility. They do not add to our measured core processing throughput or to oversight coverage; they\u2019re purely supportive.\n  - Cost profile: Each team\u2011day costs 2.29 in budget.\n  - Booking rules: Must be scheduled in whole team\u2011days (no partial days), with no required minimum commitment.\n  - Availability cap: We can allocate anywhere from 0 up to a cap equivalent to 18.71 team\u2011days for the quarter.\n\n- Quality Assurance Inspector Days\n  - Purpose and impact: These inspector days contribute directly to oversight coverage but do not move the core processing throughput metric. Each inspector\u2011day adds 6.39 units to our oversight coverage tally and zero to core processing.\n  - Cost profile: Each inspector\u2011day costs 8.48 in budget.\n  - Booking rules: Must be scheduled in whole days, with no required minimum commitment.\n  - Availability cap: We can allocate between 0 and 15.87 inspector\u2011days for the quarter.\n\n- Automated Processing Blocks\n  - Purpose and impact: These blocks raise both our core processing throughput and our oversight coverage simultaneously. Each block contributes 8.39 units toward core processing and 7.9 units toward oversight coverage.\n  - Cost profile: Each block costs 2.79 in budget.\n  - Booking rules: These can be procured in fractional amounts; there is no required minimum commitment.\n  - Availability cap: We can allocate between 0 and 15.85 blocks for the quarter.\n\nMarket limits and operating minimums\n\n- Core processing throughput: We must deliver at least 27.92 units in total for the quarter.\n- Oversight coverage: We must deliver at least 56.99 units in total for the quarter.\n\nPlease use the above parameters to configure the Q1 mix that achieves the minimums at the lowest possible spend. I\u2019m available to review trade\u2011offs (e.g., leaning more on automated blocks that advance both metrics versus inspector days that only raise oversight coverage) once you\u2019ve modeled the options within the caps noted above."
+}

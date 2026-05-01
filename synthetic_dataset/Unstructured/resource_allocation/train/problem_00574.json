@@ -1,0 +1,219 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 11,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and per-unit impacts are specified; >= targets are clear. Zero impacts noted. A modeler can reconstruct the exact MIP. Only minor ambiguity about variable naming.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative email style with repeated 'No effect...' lines makes it verbose, though this also clarifies zero coefficients and adds context.",
+      "realism": 95,
+      "realism_comment": "A plausible service-operations planning problem with caps, costs, and SLA minima; linear impacts make operational sense."
+    },
+    "prompt_tokens_with_data": 1322,
+    "prompt_tokens_without_data": 1322
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 146.8218197606479,
+    "optimal_values": {
+      "Var_0": 13.480722891566257,
+      "Var_1": -0.0,
+      "Var_2": 6.0,
+      "Var_3": 7.0,
+      "Var_4": -0.0,
+      "Var_5": 1.0,
+      "Var_6": 0.5819397993311037,
+      "Var_7": 3.0,
+      "Var_8": -0.0,
+      "Var_9": 0.0,
+      "Var_10": 13.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 131.45
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.95
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 67.47
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 58.58
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 92.89
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.82
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 136.44
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 37.97
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.57
+      ],
+      "objective_linear_coefficient": 2.41,
+      "resource_costs": {
+        "C0": 8.3,
+        "C5": 7.48
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.87
+      ],
+      "objective_linear_coefficient": 3.06,
+      "resource_costs": {
+        "C4": 0.34,
+        "C6": 3.83
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 2.4,
+      "resource_costs": {
+        "C0": 1.75,
+        "C4": 5.08
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.13
+      ],
+      "objective_linear_coefficient": 8.19,
+      "resource_costs": {
+        "C3": 8.12,
+        "C4": 9.04
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.89
+      ],
+      "objective_linear_coefficient": 4.39,
+      "resource_costs": {
+        "C6": 1.59
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.3
+      ],
+      "objective_linear_coefficient": 3.87,
+      "resource_costs": {
+        "C0": 9.06,
+        "C1": 0.25,
+        "C5": 4.47,
+        "C6": 9.14,
+        "C7": 4.35
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.04
+      ],
+      "objective_linear_coefficient": 3.03,
+      "resource_costs": {
+        "C3": 2.99
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.9
+      ],
+      "objective_linear_coefficient": 2.53,
+      "resource_costs": {
+        "C1": 9.47,
+        "C4": 0.12,
+        "C6": 0.84
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.28
+      ],
+      "objective_linear_coefficient": 9.68,
+      "resource_costs": {
+        "C0": 2.1
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.6
+      ],
+      "objective_linear_coefficient": 1.7,
+      "resource_costs": {
+        "C1": 3.39
+      }
+    },
+    "Var_10": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.49
+      ],
+      "objective_linear_coefficient": 2.26,
+      "resource_costs": {
+        "C1": 7.48,
+        "C2": 8.52,
+        "C6": 9.7,
+        "C7": 3.88
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.57, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.41 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.87, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.06 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=13.49, vtype=GRB.INTEGER, name='Var_10')\n    lin_expr += 2.26 * vars['Var_10']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.4 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.13, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.19 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.89, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 4.39 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.3, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 3.87 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.04, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.03 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=6.9, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 2.53 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=19.28, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 9.68 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=14.6, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 1.7 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.3 * vars['Var_0'] + 1.75 * vars['Var_2'] + 9.06 * vars['Var_5'] + 2.1 * vars['Var_8'] >= 131.45, name='C0')\n    m.addConstr(7.48 * vars['Var_10'] + 0.25 * vars['Var_5'] + 9.47 * vars['Var_7'] + 3.39 * vars['Var_9'] >= 121.95, name='C1')\n    m.addConstr(8.52 * vars['Var_10'] >= 67.47, name='C2')\n    m.addConstr(8.12 * vars['Var_3'] + 2.99 * vars['Var_6'] >= 58.58, name='C3')\n    m.addConstr(0.34 * vars['Var_1'] + 5.08 * vars['Var_2'] + 9.04 * vars['Var_3'] + 0.12 * vars['Var_7'] >= 92.89, name='C4')\n    m.addConstr(7.48 * vars['Var_0'] + 4.47 * vars['Var_5'] >= 75.82, name='C5')\n    m.addConstr(3.83 * vars['Var_1'] + 9.7 * vars['Var_10'] + 1.59 * vars['Var_4'] + 9.14 * vars['Var_5'] + 0.84 * vars['Var_7'] >= 136.44, name='C6')\n    m.addConstr(3.88 * vars['Var_10'] + 4.35 * vars['Var_5'] >= 37.97, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix to meet our service and compliance commitments\n\nTeam,\n\nWe are looking to assemble the most economical mix of programs to meet or exceed our minimum service-level and regulatory obligations across coverage, support, training, field work, maintenance readiness, and community impact. The goal is to satisfy every minimum requirement listed below at the lowest total fully loaded cost, using the levers described here, each of which has its own cap and cost profile.\n\nLevers we can deploy (in the order we evaluate them):\n\n1) Rapid Response Teams (flex hours)\n- Cost: $2.41 per hour.\n- Availability: anywhere from 0 up to 15.57 hours; can be scheduled in fractional increments.\n- Impact: each hour provides 8.30 credits toward Emergency Response Coverage and 7.48 credits toward After-Hours Support Coverage.\n- No effect on other commitments.\n\n2) Infrastructure Audit Crews\n- Cost: $3.06 per crew-day.\n- Availability: anywhere from 0 up to 14.87 crew-days; must be booked in whole numbers.\n- Impact: each crew-day contributes 0.34 units of Training Delivery and 3.83 Infrastructure Readiness checks.\n- No effect on other commitments.\n\n3) Training Specialists\n- Cost: $2.40 per specialist-day.\n- Availability: anywhere from 0 up to 10 specialist-days; must be booked in whole numbers.\n- Impact: each specialist-day adds 1.75 Emergency Response Coverage credits and 5.08 Training Delivery units.\n- No effect on other commitments.\n\n4) Field Deployment Squads\n- Cost: $8.19 per squad-day.\n- Availability: anywhere from 0 up to 15.13 squad-days; must be booked in whole numbers.\n- Impact: each squad-day delivers 8.12 On-Site Field Service hours and 9.04 Training Delivery units.\n- No effect on other commitments.\n\n5) Preventive Maintenance Rounds\n- Cost: $4.39 per round.\n- Availability: anywhere from 0 up to 14.89 rounds; must be booked in whole numbers.\n- Impact: each round yields 1.59 Infrastructure Readiness checks.\n- No effect on other commitments.\n\n6) Comprehensive Service Bundles\n- Cost: $3.87 per bundle.\n- Availability: anywhere from 0 up to 11.30 bundles; must be booked in whole numbers.\n- Impact: each bundle provides 9.06 Emergency Response Coverage credits, 0.25 Priority Client Support resolutions, 4.47 After-Hours Support Coverage credits, 9.14 Infrastructure Readiness checks, and 4.35 Community Outreach sessions.\n- No effect on Training Delivery or Certification Credits.\n\n7) Remote Support Hours\n- Cost: $3.03 per hour.\n- Availability: anywhere from 0 up to 19.04 hours; can be scheduled in fractional increments.\n- Impact: each hour contributes 2.99 On-Site Field Service hours (virtual triage enabling field work).\n- No effect on other commitments.\n\n8) Premier Support Agents\n- Cost: $2.53 per agent-shift.\n- Availability: anywhere from 0 up to 6.90 agent-shifts; must be booked in whole numbers.\n- Impact: each shift adds 9.47 Priority Client Support resolutions, 0.12 Training Delivery units, and 0.84 Infrastructure Readiness checks.\n- No effect on other commitments.\n\n9) Emergency Standby Units\n- Cost: $9.68 per standby unit.\n- Availability: anywhere from 0 up to 19.28 units; must be booked in whole numbers.\n- Impact: each unit contributes 2.10 Emergency Response Coverage credits.\n- No effect on other commitments.\n\n10) Customer Success Hours\n- Cost: $1.70 per hour.\n- Availability: anywhere from 0 up to 14.60 hours; can be scheduled in fractional increments.\n- Impact: each hour delivers 3.39 Priority Client Support resolutions.\n- No effect on other commitments.\n\n11) Compliance & Outreach Packages\n- Cost: $2.26 per package.\n- Availability: anywhere from 0 up to 13.49 packages; must be booked in whole numbers.\n- Impact: each package provides 7.48 Priority Client Support resolutions, 8.52 Certification Credits, 9.70 Infrastructure Readiness checks, and 3.88 Community Outreach sessions.\n- No effect on Emergency Response Coverage, Training Delivery, After-Hours Support, or On-Site Field Service.\n\nService and regulatory minimums we must meet or exceed:\n\n- Emergency Response Coverage: at least 131.45 credits.\n- Priority Client Support Resolutions: at least 121.95.\n- Certification Credits: at least 67.47.\n- On-Site Field Service Hours: at least 58.58.\n- Training Delivery Units: at least 92.89.\n- After-Hours Support Coverage: at least 75.82.\n- Infrastructure Readiness Checks: at least 136.44.\n- Community Outreach Sessions: at least 37.97.\n\nPlease use these parameters to assemble the lowest-cost mix that still meets all eight minimums. All levers are optional (we can choose zero), subject to their respective caps noted above. I\u2019m happy to discuss any assumptions behind the credentialing, coverage, or readiness definitions if that helps finalize the plan."
+}

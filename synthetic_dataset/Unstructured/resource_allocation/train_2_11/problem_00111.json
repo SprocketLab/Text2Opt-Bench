@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit costs, types, bounds, contributions, and >= commitments are all specified. Objective to minimize total cost is clear. A human can reconstruct the exact LP.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative memo style with repeated 'no contribution' statements and coding instructions; somewhat verbose, but the extra detail clarifies each mapping.",
+      "realism": 97,
+      "realism_comment": "Realistic energy procurement planning with hydro, gas, renewables, and demand response meeting energy, capacity, compliance, and sustainability targets; costs and limits are plausible."
+    },
+    "prompt_tokens_with_data": 872,
+    "prompt_tokens_without_data": 872
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 66.5,
+    "optimal_values": {
+      "Var_0": 1.0,
+      "Var_1": -0.0,
+      "Var_2": 10.0,
+      "Var_3": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 100.3
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 68.75
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.22
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.78
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.9
+      ],
+      "objective_linear_coefficient": 5.3,
+      "resource_costs": {
+        "C0": 9.76,
+        "C1": 2.74
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 6.99,
+      "resource_costs": {
+        "C0": 2.51
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.05
+      ],
+      "objective_linear_coefficient": 6.12,
+      "resource_costs": {
+        "C0": 9.86,
+        "C1": 6.78,
+        "C2": 2.05,
+        "C3": 2.2
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.11
+      ],
+      "objective_linear_coefficient": 3.43,
+      "resource_costs": {
+        "C1": 2.49
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.9, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.3 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.99 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.05, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.12 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.11, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.43 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.76 * vars['Var_0'] + 2.51 * vars['Var_1'] + 9.86 * vars['Var_2'] >= 100.3, name='C0')\n    m.addConstr(2.74 * vars['Var_0'] + 6.78 * vars['Var_2'] + 2.49 * vars['Var_3'] >= 68.75, name='C1')\n    m.addConstr(2.05 * vars['Var_2'] >= 15.22, name='C2')\n    m.addConstr(2.2 * vars['Var_2'] >= 15.78, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix to minimize monthly supply costs while meeting energy, capacity, compliance, and sustainability commitments\n\nTeam,\n\nWe need to finalize a least\u2011cost mix of supply options that will still satisfy four monthly commitments: baseline energy, local capacity/service readiness, regulatory compliance credits, and internal sustainability points. Below are the levers we can pull, with their cost per unit, practical limits, and the way each option contributes to our four minimum commitments.\n\n- Legacy Hydro Blocks (A)\n  - Cost profile: Each hydro block adds a controllable expense of 5.3 per block.\n  - Operating limits: We can schedule anywhere from zero up to 10.9 blocks this month. These are whole blocks only; we cannot split a block.\n  - What it delivers:\n    - Baseline energy: 9.76 units toward the monthly baseline requirement for each block committed.\n    - Local capacity/service readiness: 2.74 units toward the regional readiness requirement for each block.\n    - Regulatory compliance credits: No contribution; this option does not generate compliance credits.\n    - Sustainability points: No contribution; this option does not count toward our internal sustainability score.\n\n- Auxiliary Gas Blocks (B)\n  - Cost profile: Each gas block adds 6.99 per block.\n  - Operating limits: Zero up to 10.0 blocks may be committed, in whole blocks only.\n  - What it delivers:\n    - Baseline energy: 2.51 units per block.\n    - Local capacity/service readiness: No contribution from this option.\n    - Regulatory compliance credits: No contribution from this option.\n    - Sustainability points: No contribution from this option.\n\n- Integrated Renewable Bundles (C)\n  - Cost profile: Each bundle adds 6.12 per bundle.\n  - Operating limits: We may commit anywhere from zero up to 12.05 bundles; these are whole bundles only.\n  - What it delivers:\n    - Baseline energy: 9.86 units per bundle.\n    - Local capacity/service readiness: 6.78 units per bundle.\n    - Regulatory compliance credits: 2.05 credits per bundle.\n    - Sustainability points: 2.2 points per bundle.\n\n- On\u2011Demand Demand\u2011Response Hours (D)\n  - Cost profile: Each hour engaged adds 3.43 per hour.\n  - Operating limits: We can dial this from zero up to 8.11 hours, with fractional hours allowed.\n  - What it delivers:\n    - Baseline energy: No contribution from this option.\n    - Local capacity/service readiness: 2.49 units per hour.\n    - Regulatory compliance credits: No contribution from this option.\n    - Sustainability points: No contribution from this option.\n\nFacility and Compliance Commitments (Minimums to be met or exceeded this month)\n- Baseline energy commitment: at least 100.3 units.\n- Local capacity/service readiness commitment: at least 68.75 units.\n- Regulatory compliance credits: at least 15.22 credits.\n- Sustainability points: at least 15.78 points.\n\nOur objective is to meet all four minimums at the lowest total operating cost by choosing whole numbers of the three block/bundle options and using fractional on\u2011demand hours where economically justified."
+}

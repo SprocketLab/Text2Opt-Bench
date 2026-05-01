@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Coefficients, bounds, and KPI floors are explicit; mapping to >= constraints and linear cost is mechanical. Fractional capacities imply continuous vars; zero-impact KPIs are stated.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative adds context; some fluff and repeated 'No material effect' increase length, but most text conveys needed coefficients and bounds.",
+      "realism": 95,
+      "realism_comment": "Plausible distribution planning with costs, capacities, and KPI floors; KPI trade-offs look realistic despite fractional runs and negative floors."
+    },
+    "prompt_tokens_with_data": 1665,
+    "prompt_tokens_without_data": 1665
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 116.1791750143166,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 5.67855090366014,
+      "Var_2": 0.1469324512746487,
+      "Var_3": 6.692206214688364,
+      "Var_4": 0.0,
+      "Var_5": 0.3959074544872652,
+      "Var_6": 5.807401729395287
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -47.48
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 106.32
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -33.61
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -108.62
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 91.18
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 37.87
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -47.24
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 17.62
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -100.59
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.43
+      ],
+      "objective_linear_coefficient": 1.89,
+      "resource_costs": {
+        "C0": -2.07,
+        "C3": -7.29,
+        "C5": 4.72,
+        "C7": -6.7,
+        "C8": 2.11
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.22
+      ],
+      "objective_linear_coefficient": 6.58,
+      "resource_costs": {
+        "C0": -8.93,
+        "C1": 6.13,
+        "C3": 5.15,
+        "C5": 7.71,
+        "C6": -0.26,
+        "C7": 9.44,
+        "C8": -9.46
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.59
+      ],
+      "objective_linear_coefficient": 4.42,
+      "resource_costs": {
+        "C0": 1.07,
+        "C1": 3.25,
+        "C2": 4.08,
+        "C3": -5.31,
+        "C4": -4.48,
+        "C5": -6.78,
+        "C8": -7.47
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.18
+      ],
+      "objective_linear_coefficient": 6.51,
+      "resource_costs": {
+        "C1": 3.16,
+        "C2": -1.15,
+        "C3": -9.46,
+        "C4": 7.87,
+        "C5": -0.46,
+        "C6": -1.72,
+        "C7": -2.94
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.83
+      ],
+      "objective_linear_coefficient": 3.17,
+      "resource_costs": {
+        "C1": -8.86,
+        "C2": -7.32,
+        "C4": 2.68,
+        "C5": 7.71,
+        "C7": 2.89,
+        "C8": 5.87
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.51
+      ],
+      "objective_linear_coefficient": 5.98,
+      "resource_costs": {
+        "C0": 7.76,
+        "C2": 0.36,
+        "C3": 5.09,
+        "C4": 6.38,
+        "C5": -4.64,
+        "C6": -9.29
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.02
+      ],
+      "objective_linear_coefficient": 5.55,
+      "resource_costs": {
+        "C1": 8.59,
+        "C2": -4.59,
+        "C3": -3.95,
+        "C4": 6.31,
+        "C6": -2.98,
+        "C8": -4.51
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.43, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.89 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.22, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.58 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.59, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.42 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.18, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.51 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.83, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.17 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=5.51, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.98 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.02, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 5.55 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-2.07 * vars['Var_0'] + -8.93 * vars['Var_1'] + 1.07 * vars['Var_2'] + 7.76 * vars['Var_5'] >= -47.48, name='C0')\n    m.addConstr(6.13 * vars['Var_1'] + 3.25 * vars['Var_2'] + 3.16 * vars['Var_3'] + -8.86 * vars['Var_4'] + 8.59 * vars['Var_6'] >= 106.32, name='C1')\n    m.addConstr(4.08 * vars['Var_2'] + -1.15 * vars['Var_3'] + -7.32 * vars['Var_4'] + 0.36 * vars['Var_5'] + -4.59 * vars['Var_6'] >= -33.61, name='C2')\n    m.addConstr(-7.29 * vars['Var_0'] + 5.15 * vars['Var_1'] + -5.31 * vars['Var_2'] + -9.46 * vars['Var_3'] + 5.09 * vars['Var_5'] + -3.95 * vars['Var_6'] >= -108.62, name='C3')\n    m.addConstr(-4.48 * vars['Var_2'] + 7.87 * vars['Var_3'] + 2.68 * vars['Var_4'] + 6.38 * vars['Var_5'] + 6.31 * vars['Var_6'] >= 91.18, name='C4')\n    m.addConstr(4.72 * vars['Var_0'] + 7.71 * vars['Var_1'] + -6.78 * vars['Var_2'] + -0.46 * vars['Var_3'] + 7.71 * vars['Var_4'] + -4.64 * vars['Var_5'] >= 37.87, name='C5')\n    m.addConstr(-0.26 * vars['Var_1'] + -1.72 * vars['Var_3'] + -9.29 * vars['Var_5'] + -2.98 * vars['Var_6'] >= -47.24, name='C6')\n    m.addConstr(-6.7 * vars['Var_0'] + 9.44 * vars['Var_1'] + -2.94 * vars['Var_3'] + 2.89 * vars['Var_4'] >= 17.62, name='C7')\n    m.addConstr(2.11 * vars['Var_0'] + -9.46 * vars['Var_1'] + -7.47 * vars['Var_2'] + 5.87 * vars['Var_4'] + -4.51 * vars['Var_6'] >= -100.59, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix for Next Period\u2019s Distribution Programs (with KPI Floors)\n\nTeam,\n\nAs discussed, we need to choose a cost-minimizing mix across seven distribution programs while still hitting our minimum thresholds on nine operating KPIs. Below is how each lever behaves\u2014its per\u2011unit run-rate cost, how much we can realistically schedule, and the way it moves each scorecard metric up or down.\n\nThe levers\n\n1) Harbor Shuttle \u2014 Tideway Runs\n- Run-rate economics and capacity: This is a low-cost option at 1.89 per run, and we can schedule anywhere from zero up to 16.43 runs this period.\n- KPI impacts:\n  - Energy Credit Ledger: each run draws down the ledger by 2.07 units.\n  - Compliance Headroom Score: each run reduces headroom by 7.29 points.\n  - Packaging & Sortation Throughput: each run adds 4.72 throughput points.\n  - On\u2011Time Delivery Score: each run subtracts 6.70 points.\n  - Liquidity Buffer: each run adds 2.11 points.\n- No material effect on the other scorecards.\n\n2) Suburban Linehaul Consolidation\n- Run-rate economics and capacity: This is a higher-cost lever at 6.58 per unit; we can program up to 13.22 units.\n- KPI impacts:\n  - Energy Credit Ledger: each unit lowers the ledger by 8.93 units.\n  - Key Account Service Index: each unit adds 6.13 points toward our service coverage.\n  - Compliance Headroom Score: each unit improves headroom by 5.15 points.\n  - Packaging & Sortation Throughput: each unit adds 7.71 throughput points.\n  - Downtime Pressure Index: each unit increases pressure by 0.26 points (i.e., moves the index downward).\n  - On\u2011Time Delivery Score: each unit adds 9.44 points.\n  - Liquidity Buffer: each unit subtracts 9.46 points.\n- No material effect on the remaining scorecards.\n\n3) Regional Cross\u2011Dock Transfers\n- Run-rate economics and capacity: Mid-cost at 4.42 per unit; we can schedule as many as 18.59 units.\n- KPI impacts:\n  - Energy Credit Ledger: each unit contributes 1.07 units (improves the ledger).\n  - Key Account Service Index: each unit adds 3.25 points.\n  - Quality Drift Index: each unit improves the index by 4.08 points.\n  - Compliance Headroom Score: each unit cuts headroom by 5.31 points.\n  - Efficiency & Sustainability Score: each unit reduces the score by 4.48 points.\n  - Packaging & Sortation Throughput: each unit subtracts 6.78 throughput points.\n  - Liquidity Buffer: each unit subtracts 7.47 points.\n- No material effect on the other scorecards.\n\n4) Express Courier Premium\n- Run-rate economics and capacity: Premium service at 6.51 per unit; up to 16.18 units available.\n- KPI impacts:\n  - Key Account Service Index: each unit adds 3.16 points.\n  - Quality Drift Index: each unit worsens the index by 1.15 points.\n  - Compliance Headroom Score: each unit reduces headroom by 9.46 points.\n  - Efficiency & Sustainability Score: each unit adds 7.87 points.\n  - Packaging & Sortation Throughput: each unit subtracts 0.46 throughput points.\n  - Downtime Pressure Index: each unit raises pressure by 1.72 points (moves the index downward).\n  - On\u2011Time Delivery Score: each unit subtracts 2.94 points.\n- No material effect on the remaining scorecards.\n\n5) Economy Parcel Program\n- Run-rate economics and capacity: Cost-effective at 3.17 per unit; we can deploy up to 11.83 units.\n- KPI impacts:\n  - Key Account Service Index: each unit subtracts 8.86 points.\n  - Quality Drift Index: each unit worsens the index by 7.32 points.\n  - Efficiency & Sustainability Score: each unit adds 2.68 points.\n  - Packaging & Sortation Throughput: each unit adds 7.71 throughput points.\n  - On\u2011Time Delivery Score: each unit adds 2.89 points.\n  - Liquidity Buffer: each unit adds 5.87 points.\n- No material effect on the other scorecards.\n\n6) Night Rail Spur\n- Run-rate economics and capacity: Mid-to-high cost at 5.98 per unit; limited to 5.51 units.\n- KPI impacts:\n  - Energy Credit Ledger: each unit improves the ledger by 7.76 units.\n  - Quality Drift Index: each unit improves the index by 0.36 points.\n  - Compliance Headroom Score: each unit adds 5.09 points of headroom.\n  - Efficiency & Sustainability Score: each unit adds 6.38 points.\n  - Packaging & Sortation Throughput: each unit subtracts 4.64 throughput points.\n  - Downtime Pressure Index: each unit increases pressure by 9.29 points (moves the index downward).\n- No material effect on the remaining scorecards.\n\n7) Cold\u2011Chain Expansion\n- Run-rate economics and capacity: Priced at 5.55 per unit; up to 16.02 units available.\n- KPI impacts:\n  - Key Account Service Index: each unit adds 8.59 points.\n  - Quality Drift Index: each unit worsens the index by 4.59 points.\n  - Compliance Headroom Score: each unit reduces headroom by 3.95 points.\n  - Efficiency & Sustainability Score: each unit adds 6.31 points.\n  - Downtime Pressure Index: each unit increases pressure by 2.98 points (moves the index downward).\n  - Liquidity Buffer: each unit subtracts 4.51 points.\n- No material effect on the other scorecards.\n\nOperating floors and contractual limits (must be met or exceeded)\n- Energy Credit Ledger: not worse than \u221247.48 units (we must keep the ledger at or above this level).\n- Key Account Service Index: at least 106.32 points.\n- Quality Drift Index: not worse than \u221233.61 points.\n- Compliance Headroom Score: not worse than \u2212108.62 points.\n- Efficiency & Sustainability Score: at least 91.18 points.\n- Packaging & Sortation Throughput: at least 37.87 throughput points.\n- Downtime Pressure Index: not worse than \u221247.24 points.\n- On\u2011Time Delivery Score: at least 17.62 points.\n- Liquidity Buffer: not worse than \u2212100.59 points.\n\nOur objective is to select a combination of the above programs that minimizes total run-rate cost while keeping each KPI at or above its floor. Please review these dynamics ahead of our planning session, where we\u2019ll propose the exact mix."
+}

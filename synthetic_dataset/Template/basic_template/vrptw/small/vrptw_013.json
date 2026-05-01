@@ -1,0 +1,2287 @@
+{
+    "meta": {
+        "optimization_type": "LP",
+        "problem_type": "vehicle routing",
+        "goal": "MINIMIZE",
+        "num_vars": 89,
+        "num_constraints": 137,
+        "is_integer": true,
+        "prompt_tokens_with_data": 993,
+        "prompt_tokens_without_data": 692
+    },
+    "instance_data": {
+        "n_customers": 8,
+        "n_vehicles": 4,
+        "vehicle_capacity": 49,
+        "vehicle_fixed_cost": 100.0,
+        "depot_coordinates": [
+            50,
+            50
+        ],
+        "customer_coordinates": [
+            [
+                23,
+                44
+            ],
+            [
+                78,
+                28
+            ],
+            [
+                64,
+                49
+            ],
+            [
+                22,
+                59
+            ],
+            [
+                71,
+                11
+            ],
+            [
+                80,
+                57
+            ],
+            [
+                24,
+                92
+            ],
+            [
+                79,
+                69
+            ]
+        ],
+        "customer_demands": [
+            16,
+            7,
+            23,
+            18,
+            24,
+            23,
+            13,
+            8
+        ],
+        "time_windows": [
+            [
+                0,
+                299
+            ],
+            [
+                33,
+                96
+            ],
+            [
+                52,
+                103
+            ],
+            [
+                20,
+                97
+            ],
+            [
+                50,
+                119
+            ],
+            [
+                52,
+                129
+            ],
+            [
+                48,
+                115
+            ],
+            [
+                51,
+                128
+            ],
+            [
+                56,
+                135
+            ]
+        ],
+        "service_times": [
+            7,
+            11,
+            7,
+            15,
+            7,
+            8,
+            11,
+            11
+        ]
+    },
+    "gurobi_result": {
+        "solver_status": 2,
+        "theoretical_optimum": 626.2402031170034,
+        "optimal_values": {
+            "Arc_0_1": 1.0,
+            "Arc_0_2": -0.0,
+            "Arc_0_3": 0.0,
+            "Arc_0_4": -0.0,
+            "Arc_0_5": 1.0,
+            "Arc_0_6": 1.0,
+            "Arc_0_7": -0.0,
+            "Arc_0_8": -0.0,
+            "Arc_1_0": 0.0,
+            "Arc_1_2": -0.0,
+            "Arc_1_3": -0.0,
+            "Arc_1_4": 1.0,
+            "Arc_1_5": -0.0,
+            "Arc_1_6": -0.0,
+            "Arc_1_7": -0.0,
+            "Arc_1_8": -0.0,
+            "Arc_2_0": 0.0,
+            "Arc_2_1": 0.0,
+            "Arc_2_3": -0.0,
+            "Arc_2_4": 0.0,
+            "Arc_2_5": 0.0,
+            "Arc_2_6": -0.0,
+            "Arc_2_7": 0.0,
+            "Arc_2_8": 1.0,
+            "Arc_3_0": 1.0,
+            "Arc_3_1": -0.0,
+            "Arc_3_2": 0.0,
+            "Arc_3_4": -0.0,
+            "Arc_3_5": -0.0,
+            "Arc_3_6": -0.0,
+            "Arc_3_7": -0.0,
+            "Arc_3_8": 0.0,
+            "Arc_4_0": 0.0,
+            "Arc_4_1": 0.0,
+            "Arc_4_2": 0.0,
+            "Arc_4_3": 0.0,
+            "Arc_4_5": 0.0,
+            "Arc_4_6": 0.0,
+            "Arc_4_7": 1.0,
+            "Arc_4_8": -0.0,
+            "Arc_5_0": 0.0,
+            "Arc_5_1": 0.0,
+            "Arc_5_2": 1.0,
+            "Arc_5_3": 0.0,
+            "Arc_5_4": 0.0,
+            "Arc_5_6": -0.0,
+            "Arc_5_7": 0.0,
+            "Arc_5_8": -0.0,
+            "Arc_6_0": 0.0,
+            "Arc_6_1": 0.0,
+            "Arc_6_2": -0.0,
+            "Arc_6_3": 1.0,
+            "Arc_6_4": -0.0,
+            "Arc_6_5": -0.0,
+            "Arc_6_7": -0.0,
+            "Arc_6_8": 0.0,
+            "Arc_7_0": 1.0,
+            "Arc_7_1": 0.0,
+            "Arc_7_2": 0.0,
+            "Arc_7_3": 0.0,
+            "Arc_7_4": 0.0,
+            "Arc_7_5": 0.0,
+            "Arc_7_6": 0.0,
+            "Arc_7_8": -0.0,
+            "Arc_8_0": 1.0,
+            "Arc_8_1": 0.0,
+            "Arc_8_2": 0.0,
+            "Arc_8_3": -0.0,
+            "Arc_8_4": 0.0,
+            "Arc_8_5": 0.0,
+            "Arc_8_6": -0.0,
+            "Arc_8_7": 0.0,
+            "Load_1": 18.0,
+            "Load_2": 41.0,
+            "Load_3": 46.0,
+            "Load_4": 36.0,
+            "Load_5": 34.0,
+            "Load_6": 23.0,
+            "Load_7": 49.0,
+            "Load_8": 49.0,
+            "Time_0": 0.0,
+            "Time_1": 57.906153111994,
+            "Time_2": 82.98780669118025,
+            "Time_3": 97.0,
+            "Time_4": 79.93944949036688,
+            "Time_5": 57.60303038033015,
+            "Time_6": 71.11145618000165,
+            "Time_7": 128.0,
+            "Time_8": 135.0
+        }
+    },
+    "constraints": {
+        "VisitOut_C1": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C2": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C3": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C4": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C5": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C6": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C7": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C8": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C1": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C2": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C3": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C4": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C5": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C6": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C7": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C8": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VehicleLimit": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 4.0
+        },
+        "MTZ_1_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 42.0
+        },
+        "MTZ_1_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_1_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 31.0
+        },
+        "MTZ_1_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 25.0
+        },
+        "MTZ_1_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_1_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 36.0
+        },
+        "MTZ_1_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 41.0
+        },
+        "MTZ_2_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 33.0
+        },
+        "MTZ_2_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_2_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 31.0
+        },
+        "MTZ_2_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 25.0
+        },
+        "MTZ_2_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_2_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 36.0
+        },
+        "MTZ_2_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 41.0
+        },
+        "MTZ_3_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 33.0
+        },
+        "MTZ_3_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 42.0
+        },
+        "MTZ_3_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 31.0
+        },
+        "MTZ_3_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 25.0
+        },
+        "MTZ_3_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_3_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 36.0
+        },
+        "MTZ_3_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 41.0
+        },
+        "MTZ_4_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 33.0
+        },
+        "MTZ_4_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 42.0
+        },
+        "MTZ_4_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_4_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 25.0
+        },
+        "MTZ_4_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_4_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 36.0
+        },
+        "MTZ_4_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 41.0
+        },
+        "MTZ_5_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 33.0
+        },
+        "MTZ_5_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 42.0
+        },
+        "MTZ_5_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_5_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 31.0
+        },
+        "MTZ_5_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_5_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 36.0
+        },
+        "MTZ_5_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 41.0
+        },
+        "MTZ_6_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 33.0
+        },
+        "MTZ_6_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 42.0
+        },
+        "MTZ_6_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_6_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 31.0
+        },
+        "MTZ_6_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 25.0
+        },
+        "MTZ_6_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 36.0
+        },
+        "MTZ_6_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 41.0
+        },
+        "MTZ_7_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 33.0
+        },
+        "MTZ_7_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 42.0
+        },
+        "MTZ_7_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_7_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 31.0
+        },
+        "MTZ_7_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 25.0
+        },
+        "MTZ_7_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_7_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 41.0
+        },
+        "MTZ_8_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 33.0
+        },
+        "MTZ_8_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 42.0
+        },
+        "MTZ_8_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_8_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 31.0
+        },
+        "MTZ_8_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 25.0
+        },
+        "MTZ_8_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_8_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 36.0
+        },
+        "TimeLink_0_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 380.9896447756666
+        },
+        "TimeLink_2_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 340.3682641810665
+        },
+        "TimeLink_3_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 360.34452529141845
+        },
+        "TimeLink_4_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 378.61498176917235
+        },
+        "TimeLink_5_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 343.3988146307024
+        },
+        "TimeLink_6_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 342.18461421857137
+        },
+        "TimeLink_7_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 349.637862610914
+        },
+        "TimeLink_8_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 336.3212857216974
+        },
+        "TimeLink_0_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 373.0392905180155
+        },
+        "TimeLink_1_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 344.3682641810665
+        },
+        "TimeLink_3_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 376.4094192192973
+        },
+        "TimeLink_4_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 329.6404661243242
+        },
+        "TimeLink_5_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 383.263501836695
+        },
+        "TimeLink_6_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 371.57939444004796
+        },
+        "TimeLink_7_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 313.91059248571196
+        },
+        "TimeLink_8_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 356.6360848387255
+        },
+        "TimeLink_0_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 394.61260929992704
+        },
+        "TimeLink_1_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 360.34452529141845
+        },
+        "TimeLink_2_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 372.4094192192973
+        },
+        "TimeLink_4_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 350.4742118576994
+        },
+        "TimeLink_5_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 363.00891997482194
+        },
+        "TimeLink_6_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 382.7597343275469
+        },
+        "TimeLink_7_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 338.92009070744115
+        },
+        "TimeLink_8_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 372.6482781475452
+        },
+        "TimeLink_0_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 379.23739580783973
+        },
+        "TimeLink_1_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 386.61498176917235
+        },
+        "TimeLink_2_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 333.6404661243242
+        },
+        "TimeLink_3_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 358.4742118576994
+        },
+        "TimeLink_5_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 333.0552755889752
+        },
+        "TimeLink_6_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 342.6138056333576
+        },
+        "TimeLink_7_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 364.58772763791217
+        },
+        "TimeLink_8_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 339.7777329626241
+        },
+        "TimeLink_0_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 364.353808966845
+        },
+        "TimeLink_1_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 343.3988146307024
+        },
+        "TimeLink_2_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 379.263501836695
+        },
+        "TimeLink_3_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 363.00891997482194
+        },
+        "TimeLink_4_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 325.0552755889752
+        },
+        "TimeLink_6_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 353.77611156651335
+        },
+        "TimeLink_7_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 304.0
+        },
+        "TimeLink_8_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 339.0991534743274
+        },
+        "TimeLink_0_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 377.8424345460465
+        },
+        "TimeLink_1_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 343.18461421857137
+        },
+        "TimeLink_2_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 368.57939444004796
+        },
+        "TimeLink_3_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 383.7597343275469
+        },
+        "TimeLink_4_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 335.6138056333576
+        },
+        "TimeLink_5_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 354.77611156651335
+        },
+        "TimeLink_7_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 331.610410223149
+        },
+        "TimeLink_8_6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 385.60668356875294
+        },
+        "TimeLink_0_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 359.25192200663133
+        },
+        "TimeLink_1_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 353.637862610914
+        },
+        "TimeLink_2_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 313.91059248571196
+        },
+        "TimeLink_3_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 342.92009070744115
+        },
+        "TimeLink_4_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 360.58772763791217
+        },
+        "TimeLink_5_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 308.0
+        },
+        "TimeLink_6_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 334.610410223149
+        },
+        "TimeLink_8_7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 338.0328439043897
+        },
+        "TimeLink_0_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 373.9784065008258
+        },
+        "TimeLink_1_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 340.3212857216974
+        },
+        "TimeLink_2_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 356.6360848387255
+        },
+        "TimeLink_3_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 376.6482781475452
+        },
+        "TimeLink_4_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 335.7777329626241
+        },
+        "TimeLink_5_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 343.0991534743274
+        },
+        "TimeLink_6_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 388.60668356875294
+        },
+        "TimeLink_7_8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 338.0328439043897
+        }
+    },
+    "variables": {
+        "Arc_0_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 127.65863337187866,
+            "resource_costs": {
+                "VisitIn_C1": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_1": 408.6482781475452
+            }
+        },
+        "Arc_0_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 135.6089876295297,
+            "resource_costs": {
+                "VisitIn_C2": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_2": 408.6482781475452
+            }
+        },
+        "Arc_0_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 114.0356688476182,
+            "resource_costs": {
+                "VisitIn_C3": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_3": 408.6482781475452
+            }
+        },
+        "Arc_0_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 129.4108823397055,
+            "resource_costs": {
+                "VisitIn_C4": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_4": 408.6482781475452
+            }
+        },
+        "Arc_0_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 144.29446918070022,
+            "resource_costs": {
+                "VisitIn_C5": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_5": 408.6482781475452
+            }
+        },
+        "Arc_0_6": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 130.80584360149874,
+            "resource_costs": {
+                "VisitIn_C6": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_6": 408.6482781475452
+            }
+        },
+        "Arc_0_7": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 149.39635614091387,
+            "resource_costs": {
+                "VisitIn_C7": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_7": 408.6482781475452
+            }
+        },
+        "Arc_0_8": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 134.66987164671943,
+            "resource_costs": {
+                "VisitIn_C8": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_8": 408.6482781475452
+            }
+        },
+        "Arc_1_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 27.65863337187866,
+            "resource_costs": {
+                "VisitOut_C1": 1.0
+            }
+        },
+        "Arc_1_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 57.28001396647874,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_1_2": 49.0,
+                "TimeLink_1_2": 408.6482781475452
+            }
+        },
+        "Arc_1_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 41.30375285612676,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_1_3": 49.0,
+                "TimeLink_1_3": 408.6482781475452
+            }
+        },
+        "Arc_1_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 15.033296378372908,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_1_4": 49.0,
+                "TimeLink_1_4": 408.6482781475452
+            }
+        },
+        "Arc_1_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.249463516842795,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_1_5": 49.0,
+                "TimeLink_1_5": 408.6482781475452
+            }
+        },
+        "Arc_1_6": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.463663928973865,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C6": 1.0,
+                "MTZ_1_6": 49.0,
+                "TimeLink_1_6": 408.6482781475452
+            }
+        },
+        "Arc_1_7": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 48.010415536631214,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C7": 1.0,
+                "MTZ_1_7": 49.0,
+                "TimeLink_1_7": 408.6482781475452
+            }
+        },
+        "Arc_1_8": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 61.326992425847855,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C8": 1.0,
+                "MTZ_1_8": 49.0,
+                "TimeLink_1_8": 408.6482781475452
+            }
+        },
+        "Arc_2_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 35.608987629529715,
+            "resource_costs": {
+                "VisitOut_C2": 1.0
+            }
+        },
+        "Arc_2_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 57.28001396647874,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_2_1": 49.0,
+                "TimeLink_2_1": 408.6482781475452
+            }
+        },
+        "Arc_2_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 25.238858928247925,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_2_3": 49.0,
+                "TimeLink_2_3": 408.6482781475452
+            }
+        },
+        "Arc_2_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 64.00781202322104,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_2_4": 49.0,
+                "TimeLink_2_4": 408.6482781475452
+            }
+        },
+        "Arc_2_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 18.384776310850235,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_2_5": 49.0,
+                "TimeLink_2_5": 408.6482781475452
+            }
+        },
+        "Arc_2_6": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 29.068883707497267,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C6": 1.0,
+                "MTZ_2_6": 49.0,
+                "TimeLink_2_6": 408.6482781475452
+            }
+        },
+        "Arc_2_7": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 83.73768566183328,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C7": 1.0,
+                "MTZ_2_7": 49.0,
+                "TimeLink_2_7": 408.6482781475452
+            }
+        },
+        "Arc_2_8": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 41.012193308819754,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C8": 1.0,
+                "MTZ_2_8": 49.0,
+                "TimeLink_2_8": 408.6482781475452
+            }
+        },
+        "Arc_3_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 14.035668847618199,
+            "resource_costs": {
+                "VisitOut_C3": 1.0
+            }
+        },
+        "Arc_3_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 41.30375285612676,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_3_1": 49.0,
+                "TimeLink_3_1": 408.6482781475452
+            }
+        },
+        "Arc_3_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 25.238858928247925,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_3_2": 49.0,
+                "TimeLink_3_2": 408.6482781475452
+            }
+        },
+        "Arc_3_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 43.174066289845804,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_3_4": 49.0,
+                "TimeLink_3_4": 408.6482781475452
+            }
+        },
+        "Arc_3_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 38.63935817272331,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_3_5": 49.0,
+                "TimeLink_3_5": 408.6482781475452
+            }
+        },
+        "Arc_3_6": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 17.88854381999832,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C6": 1.0,
+                "MTZ_3_6": 49.0,
+                "TimeLink_3_6": 408.6482781475452
+            }
+        },
+        "Arc_3_7": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.728187440104094,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C7": 1.0,
+                "MTZ_3_7": 49.0,
+                "TimeLink_3_7": 408.6482781475452
+            }
+        },
+        "Arc_3_8": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 25.0,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C8": 1.0,
+                "MTZ_3_8": 49.0,
+                "TimeLink_3_8": 408.6482781475452
+            }
+        },
+        "Arc_4_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 29.410882339705484,
+            "resource_costs": {
+                "VisitOut_C4": 1.0
+            }
+        },
+        "Arc_4_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 15.033296378372908,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_4_1": 49.0,
+                "TimeLink_4_1": 408.6482781475452
+            }
+        },
+        "Arc_4_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 64.00781202322104,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_4_2": 49.0,
+                "TimeLink_4_2": 408.6482781475452
+            }
+        },
+        "Arc_4_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 43.174066289845804,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_4_3": 49.0,
+                "TimeLink_4_3": 408.6482781475452
+            }
+        },
+        "Arc_4_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 68.59300255857006,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_4_5": 49.0,
+                "TimeLink_4_5": 408.6482781475452
+            }
+        },
+        "Arc_4_6": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.034472514187634,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C6": 1.0,
+                "MTZ_4_6": 49.0,
+                "TimeLink_4_6": 408.6482781475452
+            }
+        },
+        "Arc_4_7": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 33.06055050963308,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C7": 1.0,
+                "MTZ_4_7": 49.0,
+                "TimeLink_4_7": 408.6482781475452
+            }
+        },
+        "Arc_4_8": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 57.87054518492115,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C8": 1.0,
+                "MTZ_4_8": 49.0,
+                "TimeLink_4_8": 408.6482781475452
+            }
+        },
+        "Arc_5_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 44.294469180700204,
+            "resource_costs": {
+                "VisitOut_C5": 1.0
+            }
+        },
+        "Arc_5_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.249463516842795,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_5_1": 49.0,
+                "TimeLink_5_1": 408.6482781475452
+            }
+        },
+        "Arc_5_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 18.384776310850235,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_5_2": 49.0,
+                "TimeLink_5_2": 408.6482781475452
+            }
+        },
+        "Arc_5_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 38.63935817272331,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_5_3": 49.0,
+                "TimeLink_5_3": 408.6482781475452
+            }
+        },
+        "Arc_5_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 68.59300255857006,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_5_4": 49.0,
+                "TimeLink_5_4": 408.6482781475452
+            }
+        },
+        "Arc_5_6": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 46.87216658103186,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C6": 1.0,
+                "MTZ_5_6": 49.0,
+                "TimeLink_5_6": 408.6482781475452
+            }
+        },
+        "Arc_5_7": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 93.64827814754524,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C7": 1.0,
+                "MTZ_5_7": 49.0,
+                "TimeLink_5_7": 408.6482781475452
+            }
+        },
+        "Arc_5_8": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.54912467321779,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C8": 1.0,
+                "MTZ_5_8": 49.0,
+                "TimeLink_5_8": 408.6482781475452
+            }
+        },
+        "Arc_6_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 30.805843601498726,
+            "resource_costs": {
+                "VisitOut_C6": 1.0
+            }
+        },
+        "Arc_6_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.463663928973865,
+            "resource_costs": {
+                "VisitOut_C6": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_6_1": 49.0,
+                "TimeLink_6_1": 408.6482781475452
+            }
+        },
+        "Arc_6_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 29.068883707497267,
+            "resource_costs": {
+                "VisitOut_C6": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_6_2": 49.0,
+                "TimeLink_6_2": 408.6482781475452
+            }
+        },
+        "Arc_6_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 17.88854381999832,
+            "resource_costs": {
+                "VisitOut_C6": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_6_3": 49.0,
+                "TimeLink_6_3": 408.6482781475452
+            }
+        },
+        "Arc_6_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.034472514187634,
+            "resource_costs": {
+                "VisitOut_C6": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_6_4": 49.0,
+                "TimeLink_6_4": 408.6482781475452
+            }
+        },
+        "Arc_6_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 46.87216658103186,
+            "resource_costs": {
+                "VisitOut_C6": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_6_5": 49.0,
+                "TimeLink_6_5": 408.6482781475452
+            }
+        },
+        "Arc_6_7": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 66.03786792439622,
+            "resource_costs": {
+                "VisitOut_C6": 1.0,
+                "VisitIn_C7": 1.0,
+                "MTZ_6_7": 49.0,
+                "TimeLink_6_7": 408.6482781475452
+            }
+        },
+        "Arc_6_8": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 12.041594578792296,
+            "resource_costs": {
+                "VisitOut_C6": 1.0,
+                "VisitIn_C8": 1.0,
+                "MTZ_6_8": 49.0,
+                "TimeLink_6_8": 408.6482781475452
+            }
+        },
+        "Arc_7_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 49.39635614091387,
+            "resource_costs": {
+                "VisitOut_C7": 1.0
+            }
+        },
+        "Arc_7_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 48.010415536631214,
+            "resource_costs": {
+                "VisitOut_C7": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_7_1": 49.0,
+                "TimeLink_7_1": 408.6482781475452
+            }
+        },
+        "Arc_7_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 83.73768566183328,
+            "resource_costs": {
+                "VisitOut_C7": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_7_2": 49.0,
+                "TimeLink_7_2": 408.6482781475452
+            }
+        },
+        "Arc_7_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.728187440104094,
+            "resource_costs": {
+                "VisitOut_C7": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_7_3": 49.0,
+                "TimeLink_7_3": 408.6482781475452
+            }
+        },
+        "Arc_7_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 33.06055050963308,
+            "resource_costs": {
+                "VisitOut_C7": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_7_4": 49.0,
+                "TimeLink_7_4": 408.6482781475452
+            }
+        },
+        "Arc_7_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 93.64827814754524,
+            "resource_costs": {
+                "VisitOut_C7": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_7_5": 49.0,
+                "TimeLink_7_5": 408.6482781475452
+            }
+        },
+        "Arc_7_6": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 66.03786792439622,
+            "resource_costs": {
+                "VisitOut_C7": 1.0,
+                "VisitIn_C6": 1.0,
+                "MTZ_7_6": 49.0,
+                "TimeLink_7_6": 408.6482781475452
+            }
+        },
+        "Arc_7_8": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 59.61543424315552,
+            "resource_costs": {
+                "VisitOut_C7": 1.0,
+                "VisitIn_C8": 1.0,
+                "MTZ_7_8": 49.0,
+                "TimeLink_7_8": 408.6482781475452
+            }
+        },
+        "Arc_8_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 34.66987164671943,
+            "resource_costs": {
+                "VisitOut_C8": 1.0
+            }
+        },
+        "Arc_8_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 61.326992425847855,
+            "resource_costs": {
+                "VisitOut_C8": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_8_1": 49.0,
+                "TimeLink_8_1": 408.6482781475452
+            }
+        },
+        "Arc_8_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 41.012193308819754,
+            "resource_costs": {
+                "VisitOut_C8": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_8_2": 49.0,
+                "TimeLink_8_2": 408.6482781475452
+            }
+        },
+        "Arc_8_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 25.0,
+            "resource_costs": {
+                "VisitOut_C8": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_8_3": 49.0,
+                "TimeLink_8_3": 408.6482781475452
+            }
+        },
+        "Arc_8_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 57.87054518492115,
+            "resource_costs": {
+                "VisitOut_C8": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_8_4": 49.0,
+                "TimeLink_8_4": 408.6482781475452
+            }
+        },
+        "Arc_8_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 58.54912467321779,
+            "resource_costs": {
+                "VisitOut_C8": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_8_5": 49.0,
+                "TimeLink_8_5": 408.6482781475452
+            }
+        },
+        "Arc_8_6": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 12.041594578792296,
+            "resource_costs": {
+                "VisitOut_C8": 1.0,
+                "VisitIn_C6": 1.0,
+                "MTZ_8_6": 49.0,
+                "TimeLink_8_6": 408.6482781475452
+            }
+        },
+        "Arc_8_7": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 59.61543424315552,
+            "resource_costs": {
+                "VisitOut_C8": 1.0,
+                "VisitIn_C7": 1.0,
+                "MTZ_8_7": 49.0,
+                "TimeLink_8_7": 408.6482781475452
+            }
+        },
+        "Load_1": {
+            "type": "Continuous",
+            "range": [
+                16.0,
+                49.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_2": 1.0,
+                "MTZ_1_3": 1.0,
+                "MTZ_1_4": 1.0,
+                "MTZ_1_5": 1.0,
+                "MTZ_1_6": 1.0,
+                "MTZ_1_7": 1.0,
+                "MTZ_1_8": 1.0,
+                "MTZ_2_1": -1.0,
+                "MTZ_3_1": -1.0,
+                "MTZ_4_1": -1.0,
+                "MTZ_5_1": -1.0,
+                "MTZ_6_1": -1.0,
+                "MTZ_7_1": -1.0,
+                "MTZ_8_1": -1.0
+            }
+        },
+        "Load_2": {
+            "type": "Continuous",
+            "range": [
+                7.0,
+                49.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_2": -1.0,
+                "MTZ_2_1": 1.0,
+                "MTZ_2_3": 1.0,
+                "MTZ_2_4": 1.0,
+                "MTZ_2_5": 1.0,
+                "MTZ_2_6": 1.0,
+                "MTZ_2_7": 1.0,
+                "MTZ_2_8": 1.0,
+                "MTZ_3_2": -1.0,
+                "MTZ_4_2": -1.0,
+                "MTZ_5_2": -1.0,
+                "MTZ_6_2": -1.0,
+                "MTZ_7_2": -1.0,
+                "MTZ_8_2": -1.0
+            }
+        },
+        "Load_3": {
+            "type": "Continuous",
+            "range": [
+                23.0,
+                49.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_3": -1.0,
+                "MTZ_2_3": -1.0,
+                "MTZ_3_1": 1.0,
+                "MTZ_3_2": 1.0,
+                "MTZ_3_4": 1.0,
+                "MTZ_3_5": 1.0,
+                "MTZ_3_6": 1.0,
+                "MTZ_3_7": 1.0,
+                "MTZ_3_8": 1.0,
+                "MTZ_4_3": -1.0,
+                "MTZ_5_3": -1.0,
+                "MTZ_6_3": -1.0,
+                "MTZ_7_3": -1.0,
+                "MTZ_8_3": -1.0
+            }
+        },
+        "Load_4": {
+            "type": "Continuous",
+            "range": [
+                18.0,
+                49.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_4": -1.0,
+                "MTZ_2_4": -1.0,
+                "MTZ_3_4": -1.0,
+                "MTZ_4_1": 1.0,
+                "MTZ_4_2": 1.0,
+                "MTZ_4_3": 1.0,
+                "MTZ_4_5": 1.0,
+                "MTZ_4_6": 1.0,
+                "MTZ_4_7": 1.0,
+                "MTZ_4_8": 1.0,
+                "MTZ_5_4": -1.0,
+                "MTZ_6_4": -1.0,
+                "MTZ_7_4": -1.0,
+                "MTZ_8_4": -1.0
+            }
+        },
+        "Load_5": {
+            "type": "Continuous",
+            "range": [
+                24.0,
+                49.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_5": -1.0,
+                "MTZ_2_5": -1.0,
+                "MTZ_3_5": -1.0,
+                "MTZ_4_5": -1.0,
+                "MTZ_5_1": 1.0,
+                "MTZ_5_2": 1.0,
+                "MTZ_5_3": 1.0,
+                "MTZ_5_4": 1.0,
+                "MTZ_5_6": 1.0,
+                "MTZ_5_7": 1.0,
+                "MTZ_5_8": 1.0,
+                "MTZ_6_5": -1.0,
+                "MTZ_7_5": -1.0,
+                "MTZ_8_5": -1.0
+            }
+        },
+        "Load_6": {
+            "type": "Continuous",
+            "range": [
+                23.0,
+                49.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_6": -1.0,
+                "MTZ_2_6": -1.0,
+                "MTZ_3_6": -1.0,
+                "MTZ_4_6": -1.0,
+                "MTZ_5_6": -1.0,
+                "MTZ_6_1": 1.0,
+                "MTZ_6_2": 1.0,
+                "MTZ_6_3": 1.0,
+                "MTZ_6_4": 1.0,
+                "MTZ_6_5": 1.0,
+                "MTZ_6_7": 1.0,
+                "MTZ_6_8": 1.0,
+                "MTZ_7_6": -1.0,
+                "MTZ_8_6": -1.0
+            }
+        },
+        "Load_7": {
+            "type": "Continuous",
+            "range": [
+                13.0,
+                49.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_7": -1.0,
+                "MTZ_2_7": -1.0,
+                "MTZ_3_7": -1.0,
+                "MTZ_4_7": -1.0,
+                "MTZ_5_7": -1.0,
+                "MTZ_6_7": -1.0,
+                "MTZ_7_1": 1.0,
+                "MTZ_7_2": 1.0,
+                "MTZ_7_3": 1.0,
+                "MTZ_7_4": 1.0,
+                "MTZ_7_5": 1.0,
+                "MTZ_7_6": 1.0,
+                "MTZ_7_8": 1.0,
+                "MTZ_8_7": -1.0
+            }
+        },
+        "Load_8": {
+            "type": "Continuous",
+            "range": [
+                8.0,
+                49.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_8": -1.0,
+                "MTZ_2_8": -1.0,
+                "MTZ_3_8": -1.0,
+                "MTZ_4_8": -1.0,
+                "MTZ_5_8": -1.0,
+                "MTZ_6_8": -1.0,
+                "MTZ_7_8": -1.0,
+                "MTZ_8_1": 1.0,
+                "MTZ_8_2": 1.0,
+                "MTZ_8_3": 1.0,
+                "MTZ_8_4": 1.0,
+                "MTZ_8_5": 1.0,
+                "MTZ_8_6": 1.0,
+                "MTZ_8_7": 1.0
+            }
+        },
+        "Time_0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                0.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_0_1": 1.0,
+                "TimeLink_0_2": 1.0,
+                "TimeLink_0_3": 1.0,
+                "TimeLink_0_4": 1.0,
+                "TimeLink_0_5": 1.0,
+                "TimeLink_0_6": 1.0,
+                "TimeLink_0_7": 1.0,
+                "TimeLink_0_8": 1.0
+            }
+        },
+        "Time_1": {
+            "type": "Continuous",
+            "range": [
+                33.0,
+                96.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_0_1": -1.0,
+                "TimeLink_2_1": -1.0,
+                "TimeLink_3_1": -1.0,
+                "TimeLink_4_1": -1.0,
+                "TimeLink_5_1": -1.0,
+                "TimeLink_6_1": -1.0,
+                "TimeLink_7_1": -1.0,
+                "TimeLink_8_1": -1.0,
+                "TimeLink_1_2": 1.0,
+                "TimeLink_1_3": 1.0,
+                "TimeLink_1_4": 1.0,
+                "TimeLink_1_5": 1.0,
+                "TimeLink_1_6": 1.0,
+                "TimeLink_1_7": 1.0,
+                "TimeLink_1_8": 1.0
+            }
+        },
+        "Time_2": {
+            "type": "Continuous",
+            "range": [
+                52.0,
+                103.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_2_1": 1.0,
+                "TimeLink_0_2": -1.0,
+                "TimeLink_1_2": -1.0,
+                "TimeLink_3_2": -1.0,
+                "TimeLink_4_2": -1.0,
+                "TimeLink_5_2": -1.0,
+                "TimeLink_6_2": -1.0,
+                "TimeLink_7_2": -1.0,
+                "TimeLink_8_2": -1.0,
+                "TimeLink_2_3": 1.0,
+                "TimeLink_2_4": 1.0,
+                "TimeLink_2_5": 1.0,
+                "TimeLink_2_6": 1.0,
+                "TimeLink_2_7": 1.0,
+                "TimeLink_2_8": 1.0
+            }
+        },
+        "Time_3": {
+            "type": "Continuous",
+            "range": [
+                20.0,
+                97.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_3_1": 1.0,
+                "TimeLink_3_2": 1.0,
+                "TimeLink_0_3": -1.0,
+                "TimeLink_1_3": -1.0,
+                "TimeLink_2_3": -1.0,
+                "TimeLink_4_3": -1.0,
+                "TimeLink_5_3": -1.0,
+                "TimeLink_6_3": -1.0,
+                "TimeLink_7_3": -1.0,
+                "TimeLink_8_3": -1.0,
+                "TimeLink_3_4": 1.0,
+                "TimeLink_3_5": 1.0,
+                "TimeLink_3_6": 1.0,
+                "TimeLink_3_7": 1.0,
+                "TimeLink_3_8": 1.0
+            }
+        },
+        "Time_4": {
+            "type": "Continuous",
+            "range": [
+                50.0,
+                119.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_4_1": 1.0,
+                "TimeLink_4_2": 1.0,
+                "TimeLink_4_3": 1.0,
+                "TimeLink_0_4": -1.0,
+                "TimeLink_1_4": -1.0,
+                "TimeLink_2_4": -1.0,
+                "TimeLink_3_4": -1.0,
+                "TimeLink_5_4": -1.0,
+                "TimeLink_6_4": -1.0,
+                "TimeLink_7_4": -1.0,
+                "TimeLink_8_4": -1.0,
+                "TimeLink_4_5": 1.0,
+                "TimeLink_4_6": 1.0,
+                "TimeLink_4_7": 1.0,
+                "TimeLink_4_8": 1.0
+            }
+        },
+        "Time_5": {
+            "type": "Continuous",
+            "range": [
+                52.0,
+                129.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_5_1": 1.0,
+                "TimeLink_5_2": 1.0,
+                "TimeLink_5_3": 1.0,
+                "TimeLink_5_4": 1.0,
+                "TimeLink_0_5": -1.0,
+                "TimeLink_1_5": -1.0,
+                "TimeLink_2_5": -1.0,
+                "TimeLink_3_5": -1.0,
+                "TimeLink_4_5": -1.0,
+                "TimeLink_6_5": -1.0,
+                "TimeLink_7_5": -1.0,
+                "TimeLink_8_5": -1.0,
+                "TimeLink_5_6": 1.0,
+                "TimeLink_5_7": 1.0,
+                "TimeLink_5_8": 1.0
+            }
+        },
+        "Time_6": {
+            "type": "Continuous",
+            "range": [
+                48.0,
+                115.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_6_1": 1.0,
+                "TimeLink_6_2": 1.0,
+                "TimeLink_6_3": 1.0,
+                "TimeLink_6_4": 1.0,
+                "TimeLink_6_5": 1.0,
+                "TimeLink_0_6": -1.0,
+                "TimeLink_1_6": -1.0,
+                "TimeLink_2_6": -1.0,
+                "TimeLink_3_6": -1.0,
+                "TimeLink_4_6": -1.0,
+                "TimeLink_5_6": -1.0,
+                "TimeLink_7_6": -1.0,
+                "TimeLink_8_6": -1.0,
+                "TimeLink_6_7": 1.0,
+                "TimeLink_6_8": 1.0
+            }
+        },
+        "Time_7": {
+            "type": "Continuous",
+            "range": [
+                51.0,
+                128.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_7_1": 1.0,
+                "TimeLink_7_2": 1.0,
+                "TimeLink_7_3": 1.0,
+                "TimeLink_7_4": 1.0,
+                "TimeLink_7_5": 1.0,
+                "TimeLink_7_6": 1.0,
+                "TimeLink_0_7": -1.0,
+                "TimeLink_1_7": -1.0,
+                "TimeLink_2_7": -1.0,
+                "TimeLink_3_7": -1.0,
+                "TimeLink_4_7": -1.0,
+                "TimeLink_5_7": -1.0,
+                "TimeLink_6_7": -1.0,
+                "TimeLink_8_7": -1.0,
+                "TimeLink_7_8": 1.0
+            }
+        },
+        "Time_8": {
+            "type": "Continuous",
+            "range": [
+                56.0,
+                135.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_8_1": 1.0,
+                "TimeLink_8_2": 1.0,
+                "TimeLink_8_3": 1.0,
+                "TimeLink_8_4": 1.0,
+                "TimeLink_8_5": 1.0,
+                "TimeLink_8_6": 1.0,
+                "TimeLink_8_7": 1.0,
+                "TimeLink_0_8": -1.0,
+                "TimeLink_1_8": -1.0,
+                "TimeLink_2_8": -1.0,
+                "TimeLink_3_8": -1.0,
+                "TimeLink_4_8": -1.0,
+                "TimeLink_5_8": -1.0,
+                "TimeLink_6_8": -1.0,
+                "TimeLink_7_8": -1.0
+            }
+        }
+    },
+    "gold_solution": "```python\nimport math\nfrom gurobipy import *\n\ndef solve_problem():\n    m = Model(\"VRPTW\")\n    m.setParam('TimeLimit', 300)\n\n    # --- Data ---\n    n_customers = 8\n    n_vehicles = 4\n    Q = 49  # vehicle capacity\n    vehicle_fixed_cost = 100.0\n    depot = [50, 50]\n    customers = [[23, 44], [78, 28], [64, 49], [22, 59], [71, 11], [80, 57], [24, 92], [79, 69]]\n    demands = [16, 7, 23, 18, 24, 23, 13, 8]\n    time_windows = [[0, 299], [33, 96], [52, 103], [20, 97], [50, 119], [52, 129], [48, 115], [51, 128], [56, 135]]\n    service_times = [7, 11, 7, 15, 7, 8, 11, 11]\n\n    # Node 0 = depot, nodes 1..N = customers\n    N = n_customers\n    nodes = list(range(N + 1))\n    cust_nodes = list(range(1, N + 1))\n\n    # Coordinates: index 0 = depot, 1..N = customers\n    coords = [depot] + customers\n\n    # COMPUTE distance matrix from coordinates\n    dist = {}\n    for i in nodes:\n        for j in nodes:\n            if i != j:\n                dist[(i,j)] = math.sqrt(\n                    (coords[i][0]-coords[j][0])**2 +\n                    (coords[i][1]-coords[j][1])**2)\n\n    # Service time by node (depot = 0)\n    svc = [0] + service_times\n\n    # Big-M for time linking\n    T_max = time_windows[0][1]\n    max_svc = max(service_times)\n    max_dist = max(dist.values())\n    M = T_max + max_svc + max_dist + 1\n\n    # --- Variables ---\n    # Arc variables (binary)\n    x = {}\n    for i in nodes:\n        for j in nodes:\n            if i != j:\n                x[(i,j)] = m.addVar(vtype=GRB.BINARY, name=f\"Arc_{i}_{j}\")\n\n    # Load variables (MTZ subtour elimination)\n    u = {}\n    for i in cust_nodes:\n        u[i] = m.addVar(lb=demands[i-1], ub=Q, vtype=GRB.CONTINUOUS, name=f\"Load_{i}\")\n\n    # Time variables\n    t = {}\n    for i in nodes:\n        a, b = time_windows[i]\n        t[i] = m.addVar(lb=a, ub=b, vtype=GRB.CONTINUOUS, name=f\"Time_{i}\")\n    # Fix depot departure to time 0\n    t[0].ub = 0.0\n\n    # --- Objective ---\n    # Minimize travel distance + vehicle fixed costs\n    obj = quicksum(dist[(i,j)] * x[(i,j)] for i in nodes for j in nodes if i != j)\n    obj += quicksum(vehicle_fixed_cost * x[(0,j)] for j in cust_nodes)\n    m.setObjective(obj, GRB.MINIMIZE)\n\n    # --- Constraints ---\n    # 1. Each customer has exactly one outgoing arc\n    for i in cust_nodes:\n        m.addConstr(\n            quicksum(x[(i,j)] for j in nodes if j != i) == 1,\n            name=f\"VisitOut_C{i}\")\n\n    # 2. Each customer has exactly one incoming arc\n    for j in cust_nodes:\n        m.addConstr(\n            quicksum(x[(i,j)] for i in nodes if i != j) == 1,\n            name=f\"VisitIn_C{j}\")\n\n    # 3. At most K vehicles leave the depot\n    m.addConstr(\n        quicksum(x[(0,j)] for j in cust_nodes) <= n_vehicles,\n        name=\"VehicleLimit\")\n\n    # 4. MTZ subtour elimination\n    for i in cust_nodes:\n        for j in cust_nodes:\n            if i != j:\n                m.addConstr(\n                    u[i] - u[j] + Q * x[(i,j)] <= Q - demands[j-1],\n                    name=f\"MTZ_{i}_{j}\")\n\n    # 5. Time linking: if arc (i,j) is used, arrival at j >= departure from i\n    for j in cust_nodes:\n        for i in nodes:\n            if i != j:\n                m.addConstr(\n                    t[i] - t[j] + M * x[(i,j)] <= M - svc[i] - dist[(i,j)],\n                    name=f\"TimeLink_{i}_{j}\")\n\n    m.optimize()\n    return m\n```",
+    "LLM_description": "Subject: Vehicle routing and scheduling plan for depot-based deliveries with time windows\n\nOverview\nWe operate a fleet of identical delivery vehicles from a central depot to fulfill customer orders within specified delivery windows. For this planning cycle, each vehicle will perform a single outbound trip that begins at time 0 and must return to the depot before the facility\u2019s closing time. Travel time between any two locations is measured as the straight-line distance between their coordinates at unit speed, so distance and time are interchangeable for planning purposes.\n\nChallenge\nThe primary challenge is to assign customers to vehicles and determine the order of visits so that every customer is served exactly once, all deliveries start within the promised time windows, and each vehicle returns to the depot before closing. We must balance two cost drivers: the total distance traveled and a fixed cost incurred for each vehicle we deploy. Using more vehicles can reduce distance and improve schedule reliability but increases fixed costs; using fewer vehicles lowers fixed costs but may require longer tours, additional waiting, and tighter timing that risks late arrivals or late returns.\n\nKey operating rules and constraints\n- Fleet and trips\n  - All vehicles depart the depot at time 0 and complete a single tour that returns before the depot\u2019s latest allowable time.\n  - Each vehicle is identical and, if deployed, incurs a fixed cost in addition to distance-based costs.\n\n- Deliveries and time windows\n  - Each customer has an earliest and latest acceptable start time for delivery. Service must begin within this window.\n  - If a vehicle arrives early, it must wait on site until the window opens.\n  - Each stop requires a service/unloading duration. A vehicle departs a customer at arrival time plus service time, or at window opening plus service time if waiting occurred.\n\n- Capacity\n  - Every vehicle has a limited carrying capacity. The total demand assigned to any vehicle\u2019s route must not exceed this capacity at any point in the tour.\n\n- Travel times\n  - Travel time between locations is the straight-line distance between coordinates at unit speed, so travel distance directly determines travel time.\n\nGoal\nBuild a set of feasible routes\u2014one per vehicle actually used\u2014that visits each customer exactly once, respects all time windows and service times, keeps the total load on any vehicle within capacity, and ensures all vehicles return to the depot before closing. The plan should minimize the sum of total travel distance and the fixed deployment costs for the vehicles used.\n\nOperational considerations\n- Prioritize customers with tight time windows and account for waiting when sequencing stops.\n- Cluster geographically proximate customers to control total travel distance while protecting on-time performance.\n- Confirm route feasibility by checking: cumulative load never exceeds capacity; every service start falls within the customer\u2019s time window; and sufficient time remains after the final stop to return to the depot before closing.\n- Evaluate trade-offs between using additional vehicles to relieve time pressure versus consolidating stops to reduce fixed costs.\n\nANNEX \u2013 Operations Data\n- Depot location: (50, 50)\n- Depot latest return time: 299\n- Customer locations: Customer Locations (coordinates):\n  - C1: (23, 44)\n  - C2: (78, 28)\n  - C3: (64, 49)\n  - C4: (22, 59)\n  - C5: (71, 11)\n  - C6: (80, 57)\n  - C7: (24, 92)\n  - C8: (79, 69)\n- Customer demands (units): Customer Demands:\n  - C1: 16 units\n  - C2: 7 units\n  - C3: 23 units\n  - C4: 18 units\n  - C5: 24 units\n  - C6: 23 units\n  - C7: 13 units\n  - C8: 8 units\n- Customer delivery time windows: Customer Time Windows [earliest, latest]:\n  - C1: [33, 96]\n  - C2: [52, 103]\n  - C3: [20, 97]\n  - C4: [50, 119]\n  - C5: [52, 129]\n  - C6: [48, 115]\n  - C7: [51, 128]\n  - C8: [56, 135]\n- Customer service times: Service Times (minutes at customer):\n  - C1: 7\n  - C2: 11\n  - C3: 7\n  - C4: 15\n  - C5: 7\n  - C6: 8\n  - C7: 11\n  - C8: 11\n- Vehicle capacity (units): 49\n- Number of vehicles available: 4\n- Fixed deployment cost per vehicle: 100.0",
+    "LLM_description_template": "Subject: Vehicle routing and scheduling plan for depot-based deliveries with time windows\n\nOverview\nWe operate a fleet of identical delivery vehicles from a central depot to fulfill customer orders within specified delivery windows. For this planning cycle, each vehicle will perform a single outbound trip that begins at time 0 and must return to the depot before the facility\u2019s closing time. Travel time between any two locations is measured as the straight-line distance between their coordinates at unit speed, so distance and time are interchangeable for planning purposes.\n\nChallenge\nThe primary challenge is to assign customers to vehicles and determine the order of visits so that every customer is served exactly once, all deliveries start within the promised time windows, and each vehicle returns to the depot before closing. We must balance two cost drivers: the total distance traveled and a fixed cost incurred for each vehicle we deploy. Using more vehicles can reduce distance and improve schedule reliability but increases fixed costs; using fewer vehicles lowers fixed costs but may require longer tours, additional waiting, and tighter timing that risks late arrivals or late returns.\n\nKey operating rules and constraints\n- Fleet and trips\n  - All vehicles depart the depot at time 0 and complete a single tour that returns before the depot\u2019s latest allowable time.\n  - Each vehicle is identical and, if deployed, incurs a fixed cost in addition to distance-based costs.\n\n- Deliveries and time windows\n  - Each customer has an earliest and latest acceptable start time for delivery. Service must begin within this window.\n  - If a vehicle arrives early, it must wait on site until the window opens.\n  - Each stop requires a service/unloading duration. A vehicle departs a customer at arrival time plus service time, or at window opening plus service time if waiting occurred.\n\n- Capacity\n  - Every vehicle has a limited carrying capacity. The total demand assigned to any vehicle\u2019s route must not exceed this capacity at any point in the tour.\n\n- Travel times\n  - Travel time between locations is the straight-line distance between coordinates at unit speed, so travel distance directly determines travel time.\n\nGoal\nBuild a set of feasible routes\u2014one per vehicle actually used\u2014that visits each customer exactly once, respects all time windows and service times, keeps the total load on any vehicle within capacity, and ensures all vehicles return to the depot before closing. The plan should minimize the sum of total travel distance and the fixed deployment costs for the vehicles used.\n\nOperational considerations\n- Prioritize customers with tight time windows and account for waiting when sequencing stops.\n- Cluster geographically proximate customers to control total travel distance while protecting on-time performance.\n- Confirm route feasibility by checking: cumulative load never exceeds capacity; every service start falls within the customer\u2019s time window; and sufficient time remains after the final stop to return to the depot before closing.\n- Evaluate trade-offs between using additional vehicles to relieve time pressure versus consolidating stops to reduce fixed costs.\n\nANNEX \u2013 Operations Data\n- Depot location: {DEPOT_LOCATION}\n- Depot latest return time: {DEPOT_CLOSING_TIME}\n- Customer locations: {CUSTOMER_LOCATIONS}\n- Customer demands (units): {CUSTOMER_DEMANDS}\n- Customer delivery time windows: {TIME_WINDOWS}\n- Customer service times: {SERVICE_TIMES}\n- Vehicle capacity (units): {VEHICLE_CAPACITY}\n- Number of vehicles available: {NUM_VEHICLES}\n- Fixed deployment cost per vehicle: {VEHICLE_FIXED_COST}"
+}

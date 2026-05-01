@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, contributions, integrality, and minimum requirements are explicitly stated; model can be reconstructed exactly as in the gold solution.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative style with some business context; slightly verbose but details are specific and non-repetitive.",
+      "realism": 92,
+      "realism_comment": "Feels like a real capacity planning problem with service-level commitments; decimal caps are a bit odd but plausible."
+    },
+    "prompt_tokens_with_data": 822,
+    "prompt_tokens_without_data": 822
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 26.678259081622812,
+    "optimal_values": {
+      "Var_0": 3.4069478908188584,
+      "Var_1": 2.0,
+      "Var_2": 2.9964664310954063
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.28
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 25.44
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 38.54
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 28.09
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 34.42
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.38
+      ],
+      "objective_linear_coefficient": 2.45,
+      "resource_costs": {
+        "C2": 8.06,
+        "C3": 6.79
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.51
+      ],
+      "objective_linear_coefficient": 5.45,
+      "resource_costs": {
+        "C0": 9.37,
+        "C2": 5.54,
+        "C3": 3.07,
+        "C4": 6.54
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.78
+      ],
+      "objective_linear_coefficient": 2.48,
+      "resource_costs": {
+        "C0": 1.02,
+        "C1": 8.49,
+        "C4": 7.17
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.38, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.45 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.51, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.45 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.78, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.48 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.37 * vars['Var_1'] + 1.02 * vars['Var_2'] >= 20.28, name='C0')\n    m.addConstr(8.49 * vars['Var_2'] >= 25.44, name='C1')\n    m.addConstr(8.06 * vars['Var_0'] + 5.54 * vars['Var_1'] >= 38.54, name='C2')\n    m.addConstr(6.79 * vars['Var_0'] + 3.07 * vars['Var_1'] >= 28.09, name='C3')\n    m.addConstr(6.54 * vars['Var_1'] + 7.17 * vars['Var_2'] >= 34.42, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix to meet our five service commitments\n\nTeam,\n\nAs discussed, our objective for the upcoming planning window is to meet or exceed all minimum service commitments across five distinct areas at the lowest possible run-rate cost. We have three levers we can use to build capacity. Below I\u2019ve laid out how each option is priced, how much of it we\u2019re allowed to use, and exactly how it contributes toward each commitment.\n\n1) Team Aurora Flex Blocks\n- What it is: Flexible support blocks that can be scheduled in fractional amounts.\n- Cost: 2.45 per block.\n- How much we can use: Anywhere from 0 up to 10.38 blocks.\n- What it helps:\n  \u2022 Backlog Burn-Down: Each block delivers 8.06 coverage credits.\n  \u2022 Field Service Dispatch: Each block delivers 6.79 coverage credits.\n- What it does not help: Priority Incident Coverage, New Client Onboarding, and Reporting & Compliance see no lift from this option.\n\n2) Night-Shift Response Crews\n- What it is: Full-response crews that must be scheduled in whole units only.\n- Cost: 5.45 per crew.\n- How much we can use: Anywhere from 0 up to 18.51 crews (booked in whole crews).\n- What it helps:\n  \u2022 Priority Incident Coverage: Each crew delivers 9.37 coverage credits.\n  \u2022 Backlog Burn-Down: Each crew delivers 5.54 coverage credits.\n  \u2022 Field Service Dispatch: Each crew delivers 3.07 coverage credits.\n  \u2022 Reporting & Compliance: Each crew delivers 6.54 coverage credits.\n- What it does not help: New Client Onboarding receives no coverage from this option.\n\n3) Partner Nexus Overflow Bundles\n- What it is: External partner bundles that can be procured in fractional increments.\n- Cost: 2.48 per bundle.\n- How much we can use: Anywhere from 0 up to 15.78 bundles.\n- What it helps:\n  \u2022 Priority Incident Coverage: Each bundle delivers 1.02 coverage credits.\n  \u2022 New Client Onboarding: Each bundle delivers 8.49 coverage credits.\n  \u2022 Reporting & Compliance: Each bundle delivers 7.17 coverage credits.\n- What it does not help: Backlog Burn-Down and Field Service Dispatch receive no coverage from this option.\n\nMarket limits and service commitments (minimums to hit)\n- Priority Incident Coverage: At least 20.28 coverage credits.\n- New Client Onboarding: At least 25.44 coverage credits.\n- Backlog Burn-Down: At least 38.54 coverage credits.\n- Field Service Dispatch: At least 28.09 coverage credits.\n- Reporting & Compliance: At least 34.42 coverage credits.\n\nOur intent is to find the least-cost combination of the three levers above while satisfying all five minimums. Please confirm these caps and per-unit contributions so we can proceed to finalize the allocation."
+}

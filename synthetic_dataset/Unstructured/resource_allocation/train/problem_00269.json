@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Complete and precise: objective coefficients, variable bounds (continuous, nonnegative), and each resource\u2019s \u2264 capacity with exact per-lot coefficients and RHS are specified unambiguously.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style framing and repeated \u2018partial lots allowed\u2019; otherwise the lists are necessary to convey all coefficients and bounds. Slightly verbose but focused.",
+      "realism": 100,
+      "realism_comment": "Highly realistic production mix planning with shop capacities, materials, storage, and outbound limits; contributions and bounds are plausible and coherent."
+    },
+    "prompt_tokens_with_data": 1177,
+    "prompt_tokens_without_data": 1177
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 158.3006126972366,
+    "optimal_values": {
+      "Var_0": 11.5081782081136,
+      "Var_1": 2.472437500747097,
+      "Var_2": 5.994735968642114,
+      "Var_3": 0.0,
+      "Var_4": 0.0,
+      "Var_5": 8.590859507426483
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 128.57
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 211.5
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 115.04
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 143.7
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 80.81
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 121.36
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 110.11
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.36
+      ],
+      "objective_linear_coefficient": 5.48,
+      "resource_costs": {
+        "C0": 2.86,
+        "C1": 7.34,
+        "C2": 3.7,
+        "C3": 9.45,
+        "C4": 1.14,
+        "C5": 5.79,
+        "C6": 5.77
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.89
+      ],
+      "objective_linear_coefficient": 6.77,
+      "resource_costs": {
+        "C0": 5.68,
+        "C1": 5.0,
+        "C2": 7.04,
+        "C3": 2.46,
+        "C4": 5.3,
+        "C5": 2.93,
+        "C6": 3.8
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.57
+      ],
+      "objective_linear_coefficient": 4.41,
+      "resource_costs": {
+        "C1": 6.99,
+        "C2": 3.91,
+        "C3": 0.77,
+        "C5": 1.73,
+        "C6": 5.21
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.67
+      ],
+      "objective_linear_coefficient": 4.3,
+      "resource_costs": {
+        "C0": 7.6,
+        "C1": 5.71,
+        "C2": 5.45,
+        "C3": 3.1,
+        "C4": 6.51,
+        "C5": 0.17,
+        "C6": 4.53
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.2
+      ],
+      "objective_linear_coefficient": 3.52,
+      "resource_costs": {
+        "C0": 0.81,
+        "C1": 9.02,
+        "C2": 1.08,
+        "C3": 9.74,
+        "C4": 5.56,
+        "C5": 6.32,
+        "C6": 5.27
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.2
+      ],
+      "objective_linear_coefficient": 6.06,
+      "resource_costs": {
+        "C0": 9.5,
+        "C1": 8.47,
+        "C2": 3.68,
+        "C3": 2.41,
+        "C4": 4.45,
+        "C5": 4.32,
+        "C6": 0.12
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.36, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.48 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.89, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.77 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.57, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.41 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.67, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.3 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.2, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.52 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.2, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.06 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.86 * vars['Var_0'] + 5.68 * vars['Var_1'] + 7.6 * vars['Var_3'] + 0.81 * vars['Var_4'] + 9.5 * vars['Var_5'] <= 128.57, name='C0')\n    m.addConstr(7.34 * vars['Var_0'] + 5.0 * vars['Var_1'] + 6.99 * vars['Var_2'] + 5.71 * vars['Var_3'] + 9.02 * vars['Var_4'] + 8.47 * vars['Var_5'] <= 211.5, name='C1')\n    m.addConstr(3.7 * vars['Var_0'] + 7.04 * vars['Var_1'] + 3.91 * vars['Var_2'] + 5.45 * vars['Var_3'] + 1.08 * vars['Var_4'] + 3.68 * vars['Var_5'] <= 115.04, name='C2')\n    m.addConstr(9.45 * vars['Var_0'] + 2.46 * vars['Var_1'] + 0.77 * vars['Var_2'] + 3.1 * vars['Var_3'] + 9.74 * vars['Var_4'] + 2.41 * vars['Var_5'] <= 143.7, name='C3')\n    m.addConstr(1.14 * vars['Var_0'] + 5.3 * vars['Var_1'] + 6.51 * vars['Var_3'] + 5.56 * vars['Var_4'] + 4.45 * vars['Var_5'] <= 80.81, name='C4')\n    m.addConstr(5.79 * vars['Var_0'] + 2.93 * vars['Var_1'] + 1.73 * vars['Var_2'] + 0.17 * vars['Var_3'] + 6.32 * vars['Var_4'] + 4.32 * vars['Var_5'] <= 121.36, name='C5')\n    m.addConstr(5.77 * vars['Var_0'] + 3.8 * vars['Var_1'] + 5.21 * vars['Var_2'] + 4.53 * vars['Var_3'] + 5.27 * vars['Var_4'] + 0.12 * vars['Var_5'] <= 110.11, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan inputs to maximize contribution under Q1 capacity\n\nHi team,\n\nAs we lock our Q1 build plan, our goal is to maximize total contribution from six product families while staying within shop capacities, materials on hand, storage, and outbound throughput. We can run partial batches where it makes sense.\n\nHere are the levers we can pull and how each one affects our operation:\n\n- Aurora Series Bearings\n  - Financials: Each production lot adds 5.48 in contribution margin.\n  - Flexibility: We can schedule anywhere from zero up to 14.36 lots this quarter; partial lots are feasible.\n  - Resource impacts per lot:\n    - CNC milling: 2.86 hours\n    - Press shop: 7.34 hours\n    - Skilled assembly: 3.70 hours\n    - Quality inspection: 9.45 hours\n    - Alloy A inventory: 1.14 units\n    - Warehouse storage: 5.79 pallet positions\n    - Loading dock: 5.77 hours\n\n- Nimbus Gearboxes\n  - Financials: Each production lot adds 6.77 in contribution margin.\n  - Flexibility: We can run between zero and 5.89 lots; partial lots allowed.\n  - Resource impacts per lot:\n    - CNC milling: 5.68 hours\n    - Press shop: 5.00 hours\n    - Skilled assembly: 7.04 hours\n    - Quality inspection: 2.46 hours\n    - Alloy A inventory: 5.30 units\n    - Warehouse storage: 2.93 pallet positions\n    - Loading dock: 3.80 hours\n\n- Micro Component Kits\n  - Financials: Each production lot adds 4.41 in contribution margin.\n  - Flexibility: Up to 8.57 lots; we can run partial lots.\n  - Resource impacts per lot:\n    - CNC milling: none (0.00 hours)\n    - Press shop: 6.99 hours\n    - Skilled assembly: 3.91 hours\n    - Quality inspection: 0.77 hours\n    - Alloy A inventory: none (0.00 units)\n    - Warehouse storage: 1.73 pallet positions\n    - Loading dock: 5.21 hours\n\n- Atlas Pump Assemblies\n  - Financials: Each production lot adds 4.30 in contribution margin.\n  - Flexibility: We can schedule up to 14.67 lots; partial lots are feasible.\n  - Resource impacts per lot:\n    - CNC milling: 7.60 hours\n    - Press shop: 5.71 hours\n    - Skilled assembly: 5.45 hours\n    - Quality inspection: 3.10 hours\n    - Alloy A inventory: 6.51 units\n    - Warehouse storage: 0.17 pallet positions\n    - Loading dock: 4.53 hours\n\n- Helios Valve Blocks\n  - Financials: Each production lot adds 3.52 in contribution margin.\n  - Flexibility: Between zero and 9.20 lots; partial lots allowed.\n  - Resource impacts per lot:\n    - CNC milling: 0.81 hours\n    - Press shop: 9.02 hours\n    - Skilled assembly: 1.08 hours\n    - Quality inspection: 9.74 hours\n    - Alloy A inventory: 5.56 units\n    - Warehouse storage: 6.32 pallet positions\n    - Loading dock: 5.27 hours\n\n- Zephyr Control Units\n  - Financials: Each production lot adds 6.06 in contribution margin.\n  - Flexibility: Up to 9.20 lots; partial lots are feasible.\n  - Resource impacts per lot:\n    - CNC milling: 9.50 hours\n    - Press shop: 8.47 hours\n    - Skilled assembly: 3.68 hours\n    - Quality inspection: 2.41 hours\n    - Alloy A inventory: 4.45 units\n    - Warehouse storage: 4.32 pallet positions\n    - Loading dock: 0.12 hours\n\nFacility specs and period limits (do not exceed)\n- CNC milling capacity: 128.57 hours\n- Press shop capacity: 211.5 hours\n- Skilled assembly capacity: 115.04 hours\n- Quality inspection capacity: 143.7 hours\n- Alloy A on hand: 80.81 units\n- Warehouse storage: 121.36 pallet positions\n- Loading dock capacity: 110.11 hours\n\nPlease use the above to recommend a production mix that maximizes contribution while honoring these constraints. Happy to clarify any assumptions."
+}

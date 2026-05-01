@@ -1,0 +1,179 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "Costs, bounds, integrality and segment impacts are all explicit; reach floors given; objective is minimize spend. Model can be reconstructed exactly.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business memo style adds prose and repeats 'no lift' notes; some 'effectively' remarks, but they clarify zeros and caps. Moderately verbose.",
+      "realism": 95,
+      "realism_comment": "Very realistic media mix allocation with discrete/fractional buys and segment reach minimums; coherent and plausible numeric data."
+    },
+    "prompt_tokens_with_data": 1283,
+    "prompt_tokens_without_data": 1283
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 150.24510809061485,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 5.663851132686081,
+      "Var_2": 9.0,
+      "Var_3": 10.0,
+      "Var_4": 4.0,
+      "Var_5": 9.51,
+      "Var_6": 5.0,
+      "Var_7": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 151.36
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 181.91
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 155.97
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.88
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 191.65
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 122.48
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.25
+      ],
+      "objective_linear_coefficient": 8.77,
+      "resource_costs": {
+        "C0": 4.53,
+        "C2": 2.01,
+        "C3": 5.66,
+        "C5": 7.27
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.39
+      ],
+      "objective_linear_coefficient": 6.26,
+      "resource_costs": {
+        "C1": 4.54,
+        "C2": 3.09,
+        "C4": 3.41,
+        "C5": 6.88
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.03
+      ],
+      "objective_linear_coefficient": 3.0,
+      "resource_costs": {
+        "C0": 6.38,
+        "C1": 6.46,
+        "C5": 6.62
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 4.02,
+      "resource_costs": {
+        "C0": 4.7,
+        "C1": 6.38,
+        "C2": 8.31,
+        "C3": 5.39,
+        "C4": 8.22
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.62
+      ],
+      "objective_linear_coefficient": 1.76,
+      "resource_costs": {
+        "C3": 1.08,
+        "C4": 7.06,
+        "C5": 7.21
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.51
+      ],
+      "objective_linear_coefficient": 1.94,
+      "resource_costs": {
+        "C1": 4.41,
+        "C2": 5.37,
+        "C4": 9.51
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.57
+      ],
+      "objective_linear_coefficient": 4.42,
+      "resource_costs": {
+        "C0": 9.79,
+        "C2": 0.86,
+        "C3": 4.34
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.69
+      ],
+      "objective_linear_coefficient": 8.41,
+      "resource_costs": {
+        "C0": 8.42,
+        "C4": 6.97
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.25, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.77 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.39, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.26 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.03, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.0 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.02 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.62, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.76 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.51, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.94 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=14.57, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 4.42 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=14.69, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 8.41 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.53 * vars['Var_0'] + 6.38 * vars['Var_2'] + 4.7 * vars['Var_3'] + 9.79 * vars['Var_6'] + 8.42 * vars['Var_7'] >= 151.36, name='C0')\n    m.addConstr(4.54 * vars['Var_1'] + 6.46 * vars['Var_2'] + 6.38 * vars['Var_3'] + 4.41 * vars['Var_5'] >= 181.91, name='C1')\n    m.addConstr(2.01 * vars['Var_0'] + 3.09 * vars['Var_1'] + 8.31 * vars['Var_3'] + 5.37 * vars['Var_5'] + 0.86 * vars['Var_6'] >= 155.97, name='C2')\n    m.addConstr(5.66 * vars['Var_0'] + 5.39 * vars['Var_3'] + 1.08 * vars['Var_4'] + 4.34 * vars['Var_6'] >= 79.88, name='C3')\n    m.addConstr(3.41 * vars['Var_1'] + 8.22 * vars['Var_3'] + 7.06 * vars['Var_4'] + 9.51 * vars['Var_5'] + 6.97 * vars['Var_7'] >= 191.65, name='C4')\n    m.addConstr(7.27 * vars['Var_0'] + 6.88 * vars['Var_1'] + 6.62 * vars['Var_2'] + 7.21 * vars['Var_4'] >= 122.48, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Media Mix Allocation to Meet Reach Minimums at the Lowest Possible Spend\n\nTeam,\n\nWe need to assemble a cost-efficient media mix that meets our minimum audience reach thresholds across six priority segments. The objective is to minimize total spend while satisfying each segment\u2019s floor. Some channels must be booked in whole placements, while others allow fractional buying. Below are the levers under consideration, listed in the order we will evaluate them, with their unit costs, booking limits, and how each one contributes to our segment targets.\n\n- Network Primetime TV\n  - Unit cost: 8.77 per placement.\n  - Booking limits: anywhere from 0 up to 11.25 placements; this must be booked in whole placements, so in practice no more than 11.\n  - Segment impact per placement:\n    \u2022 Prime-Time Adults: +4.53\n    \u2022 Home Improvers: +2.01\n    \u2022 Urban Professionals: +5.66\n    \u2022 Value Shoppers: +7.27\n    \u2022 No measurable lift for Digital Enthusiasts or Family Decision-Makers.\n\n- Programmatic Display\n  - Unit cost: 6.26 per unit.\n  - Booking limits: 0 up to 10.39; this can be purchased flexibly in fractional increments.\n  - Segment impact per unit:\n    \u2022 Digital Enthusiasts: +4.54\n    \u2022 Home Improvers: +3.09\n    \u2022 Family Decision-Makers: +3.41\n    \u2022 Value Shoppers: +6.88\n    \u2022 No lift for Prime-Time Adults or Urban Professionals.\n\n- Regional Drive-Time Radio\n  - Unit cost: 3.00 per flight.\n  - Booking limits: 0 up to 18.03 flights; whole flights only, effectively topping out at 18.\n  - Segment impact per flight:\n    \u2022 Prime-Time Adults: +6.38\n    \u2022 Digital Enthusiasts: +6.46\n    \u2022 Value Shoppers: +6.62\n    \u2022 No lift for Home Improvers, Urban Professionals, or Family Decision-Makers.\n\n- YouTube Pre\u2011Roll Packages\n  - Unit cost: 4.02 per package.\n  - Booking limits: 0 up to 10.00 packages; whole packages only.\n  - Segment impact per package:\n    \u2022 Prime-Time Adults: +4.70\n    \u2022 Digital Enthusiasts: +6.38\n    \u2022 Home Improvers: +8.31\n    \u2022 Urban Professionals: +5.39\n    \u2022 Family Decision-Makers: +8.22\n    \u2022 No direct lift for Value Shoppers.\n\n- In\u2011Store Endcap Displays\n  - Unit cost: 1.76 per display.\n  - Booking limits: 0 up to 15.62; whole displays only, effectively 15.\n  - Segment impact per display:\n    \u2022 Urban Professionals: +1.08\n    \u2022 Family Decision-Makers: +7.06\n    \u2022 Value Shoppers: +7.21\n    \u2022 No lift for Prime-Time Adults, Digital Enthusiasts, or Home Improvers.\n\n- Paid Social Boosts\n  - Unit cost: 1.94 per boost increment.\n  - Booking limits: 0 up to 9.51; can be purchased in fractional increments.\n  - Segment impact per increment:\n    \u2022 Digital Enthusiasts: +4.41\n    \u2022 Home Improvers: +5.37\n    \u2022 Family Decision-Makers: +9.51\n    \u2022 No lift for Prime-Time Adults, Urban Professionals, or Value Shoppers.\n\n- Digital Out\u2011of\u2011Home Panels\n  - Unit cost: 4.42 per panel.\n  - Booking limits: 0 up to 14.57 panels; whole panels only, effectively 14.\n  - Segment impact per panel:\n    \u2022 Prime-Time Adults: +9.79\n    \u2022 Home Improvers: +0.86\n    \u2022 Urban Professionals: +4.34\n    \u2022 No lift for Digital Enthusiasts, Family Decision-Makers, or Value Shoppers.\n\n- Live Sports Sponsorships\n  - Unit cost: 8.41 per unit.\n  - Booking limits: 0 up to 14.69; whole sponsorship units only, effectively 14.\n  - Segment impact per unit:\n    \u2022 Prime-Time Adults: +8.42\n    \u2022 Family Decision-Makers: +6.97\n    \u2022 No lift for Digital Enthusiasts, Home Improvers, Urban Professionals, or Value Shoppers.\n\nReach Targets & Policy Minimums (must be met or exceeded)\n- Prime-Time Adults: at least 151.36\n- Digital Enthusiasts: at least 181.91\n- Home Improvers: at least 155.97\n- Urban Professionals: at least 79.88\n- Family Decision-Makers: at least 191.65\n- Value Shoppers: at least 122.48\n\nPlease use the above as the basis for constructing the lowest-cost mix that clears all six minimums. Let me know if you need any clarification on booking rules or channel caps.\n\nBest regards,\n[Client Name]\nHead of Media Investment"
+}

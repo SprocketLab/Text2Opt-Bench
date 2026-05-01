@@ -1,0 +1,177 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Variables, bounds, objective coefficients, and per-constraint effects are fully quantified with clear signs; caps are <= (incl. negatives). Zero-effect notes clarify omitted coefficients.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative framing and repeated 'no material effect' lines add verbosity, but nearly all text maps directly to coefficients and bounds.",
+      "realism": 95,
+      "realism_comment": "Plausible sustainability allocation with compliance caps and tradeoffs; linear impacts and bounds match a realistic planning scenario."
+    },
+    "prompt_tokens_with_data": 1421,
+    "prompt_tokens_without_data": 1421
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 198.2730019691027,
+    "optimal_values": {
+      "Var_0": 7.37,
+      "Var_1": 5.97164846717506,
+      "Var_2": 4.290183295577363,
+      "Var_3": 4.263013722437666,
+      "Var_4": 0.0,
+      "Var_5": 3.7423111111788363
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -47.29
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.12
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 24.44
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -30.82
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 51.23
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.62
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -29.06
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -33.33
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.37
+      ],
+      "objective_linear_coefficient": 9.92,
+      "resource_costs": {
+        "C0": -7.9,
+        "C1": -1.74,
+        "C2": 6.54,
+        "C6": -9.67,
+        "C7": -2.88
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.24
+      ],
+      "objective_linear_coefficient": 9.21,
+      "resource_costs": {
+        "C2": -5.67,
+        "C3": -8.21,
+        "C4": 6.45,
+        "C5": -7.42,
+        "C6": -5.92,
+        "C7": 0.29
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.29
+      ],
+      "objective_linear_coefficient": 3.11,
+      "resource_costs": {
+        "C0": -2.15,
+        "C1": -1.48,
+        "C4": 6.31,
+        "C6": 4.26,
+        "C7": -7.16
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.82
+      ],
+      "objective_linear_coefficient": 8.29,
+      "resource_costs": {
+        "C0": -0.1,
+        "C1": 1.34,
+        "C2": 2.65,
+        "C3": -0.08,
+        "C4": -2.42,
+        "C5": 4.23,
+        "C6": -1.38,
+        "C7": 3.96
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.86
+      ],
+      "objective_linear_coefficient": 3.13,
+      "resource_costs": {
+        "C0": -2.53,
+        "C1": -0.17,
+        "C2": -9.23,
+        "C4": 6.53,
+        "C5": -0.38,
+        "C6": 4.58,
+        "C7": 3.57
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.22
+      ],
+      "objective_linear_coefficient": 5.74,
+      "resource_costs": {
+        "C0": -2.52,
+        "C1": 7.37,
+        "C2": -0.32,
+        "C3": -4.74,
+        "C4": -1.08,
+        "C6": -5.26
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.37, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.92 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.24, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.21 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.29, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.11 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.82, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.29 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.86, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.13 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.22, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.74 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-7.9 * vars['Var_0'] + -2.15 * vars['Var_2'] + -0.1 * vars['Var_3'] + -2.53 * vars['Var_4'] + -2.52 * vars['Var_5'] <= -47.29, name='C0')\n    m.addConstr(-1.74 * vars['Var_0'] + -1.48 * vars['Var_2'] + 1.34 * vars['Var_3'] + -0.17 * vars['Var_4'] + 7.37 * vars['Var_5'] <= 14.12, name='C1')\n    m.addConstr(6.54 * vars['Var_0'] + -5.67 * vars['Var_1'] + 2.65 * vars['Var_3'] + -9.23 * vars['Var_4'] + -0.32 * vars['Var_5'] <= 24.44, name='C2')\n    m.addConstr(-8.21 * vars['Var_1'] + -0.08 * vars['Var_3'] + -4.74 * vars['Var_5'] <= -30.82, name='C3')\n    m.addConstr(6.45 * vars['Var_1'] + 6.31 * vars['Var_2'] + -2.42 * vars['Var_3'] + 6.53 * vars['Var_4'] + -1.08 * vars['Var_5'] <= 51.23, name='C4')\n    m.addConstr(-7.42 * vars['Var_1'] + 4.23 * vars['Var_3'] + -0.38 * vars['Var_4'] <= 16.62, name='C5')\n    m.addConstr(-9.67 * vars['Var_0'] + -5.92 * vars['Var_1'] + 4.26 * vars['Var_2'] + -1.38 * vars['Var_3'] + 4.58 * vars['Var_4'] + -5.26 * vars['Var_5'] <= -29.06, name='C6')\n    m.addConstr(-2.88 * vars['Var_0'] + 0.29 * vars['Var_1'] + -7.16 * vars['Var_2'] + 3.96 * vars['Var_3'] + 3.57 * vars['Var_4'] <= -33.33, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation brief for our Sustainability & Operations portfolio (maximize total program value)\n\nHi team,\n\nAs agreed, we\u2019re planning how to apportion effort and budget across six initiatives to maximize our overall program value. We can deploy fractional increments of each initiative, and none of them can be taken below zero. Below are the levers, followed by the compliance and facility caps that must not be breached.\n\nForest Carbon Partnership (Redwood Offsets)\n- Scope: We can allocate anywhere from zero up to 7.37 units. Each unit increases our overall program value by 9.92 points.\n- Effects on our limits:\n  - Corporate carbon ledger: cuts the ledger by 7.9 units per deployed unit.\n  - Community impact index: improves the score (reduces it) by 1.74 points per unit.\n  - Freshwater withdrawal: adds 6.54 units per unit.\n  - NOx emissions (vs baseline): reduces by 9.67 units per unit.\n  - Landfill waste (vs baseline): reduces by 2.88 units per unit.\n  - No material effect on thermal discharge, grid electricity draw, or hazardous waste volume.\n\nHigh\u2011Efficiency Process Cooling Upgrade\n- Scope: We can allocate anywhere from zero up to 6.24 units. Each unit increases our overall program value by 9.21 points.\n- Effects on our limits:\n  - Freshwater withdrawal: reduces by 5.67 units per unit.\n  - Thermal discharge index: reduces by 8.21 units per unit.\n  - Grid electricity draw: adds 6.45 units per unit.\n  - Hazardous waste volume: reduces by 7.42 units per unit.\n  - NOx emissions (vs baseline): reduces by 5.92 units per unit.\n  - Landfill waste (vs baseline): adds 0.29 units per unit.\n  - No material effect on the corporate carbon ledger or the community impact index.\n\nMaterials Reclamation Program\n- Scope: We can allocate anywhere from zero up to 12.29 units. Each unit increases our overall program value by 3.11 points.\n- Effects on our limits:\n  - Corporate carbon ledger: reduces by 2.15 units per unit.\n  - Community impact index: reduces by 1.48 points per unit.\n  - Grid electricity draw: adds 6.31 units per unit.\n  - NOx emissions (vs baseline): adds 4.26 units per unit.\n  - Landfill waste (vs baseline): reduces by 7.16 units per unit.\n  - No material effect on freshwater withdrawal, thermal discharge, or hazardous waste volume.\n\nAutomation & Analytics Platform\n- Scope: We can allocate anywhere from zero up to 14.82 units. Each unit increases our overall program value by 8.29 points.\n- Effects on our limits:\n  - Corporate carbon ledger: reduces slightly by 0.1 units per unit.\n  - Community impact index: adds 1.34 points per unit.\n  - Freshwater withdrawal: adds 2.65 units per unit.\n  - Thermal discharge index: reduces slightly by 0.08 units per unit.\n  - Grid electricity draw: reduces by 2.42 units per unit.\n  - Hazardous waste volume: adds 4.23 units per unit.\n  - NOx emissions (vs baseline): reduces by 1.38 units per unit.\n  - Landfill waste (vs baseline): adds 3.96 units per unit.\n\nMembrane Filtration Retrofit\n- Scope: We can allocate anywhere from zero up to 8.86 units. Each unit increases our overall program value by 3.13 points.\n- Effects on our limits:\n  - Corporate carbon ledger: reduces by 2.53 units per unit.\n  - Community impact index: reduces slightly by 0.17 points per unit.\n  - Freshwater withdrawal: reduces by 9.23 units per unit.\n  - Grid electricity draw: adds 6.53 units per unit.\n  - Hazardous waste volume: reduces by 0.38 units per unit.\n  - NOx emissions (vs baseline): adds 4.58 units per unit.\n  - Landfill waste (vs baseline): adds 3.57 units per unit.\n  - No material effect on thermal discharge.\n\nFleet Electrification and Logistics Rework\n- Scope: We can allocate anywhere from zero up to 17.22 units. Each unit increases our overall program value by 5.74 points.\n- Effects on our limits:\n  - Corporate carbon ledger: reduces by 2.52 units per unit.\n  - Community impact index: adds 7.37 points per unit.\n  - Freshwater withdrawal: reduces slightly by 0.32 units per unit.\n  - Thermal discharge index: reduces by 4.74 units per unit.\n  - Grid electricity draw: reduces by 1.08 units per unit.\n  - NOx emissions (vs baseline): reduces by 5.26 units per unit.\n  - No material effect on hazardous waste volume or landfill waste.\n\nFacility specs and compliance caps (must not be exceeded)\n- Corporate carbon ledger (vs baseline): at or below \u221247.29.\n- Community impact index: at or below 14.12.\n- Freshwater withdrawal: at or below 24.44.\n- Thermal discharge index (vs baseline): at or below \u221230.82.\n- Grid electricity draw: at or below 51.23.\n- Hazardous waste volume: at or below 16.62.\n- NOx emissions (vs baseline): at or below \u221229.06.\n- Landfill waste (vs baseline): at or below \u221233.33.\n\nPlease use the above as the basis for the allocation plan that maximizes our total program value while staying within all caps. Let me know if any clarification is needed before you run the scenarios."
+}

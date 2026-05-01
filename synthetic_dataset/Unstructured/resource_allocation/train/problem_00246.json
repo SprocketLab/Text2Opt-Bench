@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All coefficients, capacities, bounds, and integrality are explicit; the LP can be reconstructed mechanically. Minor quirk: non-integer maxima on integer 'whole-batch' items.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Memo-style context adds some fluff, but the numeric specs are concise and non-repetitive; each item's data appears once.",
+      "realism": 94,
+      "realism_comment": "Realistic product/service mix with shared capacities and one divisible activity; only slight oddity in fractional maxima for whole batches."
+    },
+    "prompt_tokens_with_data": 979,
+    "prompt_tokens_without_data": 979
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 242.1370731707317,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 5.0,
+      "Var_2": 7.377032520325202,
+      "Var_3": 0.0,
+      "Var_4": 15.0,
+      "Var_5": 1.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 175.51
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 69.01
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 134.5
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 94.03
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 166.27
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.93
+      ],
+      "objective_linear_coefficient": 3.7,
+      "resource_costs": {
+        "C0": 4.79,
+        "C1": 3.8,
+        "C2": 1.46,
+        "C3": 2.6,
+        "C4": 5.57
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.16
+      ],
+      "objective_linear_coefficient": 6.5,
+      "resource_costs": {
+        "C0": 2.13,
+        "C1": 1.75,
+        "C2": 7.25,
+        "C3": 3.9,
+        "C4": 6.51
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.35
+      ],
+      "objective_linear_coefficient": 8.4,
+      "resource_costs": {
+        "C0": 9.84,
+        "C1": 1.86,
+        "C3": 5.74
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.21
+      ],
+      "objective_linear_coefficient": 7.0,
+      "resource_costs": {
+        "C0": 4.52,
+        "C1": 3.56,
+        "C2": 2.75,
+        "C3": 0.98,
+        "C4": 9.44
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.11
+      ],
+      "objective_linear_coefficient": 9.55,
+      "resource_costs": {
+        "C0": 5.82,
+        "C1": 0.08,
+        "C2": 6.16,
+        "C3": 1.8,
+        "C4": 8.42
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.73
+      ],
+      "objective_linear_coefficient": 4.42,
+      "resource_costs": {
+        "C0": 4.97,
+        "C1": 8.64,
+        "C2": 5.22,
+        "C3": 1.04,
+        "C4": 1.81
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.93, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 3.7 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.16, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.5 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.35, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.4 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.21, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.0 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=16.11, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 9.55 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.73, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 4.42 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.79 * vars['Var_0'] + 2.13 * vars['Var_1'] + 9.84 * vars['Var_2'] + 4.52 * vars['Var_3'] + 5.82 * vars['Var_4'] + 4.97 * vars['Var_5'] <= 175.51, name='C0')\n    m.addConstr(3.8 * vars['Var_0'] + 1.75 * vars['Var_1'] + 1.86 * vars['Var_2'] + 3.56 * vars['Var_3'] + 0.08 * vars['Var_4'] + 8.64 * vars['Var_5'] <= 69.01, name='C1')\n    m.addConstr(1.46 * vars['Var_0'] + 7.25 * vars['Var_1'] + 2.75 * vars['Var_3'] + 6.16 * vars['Var_4'] + 5.22 * vars['Var_5'] <= 134.5, name='C2')\n    m.addConstr(2.6 * vars['Var_0'] + 3.9 * vars['Var_1'] + 5.74 * vars['Var_2'] + 0.98 * vars['Var_3'] + 1.8 * vars['Var_4'] + 1.04 * vars['Var_5'] <= 94.03, name='C3')\n    m.addConstr(5.57 * vars['Var_0'] + 6.51 * vars['Var_1'] + 9.44 * vars['Var_3'] + 8.42 * vars['Var_4'] + 1.81 * vars['Var_5'] <= 166.27, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 product and service mix \u2014 maximize contribution under shared capacity limits\n\nHello team,\n\nAs we finalize the Q2 schedule, we need your help determining the best mix of six offerings to maximize total contribution while staying within our available fabrication time, skilled labor, feedstock, test lab time, and outbound logistics capacity. There are no minimum commitments on any item (we may choose zero), and most of these are batch-based decisions; one is divisible and can be scheduled in partial units.\n\nHere are the levers we can pull, in the order we typically plan them:\n\n- Blue Series Valves (whole-batch scheduling)\n  Each batch adds 3.7 in contribution. Per batch it draws 4.79 fabrication hours, 3.80 skilled labor hours, 1.46 units of alloy feedstock, 2.60 hours in the quality/test lab, and 5.57 outbound dock slots. We may schedule anywhere from 0 up to 19.93 batches, in whole batches only.\n\n- Emerald Gear Sets (whole-batch scheduling)\n  Each batch adds 6.5 in contribution. Per batch it uses 2.13 fabrication hours, 1.75 skilled labor hours, 7.25 units of alloy feedstock, 3.90 hours in the quality/test lab, and 6.51 outbound dock slots. We may schedule anywhere from 0 up to 11.16 batches, in whole batches only.\n\n- Field Calibration Days (divisible)\n  Each service day adds 8.4 in contribution. Each day consumes 9.84 fabrication hours, 1.86 skilled labor hours, and 5.74 hours in the quality/test lab. It does not consume any alloy feedstock and does not require outbound dock slots. We may schedule anywhere from 0 up to 8.35 service days, and this can be fractional.\n\n- Ruby Sensor Kits (whole-batch scheduling)\n  Each batch adds 7.0 in contribution. Per batch it requires 4.52 fabrication hours, 3.56 skilled labor hours, 2.75 units of alloy feedstock, 0.98 hours in the quality/test lab, and 9.44 outbound dock slots. We may schedule anywhere from 0 up to 18.21 batches, in whole batches only.\n\n- Gold Control Modules (whole-batch scheduling)\n  Each batch adds 9.55 in contribution. Per batch it draws 5.82 fabrication hours, 0.08 skilled labor hours, 6.16 units of alloy feedstock, 1.80 hours in the quality/test lab, and 8.42 outbound dock slots. We may schedule anywhere from 0 up to 16.11 batches, in whole batches only.\n\n- Compact Pump Assemblies (whole-batch scheduling)\n  Each batch adds 4.42 in contribution. Per batch it uses 4.97 fabrication hours, 8.64 skilled labor hours, 5.22 units of alloy feedstock, 1.04 hours in the quality/test lab, and 1.81 outbound dock slots. We may schedule anywhere from 0 up to 10.73 batches, in whole batches only.\n\nFacility specs and market limits (do not exceed):\n- Fabrication hours available: 175.51\n- Skilled labor hours available: 69.01\n- Alloy feedstock available: 134.5 units\n- Quality/test lab hours available: 94.03\n- Outbound dock/truck slots available: 166.27\n\nPlease develop the recommended Q2 plan that maximizes total contribution given these limits and decision rules. Let us know if you need any clarifications on resource definitions or batch sizing.\n\nBest regards,\nOperations Planning Office"
+}

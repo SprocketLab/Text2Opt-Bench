@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Clear per-program contributions, bounds (continuous vs integer), and resource coefficients; capacities listed. Zero-uses stated. A human can reconstruct the exact LP without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business letter style adds length; repeated 'No draw on...' lines are somewhat verbose but clarify zero coefficients.",
+      "realism": 96,
+      "realism_comment": "Feels like a real production planning problem with plausible resources and limits; only minor oddity is fractional caps on integer items."
+    },
+    "prompt_tokens_with_data": 1103,
+    "prompt_tokens_without_data": 1103
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 144.12941246184283,
+    "optimal_values": {
+      "Var_0": 8.501474926253687,
+      "Var_1": 9.0,
+      "Var_2": 1.1196708147667416,
+      "Var_3": 4.657997399219766,
+      "Var_4": 0.0,
+      "Var_5": 3.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.66
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.59
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.27
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 10.62
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 19.33
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 9.94
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 150.59
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 2.16
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.89
+      ],
+      "objective_linear_coefficient": 4.54,
+      "resource_costs": {
+        "C2": 3.39,
+        "C6": 7.82
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 5.75,
+      "resource_costs": {
+        "C0": 5.57,
+        "C2": 3.86,
+        "C4": 1.71,
+        "C6": 7.45
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.18
+      ],
+      "objective_linear_coefficient": 3.68,
+      "resource_costs": {
+        "C1": 3.17,
+        "C6": 7.09
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.39
+      ],
+      "objective_linear_coefficient": 4.73,
+      "resource_costs": {
+        "C0": 7.69,
+        "C1": 8.38,
+        "C3": 1.69
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.99
+      ],
+      "objective_linear_coefficient": 7.14,
+      "resource_costs": {
+        "C1": 1.63,
+        "C2": 5.63,
+        "C3": 3.36,
+        "C7": 5.63
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.58
+      ],
+      "objective_linear_coefficient": 9.21,
+      "resource_costs": {
+        "C0": 0.57,
+        "C2": 0.57,
+        "C4": 0.59,
+        "C5": 3.11,
+        "C6": 3.04
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.89, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.54 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.75 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.18, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.68 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.39, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.73 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.99, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 7.14 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=6.58, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.21 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.57 * vars['Var_1'] + 7.69 * vars['Var_3'] + 0.57 * vars['Var_5'] <= 87.66, name='C0')\n    m.addConstr(3.17 * vars['Var_2'] + 8.38 * vars['Var_3'] + 1.63 * vars['Var_4'] <= 42.59, name='C1')\n    m.addConstr(3.39 * vars['Var_0'] + 3.86 * vars['Var_1'] + 5.63 * vars['Var_4'] + 0.57 * vars['Var_5'] <= 65.27, name='C2')\n    m.addConstr(1.69 * vars['Var_3'] + 3.36 * vars['Var_4'] <= 10.62, name='C3')\n    m.addConstr(1.71 * vars['Var_1'] + 0.59 * vars['Var_5'] <= 19.33, name='C4')\n    m.addConstr(3.11 * vars['Var_5'] <= 9.94, name='C5')\n    m.addConstr(7.82 * vars['Var_0'] + 7.45 * vars['Var_1'] + 7.09 * vars['Var_2'] + 3.04 * vars['Var_5'] <= 150.59, name='C6')\n    m.addConstr(5.63 * vars['Var_4'] <= 2.16, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 allocation plan to maximize contribution within plant and market limits\n\nTeam,\n\nAs we finalize our Q2 mix, the goal is to maximize total contribution across our programs while staying within the practical limits of our lines, people, testing, budget, and scarce inputs. Below are the levers we can adjust this quarter, with their economics and operational footprints, followed by the facility specs and market limits we must not exceed.\n\nAurora Gift Bundles\n- Each bundle adds 4.54 to contribution. We can scale this program flexibly (partial lots are fine), anywhere from zero up to a ceiling of 17.89 bundles.\n- Operational footprint per bundle: 3.39 line-hours on Packaging Cell Delta and 7.82 units from the Distribution & Logistics budget.\n- This program places no demand on Fabrication Line Alpha, Assembly Crew Bravo, Quality Lab Echo, Marketing Placement Slots, Regulatory Review bandwidth, or the rare catalyst.\n\nHarvest Can Line Campaigns\n- Each campaign adds 5.75 to contribution. These are discrete runs; if we choose to run them, they must be whole campaigns. We can run from zero up to 10 campaigns.\n- Operational footprint per campaign: 5.57 line-hours on Fabrication Line Alpha, 3.86 line-hours on Packaging Cell Delta, 1.71 Marketing Placement Slots, and 7.45 units from the Distribution & Logistics budget.\n- No draw on Assembly Crew Bravo, Quality Lab Echo, Regulatory Review bandwidth, or the rare catalyst.\n\nDirect Sample Kits\n- Each kit adds 3.68 to contribution. We can scale this program in partial lots, anywhere from zero up to 19.18 kits.\n- Operational footprint per kit: 3.17 person-hours from Assembly Crew Bravo and 7.09 units from the Distribution & Logistics budget.\n- No draw on Fabrication Line Alpha, Packaging Cell Delta, Quality Lab Echo, Marketing Placement Slots, Regulatory Review bandwidth, or the rare catalyst.\n\nCustom Engrave Runs\n- Each run adds 4.73 to contribution. We can scale this program in partial runs, anywhere from zero up to 18.39 runs.\n- Operational footprint per run: 7.69 line-hours on Fabrication Line Alpha, 8.38 person-hours from Assembly Crew Bravo, and 1.69 test-hours on Quality Lab Echo.\n- No draw on Packaging Cell Delta, Marketing Placement Slots, Regulatory Review bandwidth, the Distribution & Logistics budget, or the rare catalyst.\n\nLimited Edition Catalyst Batches\n- Each batch adds 7.14 to contribution. These are discrete batches; they must be counted in whole batches. We can run anywhere from zero up to 11.99 batches.\n- Operational footprint per batch: 1.63 person-hours from Assembly Crew Bravo, 5.63 line-hours on Packaging Cell Delta, 3.36 test-hours on Quality Lab Echo, and 5.63 kg of the rare catalyst.\n- No draw on Fabrication Line Alpha, Marketing Placement Slots, Regulatory Review bandwidth, or the Distribution & Logistics budget.\n\nRegulatory Launch Kits\n- Each kit adds 9.21 to contribution. These kits are discrete; they must be whole kits. We can run from zero up to 6.58 kits.\n- Operational footprint per kit: 0.57 line-hours on Fabrication Line Alpha, 0.57 line-hours on Packaging Cell Delta, 0.59 Marketing Placement Slots, 3.11 hours of Regulatory Review bandwidth, and 3.04 units from the Distribution & Logistics budget.\n- No draw on Assembly Crew Bravo, Quality Lab Echo, or the rare catalyst.\n\nFacility specs and market limits (do not exceed):\n- Fabrication Line Alpha: up to 87.66 line-hours this period.\n- Assembly Crew Bravo: up to 42.59 person-hours.\n- Packaging Cell Delta: up to 65.27 line-hours.\n- Quality Lab Echo: up to 10.62 test-hours.\n- Marketing Placement Slots: up to 19.33 slot equivalents.\n- Regulatory Review bandwidth: up to 9.94 hours.\n- Distribution & Logistics budget: up to 150.59 budget units.\n- Rare catalyst X: up to 2.16 kg available.\n\nPlease use this as the basis for building the production and campaign mix that maximizes total contribution while honoring the above limits."
+}

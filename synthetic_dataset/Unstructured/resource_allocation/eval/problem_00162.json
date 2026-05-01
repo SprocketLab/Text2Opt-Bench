@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, signs, and >= thresholds are specified; min total spend clear; fractional increments imply continuous; zeros explicitly noted. No missing info.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business memo tone adds some fluff and trade-off notes, but key data is structured and precise.",
+      "realism": 92,
+      "realism_comment": "Plausible channel-mix LP with cross-effects and thresholds; fractional amounts explicitly allowed. Feels realistic."
+    },
+    "prompt_tokens_with_data": 823,
+    "prompt_tokens_without_data": 823
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 68.4944800275482,
+    "optimal_values": {
+      "Var_0": 1.6818181818181819,
+      "Var_1": 0.0,
+      "Var_2": 11.001951331496786,
+      "Var_3": 0.0,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 1.11
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -48.64
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.3
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.22
+      ],
+      "objective_linear_coefficient": 2.85,
+      "resource_costs": {
+        "C0": 0.66,
+        "C1": 2.72,
+        "C2": 1.03
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.69
+      ],
+      "objective_linear_coefficient": 8.15,
+      "resource_costs": {
+        "C1": 3.76,
+        "C2": 4.35
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.67
+      ],
+      "objective_linear_coefficient": 5.79,
+      "resource_costs": {
+        "C2": 3.96
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.76
+      ],
+      "objective_linear_coefficient": 7.77,
+      "resource_costs": {
+        "C0": -2.59,
+        "C2": -3.37
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.01
+      ],
+      "objective_linear_coefficient": 4.05,
+      "resource_costs": {
+        "C1": -8.61,
+        "C2": 1.44
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.22, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.85 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.69, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.15 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.67, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.79 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.76, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.77 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.01, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.05 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.66 * vars['Var_0'] + -2.59 * vars['Var_3'] >= 1.11, name='C0')\n    m.addConstr(2.72 * vars['Var_0'] + 3.76 * vars['Var_1'] + -8.61 * vars['Var_4'] >= -48.64, name='C1')\n    m.addConstr(1.03 * vars['Var_0'] + 4.35 * vars['Var_1'] + 3.96 * vars['Var_2'] + -3.37 * vars['Var_3'] + 1.44 * vars['Var_4'] >= 45.3, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix for the Next-Quarter Channel Plan\n\nTeam,\n\nWe need to set the next-quarter channel mix that meets our minimum service and market thresholds at the lowest possible total program spend. Below is the decision set we can dial up or down (including fractional increments) within their practical caps, along with exactly how each option touches our three operating thresholds: Service Continuity Buffer, Coverage Balance, and Volume Commitments.\n\nCommunity Kiosk Placements\n- Budget impact: 2.85 per kiosk deployed.\n- Scale: We can place anywhere from zero up to 16.22 kiosks.\n- Threshold effects: Each kiosk adds 0.66 points to our Service Continuity Buffer, contributes 2.72 points to our Coverage Balance, and supports 1.03 units toward our Volume Commitments. It does not affect any other measures beyond these.\n\nSignature Roadshows\n- Budget impact: 8.15 per event day.\n- Scale: We can schedule anywhere from zero up to 6.69 event days.\n- Threshold effects: Each event day improves Coverage Balance by 3.76 points and contributes 4.35 units toward Volume Commitments. It has no measurable effect on the Service Continuity Buffer.\n\nAlways\u2011On Digital Lead Generation\n- Budget impact: 5.79 per activation.\n- Scale: We can run anywhere from zero up to 13.67 activations.\n- Threshold effects: Each activation contributes 3.96 units toward Volume Commitments. It does not move the Service Continuity Buffer or Coverage Balance.\n\nFootprint Rationalization (Closures and Consolidations)\n- Budget impact: 7.77 per action executed.\n- Scale: We can take anywhere from zero up to 10.76 actions.\n- Threshold effects: Each action reduces the Service Continuity Buffer by 2.59 points and reduces Volume Commitments by 3.37 units. It does not change the Coverage Balance.\n\nWholesale Channel Tie\u2011Ups\n- Budget impact: 4.05 per partner slot.\n- Scale: We can agree anywhere from zero up to 12.01 partner slots.\n- Threshold effects: Each slot reduces the Coverage Balance by 8.61 points but adds 1.44 units toward Volume Commitments. It does not affect the Service Continuity Buffer.\n\nMarket Limits and Operating Thresholds\n- Service Continuity Buffer: The plan must deliver at least 1.11 buffer points in total across all moves.\n- Coverage Balance: The plan must keep the Coverage Balance at or above \u221248.64 points (we cannot allow the balance to drop below this floor).\n- Volume Commitments: The plan must secure at least 45.3 units of committed volume.\n\nPlease use the above to evaluate the most cost-efficient mix that satisfies all three thresholds. I\u2019m available to walk through trade-offs (e.g., the way kiosks lift both buffer and coverage, how roadshows and digital drive volume, or how wholesale tie-ups can backfill volume while drawing down coverage)."
+}

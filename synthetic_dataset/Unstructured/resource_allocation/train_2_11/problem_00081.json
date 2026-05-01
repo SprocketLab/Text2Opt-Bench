@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and thresholds are explicit. Objective is clear cost minimization. Only minor nuance: fractional caps with integer items and 'no meaningful effect' phrasing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style prose and practical notes add some verbosity, but most details serve to specify integrality, bounds, and contributions.",
+      "realism": 93,
+      "realism_comment": "Very plausible procurement/performance-threshold scenario. Slightly odd fractional caps for whole units, but explained and still realistic."
+    },
+    "prompt_tokens_with_data": 887,
+    "prompt_tokens_without_data": 887
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 112.03813559322035,
+    "optimal_values": {
+      "Var_0": 8.35593220338983,
+      "Var_1": 5.0,
+      "Var_2": 4.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 26.53
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 49.22
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 69.02
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 95.98
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 84.46
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.88
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.5
+      ],
+      "objective_linear_coefficient": 5.08,
+      "resource_costs": {
+        "C1": 6.11,
+        "C2": 8.26,
+        "C3": 9.88,
+        "C4": 2.81,
+        "C5": 6.83
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.13
+      ],
+      "objective_linear_coefficient": 7.59,
+      "resource_costs": {
+        "C0": 5.42,
+        "C4": 5.38
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.82
+      ],
+      "objective_linear_coefficient": 7.91,
+      "resource_costs": {
+        "C3": 3.65,
+        "C4": 9.01,
+        "C5": 6.03
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.5, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.08 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.13, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.59 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.82, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.91 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.42 * vars['Var_1'] >= 26.53, name='C0')\n    m.addConstr(6.11 * vars['Var_0'] >= 49.22, name='C1')\n    m.addConstr(8.26 * vars['Var_0'] >= 69.02, name='C2')\n    m.addConstr(9.88 * vars['Var_0'] + 3.65 * vars['Var_2'] >= 95.98, name='C3')\n    m.addConstr(2.81 * vars['Var_0'] + 5.38 * vars['Var_1'] + 9.01 * vars['Var_2'] >= 84.46, name='C4')\n    m.addConstr(6.83 * vars['Var_0'] + 6.03 * vars['Var_2'] >= 79.88, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing sourcing plan to meet performance minimums for the new protective coating\n\nTeam,\n\nWe need to lock in a low-cost procurement mix for the ShieldGuard formulation while meeting our mandated performance thresholds across six quality and compliance dimensions. The objective is to minimize total spend while ensuring every required metric is met or exceeded.\n\nThe levers we have\n\n1) Base Emulsion S\u2011Blue\n- Commercials and availability: This is our flexible base material and can be ordered in partial tons with no minimum commitment; the cap this cycle is 9.5 tons. The unit cost is 5.08 per ton.\n- How it helps our targets: Each ton of S\u2011Blue contributes 6.11 units toward Viscosity Control, 8.26 units toward Adhesion/Strength, 9.88 units toward Heat Endurance, 2.81 units toward our VOC/Regulatory Compliance score, and 6.83 units toward UV Resistance. It has no meaningful effect on Corrosion Resistance.\n- Practical note: Because S\u2011Blue is metered, fractional ton ordering is allowed (up to the 9.5\u2011ton ceiling).\n\n2) Anticorrosion Kit A\n- Commercials and availability: This kit must be bought as whole drums, with no minimum commitment; the maximum we can secure is 17.13 drums. The unit cost is 7.59 per drum.\n- How it helps our targets: Every drum adds 5.42 units to Corrosion Resistance and 5.38 units to the VOC/Regulatory Compliance score. It does not move Viscosity Control, Adhesion/Strength, Heat Endurance, or UV Resistance.\n- Practical note: Orders are whole-drum only, though the authorization limit is expressed as 17.13 drums.\n\n3) Thermal Stabilizer Pack C\n- Commercials and availability: This is a whole-batch item with no minimum commitment; the cap is 6.82 batches. The unit cost is 7.91 per batch.\n- How it helps our targets: Each batch contributes 3.65 units to Heat Endurance, 9.01 units to the VOC/Regulatory Compliance score, and 6.03 units to UV Resistance. It does not affect Corrosion Resistance, Viscosity Control, or Adhesion/Strength.\n- Practical note: Orders are whole-batch only, up to the 6.82\u2011batch authorization.\n\nQuality and compliance minimums we must hit\n- Corrosion Resistance: at least 26.53 units across the mix.\n- Viscosity Control: at least 49.22 units across the mix.\n- Adhesion/Strength: at least 69.02 units across the mix.\n- Heat Endurance: at least 95.98 units across the mix.\n- VOC/Regulatory Compliance score: at least 84.46 units across the mix.\n- UV Resistance: at least 79.88 units across the mix.\n\nThere are no minimum purchase obligations for any of the three items (we can choose zero of any of them), but we cannot exceed the availability caps noted above. Please use this as the basis to determine the least-cost quantities of S\u2011Blue, Anticorrosion Kit A, and Thermal Stabilizer Pack C that collectively meet every threshold."
+}

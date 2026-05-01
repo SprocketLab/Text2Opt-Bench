@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, unit costs, KPI contributions, and minimum thresholds are explicit; continuous scaling and caps stated; zeros clarified. Objective is clearly to minimize spend.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business-style narrative with repeated 'no contribution' and 'no minimum' phrases; longer than needed but clear and informative.",
+      "realism": 95,
+      "realism_comment": "A realistic marketing mix optimization with KPI minimums, costs, and caps; data is plausible and consistent with a real-world OR application."
+    },
+    "prompt_tokens_with_data": 917,
+    "prompt_tokens_without_data": 917
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 164.9580243068182,
+    "optimal_values": {
+      "Var_0": 3.5226175323351008,
+      "Var_1": 0.0,
+      "Var_2": 1.86479531923493,
+      "Var_3": 10.558683994500667,
+      "Var_4": 6.775172413793104,
+      "Var_5": 7.425287356321839
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 16.9
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 37.52
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 25.84
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 98.8
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 175.37
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.33
+      ],
+      "objective_linear_coefficient": 8.93,
+      "resource_costs": {
+        "C0": 3.58,
+        "C3": 2.28
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.15
+      ],
+      "objective_linear_coefficient": 9.85,
+      "resource_costs": {
+        "C3": 0.87
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.28
+      ],
+      "objective_linear_coefficient": 9.26,
+      "resource_costs": {
+        "C0": 2.3,
+        "C4": 9.35
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.91
+      ],
+      "objective_linear_coefficient": 3.0,
+      "resource_costs": {
+        "C3": 2.83,
+        "C4": 4.33
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.27
+      ],
+      "objective_linear_coefficient": 3.11,
+      "resource_costs": {
+        "C1": 2.25,
+        "C4": 5.91
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.77
+      ],
+      "objective_linear_coefficient": 8.55,
+      "resource_costs": {
+        "C1": 3.0,
+        "C2": 3.48,
+        "C3": 8.2,
+        "C4": 9.72
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.33, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.93 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.15, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.85 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.28, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.26 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.91, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.0 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.27, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.11 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.77, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.55 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.58 * vars['Var_0'] + 2.3 * vars['Var_2'] >= 16.9, name='C0')\n    m.addConstr(2.25 * vars['Var_4'] + 3.0 * vars['Var_5'] >= 37.52, name='C1')\n    m.addConstr(3.48 * vars['Var_5'] >= 25.84, name='C2')\n    m.addConstr(2.28 * vars['Var_0'] + 0.87 * vars['Var_1'] + 2.83 * vars['Var_3'] + 8.2 * vars['Var_5'] >= 98.8, name='C3')\n    m.addConstr(9.35 * vars['Var_2'] + 4.33 * vars['Var_3'] + 5.91 * vars['Var_4'] + 9.72 * vars['Var_5'] >= 175.37, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Direction for Q1 Allocation Plan \u2014 Minimize Spend while Meeting Reach and Engagement Commitments\n\nTeam,\n\nWe\u2019re asking you to recommend the least-cost mix across six promotional levers to satisfy our minimum reach and engagement commitments for the quarter. We can scale each lever fractionally (partial buys are fine), and each has a hard cap. Below are the options\u2014listed in the order we want you to consider them\u2014along with their unit costs and how each one contributes to our five KPIs.\n\n- Neighborhood Street Teams\n  - Unit cost: 8.93.\n  - Availability: up to 13.33 activations; no minimum commitment (we can choose anywhere from 0 to 13.33).\n  - KPI impact: every activation adds 3.58 points to the Local Awareness Index and 2.28 points to Digital Engagement. It does not move the needle on C\u2011Suite Touchpoints, Qualified Leads, or National Reach.\n\n- Programmatic Retargeting Buys\n  - Unit cost: 9.85.\n  - Availability: up to 18.15 buys; no minimum commitment (0 to 18.15).\n  - KPI impact: each buy adds 0.87 points to Digital Engagement. No measurable contribution to Local Awareness, C\u2011Suite Touchpoints, Qualified Leads, or National Reach.\n\n- Sponsored Content Partnerships\n  - Unit cost: 9.26.\n  - Availability: up to 10.28 partnerships; no minimum commitment (0 to 10.28).\n  - KPI impact: each partnership adds 2.30 points to the Local Awareness Index and 9.35 points to National Reach. No contribution to C\u2011Suite Touchpoints, Qualified Leads, or Digital Engagement.\n\n- Community Events Roadshow\n  - Unit cost: 3.00.\n  - Availability: up to 14.91 events; no minimum commitment (0 to 14.91).\n  - KPI impact: each event adds 2.83 points to Digital Engagement and 4.33 points to National Reach. No contribution to Local Awareness, C\u2011Suite Touchpoints, or Qualified Leads.\n\n- Trade Publication Ads\n  - Unit cost: 3.11.\n  - Availability: up to 13.27 insertions; no minimum commitment (0 to 13.27).\n  - KPI impact: each insertion adds 2.25 points to C\u2011Suite Touchpoints and 5.91 points to National Reach. No contribution to Local Awareness, Qualified Leads, or Digital Engagement.\n\n- National TV Flights\n  - Unit cost: 8.55.\n  - Availability: up to 9.77 flights; no minimum commitment (0 to 9.77).\n  - KPI impact: each flight adds 3.00 points to C\u2011Suite Touchpoints, 3.48 units to Qualified Leads, 8.20 points to Digital Engagement, and 9.72 points to National Reach. No contribution to Local Awareness.\n\nFacility Specs / Market Limits for the period (minimums we must meet):\n- Local Awareness Index: at least 16.9 points.\n- C\u2011Suite Touchpoints: at least 37.52 points.\n- Qualified Leads: at least 25.84 units.\n- Digital Engagement: at least 98.8 points.\n- National Reach: at least 175.37 points.\n\nPlease bring back a recommended allocation that meets all the above thresholds at the lowest total cost."
+}

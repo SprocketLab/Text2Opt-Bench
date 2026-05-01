@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Clear costs, bounds, contributions (including zeros) for each option; 'at least' targets specify >=; partial allocations allowed (continuous). A human can reconstruct the exact LP without guessing.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Business-style narrative adds extra words and repeated headings, but provides all numbers cleanly; modest verbosity without needless repetition.",
+      "realism": 92,
+      "realism_comment": "Plausible planning problem balancing outreach, reliability, and compliance with capacities and costs; continuous allocations justified by 'partial acceptable'."
+    },
+    "prompt_tokens_with_data": 682,
+    "prompt_tokens_without_data": 682
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 144.89998207614448,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 5.776918581981893,
+      "Var_2": 8.01565995525727,
+      "Var_3": 6.670364003041625
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 35.83
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 72.92
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 105.85
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.59
+      ],
+      "objective_linear_coefficient": 7.09,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.35
+      ],
+      "objective_linear_coefficient": 3.6,
+      "resource_costs": {
+        "C2": 6.3
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.73
+      ],
+      "objective_linear_coefficient": 9.0,
+      "resource_costs": {
+        "C0": 4.47,
+        "C1": 2.34,
+        "C2": 8.64
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.87
+      ],
+      "objective_linear_coefficient": 7.79,
+      "resource_costs": {
+        "C1": 8.12,
+        "C2": 0.03
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.59, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.09 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.35, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.6 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.73, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.0 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.87, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.79 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.47 * vars['Var_2'] >= 35.83, name='C0')\n    m.addConstr(2.34 * vars['Var_2'] + 8.12 * vars['Var_3'] >= 72.92, name='C1')\n    m.addConstr(6.3 * vars['Var_1'] + 8.64 * vars['Var_2'] + 0.03 * vars['Var_3'] >= 105.85, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix to meet this quarter\u2019s outreach, reliability, and compliance obligations\n\nTeam,\n\nWe need a simple, cost-conscious allocation plan that fulfills our three standing commitments this quarter while keeping total spend as low as possible. We can scale each program between zero and its availability limit, and partial allocations are acceptable where operations allow.\n\nDecision levers\n\n- Heritage Sponsorship Slots\n  - Role and reach: These are discretionary placements that do not count toward our three formal scorecards. Each slot adds zero Community Outreach Credits, zero Service Reliability Hours, and zero points to the Regulatory Compliance Index.\n  - Cost and availability: 7.09 per slot; we may take anywhere from 0 up to 14.59 slots.\n\n- Compliance Starter Kits\n  - Role and reach: Purpose-built to lift our Regulatory Compliance Index. Each kit adds 6.3 points to the Regulatory Compliance Index and has no effect on Community Outreach Credits or Service Reliability Hours (both zero).\n  - Cost and availability: 3.6 per kit; we may take anywhere from 0 up to 6.35 kits.\n\n- Integrated Field Service Teams\n  - Role and reach: Balanced contribution across all three scorecards. Each team delivers 4.47 Community Outreach Credits, 2.34 Service Reliability Hours, and 8.64 points on the Regulatory Compliance Index.\n  - Cost and availability: 9.0 per team; we may deploy anywhere from 0 up to 14.73 teams.\n\n- Quality Surge Shifts\n  - Role and reach: Primarily a reliability lever with a small compliance benefit. Each shift provides 8.12 Service Reliability Hours and 0.03 points to the Regulatory Compliance Index; it does not generate Community Outreach Credits (zero).\n  - Cost and availability: 7.79 per shift; we may schedule anywhere from 0 up to 9.87 shifts.\n\nService-level commitments and limits\n\n- Community Outreach Credits: Deliver at least 35.83 credits in total.\n- Service Reliability Hours: Deliver at least 72.92 hours in total.\n- Regulatory Compliance Index: Deliver at least 105.85 points in total.\n\nPlease come back with a recommended mix that meets or exceeds these three commitments at the lowest aggregate cost, staying within the availability limits noted above."
+}

@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and inequality directions are explicit, with clear ledger sign conventions. Variables are nonnegative within ceilings and the linear objective is fully specified.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Lengthy with narrative/context and repeated sign explanations; some corporate phrasing. Clear but more verbose than needed for an LP spec.",
+      "realism": 97,
+      "realism_comment": "Plausible operational portfolio allocation with energy and sustainability caps; coherent and consistent with real-world manufacturing/supply chain planning."
+    },
+    "prompt_tokens_with_data": 1008,
+    "prompt_tokens_without_data": 1008
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 275.0403073878291,
+    "optimal_values": {
+      "Var_0": 9.414556040756914,
+      "Var_1": 11.58,
+      "Var_2": 9.8,
+      "Var_3": 5.732007797270957
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 39.1
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -37.46
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -45.17
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.77
+      ],
+      "objective_linear_coefficient": 9.2,
+      "resource_costs": {
+        "C0": 6.87,
+        "C1": 2.38
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.58
+      ],
+      "objective_linear_coefficient": 8.37,
+      "resource_costs": {
+        "C1": -5.69,
+        "C2": -6.44
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.8
+      ],
+      "objective_linear_coefficient": 3.95,
+      "resource_costs": {
+        "C0": -2.61,
+        "C1": -0.93
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.76
+      ],
+      "objective_linear_coefficient": 9.21,
+      "resource_costs": {
+        "C2": 5.13
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.77, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.2 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.58, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.37 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.8, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.95 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.76, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.21 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.87 * vars['Var_0'] + -2.61 * vars['Var_2'] <= 39.1, name='C0')\n    m.addConstr(2.38 * vars['Var_0'] + -5.69 * vars['Var_1'] + -0.93 * vars['Var_2'] <= -37.46, name='C1')\n    m.addConstr(-6.44 * vars['Var_1'] + 5.13 * vars['Var_3'] <= -45.17, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocating our Q1 portfolio to maximize contribution while staying within energy and sustainability limits\n\nTeam,\n\nAs discussed, we\u2019re framing the Q1 resource allocation decision as a portfolio choice among four operational levers, with the goal of maximizing total contribution while honoring our facility\u2019s energy budget and the compliance-led sustainability ledgers. All quantities below refer to \u201cunits\u201d of commitment in the upcoming planning window; we can scale each lever anywhere from zero up to the stated ceiling.\n\n- Sapphire Resin Line (premium production runs)\n  - Financial impact: Generates 9.20 in contribution for each unit committed.\n  - Operations impact: Draws on the Grid Energy Budget by 6.87 units per commitment. It also increases our Net Carbon Ledger by 2.38 units per commitment (this ledger records reductions as negative and additions as positive).\n  - No measurable effect on the Waste Diversion Ledger.\n  - Capacity window: We can schedule anywhere from 0 up to 11.77 units this period.\n\n- GreenLoop Returns & Upcycling (reverse logistics and material recapture)\n  - Financial impact: Generates 8.37 in contribution per unit.\n  - Sustainability impact: Improves the Net Carbon Ledger by 5.69 units per commitment (i.e., a reduction recorded as \u22125.69), and improves the Waste Diversion Ledger by 6.44 units per commitment (i.e., a reduction recorded as \u22126.44).\n  - No draw on the Grid Energy Budget.\n  - Capacity window: We can operate between 0 and 11.58 units.\n\n- Thermal Recovery Skids (heat recovery and process efficiency)\n  - Financial impact: Generates 3.95 in contribution per unit.\n  - Operations and sustainability impact: Offsets the Grid Energy Budget by 2.61 units per commitment (i.e., returns/avoids 2.61 units of draw, recorded as \u22122.61) and improves the Net Carbon Ledger by 0.93 units per commitment (i.e., a reduction recorded as \u22120.93).\n  - No measurable effect on the Waste Diversion Ledger.\n  - Capacity window: We can deploy between 0 and 9.80 units.\n\n- Contract Pack Network (overflow packaging work sent to partners)\n  - Financial impact: Generates 9.21 in contribution per unit.\n  - Sustainability impact: Increases the Waste Diversion Ledger by 5.13 units per commitment (this ledger records reductions as negative and additions as positive).\n  - No draw on the Grid Energy Budget and no measurable effect on the Net Carbon Ledger.\n  - Capacity window: We can commit between 0 and 9.76 units.\n\nFacility specs and compliance limits for the period\n- Grid Energy Budget: Net draw, after accounting for any offsets, must not exceed 39.10 units in total. In practice, each Sapphire Resin unit draws 6.87, each Thermal Recovery unit offsets 2.61, and all other activities have no effect on this budget.\n- Net Carbon Ledger (compliance target): Our net position on the carbon ledger must be at or below \u221237.46. Negative entries represent reductions; positive entries represent additions. Each Sapphire Resin unit adds 2.38; each GreenLoop unit reduces by 5.69; each Thermal Recovery unit reduces by 0.93; other activities have no effect here.\n- Waste Diversion Ledger (compliance target): Our net waste-to-landfill position must be at or below \u221245.17. Negative entries represent diversion (reductions); positive entries represent additions. Each GreenLoop unit reduces by 6.44; each Contract Pack unit adds 5.13; other activities have no effect on this ledger.\n\nOur task is to choose non\u2011negative commitment levels within the ceilings above to maximize total contribution while staying within the grid energy cap and achieving the required negative balances on the carbon and waste ledgers."
+}

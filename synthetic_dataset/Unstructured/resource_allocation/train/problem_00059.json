@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, variable types, and resource limits are explicit. Objective is clear. Constraints map directly to resource totals across activities.",
+      "ambiguity": false,
+      "redundancy": 22,
+      "redundancy_comment": "Some business narrative for context, but specifications are concise and non-repetitive.",
+      "realism": 97,
+      "realism_comment": "Plausible production planning with water, crew, and pasteurization limits; mix of integer and continuous decisions is realistic."
+    },
+    "prompt_tokens_with_data": 659,
+    "prompt_tokens_without_data": 659
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 93.20415841584159,
+    "optimal_values": {
+      "Var_0": 8.0,
+      "Var_1": 3.0,
+      "Var_2": 2.892503536067893
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 32.85
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 38.75
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 74.38
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.98
+      ],
+      "objective_linear_coefficient": 7.78,
+      "resource_costs": {
+        "C0": 1.55,
+        "C1": 4.19,
+        "C2": 9.2
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.61
+      ],
+      "objective_linear_coefficient": 1.21,
+      "resource_costs": {
+        "C1": 1.52
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.13
+      ],
+      "objective_linear_coefficient": 9.45,
+      "resource_costs": {
+        "C0": 7.07
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.98, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.78 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.61, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 1.21 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.13, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.45 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.55 * vars['Var_0'] + 7.07 * vars['Var_2'] <= 32.85, name='C0')\n    m.addConstr(4.19 * vars['Var_0'] + 1.52 * vars['Var_1'] <= 38.75, name='C1')\n    m.addConstr(9.2 * vars['Var_0'] <= 74.38, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix guidance to maximize contribution within plant limits\n\nTeam,\n\nFor the upcoming period, our objective is to maximize total contribution while staying within our water draw, bottling crew, and pasteurization tunnel limits. We have three levers to pull; each one has a specific margin, uses specific resources, and has a planning range.\n\n- Premium Lemon Tonic batches\n  \u2022 Each full batch adds 7.78 units of contribution.  \n  \u2022 Resource use per batch is as follows: it draws 1.55 units from the water allocation, requires 4.19 bottling crew hours, and uses 9.2 hours on Pasteurization Tunnel B.  \n  \u2022 Planning range this period: anywhere from 0.0 up to 17.98 batches, with whole batches only (no partial runs).\n\n- Hand\u2011Labeled Gift Packs\n  \u2022 Each full pack set adds 1.21 units of contribution.  \n  \u2022 Resource use per set: 0 water allocation units, 1.52 bottling crew hours, and 0 hours on Pasteurization Tunnel B.  \n  \u2022 Planning range this period: anywhere from 0.0 up to 11.61 sets, with whole sets only (no partial sets).\n\n- Bulk Spring Water dispatches\n  \u2022 Each dispatched load adds 9.45 units of contribution.  \n  \u2022 Resource use per load: 7.07 units from the water allocation, 0 bottling crew hours, and 0 hours on Pasteurization Tunnel B (handled via third\u2011party loading).  \n  \u2022 Planning range this period: anywhere from 0.0 up to 12.13 loads, and partial loads are allowed.\n\nFacility limits for the period\n- Water allocation: do not exceed 32.85 units in total across all activities.  \n- Bottling crew time: do not exceed 38.75 hours in total across all activities.  \n- Pasteurization Tunnel B time: do not exceed 74.38 hours in total across all activities.\n\nPlease use the above contribution rates, resource draws, and planning ranges to select the mix that delivers the highest total contribution without breaching any of the listed limits."
+}

@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and capacities are explicit; variables are continuous and bounded; objective is linear sum; resource constraints map directly. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business-memo style adds context but includes some narrative fluff; numbers are given once and clearly; only minor extra wording.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning scenario with plausible resources, capacities, and margins."
+    },
+    "prompt_tokens_with_data": 843,
+    "prompt_tokens_without_data": 843
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 58.61034663035174,
+    "optimal_values": {
+      "Var_0": 2.243807088052612,
+      "Var_1": 7.235433620088352,
+      "Var_2": 1.4236024844720496
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.81
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 6.8
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 38.91
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 70.86
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 11.46
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.56
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.47
+      ],
+      "objective_linear_coefficient": 3.26,
+      "resource_costs": {
+        "C1": 2.34,
+        "C3": 3.76,
+        "C5": 4.76
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.72
+      ],
+      "objective_linear_coefficient": 5.24,
+      "resource_costs": {
+        "C0": 1.67,
+        "C2": 4.9,
+        "C3": 7.26
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.97
+      ],
+      "objective_linear_coefficient": 9.4,
+      "resource_costs": {
+        "C0": 7.09,
+        "C3": 6.95,
+        "C4": 8.05,
+        "C5": 4.13
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.47, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.26 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.72, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.24 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.97, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.4 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.67 * vars['Var_1'] + 7.09 * vars['Var_2'] <= 22.81, name='C0')\n    m.addConstr(2.34 * vars['Var_0'] <= 6.8, name='C1')\n    m.addConstr(4.9 * vars['Var_1'] <= 38.91, name='C2')\n    m.addConstr(3.76 * vars['Var_0'] + 7.26 * vars['Var_1'] + 6.95 * vars['Var_2'] <= 70.86, name='C3')\n    m.addConstr(8.05 * vars['Var_2'] <= 11.46, name='C4')\n    m.addConstr(4.76 * vars['Var_0'] + 4.13 * vars['Var_2'] <= 16.56, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for Q2 Mix Recommendation \u2014 Advanced Components Portfolio\n\nTeam,\n\nAs we lock the Q2 operating plan for the Advanced Components division, we need a recommended mix that maximizes total contribution across three programs while staying within the plant\u2019s shared resource limits and each program\u2019s own volume ceiling. We can schedule any non\u2011negative volume for each program up to its cap; if it\u2019s better to skip one entirely, that\u2019s acceptable.\n\nThe levers we can pull\n\n- Blue Shield Filters\n  - Financials and volume window: Each production lot contributes 3.26 in margin. We can plan anywhere from 0 up to 14.47 lots this quarter.\n  - Resource footprint:\n    - Draws 2.34 catalyst charges per lot.\n    - Requires 3.76 line-hours on Assembly Line A per lot.\n    - Uses 4.76 packaging/kitting kits per lot.\n    - Does not draw from the specialty alloy feedstock pool, the quality lab, or the cleanroom.\n  - Notes: This is the only program that consumes catalyst charges.\n\n- Titan Valve Assemblies\n  - Financials and volume window: Each assembly contributes 5.24 in margin. We can plan anywhere from 0 up to 12.72 assemblies this quarter.\n  - Resource footprint:\n    - Draws 1.67 units of specialty alloy feedstock per assembly.\n    - Requires 4.9 lab\u2011hours of the quality inspection lab per assembly.\n    - Uses 7.26 line-hours on Assembly Line A per assembly.\n    - Does not use catalyst charges, cleanroom time, or the packaging/kitting kit inventory (these ship in bulk crates outside the kitting program).\n  - Notes: This is the only program that taps the quality lab.\n\n- AeroPure Cartridges\n  - Financials and volume window: Each cartridge lot contributes 9.4 in margin. We can plan anywhere from 0 up to 15.97 lots this quarter.\n  - Resource footprint:\n    - Draws 7.09 units of specialty alloy feedstock per lot.\n    - Requires 6.95 line-hours on Assembly Line A per lot.\n    - Uses 8.05 cleanroom hours per lot.\n    - Uses 4.13 packaging/kitting kits per lot.\n    - Does not require catalyst charges or quality lab capacity.\n  - Notes: This program is the primary consumer of cleanroom time and heavy on alloy.\n\nFacility and market limits we must respect\n\n- Specialty alloy feedstock pool: up to 22.81 units available for the quarter.\n- Catalyst charges: up to 6.8 charges available.\n- Quality inspection lab: up to 38.91 lab\u2011hours available.\n- Assembly Line A: up to 70.86 line\u2011hours available.\n- Class\u2011100 cleanroom: up to 11.46 hours available.\n- Packaging and kitting kits: up to 16.56 kits available.\n\nPlease use the above to recommend the mix that maximizes total contribution for Q2 while staying within the listed limits and program caps."
+}

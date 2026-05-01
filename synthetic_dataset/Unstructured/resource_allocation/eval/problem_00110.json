@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, variable domains, and ledger effects (including signs) are explicit; constraints stated as 'at or below' negative caps. Model is fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business narrative and sign-convention explanation add verbosity, but most text is relevant and non-repetitive.",
+      "realism": 92,
+      "realism_comment": "Plausible sustainability portfolio allocation with margins and environmental ledgers/caps; numbers and structure feel realistic."
+    },
+    "prompt_tokens_with_data": 878,
+    "prompt_tokens_without_data": 878
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 201.36346642512078,
+    "optimal_values": {
+      "Var_0": 12.24,
+      "Var_1": 8.27,
+      "Var_2": 12.21,
+      "Var_3": 4.416545893719807
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -45.45
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -25.25
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -76.89
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.24
+      ],
+      "objective_linear_coefficient": 3.33,
+      "resource_costs": {
+        "C0": -0.85,
+        "C1": -6.01,
+        "C2": -8.13
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.27
+      ],
+      "objective_linear_coefficient": 3.83,
+      "resource_costs": {
+        "C0": -4.17,
+        "C1": 1.42
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.21
+      ],
+      "objective_linear_coefficient": 9.76,
+      "resource_costs": {
+        "C0": -8.92,
+        "C2": -9.58
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.29
+      ],
+      "objective_linear_coefficient": 2.21,
+      "resource_costs": {
+        "C0": 7.69,
+        "C1": 8.28,
+        "C2": -8.04
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.24, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.33 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.27, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.83 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.21, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.76 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.29, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.21 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-0.85 * vars['Var_0'] + -4.17 * vars['Var_1'] + -8.92 * vars['Var_2'] + 7.69 * vars['Var_3'] <= -45.45, name='C0')\n    m.addConstr(-6.01 * vars['Var_0'] + 1.42 * vars['Var_1'] + 8.28 * vars['Var_3'] <= -25.25, name='C1')\n    m.addConstr(-8.13 * vars['Var_0'] + -9.58 * vars['Var_2'] + -8.04 * vars['Var_3'] <= -76.89, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation guidance for our impact portfolio (maximize value while honoring net\u2011positive commitments)\n\nTeam,\n\nWe\u2019re ready to finalize how we allocate this quarter\u2019s capacity across our impact initiatives with the aim of maximizing total contribution while keeping our compliance ledgers net\u2011positive. As a reminder, our three compliance/impact ledgers are tracked so that \u201cgood\u201d outcomes show up as negative (savings/diversions/sequestration) and \u201cbad\u201d outcomes show up as positive (consumption/emissions). Each ledger has to be held at or below its stated cap to demonstrate climate- and resource\u2011positive performance.\n\nBelow are the four levers we can pull, in the order we\u2019d like you to evaluate them. Each can be scaled continuously from zero up to its cap; there is no minimum lot size, and we cannot allocate negative amounts.\n\n- Cedar Ridge Reforestation Tranches\n  - Commercial return: each tranche contributes 3.33 units of margin.\n  - Scale: from 0 up to 12.24 tranches.\n  - Carbon Balance Ledger: each tranche reduces the ledger by 0.85.\n  - Blue\u2011Water Balance Ledger: each tranche reduces the ledger by 6.01.\n  - Materials Circularity/Waste Ledger: each tranche reduces the ledger by 8.13.\n\n- Metro Rooftop Solar Blocks\n  - Commercial return: each block contributes 3.83 units of margin.\n  - Scale: from 0 up to 8.27 blocks.\n  - Carbon Balance Ledger: each block reduces the ledger by 4.17.\n  - Blue\u2011Water Balance Ledger: each block increases the ledger by 1.42.\n  - Materials Circularity/Waste Ledger: no impact (0).\n\n- Foundry Efficiency Upgrades\n  - Commercial return: each upgrade contributes 9.76 units of margin.\n  - Scale: from 0 up to 12.21 upgrades.\n  - Carbon Balance Ledger: each upgrade reduces the ledger by 8.92.\n  - Blue\u2011Water Balance Ledger: no impact (0).\n  - Materials Circularity/Waste Ledger: each upgrade reduces the ledger by 9.58.\n\n- Biomass Cogeneration Runs\n  - Commercial return: each run contributes 2.21 units of margin.\n  - Scale: from 0 up to 11.29 runs.\n  - Carbon Balance Ledger: each run increases the ledger by 7.69.\n  - Blue\u2011Water Balance Ledger: each run increases the ledger by 8.28.\n  - Materials Circularity/Waste Ledger: each run reduces the ledger by 8.04.\n\nFacility specs and compliance limits (must all be met simultaneously):\n- Carbon Balance Ledger: keep the combined net position at or below \u221245.45.\n- Blue\u2011Water Balance Ledger: keep the combined net position at or below \u221225.25.\n- Materials Circularity/Waste Ledger: keep the combined net position at or below \u221276.89.\n\nPlease use the above returns, caps, and ledger movements exactly as stated when recommending the allocation that maximizes our total contribution without breaching any of the three net\u2011positive caps. If you need any clarifications on measurement conventions (e.g., negative as \u201cgood\u201d), let me know."
+}

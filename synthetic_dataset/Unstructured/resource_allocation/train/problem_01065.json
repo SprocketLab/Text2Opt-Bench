@@ -1,0 +1,450 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 18,
+    "num_constraints": 15,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "Explicit types, bounds, unit costs, and contributions per metric; floors specified; linear cost minimization. Only minor issue: variable names (Var_i) not specified in text.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Verbose with narrative and repeated 'No impact' lines; still necessary to convey all coefficients and caps; could be tighter.",
+      "realism": 88,
+      "realism_comment": "SLA-based service mix minimization is realistic; coefficients and floors plausible. Slightly odd non-integer caps for integer teams."
+    },
+    "prompt_tokens_with_data": 2634,
+    "prompt_tokens_without_data": 2634
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 443.4932529995294,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 13.53,
+      "Var_2": 0.2843109406704418,
+      "Var_3": 1.0,
+      "Var_4": 0.06252750585054799,
+      "Var_5": 4.0,
+      "Var_6": 0.0,
+      "Var_7": 0.0,
+      "Var_8": 10.09,
+      "Var_9": 19.78,
+      "Var_10": 1.472626475378168,
+      "Var_11": 2.0,
+      "Var_12": -0.0,
+      "Var_13": 7.0,
+      "Var_14": 18.19409779322537,
+      "Var_15": 2.601002772995126,
+      "Var_16": 16.426535240892026,
+      "Var_17": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 206.6
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 419.16
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 335.42
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 209.62
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 124.5
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 190.05
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 255.07
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 181.84
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 273.99
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 233.38
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 318.29
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 91.56
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 242.72
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 179.19
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 291.76
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.05
+      ],
+      "objective_linear_coefficient": 8.09,
+      "resource_costs": {
+        "C1": 9.94,
+        "C5": 5.32,
+        "C6": 3.82,
+        "C7": 5.23,
+        "C8": 6.82,
+        "C9": 1.16,
+        "C10": 3.36,
+        "C12": 5.14,
+        "C13": 7.44
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.53
+      ],
+      "objective_linear_coefficient": 2.56,
+      "resource_costs": {
+        "C1": 7.02,
+        "C3": 6.75,
+        "C9": 8.97,
+        "C13": 0.01,
+        "C14": 7.31
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.33
+      ],
+      "objective_linear_coefficient": 9.42,
+      "resource_costs": {
+        "C0": 9.59,
+        "C1": 9.24,
+        "C2": 7.66,
+        "C3": 1.76,
+        "C4": 8.95,
+        "C5": 0.75,
+        "C6": 7.14,
+        "C10": 4.83,
+        "C11": 3.87
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 6.9,
+      "resource_costs": {
+        "C1": 6.12,
+        "C3": 6.92,
+        "C7": 0.36,
+        "C9": 8.18,
+        "C10": 5.66,
+        "C11": 1.15,
+        "C12": 3.07,
+        "C14": 8.99
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.17
+      ],
+      "objective_linear_coefficient": 4.97,
+      "resource_costs": {
+        "C0": 1.29,
+        "C1": 0.89,
+        "C2": 3.43,
+        "C4": 8.58,
+        "C9": 9.11,
+        "C12": 6.56,
+        "C13": 0.14,
+        "C14": 5.08
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.97
+      ],
+      "objective_linear_coefficient": 6.99,
+      "resource_costs": {
+        "C3": 2.01,
+        "C4": 4.12,
+        "C6": 7.79,
+        "C8": 9.79,
+        "C9": 3.76,
+        "C10": 2.5,
+        "C11": 8.19,
+        "C12": 6.01,
+        "C13": 0.04,
+        "C14": 2.99
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.3
+      ],
+      "objective_linear_coefficient": 8.38,
+      "resource_costs": {
+        "C1": 9.94,
+        "C2": 9.37,
+        "C6": 7.07,
+        "C9": 6.4,
+        "C10": 2.0,
+        "C12": 5.93,
+        "C13": 6.55
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.22
+      ],
+      "objective_linear_coefficient": 8.29,
+      "resource_costs": {
+        "C0": 9.32,
+        "C3": 4.63,
+        "C6": 4.06,
+        "C7": 6.13,
+        "C8": 6.72,
+        "C14": 6.83
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.09
+      ],
+      "objective_linear_coefficient": 1.23,
+      "resource_costs": {
+        "C1": 5.24,
+        "C2": 2.6,
+        "C3": 3.61,
+        "C4": 5.79,
+        "C7": 6.65,
+        "C10": 3.8,
+        "C13": 0.88
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.78
+      ],
+      "objective_linear_coefficient": 5.69,
+      "resource_costs": {
+        "C0": 0.08,
+        "C1": 9.14,
+        "C2": 4.3,
+        "C5": 2.39,
+        "C6": 4.15,
+        "C7": 0.46,
+        "C8": 7.84,
+        "C12": 9.29,
+        "C13": 2.68,
+        "C14": 5.45
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.24
+      ],
+      "objective_linear_coefficient": 9.58,
+      "resource_costs": {
+        "C0": 8.98,
+        "C1": 8.77,
+        "C2": 0.54,
+        "C3": 7.36,
+        "C4": 1.52,
+        "C6": 8.27,
+        "C7": 7.09,
+        "C8": 7.45,
+        "C10": 9.9,
+        "C12": 1.72
+      }
+    },
+    "Var_11": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.61
+      ],
+      "objective_linear_coefficient": 7.14,
+      "resource_costs": {
+        "C1": 2.16,
+        "C2": 7.42,
+        "C3": 6.11,
+        "C11": 6.26,
+        "C14": 5.11
+      }
+    },
+    "Var_12": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.01
+      ],
+      "objective_linear_coefficient": 5.89,
+      "resource_costs": {
+        "C4": 1.16,
+        "C6": 3.86,
+        "C7": 7.85,
+        "C8": 4.0,
+        "C12": 7.75
+      }
+    },
+    "Var_13": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 5.86,
+      "resource_costs": {
+        "C0": 6.65,
+        "C3": 5.94,
+        "C5": 6.17,
+        "C8": 2.54,
+        "C9": 9.6,
+        "C10": 3.65,
+        "C13": 0.09
+      }
+    },
+    "Var_14": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.82
+      ],
+      "objective_linear_coefficient": 6.36,
+      "resource_costs": {
+        "C0": 3.17,
+        "C2": 6.63,
+        "C4": 1.57,
+        "C5": 3.54,
+        "C6": 9.75,
+        "C9": 2.17,
+        "C10": 9.01,
+        "C11": 2.42,
+        "C14": 4.4
+      }
+    },
+    "Var_15": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.71
+      ],
+      "objective_linear_coefficient": 2.52,
+      "resource_costs": {
+        "C1": 7.7,
+        "C2": 5.77,
+        "C3": 0.68,
+        "C4": 6.07,
+        "C5": 1.57,
+        "C6": 9.14,
+        "C7": 0.23,
+        "C10": 6.22
+      }
+    },
+    "Var_16": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.62
+      ],
+      "objective_linear_coefficient": 3.31,
+      "resource_costs": {
+        "C0": 5.16,
+        "C1": 6.2,
+        "C2": 4.29,
+        "C4": 6.27,
+        "C5": 1.88,
+        "C6": 0.56,
+        "C7": 9.68,
+        "C8": 7.04,
+        "C9": 0.71,
+        "C10": 6.96,
+        "C12": 1.76,
+        "C13": 9.79
+      }
+    },
+    "Var_17": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.54
+      ],
+      "objective_linear_coefficient": 9.54,
+      "resource_costs": {
+        "C2": 7.29,
+        "C5": 6.52,
+        "C7": 2.26,
+        "C8": 2.94,
+        "C10": 9.38,
+        "C11": 0.66,
+        "C12": 3.12,
+        "C14": 3.72
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.05, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.09 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.53, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.56 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=19.24, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 9.58 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=18.61, vtype=GRB.INTEGER, name='Var_11')\n    lin_expr += 7.14 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=11.01, vtype=GRB.INTEGER, name='Var_12')\n    lin_expr += 5.89 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_13')\n    lin_expr += 5.86 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=19.82, vtype=GRB.CONTINUOUS, name='Var_14')\n    lin_expr += 6.36 * vars['Var_14']\n    vars['Var_15'] = m.addVar(lb=0.0, ub=17.71, vtype=GRB.CONTINUOUS, name='Var_15')\n    lin_expr += 2.52 * vars['Var_15']\n    vars['Var_16'] = m.addVar(lb=0.0, ub=16.62, vtype=GRB.CONTINUOUS, name='Var_16')\n    lin_expr += 3.31 * vars['Var_16']\n    vars['Var_17'] = m.addVar(lb=0.0, ub=10.54, vtype=GRB.CONTINUOUS, name='Var_17')\n    lin_expr += 9.54 * vars['Var_17']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.33, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.42 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.9 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.17, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.97 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.97, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 6.99 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.3, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.38 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=14.22, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 8.29 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=10.09, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 1.23 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=19.78, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 5.69 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.98 * vars['Var_10'] + 6.65 * vars['Var_13'] + 3.17 * vars['Var_14'] + 5.16 * vars['Var_16'] + 9.59 * vars['Var_2'] + 1.29 * vars['Var_4'] + 9.32 * vars['Var_7'] + 0.08 * vars['Var_9'] >= 206.6, name='C0')\n    m.addConstr(9.94 * vars['Var_0'] + 7.02 * vars['Var_1'] + 8.77 * vars['Var_10'] + 2.16 * vars['Var_11'] + 7.7 * vars['Var_15'] + 6.2 * vars['Var_16'] + 9.24 * vars['Var_2'] + 6.12 * vars['Var_3'] + 0.89 * vars['Var_4'] + 9.94 * vars['Var_6'] + 5.24 * vars['Var_8'] + 9.14 * vars['Var_9'] >= 419.16, name='C1')\n    m.addConstr(3.36 * vars['Var_0'] + 9.9 * vars['Var_10'] + 3.65 * vars['Var_13'] + 9.01 * vars['Var_14'] + 6.22 * vars['Var_15'] + 6.96 * vars['Var_16'] + 9.38 * vars['Var_17'] + 4.83 * vars['Var_2'] + 5.66 * vars['Var_3'] + 2.5 * vars['Var_5'] + 2.0 * vars['Var_6'] + 3.8 * vars['Var_8'] >= 318.29, name='C10')\n    m.addConstr(6.26 * vars['Var_11'] + 2.42 * vars['Var_14'] + 0.66 * vars['Var_17'] + 3.87 * vars['Var_2'] + 1.15 * vars['Var_3'] + 8.19 * vars['Var_5'] >= 91.56, name='C11')\n    m.addConstr(5.14 * vars['Var_0'] + 1.72 * vars['Var_10'] + 7.75 * vars['Var_12'] + 1.76 * vars['Var_16'] + 3.12 * vars['Var_17'] + 3.07 * vars['Var_3'] + 6.56 * vars['Var_4'] + 6.01 * vars['Var_5'] + 5.93 * vars['Var_6'] + 9.29 * vars['Var_9'] >= 242.72, name='C12')\n    m.addConstr(7.44 * vars['Var_0'] + 0.01 * vars['Var_1'] + 0.09 * vars['Var_13'] + 9.79 * vars['Var_16'] + 0.14 * vars['Var_4'] + 0.04 * vars['Var_5'] + 6.55 * vars['Var_6'] + 0.88 * vars['Var_8'] + 2.68 * vars['Var_9'] >= 179.19, name='C13')\n    m.addConstr(7.31 * vars['Var_1'] + 5.11 * vars['Var_11'] + 4.4 * vars['Var_14'] + 3.72 * vars['Var_17'] + 8.99 * vars['Var_3'] + 5.08 * vars['Var_4'] + 2.99 * vars['Var_5'] + 6.83 * vars['Var_7'] + 5.45 * vars['Var_9'] >= 291.76, name='C14')\n    m.addConstr(0.54 * vars['Var_10'] + 7.42 * vars['Var_11'] + 6.63 * vars['Var_14'] + 5.77 * vars['Var_15'] + 4.29 * vars['Var_16'] + 7.29 * vars['Var_17'] + 7.66 * vars['Var_2'] + 3.43 * vars['Var_4'] + 9.37 * vars['Var_6'] + 2.6 * vars['Var_8'] + 4.3 * vars['Var_9'] >= 335.42, name='C2')\n    m.addConstr(6.75 * vars['Var_1'] + 7.36 * vars['Var_10'] + 6.11 * vars['Var_11'] + 5.94 * vars['Var_13'] + 0.68 * vars['Var_15'] + 1.76 * vars['Var_2'] + 6.92 * vars['Var_3'] + 2.01 * vars['Var_5'] + 4.63 * vars['Var_7'] + 3.61 * vars['Var_8'] >= 209.62, name='C3')\n    m.addConstr(1.52 * vars['Var_10'] + 1.16 * vars['Var_12'] + 1.57 * vars['Var_14'] + 6.07 * vars['Var_15'] + 6.27 * vars['Var_16'] + 8.95 * vars['Var_2'] + 8.58 * vars['Var_4'] + 4.12 * vars['Var_5'] + 5.79 * vars['Var_8'] >= 124.5, name='C4')\n    m.addConstr(5.32 * vars['Var_0'] + 6.17 * vars['Var_13'] + 3.54 * vars['Var_14'] + 1.57 * vars['Var_15'] + 1.88 * vars['Var_16'] + 6.52 * vars['Var_17'] + 0.75 * vars['Var_2'] + 2.39 * vars['Var_9'] >= 190.05, name='C5')\n    m.addConstr(3.82 * vars['Var_0'] + 8.27 * vars['Var_10'] + 3.86 * vars['Var_12'] + 9.75 * vars['Var_14'] + 9.14 * vars['Var_15'] + 0.56 * vars['Var_16'] + 7.14 * vars['Var_2'] + 7.79 * vars['Var_5'] + 7.07 * vars['Var_6'] + 4.06 * vars['Var_7'] + 4.15 * vars['Var_9'] >= 255.07, name='C6')\n    m.addConstr(5.23 * vars['Var_0'] + 7.09 * vars['Var_10'] + 7.85 * vars['Var_12'] + 0.23 * vars['Var_15'] + 9.68 * vars['Var_16'] + 2.26 * vars['Var_17'] + 0.36 * vars['Var_3'] + 6.13 * vars['Var_7'] + 6.65 * vars['Var_8'] + 0.46 * vars['Var_9'] >= 181.84, name='C7')\n    m.addConstr(6.82 * vars['Var_0'] + 7.45 * vars['Var_10'] + 4.0 * vars['Var_12'] + 2.54 * vars['Var_13'] + 7.04 * vars['Var_16'] + 2.94 * vars['Var_17'] + 9.79 * vars['Var_5'] + 6.72 * vars['Var_7'] + 7.84 * vars['Var_9'] >= 273.99, name='C8')\n    m.addConstr(1.16 * vars['Var_0'] + 8.97 * vars['Var_1'] + 9.6 * vars['Var_13'] + 2.17 * vars['Var_14'] + 0.71 * vars['Var_16'] + 8.18 * vars['Var_3'] + 9.11 * vars['Var_4'] + 3.76 * vars['Var_5'] + 6.4 * vars['Var_6'] >= 233.38, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q3 Field Operations Mix \u2013 Cost-Minimizing Plan With SLA Floors\n\nTeam,\n\nFor the upcoming quarter, we need to assemble a mix of service packages that meets our contractual service floors while minimizing our total operating expense. Each package below can be scaled up to the stated cap (not below zero), with some requiring whole-team scheduling and others allowing fractional deployment. Per-unit costs are shown, together with the service credits each package contributes to our various commitments. Please use these levers to build a cost-effective plan that satisfies all minimums and avoids overspending.\n\n- Cascade Response Teams (continuous; up to 12.05 units; unit cost 8.09)\n  Each unit contributes 9.94 credits to Northern Region Work Orders, 5.32 to Emergency Dispatch Capacity, 3.82 to Plant Line Support, 5.23 to Weekend & Night Standby, 6.82 to Retail Activation Sites, 1.16 to Field Inventory Replenishment, 3.36 to Training & Commissioning Sessions, 5.14 to Partner Co-Marketing Activities, and 7.44 to Community Outreach Programs. No impact on other metrics.\n\n- Summit Install Crews (continuous; up to 13.53 units; unit cost 2.56)\n  Each unit contributes 7.02 credits to Northern Region Work Orders, 6.75 to South-West Installations, 8.97 to Field Inventory Replenishment, 0.01 to Community Outreach Programs, and 7.31 to Government Contract Deliverables. No impact on other metrics.\n\n- Frontier Preventive Unit (continuous; up to 12.33 units; unit cost 9.42)\n  Each unit contributes 9.59 credits to Core Account Service Coverage, 9.24 to Northern Region Work Orders, 7.66 to Preventive Maintenance Checks, 1.76 to South-West Installations, 8.95 to Warranty Workshop Hours, 0.75 to Emergency Dispatch Capacity, 7.14 to Plant Line Support, 4.83 to Training & Commissioning Sessions, and 3.87 to Compliance Audit Reports. No impact on other metrics.\n\n- Night Ops Teams (integer; up to 7 units; unit cost 6.9)\n  Each team contributes 6.12 credits to Northern Region Work Orders, 6.92 to South-West Installations, 0.36 to Weekend & Night Standby, 8.18 to Field Inventory Replenishment, 5.66 to Training & Commissioning Sessions, 1.15 to Compliance Audit Reports, 3.07 to Partner Co-Marketing Activities, and 8.99 to Government Contract Deliverables. No impact on other metrics.\n\n- Warranty Workshop Cell (continuous; up to 13.17 units; unit cost 4.97)\n  Each unit contributes 1.29 credits to Core Account Service Coverage, 0.89 to Northern Region Work Orders, 3.43 to Preventive Maintenance Checks, 8.58 to Warranty Workshop Hours, 9.11 to Field Inventory Replenishment, 6.56 to Partner Co-Marketing Activities, 0.14 to Community Outreach Programs, and 5.08 to Government Contract Deliverables. No impact on other metrics.\n\n- Emergency Dispatch Units (integer; up to 11.97 units; unit cost 6.99)\n  Each unit contributes 2.01 credits to South-West Installations, 4.12 to Warranty Workshop Hours, 7.79 to Plant Line Support, 9.79 to Retail Activation Sites, 3.76 to Field Inventory Replenishment, 2.5 to Training & Commissioning Sessions, 8.19 to Compliance Audit Reports, 6.01 to Partner Co-Marketing Activities, 0.04 to Community Outreach Programs, and 2.99 to Government Contract Deliverables. No impact on other metrics.\n\n- Line Support Specialists (continuous; up to 10.3 units; unit cost 8.38)\n  Each unit contributes 9.94 credits to Northern Region Work Orders, 9.37 to Preventive Maintenance Checks, 7.07 to Plant Line Support, 6.4 to Field Inventory Replenishment, 2.0 to Training & Commissioning Sessions, 5.93 to Partner Co-Marketing Activities, and 6.55 to Community Outreach Programs. No impact on other metrics.\n\n- Retail Activation Teams (continuous; up to 14.22 units; unit cost 8.29)\n  Each unit contributes 9.32 credits to Core Account Service Coverage, 4.63 to South-West Installations, 4.06 to Plant Line Support, 6.13 to Weekend & Night Standby, 6.72 to Retail Activation Sites, and 6.83 to Government Contract Deliverables. No impact on other metrics.\n\n- Stock & Training Floaters (continuous; up to 10.09 units; unit cost 1.23)\n  Each unit contributes 5.24 credits to Northern Region Work Orders, 2.6 to Preventive Maintenance Checks, 3.61 to South-West Installations, 5.79 to Warranty Workshop Hours, 6.65 to Weekend & Night Standby, 3.8 to Training & Commissioning Sessions, and 0.88 to Community Outreach Programs. No impact on other metrics.\n\n- Northern Route Vans (continuous; up to 19.78 units; unit cost 5.69)\n  Each unit contributes 0.08 credits to Core Account Service Coverage, 9.14 to Northern Region Work Orders, 4.3 to Preventive Maintenance Checks, 2.39 to Emergency Dispatch Capacity, 4.15 to Plant Line Support, 0.46 to Weekend & Night Standby, 7.84 to Retail Activation Sites, 9.29 to Partner Co-Marketing Activities, 2.68 to Community Outreach Programs, and 5.45 to Government Contract Deliverables. No impact on other metrics.\n\n- Training & Commissioning Crew (continuous; up to 19.24 units; unit cost 9.58)\n  Each unit contributes 8.98 credits to Core Account Service Coverage, 8.77 to Northern Region Work Orders, 0.54 to Preventive Maintenance Checks, 7.36 to South-West Installations, 1.52 to Warranty Workshop Hours, 8.27 to Plant Line Support, 7.09 to Weekend & Night Standby, 7.45 to Retail Activation Sites, 9.9 to Training & Commissioning Sessions, and 1.72 to Partner Co-Marketing Activities. No impact on other metrics.\n\n- Compliance & Gov Liaison Unit (integer; up to 18.61 units; unit cost 7.14)\n  Each unit contributes 2.16 credits to Northern Region Work Orders, 7.42 to Preventive Maintenance Checks, 6.11 to South-West Installations, 6.26 to Compliance Audit Reports, and 5.11 to Government Contract Deliverables. No impact on other metrics.\n\n- Weekend Standby Teams (integer; up to 11.01 units; unit cost 5.89)\n  Each team contributes 1.16 credits to Warranty Workshop Hours, 3.86 to Plant Line Support, 7.85 to Weekend & Night Standby, 4.0 to Retail Activation Sites, and 7.75 to Partner Co-Marketing Activities. No impact on other metrics.\n\n- Outreach & Field Sales Pods (integer; up to 7 units; unit cost 5.86)\n  Each pod contributes 6.65 credits to Core Account Service Coverage, 5.94 to South-West Installations, 6.17 to Emergency Dispatch Capacity, 2.54 to Retail Activation Sites, 9.6 to Field Inventory Replenishment, 3.65 to Training & Commissioning Sessions, and 0.09 to Community Outreach Programs. No impact on other metrics.\n\n- Plant Upgrade Crew (continuous; up to 19.82 units; unit cost 6.36)\n  Each unit contributes 3.17 credits to Core Account Service Coverage, 6.63 to Preventive Maintenance Checks, 1.57 to Warranty Workshop Hours, 3.54 to Emergency Dispatch Capacity, 9.75 to Plant Line Support, 2.17 to Field Inventory Replenishment, 9.01 to Training & Commissioning Sessions, 2.42 to Compliance Audit Reports, and 4.4 to Government Contract Deliverables. No impact on other metrics.\n\n- Budget Flex Pool (continuous; up to 17.71 units; unit cost 2.52)\n  Each unit contributes 7.7 credits to Northern Region Work Orders, 5.77 to Preventive Maintenance Checks, 0.68 to South-West Installations, 6.07 to Warranty Workshop Hours, 1.57 to Emergency Dispatch Capacity, 9.14 to Plant Line Support, 0.23 to Weekend & Night Standby, and 6.22 to Training & Commissioning Sessions. No impact on other metrics.\n\n- Multi-skill Mobile Unit (continuous; up to 16.62 units; unit cost 3.31)\n  Each unit contributes 5.16 credits to Core Account Service Coverage, 6.2 to Northern Region Work Orders, 4.29 to Preventive Maintenance Checks, 6.27 to Warranty Workshop Hours, 1.88 to Emergency Dispatch Capacity, 0.56 to Plant Line Support, 9.68 to Weekend & Night Standby, 7.04 to Retail Activation Sites, 0.71 to Field Inventory Replenishment, 6.96 to Training & Commissioning Sessions, 1.76 to Partner Co-Marketing Activities, and 9.79 to Community Outreach Programs. No impact on other metrics.\n\n- Government Readiness Taskforce (continuous; up to 10.54 units; unit cost 9.54)\n  Each unit contributes 7.29 credits to Preventive Maintenance Checks, 6.52 to Emergency Dispatch Capacity, 2.26 to Weekend & Night Standby, 2.94 to Retail Activation Sites, 9.38 to Training & Commissioning Sessions, 0.66 to Compliance Audit Reports, 3.12 to Partner Co-Marketing Activities, and 3.72 to Government Contract Deliverables. No impact on other metrics.\n\nFacility Specs \u2013 Minimum Service Floors To Be Met This Quarter:\n- Core Account Service Coverage: at least 206.6 credits\n- Northern Region Work Orders: at least 419.16 credits\n- Preventive Maintenance Checks: at least 335.42 credits\n- South-West Installations: at least 209.62 credits\n- Warranty Workshop Hours: at least 124.5 credits\n- Emergency Dispatch Capacity: at least 190.05 credits\n- Plant Line Support: at least 255.07 credits\n- Weekend & Night Standby: at least 181.84 credits\n- Retail Activation Sites: at least 273.99 credits\n- Field Inventory Replenishment: at least 233.38 credits\n- Training & Commissioning Sessions: at least 318.29 credits\n- Compliance Audit Reports: at least 91.56 credits\n- Partner Co-Marketing Activities: at least 242.72 credits\n- Community Outreach Programs: at least 179.19 credits\n- Government Contract Deliverables: at least 291.76 credits\n\nPlease proceed to draft a plan that deploys the above packages within their caps and unit definitions (whole teams where indicated, fractional where allowed), achieves all minimums listed, and minimizes the total cost implied by the unit costs provided."
+}

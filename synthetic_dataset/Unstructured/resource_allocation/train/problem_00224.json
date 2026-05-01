@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Clear costs, caps, contributions, and minimums. Integer-only rule for one program is explicit. Objective is minimize cost; constraints are >=. A human can reconstruct the model without guessing.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Narrative and context add length; some repeated phrasing. Data is structured and precise, with minor extra wording (booking flexibility) but not excessive.",
+      "realism": 95,
+      "realism_comment": "Very plausible training planning MIP: costs, capacities, integer workshops, and minimum coverage targets mirror real organizational scheduling needs."
+    },
+    "prompt_tokens_with_data": 901,
+    "prompt_tokens_without_data": 901
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 137.71959201935476,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.2917283950617284,
+      "Var_2": 5.0,
+      "Var_3": 0.46641158221302825,
+      "Var_4": 0.0,
+      "Var_5": 17.37
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 69.63
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 175.56
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 122.57
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.36
+      ],
+      "objective_linear_coefficient": 8.43,
+      "resource_costs": {
+        "C0": 3.78,
+        "C1": 5.02,
+        "C2": 9.23
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.06
+      ],
+      "objective_linear_coefficient": 7.13,
+      "resource_costs": {
+        "C0": 0.94,
+        "C1": 8.1
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.69
+      ],
+      "objective_linear_coefficient": 6.22,
+      "resource_costs": {
+        "C0": 8.26,
+        "C1": 6.5,
+        "C2": 7.84
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.98
+      ],
+      "objective_linear_coefficient": 1.43,
+      "resource_costs": {
+        "C2": 9.67
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.96
+      ],
+      "objective_linear_coefficient": 5.3,
+      "resource_costs": {
+        "C0": 3.66,
+        "C2": 5.91
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.37
+      ],
+      "objective_linear_coefficient": 5.98,
+      "resource_costs": {
+        "C0": 1.8,
+        "C1": 8.1,
+        "C2": 4.54
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.36, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.43 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.06, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.13 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.69, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.22 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.98, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.43 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.96, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.3 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.37, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.98 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.78 * vars['Var_0'] + 0.94 * vars['Var_1'] + 8.26 * vars['Var_2'] + 3.66 * vars['Var_4'] + 1.8 * vars['Var_5'] >= 69.63, name='C0')\n    m.addConstr(5.02 * vars['Var_0'] + 8.1 * vars['Var_1'] + 6.5 * vars['Var_2'] + 8.1 * vars['Var_5'] >= 175.56, name='C1')\n    m.addConstr(9.23 * vars['Var_0'] + 7.84 * vars['Var_2'] + 9.67 * vars['Var_3'] + 5.91 * vars['Var_4'] + 4.54 * vars['Var_5'] >= 122.57, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix to meet this quarter\u2019s readiness, compliance, and technical training commitments\n\nTeam,\n\nAs discussed, our objective this quarter is to assemble the lowest-cost mix of training days that collectively meet or exceed our minimum commitments in three areas: field readiness coverage, regulatory/compliance coverage, and specialist technical capability. We can flex participation across six specific offerings subject to availability caps, and with one program that can only be booked in whole-day blocks.\n\nBelow are the levers we can pull, in the order we expect to plan them, including rate, capacity limits, and how each day contributes toward the three commitments:\n\n- Foundational Cross-Training Days\n  - Rate: 8.43 per day.\n  - Capacity: we may schedule anywhere from 0 up to 7.36 days this quarter.\n  - Contribution per day:\n    - Field readiness: 3.78 hours.\n    - Regulatory/compliance: 5.02 hours.\n    - Specialist technical: 9.23 hours.\n\n- Regulatory Update Forums\n  - Rate: 7.13 per day.\n  - Capacity: 0 to 16.06 scheduled days.\n  - Contribution per day:\n    - Field readiness: 0.94 hours.\n    - Regulatory/compliance: 8.10 hours.\n    - Specialist technical: no contribution.\n\n- Accredited Cohort Workshops\n  - Rate: 6.22 per day.\n  - Capacity: 0 to 18.69 scheduled days.\n  - Booking rule: this program must be scheduled in whole-day increments (no partial days).\n  - Contribution per day:\n    - Field readiness: 8.26 hours.\n    - Regulatory/compliance: 6.50 hours.\n    - Specialist technical: 7.84 hours.\n\n- Advanced Specialist Labs\n  - Rate: 1.43 per day.\n  - Capacity: 0 to 9.98 scheduled days.\n  - Contribution per day:\n    - Field readiness: no contribution.\n    - Regulatory/compliance: no contribution.\n    - Specialist technical: 9.67 hours.\n\n- Field Simulation Drills\n  - Rate: 5.30 per day.\n  - Capacity: 0 to 17.96 scheduled days.\n  - Contribution per day:\n    - Field readiness: 3.66 hours.\n    - Regulatory/compliance: no contribution.\n    - Specialist technical: 5.91 hours.\n\n- On\u2011Call Refresher Clinics\n  - Rate: 5.98 per day.\n  - Capacity: 0 to 17.37 scheduled days.\n  - Contribution per day:\n    - Field readiness: 1.80 hours.\n    - Regulatory/compliance: 8.10 hours.\n    - Specialist technical: 4.54 hours.\n\nBooking flexibility\n- We may schedule anywhere from zero up to each program\u2019s stated cap. All offerings allow fractional-day scheduling except the Accredited Cohort Workshops, which must be scheduled in whole days.\n\nQuarterly minimums (must be met or exceeded)\n- Field readiness coverage: at least 69.63 hours.\n- Regulatory/compliance coverage: at least 175.56 hours.\n- Specialist technical capability: at least 122.57 hours.\n\nPlease use this structure to produce the most cost-effective schedule that satisfies all three commitments while observing the availability caps and whole-day rule for the cohort workshops."
+}

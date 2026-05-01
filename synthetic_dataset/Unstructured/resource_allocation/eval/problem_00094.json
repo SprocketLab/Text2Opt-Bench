@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, contributions, bounds, integrality, and >= minimums are explicit; objective is minimize total spend. A model matching the code can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some email-style context and narrative, but the lever specs and constraints are precise and non-repetitive.",
+      "realism": 92,
+      "realism_comment": "Feels like a genuine workforce/service planning problem with coverage/compliance targets; fractional caps for integer units are slightly odd but plausible."
+    },
+    "prompt_tokens_with_data": 700,
+    "prompt_tokens_without_data": 700
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 110.39604166666666,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 5.543981481481481,
+      "Var_2": 9.0,
+      "Var_3": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 51.5
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 23.14
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.74
+      ],
+      "objective_linear_coefficient": 7.17,
+      "resource_costs": {
+        "C0": 0.89
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.52
+      ],
+      "objective_linear_coefficient": 6.39,
+      "resource_costs": {
+        "C0": 8.64
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.79
+      ],
+      "objective_linear_coefficient": 8.33,
+      "resource_costs": {
+        "C0": 0.4,
+        "C1": 2.66
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 8.99,
+      "resource_costs": {
+        "C0": 0.47,
+        "C1": 0.37
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.74, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.17 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.52, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.39 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.79, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.33 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.99 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.89 * vars['Var_0'] + 8.64 * vars['Var_1'] + 0.4 * vars['Var_2'] + 0.47 * vars['Var_3'] >= 51.5, name='C0')\n    m.addConstr(2.66 * vars['Var_2'] + 0.37 * vars['Var_3'] >= 23.14, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Minimizing Service Mix Spend While Meeting Coverage and Compliance Minimums\n\nTeam,\n\nWe\u2019re planning the upcoming period\u2019s service mix with the aim of meeting two non-negotiable obligations\u2014minimum coverage and minimum compliance\u2014at the lowest possible spend. Below is the decision frame and the levers we can use, along with how each lever contributes to our obligations and what limits apply.\n\nLevers we can pull (in order of consideration)\n\n- Core Field Teams\n  - Cost: Each team block runs at 7.17.\n  - Impact: Every team block adds 0.89 points to our Coverage Index and does not add to Compliance Credits.\n  - Availability: We can deploy up to 16.74 team blocks this period; scheduling is in whole-team increments only (no partial teams), and we may also choose to deploy none.\n\n- Contracted Overflow Blocks\n  - Cost: Each overflow block runs at 6.39.\n  - Impact: Each block contributes 8.64 points to our Coverage Index and does not add to Compliance Credits.\n  - Availability: We may purchase anywhere from 0 up to 14.52 blocks, and these can be procured in fractional amounts.\n\n- Cross-Trained Inspector Units\n  - Cost: Each inspector unit runs at 8.33.\n  - Impact: Each unit adds 0.40 points to our Coverage Index and 2.66 Compliance Credits.\n  - Availability: Up to 18.79 units may be assigned, in whole-unit increments only (no partial units), with the option to assign none.\n\n- Weekend Response Teams\n  - Cost: Each weekend team runs at 8.99.\n  - Impact: Each team adds 0.47 points to our Coverage Index and 0.37 Compliance Credits.\n  - Availability: We can schedule up to 9.0 teams, in whole-team increments only (no partial teams), and we may also choose zero.\n\nFacility specs and minimum obligations\n\n- Coverage Index: We must reach at least 51.5 points in total.\n- Compliance Credits: We must reach at least 23.14 credits in total.\n\nOur objective is to choose the mix of the above options that satisfies both minimums at the lowest overall spend, respecting the whole-unit requirements and the upper limits noted for each lever. Please use this as the basis for your optimization and advise on the recommended deployment plan."
+}

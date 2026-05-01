@@ -1,0 +1,218 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 11,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All products list exact contribution, bounds, and resource draws; facility capacities are explicit; integrality for special runs is clear. Objective and all constraints are mechanically derivable.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some narrative and repeated \u201cNo draw on\u201d lists add verbosity, but they clarify which coefficients are zero and aid precise modeling.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning with plausible resources, capacities, and an integer special-run requirement; units and limits are consistent."
+    },
+    "prompt_tokens_with_data": 1565,
+    "prompt_tokens_without_data": 1565
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 357.55628008074206,
+    "optimal_values": {
+      "Var_0": 2.7750781097757975,
+      "Var_1": 5.602885762300299,
+      "Var_2": 13.02,
+      "Var_3": 8.011140912183782,
+      "Var_4": 10.675526009214883,
+      "Var_5": 0.0,
+      "Var_6": -0.0,
+      "Var_7": 9.433510638297873
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 144.29
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 161.77
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 167.05
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 60.65
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 108.05
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 108.37
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 186.65
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 26.41
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 35.47
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 120.8
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 67.96
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.53
+      ],
+      "objective_linear_coefficient": 3.16,
+      "resource_costs": {
+        "C1": 2.54,
+        "C3": 4.5,
+        "C4": 2.27,
+        "C5": 9.47,
+        "C6": 5.39,
+        "C9": 8.83
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.98
+      ],
+      "objective_linear_coefficient": 1.52,
+      "resource_costs": {
+        "C0": 9.0,
+        "C1": 8.4,
+        "C6": 0.92,
+        "C9": 5.55
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.02
+      ],
+      "objective_linear_coefficient": 8.83,
+      "resource_costs": {
+        "C0": 1.65,
+        "C5": 4.88,
+        "C6": 6.83
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.89
+      ],
+      "objective_linear_coefficient": 6.82,
+      "resource_costs": {
+        "C1": 9.28,
+        "C2": 7.91,
+        "C3": 3.22,
+        "C4": 5.78,
+        "C5": 1.97,
+        "C9": 7.02
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.97
+      ],
+      "objective_linear_coefficient": 7.76,
+      "resource_costs": {
+        "C0": 1.54,
+        "C2": 6.69,
+        "C6": 7.27
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.49
+      ],
+      "objective_linear_coefficient": 1.78,
+      "resource_costs": {
+        "C0": 5.09,
+        "C1": 9.02,
+        "C2": 2.09,
+        "C3": 8.79,
+        "C4": 5.53,
+        "C5": 8.63,
+        "C6": 5.09,
+        "C7": 7.66,
+        "C9": 5.61,
+        "C10": 5.85
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 5.96,
+      "resource_costs": {
+        "C2": 6.09,
+        "C6": 6.97
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.1
+      ],
+      "objective_linear_coefficient": 9.31,
+      "resource_costs": {
+        "C0": 5.93,
+        "C1": 2.8,
+        "C2": 3.42,
+        "C4": 5.34,
+        "C8": 3.76,
+        "C9": 0.95,
+        "C10": 5.22
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.53, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.16 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.98, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.52 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.02, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.83 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.89, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.82 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.97, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.76 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=7.49, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.78 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 5.96 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=10.1, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 9.31 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.0 * vars['Var_1'] + 1.65 * vars['Var_2'] + 1.54 * vars['Var_4'] + 5.09 * vars['Var_5'] + 5.93 * vars['Var_7'] <= 144.29, name='C0')\n    m.addConstr(2.54 * vars['Var_0'] + 8.4 * vars['Var_1'] + 9.28 * vars['Var_3'] + 9.02 * vars['Var_5'] + 2.8 * vars['Var_7'] <= 161.77, name='C1')\n    m.addConstr(5.85 * vars['Var_5'] + 5.22 * vars['Var_7'] <= 67.96, name='C10')\n    m.addConstr(7.91 * vars['Var_3'] + 6.69 * vars['Var_4'] + 2.09 * vars['Var_5'] + 6.09 * vars['Var_6'] + 3.42 * vars['Var_7'] <= 167.05, name='C2')\n    m.addConstr(4.5 * vars['Var_0'] + 3.22 * vars['Var_3'] + 8.79 * vars['Var_5'] <= 60.65, name='C3')\n    m.addConstr(2.27 * vars['Var_0'] + 5.78 * vars['Var_3'] + 5.53 * vars['Var_5'] + 5.34 * vars['Var_7'] <= 108.05, name='C4')\n    m.addConstr(9.47 * vars['Var_0'] + 4.88 * vars['Var_2'] + 1.97 * vars['Var_3'] + 8.63 * vars['Var_5'] <= 108.37, name='C5')\n    m.addConstr(5.39 * vars['Var_0'] + 0.92 * vars['Var_1'] + 6.83 * vars['Var_2'] + 7.27 * vars['Var_4'] + 5.09 * vars['Var_5'] + 6.97 * vars['Var_6'] <= 186.65, name='C6')\n    m.addConstr(7.66 * vars['Var_5'] <= 26.41, name='C7')\n    m.addConstr(3.76 * vars['Var_7'] <= 35.47, name='C8')\n    m.addConstr(8.83 * vars['Var_0'] + 5.55 * vars['Var_1'] + 7.02 * vars['Var_3'] + 5.61 * vars['Var_5'] + 0.95 * vars['Var_7'] <= 120.8, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Decision \u2014 Maximize Contribution Under Current Facility Limits\n\nTeam,\n\nFor the upcoming cycle, we want to set the production mix to maximize contribution margin while staying within our plant and market limits. All items can be scheduled in partial lots except the special-run kits, which must be whole runs. Below are the levers we can pull and how each option draws on the facility.\n\nAquaShield Gel (1L)\n- Commercial impact: Each thousand-case lot contributes 3.16 to margin. We can produce anywhere from zero up to 11.53 thousand-case lots this period.\n- Facility draw per thousand-case lot: 2.54 hours in Assembly Bay 3; 4.5 hours on Distillation Column B; 2.27 hours through Filtration Train F; 9.47 test-slots in the QC Lab; 5.39 general plant machine-hours; 8.83 outbound dock slots.\n- No draw on: Ethanol & Solvent allocation, Senior Formulators, HazMat handling windows, Refrigerated pallet staging, or Retail kitting & packaging.\n\nPureMist Spray (500 ml)\n- Commercial impact: Each thousand-case lot contributes 1.52. We can schedule up to 7.98 thousand-case lots.\n- Facility draw per thousand-case lot: 9.0 units of Ethanol & Solvent allocation; 8.4 hours in Assembly Bay 3; 0.92 general plant machine-hours; 5.55 outbound dock slots.\n- No draw on: Senior Formulators, Distillation Column B, Filtration Train F, QC Lab, HazMat handling windows, Refrigerated pallet staging, or Retail kitting & packaging.\n\nCitrusPro Floor Cleaner (2L)\n- Commercial impact: Each thousand-case lot contributes 8.83. We can make up to 13.02 thousand-case lots.\n- Facility draw per thousand-case lot: 1.65 units of Ethanol & Solvent allocation; 4.88 test-slots in the QC Lab; 6.83 general plant machine-hours.\n- No draw on: Assembly Bay 3, Senior Formulators, Distillation Column B, Filtration Train F, HazMat handling windows, Refrigerated pallet staging, outbound dock slots, or Retail kitting & packaging.\n\nSilverGuard Surface Wipes\n- Commercial impact: Each thousand-case lot contributes 6.82. We can produce up to 15.89 thousand-case lots.\n- Facility draw per thousand-case lot: 9.28 hours in Assembly Bay 3; 7.91 hours of Senior Formulators; 3.22 hours on Distillation Column B; 5.78 hours through Filtration Train F; 1.97 test-slots in the QC Lab; 7.02 outbound dock slots.\n- No draw on: Ethanol & Solvent allocation, general plant machine-hours, HazMat handling windows, Refrigerated pallet staging, or Retail kitting & packaging.\n\nUltraFoam Dish Wash (Family Pack)\n- Commercial impact: Each thousand-case lot contributes 7.76. We can fulfill up to 18.97 thousand-case lots.\n- Facility draw per thousand-case lot: 1.54 units of Ethanol & Solvent allocation; 6.69 hours of Senior Formulators; 7.27 general plant machine-hours.\n- No draw on: Assembly Bay 3, Distillation Column B, Filtration Train F, QC Lab, HazMat handling windows, Refrigerated pallet staging, outbound dock slots, or Retail kitting & packaging.\n\nEcoFresh Multi-Purpose (Value Pack)\n- Commercial impact: Each thousand-case lot contributes 1.78. We can make up to 7.49 thousand-case lots.\n- Facility draw per thousand-case lot: 5.09 units of Ethanol & Solvent allocation; 9.02 hours in Assembly Bay 3; 2.09 hours of Senior Formulators; 8.79 hours on Distillation Column B; 5.53 hours through Filtration Train F; 8.63 test-slots in the QC Lab; 5.09 general plant machine-hours; 7.66 HazMat handling windows; 5.61 outbound dock slots; 5.85 hours in Retail kitting & packaging.\n- No draw on: Refrigerated pallet staging.\n\nCustom Event Kits (Special Runs)\n- Commercial impact: Each run contributes 5.96. These must be scheduled in whole runs only, anywhere from zero up to 8 runs this period.\n- Facility draw per run: 6.09 hours of Senior Formulators; 6.97 general plant machine-hours.\n- No draw on: Ethanol & Solvent allocation, Assembly Bay 3, Distillation Column B, Filtration Train F, QC Lab, HazMat handling windows, Refrigerated pallet staging, outbound dock slots, or Retail kitting & packaging.\n\nPremium Spa Cleanser Gift Set\n- Commercial impact: Each thousand-case lot contributes 9.31. We can produce up to 10.1 thousand-case lots.\n- Facility draw per thousand-case lot: 5.93 units of Ethanol & Solvent allocation; 2.8 hours in Assembly Bay 3; 3.42 hours of Senior Formulators; 5.34 hours through Filtration Train F; 3.76 Refrigerated pallet staging; 0.95 outbound dock slots; 5.22 hours in Retail kitting & packaging.\n- No draw on: Distillation Column B, QC Lab, general plant machine-hours, or HazMat handling windows.\n\nFacility Specs & Market Limits\n- Ethanol & Solvent allocation: up to 144.29 units this period.\n- Assembly Bay 3: up to 161.77 hours.\n- Senior Formulators: up to 167.05 hours.\n- Distillation Column B: up to 60.65 hours.\n- Filtration Train F: up to 108.05 hours.\n- QC Lab: up to 108.37 test-slots.\n- General plant machine-hours: up to 186.65 hours.\n- HazMat handling windows: up to 26.41 windows.\n- Refrigerated pallet staging: up to 35.47 pallets.\n- Outbound dock slots: up to 120.8 slots.\n- Retail kitting & packaging: up to 67.96 hours.\n\nPlease use this as the basis for the scheduling optimization. The aim is to select the mix that maximizes total contribution while holding every facility metric within the limits above and respecting each item\u2019s ceiling and the whole-run requirement for the special kits."
+}

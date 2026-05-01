@@ -1,0 +1,774 @@
+{
+    "meta": {
+        "optimization_type": "LP",
+        "problem_type": "resource-constrained project scheduling",
+        "goal": "MINIMIZE",
+        "num_vars": 26,
+        "num_constraints": 32,
+        "is_integer": true,
+        "prompt_tokens_with_data": 1740,
+        "prompt_tokens_without_data": 1042
+    },
+    "instance_data": {
+        "n_activities": 6,
+        "n_resources": 2,
+        "n_modes": 2,
+        "resource_capacities": [
+            4,
+            4
+        ],
+        "mode_durations": [
+            [
+                6,
+                9
+            ],
+            [
+                9,
+                10
+            ],
+            [
+                3,
+                8
+            ],
+            [
+                6,
+                7
+            ],
+            [
+                6,
+                7
+            ],
+            [
+                5,
+                9
+            ]
+        ],
+        "mode_resource_requirements": [
+            [
+                [
+                    2,
+                    2
+                ],
+                [
+                    3,
+                    3
+                ]
+            ],
+            [
+                [
+                    2,
+                    0
+                ],
+                [
+                    2,
+                    0
+                ]
+            ],
+            [
+                [
+                    3,
+                    0
+                ],
+                [
+                    1,
+                    0
+                ]
+            ],
+            [
+                [
+                    0,
+                    2
+                ],
+                [
+                    0,
+                    1
+                ]
+            ],
+            [
+                [
+                    1,
+                    2
+                ],
+                [
+                    2,
+                    2
+                ]
+            ],
+            [
+                [
+                    1,
+                    0
+                ],
+                [
+                    3,
+                    1
+                ]
+            ]
+        ],
+        "mode_costs": [
+            [
+                21,
+                14
+            ],
+            [
+                24,
+                12
+            ],
+            [
+                16,
+                10
+            ],
+            [
+                14,
+                8
+            ],
+            [
+                21,
+                12
+            ],
+            [
+                7,
+                6
+            ]
+        ],
+        "budget": 78,
+        "release_dates": [
+            1,
+            2,
+            0,
+            0,
+            0,
+            4
+        ],
+        "deadlines": [
+            150,
+            150,
+            150,
+            150,
+            150,
+            38
+        ],
+        "precedence_with_lags": [
+            [
+                1,
+                3,
+                0,
+                -1
+            ],
+            [
+                1,
+                5,
+                0,
+                -1
+            ],
+            [
+                2,
+                0,
+                0,
+                -1
+            ],
+            [
+                2,
+                4,
+                0,
+                -1
+            ]
+        ]
+    },
+    "gurobi_result": {
+        "solver_status": 2,
+        "theoretical_optimum": 26.0,
+        "optimal_values": {
+            "S_0": 20.0,
+            "S_1": 3.0,
+            "S_2": 0.0,
+            "S_3": 13.0,
+            "S_4": 8.0,
+            "S_5": 15.0,
+            "Cmax": 26.0,
+            "x_0_0": 1.0,
+            "x_0_1": 0.0,
+            "x_1_0": 0.0,
+            "x_1_1": 1.0,
+            "x_2_0": 1.0,
+            "x_2_1": 0.0,
+            "x_3_0": 0.0,
+            "x_3_1": 1.0,
+            "x_4_0": 0.0,
+            "x_4_1": 1.0,
+            "x_5_0": 1.0,
+            "x_5_1": 0.0,
+            "Y_0_1": 0.0,
+            "Y_0_3": 0.0,
+            "Y_0_4": 0.0,
+            "Y_0_5": 0.0,
+            "Y_1_2": 0.0,
+            "Y_2_5": 1.0,
+            "Y_4_5": 1.0
+        }
+    },
+    "constraints": {
+        "Mode_0": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "Mode_1": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "Mode_2": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "Mode_3": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "Mode_4": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "Mode_5": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "Prec_1_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -0.0
+        },
+        "Prec_1_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -0.0
+        },
+        "Prec_2_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -0.0
+        },
+        "Prec_2_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -0.0
+        },
+        "Disj_A_0_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 64.0
+        },
+        "Disj_B_0_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Disj_A_0_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 64.0
+        },
+        "Disj_B_0_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Disj_A_0_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 64.0
+        },
+        "Disj_B_0_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Disj_A_0_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 64.0
+        },
+        "Disj_B_0_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Disj_A_1_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 64.0
+        },
+        "Disj_B_1_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Disj_A_2_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 64.0
+        },
+        "Disj_B_2_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Disj_A_4_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 64.0
+        },
+        "Disj_B_4_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Budget": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 78.0
+        },
+        "Deadline_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 38.0
+        },
+        "Makespan_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Makespan_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Makespan_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Makespan_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Makespan_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Makespan_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        }
+    },
+    "variables": {
+        "S_0": {
+            "type": "Continuous",
+            "range": [
+                1.0,
+                64.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_2_0": -1.0,
+                "Disj_A_0_1": 1.0,
+                "Disj_B_0_1": -1.0,
+                "Disj_A_0_3": 1.0,
+                "Disj_B_0_3": -1.0,
+                "Disj_A_0_4": 1.0,
+                "Disj_B_0_4": -1.0,
+                "Disj_A_0_5": 1.0,
+                "Disj_B_0_5": -1.0,
+                "Makespan_0": 1.0
+            }
+        },
+        "S_1": {
+            "type": "Continuous",
+            "range": [
+                2.0,
+                64.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_1_3": 1.0,
+                "Prec_1_5": 1.0,
+                "Disj_A_0_1": -1.0,
+                "Disj_B_0_1": 1.0,
+                "Disj_A_1_2": 1.0,
+                "Disj_B_1_2": -1.0,
+                "Makespan_1": 1.0
+            }
+        },
+        "S_2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                64.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_2_0": 1.0,
+                "Prec_2_4": 1.0,
+                "Disj_A_1_2": -1.0,
+                "Disj_B_1_2": 1.0,
+                "Disj_A_2_5": 1.0,
+                "Disj_B_2_5": -1.0,
+                "Makespan_2": 1.0
+            }
+        },
+        "S_3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                64.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_1_3": -1.0,
+                "Disj_A_0_3": -1.0,
+                "Disj_B_0_3": 1.0,
+                "Makespan_3": 1.0
+            }
+        },
+        "S_4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                64.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_2_4": -1.0,
+                "Disj_A_0_4": -1.0,
+                "Disj_B_0_4": 1.0,
+                "Disj_A_4_5": 1.0,
+                "Disj_B_4_5": -1.0,
+                "Makespan_4": 1.0
+            }
+        },
+        "S_5": {
+            "type": "Continuous",
+            "range": [
+                4.0,
+                64.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_1_5": -1.0,
+                "Disj_A_0_5": -1.0,
+                "Disj_B_0_5": 1.0,
+                "Disj_A_2_5": -1.0,
+                "Disj_B_2_5": 1.0,
+                "Disj_A_4_5": -1.0,
+                "Disj_B_4_5": 1.0,
+                "Deadline_5": 1.0,
+                "Makespan_5": 1.0
+            }
+        },
+        "Cmax": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                64.0
+            ],
+            "objective_linear_coefficient": 1.0,
+            "resource_costs": {
+                "Makespan_0": -1.0,
+                "Makespan_1": -1.0,
+                "Makespan_2": -1.0,
+                "Makespan_3": -1.0,
+                "Makespan_4": -1.0,
+                "Makespan_5": -1.0
+            }
+        },
+        "x_0_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_0": 1.0,
+                "Disj_A_0_1": 6.0,
+                "Disj_A_0_3": 6.0,
+                "Disj_A_0_4": 6.0,
+                "Disj_A_0_5": 6.0,
+                "Budget": 21.0,
+                "Makespan_0": 6.0
+            }
+        },
+        "x_0_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_0": 1.0,
+                "Disj_A_0_1": 9.0,
+                "Disj_A_0_3": 9.0,
+                "Disj_A_0_4": 9.0,
+                "Disj_A_0_5": 9.0,
+                "Budget": 14.0,
+                "Makespan_0": 9.0
+            }
+        },
+        "x_1_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_1": 1.0,
+                "Prec_1_3": 9.0,
+                "Prec_1_5": 9.0,
+                "Disj_B_0_1": 9.0,
+                "Disj_A_1_2": 9.0,
+                "Budget": 24.0,
+                "Makespan_1": 9.0
+            }
+        },
+        "x_1_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_1": 1.0,
+                "Prec_1_3": 10.0,
+                "Prec_1_5": 10.0,
+                "Disj_B_0_1": 10.0,
+                "Disj_A_1_2": 10.0,
+                "Budget": 12.0,
+                "Makespan_1": 10.0
+            }
+        },
+        "x_2_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_2": 1.0,
+                "Prec_2_0": 3.0,
+                "Prec_2_4": 3.0,
+                "Disj_B_1_2": 3.0,
+                "Disj_A_2_5": 3.0,
+                "Budget": 16.0,
+                "Makespan_2": 3.0
+            }
+        },
+        "x_2_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_2": 1.0,
+                "Prec_2_0": 8.0,
+                "Prec_2_4": 8.0,
+                "Disj_B_1_2": 8.0,
+                "Disj_A_2_5": 8.0,
+                "Budget": 10.0,
+                "Makespan_2": 8.0
+            }
+        },
+        "x_3_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_3": 1.0,
+                "Disj_B_0_3": 6.0,
+                "Budget": 14.0,
+                "Makespan_3": 6.0
+            }
+        },
+        "x_3_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_3": 1.0,
+                "Disj_B_0_3": 7.0,
+                "Budget": 8.0,
+                "Makespan_3": 7.0
+            }
+        },
+        "x_4_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_4": 1.0,
+                "Disj_B_0_4": 6.0,
+                "Disj_A_4_5": 6.0,
+                "Budget": 21.0,
+                "Makespan_4": 6.0
+            }
+        },
+        "x_4_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_4": 1.0,
+                "Disj_B_0_4": 7.0,
+                "Disj_A_4_5": 7.0,
+                "Budget": 12.0,
+                "Makespan_4": 7.0
+            }
+        },
+        "x_5_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_5": 1.0,
+                "Disj_B_0_5": 5.0,
+                "Disj_B_2_5": 5.0,
+                "Disj_B_4_5": 5.0,
+                "Budget": 7.0,
+                "Deadline_5": 5.0,
+                "Makespan_5": 5.0
+            }
+        },
+        "x_5_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Mode_5": 1.0,
+                "Disj_B_0_5": 9.0,
+                "Disj_B_2_5": 9.0,
+                "Disj_B_4_5": 9.0,
+                "Budget": 6.0,
+                "Deadline_5": 9.0,
+                "Makespan_5": 9.0
+            }
+        },
+        "Y_0_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_1": 64.0,
+                "Disj_B_0_1": -64.0
+            }
+        },
+        "Y_0_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_3": 64.0,
+                "Disj_B_0_3": -64.0
+            }
+        },
+        "Y_0_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_4": 64.0,
+                "Disj_B_0_4": -64.0
+            }
+        },
+        "Y_0_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_5": 64.0,
+                "Disj_B_0_5": -64.0
+            }
+        },
+        "Y_1_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_1_2": 64.0,
+                "Disj_B_1_2": -64.0
+            }
+        },
+        "Y_2_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_2_5": 64.0,
+                "Disj_B_2_5": -64.0
+            }
+        },
+        "Y_4_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_4_5": 64.0,
+                "Disj_B_4_5": -64.0
+            }
+        }
+    },
+    "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    m = Model(\"MRCPSP\")\n    m.setParam('TimeLimit', 300)\n\n    # --- Data ---\n    n_act = 6\n    n_res = 2\n    n_modes = 2\n    capacities = [4, 4]\n    mode_dur = [[6, 9], [9, 10], [3, 8], [6, 7], [6, 7], [5, 9]]\n    mode_req = [[[2, 2], [3, 3]], [[2, 0], [2, 0]], [[3, 0], [1, 0]], [[0, 2], [0, 1]], [[1, 2], [2, 2]], [[1, 0], [3, 1]]]\n    mode_cost = [[21, 14], [24, 12], [16, 10], [14, 8], [21, 12], [7, 6]]\n    budget = 78\n    # precedence_with_lags: each entry is (predecessor, successor, min_lag, max_lag_or_None)\n    precedence_with_lags = [(1, 3, 0, None), (1, 5, 0, None), (2, 0, 0, None), (2, 4, 0, None)]\n    release_dates = [1, 2, 0, 0, 0, 4]\n    deadlines = [None, None, None, None, None, 38]\n\n    # Derive precedence edges from precedence_with_lags\n    prec_edges = [(i, j) for (i, j, _, _) in precedence_with_lags]\n    time_lags = precedence_with_lags\n\n    # Big-M: sum of max durations + max release + slack\n    M = sum(max(mode_dur[i]) for i in range(n_act)) + max(release_dates) + 10\n\n    # --- Identify conflicting pairs ---\n    # Build transitive closure of precedence\n    adj = {i: [] for i in range(n_act)}\n    for (a, b) in prec_edges:\n        adj[a].append(b)\n    reachable = set()\n    for start in range(n_act):\n        visited = set()\n        stack = [start]\n        while stack:\n            node = stack.pop()\n            for nxt in adj[node]:\n                if nxt not in visited:\n                    visited.add(nxt)\n                    reachable.add((start, nxt))\n                    stack.append(nxt)\n\n    # Check all mode combinations for potential resource conflicts\n    conflicts = []\n    for i in range(n_act):\n        for j in range(i+1, n_act):\n            if (i,j) in reachable or (j,i) in reachable:\n                continue\n            conflict = False\n            for mi in range(n_modes):\n                for mj in range(n_modes):\n                    for k in range(n_res):\n                        if mode_req[i][mi][k] + mode_req[j][mj][k] > capacities[k]:\n                            conflict = True\n                            break\n                    if conflict:\n                        break\n                if conflict:\n                    break\n            if conflict:\n                conflicts.append((i, j))\n\n    # --- Variables ---\n    S = {}\n    for i in range(n_act):\n        S[i] = m.addVar(lb=release_dates[i], ub=M, vtype=GRB.CONTINUOUS, name=f\"S_{i}\")\n    Cmax = m.addVar(lb=0, ub=M, vtype=GRB.CONTINUOUS, name=\"Cmax\")\n\n    x = {}\n    for i in range(n_act):\n        for md in range(n_modes):\n            x[i,md] = m.addVar(vtype=GRB.BINARY, name=f\"x_{i}_{md}\")\n\n    Y = {}\n    for (i, j) in conflicts:\n        Y[(i,j)] = m.addVar(vtype=GRB.BINARY, name=f\"Y_{i}_{j}\")\n\n    # --- Objective ---\n    m.setObjective(Cmax, GRB.MINIMIZE)\n\n    # --- Constraints ---\n    # 1. Mode selection: exactly one mode per activity\n    for i in range(n_act):\n        m.addConstr(quicksum(x[i,md] for md in range(n_modes)) == 1, name=f\"Mode_{i}\")\n\n    # 2. Precedence with min/max time lags\n    for (a, b, lag_min, lag_max) in time_lags:\n        d_eff_a = quicksum(mode_dur[a][md] * x[a,md] for md in range(n_modes))\n        m.addConstr(S[b] >= S[a] + d_eff_a + lag_min, name=f\"Prec_{a}_{b}\")\n        if lag_max is not None:\n            m.addConstr(S[b] <= S[a] + d_eff_a + lag_max, name=f\"MaxLag_{a}_{b}\")\n\n    # 3. Disjunctive for conflicting pairs\n    for (i, j) in conflicts:\n        y = Y[(i,j)]\n        d_eff_i = quicksum(mode_dur[i][md] * x[i,md] for md in range(n_modes))\n        d_eff_j = quicksum(mode_dur[j][md] * x[j,md] for md in range(n_modes))\n        m.addConstr(S[i] + d_eff_i <= S[j] + M*(1-y), name=f\"Disj_A_{i}_{j}\")\n        m.addConstr(S[j] + d_eff_j <= S[i] + M*y, name=f\"Disj_B_{i}_{j}\")\n\n    # 4. Budget constraint (non-renewable)\n    m.addConstr(quicksum(mode_cost[i][md] * x[i,md] for i in range(n_act) for md in range(n_modes)) <= budget, name=\"Budget\")\n\n    # 5. Deadlines\n    for i in range(n_act):\n        if deadlines[i] is not None:\n            d_eff_i = quicksum(mode_dur[i][md] * x[i,md] for md in range(n_modes))\n            m.addConstr(S[i] + d_eff_i <= deadlines[i], name=f\"Deadline_{i}\")\n\n    # 6. Makespan\n    for i in range(n_act):\n        d_eff_i = quicksum(mode_dur[i][md] * x[i,md] for md in range(n_modes))\n        m.addConstr(Cmax >= S[i] + d_eff_i, name=f\"Makespan_{i}\")\n\n    m.optimize()\n    return m\n```",
+    "LLM_description": "To: Project Sponsors and Delivery Leads\nFrom: Project Manager\nSubject: Scheduling approach for a multi\u2011mode, resource\u2011constrained project\n\nOverview\nWe are preparing the integrated delivery plan for a project composed of multiple interdependent activities that must share a limited set of renewable resources. Each activity can be executed in one of several ways, trading off speed, cost, and resource consumption. Our challenge is to select a single execution mode for each activity and sequence the work so that all timing rules are respected, available resources are not put at risk, and total spending on selected modes remains within the fixed project budget.\n\nExecution modes and trade\u2011offs\nEach activity offers multiple execution modes. Faster modes shorten duration but typically cost more and may draw on more resources. Slower modes reduce cost and resource pressure but lengthen delivery time. We will choose exactly one mode per activity, balancing the need to compress the schedule with the need to stay within budget and within the limits of the renewable resources. Once an activity is started, it runs uninterrupted to completion (no preemption), at which point its resources are released back to the pool.\n\nDependencies and timing rules\nActivities are linked by finish\u2011to\u2011start relationships that set when successors may begin. These links include:\n- Minimum delays: a successor must wait at least a specified time after its predecessor finishes.\n- Maximum delays on some links: a successor must also start within a specified window after its predecessor finishes.\nIn addition, some activities have earliest allowed start times (release dates), and some have hard deadlines by which they must be completed. These rules restrict the feasible start and finish windows for each activity and can create critical chains where delays propagate.\n\nResources and the conservative conflict rule\nThe project relies on multiple renewable resource types with fixed capacities. When an activity completes, its resources become available for reuse. To protect against overloads in a simple and conservative manner, we will apply the following rule to any pair of activities that are not connected by a dependency:\n- If there exists at least one combination of their execution modes and at least one resource for which their combined usage would exceed that resource\u2019s capacity, the two activities cannot overlap in time. One must be scheduled to finish before the other starts, and the planner will decide the order.\nThis safety rule is the only resource constraint we enforce; there is no separate, continuous \u201cat all times\u201d capacity check beyond these pairwise sequencing decisions. As a result, some independent activities may be forced into a sequence even if certain mode choices would have allowed them to run concurrently. This encourages early identification of potential conflicts and clear sequencing decisions.\n\nBudget constraint\nIn addition to renewable resource limits, the project has a fixed non\u2011renewable budget that caps the total cost of the chosen execution modes. Mode selections across all activities must keep the sum of mode costs within this budget. This creates a direct trade\u2011off between faster, more expensive modes and slower, less costly ones, especially where timing constraints tighten the schedule.\n\nPlanning implications\n- Selecting modes: Faster modes can reduce the path length through critical chains but consume more budget and may trigger more pairwise conflicts. Slower modes conserve budget but may push against release dates, maximum delays, and hard deadlines.\n- Sequencing due to resource risk: The conservative conflict rule can add necessary ordering between activities that otherwise appear independent, narrowing options for parallel work.\n- Timing compliance: Minimum and maximum lags, release dates, and deadlines can force specific ordering and compress slack, especially when combined with mode choices that lengthen certain tasks.\n- Feasibility checks: A viable plan must simultaneously respect all precedence links (with their delays), release dates, deadlines, the pairwise resource conflict rule, and the overall budget cap.\n\nGoal and success criteria\nOur goal is to schedule all activities, each in exactly one execution mode, to achieve the earliest possible overall completion while staying within the fixed budget and honoring all dependency, delay, release date, deadline, and resource safety rules. The plan will clearly document any forced sequences arising from potential resource overloads and will highlight the chosen mode for each activity, along with the resulting start/finish times.\n\nNext steps\n- Validate the data set in the annex for completeness and accuracy.\n- Generate candidate sequences for potentially conflicting activity pairs.\n- Evaluate mode combinations against timing constraints and the budget cap.\n- Iterate to a schedule that minimizes total duration while remaining feasible and within budget.\n- Review trade\u2011offs with sponsors for any targeted adjustments (e.g., reallocating budget to accelerate critical segments).\n\nAnnex \u2013 Project Data\n- Number of activities: 6\n- Number of resource types: 2\n- Number of modes per activity: 2\n- Resource capacities: Resource Capacities:\n  - Resource 1: 4 units\n  - Resource 2: 4 units\n- Mode durations: Execution Mode Durations (time units per mode):\n  - Activity 0: [Mode 1: 6, Mode 2: 9]\n  - Activity 1: [Mode 1: 9, Mode 2: 10]\n  - Activity 2: [Mode 1: 3, Mode 2: 8]\n  - Activity 3: [Mode 1: 6, Mode 2: 7]\n  - Activity 4: [Mode 1: 6, Mode 2: 7]\n  - Activity 5: [Mode 1: 5, Mode 2: 9]\n- Mode resource requirements: Resource Requirements per Mode (units consumed while activity is running):\n  - Activity 0, Mode 1: [R1: 2, R2: 2]\n  - Activity 0, Mode 2: [R1: 3, R2: 3]\n  - Activity 1, Mode 1: [R1: 2, R2: 0]\n  - Activity 1, Mode 2: [R1: 2, R2: 0]\n  - Activity 2, Mode 1: [R1: 3, R2: 0]\n  - Activity 2, Mode 2: [R1: 1, R2: 0]\n  - Activity 3, Mode 1: [R1: 0, R2: 2]\n  - Activity 3, Mode 2: [R1: 0, R2: 1]\n  - Activity 4, Mode 1: [R1: 1, R2: 2]\n  - Activity 4, Mode 2: [R1: 2, R2: 2]\n  - Activity 5, Mode 1: [R1: 1, R2: 0]\n  - Activity 5, Mode 2: [R1: 3, R2: 1]\n- Mode costs: Execution Mode Costs:\n  - Activity 0: [Mode 1: 21, Mode 2: 14]\n  - Activity 1: [Mode 1: 24, Mode 2: 12]\n  - Activity 2: [Mode 1: 16, Mode 2: 10]\n  - Activity 3: [Mode 1: 14, Mode 2: 8]\n  - Activity 4: [Mode 1: 21, Mode 2: 12]\n  - Activity 5: [Mode 1: 7, Mode 2: 6]\n- Project budget: 78\n- Precedence relationships with minimum/maximum lags: Precedence Dependencies (with timing constraints):\n  - Activity 1 \u2192 Activity 3\n  - Activity 1 \u2192 Activity 5\n  - Activity 2 \u2192 Activity 0\n  - Activity 2 \u2192 Activity 4\n- Activity release dates: Earliest Start Times (release dates):\n  - Activity 0: 1\n  - Activity 1: 2\n  - Activity 2: 0\n  - Activity 3: 0\n  - Activity 4: 0\n  - Activity 5: 4\n- Activity deadlines: Completion Deadlines:\n  - Activity 0: no deadline\n  - Activity 1: no deadline\n  - Activity 2: no deadline\n  - Activity 3: no deadline\n  - Activity 4: no deadline\n  - Activity 5: must finish by time 38",
+    "LLM_description_template": "To: Project Sponsors and Delivery Leads\nFrom: Project Manager\nSubject: Scheduling approach for a multi\u2011mode, resource\u2011constrained project\n\nOverview\nWe are preparing the integrated delivery plan for a project composed of multiple interdependent activities that must share a limited set of renewable resources. Each activity can be executed in one of several ways, trading off speed, cost, and resource consumption. Our challenge is to select a single execution mode for each activity and sequence the work so that all timing rules are respected, available resources are not put at risk, and total spending on selected modes remains within the fixed project budget.\n\nExecution modes and trade\u2011offs\nEach activity offers multiple execution modes. Faster modes shorten duration but typically cost more and may draw on more resources. Slower modes reduce cost and resource pressure but lengthen delivery time. We will choose exactly one mode per activity, balancing the need to compress the schedule with the need to stay within budget and within the limits of the renewable resources. Once an activity is started, it runs uninterrupted to completion (no preemption), at which point its resources are released back to the pool.\n\nDependencies and timing rules\nActivities are linked by finish\u2011to\u2011start relationships that set when successors may begin. These links include:\n- Minimum delays: a successor must wait at least a specified time after its predecessor finishes.\n- Maximum delays on some links: a successor must also start within a specified window after its predecessor finishes.\nIn addition, some activities have earliest allowed start times (release dates), and some have hard deadlines by which they must be completed. These rules restrict the feasible start and finish windows for each activity and can create critical chains where delays propagate.\n\nResources and the conservative conflict rule\nThe project relies on multiple renewable resource types with fixed capacities. When an activity completes, its resources become available for reuse. To protect against overloads in a simple and conservative manner, we will apply the following rule to any pair of activities that are not connected by a dependency:\n- If there exists at least one combination of their execution modes and at least one resource for which their combined usage would exceed that resource\u2019s capacity, the two activities cannot overlap in time. One must be scheduled to finish before the other starts, and the planner will decide the order.\nThis safety rule is the only resource constraint we enforce; there is no separate, continuous \u201cat all times\u201d capacity check beyond these pairwise sequencing decisions. As a result, some independent activities may be forced into a sequence even if certain mode choices would have allowed them to run concurrently. This encourages early identification of potential conflicts and clear sequencing decisions.\n\nBudget constraint\nIn addition to renewable resource limits, the project has a fixed non\u2011renewable budget that caps the total cost of the chosen execution modes. Mode selections across all activities must keep the sum of mode costs within this budget. This creates a direct trade\u2011off between faster, more expensive modes and slower, less costly ones, especially where timing constraints tighten the schedule.\n\nPlanning implications\n- Selecting modes: Faster modes can reduce the path length through critical chains but consume more budget and may trigger more pairwise conflicts. Slower modes conserve budget but may push against release dates, maximum delays, and hard deadlines.\n- Sequencing due to resource risk: The conservative conflict rule can add necessary ordering between activities that otherwise appear independent, narrowing options for parallel work.\n- Timing compliance: Minimum and maximum lags, release dates, and deadlines can force specific ordering and compress slack, especially when combined with mode choices that lengthen certain tasks.\n- Feasibility checks: A viable plan must simultaneously respect all precedence links (with their delays), release dates, deadlines, the pairwise resource conflict rule, and the overall budget cap.\n\nGoal and success criteria\nOur goal is to schedule all activities, each in exactly one execution mode, to achieve the earliest possible overall completion while staying within the fixed budget and honoring all dependency, delay, release date, deadline, and resource safety rules. The plan will clearly document any forced sequences arising from potential resource overloads and will highlight the chosen mode for each activity, along with the resulting start/finish times.\n\nNext steps\n- Validate the data set in the annex for completeness and accuracy.\n- Generate candidate sequences for potentially conflicting activity pairs.\n- Evaluate mode combinations against timing constraints and the budget cap.\n- Iterate to a schedule that minimizes total duration while remaining feasible and within budget.\n- Review trade\u2011offs with sponsors for any targeted adjustments (e.g., reallocating budget to accelerate critical segments).\n\nAnnex \u2013 Project Data\n- Number of activities: {NUM_ACTIVITIES}\n- Number of resource types: {NUM_RESOURCES}\n- Number of modes per activity: {NUM_MODES}\n- Resource capacities: {RESOURCE_CAPACITIES}\n- Mode durations: {MODE_DURATIONS}\n- Mode resource requirements: {MODE_RESOURCE_REQUIREMENTS}\n- Mode costs: {MODE_COSTS}\n- Project budget: {BUDGET}\n- Precedence relationships with minimum/maximum lags: {PRECEDENCE_EDGES_WITH_LAGS}\n- Activity release dates: {RELEASE_DATES}\n- Activity deadlines: {DEADLINES}"
+}

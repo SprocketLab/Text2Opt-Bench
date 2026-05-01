@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All per-unit effects and caps are given with signs; guardrails are clear >= bounds; objective is sum of costs; continuous vars in [0, cap]. Reconstructable without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style framing and repeated 'no effect (0)' add length; enumeration is long but mostly necessary to list coefficients.",
+      "realism": 93,
+      "realism_comment": "Realistic portfolio sleeve allocation with capacity limits and exposure guardrails; minimizing carrying cost to meet minimum metrics is plausible."
+    },
+    "prompt_tokens_with_data": 1450,
+    "prompt_tokens_without_data": 1450
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 83.76581216323598,
+    "optimal_values": {
+      "Var_0": 2.0634650073475904,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 3.4653000035131547,
+      "Var_4": 5.076730277305208,
+      "Var_5": 0.0,
+      "Var_6": 10.47,
+      "Var_7": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -23.63
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -142.25
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 68.98
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -81.59
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 106.84
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.14
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 34.31
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.15
+      ],
+      "objective_linear_coefficient": 1.26,
+      "resource_costs": {
+        "C0": -1.15,
+        "C1": 4.28,
+        "C2": -8.09,
+        "C3": 4.96,
+        "C4": 6.79,
+        "C5": 2.17,
+        "C6": -3.15
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.63
+      ],
+      "objective_linear_coefficient": 1.52,
+      "resource_costs": {
+        "C2": 1.66,
+        "C3": 6.22,
+        "C4": -9.47,
+        "C6": 2.13
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.99
+      ],
+      "objective_linear_coefficient": 8.97,
+      "resource_costs": {
+        "C0": -9.7,
+        "C1": 8.43,
+        "C2": -5.49,
+        "C3": 2.38,
+        "C6": -2.74
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.71
+      ],
+      "objective_linear_coefficient": 3.51,
+      "resource_costs": {
+        "C0": 2.69,
+        "C1": -9.22,
+        "C3": 0.11,
+        "C4": 6.99,
+        "C5": -2.2,
+        "C6": -2.39
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.35
+      ],
+      "objective_linear_coefficient": 5.92,
+      "resource_costs": {
+        "C0": -2.34,
+        "C1": -9.85,
+        "C2": 9.41,
+        "C3": -4.91,
+        "C4": -1.17,
+        "C5": 5.36,
+        "C6": 9.67
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.86
+      ],
+      "objective_linear_coefficient": 4.92,
+      "resource_costs": {
+        "C0": 7.37,
+        "C1": -5.98,
+        "C2": -6.02,
+        "C3": -5.45
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.47
+      ],
+      "objective_linear_coefficient": 3.72,
+      "resource_costs": {
+        "C0": 9.59,
+        "C1": -1.81,
+        "C2": 3.62,
+        "C3": -0.55,
+        "C4": 7.12
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.17
+      ],
+      "objective_linear_coefficient": 8.83,
+      "resource_costs": {
+        "C0": -9.99,
+        "C1": -1.7,
+        "C2": 8.08,
+        "C3": -5.0,
+        "C4": -0.27,
+        "C5": -3.12,
+        "C6": -0.97
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.15, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.26 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.63, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.52 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.99, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.97 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.71, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.51 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.35, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.92 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.86, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.92 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.47, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.72 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=7.17, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 8.83 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-1.15 * vars['Var_0'] + -9.7 * vars['Var_2'] + 2.69 * vars['Var_3'] + -2.34 * vars['Var_4'] + 7.37 * vars['Var_5'] + 9.59 * vars['Var_6'] + -9.99 * vars['Var_7'] >= -23.63, name='C0')\n    m.addConstr(4.28 * vars['Var_0'] + 8.43 * vars['Var_2'] + -9.22 * vars['Var_3'] + -9.85 * vars['Var_4'] + -5.98 * vars['Var_5'] + -1.81 * vars['Var_6'] + -1.7 * vars['Var_7'] >= -142.25, name='C1')\n    m.addConstr(-8.09 * vars['Var_0'] + 1.66 * vars['Var_1'] + -5.49 * vars['Var_2'] + 9.41 * vars['Var_4'] + -6.02 * vars['Var_5'] + 3.62 * vars['Var_6'] + 8.08 * vars['Var_7'] >= 68.98, name='C2')\n    m.addConstr(4.96 * vars['Var_0'] + 6.22 * vars['Var_1'] + 2.38 * vars['Var_2'] + 0.11 * vars['Var_3'] + -4.91 * vars['Var_4'] + -5.45 * vars['Var_5'] + -0.55 * vars['Var_6'] + -5.0 * vars['Var_7'] >= -81.59, name='C3')\n    m.addConstr(6.79 * vars['Var_0'] + -9.47 * vars['Var_1'] + 6.99 * vars['Var_3'] + -1.17 * vars['Var_4'] + 7.12 * vars['Var_6'] + -0.27 * vars['Var_7'] >= 106.84, name='C4')\n    m.addConstr(2.17 * vars['Var_0'] + -2.2 * vars['Var_3'] + 5.36 * vars['Var_4'] + -3.12 * vars['Var_7'] >= 15.14, name='C5')\n    m.addConstr(-3.15 * vars['Var_0'] + 2.13 * vars['Var_1'] + -2.74 * vars['Var_2'] + -2.39 * vars['Var_3'] + 9.67 * vars['Var_4'] + -0.97 * vars['Var_7'] >= 34.31, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix request \u2014 minimizing total cost while staying within our mandate guardrails\n\nHi Team,\n\nWe need your help determining the mix across eight investment sleeves so that our total carrying cost is as low as possible, while still staying inside our portfolio\u2019s exposure guardrails. Each sleeve can be dialed anywhere between zero and its cap; none can be allocated a negative amount. Below is how each sleeve behaves and what it contributes to our scorecard metrics. Please use this as the basis for recommending the allocation.\n\nThe levers\n1) Blue Bond Portfolio\n- Cost profile: 1.26 per unit allocated; capacity up to 16.15 units.\n- Carbon Transition Score: reduces the score by 1.15 points per unit.\n- Corporate Credit Tilt: adds 4.28 points per unit.\n- Duration Target: reduces by 8.09 points per unit.\n- Volatility Guardrail: adds 4.96 points per unit.\n- Quality Commitment: adds 6.79 points per unit.\n- Liquidity Buffer: adds 2.17 points per unit.\n- Income Orientation: reduces by 3.15 points per unit.\n\n2) Green Infrastructure Notes\n- Cost profile: 1.52 per unit; capacity up to 8.63 units.\n- Carbon Transition Score: no effect (0).\n- Corporate Credit Tilt: no effect (0).\n- Duration Target: adds 1.66 points per unit.\n- Volatility Guardrail: adds 6.22 points per unit.\n- Quality Commitment: reduces by 9.47 points per unit.\n- Liquidity Buffer: no effect (0).\n- Income Orientation: adds 2.13 points per unit.\n\n3) Global Macro Hedging Sleeve\n- Cost profile: 8.97 per unit; capacity up to 10.99 units.\n- Carbon Transition Score: reduces by 9.70 points per unit.\n- Corporate Credit Tilt: adds 8.43 points per unit.\n- Duration Target: reduces by 5.49 points per unit.\n- Volatility Guardrail: adds 2.38 points per unit.\n- Quality Commitment: no effect (0).\n- Liquidity Buffer: no effect (0).\n- Income Orientation: reduces by 2.74 points per unit.\n\n4) Distressed Debt Opportunities\n- Cost profile: 3.51 per unit; capacity up to 8.71 units.\n- Carbon Transition Score: adds 2.69 points per unit.\n- Corporate Credit Tilt: reduces by 9.22 points per unit.\n- Duration Target: no effect (0).\n- Volatility Guardrail: adds 0.11 points per unit.\n- Quality Commitment: adds 6.99 points per unit.\n- Liquidity Buffer: reduces by 2.20 points per unit.\n- Income Orientation: reduces by 2.39 points per unit.\n\n5) Momentum & Growth Basket\n- Cost profile: 5.92 per unit; capacity up to 10.35 units.\n- Carbon Transition Score: reduces by 2.34 points per unit.\n- Corporate Credit Tilt: reduces by 9.85 points per unit.\n- Duration Target: adds 9.41 points per unit.\n- Volatility Guardrail: reduces by 4.91 points per unit.\n- Quality Commitment: reduces by 1.17 points per unit.\n- Liquidity Buffer: adds 5.36 points per unit.\n- Income Orientation: adds 9.67 points per unit.\n\n6) Municipal Short-Term Ladder\n- Cost profile: 4.92 per unit; capacity up to 9.86 units.\n- Carbon Transition Score: adds 7.37 points per unit.\n- Corporate Credit Tilt: reduces by 5.98 points per unit.\n- Duration Target: reduces by 6.02 points per unit.\n- Volatility Guardrail: reduces by 5.45 points per unit.\n- Quality Commitment: no effect (0).\n- Liquidity Buffer: no effect (0).\n- Income Orientation: no effect (0).\n\n7) Infrastructure REIT Sleeve\n- Cost profile: 3.72 per unit; capacity up to 10.47 units.\n- Carbon Transition Score: adds 9.59 points per unit.\n- Corporate Credit Tilt: reduces by 1.81 points per unit.\n- Duration Target: adds 3.62 points per unit.\n- Volatility Guardrail: reduces by 0.55 points per unit.\n- Quality Commitment: adds 7.12 points per unit.\n- Liquidity Buffer: no effect (0).\n- Income Orientation: no effect (0).\n\n8) Night Owl Futures Overlay\n- Cost profile: 8.83 per unit; capacity up to 7.17 units.\n- Carbon Transition Score: reduces by 9.99 points per unit.\n- Corporate Credit Tilt: reduces by 1.70 points per unit.\n- Duration Target: adds 8.08 points per unit.\n- Volatility Guardrail: reduces by 5.00 points per unit.\n- Quality Commitment: reduces by 0.27 points per unit.\n- Liquidity Buffer: reduces by 3.12 points per unit.\n- Income Orientation: reduces by 0.97 points per unit.\n\nMandate guardrails (minimums we must meet or exceed across the combined mix)\n- Carbon Transition Score must not fall below -23.63 points.\n- Corporate Credit Tilt must not fall below -142.25 points.\n- Duration Target must be at least 68.98 points.\n- Volatility Guardrail must not fall below -81.59 points.\n- Quality Commitment must be at least 106.84 points.\n- Liquidity Buffer must be at least 15.14 points.\n- Income Orientation must be at least 34.31 points.\n\nPlease come back with the recommended allocation plan that keeps us within these guardrails while minimizing the summed cost across all sleeves. If useful, assume each \u201cunit\u201d here is a standard allocation block; we simply need the mix within each sleeve\u2019s cap and above zero."
+}

@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact bounds, per-unit costs, metric impacts, and floor values are specified. Sign conventions clear (\u201cadds\u201d/\u201creduces\u201d), continuous scaling stated, and non-listed effects are zero.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Memo-style prose is somewhat verbose, but bullets give necessary data. Minor narrative fluff; little repetition.",
+      "realism": 94,
+      "realism_comment": "Plausible sustainability/compliance portfolio selection with cost minimization and metric floors; effects and limits feel realistic."
+    },
+    "prompt_tokens_with_data": 1197,
+    "prompt_tokens_without_data": 1197
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 0.7413698630136986,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 0.1643835616438356,
+      "Var_5": 0.0,
+      "Var_6": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -6.07
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 0.36
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -2.1
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -0.9
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -7.85
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -40.69
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.28
+      ],
+      "objective_linear_coefficient": 2.5,
+      "resource_costs": {
+        "C0": 9.86,
+        "C4": -3.79
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.06
+      ],
+      "objective_linear_coefficient": 1.78,
+      "resource_costs": {
+        "C0": -8.09,
+        "C5": -7.98
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.46
+      ],
+      "objective_linear_coefficient": 3.19,
+      "resource_costs": {
+        "C2": 1.5
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.59
+      ],
+      "objective_linear_coefficient": 5.86,
+      "resource_costs": {}
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.44
+      ],
+      "objective_linear_coefficient": 4.51,
+      "resource_costs": {
+        "C0": -2.32,
+        "C1": 2.19,
+        "C2": 1.11,
+        "C3": 5.86
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.26
+      ],
+      "objective_linear_coefficient": 4.55,
+      "resource_costs": {
+        "C0": -8.01,
+        "C1": 1.97,
+        "C5": 2.11
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.74
+      ],
+      "objective_linear_coefficient": 3.99,
+      "resource_costs": {
+        "C0": 5.74
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.28, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.5 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.06, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.78 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.46, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.19 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.59, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.86 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.44, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.51 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=7.26, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.55 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.74, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.99 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.86 * vars['Var_0'] + -8.09 * vars['Var_1'] + -2.32 * vars['Var_4'] + -8.01 * vars['Var_5'] + 5.74 * vars['Var_6'] >= -6.07, name='C0')\n    m.addConstr(2.19 * vars['Var_4'] + 1.97 * vars['Var_5'] >= 0.36, name='C1')\n    m.addConstr(1.5 * vars['Var_2'] + 1.11 * vars['Var_4'] >= -2.1, name='C2')\n    m.addConstr(5.86 * vars['Var_4'] >= -0.9, name='C3')\n    m.addConstr(-3.79 * vars['Var_0'] >= -7.85, name='C4')\n    m.addConstr(-7.98 * vars['Var_1'] + 2.11 * vars['Var_5'] >= -40.69, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix of FY Initiatives Under Environmental and Logistics Scorecard Floors\n\nTeam,\n\nAs discussed, we need to select a mix of initiatives that meets our compliance and community commitments while keeping total spend as low as possible. We can scale each initiative in partial increments (we are not restricted to whole units), subject to its practical maximum, and we must keep our combined performance above the minimum floors noted at the end of this memo.\n\nBelow is the decision set, in the order we\u2019ll evaluate them, with per\u2011unit cost and the way each initiative moves our six scorecards: Environmental Balance Score, Community Outreach Commitments, Water Stewardship Index, Noise Mitigation Performance, Waste Heat Recovery ledger, and Freight Emissions Balance. Where an initiative is not listed under a scorecard, it has no measurable effect on that metric.\n\n- Kiln Line Upgrades (up to 9.28 units; minimum 0)\n  \u2022 Per\u2011unit spend: 2.50.\n  \u2022 Environmental Balance Score: adds 9.86 points per unit.\n  \u2022 Waste Heat Recovery ledger: draws 3.79 credits per unit (i.e., reduces the ledger by 3.79).\n  \u2022 No change to Community Outreach Commitments, Water Stewardship Index, Noise Mitigation Performance, or Freight Emissions Balance.\n\n- Added Diesel Haulage (up to 9.06 units; minimum 0)\n  \u2022 Per\u2011unit spend: 1.78.\n  \u2022 Environmental Balance Score: reduces the score by 8.09 points per unit.\n  \u2022 Freight Emissions Balance: reduces the balance by 7.98 per unit.\n  \u2022 No change to Community Outreach Commitments, Water Stewardship Index, Noise Mitigation Performance, or Waste Heat Recovery.\n\n- Greywater Recycling Units (up to 18.46 units; minimum 0)\n  \u2022 Per\u2011unit spend: 3.19.\n  \u2022 Water Stewardship Index: adds 1.50 points per unit.\n  \u2022 No change to Environmental Balance Score, Community Outreach Commitments, Noise Mitigation Performance, Waste Heat Recovery, or Freight Emissions Balance.\n\n- Supervisory Coaching Days (up to 13.59 units; minimum 0)\n  \u2022 Per\u2011unit spend: 5.86.\n  \u2022 No measured change to Environmental Balance Score, Community Outreach Commitments, Water Stewardship Index, Noise Mitigation Performance, Waste Heat Recovery, or Freight Emissions Balance.\n\n- Extended Night Operations with Mitigations (up to 18.44 units; minimum 0)\n  \u2022 Per\u2011unit spend: 4.51.\n  \u2022 Environmental Balance Score: reduces the score by 2.32 points per unit.\n  \u2022 Community Outreach Commitments: adds 2.19 program\u2011hours per unit.\n  \u2022 Water Stewardship Index: adds 1.11 points per unit.\n  \u2022 Noise Mitigation Performance: adds 5.86 points per unit.\n  \u2022 No change to Waste Heat Recovery or Freight Emissions Balance.\n\n- Local Delivery Partnerships (up to 7.26 units; minimum 0)\n  \u2022 Per\u2011unit spend: 4.55.\n  \u2022 Environmental Balance Score: reduces the score by 8.01 points per unit.\n  \u2022 Community Outreach Commitments: adds 1.97 program\u2011hours per unit.\n  \u2022 Freight Emissions Balance: adds 2.11 to the balance per unit.\n  \u2022 No change to Water Stewardship Index, Noise Mitigation Performance, or Waste Heat Recovery.\n\n- Onsite Solar Arrays (up to 11.74 units; minimum 0)\n  \u2022 Per\u2011unit spend: 3.99.\n  \u2022 Environmental Balance Score: adds 5.74 points per unit.\n  \u2022 No change to Community Outreach Commitments, Water Stewardship Index, Noise Mitigation Performance, Waste Heat Recovery, or Freight Emissions Balance.\n\nFacility Specs and Minimum Operating Floors\n- Environmental Balance Score must not fall below \u22126.07 points (floor: \u22126.07).\n- Community Outreach Commitments must be at least 0.36 program\u2011hours (floor: 0.36).\n- Water Stewardship Index must not fall below \u22122.10 points (floor: \u22122.10).\n- Noise Mitigation Performance must not fall below \u22120.90 points (floor: \u22120.90).\n- Waste Heat Recovery ledger must not fall below \u22127.85 credits (floor: \u22127.85).\n- Freight Emissions Balance must not fall below \u221240.69 (floor: \u221240.69).\n\nOur objective is to select quantities for each initiative (anywhere from 0 up to its stated maximum) that meet all six floors above while minimizing the sum of the per\u2011unit spends across the portfolio. Please use this as the basis for the recommended allocation."
+}

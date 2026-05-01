@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, signs, and thresholds are explicitly stated; variables are continuous; constraints are clear >= thresholds. This directly induces the exact LP in the gold solution.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business email style adds context and some verbosity, but details are non-repetitive and all map to the model.",
+      "realism": 95,
+      "realism_comment": "A plausible operations planning problem balancing cost, staffing, automation, service, risk, and throughput; highly realistic and coherent."
+    },
+    "prompt_tokens_with_data": 782,
+    "prompt_tokens_without_data": 782
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 70.42555189873417,
+    "optimal_values": {
+      "Var_0": 3.079746835443036,
+      "Var_1": 0.0,
+      "Var_2": 11.26
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -4.56
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 34.3
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.02
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.46
+      ],
+      "objective_linear_coefficient": 5.72,
+      "resource_costs": {
+        "C0": 1.14,
+        "C1": -4.8,
+        "C2": 5.53
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.91
+      ],
+      "objective_linear_coefficient": 7.09,
+      "resource_costs": {
+        "C0": -2.84,
+        "C1": -3.6
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.26
+      ],
+      "objective_linear_coefficient": 4.69,
+      "resource_costs": {
+        "C1": 7.77,
+        "C2": 5.15
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.46, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.72 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.91, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.09 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.26, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.69 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.14 * vars['Var_0'] + -2.84 * vars['Var_1'] >= -4.56, name='C0')\n    m.addConstr(-4.8 * vars['Var_0'] + -3.6 * vars['Var_1'] + 7.77 * vars['Var_2'] >= 34.3, name='C1')\n    m.addConstr(5.53 * vars['Var_0'] + 5.15 * vars['Var_2'] >= 75.02, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Inputs for Q2 labor-and-automation mix to minimize spend while meeting service and safety thresholds\n\nHi team,\n\nAs discussed, we\u2019re preparing the mix of three capacity levers for the coming period with the aim of minimizing total operating spend while still meeting our minimum service, throughput, and risk guardrails. Below is the decision frame and the exact business impacts of each lever.\n\nLevers we can pull (in the order we\u2019d like you to consider them):\n\n1) Union Overtime Shifts\n- Cost profile: Each shift-equivalent carries an operating cost of 5.72.\n- Scale: We can add anywhere from 0 up to 15.46 shift\u2011equivalents this period; partial increments are fine.\n- How it affects our guardrails:\n  \u2022 Risk Tolerance Gauge: Improves the gauge by 1.14 index points per shift-equivalent (a positive offset to risk).\n  \u2022 Customer Experience Score: Detracts from the score by 4.8 points per shift-equivalent (fatigue effect).\n  \u2022 Fulfilled Order Volume: Adds 5.53 order-equivalents per shift-equivalent.\n\n2) Contract Surge Staff\n- Cost profile: Each surge block costs 7.09.\n- Scale: We can deploy between 0 and 7.91 surge blocks; partial increments are fine.\n- How it affects our guardrails:\n  \u2022 Risk Tolerance Gauge: Lowers the gauge by 2.84 index points per block (increased incident exposure).\n  \u2022 Customer Experience Score: Reduces the score by 3.6 points per block.\n  \u2022 Fulfilled Order Volume: No material impact (does not move throughput).\n\n3) Automation Sprints\n- Cost profile: Each sprint-equivalent costs 4.69.\n- Scale: We can activate from 0 up to 11.26 sprint\u2011equivalents; partial increments are fine.\n- How it affects our guardrails:\n  \u2022 Risk Tolerance Gauge: No direct effect on the gauge.\n  \u2022 Customer Experience Score: Lifts the score by 7.77 points per sprint-equivalent.\n  \u2022 Fulfilled Order Volume: Adds 5.15 order-equivalents per sprint-equivalent.\n\nFacility and policy minimums we must respect:\n- Risk Tolerance Gauge: The composite index may dip negative but must not fall below \u22124.56 points.\n- Customer Experience Score: Must be at least 34.3 points once all effects are combined.\n- Fulfilled Order Volume: Must reach a minimum of 75.02 order-equivalents.\n\nPlease use the above as the exact inputs to determine the lowest-cost combination of overtime, surge staffing, and automation that satisfies all three minimums. Let me know if you need any clarifications on the definitions or the units."
+}

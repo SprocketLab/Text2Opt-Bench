@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All levers specify objective returns, bounds, integrality, and per-unit resource use; capacities are clear (<=). The model can be reconstructed exactly without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative tone and repeated \"does not use\" statements add verbosity but clarify zero coefficients. Could be more concise without losing precision.",
+      "realism": 93,
+      "realism_comment": "A plausible quarterly planning scenario with resources and caps. Minor oddity: one lever uses no resources but is capped; still believable in practice."
+    },
+    "prompt_tokens_with_data": 1196,
+    "prompt_tokens_without_data": 1196
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 226.7500990164727,
+    "optimal_values": {
+      "Var_0": 0.21527147882053801,
+      "Var_1": 2.0,
+      "Var_2": 11.59,
+      "Var_3": 1.0,
+      "Var_4": 7.0,
+      "Var_5": 6.629516539440202,
+      "Var_6": 8.86,
+      "Var_7": 9.309582309582309
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 20.92
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 40.67
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.46
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 60.11
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 50.03
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.52
+      ],
+      "objective_linear_coefficient": 3.38,
+      "resource_costs": {
+        "C0": 8.5,
+        "C3": 4.08
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.69
+      ],
+      "objective_linear_coefficient": 1.68,
+      "resource_costs": {
+        "C4": 6.17
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.59
+      ],
+      "objective_linear_coefficient": 6.99,
+      "resource_costs": {
+        "C2": 3.4,
+        "C3": 0.13,
+        "C4": 1.66
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.04
+      ],
+      "objective_linear_coefficient": 3.15,
+      "resource_costs": {
+        "C0": 6.31,
+        "C1": 2.78
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.31
+      ],
+      "objective_linear_coefficient": 2.4,
+      "resource_costs": {
+        "C3": 3.53
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.71
+      ],
+      "objective_linear_coefficient": 8.15,
+      "resource_costs": {
+        "C2": 3.93,
+        "C3": 4.98,
+        "C4": 2.34
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.86
+      ],
+      "objective_linear_coefficient": 4.17,
+      "resource_costs": {}
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.87
+      ],
+      "objective_linear_coefficient": 3.3,
+      "resource_costs": {
+        "C0": 0.98,
+        "C1": 4.07
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.52, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.38 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.69, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 1.68 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.59, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.99 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.04, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.15 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.31, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 2.4 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.71, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.15 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.86, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.17 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=9.87, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.3 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.5 * vars['Var_0'] + 6.31 * vars['Var_3'] + 0.98 * vars['Var_7'] <= 20.92, name='C0')\n    m.addConstr(2.78 * vars['Var_3'] + 4.07 * vars['Var_7'] <= 40.67, name='C1')\n    m.addConstr(3.4 * vars['Var_2'] + 3.93 * vars['Var_5'] <= 65.46, name='C2')\n    m.addConstr(4.08 * vars['Var_0'] + 0.13 * vars['Var_2'] + 3.53 * vars['Var_4'] + 4.98 * vars['Var_5'] <= 60.11, name='C3')\n    m.addConstr(6.17 * vars['Var_1'] + 1.66 * vars['Var_2'] + 2.34 * vars['Var_5'] <= 50.03, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio Mix Plan and Capacity Limits for Q2\n\nTeam,\n\nWe\u2019re preparing our Q2 portfolio mix with the aim of maximizing total contribution while staying within plant and market limits. Below are the levers we can adjust, the returns they generate, the operating bounds we must respect, and the way each lever draws on our constrained resources. Some items can be scaled fractionally; others must be scheduled in whole units.\n\n- Signature Lager Production Runs\n  - Returns: Each run contributes 3.38 margin units.\n  - Operating bounds: We can allocate anywhere from zero up to 18.52 runs; fractional scaling is allowed.\n  - Resource draw: Per run, this uses 8.5 units from the Premium Ingredient Reserve and 4.08 hours of Cold Storage Throughput. It does not call on Skilled Artisan Labor, Packaging Line A, or Carbon Emission Credits.\n\n- Regional Sponsorship Packages\n  - Returns: Each package contributes 1.68 margin units.\n  - Operating bounds: We can book anywhere from zero up to 9.69 packages; these must be whole packages (in practice, up to nine full packages).\n  - Resource draw: Each package consumes 6.17 Carbon Emission Credits. It does not use the Premium Ingredient Reserve, Skilled Artisan Labor, Packaging Line A, or Cold Storage Throughput.\n\n- Seasonal IPA Bottlings\n  - Returns: Each bottling allocation contributes 6.99 margin units.\n  - Operating bounds: We can allocate anywhere from zero up to 11.59 bottlings; fractional scaling is allowed.\n  - Resource draw: Per allocation, this uses 3.4 hours on Packaging Line A, 0.13 hours of Cold Storage Throughput, and 1.66 Carbon Emission Credits. It does not touch the Premium Ingredient Reserve or Skilled Artisan Labor.\n\n- Limited\u2011Edition Reserve Brew Lots\n  - Returns: Each lot contributes 3.15 margin units.\n  - Operating bounds: We can schedule anywhere from zero up to 9.04 lots; lots must be whole units (up to nine full lots).\n  - Resource draw: Per lot, this draws 6.31 units from the Premium Ingredient Reserve and 2.78 hours of Skilled Artisan Labor. It does not require Packaging Line A, Cold Storage Throughput, or Carbon Emission Credits.\n\n- Barrel\u2011Aged Stout Releases\n  - Returns: Each release contributes 2.4 margin units.\n  - Operating bounds: We can plan anywhere from zero up to 9.31 releases; releases must be whole units (up to nine full releases).\n  - Resource draw: Per release, this uses 3.53 hours of Cold Storage Throughput. It has no draw on the Premium Ingredient Reserve, Skilled Artisan Labor, Packaging Line A, or Carbon Emission Credits.\n\n- Core Hard Seltzer Production Runs\n  - Returns: Each run contributes 8.15 margin units.\n  - Operating bounds: We can allocate anywhere from zero up to 14.71 runs; fractional scaling is allowed.\n  - Resource draw: Per run, this uses 3.93 hours on Packaging Line A, 4.98 hours of Cold Storage Throughput, and 2.34 Carbon Emission Credits. It does not use the Premium Ingredient Reserve or Skilled Artisan Labor.\n\n- Direct Subscription Sign\u2011ups\n  - Returns: Each allocation contributes 4.17 margin units.\n  - Operating bounds: We can allocate anywhere from zero up to 8.86 sign\u2011up units; fractional scaling is allowed.\n  - Resource draw: This lever does not draw on the Premium Ingredient Reserve, Skilled Artisan Labor, Packaging Line A, Cold Storage Throughput, or Carbon Emission Credits.\n\n- Founder\u2019s Reserve Gift Packs\n  - Returns: Each pack allocation contributes 3.3 margin units.\n  - Operating bounds: We can allocate anywhere from zero up to 9.87 packs; fractional scaling is allowed.\n  - Resource draw: Per pack, this uses 0.98 units from the Premium Ingredient Reserve and 4.07 hours of Skilled Artisan Labor. It does not rely on Packaging Line A, Cold Storage Throughput, or Carbon Emission Credits.\n\nFacility Specs and Market Limits\n- Premium Ingredient Reserve: Inventory use across the quarter must not exceed 20.92 units.\n- Skilled Artisan Labor: Total available labor is capped at 40.67 hours.\n- Packaging Line A: Available line time is capped at 65.46 hours.\n- Cold Storage Throughput: Available cold\u2011room time is capped at 60.11 hours.\n- Carbon Emission Credits: Fleet and process emissions are limited to 50.03 credits.\n\nPlease use this as the basis for the recommended mix that maximizes total contribution while complying with the above limits and the operating bounds for each lever."
+}

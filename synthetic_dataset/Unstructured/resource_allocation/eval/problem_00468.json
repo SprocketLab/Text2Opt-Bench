@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All levers have clear bounds and per-unit contributions; every resource impact (incl. reductions/credits) is quantified; capacities are explicit 'do not exceed'; partial deployment => continuous.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business-style narrative is long but most text conveys needed coefficients and limits; minor extra wording without technical impact.",
+      "realism": 100,
+      "realism_comment": "Highly realistic plant planning scenario with plausible resources (steam, water, lab, VOC, NOx, power, docks) and credible credits/loads."
+    },
+    "prompt_tokens_with_data": 1291,
+    "prompt_tokens_without_data": 1291
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 221.88224663300218,
+    "optimal_values": {
+      "Var_0": 0.6992113355525639,
+      "Var_1": 0.09452094238199003,
+      "Var_2": 8.85,
+      "Var_3": 0.0,
+      "Var_4": 5.206652400226158,
+      "Var_5": 5.561098940727476,
+      "Var_6": 1.6032685712335362,
+      "Var_7": 10.461066513473419,
+      "Var_8": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 21.38
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 146.13
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 107.06
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 102.41
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 26.29
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 2.21
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 32.84
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 58.3
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 37.79
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.77
+      ],
+      "objective_linear_coefficient": 9.68,
+      "resource_costs": {
+        "C0": -3.68,
+        "C2": -4.44,
+        "C4": -3.42,
+        "C6": 3.52,
+        "C7": 8.21,
+        "C8": -0.46
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.98
+      ],
+      "objective_linear_coefficient": 3.88,
+      "resource_costs": {
+        "C1": 8.52,
+        "C3": 4.06,
+        "C5": 0.42
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.85
+      ],
+      "objective_linear_coefficient": 4.76,
+      "resource_costs": {
+        "C1": 1.23,
+        "C2": 3.86,
+        "C3": 6.51,
+        "C4": 1.26,
+        "C5": 0.04,
+        "C6": -3.07,
+        "C8": 0.59
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.18
+      ],
+      "objective_linear_coefficient": 2.26,
+      "resource_costs": {
+        "C0": 4.61,
+        "C1": 3.78,
+        "C2": -4.48,
+        "C3": 3.2,
+        "C4": -3.11,
+        "C6": 0.27,
+        "C7": 2.65,
+        "C8": -0.34
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.51
+      ],
+      "objective_linear_coefficient": 8.91,
+      "resource_costs": {
+        "C1": 5.5,
+        "C2": 8.53,
+        "C3": 8.53,
+        "C5": -2.17,
+        "C6": 0.54,
+        "C7": 6.88
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.87
+      ],
+      "objective_linear_coefficient": 2.33,
+      "resource_costs": {
+        "C0": -4.66,
+        "C1": 6.89,
+        "C4": 3.95,
+        "C6": 2.45,
+        "C8": -0.03
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.18
+      ],
+      "objective_linear_coefficient": 9.97,
+      "resource_costs": {
+        "C1": -2.08,
+        "C2": -1.47,
+        "C4": -4.34,
+        "C5": 8.18
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.6
+      ],
+      "objective_linear_coefficient": 9.3,
+      "resource_costs": {
+        "C0": 4.54,
+        "C1": 6.77,
+        "C2": 2.99,
+        "C6": 3.93,
+        "C7": 1.6,
+        "C8": 3.16
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.86
+      ],
+      "objective_linear_coefficient": 6.19,
+      "resource_costs": {
+        "C0": -1.87,
+        "C2": 7.59,
+        "C4": 6.96,
+        "C5": 0.02,
+        "C6": 5.51,
+        "C8": 5.68
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.77, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.68 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.98, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.88 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.85, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.76 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.18, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.26 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.51, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.91 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.87, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.33 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=5.18, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 9.97 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.6, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 9.3 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=14.86, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 6.19 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-3.68 * vars['Var_0'] + 4.61 * vars['Var_3'] + -4.66 * vars['Var_5'] + 4.54 * vars['Var_7'] + -1.87 * vars['Var_8'] <= 21.38, name='C0')\n    m.addConstr(8.52 * vars['Var_1'] + 1.23 * vars['Var_2'] + 3.78 * vars['Var_3'] + 5.5 * vars['Var_4'] + 6.89 * vars['Var_5'] + -2.08 * vars['Var_6'] + 6.77 * vars['Var_7'] <= 146.13, name='C1')\n    m.addConstr(-4.44 * vars['Var_0'] + 3.86 * vars['Var_2'] + -4.48 * vars['Var_3'] + 8.53 * vars['Var_4'] + -1.47 * vars['Var_6'] + 2.99 * vars['Var_7'] + 7.59 * vars['Var_8'] <= 107.06, name='C2')\n    m.addConstr(4.06 * vars['Var_1'] + 6.51 * vars['Var_2'] + 3.2 * vars['Var_3'] + 8.53 * vars['Var_4'] <= 102.41, name='C3')\n    m.addConstr(-3.42 * vars['Var_0'] + 1.26 * vars['Var_2'] + -3.11 * vars['Var_3'] + 3.95 * vars['Var_5'] + -4.34 * vars['Var_6'] + 6.96 * vars['Var_8'] <= 26.29, name='C4')\n    m.addConstr(0.42 * vars['Var_1'] + 0.04 * vars['Var_2'] + -2.17 * vars['Var_4'] + 8.18 * vars['Var_6'] + 0.02 * vars['Var_8'] <= 2.21, name='C5')\n    m.addConstr(3.52 * vars['Var_0'] + -3.07 * vars['Var_2'] + 0.27 * vars['Var_3'] + 0.54 * vars['Var_4'] + 2.45 * vars['Var_5'] + 3.93 * vars['Var_7'] + 5.51 * vars['Var_8'] <= 32.84, name='C6')\n    m.addConstr(8.21 * vars['Var_0'] + 2.65 * vars['Var_3'] + 6.88 * vars['Var_4'] + 1.6 * vars['Var_7'] <= 58.3, name='C7')\n    m.addConstr(-0.46 * vars['Var_0'] + 0.59 * vars['Var_2'] + -0.34 * vars['Var_3'] + -0.03 * vars['Var_5'] + 3.16 * vars['Var_7'] + 5.68 * vars['Var_8'] <= 37.79, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix for Q2 \u2013 decision levers and operating limits\n\nTeam,\n\nAs discussed, we\u2019re prioritizing a portfolio mix that maximizes net contribution while staying within our plant, compliance, and logistics limits. We can dial each lever anywhere between zero and its practical ceiling, and partial deployment is acceptable. Below is the per-unit economics and footprint for each option, along with the facility specs you should treat as hard limits.\n\n- Redwood Heat-Recovery Program (Line X retrofit): Each unit brings a 9.68 margin uplift, and we can deploy up to 19.77 units. It eases several bottlenecks: it reduces boiler steam draw by 3.68 units, lowers process water withdrawal by 4.44 units, and cuts landfill-bound solid waste by 3.42 units per unit deployed. It does add 3.52 units to electrical load and uses 8.21 outbound dock scheduling slots per unit. It also improves our air profile by reducing NOx emissions by 0.46 units.\n\n- Gold Shift Overtime (premium assembly staffing): Each unit adds 3.88 in contribution, with up to 13.98 units available. It draws 8.52 skilled technician hours, takes 4.06 units of quality lab assay time, and increments VOC emissions by 0.42 units per unit.\n\n- EcoBlue Specialty Batch (low-water chemistry run): Each unit contributes 4.76, with a ceiling of 8.85 units. It requires 1.23 technician hours, 3.86 process water units, 6.51 units of lab time, and adds 1.26 units to landfill waste. VOC impact is modest at 0.04 units. It offsets electrical demand by 3.07 units per unit (co\u2011gen credit) and increases NOx by 0.59 units.\n\n- Line B Balance Optimization (throughput rebalance): Each unit contributes 2.26, capped at 8.18 units. It adds 4.61 units to boiler steam draw and 3.78 technician hours, while reducing process water use by 4.48 units and cutting landfill waste by 3.11 units per unit. It uses 3.2 units of lab time, adds 0.27 units to electrical load, consumes 2.65 outbound dock slots, and reduces NOx by 0.34 units.\n\n- Amber Reserve Launch Campaign (new premium SKU): Each unit delivers 8.91 contribution, up to 12.51 units. It requires 5.5 technician hours, 8.53 units of process water, and 8.53 lab units. It helps our VOC position by generating a 2.17-unit credit per unit, and adds 0.54 to electrical load and 6.88 outbound dock slots per unit.\n\n- Contract Co\u2011Packing Surge (capacity relief via partners): Each unit adds 2.33 contribution, with up to 19.87 units available. It reduces onsite boiler steam draw by 4.66 units per unit, but uses 6.89 technician hours for coordination/QA. It increases landfill waste handling by 3.95 units and adds 2.45 units to electrical load. It slightly improves NOx with a 0.03-unit reduction per unit.\n\n- Solvent Specialty Campaign (high-margin solvent line): Each unit contributes 9.97, with a cap of 5.18 units. It reduces technician hours by 2.08 units and lowers process water by 1.47 units per unit deployed. It also cuts landfill waste by 4.34 units, but carries a significant compliance burden, adding 8.18 VOC units per unit.\n\n- Bottled Sparkle Holiday Push (seasonal promotion runs): Each unit adds 9.3 contribution, up to 13.6 units. It consumes 4.54 units of boiler steam, 6.77 technician hours, 2.99 units of process water, and 3.93 units of electrical load per unit. It also uses 1.6 outbound dock slots and adds 3.16 units of NOx.\n\n- Midnight Blend Export Run (export-grade batch): Each unit contributes 6.19, with up to 14.86 units available. It eases boiler steam draw by 1.87 units per unit, while requiring 7.59 units of process water. It adds 6.96 units to landfill waste, 0.02 units to VOCs, 5.51 units to electrical load, and 5.68 units of NOx per unit.\n\nFacility specs and market limits (do not exceed):\n- Boiler House steam draw: 21.38\n- Skilled technician hours: 146.13\n- Process water withdrawal: 107.06\n- Quality lab assay time: 102.41\n- Landfill-bound solid waste: 26.29\n- VOC emissions allowance: 2.21\n- Electrical load (Substation Sigma): 32.84\n- Outbound dock scheduling slots: 58.3\n- NOx emissions allowance: 37.79\n\nPlease configure the mix to maximize overall contribution within the above limits, and come back with the recommended allocation and sensitivity notes."
+}

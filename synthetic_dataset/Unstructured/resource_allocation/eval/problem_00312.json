@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Bounds, costs, and metric effects (including signs) are explicit; floors clearly map to >= constraints. Baselines are implicitly zero. A human can reconstruct the exact LP.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Business prose adds flavor; somewhat verbose but each lever\u2019s bounds, cost, and impacts are stated once. Minor nonessential context, not repetitive.",
+      "realism": 93,
+      "realism_comment": "A plausible operations planning model with coverage, quality, training, and sustainability floors; coherent trade-offs and effects consistent with real settings."
+    },
+    "prompt_tokens_with_data": 1030,
+    "prompt_tokens_without_data": 1030
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 124.1380124376074,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 8.814145050868722,
+      "Var_3": 0.0,
+      "Var_4": 0.0,
+      "Var_5": 0.0,
+      "Var_6": 6.75206611570248
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -9.34
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.55
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 49.02
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.76
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -21.84
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -37.74
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.14
+      ],
+      "objective_linear_coefficient": 7.4,
+      "resource_costs": {
+        "C1": 6.74
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.83
+      ],
+      "objective_linear_coefficient": 7.19,
+      "resource_costs": {
+        "C4": -4.83
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.43
+      ],
+      "objective_linear_coefficient": 9.48,
+      "resource_costs": {
+        "C1": 9.09,
+        "C3": 2.99
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.24
+      ],
+      "objective_linear_coefficient": 2.29,
+      "resource_costs": {
+        "C0": -5.4,
+        "C4": 8.8
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.96
+      ],
+      "objective_linear_coefficient": 8.36,
+      "resource_costs": {
+        "C5": 1.73
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.91
+      ],
+      "objective_linear_coefficient": 6.97,
+      "resource_costs": {
+        "C4": -4.03,
+        "C5": -9.48
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.83
+      ],
+      "objective_linear_coefficient": 6.01,
+      "resource_costs": {
+        "C1": -5.12,
+        "C2": 7.26
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.14, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.4 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.83, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.19 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.43, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.48 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.24, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.29 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.96, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.36 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.91, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.97 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.83, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.01 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-5.4 * vars['Var_3'] >= -9.34, name='C0')\n    m.addConstr(6.74 * vars['Var_0'] + 9.09 * vars['Var_2'] + -5.12 * vars['Var_6'] >= 45.55, name='C1')\n    m.addConstr(7.26 * vars['Var_6'] >= 49.02, name='C2')\n    m.addConstr(2.99 * vars['Var_2'] >= 11.76, name='C3')\n    m.addConstr(-4.83 * vars['Var_1'] + 8.8 * vars['Var_3'] + -4.03 * vars['Var_5'] >= -21.84, name='C4')\n    m.addConstr(1.73 * vars['Var_4'] + -9.48 * vars['Var_5'] >= -37.74, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for least\u2011cost mix of operating levers to meet service and compliance thresholds\n\nTeam,\n\nWe\u2019d like your help selecting the lowest\u2011cost mix of seven operating levers to meet our coverage, quality, training, and sustainability floors. The objective is to minimize total spend while honoring the minimum thresholds described at the end of this note.\n\nOperating levers (in the order we consider them)\n1) Line Alpha \u2013 Core Runs\n- Scope: Can be scheduled between 0 and 7.14 units this cycle (no negatives).\n- Cost: Fully loaded cost of 7.40 per unit.\n- Impact on metrics:\n  - Contributes 6.74 units toward our Frontline Coverage Quota.\n  - No measurable impact on the other indices.\n\n2) Night Shift Contracting \u2013 Supplemental Crews\n- Scope: Can be deployed between 0 and 12.83 units (no negatives).\n- Cost: Fully loaded cost of 7.19 per unit.\n- Impact on metrics:\n  - Draws down our Carbon Offset Balance by 4.83 credits per unit (i.e., reduces the balance).\n\n3) Senior Specialist Upgrades \u2013 Expert Teams\n- Scope: Can be added between 0 and 11.43 units (no negatives).\n- Cost: Fully loaded cost of 9.48 per unit.\n- Impact on metrics:\n  - Adds 9.09 units to the Frontline Coverage Quota per unit.\n  - Adds 2.99 hours to Training & Compliance per unit.\n\n4) Biogas Cogeneration \u2013 Onsite Green Power\n- Scope: Can be run between 0 and 6.24 units (no negatives).\n- Cost: Fully loaded cost of 2.29 per unit.\n- Impact on metrics:\n  - Lowers the System Stability Margin by 5.40 points per unit (i.e., makes the stability index more negative).\n  - Improves the Carbon Offset Balance by 8.80 credits per unit.\n\n5) Effluent Polishing \u2013 Membrane Stage\n- Scope: Can be operated between 0 and 7.96 units (no negatives).\n- Cost: Fully loaded cost of 8.36 per unit.\n- Impact on metrics:\n  - Improves the Water Sustainability Balance by 1.73 credits per unit.\n\n6) Acid Clean\u2011in\u2011Place Cycle \u2013 Rapid Turnover\n- Scope: Can be used between 0 and 9.91 units (no negatives).\n- Cost: Fully loaded cost of 6.97 per unit.\n- Impact on metrics:\n  - Draws down the Carbon Offset Balance by 4.03 credits per unit.\n  - Draws down the Water Sustainability Balance by 9.48 credits per unit.\n\n7) Automation Tuning Windows \u2013 QA Intensive\n- Scope: Can be scheduled between 0 and 8.83 units (no negatives).\n- Cost: Fully loaded cost of 6.01 per unit.\n- Impact on metrics:\n  - Reduces the Frontline Coverage Quota by 5.12 units per tuning window (temporary coverage loss).\n  - Improves the Quality Audit Score by 7.26 points per unit.\n\nFacility and performance floors (must be met or exceeded)\n- System Stability Margin: must not fall below \u22129.34 points (no worse than \u22129.34).\n- Frontline Coverage Quota: at least 45.55 units.\n- Quality Audit Score: at least 49.02 points.\n- Training & Compliance: at least 11.76 hours.\n- Carbon Offset Balance: no less than \u221221.84 credits (balance can be negative but not worse than \u221221.84).\n- Water Sustainability Balance: no less than \u221237.74 credits (balance can be negative but not worse than \u221237.74).\n\nPlease use the above cost rates, availability limits, and metric effects exactly as stated to identify the least\u2011cost plan that satisfies all floors. Let us know the recommended mix and the resulting spend and metric positions."
+}

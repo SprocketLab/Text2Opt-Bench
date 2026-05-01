@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, caps, and per-unit contributions are explicit; six >= minimums stated; objective is minimize cost; variables 0\u2013cap. Exact LP can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some email-style fluff and repeated \u201c0 (no \u2026)\u201d notes, but they clarify zero coefficients. Core quantitative data is concise and necessary.",
+      "realism": 98,
+      "realism_comment": "Classic ingredient blending with nutrient minimums and supply caps; very plausible real-world formulation scenario with coherent data."
+    },
+    "prompt_tokens_with_data": 1252,
+    "prompt_tokens_without_data": 1252
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 141.8686314383231,
+    "optimal_values": {
+      "Var_0": 16.85,
+      "Var_1": 0.0,
+      "Var_2": 1.306829190269754,
+      "Var_3": 0.5066849816849831,
+      "Var_4": 0.9223264002708967,
+      "Var_5": 6.1060585403939385,
+      "Var_6": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.39
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 81.04
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 8.99
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 72.81
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 174.73
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 174.32
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.85
+      ],
+      "objective_linear_coefficient": 4.99,
+      "resource_costs": {
+        "C0": 4.31,
+        "C1": 8.02,
+        "C3": 3.99,
+        "C4": 6.59,
+        "C5": 8.73
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.27
+      ],
+      "objective_linear_coefficient": 7.81,
+      "resource_costs": {
+        "C3": 0.34
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.38
+      ],
+      "objective_linear_coefficient": 7.65,
+      "resource_costs": {
+        "C1": 6.78,
+        "C2": 0.69,
+        "C3": 1.74,
+        "C4": 8.05,
+        "C5": 4.98
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.04
+      ],
+      "objective_linear_coefficient": 7.9,
+      "resource_costs": {
+        "C0": 5.46,
+        "C2": 0.09,
+        "C3": 4.01,
+        "C4": 7.08,
+        "C5": 5.56
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.65
+      ],
+      "objective_linear_coefficient": 4.84,
+      "resource_costs": {
+        "C1": 4.54,
+        "C2": 8.72,
+        "C3": 1.38,
+        "C5": 9.57
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.98
+      ],
+      "objective_linear_coefficient": 6.44,
+      "resource_costs": {
+        "C4": 8.12,
+        "C5": 7.14
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.77
+      ],
+      "objective_linear_coefficient": 6.98,
+      "resource_costs": {
+        "C3": 0.57
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.85, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.99 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.27, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.81 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.38, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.65 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.04, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.9 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.65, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.84 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.98, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.44 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=13.77, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.98 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.31 * vars['Var_0'] + 5.46 * vars['Var_3'] >= 75.39, name='C0')\n    m.addConstr(8.02 * vars['Var_0'] + 6.78 * vars['Var_2'] + 4.54 * vars['Var_4'] >= 81.04, name='C1')\n    m.addConstr(0.69 * vars['Var_2'] + 0.09 * vars['Var_3'] + 8.72 * vars['Var_4'] >= 8.99, name='C2')\n    m.addConstr(3.99 * vars['Var_0'] + 0.34 * vars['Var_1'] + 1.74 * vars['Var_2'] + 4.01 * vars['Var_3'] + 1.38 * vars['Var_4'] + 0.57 * vars['Var_6'] >= 72.81, name='C3')\n    m.addConstr(6.59 * vars['Var_0'] + 8.05 * vars['Var_2'] + 7.08 * vars['Var_3'] + 8.12 * vars['Var_5'] >= 174.73, name='C4')\n    m.addConstr(8.73 * vars['Var_0'] + 4.98 * vars['Var_2'] + 5.56 * vars['Var_3'] + 9.57 * vars['Var_4'] + 7.14 * vars['Var_5'] >= 174.32, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimized ingredient plan to meet fortified bar standards\n\nTeam,\n\nAs we finalize the formulation for our new fortified nutrition bar, our goal is to meet or exceed six label standards at the lowest possible ingredient spend. Each ingredient listed below is available in limited quantities this cycle, and we can source anywhere from zero up to the specified cap. For planning and costing purposes, think of each as contributing specific \u201ccredits\u201d toward our minimums in protein, complex carbohydrates, dietary fiber, a general micronutrient complex, overall mineral density, and vitamin fortification.\n\nBelow are the levers we can pull, in the order we\u2019ve been evaluating them, with unit costs, sourcing caps, and how each unit contributes to our six standards:\n\n1) Fortified Cornmeal Base\n- Cost: 4.99 per unit; Availability: up to 16.85 units.\n- Contribution per unit:\n  - Protein Credits: 4.31\n  - Complex Carbohydrate Credits: 8.02\n  - Dietary Fiber Credits: 0 (no material fiber contribution)\n  - Microcomplex A Units: 3.99\n  - Mineral Density Units: 6.59\n  - Vitamin Fortification Units: 8.73\n\n2) Trace Mineral Premix A\n- Cost: 7.81 per unit; Availability: up to 13.27 units.\n- Contribution per unit:\n  - Protein Credits: 0 (no protein)\n  - Complex Carbohydrate Credits: 0 (no carbs)\n  - Dietary Fiber Credits: 0 (no fiber)\n  - Microcomplex A Units: 0.34\n  - Mineral Density Units: 0 (no minerals beyond baseline)\n  - Vitamin Fortification Units: 0 (no vitamins)\n\n3) Skim Milk Powder\n- Cost: 7.65 per unit; Availability: up to 8.38 units.\n- Contribution per unit:\n  - Protein Credits: 0 (no protein credit assigned in this model)\n  - Complex Carbohydrate Credits: 6.78\n  - Dietary Fiber Credits: 0.69\n  - Microcomplex A Units: 1.74\n  - Mineral Density Units: 8.05\n  - Vitamin Fortification Units: 4.98\n\n4) Pea Protein Flour\n- Cost: 7.90 per unit; Availability: up to 9.04 units.\n- Contribution per unit:\n  - Protein Credits: 5.46\n  - Complex Carbohydrate Credits: 0 (no carb contribution)\n  - Dietary Fiber Credits: 0.09\n  - Microcomplex A Units: 4.01\n  - Mineral Density Units: 7.08\n  - Vitamin Fortification Units: 5.56\n\n5) Beet Fiber Concentrate\n- Cost: 4.84 per unit; Availability: up to 7.65 units.\n- Contribution per unit:\n  - Protein Credits: 0 (no protein)\n  - Complex Carbohydrate Credits: 4.54\n  - Dietary Fiber Credits: 8.72\n  - Microcomplex A Units: 1.38\n  - Mineral Density Units: 0 (no incremental mineral density)\n  - Vitamin Fortification Units: 9.57\n\n6) Calci\u2011Vita Premix B\n- Cost: 6.44 per unit; Availability: up to 17.98 units.\n- Contribution per unit:\n  - Protein Credits: 0 (no protein)\n  - Complex Carbohydrate Credits: 0 (no carbs)\n  - Dietary Fiber Credits: 0 (no fiber)\n  - Microcomplex A Units: 0 (no microcomplex increment)\n  - Mineral Density Units: 8.12\n  - Vitamin Fortification Units: 7.14\n\n7) Iron & Trace Chelate\n- Cost: 6.98 per unit; Availability: up to 13.77 units.\n- Contribution per unit:\n  - Protein Credits: 0 (no protein)\n  - Complex Carbohydrate Credits: 0 (no carbs)\n  - Dietary Fiber Credits: 0 (no fiber)\n  - Microcomplex A Units: 0.57\n  - Mineral Density Units: 0 (no minerals)\n  - Vitamin Fortification Units: 0 (no vitamins)\n\nMarket Standards\u2014Minimums we must meet or exceed:\n- Protein Credits: at least 75.39\n- Complex Carbohydrate Credits: at least 81.04\n- Dietary Fiber Credits: at least 8.99\n- Microcomplex A Units: at least 72.81\n- Mineral Density Units: at least 174.73\n- Vitamin Fortification Units: at least 174.32\n\nPlease use the above as the basis for assembling the lowest-cost mix that satisfies all six minimums, respecting each ingredient\u2019s availability cap. Once you\u2019ve identified the least\u2011cost combination, we\u2019ll review for supplier readiness and finalize the production plan.\n\nThanks,\n[Client Name]\nHead of Product Development"
+}

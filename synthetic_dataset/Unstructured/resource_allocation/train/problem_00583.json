@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 11,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All bounds, costs, contributions, and >= floors are explicit; integer vs continuous is specified. Minor naming gap (no Var_i names), but the model is mechanically reconstructible.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative/business framing; lever descriptions repeat but are necessary to convey coefficients and caps.",
+      "realism": 96,
+      "realism_comment": "A plausible operational planning MILP with clear KPIs, caps, and compliance floors; coherent and reflective of real settings."
+    },
+    "prompt_tokens_with_data": 1198,
+    "prompt_tokens_without_data": 1198
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 243.46612226092947,
+    "optimal_values": {
+      "Var_0": 4.100190971049151,
+      "Var_1": 6.108254947924394,
+      "Var_2": 0.0,
+      "Var_3": 1.0,
+      "Var_4": 12.0,
+      "Var_5": 0.0,
+      "Var_6": 0.0,
+      "Var_7": 9.18,
+      "Var_8": 0.0,
+      "Var_9": 2.892644135188867,
+      "Var_10": 8.498780080514042
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.56
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 14.55
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 72.89
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 10.03
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 157.09
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 78.75
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 84.11
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.81
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 54.81
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.15
+      ],
+      "objective_linear_coefficient": 4.77,
+      "resource_costs": {
+        "C2": 4.4,
+        "C6": 8.47
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.63
+      ],
+      "objective_linear_coefficient": 7.47,
+      "resource_costs": {
+        "C4": 7.78,
+        "C8": 6.7
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.0
+      ],
+      "objective_linear_coefficient": 5.7,
+      "resource_costs": {
+        "C0": 0.9,
+        "C3": 0.47
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.92
+      ],
+      "objective_linear_coefficient": 5.53,
+      "resource_costs": {
+        "C2": 4.25,
+        "C7": 2.26
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.62
+      ],
+      "objective_linear_coefficient": 6.0,
+      "resource_costs": {
+        "C0": 1.86,
+        "C4": 0.38,
+        "C6": 3.72
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.91
+      ],
+      "objective_linear_coefficient": 6.76,
+      "resource_costs": {
+        "C1": 2.81,
+        "C3": 1.37,
+        "C4": 6.03,
+        "C5": 5.24
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.7
+      ],
+      "objective_linear_coefficient": 8.51,
+      "resource_costs": {
+        "C8": 1.22
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.18
+      ],
+      "objective_linear_coefficient": 1.06,
+      "resource_costs": {
+        "C3": 1.13,
+        "C4": 7.93,
+        "C5": 6.7
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.71
+      ],
+      "objective_linear_coefficient": 9.48,
+      "resource_costs": {
+        "C2": 0.35,
+        "C4": 1.03
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.06
+      ],
+      "objective_linear_coefficient": 8.96,
+      "resource_costs": {
+        "C1": 5.03,
+        "C2": 5.27,
+        "C6": 0.21,
+        "C7": 3.5,
+        "C8": 4.8
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.16
+      ],
+      "objective_linear_coefficient": 7.66,
+      "resource_costs": {
+        "C2": 4.16,
+        "C4": 3.79,
+        "C5": 4.69,
+        "C6": 2.35
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.15, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.77 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.63, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.47 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=17.16, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 7.66 * vars['Var_10']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.7 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.92, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 5.53 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.62, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.0 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.91, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 6.76 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=6.7, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.51 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=9.18, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 1.06 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=9.71, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 9.48 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=5.06, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 8.96 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.9 * vars['Var_2'] + 1.86 * vars['Var_4'] >= 20.56, name='C0')\n    m.addConstr(2.81 * vars['Var_5'] + 5.03 * vars['Var_9'] >= 14.55, name='C1')\n    m.addConstr(4.4 * vars['Var_0'] + 4.16 * vars['Var_10'] + 4.25 * vars['Var_3'] + 0.35 * vars['Var_8'] + 5.27 * vars['Var_9'] >= 72.89, name='C2')\n    m.addConstr(0.47 * vars['Var_2'] + 1.37 * vars['Var_5'] + 1.13 * vars['Var_7'] >= 10.03, name='C3')\n    m.addConstr(7.78 * vars['Var_1'] + 3.79 * vars['Var_10'] + 0.38 * vars['Var_4'] + 6.03 * vars['Var_5'] + 7.93 * vars['Var_7'] + 1.03 * vars['Var_8'] >= 157.09, name='C4')\n    m.addConstr(4.69 * vars['Var_10'] + 5.24 * vars['Var_5'] + 6.7 * vars['Var_7'] >= 78.75, name='C5')\n    m.addConstr(8.47 * vars['Var_0'] + 2.35 * vars['Var_10'] + 3.72 * vars['Var_4'] + 0.21 * vars['Var_9'] >= 84.11, name='C6')\n    m.addConstr(2.26 * vars['Var_3'] + 3.5 * vars['Var_9'] >= 11.81, name='C7')\n    m.addConstr(6.7 * vars['Var_1'] + 1.22 * vars['Var_6'] + 4.8 * vars['Var_9'] >= 54.81, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for Allocation Plan to Minimize Operating Cost While Meeting Contract Floors\n\nTeam,\n\nWe need your recommendation on how to set our operational levers for the upcoming cycle so that we minimize total operating cost while still meeting the contractual and compliance minimums outlined below. Several levers can be adjusted in fractional amounts, while a few must be scheduled in whole increments. Each lever can be set anywhere between 0 and its noted cap.\n\nLevers (in order of consideration):\n- Fleet A Early-Morning Routes\n  This lever can be set between 0 and 18.15 hours. Each hour carries a cost of 4.77 and contributes to two critical minimums: 4.4 Core Throughput Units (Line Alpha) and 8.47 Environmental Compliance Credits.\n\n- Blue Line Packouts\n  This lever can be set between 0 and 14.63 units. Each unit carries a cost of 7.47 and adds to our Regional Fulfillment Volume by 7.78 units and to our Public Outreach Score by 6.7 points.\n\n- Safety Inspection Team Deployments (whole deployments only)\n  This lever can be set between 0 and 15 deployments. Each deployment carries a cost of 5.7 and advances our Safety Audit Index by 0.9 points and our Quality Assurance Checks Completed by 0.47 checks.\n\n- Community Delivery Vans (whole van-days only)\n  This lever can be set between 0 and 15.92 van-days. Each van-day carries a cost of 5.53 and contributes 4.25 Core Throughput Units (Line Alpha) and 2.26 Community Outreach Visits.\n\n- Skilled Maintenance Shifts (whole shifts only)\n  This lever can be set between 0 and 12.62 shifts. Each shift carries a cost of 6.0 and lifts the Safety Audit Index by 1.86 points, Regional Fulfillment Volume by 0.38 units, and Environmental Compliance Credits by 3.72 credits.\n\n- Hazmat Processing Lots (whole lots only)\n  This lever can be set between 0 and 10.91 lots. Each lot carries a cost of 6.76 and contributes across four obligations: 2.81 toward the Waste Handling Quota, 1.37 Quality Assurance Checks Completed, 6.03 Regional Fulfillment Volume, and 5.24 Cold Chain Handling Hours.\n\n- Digital Campaign Budget\n  This lever can be set between 0 and 6.7 units. Each unit carries a cost of 8.51 and adds 1.22 points to the Public Outreach Score.\n\n- Pop-up Micro-Fulfillment Kiosks\n  This lever can be set between 0 and 9.18 hours. Each hour carries a cost of 1.06 and contributes 1.13 Quality Assurance Checks Completed, 7.93 Regional Fulfillment Volume, and 6.7 Cold Chain Handling Hours.\n\n- Supplier Fast-Track Orders\n  This lever can be set between 0 and 9.71 orders. Each order carries a cost of 9.48 and adds 0.35 Core Throughput Units (Line Alpha) and 1.03 Regional Fulfillment Volume.\n\n- Third-Party Courier Allocations\n  This lever can be set between 0 and 5.06 allocations. Each allocation carries a cost of 8.96 and supports five obligations: 5.03 toward the Waste Handling Quota, 5.27 Core Throughput Units (Line Alpha), 0.21 Environmental Compliance Credits, 3.5 Community Outreach Visits, and 4.8 points on the Public Outreach Score.\n\n- Regional Hub Night Shift\n  This lever can be set between 0 and 17.16 hours. Each hour carries a cost of 7.66 and contributes 4.16 Core Throughput Units (Line Alpha), 3.79 Regional Fulfillment Volume, 4.69 Cold Chain Handling Hours, and 2.35 Environmental Compliance Credits.\n\nContract Floors & Compliance Minimums (must be met or exceeded):\n- Safety Audit Index: at least 20.56\n- Waste Handling Quota: at least 14.55\n- Core Throughput Units (Line Alpha): at least 72.89\n- Quality Assurance Checks Completed: at least 10.03\n- Regional Fulfillment Volume: at least 157.09\n- Cold Chain Handling Hours: at least 78.75\n- Environmental Compliance Credits: at least 84.11\n- Community Outreach Visits: at least 11.81\n- Public Outreach Score: at least 54.81\n\nPlease propose the mix that achieves these floors at the lowest possible operating cost, respecting the caps and the whole-increment requirements noted above for deployments, van-days, shifts, and lots."
+}

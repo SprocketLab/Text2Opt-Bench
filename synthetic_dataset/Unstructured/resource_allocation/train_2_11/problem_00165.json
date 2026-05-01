@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, bounds, and per-unit impacts (with signs) are specified, minima are explicit, and fractional scaling implies continuous vars. A human can reconstruct the objective and three constraints exactly.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative/role context and managerial tone add length, but coefficients, bounds, and thresholds are clear. Minor extra wording; little repetition.",
+      "realism": 95,
+      "realism_comment": "Plausible logistics mix planning with cost minimization and service/experience/working-capital guardrails; data and constraints feel realistic."
+    },
+    "prompt_tokens_with_data": 1007,
+    "prompt_tokens_without_data": 1007
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 105.19841695665929,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 9.208288516292312,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 2.351724137931035
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -10.23
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 26.8
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 3.66
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.39
+      ],
+      "objective_linear_coefficient": 2.96,
+      "resource_costs": {
+        "C1": -0.72,
+        "C2": -3.3
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.16
+      ],
+      "objective_linear_coefficient": 8.97,
+      "resource_costs": {
+        "C1": 2.18,
+        "C2": 1.99
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.29
+      ],
+      "objective_linear_coefficient": 9.33,
+      "resource_costs": {
+        "C0": 5.67,
+        "C2": -0.81
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.18
+      ],
+      "objective_linear_coefficient": 9.49,
+      "resource_costs": {
+        "C0": 1.83,
+        "C2": 1.9
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.98
+      ],
+      "objective_linear_coefficient": 9.61,
+      "resource_costs": {
+        "C0": -4.35,
+        "C1": 2.86,
+        "C2": -3.77
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.39, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.96 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.16, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.97 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.29, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.33 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.18, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.49 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.98, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.61 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.67 * vars['Var_2'] + 1.83 * vars['Var_3'] + -4.35 * vars['Var_4'] >= -10.23, name='C0')\n    m.addConstr(-0.72 * vars['Var_0'] + 2.18 * vars['Var_1'] + 2.86 * vars['Var_4'] >= 26.8, name='C1')\n    m.addConstr(-3.3 * vars['Var_0'] + 1.99 * vars['Var_1'] + -0.81 * vars['Var_2'] + 1.9 * vars['Var_3'] + -3.77 * vars['Var_4'] >= 3.66, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix of Delivery Programs with Service and Cash Guardrails\n\nTeam,\n\nWe need to lock in a cost-efficient mix of five delivery programs for the upcoming cycle while honoring our service commitments and financial guardrails. The objective is to minimize our total run-rate cost without letting our service coverage index, our experience score, or our working-capital buffer fall below their required minimums. We can scale each program in fractional increments up to its stated cap.\n\nThe levers we can pull\n\n- Local Micro\u2011Deliveries\n  - Role and cost: These are our nimble, low-cost city routes. Each unit deployed costs 2.96.\n  - Scale: We may choose anywhere from 0 up to 14.39 units.\n  - Impact on guardrails:\n    - Service Coverage Index: Every unit erodes the index by 0.72 points (it\u2019s a trade-off we accept for speed and locality).\n    - Customer Experience Index: Each unit also pulls the experience score down by 3.3 points.\n    - Working\u2011Capital Buffer: No material effect from these routes.\n\n- Regional Rail Blocks\n  - Role and cost: Reliable mid-range capacity with higher quality. Each unit costs 8.97.\n  - Scale: We may use from 0 up to 12.16 units.\n  - Impact on guardrails:\n    - Service Coverage Index: Adds 2.18 points per unit toward our coverage target.\n    - Customer Experience Index: Improves the experience score by 1.99 points per unit.\n    - Working\u2011Capital Buffer: No direct effect on the buffer.\n\n- Cross\u2011Dock Consolidation Batches\n  - Role and cost: Consolidation runs that streamline inventory positions. Each unit costs 9.33.\n  - Scale: We may schedule from 0 up to 11.29 units.\n  - Impact on guardrails:\n    - Working\u2011Capital Buffer: Strengthens the buffer by 5.67 units per batch (cash-friendly via reduced handling and inventory days).\n    - Customer Experience Index: Slightly dilutes the experience score by 0.81 points per unit.\n    - Service Coverage Index: No measurable effect.\n\n- Dedicated Linehaul Runs\n  - Role and cost: Steady trunk capacity with predictable quality. Each unit costs 9.49.\n  - Scale: We may deploy from 0 up to 12.18 units.\n  - Impact on guardrails:\n    - Working\u2011Capital Buffer: Improves the buffer by 1.83 units per run.\n    - Customer Experience Index: Adds 1.9 points per unit to the experience score.\n    - Service Coverage Index: No measurable effect.\n\n- Next\u2011Day Air Buckets\n  - Role and cost: Premium speed for priority orders. Each unit costs 9.61.\n  - Scale: We may book from 0 up to 14.98 units.\n  - Impact on guardrails:\n    - Working\u2011Capital Buffer: Draws down the buffer by 4.35 units per bucket (prepayment and surcharges).\n    - Service Coverage Index: Lifts the coverage index by 2.86 points per unit.\n    - Customer Experience Index: Reduces the experience score by 3.77 points per unit (customer satisfaction effects from variability and handoffs at this volume).\n\nMarket limits and operating guardrails (minimums we must meet)\n\n- Working\u2011Capital Buffer: The net buffer must not fall below \u221210.23 units in total.\n- Service Coverage Index: We must achieve at least 26.8 points overall.\n- Customer Experience Index: We must reach at least 3.66 points in aggregate.\n\nPlease use the above to determine the least-cost deployment across the five programs that satisfies the three minimum thresholds. Let me know if any of the caps prevent us from hitting the coverage or experience floors so we can review trade-offs."
+}

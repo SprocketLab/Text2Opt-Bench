@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All levers have clear caps, objective gains, and resource impacts with directions. Constraints and totals are precise. A linear model can be reconstructed exactly.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative framing and lengthy bullets; minor fluff. Most text directly conveys coefficients and bounds. Moderate verbosity.",
+      "realism": 98,
+      "realism_comment": "Highly plausible production planning with materials, labor, testing, emissions, permits, and power. Negative deltas vs baseline and caps are realistic."
+    },
+    "prompt_tokens_with_data": 1051,
+    "prompt_tokens_without_data": 1051
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 582.3917762084201,
+    "optimal_values": {
+      "Var_0": 12.44,
+      "Var_1": 11.896125244618393,
+      "Var_2": 0.0,
+      "Var_3": 11.69,
+      "Var_4": 9.66,
+      "Var_5": 8.87,
+      "Var_6": 10.69,
+      "Var_7": 0.0,
+      "Var_8": 12.373214670981662
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 177.89
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -5.21
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 83.73
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 5.68
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -49.89
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.29
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 117.61
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.44
+      ],
+      "objective_linear_coefficient": 8.81,
+      "resource_costs": {
+        "C3": -4.43,
+        "C5": -2.94,
+        "C6": 3.24
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.24
+      ],
+      "objective_linear_coefficient": 6.93,
+      "resource_costs": {
+        "C3": 5.11,
+        "C4": -3.3,
+        "C5": -1.19
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.94
+      ],
+      "objective_linear_coefficient": 2.93,
+      "resource_costs": {
+        "C0": 6.86,
+        "C2": 1.28,
+        "C5": 9.31,
+        "C6": 3.98
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.69
+      ],
+      "objective_linear_coefficient": 8.27,
+      "resource_costs": {
+        "C0": 9.04,
+        "C1": -0.69,
+        "C4": -4.91
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.66
+      ],
+      "objective_linear_coefficient": 4.92,
+      "resource_costs": {
+        "C2": 1.24,
+        "C6": 7.58
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.87
+      ],
+      "objective_linear_coefficient": 7.15,
+      "resource_costs": {
+        "C0": -4.79,
+        "C1": 0.51,
+        "C2": -3.95
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.69
+      ],
+      "objective_linear_coefficient": 7.29,
+      "resource_costs": {
+        "C1": -1.57,
+        "C4": 1.29
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.41
+      ],
+      "objective_linear_coefficient": 7.41,
+      "resource_costs": {
+        "C0": 9.38
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.92
+      ],
+      "objective_linear_coefficient": 8.47,
+      "resource_costs": {
+        "C0": 9.27,
+        "C2": 8.18,
+        "C4": -4.43
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.44, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.81 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.24, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.93 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.94, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.93 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.69, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.27 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.66, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.92 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.87, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.15 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.69, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 7.29 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=7.41, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.41 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=19.92, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 8.47 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.86 * vars['Var_2'] + 9.04 * vars['Var_3'] + -4.79 * vars['Var_5'] + 9.38 * vars['Var_7'] + 9.27 * vars['Var_8'] <= 177.89, name='C0')\n    m.addConstr(-0.69 * vars['Var_3'] + 0.51 * vars['Var_5'] + -1.57 * vars['Var_6'] <= -5.21, name='C1')\n    m.addConstr(1.28 * vars['Var_2'] + 1.24 * vars['Var_4'] + -3.95 * vars['Var_5'] + 8.18 * vars['Var_8'] <= 83.73, name='C2')\n    m.addConstr(-4.43 * vars['Var_0'] + 5.11 * vars['Var_1'] <= 5.68, name='C3')\n    m.addConstr(-3.3 * vars['Var_1'] + -4.91 * vars['Var_3'] + 1.29 * vars['Var_6'] + -4.43 * vars['Var_8'] <= -49.89, name='C4')\n    m.addConstr(-2.94 * vars['Var_0'] + -1.19 * vars['Var_1'] + 9.31 * vars['Var_2'] <= 56.29, name='C5')\n    m.addConstr(3.24 * vars['Var_0'] + 3.98 * vars['Var_2'] + 7.58 * vars['Var_4'] <= 117.61, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 Production Mix \u2013 Maximize Contribution Within Plant and Compliance Limits\n\nTeam,\n\nWe\u2019re setting the Q1 production and program mix across nine levers to maximize overall contribution, while staying within material, labor, testing, power, permits, and environmental commitments. Below is a plain-language brief of each lever and how it affects our operating and compliance metrics. All levers can be scaled from zero up to the maximum noted for each.\n\n- North Fulfillment Robotics (deployment cap: 12.44)\n  Each deployment adds 8.81 contribution. It meaningfully relieves labor pressure by cutting union overtime by 4.43 hours per deployment, and reduces our draw on waste-handling permits by 2.94 units. It does, however, add 3.24 units to the plant\u2019s electricity load.\n\n- Line B Intensifier (run cap: 13.24)\n  Each run adds 6.93 contribution. It requires 5.11 hours of additional union overtime per run. On the sustainability side, each run reduces water discharge relative to baseline by 3.30 units and lessens our use of waste-handling permits by 1.19 units.\n\n- Specialty Batch Orders (batch cap: 9.94)\n  Each batch adds 2.93 contribution. It draws heavily on Bulk Resin A (6.86 units per batch), requires 1.28 hours of lab testing, uses 9.31 units of waste-handling permits, and adds 3.98 units to our electricity load.\n\n- High-Temperature Reactor Campaigns (campaign cap: 11.69)\n  Each campaign adds 8.27 contribution. It consumes 9.04 units of Bulk Resin A. Environmentally, it reduces net SOx emissions relative to baseline by 0.69 tons per campaign and also reduces water discharge by 4.91 units.\n\n- Platinum Catalyst Runs (run cap: 9.66)\n  Each run adds 4.92 contribution. It requires 1.24 hours of lab testing and adds 7.58 units to the plant\u2019s electricity load.\n\n- Regrind Recycling Lots (lot cap: 8.87)\n  Each lot adds 7.15 contribution. It returns 4.79 units of Bulk Resin A back into usable supply (offsetting raw consumption). It does increase net SOx by 0.51 tons, but frees the lab by reducing testing load by 3.95 hours.\n\n- Process Optimization Flushes (flush cap: 10.69)\n  Each flush adds 7.29 contribution. It improves our air profile by reducing net SOx by 1.57 tons per flush, but increases water discharge by 1.29 units.\n\n- Express Rush Orders (order cap: 7.41)\n  Each order adds 7.41 contribution. It consumes 9.38 units of Bulk Resin A and has no other material impact on testing, overtime, permits, or power.\n\n- Export Packaging Lots (lot cap: 19.92)\n  Each lot adds 8.47 contribution. It draws 9.27 units of Bulk Resin A, requires 8.18 hours of lab testing, and reduces water discharge by 4.43 units relative to baseline.\n\nFacility specs and compliance limits we must honor:\n- Bulk Resin A availability: not to exceed 177.89 units in total.\n- Net SOx emissions (delta vs baseline): must be at or below -5.21 tons overall (i.e., achieve at least a 5.21-ton reduction).\n- Lab testing capacity: capped at 83.73 hours.\n- Union overtime: capped at 5.68 hours.\n- Water discharge (delta vs baseline): must be at or below -49.89 units overall (i.e., achieve at least a 49.89-unit reduction).\n- Waste-handling permits: total draw capped at 56.29 units.\n- Electricity load: capped at 117.61 units.\n\nPlease use this as the basis to set the optimal mix that maximizes contribution without breaching any of the above limits."
+}

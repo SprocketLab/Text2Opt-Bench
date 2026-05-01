@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "Precise LP: six variables with bounds, linear costs, and four >= constraints with stated coefficients. 'No effect' implies zero. Continuous type implied by fractional limits. Minor omission: explicit variable names.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some business narrative, but bullet lists contain all necessary data. Limited repetition; most content supports model specification.",
+      "realism": 95,
+      "realism_comment": "Plausible field-service planning with cost and service-level constraints; contributions and limits are realistic for an OR application."
+    },
+    "prompt_tokens_with_data": 997,
+    "prompt_tokens_without_data": 997
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 56.339126349128385,
+    "optimal_values": {
+      "Var_0": 18.13,
+      "Var_1": 1.9914487897874578,
+      "Var_2": 3.4172829236308364,
+      "Var_3": 5.265930967552596,
+      "Var_4": 0.0,
+      "Var_5": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 56.28
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 228.79
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 168.64
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 69.5
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.13
+      ],
+      "objective_linear_coefficient": 1.04,
+      "resource_costs": {
+        "C1": 9.81,
+        "C2": 6.65,
+        "C3": 7.08
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.37
+      ],
+      "objective_linear_coefficient": 5.3,
+      "resource_costs": {
+        "C1": 8.64,
+        "C2": 4.97
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.31
+      ],
+      "objective_linear_coefficient": 5.8,
+      "resource_costs": {
+        "C0": 2.77,
+        "C1": 9.87
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.3
+      ],
+      "objective_linear_coefficient": 1.35,
+      "resource_costs": {
+        "C0": 8.89,
+        "C2": 7.25,
+        "C3": 4.28
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.83
+      ],
+      "objective_linear_coefficient": 5.82,
+      "resource_costs": {
+        "C0": 8.01,
+        "C2": 8.91
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.02
+      ],
+      "objective_linear_coefficient": 8.05,
+      "resource_costs": {
+        "C1": 5.65,
+        "C2": 5.78
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.13, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.04 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.37, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.3 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.31, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.8 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.3, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.35 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.83, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.82 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.02, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.05 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.77 * vars['Var_2'] + 8.89 * vars['Var_3'] + 8.01 * vars['Var_4'] >= 56.28, name='C0')\n    m.addConstr(9.81 * vars['Var_0'] + 8.64 * vars['Var_1'] + 9.87 * vars['Var_2'] + 5.65 * vars['Var_5'] >= 228.79, name='C1')\n    m.addConstr(6.65 * vars['Var_0'] + 4.97 * vars['Var_1'] + 7.25 * vars['Var_3'] + 8.91 * vars['Var_4'] + 5.78 * vars['Var_5'] >= 168.64, name='C2')\n    m.addConstr(7.08 * vars['Var_0'] + 4.28 * vars['Var_3'] >= 69.5, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing mix for Q1 field service coverage\n\nTeam,\n\nWe\u2019re finalizing the Q1 deployment plan for our field operations. The objective is to minimize total operating spend while still meeting or exceeding our four service commitments (Certified Capacity Credits, Core Demand Coverage, Regional Reliability, and Appointment Reliability). Below is the decision space for each channel we can deploy, including the unit economics, availability limits, and how each channel contributes to the four scorecards.\n\n- Blue Route Day Crews\n  - Cost profile: $1.04 per crew-day deployed.\n  - Availability: we may deploy anywhere from 0 up to 18.13 crew-days this quarter.\n  - Impact on commitments:\n    - Adds 9.81 points to Core Demand Coverage for each crew-day.\n    - Adds 6.65 points to Regional Reliability for each crew-day.\n    - Adds 7.08 points to Appointment Reliability for each crew-day.\n    - Does not contribute to Certified Capacity Credits.\n\n- Gray Contractor Pods\n  - Cost profile: $5.30 per pod-day deployed.\n  - Availability: we may deploy anywhere from 0 up to 11.37 pod-days.\n  - Impact on commitments:\n    - Adds 8.64 points to Core Demand Coverage per pod-day.\n    - Adds 4.97 points to Regional Reliability per pod-day.\n    - No effect on Certified Capacity Credits or Appointment Reliability.\n\n- Gold Certified Specialists\n  - Cost profile: $5.80 per specialist-day deployed.\n  - Availability: we may deploy anywhere from 0 up to 8.31 specialist-days.\n  - Impact on commitments:\n    - Adds 2.77 Certified Capacity Credits per specialist-day.\n    - Adds 9.87 points to Core Demand Coverage per specialist-day.\n    - No effect on Regional Reliability or Appointment Reliability.\n\n- Red Rapid-Response Units\n  - Cost profile: $1.35 per unit-day deployed.\n  - Availability: we may deploy anywhere from 0 up to 8.30 unit-days.\n  - Impact on commitments:\n    - Adds 8.89 Certified Capacity Credits per unit-day.\n    - Adds 7.25 points to Regional Reliability per unit-day.\n    - Adds 4.28 points to Appointment Reliability per unit-day.\n    - No effect on Core Demand Coverage.\n\n- Green Regional Partners\n  - Cost profile: $5.82 per partner-day deployed.\n  - Availability: we may deploy anywhere from 0 up to 18.83 partner-days.\n  - Impact on commitments:\n    - Adds 8.01 Certified Capacity Credits per partner-day.\n    - Adds 8.91 points to Regional Reliability per partner-day.\n    - No effect on Core Demand Coverage or Appointment Reliability.\n\n- Silver Overtime Teams\n  - Cost profile: $8.05 per team-day deployed.\n  - Availability: we may deploy anywhere from 0 up to 9.02 team-days.\n  - Impact on commitments:\n    - Adds 5.65 points to Core Demand Coverage per team-day.\n    - Adds 5.78 points to Regional Reliability per team-day.\n    - No effect on Certified Capacity Credits or Appointment Reliability.\n\nService commitments (minimums for the quarter):\n- Certified Capacity Credits: at least 56.28 points across the mix.\n- Core Demand Coverage: at least 228.79 points across the mix.\n- Regional Reliability: at least 168.64 points across the mix.\n- Appointment Reliability: at least 69.50 points across the mix.\n\nThe task is to choose how many crew-/pod-/specialist-/unit-/partner-/team-days to deploy (anywhere from zero up to the limits stated above) so that we hit all of the minimums listed while incurring the lowest possible total spend. Please review so we can align on the final mix."
+}

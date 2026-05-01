@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit bounds, objective coeffs, and resource usage per unit; carbon effect sign is clear. Minor oddity: no baseline index, so that cap is non-binding.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Verbose narrative with repeated 'no impact' notes; still, the numbers are clear and necessary.",
+      "realism": 93,
+      "realism_comment": "Realistic production planning with machining/assembly/packaging limits and a compliance cap; carbon-reduction-only constraint is unusual but plausible."
+    },
+    "prompt_tokens_with_data": 1013,
+    "prompt_tokens_without_data": 1013
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 306.67162947271737,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 7.4880450070323485,
+      "Var_2": 6.110204081632653,
+      "Var_3": 17.22,
+      "Var_4": 8.57
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 59.88
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 53.24
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 0.9
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 126.85
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.45
+      ],
+      "objective_linear_coefficient": 1.98,
+      "resource_costs": {
+        "C0": 6.07,
+        "C1": 0.74,
+        "C3": 9.92
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.43
+      ],
+      "objective_linear_coefficient": 2.65,
+      "resource_costs": {
+        "C1": 7.11,
+        "C3": 8.75
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.13
+      ],
+      "objective_linear_coefficient": 9.85,
+      "resource_costs": {
+        "C0": 9.8
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.22
+      ],
+      "objective_linear_coefficient": 9.22,
+      "resource_costs": {
+        "C2": -0.08,
+        "C3": 0.24
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.57
+      ],
+      "objective_linear_coefficient": 7.92,
+      "resource_costs": {
+        "C3": 4.76
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.45, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.98 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.43, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.65 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.13, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.85 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.22, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.22 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.57, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.92 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.07 * vars['Var_0'] + 9.8 * vars['Var_2'] <= 59.88, name='C0')\n    m.addConstr(0.74 * vars['Var_0'] + 7.11 * vars['Var_1'] <= 53.24, name='C1')\n    m.addConstr(-0.08 * vars['Var_3'] <= 0.9, name='C2')\n    m.addConstr(9.92 * vars['Var_0'] + 8.75 * vars['Var_1'] + 0.24 * vars['Var_3'] + 4.76 * vars['Var_4'] <= 126.85, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix for this planning period \u2014 request to maximize total gross contribution\n\nTeam,\n\nWe need your help setting the production and program mix for the upcoming period so that we maximize total gross contribution while staying within the plant\u2019s capacity and compliance limits. Below are the five levers we can pull, in the order I\u2019d like you to consider them, along with how each one consumes (or relieves) our constrained resources. Please assume we can set each lever anywhere between its minimum of zero and the stated ceiling.\n\n- Atlas Pump A1 (new-builds)\n  - Commercial impact: every unit adds 1.98 thousand dollars to gross contribution.\n  - Feasible range this period: 0.00 to 9.45 units.\n  - Resource effects per unit:\n    - CNC Machining Bay A time: draws 6.07 hours.\n    - Sigma Assembly Cell time: draws 0.74 hours.\n    - Carbon Compliance Index: no impact (0.00 change).\n    - Packaging & Loading Dock throughput: occupies 9.92 slots.\n\n- Borealis Valve V9 (assembled modules)\n  - Commercial impact: every unit adds 2.65 thousand dollars to gross contribution.\n  - Feasible range this period: 0.00 to 12.43 units.\n  - Resource effects per unit:\n    - CNC Machining Bay A time: no draw (0.00 hours).\n    - Sigma Assembly Cell time: draws 7.11 hours.\n    - Carbon Compliance Index: no impact (0.00 change).\n    - Packaging & Loading Dock throughput: occupies 8.75 slots.\n\n- Cobalt Compressor C3 (machined cores for direct ship)\n  - Commercial impact: every unit adds 9.85 thousand dollars to gross contribution.\n  - Feasible range this period: 0.00 to 17.13 units.\n  - Resource effects per unit:\n    - CNC Machining Bay A time: draws 9.80 hours.\n    - Sigma Assembly Cell time: no draw (0.00 hours).\n    - Carbon Compliance Index: no impact (0.00 change).\n    - Packaging & Loading Dock throughput: no use (0.00 slots; ships via integrator program).\n\n- Dynamo Retrofit Kit (eco-upgrade program)\n  - Commercial impact: every unit adds 9.22 thousand dollars to gross contribution.\n  - Feasible range this period: 0.00 to 17.22 units.\n  - Resource effects per unit:\n    - CNC Machining Bay A time: no draw (0.00 hours).\n    - Sigma Assembly Cell time: no draw (0.00 hours).\n    - Carbon Compliance Index: improves our position by 0.08 points per unit (i.e., reduces the index by 0.08).\n    - Packaging & Loading Dock throughput: occupies 0.24 slots.\n\n- Eclipse Control Module (final electronics)\n  - Commercial impact: every unit adds 7.92 thousand dollars to gross contribution.\n  - Feasible range this period: 0.00 to 8.57 units.\n  - Resource effects per unit:\n    - CNC Machining Bay A time: no draw (0.00 hours).\n    - Sigma Assembly Cell time: no draw (0.00 hours).\n    - Carbon Compliance Index: no impact (0.00 change).\n    - Packaging & Loading Dock throughput: occupies 4.76 slots.\n\nFacility specs and compliance caps for this period\n- CNC Machining Bay A time: at most 59.88 hours available.\n- Sigma Assembly Cell time: at most 53.24 hours available.\n- Carbon Compliance Index: our net index must not exceed 0.90 for the period.\n- Packaging & Loading Dock throughput: at most 126.85 slots available.\n\nPlease come back with the mix that delivers the highest total gross contribution without breaching any of the above limits or individual lever ceilings."
+}

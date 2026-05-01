@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 10,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, integer nature, upper bounds, per-unit credits, and minimums are clearly listed; objective (minimize total spend) and >= constraints are explicit.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Verbose memo style with repeated 'No impact...' notes and extra prose; clear but longer than necessary.",
+      "realism": 95,
+      "realism_comment": "Highly plausible service-planning problem with contractual minimums, integer booking, and capacity; data and logic are realistic."
+    },
+    "prompt_tokens_with_data": 1562,
+    "prompt_tokens_without_data": 1562
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 177.05,
+    "optimal_values": {
+      "Var_0": 5.0,
+      "Var_1": 7.0,
+      "Var_2": 6.0,
+      "Var_3": -0.0,
+      "Var_4": 3.0,
+      "Var_5": 4.0,
+      "Var_6": -0.0,
+      "Var_7": 15.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 160.63
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 98.64
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 168.31
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 34.41
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 95.97
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.46
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 137.82
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 132.46
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 95.0
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 126.41
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.56
+      ],
+      "objective_linear_coefficient": 4.14,
+      "resource_costs": {
+        "C3": 6.05,
+        "C4": 8.06,
+        "C8": 5.39
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.18
+      ],
+      "objective_linear_coefficient": 9.11,
+      "resource_costs": {
+        "C2": 3.21,
+        "C6": 6.16,
+        "C8": 7.11
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.67
+      ],
+      "objective_linear_coefficient": 4.08,
+      "resource_costs": {
+        "C0": 4.45,
+        "C1": 1.8,
+        "C2": 1.15,
+        "C3": 1.4,
+        "C5": 4.17,
+        "C6": 6.91,
+        "C7": 5.82
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.03
+      ],
+      "objective_linear_coefficient": 8.86,
+      "resource_costs": {
+        "C1": 4.33,
+        "C2": 9.62,
+        "C3": 1.76,
+        "C4": 0.42,
+        "C5": 5.69,
+        "C7": 7.47
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.1
+      ],
+      "objective_linear_coefficient": 4.77,
+      "resource_costs": {
+        "C0": 5.45,
+        "C2": 1.93,
+        "C4": 6.75,
+        "C5": 1.82,
+        "C9": 8.9
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.72
+      ],
+      "objective_linear_coefficient": 9.66,
+      "resource_costs": {
+        "C0": 9.87,
+        "C2": 0.28,
+        "C5": 7.19,
+        "C6": 8.64,
+        "C7": 0.18,
+        "C8": 5.82
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.57
+      ],
+      "objective_linear_coefficient": 9.94,
+      "resource_costs": {
+        "C0": 1.93,
+        "C3": 8.3,
+        "C7": 7.72,
+        "C9": 1.64
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.92
+      ],
+      "objective_linear_coefficient": 1.01,
+      "resource_costs": {
+        "C0": 5.79,
+        "C1": 8.62,
+        "C2": 9.06,
+        "C4": 3.05,
+        "C5": 6.93,
+        "C6": 1.45,
+        "C7": 7.52,
+        "C9": 6.89
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.56, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.14 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.18, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.11 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.67, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.08 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.03, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.86 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.1, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 4.77 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.72, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.66 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.57, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 9.94 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.92, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 1.01 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.45 * vars['Var_2'] + 5.45 * vars['Var_4'] + 9.87 * vars['Var_5'] + 1.93 * vars['Var_6'] + 5.79 * vars['Var_7'] >= 160.63, name='C0')\n    m.addConstr(1.8 * vars['Var_2'] + 4.33 * vars['Var_3'] + 8.62 * vars['Var_7'] >= 98.64, name='C1')\n    m.addConstr(3.21 * vars['Var_1'] + 1.15 * vars['Var_2'] + 9.62 * vars['Var_3'] + 1.93 * vars['Var_4'] + 0.28 * vars['Var_5'] + 9.06 * vars['Var_7'] >= 168.31, name='C2')\n    m.addConstr(6.05 * vars['Var_0'] + 1.4 * vars['Var_2'] + 1.76 * vars['Var_3'] + 8.3 * vars['Var_6'] >= 34.41, name='C3')\n    m.addConstr(8.06 * vars['Var_0'] + 0.42 * vars['Var_3'] + 6.75 * vars['Var_4'] + 3.05 * vars['Var_7'] >= 95.97, name='C4')\n    m.addConstr(4.17 * vars['Var_2'] + 5.69 * vars['Var_3'] + 1.82 * vars['Var_4'] + 7.19 * vars['Var_5'] + 6.93 * vars['Var_7'] >= 153.46, name='C5')\n    m.addConstr(6.16 * vars['Var_1'] + 6.91 * vars['Var_2'] + 8.64 * vars['Var_5'] + 1.45 * vars['Var_7'] >= 137.82, name='C6')\n    m.addConstr(5.82 * vars['Var_2'] + 7.47 * vars['Var_3'] + 0.18 * vars['Var_5'] + 7.72 * vars['Var_6'] + 7.52 * vars['Var_7'] >= 132.46, name='C7')\n    m.addConstr(5.39 * vars['Var_0'] + 7.11 * vars['Var_1'] + 5.82 * vars['Var_5'] >= 95.0, name='C8')\n    m.addConstr(8.9 * vars['Var_4'] + 1.64 * vars['Var_6'] + 6.89 * vars['Var_7'] >= 126.41, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix of field service packages to meet contractual minimums at the lowest possible cost\n\nTeam,\n\nWe need to put together a cost-minimizing mix of service packages to satisfy our minimum quarterly obligations across ten service lines (asset audits, roadway checks, pipeline reviews, vegetation patrols, traffic control, emergency readiness, community liaison, night coverage, training, and data reporting). Each package is purchased and scheduled in whole units only, and each unit contributes a defined amount of \u201cservice credits\u201d toward one or more obligations. We can choose anywhere from zero up to the stated ceiling for each package.\n\nOur levers (in order of consideration)\n\n1) Amber Safety Vans\n- Unit cost: 4.14 (per scheduled unit).\n- Availability: up to 5.56 unit-equivalents this quarter; bookings are in whole units.\n- What it delivers per unit:\n  - Vegetation Management Patrols: 6.05 credits.\n  - Traffic Control Details: 8.06 credits.\n  - Training & Certification: 5.39 credits.\n- No impact on the other obligations.\n\n2) Cobalt Inspection Crews\n- Unit cost: 9.11.\n- Availability: up to 17.18 units; whole units only.\n- What it delivers per unit:\n  - Pipeline Integrity Reviews: 3.21 credits.\n  - Community Liaison & Outreach: 6.16 credits.\n  - Training & Certification: 7.11 credits.\n- No impact on the remaining obligations.\n\n3) Silver Utility Pods\n- Unit cost: 4.08.\n- Availability: up to 9.67 units; whole units only.\n- What it delivers per unit:\n  - Core Asset Integrity (Audit Hours): 4.45 credits.\n  - Roadway Surface Checks: 1.80 credits.\n  - Pipeline Integrity Reviews: 1.15 credits.\n  - Vegetation Management Patrols: 1.40 credits.\n  - Emergency Readiness Drills: 4.17 credits.\n  - Community Liaison & Outreach: 6.91 credits.\n  - Night Operations Coverage: 5.82 credits.\n- No impact on Traffic Control Details, Training & Certification, or Data Reporting & Analytics.\n\n4) Orion Multitask Teams\n- Unit cost: 8.86.\n- Availability: up to 15.03 units; whole units only.\n- What it delivers per unit:\n  - Roadway Surface Checks: 4.33 credits.\n  - Pipeline Integrity Reviews: 9.62 credits.\n  - Vegetation Management Patrols: 1.76 credits.\n  - Traffic Control Details: 0.42 credits.\n  - Emergency Readiness Drills: 5.69 credits.\n  - Night Operations Coverage: 7.47 credits.\n- No impact on Core Asset Integrity, Community Liaison & Outreach, Training & Certification, or Data Reporting & Analytics.\n\n5) Verdant Support Units\n- Unit cost: 4.77.\n- Availability: up to 15.10 units; whole units only.\n- What it delivers per unit:\n  - Core Asset Integrity (Audit Hours): 5.45 credits.\n  - Pipeline Integrity Reviews: 1.93 credits.\n  - Traffic Control Details: 6.75 credits.\n  - Emergency Readiness Drills: 1.82 credits.\n  - Data Reporting & Analytics: 8.90 credits.\n- No impact on Roadway Surface Checks, Vegetation Management Patrols, Community Liaison & Outreach, Night Operations Coverage, or Training & Certification.\n\n6) Titan Heavy Crews\n- Unit cost: 9.66.\n- Availability: up to 13.72 units; whole units only.\n- What it delivers per unit:\n  - Core Asset Integrity (Audit Hours): 9.87 credits.\n  - Pipeline Integrity Reviews: 0.28 credits.\n  - Emergency Readiness Drills: 7.19 credits.\n  - Community Liaison & Outreach: 8.64 credits.\n  - Night Operations Coverage: 0.18 credits.\n  - Training & Certification: 5.82 credits.\n- No impact on Roadway Surface Checks, Vegetation Management Patrols, Traffic Control Details, or Data Reporting & Analytics.\n\n7) Nightfire Specialists\n- Unit cost: 9.94.\n- Availability: up to 11.57 units; whole units only.\n- What it delivers per unit:\n  - Core Asset Integrity (Audit Hours): 1.93 credits.\n  - Vegetation Management Patrols: 8.30 credits.\n  - Night Operations Coverage: 7.72 credits.\n  - Data Reporting & Analytics: 1.64 credits.\n- No impact on Roadway Surface Checks, Pipeline Integrity Reviews, Traffic Control Details, Emergency Readiness Drills, Community Liaison & Outreach, or Training & Certification.\n\n8) Prairie Generalist Teams\n- Unit cost: 1.01.\n- Availability: up to 15.92 units; whole units only.\n- What it delivers per unit:\n  - Core Asset Integrity (Audit Hours): 5.79 credits.\n  - Roadway Surface Checks: 8.62 credits.\n  - Pipeline Integrity Reviews: 9.06 credits.\n  - Traffic Control Details: 3.05 credits.\n  - Emergency Readiness Drills: 6.93 credits.\n  - Community Liaison & Outreach: 1.45 credits.\n  - Night Operations Coverage: 7.52 credits.\n  - Data Reporting & Analytics: 6.89 credits.\n- No impact on Training & Certification.\n\nMarket and contract minimums we must at least meet (quarterly)\n- Core Asset Integrity (Audit Hours): 160.63 credits minimum.\n- Roadway Surface Checks: 98.64 credits minimum.\n- Pipeline Integrity Reviews: 168.31 credits minimum.\n- Vegetation Management Patrols: 34.41 credits minimum.\n- Traffic Control Details: 95.97 credits minimum.\n- Emergency Readiness Drills: 153.46 credits minimum.\n- Community Liaison & Outreach: 137.82 credits minimum.\n- Night Operations Coverage: 132.46 credits minimum.\n- Training & Certification: 95.00 credits minimum.\n- Data Reporting & Analytics: 126.41 credits minimum.\n\nPlease review. The intent is to meet or exceed each of the above minimums at the lowest total spend by selecting whole numbers of the packages listed, without exceeding the stated availability for any package. Once aligned on this structure, we can run the numbers and recommend the exact mix."
+}

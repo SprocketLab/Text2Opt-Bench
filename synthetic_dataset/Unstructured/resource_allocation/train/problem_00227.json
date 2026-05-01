@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource limits are clearly stated. Minor ambiguity only in variable naming for code; the mathematical model is fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds extra context and fluff, but technical data is concise and non-repetitive.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning scenario with plausible resources, capacities, and integer/continuous decisions."
+    },
+    "prompt_tokens_with_data": 944,
+    "prompt_tokens_without_data": 944
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 400.83019678477217,
+    "optimal_values": {
+      "Var_0": 3.009184817373368,
+      "Var_1": 14.96,
+      "Var_2": 9.0,
+      "Var_3": 16.9,
+      "Var_4": -0.0,
+      "Var_5": 2.8683159463487344
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 145.29
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 108.97
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 164.19
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.88
+      ],
+      "objective_linear_coefficient": 1.01,
+      "resource_costs": {
+        "C1": 2.39,
+        "C2": 8.83
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.96
+      ],
+      "objective_linear_coefficient": 8.91,
+      "resource_costs": {
+        "C0": 1.16,
+        "C1": 2.79,
+        "C2": 3.39
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.91
+      ],
+      "objective_linear_coefficient": 9.0,
+      "resource_costs": {
+        "C0": 2.5,
+        "C1": 1.81,
+        "C2": 0.21
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.9
+      ],
+      "objective_linear_coefficient": 9.59,
+      "resource_costs": {
+        "C0": 5.1,
+        "C2": 3.71
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.78
+      ],
+      "objective_linear_coefficient": 4.74,
+      "resource_costs": {
+        "C0": 9.09,
+        "C1": 8.33,
+        "C2": 9.36
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.14
+      ],
+      "objective_linear_coefficient": 7.47,
+      "resource_costs": {
+        "C0": 6.71,
+        "C1": 1.71,
+        "C2": 7.78
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.88, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.01 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.96, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.91 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.91, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.0 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.9, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.59 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.78, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 4.74 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.14, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.47 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.16 * vars['Var_1'] + 2.5 * vars['Var_2'] + 5.1 * vars['Var_3'] + 9.09 * vars['Var_4'] + 6.71 * vars['Var_5'] <= 145.29, name='C0')\n    m.addConstr(2.39 * vars['Var_0'] + 2.79 * vars['Var_1'] + 1.81 * vars['Var_2'] + 8.33 * vars['Var_4'] + 1.71 * vars['Var_5'] <= 108.97, name='C1')\n    m.addConstr(8.83 * vars['Var_0'] + 3.39 * vars['Var_1'] + 0.21 * vars['Var_2'] + 3.71 * vars['Var_3'] + 9.36 * vars['Var_4'] + 7.78 * vars['Var_5'] <= 164.19, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Guidance Needed to Maximize Contribution Under Plant Limits\n\nTeam,\n\nWe\u2019d like your support to set our upcoming production mix so that total net contribution is maximized while respecting our key plant limits. We have six offerings we can adjust this period, each drawing on the same three constrained resources: CNC machining center time, certified assembly labor, and composite resin inventory. Below are the levers we can move and how each one contributes financially and uses capacity.\n\nLevers we can adjust (in the order we want you to consider them):\n\n- Field Service Kits\n  - Financials: Generates $1.01K in net contribution per kit.\n  - Scale: We can produce anywhere from 0.0 up to 18.88 kits, and we can schedule fractional batches.\n  - Resource use per kit: Requires 2.39 certified assembly labor hours and 8.83 units of composite resin. It does not consume CNC machining center time.\n\n- Alpha Housings\n  - Financials: Generates $8.91K in net contribution per housing.\n  - Scale: We can produce anywhere from 0.0 up to 14.96 housings; fractional runs are acceptable.\n  - Resource use per housing: Draws 1.16 CNC machining hours, 2.79 certified assembly labor hours, and 3.39 units of composite resin.\n\n- Premier Gearboxes\n  - Financials: Generates $9.00K in net contribution per gearbox.\n  - Scale: We can produce from 0.0 up to 9.91 gearboxes, but these must be planned in whole units only.\n  - Resource use per gearbox: Draws 2.50 CNC machining hours, 1.81 certified assembly labor hours, and 0.21 units of composite resin.\n\n- Titan Frames\n  - Financials: Generates $9.59K in net contribution per frame.\n  - Scale: We can produce anywhere from 0.0 up to 16.9 frames; fractional batches are fine.\n  - Resource use per frame: Draws 5.10 CNC machining hours and 3.71 units of composite resin. It does not require any certified assembly labor hours.\n\n- Custom Control Cabinets\n  - Financials: Generates $4.74K in net contribution per cabinet.\n  - Scale: We can produce from 0.0 up to 18.78 cabinets, but only in whole units.\n  - Resource use per cabinet: Draws 9.09 CNC machining hours, 8.33 certified assembly labor hours, and 9.36 units of composite resin.\n\n- Omega Pumps\n  - Financials: Generates $7.47K in net contribution per pump.\n  - Scale: We can produce anywhere from 0.0 up to 13.14 pumps; fractional runs are acceptable.\n  - Resource use per pump: Draws 6.71 CNC machining hours, 1.71 certified assembly labor hours, and 7.78 units of composite resin.\n\nFacility specs and material limits (do not exceed):\n\n- CNC machining center availability: 145.29 hours total.\n- Certified assembly labor availability: 108.97 hours total.\n- Composite resin inventory on hand: 164.19 units total.\n\nOur objective is to allocate production across the above offerings to maximize total net contribution while staying within these three limits and adhering to each item\u2019s minimum/maximum run sizes and whole-unit requirements where noted. Please come back with the recommended mix and the implied utilization of each constrained resource.\n\nThanks,\nOperations Planning\nAtlas Components Division"
+}

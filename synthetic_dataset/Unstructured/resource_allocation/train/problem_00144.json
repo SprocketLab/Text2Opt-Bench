@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and constraints are explicit; objective is clear. \u201cDoes not change\u201d clarifies zero coefficients. Fractional caps on integer items are unusual but unambiguous.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative style and repeated \u201cdoes not change\u201d lists add length but help clarify zeros; overall well-structured and clear.",
+      "realism": 90,
+      "realism_comment": "Feels like a genuine planning problem with plausible costs/thresholds; minor oddities include fractional caps on integer items and a negative inclusion threshold."
+    },
+    "prompt_tokens_with_data": 919,
+    "prompt_tokens_without_data": 919
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 79.76550980006472,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": -0.0,
+      "Var_2": 4.2144846796657385,
+      "Var_3": 7.810933940774488
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 86.25
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -1.28
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 31.85
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 63.56
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 5.84
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 68.58
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.13
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.45
+      ],
+      "objective_linear_coefficient": 6.52,
+      "resource_costs": {
+        "C0": 9.84,
+        "C2": 3.82,
+        "C3": 7.18,
+        "C4": 0.96
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.76
+      ],
+      "objective_linear_coefficient": 7.66,
+      "resource_costs": {
+        "C0": 0.56,
+        "C1": 0.64
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.75
+      ],
+      "objective_linear_coefficient": 1.63,
+      "resource_costs": {
+        "C6": 3.59
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.1
+      ],
+      "objective_linear_coefficient": 1.82,
+      "resource_costs": {
+        "C5": 8.78
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.45, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.52 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.76, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.66 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.75, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.63 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.1, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.82 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.84 * vars['Var_0'] + 0.56 * vars['Var_1'] >= 86.25, name='C0')\n    m.addConstr(0.64 * vars['Var_1'] >= -1.28, name='C1')\n    m.addConstr(3.82 * vars['Var_0'] >= 31.85, name='C2')\n    m.addConstr(7.18 * vars['Var_0'] >= 63.56, name='C3')\n    m.addConstr(0.96 * vars['Var_0'] >= 5.84, name='C4')\n    m.addConstr(8.78 * vars['Var_3'] >= 68.58, name='C5')\n    m.addConstr(3.59 * vars['Var_2'] >= 15.13, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost\u2011minimizing mix for our network expansion and service readiness plan\n\nTeam,\n\nWe\u2019re preparing the next planning cycle and need your help to determine the least\u2011cost mix of initiatives that will still satisfy our regulatory, service, and capability minimums. The objective is to minimize total spend while meeting all of the minimum thresholds described below.\n\nThe levers we can pull\n\n1) Urban Node Revamps (capital units)\n- Commercial terms: Each revamp carries a unit cost of 6.52. We may choose anywhere from zero up to 10.45 revamps this cycle, and procurement must be in whole units.\n- What this improves:\n  - Coverage Commitment Index: +9.84 points for every revamp.\n  - Energy Efficiency Score: +3.82 points per revamp.\n  - Data Throughput Benchmark: +7.18 points per revamp.\n  - Quality Assurance Score: +0.96 points per revamp.\n- What it does not change:\n  - No impact on the Inclusion Credit, Field Dispatch Readiness, or Training Accreditation Hours.\n\n2) Rural Coverage Booster Kits (deployment packages)\n- Commercial terms: Each kit costs 7.66. We can deploy from zero up to 8.76 kits, and orders must be in whole units.\n- What this improves:\n  - Coverage Commitment Index: +0.56 points per kit.\n  - Inclusion Credit: +0.64 points per kit.\n- What it does not change:\n  - No impact on Energy Efficiency, Data Throughput, Quality Assurance, Field Dispatch Readiness, or Training Accreditation Hours.\n\n3) Technician Training Hours (overtime and coursework)\n- Commercial terms: Each hour costs 1.63. We can schedule from zero up to 17.75 hours, and this can be fractional (partial hours are acceptable).\n- What this improves:\n  - Training Accreditation Hours: +3.59 hours credited for each hour scheduled.\n- What it does not change:\n  - No impact on Coverage Commitment, Inclusion Credit, Energy Efficiency, Data Throughput, Quality Assurance, or Field Dispatch Readiness.\n\n4) Third\u2011Party Dispatch Blocks (capacity contracts)\n- Commercial terms: Each block costs 1.82. We may contract from zero up to 9.1 blocks, and this can be fractional.\n- What this improves:\n  - Field Dispatch Readiness: +8.78 capacity points for each block.\n- What it does not change:\n  - No impact on Coverage Commitment, Inclusion Credit, Energy Efficiency, Data Throughput, Quality Assurance, or Training Accreditation Hours.\n\nMarket limits and compliance minimums we must meet\n\n- Coverage Commitment Index: at least 86.25 points across the combined program.\n- Inclusion Credit: at least \u22121.28 points (higher is better; we cannot be worse than \u22121.28).\n- Energy Efficiency Score: at least 31.85 points.\n- Data Throughput Benchmark: at least 63.56 points.\n- Quality Assurance Score: at least 5.84 points.\n- Field Dispatch Readiness: at least 68.58 capacity points.\n- Training Accreditation Hours: at least 15.13 hours.\n\nPlease develop the cost\u2011minimizing mix of the four levers above that satisfies every minimum. As a reminder, Urban Node Revamps and Rural Coverage Booster Kits must be ordered in whole units, while Technician Training Hours and Third\u2011Party Dispatch Blocks can be fractional within the stated ranges."
+}

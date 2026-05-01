@@ -1,0 +1,357 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 16,
+    "num_constraints": 13,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Fully specified LP: clear per-product profits, bounds, resource coefficients, and capacities. Direct one-to-one mapping to all constraints; no missing values or contradictions.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Detailed and somewhat verbose; \u201cNotes\u201d lines reiterate zero-usage. Extra narrative could be trimmed, but it aids clarity without causing confusion.",
+      "realism": 98,
+      "realism_comment": "Very realistic production planning scenario with plausible shared resources (QA, autoclave, docks, hazmat, freight). Data are consistent and operationally credible."
+    },
+    "prompt_tokens_with_data": 2196,
+    "prompt_tokens_without_data": 2196
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 620.8500131351569,
+    "optimal_values": {
+      "Var_0": 6.042793562956626,
+      "Var_1": 9.414712063664112,
+      "Var_2": 2.2401550553152703,
+      "Var_3": 3.633803844227218,
+      "Var_4": 8.09,
+      "Var_5": 0.0,
+      "Var_6": 10.69,
+      "Var_7": 10.24419928532221,
+      "Var_8": 15.555358721224227,
+      "Var_9": 2.6614618772179446,
+      "Var_10": 9.72,
+      "Var_11": 0.0,
+      "Var_12": 0.701488901592439,
+      "Var_13": 15.45,
+      "Var_14": 0.0,
+      "Var_15": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 84.32
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 210.89
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 117.78
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 189.47
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 204.21
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 282.87
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 178.09
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 217.45
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 35.26
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 403.42
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 126.06
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 131.8
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 267.27
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.88
+      ],
+      "objective_linear_coefficient": 1.29,
+      "resource_costs": {
+        "C1": 2.29,
+        "C11": 2.29
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.93
+      ],
+      "objective_linear_coefficient": 9.8,
+      "resource_costs": {
+        "C0": 6.07,
+        "C1": 7.97,
+        "C2": 1.29,
+        "C3": 7.83,
+        "C5": 8.7,
+        "C7": 9.55
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.16
+      ],
+      "objective_linear_coefficient": 6.95,
+      "resource_costs": {
+        "C2": 3.05,
+        "C3": 8.9,
+        "C4": 8.04,
+        "C6": 4.77,
+        "C7": 5.86,
+        "C9": 5.53,
+        "C11": 5.37,
+        "C12": 6.0
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.14
+      ],
+      "objective_linear_coefficient": 8.73,
+      "resource_costs": {
+        "C0": 5.75,
+        "C4": 6.34,
+        "C6": 4.46,
+        "C7": 3.67,
+        "C10": 9.68,
+        "C11": 8.69,
+        "C12": 9.11
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.09
+      ],
+      "objective_linear_coefficient": 9.4,
+      "resource_costs": {
+        "C1": 3.22,
+        "C3": 7.04,
+        "C5": 7.11,
+        "C9": 8.19
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.71
+      ],
+      "objective_linear_coefficient": 3.22,
+      "resource_costs": {
+        "C1": 3.1,
+        "C2": 9.89,
+        "C4": 8.0,
+        "C7": 0.99,
+        "C8": 0.86,
+        "C9": 7.44,
+        "C10": 1.89,
+        "C12": 6.63
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.69
+      ],
+      "objective_linear_coefficient": 3.34,
+      "resource_costs": {
+        "C2": 0.73,
+        "C3": 1.69,
+        "C7": 4.48,
+        "C12": 9.07
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.23
+      ],
+      "objective_linear_coefficient": 7.59,
+      "resource_costs": {
+        "C1": 0.65,
+        "C3": 2.03,
+        "C5": 9.91,
+        "C6": 7.41,
+        "C9": 9.39,
+        "C10": 8.31
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.87
+      ],
+      "objective_linear_coefficient": 7.85,
+      "resource_costs": {
+        "C2": 5.85,
+        "C9": 7.94,
+        "C10": 0.37,
+        "C11": 4.78
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.22
+      ],
+      "objective_linear_coefficient": 5.88,
+      "resource_costs": {
+        "C1": 3.95,
+        "C7": 9.94,
+        "C9": 6.61
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.72
+      ],
+      "objective_linear_coefficient": 8.67,
+      "resource_costs": {
+        "C1": 7.61,
+        "C7": 2.75,
+        "C8": 2.09,
+        "C9": 9.0
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.97
+      ],
+      "objective_linear_coefficient": 2.55,
+      "resource_costs": {
+        "C1": 1.16,
+        "C5": 2.11,
+        "C6": 6.17,
+        "C8": 0.94,
+        "C9": 9.33,
+        "C12": 6.09
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.71
+      ],
+      "objective_linear_coefficient": 7.06,
+      "resource_costs": {
+        "C0": 8.95,
+        "C1": 6.88,
+        "C6": 7.18
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.45
+      ],
+      "objective_linear_coefficient": 3.69,
+      "resource_costs": {
+        "C4": 6.52
+      }
+    },
+    "Var_14": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.35
+      ],
+      "objective_linear_coefficient": 3.13,
+      "resource_costs": {
+        "C0": 0.14,
+        "C2": 3.55,
+        "C3": 1.43,
+        "C4": 5.53,
+        "C5": 8.09,
+        "C6": 0.87,
+        "C10": 1.37,
+        "C11": 7.87
+      }
+    },
+    "Var_15": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.08
+      ],
+      "objective_linear_coefficient": 5.48,
+      "resource_costs": {
+        "C0": 6.95,
+        "C4": 8.11,
+        "C5": 8.24,
+        "C6": 6.78,
+        "C7": 9.54,
+        "C9": 6.45,
+        "C11": 9.89,
+        "C12": 8.18
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.88, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.29 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.93, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.8 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=9.72, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 8.67 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=10.97, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 2.55 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=16.71, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 7.06 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=15.45, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 3.69 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=17.35, vtype=GRB.CONTINUOUS, name='Var_14')\n    lin_expr += 3.13 * vars['Var_14']\n    vars['Var_15'] = m.addVar(lb=0.0, ub=19.08, vtype=GRB.CONTINUOUS, name='Var_15')\n    lin_expr += 5.48 * vars['Var_15']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.16, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.95 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.14, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.73 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.09, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.4 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.71, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.22 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.69, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.34 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=11.23, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.59 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=15.87, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 7.85 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=10.22, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 5.88 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.07 * vars['Var_1'] + 8.95 * vars['Var_12'] + 0.14 * vars['Var_14'] + 6.95 * vars['Var_15'] + 5.75 * vars['Var_3'] <= 84.32, name='C0')\n    m.addConstr(2.29 * vars['Var_0'] + 7.97 * vars['Var_1'] + 7.61 * vars['Var_10'] + 1.16 * vars['Var_11'] + 6.88 * vars['Var_12'] + 3.22 * vars['Var_4'] + 3.1 * vars['Var_5'] + 0.65 * vars['Var_7'] + 3.95 * vars['Var_9'] <= 210.89, name='C1')\n    m.addConstr(1.37 * vars['Var_14'] + 9.68 * vars['Var_3'] + 1.89 * vars['Var_5'] + 8.31 * vars['Var_7'] + 0.37 * vars['Var_8'] <= 126.06, name='C10')\n    m.addConstr(2.29 * vars['Var_0'] + 7.87 * vars['Var_14'] + 9.89 * vars['Var_15'] + 5.37 * vars['Var_2'] + 8.69 * vars['Var_3'] + 4.78 * vars['Var_8'] <= 131.8, name='C11')\n    m.addConstr(6.09 * vars['Var_11'] + 8.18 * vars['Var_15'] + 6.0 * vars['Var_2'] + 9.11 * vars['Var_3'] + 6.63 * vars['Var_5'] + 9.07 * vars['Var_6'] <= 267.27, name='C12')\n    m.addConstr(1.29 * vars['Var_1'] + 3.55 * vars['Var_14'] + 3.05 * vars['Var_2'] + 9.89 * vars['Var_5'] + 0.73 * vars['Var_6'] + 5.85 * vars['Var_8'] <= 117.78, name='C2')\n    m.addConstr(7.83 * vars['Var_1'] + 1.43 * vars['Var_14'] + 8.9 * vars['Var_2'] + 7.04 * vars['Var_4'] + 1.69 * vars['Var_6'] + 2.03 * vars['Var_7'] <= 189.47, name='C3')\n    m.addConstr(6.52 * vars['Var_13'] + 5.53 * vars['Var_14'] + 8.11 * vars['Var_15'] + 8.04 * vars['Var_2'] + 6.34 * vars['Var_3'] + 8.0 * vars['Var_5'] <= 204.21, name='C4')\n    m.addConstr(8.7 * vars['Var_1'] + 2.11 * vars['Var_11'] + 8.09 * vars['Var_14'] + 8.24 * vars['Var_15'] + 7.11 * vars['Var_4'] + 9.91 * vars['Var_7'] <= 282.87, name='C5')\n    m.addConstr(6.17 * vars['Var_11'] + 7.18 * vars['Var_12'] + 0.87 * vars['Var_14'] + 6.78 * vars['Var_15'] + 4.77 * vars['Var_2'] + 4.46 * vars['Var_3'] + 7.41 * vars['Var_7'] <= 178.09, name='C6')\n    m.addConstr(9.55 * vars['Var_1'] + 2.75 * vars['Var_10'] + 9.54 * vars['Var_15'] + 5.86 * vars['Var_2'] + 3.67 * vars['Var_3'] + 0.99 * vars['Var_5'] + 4.48 * vars['Var_6'] + 9.94 * vars['Var_9'] <= 217.45, name='C7')\n    m.addConstr(2.09 * vars['Var_10'] + 0.94 * vars['Var_11'] + 0.86 * vars['Var_5'] <= 35.26, name='C8')\n    m.addConstr(9.0 * vars['Var_10'] + 9.33 * vars['Var_11'] + 6.45 * vars['Var_15'] + 5.53 * vars['Var_2'] + 8.19 * vars['Var_4'] + 7.44 * vars['Var_5'] + 9.39 * vars['Var_7'] + 7.94 * vars['Var_8'] + 6.61 * vars['Var_9'] <= 403.42, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Weekly Production Mix \u2014 Maximize Contribution Under Current Plant Limits\n\nTeam,\n\nWe need to set our upcoming production plan to maximize total contribution while staying within this week\u2019s staffing, equipment, and logistics limits. There are no minimum commitments this cycle\u2014any item may be set to zero\u2014and each item has a firm ceiling based on demand and material availability. Below is the decision context for each product family, followed by the facility and market limits we must honor.\n\nThe levers (per-lot contribution, per-lot resource use, and weekly caps)\n\n- Aurora Starter Kits\n  - Financials and cap: Each lot contributes $1.29k in margin; up to 9.88 lots may be scheduled.\n  - Resource use per lot: 2.29 skilled assembly hours and 2.29 quality assurance lab hours.\n  - Notes: Draws on no other constrained resources this week.\n\n- Nimbus Pro Assemblies\n  - Financials and cap: Each lot contributes $9.80k; up to 18.93 lots.\n  - Resource use per lot: 6.07 hours in Blending Suite Alpha, 7.97 skilled assembly hours, 1.29 hours in Reactor R1 formulation, 7.83 hours on Packaging Line A, 8.70 outbound dock slots, and 9.55 hours on Secondary Line B.\n  - Notes: No additional constrained resources required.\n\n- Sapphire Gel Packs\n  - Financials and cap: Each lot contributes $6.95k; up to 13.16 lots.\n  - Resource use per lot: 3.05 hours in Reactor R1, 8.90 hours on Packaging Line A, 8.04 hours on Distillation Column B, 4.77 units of cooling & utilities capacity, 5.86 hours on Secondary Line B, 5.53 freight-capacity units, 5.37 QA lab hours, and 6.00 tons of Material Z allotment.\n  - Notes: No use of Blending Suite Alpha, hazmat quota, or autoclave time.\n\n- Crimson Resin Cartridges\n  - Financials and cap: Each lot contributes $8.73k; up to 16.14 lots.\n  - Resource use per lot: 5.75 hours in Blending Suite Alpha, 6.34 hours on Distillation Column B, 4.46 units of cooling & utilities capacity, 3.67 hours on Secondary Line B, 9.68 hours of Autoclave Bay time, 8.69 QA lab hours, and 9.11 tons of Material Z.\n  - Notes: No Reactor R1 or outbound dock draw.\n\n- Emerald Filter Modules\n  - Financials and cap: Each lot contributes $9.40k; up to 8.09 lots.\n  - Resource use per lot: 3.22 skilled assembly hours, 7.04 hours on Packaging Line A, 7.11 outbound dock slots, and 8.19 freight-capacity units.\n  - Notes: No QA or Material Z usage.\n\n- Topaz Cleaners\n  - Financials and cap: Each lot contributes $3.22k; up to 10.71 lots.\n  - Resource use per lot: 3.10 skilled assembly hours, 9.89 hours in Reactor R1, 8.00 hours on Distillation Column B, 0.99 hours on Secondary Line B, 0.86 units of hazmat handling quota, 7.44 freight-capacity units, 1.89 hours of Autoclave Bay time, and 6.63 tons of Material Z.\n  - Notes: No Blending Suite Alpha or Packaging Line A use beyond those listed.\n\n- Onyx Adhesive Tubes\n  - Financials and cap: Each lot contributes $3.34k; up to 10.69 lots.\n  - Resource use per lot: 0.73 hours in Reactor R1, 1.69 hours on Packaging Line A, 4.48 hours on Secondary Line B, and 9.07 tons of Material Z.\n  - Notes: No QA, dock, or hazmat usage.\n\n- Silver Shield Coatings\n  - Financials and cap: Each lot contributes $7.59k; up to 11.23 lots.\n  - Resource use per lot: 0.65 skilled assembly hours, 2.03 hours on Packaging Line A, 9.91 outbound dock slots, 7.41 units of cooling & utilities capacity, 9.39 freight-capacity units, and 8.31 hours of Autoclave Bay time.\n  - Notes: No Reactor R1 or Material Z usage.\n\n- Quartz Fiber Panels\n  - Financials and cap: Each lot contributes $7.85k; up to 15.87 lots.\n  - Resource use per lot: 5.85 hours in Reactor R1, 7.94 freight-capacity units, 0.37 hours of Autoclave Bay time, and 4.78 QA lab hours.\n  - Notes: No assembly, packaging, or dock draw.\n\n- Cobalt Pump Kits\n  - Financials and cap: Each lot contributes $5.88k; up to 10.22 lots.\n  - Resource use per lot: 3.95 skilled assembly hours, 9.94 hours on Secondary Line B, and 6.61 freight-capacity units.\n  - Notes: No QA, Reactor R1, or autoclave demand.\n\n- Titanium Valve Sets\n  - Financials and cap: Each lot contributes $8.67k; up to 9.72 lots.\n  - Resource use per lot: 7.61 skilled assembly hours, 2.75 hours on Secondary Line B, 2.09 units of hazmat handling quota, and 9.00 freight-capacity units.\n  - Notes: No Reactor R1, QA, or Material Z draw.\n\n- Amber Safety Units\n  - Financials and cap: Each lot contributes $2.55k; up to 10.97 lots.\n  - Resource use per lot: 1.16 skilled assembly hours, 2.11 outbound dock slots, 6.17 units of cooling & utilities capacity, 0.94 units of hazmat handling quota, 9.33 freight-capacity units, and 6.09 tons of Material Z.\n  - Notes: No Reactor R1, autoclave, or QA hours required.\n\n- Polar Refrigerant Packs\n  - Financials and cap: Each lot contributes $7.06k; up to 16.71 lots.\n  - Resource use per lot: 8.95 hours in Blending Suite Alpha, 6.88 skilled assembly hours, and 7.18 units of cooling & utilities capacity.\n  - Notes: No packaging, QA, dock, or Material Z draw.\n\n- Iris Microchips\n  - Financials and cap: Each lot contributes $3.69k; up to 15.45 lots.\n  - Resource use per lot: 6.52 hours on Distillation Column B.\n  - Notes: No other constrained resources required.\n\n- Violet Diagnostic Strips\n  - Financials and cap: Each lot contributes $3.13k; up to 17.35 lots.\n  - Resource use per lot: 0.14 hours in Blending Suite Alpha, 3.55 hours in Reactor R1, 1.43 hours on Packaging Line A, 5.53 hours on Distillation Column B, 8.09 outbound dock slots, 0.87 units of cooling & utilities capacity, 1.37 hours of Autoclave Bay time, and 7.87 QA lab hours.\n  - Notes: No Material Z usage.\n\n- Obsidian Control Units\n  - Financials and cap: Each lot contributes $5.48k; up to 19.08 lots.\n  - Resource use per lot: 6.95 hours in Blending Suite Alpha, 8.11 hours on Distillation Column B, 8.24 outbound dock slots, 6.78 units of cooling & utilities capacity, 9.54 hours on Secondary Line B, 6.45 freight-capacity units, 9.89 QA lab hours, and 8.18 tons of Material Z.\n  - Notes: No Reactor R1 or Autoclave Bay demand.\n\nFacility specs and market limits (weekly availability)\n\n- Blending Suite Alpha time: up to 84.32 hours.\n- Skilled assembly hours: up to 210.89 hours.\n- Reactor R1 formulation time: up to 117.78 hours.\n- Packaging Line A time: up to 189.47 hours.\n- Distillation Column B time: up to 204.21 hours.\n- Outbound dock slots: up to 282.87 slots.\n- Cooling & utilities capacity: up to 178.09 units.\n- Secondary Line B time: up to 217.45 hours.\n- Hazmat handling quota: up to 35.26 units.\n- Bulk freight capacity: up to 403.42 units.\n- Autoclave Bay time: up to 126.06 hours.\n- Quality Assurance lab hours: up to 131.80 hours.\n- Material Z allotment: up to 267.27 tons.\n\nPlease apply these details to generate the recommended lot sizes that maximize this week\u2019s total contribution while respecting the limits above. If any assumption needs clarification (naming, units, or caps), we can adjust before finalizing the schedule."
+}

@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All per-unit margins, bounds, and resource usages are explicit; two caps given with exact values; zero impacts clarified. Objective and constraints reconstruct mechanically as a linear LP.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative adds business context and some verbosity, but numeric details are clear and non-repetitive. Moderate extra text without hindering precision.",
+      "realism": 97,
+      "realism_comment": "Highly plausible production planning with still-time and cold-chain limits, per-unit margins, and volume caps. Feels like genuine operations decision-making."
+    },
+    "prompt_tokens_with_data": 777,
+    "prompt_tokens_without_data": 777
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 157.4782764571949,
+    "optimal_values": {
+      "Var_0": 16.22,
+      "Var_1": 5.308070734669095,
+      "Var_2": 7.685185185185185,
+      "Var_3": 12.59
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.6
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 99.61
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.22
+      ],
+      "objective_linear_coefficient": 3.27,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.56
+      ],
+      "objective_linear_coefficient": 2.17,
+      "resource_costs": {
+        "C1": 9.76
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.09
+      ],
+      "objective_linear_coefficient": 3.31,
+      "resource_costs": {
+        "C0": 2.16,
+        "C1": 1.24
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.59
+      ],
+      "objective_linear_coefficient": 5.36,
+      "resource_costs": {
+        "C1": 3.04
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.22, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.27 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.56, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.17 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.09, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.31 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.59, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.36 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.16 * vars['Var_2'] <= 16.6, name='C0')\n    m.addConstr(9.76 * vars['Var_1'] + 1.24 * vars['Var_2'] + 3.04 * vars['Var_3'] <= 99.61, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Q2 Mix to Maximize Contribution Under Still B and Cold-Chain Limits\n\nTeam,\n\nAs we finalize the Q2 production and fulfillment plan, our goal is to maximize total contribution while respecting two tight bottlenecks this period: time on Copper Still B and our refrigerated distribution allotment. Below are the levers available to us and how each one affects those limits.\n\n- Digital Tasting Kits (voucher-based add-on)\n  - Financials: Each kit contributes 3.27 per unit in margin.\n  - Volume flexibility: We are not obligated to offer any minimum volume, and can scale up to a hard cap of 16.22 units this quarter.\n  - Resource impact: This stream is fulfillment-light. It draws 0.00 hours from Copper Still B and uses 0.00 pallet-day equivalents from our refrigerated distribution pool.\n\n- Fresh Citrus Coolers (chilled bottled line)\n  - Financials: Each case contributes 2.17 per unit in margin.\n  - Volume flexibility: No minimum commitment; we can go up to 15.56 units based on secured fruit and bottling windows.\n  - Resource impact: This item is refrigeration-intensive, requiring 9.76 pallet-day equivalents of cold-chain capacity per unit. It does not require any time on Copper Still B (0.00 hours).\n\n- Reserve Botanical Gin (small-batch premium spirit)\n  - Financials: Each batch contributes 3.31 per unit in margin.\n  - Volume flexibility: We can run anywhere from zero up to 11.09 units this quarter, given botanicals availability and labeling.\n  - Resource impact: This is the only item that taps Still B, needing 2.16 operating hours on Copper Still B per unit. It also requires 1.24 pallet-day equivalents of refrigerated distribution per unit for outbound logistics.\n\n- Sparkling Berry Kombucha (refrigerated RTD)\n  - Financials: Each run contributes 5.36 per unit in margin.\n  - Volume flexibility: No minimum, with a ceiling of 12.59 units due to flavor rotation and shelf-life planning.\n  - Resource impact: This product uses 3.04 pallet-day equivalents of refrigerated distribution per unit. It does not use Copper Still B at all (0.00 hours).\n\nFacility Specs & Logistics Limits (do not exceed)\n- Copper Still B: Available operating time is capped at 16.6 hours for the quarter.\n- Refrigerated Distribution: Our total cold-chain capacity across lanes and DCs is capped at 99.61 pallet-day equivalents for the quarter.\n\nPlease use the above to recommend the mix that maximizes total contribution while staying within the specified caps for Still B and refrigerated distribution, and while observing the individual volume ceilings on each item."
+}

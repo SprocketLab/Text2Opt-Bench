@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit coefficients, bounds, resource usage and capacities, and variable integrality. Objective to maximize contribution is clear. Model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style adds some fluff, but key data is concise in bullet points; minimal repetition beyond context.",
+      "realism": 96,
+      "realism_comment": "Feels like real production planning: prep, lab, storage capacities; discrete batches and fractional volumes; plausible numbers and constraints."
+    },
+    "prompt_tokens_with_data": 869,
+    "prompt_tokens_without_data": 869
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 283.95491906542406,
+    "optimal_values": {
+      "Var_0": 1.0,
+      "Var_1": 11.896706586826348,
+      "Var_2": 2.7541601495617747,
+      "Var_3": 0.0,
+      "Var_4": 15.76,
+      "Var_5": 12.59
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.87
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 13.97
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 79.47
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.88
+      ],
+      "objective_linear_coefficient": 1.18,
+      "resource_costs": {
+        "C0": 3.2
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.31
+      ],
+      "objective_linear_coefficient": 9.35,
+      "resource_costs": {
+        "C0": 3.77,
+        "C2": 6.68
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.45
+      ],
+      "objective_linear_coefficient": 3.2,
+      "resource_costs": {
+        "C0": 6.47,
+        "C1": 4.61
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.27
+      ],
+      "objective_linear_coefficient": 7.44,
+      "resource_costs": {
+        "C2": 8.03
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.76
+      ],
+      "objective_linear_coefficient": 4.27,
+      "resource_costs": {}
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.59
+      ],
+      "objective_linear_coefficient": 7.58,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.88, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.18 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.31, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.35 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.45, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.2 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.27, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.44 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.76, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.27 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.59, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.58 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.2 * vars['Var_0'] + 3.77 * vars['Var_1'] + 6.47 * vars['Var_2'] <= 65.87, name='C0')\n    m.addConstr(4.61 * vars['Var_2'] <= 13.97, name='C1')\n    m.addConstr(6.68 * vars['Var_1'] + 8.03 * vars['Var_3'] <= 79.47, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix decision for next period \u2013 request to maximize total contribution\n\nTeam,\n\nWe\u2019re setting the production and offer mix for the upcoming period with a simple goal: maximize total contribution while staying within our critical operational limits. Below are the levers we can pull, in the order I\u2019d like you to evaluate them, including what each contributes and what each draws down from our finite resources. Minimums on all items are zero; if an item doesn\u2019t make sense, we can choose not to run it.\n\n- Artisanal Pasta Batches (whole batches only)\n  \u2022 Economic impact: each batch contributes 1.18 to margin.\n  \u2022 Resource draw: each batch requires 3.2 hours from Kitchen Prep.\n  \u2022 Scale: we can schedule anywhere from 0 up to 17.88 batches this period.\n  \u2022 Note: these are discrete runs\u2014we can only schedule whole batches (no partial batch).\n\n- Coastal Seafood Meal Kits\n  \u2022 Economic impact: every thousand kits contributes 9.35 to margin.\n  \u2022 Resource draw: per thousand kits, this ties up 3.77 hours of Kitchen Prep and 6.68 pallet\u2011days of Chilled Storage.\n  \u2022 Scale: we may plan any volume from 0 up to 16.31 thousand kits, and we can flex in fractional thousand increments.\n\n- Plant\u2011Powered Bowls\n  \u2022 Economic impact: every thousand bowls contributes 3.2 to margin.\n  \u2022 Resource draw: per thousand bowls, this uses 6.47 hours of Kitchen Prep and 4.61 hours of Quality Lab time.\n  \u2022 Scale: we may plan any volume from 0 up to 17.45 thousand bowls, including fractional thousand increments.\n\n- Frozen Desserts\n  \u2022 Economic impact: every thousand pints contributes 7.44 to margin.\n  \u2022 Resource draw: per thousand pints, this consumes 8.03 pallet\u2011days of Chilled Storage. (Prep and lab work are not limiting factors here in this period.)\n  \u2022 Scale: we may plan any volume from 0 up to 10.27 thousand pints, including fractional thousand increments.\n\n- Recipe Subscriptions (digital)\n  \u2022 Economic impact: every thousand subscriptions contributes 4.27 to margin.\n  \u2022 Resource draw: does not draw on Kitchen Prep, Quality Lab, or Chilled Storage.\n  \u2022 Scale: we may enroll anywhere from 0 up to 15.76 thousand subscriptions, including fractional thousand increments.\n\n- Cooking Class Gift Cards\n  \u2022 Economic impact: every thousand cards contributes 7.58 to margin.\n  \u2022 Resource draw: does not draw on Kitchen Prep, Quality Lab, or Chilled Storage.\n  \u2022 Scale: we may issue anywhere from 0 up to 12.59 thousand cards, including fractional thousand increments.\n\nFacility Specs for this period (do not exceed):\n- Kitchen Prep: up to 65.87 total hours available.\n- Quality Lab: up to 13.97 total hours available.\n- Chilled Storage: up to 79.47 total pallet\u2011days available.\n\nPlease use the above to recommend a mix that maximizes total contribution while honoring the caps. Let me know if you need any clarification on units or assumptions."
+}

@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, >= senses, and continuous variables are explicitly stated; objective is minimize total cost with given unit costs; zero contributions are clear.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Email-style framing adds length, but most text conveys needed data; minor verbosity without repetition.",
+      "realism": 95,
+      "realism_comment": "Plausible sustainability procurement mix meeting compliance thresholds with realistic costs, bounds, and fractional procurement."
+    },
+    "prompt_tokens_with_data": 692,
+    "prompt_tokens_without_data": 692
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 94.81724052562578,
+    "optimal_values": {
+      "Var_0": 1.1605231866825207,
+      "Var_1": 9.84968749047227
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.12
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 80.46
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 1.42
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 9.76
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.09
+      ],
+      "objective_linear_coefficient": 9.73,
+      "resource_costs": {
+        "C1": 3.13,
+        "C2": 1.32,
+        "C3": 8.41
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 8.48,
+      "resource_costs": {
+        "C0": 2.17,
+        "C1": 7.8
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.09, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.73 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.48 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.17 * vars['Var_1'] >= 20.12, name='C0')\n    m.addConstr(3.13 * vars['Var_0'] + 7.8 * vars['Var_1'] >= 80.46, name='C1')\n    m.addConstr(1.32 * vars['Var_0'] >= 1.42, name='C2')\n    m.addConstr(8.41 * vars['Var_0'] >= 9.76, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request to structure a least-cost mix for our FY sustainability commitments\n\nTeam,\n\nAs discussed, we need to assemble the lowest\u2011cost mix of two scalable initiatives to satisfy four minimum FY compliance commitments. Both initiatives can be procured in fractional amounts. Please build a sourcing plan that minimizes total program spend while ensuring all minimum thresholds are met.\n\nThe levers we can pull\n\n- Eco\u2011Efficiency Retrofit Kits (EER Kits)\n  - Cost profile: Each kit carries a unit cost of 9.73.\n  - Scalability: We may deploy anywhere from 0.0 up to 6.09 kits this fiscal year, including partial deployments.\n  - How this contributes to our commitments:\n    - Clean Energy Impact: Each kit contributes 3.13 units toward our clean energy impact tally.\n    - Water Stewardship: Each kit contributes 1.32 units toward our water conservation outcomes.\n    - Waste Diversion: Each kit contributes 8.41 units toward our waste reduction goals.\n    - Community Access: These kits do not move our community access metric; they have no direct contribution there.\n\n- Community Solar Block Purchases (CS Blocks)\n  - Cost profile: Each block carries a unit cost of 8.48.\n  - Scalability: We may purchase anywhere from 0.0 up to 11.0 blocks this fiscal year, including fractional quantities.\n  - How this contributes to our commitments:\n    - Community Access: Each block delivers 2.17 units of community access participation credits.\n    - Clean Energy Impact: Each block contributes 7.8 units toward our clean energy impact tally.\n    - Water Stewardship and Waste Diversion: These blocks do not affect water conservation or waste reduction; there is no contribution to those two areas.\n\nCompliance minimums for FY (must be met or exceeded)\n\n- Community Access Participation: At least 20.12 units.\n- Clean Energy Impact: At least 80.46 units.\n- Water Stewardship: At least 1.42 units.\n- Waste Diversion: At least 9.76 units.\n\nPlease use the above parameters to recommend the least\u2011cost combination of EER Kits and CS Blocks that satisfies all four floors. Remember we are free to choose any fractional quantities within the 0.0\u20136.09 and 0.0\u201311.0 ranges, respectively."
+}

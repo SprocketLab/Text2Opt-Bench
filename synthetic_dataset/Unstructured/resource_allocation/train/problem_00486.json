@@ -1,0 +1,260 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 11,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit per-unit contributions, caps, and resource impacts for 9 levers; all constraints with clear RHS and sign conventions for reductions/savings. A human can reconstruct the exact LP.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business-style narrative adds some fluff, but most content is needed to specify coefficients and limits. Moderate verbosity without harmful repetition.",
+      "realism": 95,
+      "realism_comment": "Very realistic plant planning with budgets, utilities, emissions, materials. Negative caps for footprint/NOx are unusual but clearly explained as net reductions."
+    },
+    "prompt_tokens_with_data": 2045,
+    "prompt_tokens_without_data": 2045
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 197.88877405747394,
+    "optimal_values": {
+      "Var_0": 9.65,
+      "Var_1": 3.4934309148030454,
+      "Var_2": 5.423183327073399,
+      "Var_3": 0.0,
+      "Var_4": 7.081361803912827,
+      "Var_5": 3.090664765651843,
+      "Var_6": 6.039686947810115,
+      "Var_7": 0.4402331335876102,
+      "Var_8": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 20.71
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 90.48
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 13.67
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 129.47
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 140.92
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -16.7
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 83.29
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 67.5
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 126.19
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -78.71
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 91.69
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.65
+      ],
+      "objective_linear_coefficient": 9.82,
+      "resource_costs": {
+        "C1": 5.65,
+        "C3": 5.62,
+        "C4": 9.52,
+        "C5": -1.66,
+        "C6": -1.18,
+        "C8": 6.5,
+        "C9": -4.21,
+        "C10": 7.52
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.95
+      ],
+      "objective_linear_coefficient": 8.87,
+      "resource_costs": {
+        "C0": 7.89,
+        "C2": -3.03,
+        "C4": -0.33,
+        "C5": -4.69,
+        "C6": 9.42,
+        "C8": 1.77,
+        "C9": 6.52,
+        "C10": 3.89
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.94
+      ],
+      "objective_linear_coefficient": 3.55,
+      "resource_costs": {
+        "C0": -1.67,
+        "C1": 5.84,
+        "C3": 4.64,
+        "C4": 3.24,
+        "C5": 5.6,
+        "C6": 0.12,
+        "C7": 3.29,
+        "C9": -3.61,
+        "C10": 7.1
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.24
+      ],
+      "objective_linear_coefficient": 2.65,
+      "resource_costs": {
+        "C0": 7.97,
+        "C2": 0.25,
+        "C3": 3.4,
+        "C4": 7.05,
+        "C5": -4.89,
+        "C6": 1.85,
+        "C7": 3.63,
+        "C8": 4.92,
+        "C10": 3.69
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.07
+      ],
+      "objective_linear_coefficient": 2.31,
+      "resource_costs": {
+        "C0": 0.49,
+        "C3": 6.82,
+        "C4": -2.26,
+        "C5": -2.11,
+        "C6": -1.42,
+        "C7": 6.93,
+        "C9": -4.97,
+        "C10": -2.63
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.73
+      ],
+      "objective_linear_coefficient": 3.39,
+      "resource_costs": {
+        "C0": -3.76,
+        "C2": -3.33,
+        "C4": -1.13,
+        "C6": 8.2,
+        "C7": 5.54,
+        "C8": -0.03,
+        "C9": -1.97,
+        "C10": -3.26
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.44
+      ],
+      "objective_linear_coefficient": 3.86,
+      "resource_costs": {
+        "C0": 1.79,
+        "C1": -1.82,
+        "C2": 5.72,
+        "C4": 3.97,
+        "C6": 6.86,
+        "C7": -2.61,
+        "C8": 8.6,
+        "C10": -0.73
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.77
+      ],
+      "objective_linear_coefficient": 6.22,
+      "resource_costs": {
+        "C0": -1.83,
+        "C1": 4.22,
+        "C3": 4.04,
+        "C4": 3.35,
+        "C6": 9.99,
+        "C7": -1.76,
+        "C8": 4.76,
+        "C10": 0.31
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.04
+      ],
+      "objective_linear_coefficient": 1.92,
+      "resource_costs": {
+        "C1": 7.39,
+        "C2": 6.85,
+        "C4": 0.1,
+        "C5": 6.09,
+        "C7": -2.05,
+        "C10": 3.35
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.65, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.95, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.87 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.94, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.55 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.24, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.65 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.07, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.31 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.73, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.39 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=18.44, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.86 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=17.77, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 6.22 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=7.04, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 1.92 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.89 * vars['Var_1'] + -1.67 * vars['Var_2'] + 7.97 * vars['Var_3'] + 0.49 * vars['Var_4'] + -3.76 * vars['Var_5'] + 1.79 * vars['Var_6'] + -1.83 * vars['Var_7'] <= 20.71, name='C0')\n    m.addConstr(5.65 * vars['Var_0'] + 5.84 * vars['Var_2'] + -1.82 * vars['Var_6'] + 4.22 * vars['Var_7'] + 7.39 * vars['Var_8'] <= 90.48, name='C1')\n    m.addConstr(7.52 * vars['Var_0'] + 3.89 * vars['Var_1'] + 7.1 * vars['Var_2'] + 3.69 * vars['Var_3'] + -2.63 * vars['Var_4'] + -3.26 * vars['Var_5'] + -0.73 * vars['Var_6'] + 0.31 * vars['Var_7'] + 3.35 * vars['Var_8'] <= 91.69, name='C10')\n    m.addConstr(-3.03 * vars['Var_1'] + 0.25 * vars['Var_3'] + -3.33 * vars['Var_5'] + 5.72 * vars['Var_6'] + 6.85 * vars['Var_8'] <= 13.67, name='C2')\n    m.addConstr(5.62 * vars['Var_0'] + 4.64 * vars['Var_2'] + 3.4 * vars['Var_3'] + 6.82 * vars['Var_4'] + 4.04 * vars['Var_7'] <= 129.47, name='C3')\n    m.addConstr(9.52 * vars['Var_0'] + -0.33 * vars['Var_1'] + 3.24 * vars['Var_2'] + 7.05 * vars['Var_3'] + -2.26 * vars['Var_4'] + -1.13 * vars['Var_5'] + 3.97 * vars['Var_6'] + 3.35 * vars['Var_7'] + 0.1 * vars['Var_8'] <= 140.92, name='C4')\n    m.addConstr(-1.66 * vars['Var_0'] + -4.69 * vars['Var_1'] + 5.6 * vars['Var_2'] + -4.89 * vars['Var_3'] + -2.11 * vars['Var_4'] + 6.09 * vars['Var_8'] <= -16.7, name='C5')\n    m.addConstr(-1.18 * vars['Var_0'] + 9.42 * vars['Var_1'] + 0.12 * vars['Var_2'] + 1.85 * vars['Var_3'] + -1.42 * vars['Var_4'] + 8.2 * vars['Var_5'] + 6.86 * vars['Var_6'] + 9.99 * vars['Var_7'] <= 83.29, name='C6')\n    m.addConstr(3.29 * vars['Var_2'] + 3.63 * vars['Var_3'] + 6.93 * vars['Var_4'] + 5.54 * vars['Var_5'] + -2.61 * vars['Var_6'] + -1.76 * vars['Var_7'] + -2.05 * vars['Var_8'] <= 67.5, name='C7')\n    m.addConstr(6.5 * vars['Var_0'] + 1.77 * vars['Var_1'] + 4.92 * vars['Var_3'] + -0.03 * vars['Var_5'] + 8.6 * vars['Var_6'] + 4.76 * vars['Var_7'] <= 126.19, name='C8')\n    m.addConstr(-4.21 * vars['Var_0'] + 6.52 * vars['Var_1'] + -3.61 * vars['Var_2'] + -4.97 * vars['Var_4'] + -1.97 * vars['Var_5'] <= -78.71, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 allocation plan to maximize returns within facility and compliance limits\n\nTeam,\n\nAs we finalize the Q2 operating plan, I\u2019d like to align on how we allocate line time, cash, and improvement initiatives across our portfolio to maximize total contribution while staying inside plant, supply, and compliance limits. Each lever below can be scaled from zero up to its cap; the per\u2011unit figures reflect incremental revenue and resource impacts.\n\n- Blue Blend Heat\u2011Recovery Run\n  Per unit, this run delivers 9.82 in gross contribution. We can schedule up to 9.65 units this quarter, with no minimum commitment. Resource impacts per unit: no draw on Packaging Crew Overtime, no effect on Quality Risk Points, and no impact on Landfill Waste; it uses 5.65 m3 of Chilled Water Intake, consumes 5.62 hours on Distillation Column B, and draws 9.52 from Operating Cash Spend; it improves the Net Carbon Footprint by 1.66 tons CO2e (a reduction), trims Substation 3 Electrical Load by 1.18 MWh, pulls 6.5 tons of Raw Material A \u2013 Resin Pellets, reduces the NOx index by 4.21 points, and requires 7.52 Maintenance Crew Hours.\n\n- Indigo Quality Upgrade Campaign\n  Each unit adds 8.87 in gross contribution. We can run up to 6.95 units, and we may choose zero. Per unit: it needs 7.89 hours of Packaging Crew Overtime; places no demand on Chilled Water Intake or Distillation Column B, and does not affect Landfill Waste; it improves Quality Risk Points by 3.03 points (risk reduction); yields 0.33 of Operating Cash Spend back (a savings); reduces the Net Carbon Footprint by 4.69 tons CO2e; adds 9.42 MWh to Substation 3 Electrical Load; takes 1.77 tons of Raw Material A; worsens the NOx index by 6.52 points; and consumes 3.89 Maintenance Crew Hours.\n\n- Amber Expansion Batch\n  Each unit contributes 3.55 in gross contribution. We can schedule up to 18.94 units, or none. Per unit: it frees 1.67 hours of Packaging Crew Overtime (automation effect); uses 5.84 m3 of Chilled Water Intake; consumes 4.64 hours on Distillation Column B; draws 3.24 from Operating Cash Spend; adds 5.6 tons CO2e to the Net Carbon Footprint; adds 0.12 MWh to Substation 3 Electrical Load; generates 3.29 tons of Landfill Waste; has no impact on Quality Risk Points or Raw Material A; improves the NOx index by 3.61 points (reduction); and requires 7.1 Maintenance Crew Hours.\n\n- Crimson Retooling Trials\n  Each unit contributes 2.65 in gross contribution. We can run up to 15.24 units, and we can elect to do none. Per unit: it needs 7.97 hours of Packaging Crew Overtime; does not draw Chilled Water Intake; increases Quality Risk Points slightly by 0.25 points; uses 3.4 hours of Distillation Column B; requires 7.05 of Operating Cash Spend; reduces the Net Carbon Footprint by 4.89 tons CO2e; adds 1.85 MWh to Substation 3 Electrical Load; generates 3.63 tons of Landfill Waste; consumes 4.92 tons of Raw Material A; has no effect on the NOx index; and uses 3.69 Maintenance Crew Hours.\n\n- Sage Energy Optimization\n  Each unit adds 2.31 in gross contribution. We can deploy up to 19.07 units, with no minimum. Per unit: it needs 0.49 hours of Packaging Crew Overtime; does not draw Chilled Water Intake and does not affect Quality Risk Points; consumes 6.82 hours on Distillation Column B; returns 2.26 of Operating Cash Spend (savings); reduces the Net Carbon Footprint by 2.11 tons CO2e; lowers Substation 3 Electrical Load by 1.42 MWh; generates 6.93 tons of Landfill Waste; has no impact on Raw Material A; improves the NOx index by 4.97 points (reduction); and saves 2.63 Maintenance Crew Hours.\n\n- Copper Automation Upgrade\n  Each unit adds 3.39 in gross contribution. We can implement up to 8.73 units, or none. Per unit: it saves 3.76 hours of Packaging Crew Overtime; has no impact on Chilled Water Intake or Distillation Column B; improves Quality Risk Points by 3.33 points (risk reduction); returns 1.13 of Operating Cash Spend (savings); increases Substation 3 Electrical Load by 8.2 MWh; generates 5.54 tons of Landfill Waste; effectively returns 0.03 tons of Raw Material A to inventory (scrap reuse); improves the NOx index by 1.97 points (reduction); saves 3.26 Maintenance Crew Hours; and has no effect on the Net Carbon Footprint.\n\n- Emerald High\u2011Speed Filler\n  Each unit contributes 3.86 in gross contribution. We can run up to 18.44 units, with no minimum. Per unit: it needs 1.79 hours of Packaging Crew Overtime; reduces Chilled Water Intake by 1.82 m3 (closed\u2011loop); increases Quality Risk Points by 5.72 points; places no load on Distillation Column B; draws 3.97 from Operating Cash Spend; adds 6.86 MWh to Substation 3 Electrical Load; reduces Landfill Waste by 2.61 tons; consumes 8.6 tons of Raw Material A; has no effect on the Net Carbon Footprint or the NOx index; and saves 0.73 Maintenance Crew Hours.\n\n- Titanium New Product Introduction\n  Each unit adds 6.22 in gross contribution. We can schedule up to 17.77 units, or none. Per unit: it saves 1.83 hours of Packaging Crew Overtime; uses 4.22 m3 of Chilled Water Intake; does not affect Quality Risk Points; consumes 4.04 hours on Distillation Column B; draws 3.35 from Operating Cash Spend; adds 9.99 MWh to Substation 3 Electrical Load; reduces Landfill Waste by 1.76 tons (recyclable packaging); consumes 4.76 tons of Raw Material A; has no impact on the Net Carbon Footprint or the NOx index; and requires 0.31 Maintenance Crew Hours.\n\n- Onyx Specialty Dye Program\n  Each unit contributes 1.92 in gross contribution. We can run up to 7.04 units, with no minimum. Per unit: it does not draw Packaging Crew Overtime, Distillation Column B runtime, or Substation 3 Electrical Load; uses 7.39 m3 of Chilled Water Intake; increases Quality Risk Points by 6.85 points; draws 0.1 from Operating Cash Spend; adds 6.09 tons CO2e to the Net Carbon Footprint; reduces Landfill Waste by 2.05 tons (scrap repurposing); has no impact on Raw Material A or the NOx index; and requires 3.35 Maintenance Crew Hours.\n\nFacility specs and market limits we must respect:\n- Packaging Crew Overtime must be kept at or below 20.71 hours.\n- Chilled Water Intake must not exceed 90.48 m3.\n- Quality Risk Points must not exceed 13.67 points.\n- Distillation Column B runtime is capped at 129.47 hours.\n- Operating Cash Spend is limited to 140.92 (budget units).\n- Net Carbon Footprint must be at or below \u221216.7 tons CO2e (i.e., the plan must be net\u2011negative by at least 16.7 tons).\n- Substation 3 Electrical Load is capped at 83.29 MWh.\n- Landfill Waste must be at or below 67.5 tons.\n- Raw Material A \u2013 Resin Pellets are limited to 126.19 tons.\n- NOx Reduction Target is expressed as a cap at \u221278.71 index points (i.e., achieve at least 78.71 points of net reduction relative to baseline).\n- Maintenance Crew Hours must be kept at or below 91.69 hours.\n\nPlease use this as the basis to determine the optimal mix that maximizes total contribution while adhering to the above limits. If any assumption around units or naming needs adjustment for your model, let me know and I\u2019ll align the descriptors with the plant\u2019s official trackers."
+}

@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit bounds, costs, and per-block contributions; minima listed; fractional allowed => continuous. 'No material contribution' implies zero. Objective is clear. Model is fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some corporate narrative and meta instructions add fluff (e.g., order note), but most content conveys needed coefficients, bounds, and targets.",
+      "realism": 92,
+      "realism_comment": "Feels like a realistic corporate resource allocation to meet KPI thresholds with capacity limits and costs; coherent and plausible."
+    },
+    "prompt_tokens_with_data": 1106,
+    "prompt_tokens_without_data": 1106
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 44.86845970149254,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 10.393731343283582,
+      "Var_3": 0.0,
+      "Var_4": 10.19
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 57.61
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.05
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 69.08
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.04
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 38.81
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 96.65
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.07
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.25
+      ],
+      "objective_linear_coefficient": 2.78,
+      "resource_costs": {
+        "C0": 1.48,
+        "C2": 4.04,
+        "C4": 1.26,
+        "C5": 1.8
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.64
+      ],
+      "objective_linear_coefficient": 6.9,
+      "resource_costs": {
+        "C0": 7.78,
+        "C1": 3.98,
+        "C2": 8.1,
+        "C5": 9.07,
+        "C6": 0.46
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.6
+      ],
+      "objective_linear_coefficient": 2.16,
+      "resource_costs": {
+        "C0": 2.68,
+        "C4": 3.59,
+        "C5": 6.01,
+        "C6": 0.63
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.99
+      ],
+      "objective_linear_coefficient": 1.17,
+      "resource_costs": {
+        "C3": 4.67,
+        "C5": 2.44
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.19
+      ],
+      "objective_linear_coefficient": 2.2,
+      "resource_costs": {
+        "C0": 2.92,
+        "C1": 6.74,
+        "C2": 7.2,
+        "C3": 7.94,
+        "C4": 6.22,
+        "C5": 4.99,
+        "C6": 7.79
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.25, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.78 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.64, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.9 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.6, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.16 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.99, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.17 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.19, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.2 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.48 * vars['Var_0'] + 7.78 * vars['Var_1'] + 2.68 * vars['Var_2'] + 2.92 * vars['Var_4'] >= 57.61, name='C0')\n    m.addConstr(3.98 * vars['Var_1'] + 6.74 * vars['Var_4'] >= 22.05, name='C1')\n    m.addConstr(4.04 * vars['Var_0'] + 8.1 * vars['Var_1'] + 7.2 * vars['Var_4'] >= 69.08, name='C2')\n    m.addConstr(4.67 * vars['Var_3'] + 7.94 * vars['Var_4'] >= 22.04, name='C3')\n    m.addConstr(1.26 * vars['Var_0'] + 3.59 * vars['Var_2'] + 6.22 * vars['Var_4'] >= 38.81, name='C4')\n    m.addConstr(1.8 * vars['Var_0'] + 9.07 * vars['Var_1'] + 6.01 * vars['Var_2'] + 2.44 * vars['Var_3'] + 4.99 * vars['Var_4'] >= 96.65, name='C5')\n    m.addConstr(0.46 * vars['Var_1'] + 0.63 * vars['Var_2'] + 7.79 * vars['Var_4'] >= 15.07, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Meeting Our Q1 Scorecard Commitments at the Lowest Possible Cost\n\nTeam,\n\nWe\u2019re targeting the most cost-efficient way to deliver and document our Q1 commitments across seven scorecard areas. The objective is to meet or exceed each minimum requirement while keeping total operating spend as low as possible. We can scale five deployable bundles (in fractional blocks where helpful), each with its own unit cost, performance profile, and availability limit.\n\nProposed levers (in the order we evaluate them):\n\n- Blue Route Blocks\n  - Scope and spend: Variable between 0 and 19.25 blocks; operating cost of 2.78 per block.\n  - What it delivers:\n    - Base Coverage Credits: 1.48 credits per block.\n    - Premium SLA Credits: no material contribution.\n    - Regional Reach Credits: 4.04 credits per block.\n    - Specialist Response Credits: no material contribution.\n    - Sustainability Credits: 1.26 credits per block.\n    - Network Throughput Credits: 1.8 credits per block.\n    - Community Impact Credits: no material contribution.\n\n- Gold Priority Dispatch\n  - Scope and spend: Variable between 0 and 13.64 blocks; operating cost of 6.9 per block.\n  - What it delivers:\n    - Base Coverage Credits: 7.78 credits per block.\n    - Premium SLA Credits: 3.98 credits per block.\n    - Regional Reach Credits: 8.1 credits per block.\n    - Specialist Response Credits: no material contribution.\n    - Sustainability Credits: no material contribution.\n    - Network Throughput Credits: 9.07 credits per block.\n    - Community Impact Credits: 0.46 credits per block.\n\n- Green Support Pods\n  - Scope and spend: Variable between 0 and 16.6 blocks; operating cost of 2.16 per block.\n  - What it delivers:\n    - Base Coverage Credits: 2.68 credits per block.\n    - Premium SLA Credits: no material contribution.\n    - Regional Reach Credits: no material contribution.\n    - Specialist Response Credits: no material contribution.\n    - Sustainability Credits: 3.59 credits per block.\n    - Network Throughput Credits: 6.01 credits per block.\n    - Community Impact Credits: 0.63 credits per block.\n\n- Indigo Specialist Teams\n  - Scope and spend: Variable between 0 and 17.99 blocks; operating cost of 1.17 per block.\n  - What it delivers:\n    - Base Coverage Credits: no material contribution.\n    - Premium SLA Credits: no material contribution.\n    - Regional Reach Credits: no material contribution.\n    - Specialist Response Credits: 4.67 credits per block.\n    - Sustainability Credits: no material contribution.\n    - Network Throughput Credits: 2.44 credits per block.\n    - Community Impact Credits: no material contribution.\n\n- Crimson Surge Units\n  - Scope and spend: Variable between 0 and 10.19 blocks; operating cost of 2.2 per block.\n  - What it delivers:\n    - Base Coverage Credits: 2.92 credits per block.\n    - Premium SLA Credits: 6.74 credits per block.\n    - Regional Reach Credits: 7.2 credits per block.\n    - Specialist Response Credits: 7.94 credits per block.\n    - Sustainability Credits: 6.22 credits per block.\n    - Network Throughput Credits: 4.99 credits per block.\n    - Community Impact Credits: 7.79 credits per block.\n\nFacility specs and scorecard minimums (targets we must meet or exceed this quarter):\n\n- Base Coverage Credits: at least 57.61.\n- Premium SLA Credits: at least 22.05.\n- Regional Reach Credits: at least 69.08.\n- Specialist Response Credits: at least 22.04.\n- Sustainability Credits: at least 38.81.\n- Network Throughput Credits: at least 96.65.\n- Community Impact Credits: at least 15.07.\n\nPlease use this as the basis to recommend the most economical mix of Blue Route Blocks, Gold Priority Dispatch, Green Support Pods, Indigo Specialist Teams, and Crimson Surge Units. Each lever can be dialed anywhere from zero up to its stated limit; fractional deployment is acceptable where it helps us hit the minimums at lower total cost."
+}

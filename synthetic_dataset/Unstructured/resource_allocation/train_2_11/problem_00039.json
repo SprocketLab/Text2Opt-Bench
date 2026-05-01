@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and signs are explicitly given; zero impacts noted; inequality directions clear. A practitioner can reconstruct the LP exactly from the text.",
+      "ambiguity": false,
+      "redundancy": 20,
+      "redundancy_comment": "Some business narrative adds length, but most text conveys model data. \"No impact\" lines clarify zero coefficients. Slightly verbose, not repetitive.",
+      "realism": 95,
+      "realism_comment": "A plausible Q1 planning problem balancing value, sustainability targets, specialist hours, and working capital with realistic constraints and units."
+    },
+    "prompt_tokens_with_data": 782,
+    "prompt_tokens_without_data": 782
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 83.58005503955968,
+    "optimal_values": {
+      "Var_0": 8.389490884072927,
+      "Var_1": 2.278637770897833
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -15.14
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -4.65
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -12.08
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.72
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 15.65
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.55
+      ],
+      "objective_linear_coefficient": 9.68,
+      "resource_costs": {
+        "C0": -2.45,
+        "C4": 2.52
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.33
+      ],
+      "objective_linear_coefficient": 1.04,
+      "resource_costs": {
+        "C1": -2.92,
+        "C2": -6.55,
+        "C3": 6.46,
+        "C4": -2.41
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.55, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.68 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.33, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.04 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-2.45 * vars['Var_0'] <= -15.14, name='C0')\n    m.addConstr(-2.92 * vars['Var_1'] <= -4.65, name='C1')\n    m.addConstr(-6.55 * vars['Var_1'] <= -12.08, name='C2')\n    m.addConstr(6.46 * vars['Var_1'] <= 14.72, name='C3')\n    m.addConstr(2.52 * vars['Var_0'] + -2.41 * vars['Var_1'] <= 15.65, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 allocation between two improvement streams to maximize net value\n\nTeam,\n\nWe\u2019re preparing the Q1 operating plan and need to allocate effort across two improvement streams with the goal of maximizing total net value delivered this quarter. Both streams are divisible, so we can fund partial units as needed. Below are the levers, what each delivers per unit, where they draw on or relieve our limits, and the guardrails we must stay within.\n\nThe levers\n\n- Plant Phoenix Green Retrofit Kits\n  - Value delivered: Each kit contributes 9.68 units to our net contribution.\n  - Feasible commitment: We can commit anywhere from 0.00 up to 15.55 kits this quarter; fractional kits are allowed.\n  - How this lever moves our limits:\n    - Scope 1 emissions reduction ledger: Each kit reduces this ledger by 2.45 units (i.e., a -2.45 movement per kit toward our negative target).\n    - Landfill diversion ledger: No impact.\n    - Water withdrawal reduction ledger: No impact.\n    - Specialist engineering hours: No draw.\n    - Net working capital swing: Each kit increases the swing by 2.52 units.\n\n- Lean Fulfillment Overhaul Packages\n  - Value delivered: Each package contributes 1.04 units to our net contribution.\n  - Feasible commitment: We can commit anywhere from 0.00 up to 14.33 packages this quarter; fractional packages are allowed.\n  - How this lever moves our limits:\n    - Scope 1 emissions reduction ledger: No impact.\n    - Landfill diversion ledger: Each package reduces this ledger by 2.92 units (a -2.92 movement per package).\n    - Water withdrawal reduction ledger: Each package reduces this ledger by 6.55 units (a -6.55 movement per package).\n    - Specialist engineering hours: Each package consumes 6.46 units of specialist time.\n    - Net working capital swing: Each package improves cash position by 2.41 units (a -2.41 movement in the swing).\n\nTargets and limits for Q1\n\n- Scope 1 emissions reduction ledger: Net position must be at or below -15.14 units.\n- Landfill diversion ledger: Net position must be at or below -4.65 units.\n- Water withdrawal reduction ledger: Net position must be at or below -12.08 units.\n- Specialist engineering hours: Total draw must not exceed 14.72 units.\n- Net working capital swing: Total swing must not exceed 15.65 units.\n\nPlease use the above to recommend the exact mix of kits and packages that maximizes total net contribution while honoring every limit. If any of these guardrails or unit definitions need clarification, let me know so we can align before locking the Q1 plan."
+}

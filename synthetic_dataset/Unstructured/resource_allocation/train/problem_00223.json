@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit variable names, bounds, types, costs, and effects; objective and all constraints are precisely specified with coefficients and minima; no guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo style adds some fluff; repeated 'no impact' statements across levers. Still structured and clear via bullet points.",
+      "realism": 95,
+      "realism_comment": "A plausible staffing/coverage planning scenario with integer shifts/teams, capacity caps, service and specialist minima, and an environmental constraint."
+    },
+    "prompt_tokens_with_data": 912,
+    "prompt_tokens_without_data": 912
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 100.34153657411292,
+    "optimal_values": {
+      "Var_0": 2.0,
+      "Var_1": 0.0,
+      "Var_2": 10.49687526214244,
+      "Var_3": -0.0,
+      "Var_4": 4.197802197802197,
+      "Var_5": 10.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -3.82
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 115.31
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 12.04
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.44
+      ],
+      "objective_linear_coefficient": 8.91,
+      "resource_costs": {
+        "C1": 7.83
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.07
+      ],
+      "objective_linear_coefficient": 4.27,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.77
+      ],
+      "objective_linear_coefficient": 4.59,
+      "resource_costs": {
+        "C1": 5.24
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.87
+      ],
+      "objective_linear_coefficient": 2.01,
+      "resource_costs": {
+        "C1": 0.04
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.01
+      ],
+      "objective_linear_coefficient": 5.06,
+      "resource_costs": {
+        "C0": -0.91,
+        "C1": 7.11
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 1.31,
+      "resource_costs": {
+        "C1": 1.48,
+        "C2": 1.31
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.44, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.91 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.07, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.27 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.77, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.59 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.87, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.01 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.01, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.06 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 1.31 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-0.91 * vars['Var_4'] >= -3.82, name='C0')\n    m.addConstr(7.83 * vars['Var_0'] + 5.24 * vars['Var_2'] + 0.04 * vars['Var_3'] + 7.11 * vars['Var_4'] + 1.48 * vars['Var_5'] >= 115.31, name='C1')\n    m.addConstr(1.31 * vars['Var_5'] >= 12.04, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "To: Operations Research Advisory Team\nFrom: Director, Field Services & Compliance\nSubject: Cost-minimizing staffing and equipment plan to meet service and compliance obligations\n\nWe are preparing the Q3 allocation plan with a single objective: minimize total operating spend while ensuring we hit our minimum service coverage and specialist commitments, and maintain our environmental buffer within our allowable floor. Below are the levers we can pull, and how each one affects our obligations and limits.\n\nLevers we can pull\n\n- Core Field Technician Shifts (whole shifts only)\n  - Cost: 8.91 per shift.\n  - Capacity: between 0 and 17.44 shifts; shifts must be scheduled in whole numbers.\n  - Service coverage: each shift contributes 7.83 coverage units toward our minimum service commitment.\n  - Environmental buffer: no impact.\n  - Specialist workload: no impact.\n\n- On-Call Flex Hours (fractional scheduling permitted)\n  - Cost: 4.27 per hour.\n  - Capacity: between 0 and 19.07 hours.\n  - Service coverage: does not contribute to the service coverage commitment.\n  - Environmental buffer: no impact.\n  - Specialist workload: no impact.\n\n- Regional Partner Coverage Blocks (fractional engagement permitted)\n  - Cost: 4.59 per block.\n  - Capacity: between 0 and 10.77 blocks.\n  - Service coverage: each block contributes 5.24 coverage units toward our minimum service commitment.\n  - Environmental buffer: no impact.\n  - Specialist workload: no impact.\n\n- Remote Monitoring Units (whole units only)\n  - Cost: 2.01 per unit.\n  - Capacity: between 0 and 17.87 units; units must be committed in whole numbers.\n  - Service coverage: each unit contributes 0.04 coverage units toward our minimum service commitment.\n  - Environmental buffer: no impact.\n  - Specialist workload: no impact.\n\n- Mobile Generator\u2013Backed Deployments (fractional deployment permitted)\n  - Cost: 5.06 per deployment.\n  - Capacity: between 0 and 14.01 deployments.\n  - Service coverage: each deployment contributes 7.11 coverage units toward our minimum service commitment.\n  - Environmental buffer: each deployment consumes 0.91 points of our environmental buffer (i.e., it reduces the buffer by 0.91).\n  - Specialist workload: no impact.\n\n- Specialist Response Teams (whole teams only)\n  - Cost: 1.31 per team.\n  - Capacity: between 0 and 11 teams; teams must be committed in whole numbers.\n  - Service coverage: each team contributes 1.48 coverage units toward our minimum service commitment.\n  - Environmental buffer: no impact.\n  - Specialist workload: each team delivers 1.31 specialist units toward our specialist minimum.\n\nFacility specs and minimum obligations\n\n- Environmental buffer floor: keep the buffer at or above \u22123.82. Only the Mobile Generator\u2013Backed Deployments affect this buffer, reducing it by 0.91 points per deployment.\n- Service coverage commitment: deliver at least 115.31 coverage units in total from the levers above.\n- Specialist workload: deliver at least 12.04 specialist units in total; only the Specialist Response Teams contribute to this, at 1.31 specialist units per team.\n\nPlease propose the lowest-cost mix within the specified caps that meets or exceeds the minimums above."
+}

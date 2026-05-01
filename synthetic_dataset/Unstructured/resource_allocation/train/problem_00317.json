@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Precise LP spec: objective coefficients, bounds, and per-lot resource footprints are explicit; caps are clear; partial lots imply continuous vars; 'none' means zero. No missing info.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business email framing and verbose bullets add some fluff, but most content directly maps to coefficients and limits. Moderate verbosity.",
+      "realism": 98,
+      "realism_comment": "Very realistic production mix planning with plausible resources and capacity caps; matches standard OR applications."
+    },
+    "prompt_tokens_with_data": 1242,
+    "prompt_tokens_without_data": 1242
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 152.73827624416685,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 6.854609480431849,
+      "Var_2": 0.0,
+      "Var_3": 3.954512825421132,
+      "Var_4": 0.0,
+      "Var_5": 17.299278846153847,
+      "Var_6": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 73.05
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 117.61
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 143.93
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 151.28
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 54.52
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 78.5
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.01
+      ],
+      "objective_linear_coefficient": 1.56,
+      "resource_costs": {
+        "C1": 8.71,
+        "C3": 3.01,
+        "C4": 5.78,
+        "C5": 4.66
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.4
+      ],
+      "objective_linear_coefficient": 1.25,
+      "resource_costs": {
+        "C1": 5.7,
+        "C5": 4.86
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.55
+      ],
+      "objective_linear_coefficient": 2.38,
+      "resource_costs": {
+        "C2": 8.0,
+        "C3": 5.72
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.49
+      ],
+      "objective_linear_coefficient": 7.06,
+      "resource_costs": {
+        "C0": 6.53,
+        "C3": 9.41,
+        "C5": 6.41
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.28
+      ],
+      "objective_linear_coefficient": 7.4,
+      "resource_costs": {
+        "C0": 6.49,
+        "C2": 2.21,
+        "C3": 5.72,
+        "C5": 0.89
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.28
+      ],
+      "objective_linear_coefficient": 6.72,
+      "resource_costs": {
+        "C0": 2.73,
+        "C1": 4.54,
+        "C2": 8.32,
+        "C5": 0.85
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.09
+      ],
+      "objective_linear_coefficient": 1.94,
+      "resource_costs": {
+        "C0": 2.23,
+        "C2": 3.35,
+        "C3": 8.3
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.01, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.56 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.4, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.25 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.55, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.38 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.49, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.06 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.28, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.4 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.28, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.72 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.09, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.94 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.53 * vars['Var_3'] + 6.49 * vars['Var_4'] + 2.73 * vars['Var_5'] + 2.23 * vars['Var_6'] <= 73.05, name='C0')\n    m.addConstr(8.71 * vars['Var_0'] + 5.7 * vars['Var_1'] + 4.54 * vars['Var_5'] <= 117.61, name='C1')\n    m.addConstr(8.0 * vars['Var_2'] + 2.21 * vars['Var_4'] + 8.32 * vars['Var_5'] + 3.35 * vars['Var_6'] <= 143.93, name='C2')\n    m.addConstr(3.01 * vars['Var_0'] + 5.72 * vars['Var_2'] + 9.41 * vars['Var_3'] + 5.72 * vars['Var_4'] + 8.3 * vars['Var_6'] <= 151.28, name='C3')\n    m.addConstr(5.78 * vars['Var_0'] <= 54.52, name='C4')\n    m.addConstr(4.66 * vars['Var_0'] + 4.86 * vars['Var_1'] + 6.41 * vars['Var_3'] + 0.89 * vars['Var_4'] + 0.85 * vars['Var_5'] <= 78.5, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Planning for Specialty Chemicals Portfolio \u2014 Maximize Contribution Within Plant Limits\n\nTeam,\n\nFor the upcoming cycle, we need to settle the production mix across seven product lines with the goal of maximizing total contribution while staying within our plant and market limits. Volumes are flexible\u2014each line can be scheduled in partial lots and has no minimum run requirement. Below is a concise description of each option: per\u2011lot contribution, maximum feasible volume, and how each line draws on our shared resources.\n\n- CryoClean Solvent Blend\n  \u2022 Contribution: Each lot adds 1.56 to the portfolio\u2019s margin.\n  \u2022 Volume: We can schedule up to 15.01 lots; zero lots is acceptable if needed.\n  \u2022 Resource footprint per lot:\n    - Reactor Utilities (steam/power/compressed air): none\n    - Skilled Packaging Crew hours: 8.71\n    - Feedstock Alpha (key raw): none\n    - Analytical & Regulatory Lab time: 3.01\n    - Cold\u2011room inventory capacity: 5.78\n    - Hazmat\u2011certified outbound shipping slots: 4.66\n\n- DryBond Powder Pack\n  \u2022 Contribution: Each lot adds 1.25 to margin.\n  \u2022 Volume: Up to 18.4 lots; zero lots is acceptable.\n  \u2022 Resource footprint per lot:\n    - Reactor Utilities: none\n    - Skilled Packaging Crew hours: 5.7\n    - Feedstock Alpha: none\n    - Analytical & Regulatory Lab time: none\n    - Cold\u2011room inventory capacity: none\n    - Hazmat\u2011certified outbound shipping slots: 4.86\n\n- AlphaResin A\n  \u2022 Contribution: Each lot adds 2.38 to margin.\n  \u2022 Volume: Up to 9.55 lots; zero lots is acceptable.\n  \u2022 Resource footprint per lot:\n    - Reactor Utilities: none\n    - Skilled Packaging Crew hours: none\n    - Feedstock Alpha: 8.0\n    - Analytical & Regulatory Lab time: 5.72\n    - Cold\u2011room inventory capacity: none\n    - Hazmat\u2011certified outbound shipping slots: none\n\n- HeatCure Polymer\n  \u2022 Contribution: Each lot adds 7.06 to margin.\n  \u2022 Volume: Up to 18.49 lots; zero lots is acceptable.\n  \u2022 Resource footprint per lot:\n    - Reactor Utilities: 6.53\n    - Skilled Packaging Crew hours: none\n    - Feedstock Alpha: none\n    - Analytical & Regulatory Lab time: 9.41\n    - Cold\u2011room inventory capacity: none\n    - Hazmat\u2011certified outbound shipping slots: 6.41\n\n- Catalyst Amber\n  \u2022 Contribution: Each lot adds 7.4 to margin.\n  \u2022 Volume: Up to 6.28 lots; zero lots is acceptable.\n  \u2022 Resource footprint per lot:\n    - Reactor Utilities: 6.49\n    - Skilled Packaging Crew hours: none\n    - Feedstock Alpha: 2.21\n    - Analytical & Regulatory Lab time: 5.72\n    - Cold\u2011room inventory capacity: none\n    - Hazmat\u2011certified outbound shipping slots: 0.89\n\n- Composite Violet\n  \u2022 Contribution: Each lot adds 6.72 to margin.\n  \u2022 Volume: Up to 19.28 lots; zero lots is acceptable.\n  \u2022 Resource footprint per lot:\n    - Reactor Utilities: 2.73\n    - Skilled Packaging Crew hours: 4.54\n    - Feedstock Alpha: 8.32\n    - Analytical & Regulatory Lab time: none\n    - Cold\u2011room inventory capacity: none\n    - Hazmat\u2011certified outbound shipping slots: 0.85\n\n- MicroShield Gel\n  \u2022 Contribution: Each lot adds 1.94 to margin.\n  \u2022 Volume: Up to 8.09 lots; zero lots is acceptable.\n  \u2022 Resource footprint per lot:\n    - Reactor Utilities: 2.23\n    - Skilled Packaging Crew hours: none\n    - Feedstock Alpha: 3.35\n    - Analytical & Regulatory Lab time: 8.3\n    - Cold\u2011room inventory capacity: none\n    - Hazmat\u2011certified outbound shipping slots: none\n\nFacility & Market Limits (do not exceed):\n- Reactor Utilities (steam/power/compressed air): 73.05 capacity units available\n- Skilled Packaging Crew hours: 117.61 hours available\n- Feedstock Alpha supply: 143.93 units available\n- Analytical & Regulatory Lab throughput: 151.28 hours available\n- Cold\u2011room inventory capacity: 54.52 slots available\n- Hazmat\u2011certified outbound shipping slots: 78.5 slots available\n\nPlease use this to configure a mix that delivers the highest overall contribution while respecting the above caps. Let me know if you need further context on any line\u2019s run profile or constraints.\n\nThanks,\n[Client Name]\nVP, Operations"
+}

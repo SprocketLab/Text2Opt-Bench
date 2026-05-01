@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "All objective coeffs, bounds, integrality, and resource consumptions/capacities are explicit; regulatory cap is unused. The model can be reconstructed mechanically without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style prose adds greeting, sign-off, and sensitivity note; technical specs are clear and concise.",
+      "realism": 92,
+      "realism_comment": "Plausible operations planning with capacities and margins; decimal limits for integer items are unusual but believable. Unused compliance cap is realistic."
+    },
+    "prompt_tokens_with_data": 730,
+    "prompt_tokens_without_data": 730
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 166.01999999999998,
+    "optimal_values": {
+      "Var_0": 8.0,
+      "Var_1": 10.0,
+      "Var_2": 10.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 6.26
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 79.9
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.51
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 1.31
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.38
+      ],
+      "objective_linear_coefficient": 6.39,
+      "resource_costs": {
+        "C0": 0.53,
+        "C1": 2.0,
+        "C2": 6.29
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.72
+      ],
+      "objective_linear_coefficient": 2.48,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 9.01,
+      "resource_costs": {
+        "C1": 6.26
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.38, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.39 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.72, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.48 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.01 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.53 * vars['Var_0'] <= 6.26, name='C0')\n    m.addConstr(2.0 * vars['Var_0'] + 6.26 * vars['Var_2'] <= 79.9, name='C1')\n    m.addConstr(6.29 * vars['Var_0'] <= 52.51, name='C2')\n    m.addConstr(0 <= 1.31, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Q1 Allocation to Maximize Contribution\n\nHi team,\n\nAs discussed, we want to maximize total contribution this cycle by allocating capacity across three initiatives, subject to our operational and compliance limits. All allocations must be made in whole units only\u2014no fractional orders or deployments are possible. It\u2019s acceptable to allocate zero units to any initiative if that\u2019s optimal. Below are the levers and how each one draws on our resources.\n\n- Coastal Pro Install Kits\n  - Financial impact: Each kit contributes $6.39 thousand in net margin.\n  - Operational draw per kit:\n    - 0.53 hours of calibration lab time,\n    - 2.0 senior engineering shift-equivalents,\n    - 6.29 cold-storage pallet-equivalents.\n    - No regulatory reviews required for this SKU.\n  - Practical limits: We can schedule between 0 and 9.38 kits this cycle, in whole units only.\n\n- Pure Digital Upgrades\n  - Financial impact: Each upgrade contributes $2.48 thousand in net margin.\n  - Operational draw per upgrade:\n    - No calibration lab time,\n    - No senior engineering shift-equivalents,\n    - No cold-storage pallets,\n    - No regulatory reviews.\n  - Practical limits: We can schedule between 0 and 10.72 upgrades this cycle, in whole units only.\n\n- Enterprise Field Deployments\n  - Financial impact: Each deployment contributes $9.01 thousand in net margin.\n  - Operational draw per deployment:\n    - No calibration lab time,\n    - 6.26 senior engineering shift-equivalents,\n    - No cold-storage pallets,\n    - No regulatory reviews.\n  - Practical limits: We can schedule between 0 and 11.0 deployments this cycle, in whole units only.\n\nFacility Specs & Market Limits for the cycle:\n- Calibration Lab Time: Total available capacity is 6.26 hours.\n- Senior Engineering Shift-Equivalents: Total available capacity is 79.9.\n- Cold-Storage Pallet-Equivalents: Total available capacity is 52.51.\n- Regulatory Reviews: Compliance cap is 1.31 reviews. None of the three initiatives above require this clearance at present, but the ceiling remains in force.\n\nPlease optimize the mix of kits, upgrades, and deployments to maximize total net contribution while keeping within the capacities and caps listed above and the per-initiative limits. Let me know if you need sensitivity ranges or scenarios around the engineering and storage constraints.\n\nBest regards,\n[Client Name]\nDirector of Operations"
+}

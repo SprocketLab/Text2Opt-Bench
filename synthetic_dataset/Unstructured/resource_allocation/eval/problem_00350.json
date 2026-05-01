@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables\u2019 bounds/types, contributions, and per-resource coefficients are explicitly listed; nine capacities given. Inequalities are implied (<=). Model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business memo style adds verbosity; some fluff (greeting, LP/QP note). However, most length comes from necessary per-product data and capacities.",
+      "realism": 95,
+      "realism_comment": "Plausible production planning with realistic resources (reactor, QA, packaging, emissions, warehouse) and integer/continuous decisions; numbers reasonable."
+    },
+    "prompt_tokens_with_data": 1367,
+    "prompt_tokens_without_data": 1367
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 203.98475324434335,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 3.317757495110775,
+      "Var_2": 17.0,
+      "Var_3": 1.2150570628123276,
+      "Var_4": 0.0,
+      "Var_5": 1.6523949994705172,
+      "Var_6": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 157.91
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 195.4
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 81.29
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.86
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 197.74
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 82.13
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 73.83
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 70.47
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 165.68
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.33
+      ],
+      "objective_linear_coefficient": 2.63,
+      "resource_costs": {
+        "C0": 0.21,
+        "C1": 6.55,
+        "C3": 1.13,
+        "C4": 6.41,
+        "C8": 6.58
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.06
+      ],
+      "objective_linear_coefficient": 9.3,
+      "resource_costs": {
+        "C1": 4.23,
+        "C2": 9.48,
+        "C3": 4.34,
+        "C4": 4.14,
+        "C5": 0.84,
+        "C6": 3.17,
+        "C7": 8.92,
+        "C8": 1.01
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.92
+      ],
+      "objective_linear_coefficient": 9.23,
+      "resource_costs": {
+        "C0": 7.74,
+        "C1": 1.83,
+        "C2": 2.87,
+        "C3": 3.05,
+        "C4": 9.93,
+        "C6": 0.32,
+        "C7": 2.15,
+        "C8": 3.13
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.11
+      ],
+      "objective_linear_coefficient": 6.25,
+      "resource_costs": {
+        "C0": 8.02,
+        "C1": 8.86,
+        "C3": 7.04,
+        "C4": 3.72,
+        "C5": 5.16,
+        "C6": 5.71,
+        "C7": 3.56,
+        "C8": 7.22
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.77
+      ],
+      "objective_linear_coefficient": 1.43,
+      "resource_costs": {
+        "C1": 9.2,
+        "C3": 2.65,
+        "C4": 4.2,
+        "C8": 1.03
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.79
+      ],
+      "objective_linear_coefficient": 5.22,
+      "resource_costs": {
+        "C0": 8.4,
+        "C1": 7.58,
+        "C2": 0.4,
+        "C3": 1.85,
+        "C4": 6.46,
+        "C5": 0.02,
+        "C6": 9.44,
+        "C8": 8.92
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.21
+      ],
+      "objective_linear_coefficient": 3.39,
+      "resource_costs": {
+        "C0": 2.69,
+        "C1": 4.34,
+        "C2": 7.83,
+        "C5": 8.74,
+        "C7": 5.17
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.33, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.63 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.06, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.3 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.92, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.23 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.11, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.25 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.77, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.43 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.79, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.22 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.21, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 3.39 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.21 * vars['Var_0'] + 7.74 * vars['Var_2'] + 8.02 * vars['Var_3'] + 8.4 * vars['Var_5'] + 2.69 * vars['Var_6'] <= 157.91, name='C0')\n    m.addConstr(6.55 * vars['Var_0'] + 4.23 * vars['Var_1'] + 1.83 * vars['Var_2'] + 8.86 * vars['Var_3'] + 9.2 * vars['Var_4'] + 7.58 * vars['Var_5'] + 4.34 * vars['Var_6'] <= 195.4, name='C1')\n    m.addConstr(9.48 * vars['Var_1'] + 2.87 * vars['Var_2'] + 0.4 * vars['Var_5'] + 7.83 * vars['Var_6'] <= 81.29, name='C2')\n    m.addConstr(1.13 * vars['Var_0'] + 4.34 * vars['Var_1'] + 3.05 * vars['Var_2'] + 7.04 * vars['Var_3'] + 2.65 * vars['Var_4'] + 1.85 * vars['Var_5'] <= 77.86, name='C3')\n    m.addConstr(6.41 * vars['Var_0'] + 4.14 * vars['Var_1'] + 9.93 * vars['Var_2'] + 3.72 * vars['Var_3'] + 4.2 * vars['Var_4'] + 6.46 * vars['Var_5'] <= 197.74, name='C4')\n    m.addConstr(0.84 * vars['Var_1'] + 5.16 * vars['Var_3'] + 0.02 * vars['Var_5'] + 8.74 * vars['Var_6'] <= 82.13, name='C5')\n    m.addConstr(3.17 * vars['Var_1'] + 0.32 * vars['Var_2'] + 5.71 * vars['Var_3'] + 9.44 * vars['Var_5'] <= 73.83, name='C6')\n    m.addConstr(8.92 * vars['Var_1'] + 2.15 * vars['Var_2'] + 3.56 * vars['Var_3'] + 5.17 * vars['Var_6'] <= 70.47, name='C7')\n    m.addConstr(6.58 * vars['Var_0'] + 1.01 * vars['Var_1'] + 3.13 * vars['Var_2'] + 7.22 * vars['Var_3'] + 1.03 * vars['Var_4'] + 8.92 * vars['Var_5'] <= 165.68, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Q2 Production Mix to Maximize Contribution\n\nTeam,\n\nWe need to lock our Q2 production schedule across seven offerings in a way that maximizes total contribution while staying within plant limits. Below is the mix we\u2019re considering, along with how each option draws on the site\u2019s assets and constraints. Some lines must be run in whole batches; others can be throttled to partials. The intent is to choose quantities (from zero up to the noted ceiling) to get the most out of our capacity this quarter.\n\nThe levers\n\n- Aurora Resin 12 (whole batches only; up to 13.33 batches)\n  \u2022 Contribution: 2.63 per batch.\n  \u2022 Per batch resource use: 0.21 hours at Blending Center A; 6.55 hours in Reactor Bay; 0.00 tests from the Quality Lab; 1.13 hours on Distillation Column B; 6.41 units of Steam/Utilities; 0.00 hours on Packaging Line Alpha; 0.00 hours of Skilled Maintenance; 0.00 emissions credits; 6.58 pallet spaces in Finished Goods Warehouse.\n\n- Sapphire Coating X (can be partial; up to 7.06 lots)\n  \u2022 Contribution: 9.30 per lot.\n  \u2022 Per lot resource use: 0.00 hours at Blending Center A; 4.23 hours in Reactor Bay; 9.48 tests from the Quality Lab; 4.34 hours on Distillation Column B; 4.14 units of Steam/Utilities; 0.84 hours on Packaging Line Alpha; 3.17 hours of Skilled Maintenance; 8.92 emissions credits; 1.01 pallet spaces in Finished Goods Warehouse.\n\n- Onyx Polymer M (whole batches only; up to 18.92 batches)\n  \u2022 Contribution: 9.23 per batch.\n  \u2022 Per batch resource use: 7.74 hours at Blending Center A; 1.83 hours in Reactor Bay; 2.87 tests from the Quality Lab; 3.05 hours on Distillation Column B; 9.93 units of Steam/Utilities; 0.00 hours on Packaging Line Alpha; 0.32 hours of Skilled Maintenance; 2.15 emissions credits; 3.13 pallet spaces in Finished Goods Warehouse.\n\n- Citrine Solvent Blend (can be partial; up to 13.11 lots)\n  \u2022 Contribution: 6.25 per lot.\n  \u2022 Per lot resource use: 8.02 hours at Blending Center A; 8.86 hours in Reactor Bay; 0.00 tests from the Quality Lab; 7.04 hours on Distillation Column B; 3.72 units of Steam/Utilities; 5.16 hours on Packaging Line Alpha; 5.71 hours of Skilled Maintenance; 3.56 emissions credits; 7.22 pallet spaces in Finished Goods Warehouse.\n\n- Amber Additive L (can be partial; up to 11.77 lots)\n  \u2022 Contribution: 1.43 per lot.\n  \u2022 Per lot resource use: 0.00 hours at Blending Center A; 9.20 hours in Reactor Bay; 0.00 tests from the Quality Lab; 2.65 hours on Distillation Column B; 4.20 units of Steam/Utilities; 0.00 hours on Packaging Line Alpha; 0.00 hours of Skilled Maintenance; 0.00 emissions credits; 1.03 pallet spaces in Finished Goods Warehouse.\n\n- Emerald Sealant P (can be partial; up to 17.79 lots)\n  \u2022 Contribution: 5.22 per lot.\n  \u2022 Per lot resource use: 8.40 hours at Blending Center A; 7.58 hours in Reactor Bay; 0.40 tests from the Quality Lab; 1.85 hours on Distillation Column B; 6.46 units of Steam/Utilities; 0.02 hours on Packaging Line Alpha; 9.44 hours of Skilled Maintenance; 0.00 emissions credits; 8.92 pallet spaces in Finished Goods Warehouse.\n\n- Graphite Compound R (whole batches only; up to 16.21 batches)\n  \u2022 Contribution: 3.39 per batch.\n  \u2022 Per batch resource use: 2.69 hours at Blending Center A; 4.34 hours in Reactor Bay; 7.83 tests from the Quality Lab; 0.00 hours on Distillation Column B; 0.00 units of Steam/Utilities; 8.74 hours on Packaging Line Alpha; 0.00 hours of Skilled Maintenance; 5.17 emissions credits; 0.00 pallet spaces in Finished Goods Warehouse.\n\nFacility specs and market limits\n\n- Blending Center A available hours: 157.91\n- Reactor Bay available hours: 195.40\n- Quality Lab sampling/testing capacity: 81.29\n- Distillation Column B available hours: 77.86\n- Steam/Utilities budget (indexed units): 197.74\n- Packaging Line Alpha available hours: 82.13\n- Skilled Maintenance crew available hours: 73.83\n- Emissions credits (VOC/permit limit): 70.47\n- Finished Goods Warehouse pallet capacity: 165.68\n\nPlease use this as the basis to recommend the optimal production mix that maximizes total contribution while respecting the above limits. If you need any assumptions clarified (e.g., whether contribution is net of variable consumables or if any setup times should be layered in), let me know."
+}

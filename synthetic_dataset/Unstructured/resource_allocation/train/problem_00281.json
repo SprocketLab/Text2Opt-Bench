@@ -1,0 +1,177 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, and >= floors are explicitly listed; zero-impact dimensions are clear. Objective (minimize run-rate cost) is unambiguous. Minor implicitness on continuity via fractional bounds.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business memo style is verbose but each parameter appears once and is relevant. Some narrative fluff, yet little repetition.",
+      "realism": 88,
+      "realism_comment": "Scenario resembles a real planning problem with levers and scorecard floors. Slightly odd fractional units and negative floors, but overall plausible."
+    },
+    "prompt_tokens_with_data": 1305,
+    "prompt_tokens_without_data": 1305
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 55.706196583756,
+    "optimal_values": {
+      "Var_0": 3.0420560334247235,
+      "Var_1": 0.0,
+      "Var_2": 1.574905656102848,
+      "Var_3": 2.3768632855192178,
+      "Var_4": 0.0,
+      "Var_5": 1.3071727723612259
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -88.4
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -21.23
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 57.44
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -35.03
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -55.61
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -39.98
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 4.58
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -101.68
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 7.75
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.72
+      ],
+      "objective_linear_coefficient": 9.85,
+      "resource_costs": {
+        "C0": -6.84,
+        "C2": 4.62,
+        "C4": -1.8,
+        "C5": -0.49,
+        "C6": 6.02
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.1
+      ],
+      "objective_linear_coefficient": 2.41,
+      "resource_costs": {
+        "C0": -6.12,
+        "C2": -9.19,
+        "C3": -7.47,
+        "C4": -7.13,
+        "C5": -1.91,
+        "C7": -4.56,
+        "C8": -4.55
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.82
+      ],
+      "objective_linear_coefficient": 7.34,
+      "resource_costs": {
+        "C0": 6.46,
+        "C1": 2.29,
+        "C2": 9.49,
+        "C3": 7.28,
+        "C6": -8.72,
+        "C7": -8.94,
+        "C8": 2.62
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.83
+      ],
+      "objective_linear_coefficient": 2.7,
+      "resource_costs": {
+        "C0": -9.11,
+        "C1": -7.76,
+        "C2": 9.21,
+        "C3": 7.21,
+        "C5": 4.51,
+        "C7": -7.23,
+        "C8": -3.7
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.36
+      ],
+      "objective_linear_coefficient": 5.14,
+      "resource_costs": {}
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.47
+      ],
+      "objective_linear_coefficient": 5.94,
+      "resource_costs": {
+        "C1": -4.89,
+        "C2": 5.01,
+        "C3": -9.14,
+        "C4": 3.15,
+        "C5": -7.83,
+        "C7": -2.02,
+        "C8": 9.5
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.72, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.85 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.1, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.41 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.82, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.34 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.83, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.7 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.36, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.14 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.47, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.94 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-6.84 * vars['Var_0'] + -6.12 * vars['Var_1'] + 6.46 * vars['Var_2'] + -9.11 * vars['Var_3'] >= -88.4, name='C0')\n    m.addConstr(2.29 * vars['Var_2'] + -7.76 * vars['Var_3'] + -4.89 * vars['Var_5'] >= -21.23, name='C1')\n    m.addConstr(4.62 * vars['Var_0'] + -9.19 * vars['Var_1'] + 9.49 * vars['Var_2'] + 9.21 * vars['Var_3'] + 5.01 * vars['Var_5'] >= 57.44, name='C2')\n    m.addConstr(-7.47 * vars['Var_1'] + 7.28 * vars['Var_2'] + 7.21 * vars['Var_3'] + -9.14 * vars['Var_5'] >= -35.03, name='C3')\n    m.addConstr(-1.8 * vars['Var_0'] + -7.13 * vars['Var_1'] + 3.15 * vars['Var_5'] >= -55.61, name='C4')\n    m.addConstr(-0.49 * vars['Var_0'] + -1.91 * vars['Var_1'] + 4.51 * vars['Var_3'] + -7.83 * vars['Var_5'] >= -39.98, name='C5')\n    m.addConstr(6.02 * vars['Var_0'] + -8.72 * vars['Var_2'] >= 4.58, name='C6')\n    m.addConstr(-4.56 * vars['Var_1'] + -8.94 * vars['Var_2'] + -7.23 * vars['Var_3'] + -2.02 * vars['Var_5'] >= -101.68, name='C7')\n    m.addConstr(-4.55 * vars['Var_1'] + 2.62 * vars['Var_2'] + -3.7 * vars['Var_3'] + 9.5 * vars['Var_5'] >= 7.75, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix of six operating levers to minimize run\u2011rate spend while holding our scorecard floors\n\nTeam,\n\nAs we finalize the next planning cycle, our goal is to minimize total run\u2011rate spend while keeping nine portfolio scorecards at or above their minimum acceptable floors. Below is the proposed frame for the six levers we can dial up or down this period, the per\u2011unit costs, the allowable ranges for each lever, and how each one moves our scorecards.\n\nLevers we can adjust\n\n1) Express Fulfillment Slots\n- Scope: We can schedule anywhere from 0 up to 9.72 slots.\n- Unit run\u2011rate cost: 9.85 per slot.\n- Scorecard effects per slot:\n  \u2022 Operating Cash Flow Buffer decreases by 6.84.\n  \u2022 Service Quality Composite improves by 4.62.\n  \u2022 Net Emission Intensity Change decreases by 1.80.\n  \u2022 Labor Balance Index decreases by 0.49.\n  \u2022 Safety & Compliance Credits improve by 6.02.\n- No direct impact on Supplier Diversity & Localization, On\u2011Time Delivery, Strategic Risk Allowance, or Customer Satisfaction Pulse.\n\n2) Regional Outsourcing Lots\n- Scope: We can place anywhere from 0 up to 11.1 lots.\n- Unit run\u2011rate cost: 2.41 per lot.\n- Scorecard effects per lot:\n  \u2022 Operating Cash Flow Buffer decreases by 6.12.\n  \u2022 Service Quality Composite decreases by 9.19.\n  \u2022 On\u2011Time Delivery Index decreases by 7.47.\n  \u2022 Net Emission Intensity Change decreases by 7.13.\n  \u2022 Labor Balance Index decreases by 1.91.\n  \u2022 Strategic Risk Allowance decreases by 4.56.\n  \u2022 Customer Satisfaction Pulse decreases by 4.55.\n- No direct impact on Supplier Diversity & Localization or Safety & Compliance Credits.\n\n3) Automation Deployment Hours\n- Scope: We can deploy anywhere from 0 up to 19.82 hours.\n- Unit run\u2011rate cost: 7.34 per hour.\n- Scorecard effects per hour:\n  \u2022 Operating Cash Flow Buffer improves by 6.46.\n  \u2022 Supplier Diversity & Localization improves by 2.29.\n  \u2022 Service Quality Composite improves by 9.49.\n  \u2022 On\u2011Time Delivery Index improves by 7.28.\n  \u2022 Safety & Compliance Credits decrease by 8.72.\n  \u2022 Strategic Risk Allowance decreases by 8.94.\n  \u2022 Customer Satisfaction Pulse improves by 2.62.\n- No direct impact on Net Emission Intensity Change or Labor Balance Index.\n\n4) In\u2011House Overtime Shifts\n- Scope: We can assign anywhere from 0 up to 11.83 shifts.\n- Unit run\u2011rate cost: 2.70 per shift.\n- Scorecard effects per shift:\n  \u2022 Operating Cash Flow Buffer decreases by 9.11.\n  \u2022 Supplier Diversity & Localization decreases by 7.76.\n  \u2022 Service Quality Composite improves by 9.21.\n  \u2022 On\u2011Time Delivery Index improves by 7.21.\n  \u2022 Labor Balance Index improves by 4.51.\n  \u2022 Strategic Risk Allowance decreases by 7.23.\n  \u2022 Customer Satisfaction Pulse decreases by 3.70.\n- No direct impact on Net Emission Intensity Change or Safety & Compliance Credits.\n\n5) Standby Capacity Retainers\n- Scope: We can hold anywhere from 0 up to 7.36 retainers.\n- Unit run\u2011rate cost: 5.14 per retainer.\n- Scorecard effects: This standby arrangement is neutral; it does not move any of the nine scorecards directly.\n\n6) Quality Assurance Surge Team\n- Scope: We can engage anywhere from 0 up to 11.47 team\u2011units.\n- Unit run\u2011rate cost: 5.94 per team\u2011unit.\n- Scorecard effects per team\u2011unit:\n  \u2022 Supplier Diversity & Localization decreases by 4.89.\n  \u2022 Service Quality Composite improves by 5.01.\n  \u2022 On\u2011Time Delivery Index decreases by 9.14.\n  \u2022 Net Emission Intensity Change improves by 3.15.\n  \u2022 Labor Balance Index decreases by 7.83.\n  \u2022 Strategic Risk Allowance decreases by 2.02.\n  \u2022 Customer Satisfaction Pulse improves by 9.50.\n- No direct impact on Operating Cash Flow Buffer or Safety & Compliance Credits.\n\nMarket limits and internal floors we must respect\n\n- Operating Cash Flow Buffer must be no lower than \u221288.40.\n- Supplier Diversity & Localization must be no lower than \u221221.23.\n- Service Quality Composite must be at least 57.44.\n- On\u2011Time Delivery Index must be no lower than \u221235.03.\n- Net Emission Intensity Change must be no lower than \u221255.61.\n- Labor Balance Index must be no lower than \u221239.98.\n- Safety & Compliance Credits must be at least 4.58.\n- Strategic Risk Allowance must be no lower than \u2212101.68.\n- Customer Satisfaction Pulse must be at least 7.75.\n\nPlease review these lever definitions and floors. With your confirmation, we\u2019ll run the mix that meets all scorecard minimums at the lowest total run\u2011rate spend."
+}

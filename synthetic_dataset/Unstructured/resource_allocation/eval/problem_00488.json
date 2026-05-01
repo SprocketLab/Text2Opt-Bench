@@ -1,0 +1,252 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 11,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit integrality/continuity, upper bounds, per-unit resource coefficients, capacity RHS, and objective coefficients. Constraints are clear <= resource limits. No guessing required.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some narrative memo tone and repeated 'no draw' lines add length, but most text provides necessary coefficients and limits.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning case with multiple plant resources (lines, lab, utilities, overtime, dock, wastewater, carbon) and plausible units/limits."
+    },
+    "prompt_tokens_with_data": 1940,
+    "prompt_tokens_without_data": 1940
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 280.1558360700603,
+    "optimal_values": {
+      "Var_0": 1.0,
+      "Var_1": 13.0,
+      "Var_2": 4.0,
+      "Var_3": 8.0,
+      "Var_4": 1.0,
+      "Var_5": 0.19581280788181152,
+      "Var_6": 0.22368180988867073,
+      "Var_7": 11.0,
+      "Var_8": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 19.64
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 166.83
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 166.61
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 167.66
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 281.97
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 86.74
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 240.0
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 167.54
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 203.17
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 60.53
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 185.43
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.28
+      ],
+      "objective_linear_coefficient": 7.54,
+      "resource_costs": {
+        "C0": 6.47,
+        "C1": 9.06,
+        "C3": 3.92,
+        "C6": 3.13,
+        "C7": 7.67,
+        "C8": 5.45,
+        "C9": 6.0,
+        "C10": 2.13
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.01
+      ],
+      "objective_linear_coefficient": 7.56,
+      "resource_costs": {
+        "C1": 9.33,
+        "C2": 6.21,
+        "C3": 5.76,
+        "C4": 9.48,
+        "C6": 8.63,
+        "C7": 5.65,
+        "C8": 1.62
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.28
+      ],
+      "objective_linear_coefficient": 4.26,
+      "resource_costs": {
+        "C1": 0.61,
+        "C2": 8.36,
+        "C3": 9.95,
+        "C4": 7.26,
+        "C5": 6.52,
+        "C6": 2.59,
+        "C8": 5.6,
+        "C9": 2.54
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.86
+      ],
+      "objective_linear_coefficient": 4.78,
+      "resource_costs": {
+        "C1": 2.13,
+        "C3": 2.31,
+        "C4": 2.63,
+        "C6": 7.79,
+        "C7": 9.33,
+        "C8": 7.27,
+        "C10": 1.68
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.74
+      ],
+      "objective_linear_coefficient": 7.8,
+      "resource_costs": {
+        "C0": 2.57,
+        "C1": 8.6,
+        "C2": 3.11,
+        "C4": 6.63,
+        "C6": 3.13,
+        "C7": 9.8,
+        "C9": 6.71,
+        "C10": 1.55
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.65
+      ],
+      "objective_linear_coefficient": 4.11,
+      "resource_costs": {
+        "C1": 4.79,
+        "C4": 8.12,
+        "C5": 0.51,
+        "C6": 6.44,
+        "C7": 4.56,
+        "C8": 7.69,
+        "C9": 6.74
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.49
+      ],
+      "objective_linear_coefficient": 3.0,
+      "resource_costs": {
+        "C0": 0.48,
+        "C1": 5.86,
+        "C2": 4.95,
+        "C6": 7.87,
+        "C7": 4.86,
+        "C8": 2.32,
+        "C10": 7.85
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 9.98,
+      "resource_costs": {
+        "C0": 0.85,
+        "C2": 3.52,
+        "C3": 2.64,
+        "C4": 9.13,
+        "C5": 5.11,
+        "C6": 1.65,
+        "C8": 5.91,
+        "C10": 8.26
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.97
+      ],
+      "objective_linear_coefficient": 1.14,
+      "resource_costs": {
+        "C3": 6.67,
+        "C4": 5.52,
+        "C9": 2.06,
+        "C10": 7.73
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.28, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.54 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.01, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.56 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.28, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.26 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.86, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.78 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.74, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 7.8 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=5.65, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.11 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.49, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.0 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 9.98 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=17.97, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 1.14 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.47 * vars['Var_0'] + 2.57 * vars['Var_4'] + 0.48 * vars['Var_6'] + 0.85 * vars['Var_7'] <= 19.64, name='C0')\n    m.addConstr(9.06 * vars['Var_0'] + 9.33 * vars['Var_1'] + 0.61 * vars['Var_2'] + 2.13 * vars['Var_3'] + 8.6 * vars['Var_4'] + 4.79 * vars['Var_5'] + 5.86 * vars['Var_6'] <= 166.83, name='C1')\n    m.addConstr(2.13 * vars['Var_0'] + 1.68 * vars['Var_3'] + 1.55 * vars['Var_4'] + 7.85 * vars['Var_6'] + 8.26 * vars['Var_7'] + 7.73 * vars['Var_8'] <= 185.43, name='C10')\n    m.addConstr(6.21 * vars['Var_1'] + 8.36 * vars['Var_2'] + 3.11 * vars['Var_4'] + 4.95 * vars['Var_6'] + 3.52 * vars['Var_7'] <= 166.61, name='C2')\n    m.addConstr(3.92 * vars['Var_0'] + 5.76 * vars['Var_1'] + 9.95 * vars['Var_2'] + 2.31 * vars['Var_3'] + 2.64 * vars['Var_7'] + 6.67 * vars['Var_8'] <= 167.66, name='C3')\n    m.addConstr(9.48 * vars['Var_1'] + 7.26 * vars['Var_2'] + 2.63 * vars['Var_3'] + 6.63 * vars['Var_4'] + 8.12 * vars['Var_5'] + 9.13 * vars['Var_7'] + 5.52 * vars['Var_8'] <= 281.97, name='C4')\n    m.addConstr(6.52 * vars['Var_2'] + 0.51 * vars['Var_5'] + 5.11 * vars['Var_7'] <= 86.74, name='C5')\n    m.addConstr(3.13 * vars['Var_0'] + 8.63 * vars['Var_1'] + 2.59 * vars['Var_2'] + 7.79 * vars['Var_3'] + 3.13 * vars['Var_4'] + 6.44 * vars['Var_5'] + 7.87 * vars['Var_6'] + 1.65 * vars['Var_7'] <= 240.0, name='C6')\n    m.addConstr(7.67 * vars['Var_0'] + 5.65 * vars['Var_1'] + 9.33 * vars['Var_3'] + 9.8 * vars['Var_4'] + 4.56 * vars['Var_5'] + 4.86 * vars['Var_6'] <= 167.54, name='C7')\n    m.addConstr(5.45 * vars['Var_0'] + 1.62 * vars['Var_1'] + 5.6 * vars['Var_2'] + 7.27 * vars['Var_3'] + 7.69 * vars['Var_5'] + 2.32 * vars['Var_6'] + 5.91 * vars['Var_7'] <= 203.17, name='C8')\n    m.addConstr(6.0 * vars['Var_0'] + 2.54 * vars['Var_2'] + 6.71 * vars['Var_4'] + 6.74 * vars['Var_5'] + 2.06 * vars['Var_8'] <= 60.53, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Spring Production Mix \u2013 Guidance and Operating Limits\n\nTeam,\n\nPlease set up the Spring cycle plan to maximize overall contribution across nine programs while staying within our equipment capacities, labor rules, utility budgets, logistics windows, and compliance constraints. Below is the profile of each program and how it draws on the plant; please use this as the basis for the recommended allocation.\n\nLevers we can pull\n\n- Aurora Premium Sparkling (whole batches only; up to 18.28 batch slots)\n  Contribution: 7.54 per batch.\n  Resource profile per batch:\n  \u2022 Platinum filtration media: 6.47 kg.\n  \u2022 Mixing Line A: 9.06 hours.\n  \u2022 Mixing Line B: no draw.\n  \u2022 Filling & carbonation line: 3.92 hours.\n  \u2022 Packaging station: no draw.\n  \u2022 Quality lab: no draw.\n  \u2022 Plant utilities (steam & power): 3.13 MWh.\n  \u2022 Union overtime: 7.67 hours.\n  \u2022 Loading dock schedule: 5.45 slot-hours.\n  \u2022 Wastewater discharge: 6.00 kiloliters.\n  \u2022 Carbon footprint accounting: 2.13 tons CO2e.\n\n- Cascade Still Water (whole batches only; up to 15.01 batch slots)\n  Contribution: 7.56 per batch.\n  Resource profile per batch:\n  \u2022 Platinum filtration media: no draw.\n  \u2022 Mixing Line A: 9.33 hours.\n  \u2022 Mixing Line B: 6.21 hours.\n  \u2022 Filling & carbonation line: 5.76 hours.\n  \u2022 Packaging station: 9.48 hours.\n  \u2022 Quality lab: no draw.\n  \u2022 Plant utilities (steam & power): 8.63 MWh.\n  \u2022 Union overtime: 5.65 hours.\n  \u2022 Loading dock schedule: 1.62 slot-hours.\n  \u2022 Wastewater discharge: no draw.\n  \u2022 Carbon footprint accounting: no draw.\n\n- Boreal Energy Drink (whole batches only; up to 15.28 batch slots)\n  Contribution: 4.26 per batch.\n  Resource profile per batch:\n  \u2022 Platinum filtration media: no draw.\n  \u2022 Mixing Line A: 0.61 hours.\n  \u2022 Mixing Line B: 8.36 hours.\n  \u2022 Filling & carbonation line: 9.95 hours.\n  \u2022 Packaging station: 7.26 hours.\n  \u2022 Quality lab: 6.52 test slots.\n  \u2022 Plant utilities (steam & power): 2.59 MWh.\n  \u2022 Union overtime: no draw.\n  \u2022 Loading dock schedule: 5.60 slot-hours.\n  \u2022 Wastewater discharge: 2.54 kiloliters.\n  \u2022 Carbon footprint accounting: no draw.\n\n- Driftwood Tea (whole batches only; up to 13.86 batch slots)\n  Contribution: 4.78 per batch.\n  Resource profile per batch:\n  \u2022 Platinum filtration media: no draw.\n  \u2022 Mixing Line A: 2.13 hours.\n  \u2022 Mixing Line B: no draw.\n  \u2022 Filling & carbonation line: 2.31 hours.\n  \u2022 Packaging station: 2.63 hours.\n  \u2022 Quality lab: no draw.\n  \u2022 Plant utilities (steam & power): 7.79 MWh.\n  \u2022 Union overtime: 9.33 hours.\n  \u2022 Loading dock schedule: 7.27 slot-hours.\n  \u2022 Wastewater discharge: no draw.\n  \u2022 Carbon footprint accounting: 1.68 tons CO2e.\n\n- Ember Cola Limited Release (whole batches only; up to 7.74 batch slots)\n  Contribution: 7.80 per batch.\n  Resource profile per batch:\n  \u2022 Platinum filtration media: 2.57 kg.\n  \u2022 Mixing Line A: 8.60 hours.\n  \u2022 Mixing Line B: 3.11 hours.\n  \u2022 Filling & carbonation line: no draw.\n  \u2022 Packaging station: 6.63 hours.\n  \u2022 Quality lab: no draw.\n  \u2022 Plant utilities (steam & power): 3.13 MWh.\n  \u2022 Union overtime: 9.80 hours.\n  \u2022 Loading dock schedule: no draw.\n  \u2022 Wastewater discharge: 6.71 kiloliters.\n  \u2022 Carbon footprint accounting: 1.55 tons CO2e.\n\n- Nimbus Syrup Bulk Blend (can be dialed in fractional amounts; up to 5.65 kiloliters)\n  Contribution: 4.11 per kiloliter.\n  Resource profile per kiloliter:\n  \u2022 Platinum filtration media: no draw.\n  \u2022 Mixing Line A: 4.79 hours.\n  \u2022 Mixing Line B: no draw.\n  \u2022 Filling & carbonation line: no draw.\n  \u2022 Packaging station: 8.12 hours.\n  \u2022 Quality lab: 0.51 test slots.\n  \u2022 Plant utilities (steam & power): 6.44 MWh.\n  \u2022 Union overtime: 4.56 hours.\n  \u2022 Loading dock schedule: 7.69 slot-hours.\n  \u2022 Wastewater discharge: 6.74 kiloliters.\n  \u2022 Carbon footprint accounting: no draw.\n\n- Quanta Concentrate Feed (can be dialed in fractional amounts; up to 8.49 tons)\n  Contribution: 3.00 per ton.\n  Resource profile per ton:\n  \u2022 Platinum filtration media: 0.48 kg.\n  \u2022 Mixing Line A: 5.86 hours.\n  \u2022 Mixing Line B: 4.95 hours.\n  \u2022 Filling & carbonation line: no draw.\n  \u2022 Packaging station: no draw.\n  \u2022 Quality lab: no draw.\n  \u2022 Plant utilities (steam & power): 7.87 MWh.\n  \u2022 Union overtime: 4.86 hours.\n  \u2022 Loading dock schedule: 2.32 slot-hours.\n  \u2022 Wastewater discharge: no draw.\n  \u2022 Carbon footprint accounting: 7.85 tons CO2e.\n\n- Summit Sports Mix Sachets (whole batches only; up to 11 lot runs)\n  Contribution: 9.98 per lot.\n  Resource profile per lot:\n  \u2022 Platinum filtration media: 0.85 kg.\n  \u2022 Mixing Line A: no draw.\n  \u2022 Mixing Line B: 3.52 hours.\n  \u2022 Filling & carbonation line: 2.64 hours.\n  \u2022 Packaging station: 9.13 hours.\n  \u2022 Quality lab: 5.11 test slots.\n  \u2022 Plant utilities (steam & power): 1.65 MWh.\n  \u2022 Union overtime: no draw.\n  \u2022 Loading dock schedule: 5.91 slot-hours.\n  \u2022 Wastewater discharge: no draw.\n  \u2022 Carbon footprint accounting: 8.26 tons CO2e.\n\n- Terra Water Bulk Totes (whole batches only; up to 17.97 tote runs)\n  Contribution: 1.14 per run.\n  Resource profile per run:\n  \u2022 Platinum filtration media: no draw.\n  \u2022 Mixing Line A: no draw.\n  \u2022 Mixing Line B: no draw.\n  \u2022 Filling & carbonation line: 6.67 hours.\n  \u2022 Packaging station: 5.52 hours.\n  \u2022 Quality lab: no draw.\n  \u2022 Plant utilities (steam & power): no draw.\n  \u2022 Union overtime: no draw.\n  \u2022 Loading dock schedule: no draw.\n  \u2022 Wastewater discharge: 2.06 kiloliters.\n  \u2022 Carbon footprint accounting: 7.73 tons CO2e.\n\nFacility specs and limits (do not exceed)\n\n- Platinum filtration media availability: 19.64 kg.\n- Mixing Line A capacity: 166.83 hours.\n- Mixing Line B capacity: 166.61 hours.\n- Filling & carbonation line capacity: 167.66 hours.\n- Packaging station capacity: 281.97 hours.\n- Quality lab capacity: 86.74 test slots.\n- Plant utilities (steam & power) budget: 240.00 MWh.\n- Union overtime ceiling: 167.54 hours.\n- Loading dock schedule: 203.17 slot-hours.\n- Wastewater discharge permit: 60.53 kiloliters.\n- Carbon footprint cap: 185.43 tons CO2e.\n\nPlease use the above contribution profiles and resource draws to recommend the optimal mix that maximizes total contribution while respecting all the listed limits. Happy to review any proposed plan or sensitivity scenarios."
+}

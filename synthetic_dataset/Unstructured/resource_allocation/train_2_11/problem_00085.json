@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, costs, contributions, and \u2265 minimums are explicitly stated; zeros marked as \u2018no contribution\u2019. Objective is minimize total cost. The model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative (greeting, recap, LP/QP mention) around otherwise concise bullet data. Little repetition; most text conveys necessary parameters.",
+      "realism": 93,
+      "realism_comment": "Plausible staffing mix with service-level minima, costs, and caps. Fractional packs are slightly unusual but acceptable; overall reads like a real OR application."
+    },
+    "prompt_tokens_with_data": 819,
+    "prompt_tokens_without_data": 819
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 110.73118666679095,
+    "optimal_values": {
+      "Var_0": 5.942449066040563,
+      "Var_1": 4.7555753209950575,
+      "Var_2": 5.137955061180089
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 116.35
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 48.87
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.23
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 23.64
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 55.66
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 50.86
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.88
+      ],
+      "objective_linear_coefficient": 9.6,
+      "resource_costs": {
+        "C0": 8.71,
+        "C2": 7.57,
+        "C4": 7.87,
+        "C5": 4.04
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.45
+      ],
+      "objective_linear_coefficient": 3.38,
+      "resource_costs": {
+        "C0": 8.36,
+        "C2": 0.92,
+        "C3": 4.42,
+        "C4": 1.87
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.92
+      ],
+      "objective_linear_coefficient": 7.32,
+      "resource_costs": {
+        "C0": 4.94,
+        "C1": 9.81,
+        "C2": 7.76,
+        "C3": 0.51,
+        "C5": 5.42
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.88, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.6 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.45, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.38 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.92, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.32 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.71 * vars['Var_0'] + 8.36 * vars['Var_1'] + 4.94 * vars['Var_2'] >= 116.35, name='C0')\n    m.addConstr(9.81 * vars['Var_2'] >= 48.87, name='C1')\n    m.addConstr(7.57 * vars['Var_0'] + 0.92 * vars['Var_1'] + 7.76 * vars['Var_2'] >= 89.23, name='C2')\n    m.addConstr(4.42 * vars['Var_1'] + 0.51 * vars['Var_2'] >= 23.64, name='C3')\n    m.addConstr(7.87 * vars['Var_0'] + 1.87 * vars['Var_1'] >= 55.66, name='C4')\n    m.addConstr(4.04 * vars['Var_0'] + 5.42 * vars['Var_2'] >= 50.86, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimized staffing mix to meet our service commitments\n\nTeam,\n\nWe need to cover six service commitments this period while keeping total spend as low as possible. We can meet these obligations by drawing from three staffing levers. Each lever has a unit rate, a cap on how many units we can schedule, and a defined contribution to each of our service areas. The objective is to meet or exceed the minimum levels in every service area at the lowest total cost.\n\nBlue Support Overtime Packs\n- Unit rate: 9.60 per pack. We can book anywhere from 0 up to 7.88 packs.\n- Contribution per pack to our service areas:\n  - Customer Support Coverage: 8.71 coverage units per pack.\n  - Compliance Training Delivery: no contribution.\n  - Technical Case Resolution Capacity: 7.57 units per pack.\n  - Rapid Response Standby: no contribution.\n  - Quality Assurance Audits: 7.87 units per pack.\n  - Regional On\u2011Site Visits: 4.04 units per pack.\n\nGreen Partner Shift Slots\n- Unit rate: 3.38 per slot. We can book anywhere from 0 up to 9.45 slots.\n- Contribution per slot to our service areas:\n  - Customer Support Coverage: 8.36 coverage units per slot.\n  - Compliance Training Delivery: no contribution.\n  - Technical Case Resolution Capacity: 0.92 units per slot.\n  - Rapid Response Standby: 4.42 units per slot.\n  - Quality Assurance Audits: 1.87 units per slot.\n  - Regional On\u2011Site Visits: no contribution.\n\nGold Specialist Engagement Days\n- Unit rate: 7.32 per day. We can book anywhere from 0 up to 16.92 days.\n- Contribution per day to our service areas:\n  - Customer Support Coverage: 4.94 coverage units per day.\n  - Compliance Training Delivery: 9.81 units per day.\n  - Technical Case Resolution Capacity: 7.76 units per day.\n  - Rapid Response Standby: 0.51 units per day.\n  - Quality Assurance Audits: no contribution.\n  - Regional On\u2011Site Visits: 5.42 units per day.\n\nFacility Specs & Minimum Commitments\n- Customer Support Coverage must total at least 116.35 coverage units.\n- Compliance Training Delivery must total at least 48.87 units.\n- Technical Case Resolution Capacity must total at least 89.23 units.\n- Rapid Response Standby must total at least 23.64 units.\n- Quality Assurance Audits must total at least 55.66 units.\n- Regional On\u2011Site Visits must total at least 50.86 units.\n\nPlease review these parameters. Our plan is to select the least\u2011cost combination of Blue Support Overtime Packs, Green Partner Shift Slots, and Gold Specialist Engagement Days\u2014within their respective availability limits\u2014to meet or exceed every one of the minimums listed above."
+}

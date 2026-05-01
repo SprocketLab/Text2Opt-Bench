@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and per-unit contributions are explicit; constraints are clear >= minimums and objective is min cost. The model can be reconstructed exactly.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative style and notes add context but are not needed for formulation; some verbosity (ordering, remarks) without harmful repetition.",
+      "realism": 92,
+      "realism_comment": "Plausible staffing/coverage planning with clear metrics and costs; only minor oddity is a fractional upper bound for an integer resource."
+    },
+    "prompt_tokens_with_data": 841,
+    "prompt_tokens_without_data": 841
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 40.50449848307568,
+    "optimal_values": {
+      "Var_0": 2.3883947523737534,
+      "Var_1": 1.0114416475972539,
+      "Var_2": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.65
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 4.42
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 18.04
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 47.43
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 2.83
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.5
+      ],
+      "objective_linear_coefficient": 4.73,
+      "resource_costs": {
+        "C2": 6.63,
+        "C3": 0.04,
+        "C4": 1.92
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.91
+      ],
+      "objective_linear_coefficient": 5.89,
+      "resource_costs": {
+        "C0": 0.15,
+        "C1": 4.37,
+        "C2": 2.18
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.57
+      ],
+      "objective_linear_coefficient": 4.65,
+      "resource_costs": {
+        "C0": 4.25,
+        "C3": 9.9
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.5, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.73 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.91, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.89 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.57, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.65 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.15 * vars['Var_1'] + 4.25 * vars['Var_2'] >= 20.65, name='C0')\n    m.addConstr(4.37 * vars['Var_1'] >= 4.42, name='C1')\n    m.addConstr(6.63 * vars['Var_0'] + 2.18 * vars['Var_1'] >= 18.04, name='C2')\n    m.addConstr(0.04 * vars['Var_0'] + 9.9 * vars['Var_2'] >= 47.43, name='C3')\n    m.addConstr(1.92 * vars['Var_0'] >= 2.83, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix to meet coverage and compliance at minimum total cost\n\nTeam,\n\nWe need to settle the most cost-effective mix of three resourcing options to cover our minimum operational and compliance obligations. The aim is to meet or exceed five company-wide minimums while spending as little as possible.\n\nHere are the levers available to us, in the order I\u2019d like you to consider them:\n\n- Coastal Generalist Crews\n  - Unit cost: 4.73 per crew unit.\n  - Deployment range: we can assign anywhere from 0 up to 15.5 crew units, including partial allocations if needed.\n  - What they cover:\n    - Rural Outreach Hours: each crew unit contributes 6.63 hours.\n    - Off\u2011Hours Standby Coverage: each crew unit contributes 0.04 coverage units.\n    - Training & Compliance Credits: each crew unit contributes 1.92 credits.\n    - They do not add to Baseline Site Visits or Specialist Interventions.\n  - Notes: This is our most flexible generalist option for outreach and training credits, with a modest impact on off\u2011hours coverage and none on baseline or specialist needs.\n\n- Urban Specialist Teams\n  - Unit cost: 5.89 per team unit.\n  - Deployment range: we can assign anywhere from 0 up to 12.91 team units, including partial allocations if needed.\n  - What they cover:\n    - Baseline Site Visits: each team unit contributes 0.15 visits.\n    - Specialist Interventions: each team unit contributes 4.37 interventions.\n    - Rural Outreach Hours: each team unit contributes 2.18 hours.\n    - They do not add to Off\u2011Hours Standby Coverage or Training & Compliance Credits.\n  - Notes: This is our primary lever for specialist work, with secondary support for baseline and outreach requirements.\n\n- Rapid Response Units\n  - Unit cost: 4.65 per unit.\n  - Deployment range: we can field anywhere from 0 up to 6.57 units, but these must be whole units (no partial units).\n  - What they cover:\n    - Baseline Site Visits: each unit contributes 4.25 visits.\n    - Off\u2011Hours Standby Coverage: each unit contributes 9.9 coverage units.\n    - They do not add to Specialist Interventions, Rural Outreach Hours, or Training & Compliance Credits.\n  - Notes: Best option for after\u2011hours coverage and a meaningful boost to baseline visits; no direct contribution to specialist, outreach, or training metrics.\n\nMarket limits and minimums we must satisfy:\n- Baseline Site Visits: at least 20.65 units.\n- Specialist Interventions: at least 4.42 units.\n- Rural Outreach Hours: at least 18.04 hours.\n- Off\u2011Hours Standby Coverage: at least 47.43 coverage units.\n- Training & Compliance Credits: at least 2.83 credits.\n\nPlease review this mix and confirm any operational constraints not reflected above. Once approved, we\u2019ll finalize the deployment plan that satisfies all minimums at the lowest total spend."
+}

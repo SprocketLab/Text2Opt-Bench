@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, and nutrient contributions are explicit; minima are clear; objective is minimize total spend; zeros stated; continuous nonnegative quantities implied.",
+      "ambiguity": false,
+      "redundancy": 22,
+      "redundancy_comment": "Some business framing and repeated phrasing, but most text conveys necessary coefficients and bounds clearly.",
+      "realism": 96,
+      "realism_comment": "A plausible blending/sourcing LP with availability caps and nutrient minima; structure and values fit real-world formulations."
+    },
+    "prompt_tokens_with_data": 875,
+    "prompt_tokens_without_data": 875
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 81.07941941634905,
+    "optimal_values": {
+      "Var_0": 9.386144058172238,
+      "Var_1": 2.4988104094413583,
+      "Var_2": 2.665678653343885,
+      "Var_3": 0.5372529884147835
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 48.4
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 17.29
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 23.18
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 26.1
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 68.95
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 30.2
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.46
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.62
+      ],
+      "objective_linear_coefficient": 5.6,
+      "resource_costs": {
+        "C0": 2.76,
+        "C1": 1.9,
+        "C2": 2.58,
+        "C4": 5.32,
+        "C5": 2.24
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.29
+      ],
+      "objective_linear_coefficient": 8.16,
+      "resource_costs": {
+        "C0": 9.23,
+        "C2": 0.45,
+        "C3": 7.34,
+        "C4": 7.21,
+        "C5": 2.93
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.14
+      ],
+      "objective_linear_coefficient": 1.92,
+      "resource_costs": {
+        "C3": 2.31,
+        "C6": 7.5
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.15
+      ],
+      "objective_linear_coefficient": 5.6,
+      "resource_costs": {
+        "C3": 2.98,
+        "C4": 1.86,
+        "C5": 3.45,
+        "C6": 0.87
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.62, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.6 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.29, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.16 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.14, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.92 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.15, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.6 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.76 * vars['Var_0'] + 9.23 * vars['Var_1'] >= 48.4, name='C0')\n    m.addConstr(1.9 * vars['Var_0'] >= 17.29, name='C1')\n    m.addConstr(2.58 * vars['Var_0'] + 0.45 * vars['Var_1'] >= 23.18, name='C2')\n    m.addConstr(7.34 * vars['Var_1'] + 2.31 * vars['Var_2'] + 2.98 * vars['Var_3'] >= 26.1, name='C3')\n    m.addConstr(5.32 * vars['Var_0'] + 7.21 * vars['Var_1'] + 1.86 * vars['Var_3'] >= 68.95, name='C4')\n    m.addConstr(2.24 * vars['Var_0'] + 2.93 * vars['Var_1'] + 3.45 * vars['Var_3'] >= 30.2, name='C5')\n    m.addConstr(7.5 * vars['Var_2'] + 0.87 * vars['Var_3'] >= 20.46, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Least-Cost Fortified Blend \u2013 Sourcing Plan and Compliance Minimums\n\nTeam,\n\nWe need to finalize a low-cost sourcing plan for our fortified base blend this cycle. The aim is to minimize total ingredient spend while meeting or exceeding all of our required nutrition and quality minimums across seven measures. Each ingredient has a defined availability cap, and we\u2019ll only order within those limits.\n\nLevers we can pull\n\n- High\u2011Fiber Soymeal\n  - Cost profile: 5.6 per unit.\n  - Order window: between 0 and 10.62 units (we can choose any nonnegative amount up to 10.62).\n  - Per\u2011unit contribution to our minimums:\n    - Protein: 2.76 units\n    - Dietary Fiber: 1.9 units\n    - Calcium: 2.58 units\n    - Energy: 0 units\n    - Vitamin Spectrum: 5.32 units\n    - Trace Minerals: 2.24 units\n    - Omega Complex: 0 units\n\n- Protein Concentrate Blend\n  - Cost profile: 8.16 per unit.\n  - Order window: between 0 and 9.29 units.\n  - Per\u2011unit contribution to our minimums:\n    - Protein: 9.23 units\n    - Dietary Fiber: 0 units\n    - Calcium: 0.45 units\n    - Energy: 7.34 units\n    - Vitamin Spectrum: 7.21 units\n    - Trace Minerals: 2.93 units\n    - Omega Complex: 0 units\n\n- Omega Premix\n  - Cost profile: 1.92 per unit.\n  - Order window: between 0 and 14.14 units.\n  - Per\u2011unit contribution to our minimums:\n    - Protein: 0 units\n    - Dietary Fiber: 0 units\n    - Calcium: 0 units\n    - Energy: 2.31 units\n    - Vitamin Spectrum: 0 units\n    - Trace Minerals: 0 units\n    - Omega Complex: 7.5 units\n\n- Fortified Cornmeal\n  - Cost profile: 5.6 per unit.\n  - Order window: between 0 and 6.15 units.\n  - Per\u2011unit contribution to our minimums:\n    - Protein: 0 units\n    - Dietary Fiber: 0 units\n    - Calcium: 0 units\n    - Energy: 2.98 units\n    - Vitamin Spectrum: 1.86 units\n    - Trace Minerals: 3.45 units\n    - Omega Complex: 0.87 units\n\nFacility and Compliance Minimums (must be met or exceeded)\n\n- Protein: at least 48.4 units\n- Dietary Fiber: at least 17.29 units\n- Calcium: at least 23.18 units\n- Energy: at least 26.1 units\n- Vitamin Spectrum: at least 68.95 units\n- Trace Minerals: at least 30.2 units\n- Omega Complex: at least 20.46 units\n\nPlease review and confirm if we can proceed with optimization to identify the lowest\u2011cost mix within these availability caps and minimums."
+}

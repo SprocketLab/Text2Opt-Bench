@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, objective coeffs, and constraint coeffs (including signs and zeros) are explicit. \u2018Improves/worsens\u2019 clarifies signs; all RHS and <= senses are stated.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated clarifyers (e.g., improves/reduces) make it verbose, but most text maps directly to coefficients and limits.",
+      "realism": 95,
+      "realism_comment": "Highly realistic production planning with capacity/energy/compliance limits; freeing/returning resources is plausible. Negative targets unusual but coherent."
+    },
+    "prompt_tokens_with_data": 1576,
+    "prompt_tokens_without_data": 1576
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 407.4617695066839,
+    "optimal_values": {
+      "Var_0": 12.8987265917603,
+      "Var_1": 9.55,
+      "Var_2": 7.56,
+      "Var_3": 14.92,
+      "Var_4": 0.0,
+      "Var_5": 7.570440166166561,
+      "Var_6": 19.08
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 31.11
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -9.47
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -193.45
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 103.46
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -36.93
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 70.91
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 74.67
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -91.88
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.57
+      ],
+      "objective_linear_coefficient": 8.04,
+      "resource_costs": {
+        "C0": 8.01,
+        "C1": -8.05,
+        "C2": -9.85,
+        "C3": 2.48,
+        "C7": -0.74
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.55
+      ],
+      "objective_linear_coefficient": 4.51,
+      "resource_costs": {
+        "C1": -8.59,
+        "C2": -5.54,
+        "C5": 7.52,
+        "C6": 5.86,
+        "C7": -7.2
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.56
+      ],
+      "objective_linear_coefficient": 3.13,
+      "resource_costs": {
+        "C0": -3.04,
+        "C1": 8.31,
+        "C2": -4.9,
+        "C4": -6.28,
+        "C7": 3.98
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.92
+      ],
+      "objective_linear_coefficient": 2.65,
+      "resource_costs": {
+        "C1": -1.65,
+        "C2": -0.89,
+        "C3": -2.02,
+        "C5": -5.63,
+        "C6": -0.05,
+        "C7": -3.67
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.22
+      ],
+      "objective_linear_coefficient": 6.92,
+      "resource_costs": {
+        "C2": -8.1,
+        "C3": 9.85,
+        "C4": 5.02,
+        "C5": 8.26,
+        "C7": 9.69
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.45
+      ],
+      "objective_linear_coefficient": 5.47,
+      "resource_costs": {
+        "C1": 8.52,
+        "C3": 5.13,
+        "C5": 1.22,
+        "C6": 2.81,
+        "C7": -9.95
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.08
+      ],
+      "objective_linear_coefficient": 8.18,
+      "resource_costs": {
+        "C0": -2.58,
+        "C2": -4.07,
+        "C3": 3.29,
+        "C4": -8.42,
+        "C5": -6.39,
+        "C6": -0.71,
+        "C7": 2.03
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.57, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.04 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.55, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.51 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.56, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.13 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.92, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.65 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.22, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.92 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.45, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.47 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.08, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.18 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.01 * vars['Var_0'] + -3.04 * vars['Var_2'] + -2.58 * vars['Var_6'] <= 31.11, name='C0')\n    m.addConstr(-8.05 * vars['Var_0'] + -8.59 * vars['Var_1'] + 8.31 * vars['Var_2'] + -1.65 * vars['Var_3'] + 8.52 * vars['Var_5'] <= -9.47, name='C1')\n    m.addConstr(-9.85 * vars['Var_0'] + -5.54 * vars['Var_1'] + -4.9 * vars['Var_2'] + -0.89 * vars['Var_3'] + -8.1 * vars['Var_4'] + -4.07 * vars['Var_6'] <= -193.45, name='C2')\n    m.addConstr(2.48 * vars['Var_0'] + -2.02 * vars['Var_3'] + 9.85 * vars['Var_4'] + 5.13 * vars['Var_5'] + 3.29 * vars['Var_6'] <= 103.46, name='C3')\n    m.addConstr(-6.28 * vars['Var_2'] + 5.02 * vars['Var_4'] + -8.42 * vars['Var_6'] <= -36.93, name='C4')\n    m.addConstr(7.52 * vars['Var_1'] + -5.63 * vars['Var_3'] + 8.26 * vars['Var_4'] + 1.22 * vars['Var_5'] + -6.39 * vars['Var_6'] <= 70.91, name='C5')\n    m.addConstr(5.86 * vars['Var_1'] + -0.05 * vars['Var_3'] + 2.81 * vars['Var_5'] + -0.71 * vars['Var_6'] <= 74.67, name='C6')\n    m.addConstr(-0.74 * vars['Var_0'] + -7.2 * vars['Var_1'] + 3.98 * vars['Var_2'] + -3.67 * vars['Var_3'] + 9.69 * vars['Var_4'] + -9.95 * vars['Var_5'] + 2.03 * vars['Var_6'] <= -91.88, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Guidance to Maximize Contribution Under Q2 Facility & Compliance Limits\n\nTeam,\n\nAs we prepare the Q2 production schedule, we\u2019d like your help determining the optimal mix of seven offerings to maximize total operating contribution while staying within our energy, capacity, and compliance limits. Below are the levers at your disposal and the way each one interacts with our constraints. Volumes can be set anywhere from zero up to the stated maximums.\n\n- Premium Solvent A (lot scheduling)\n  - Economic impact: each lot contributes 8.04 to the operating margin; we can schedule up to 17.57 lots.\n  - Resource and compliance effects per lot:\n    - Draws on the high\u2011pressure steam budget by 8.01 units.\n    - Improves the NOx compliance score by 8.05 points (i.e., reduces the score by 8.05).\n    - Improves net CO2e by 9.85 tons (i.e., reduces the footprint by 9.85).\n    - Requires 2.48 skilled maintenance hours.\n    - Improves the HAP exposure index by 0.74 points (i.e., reduces the index by 0.74).\n    - No impact on wastewater COD, outbound loading bay commitments, or Packaging Line B overtime.\n\n- Industrial Adhesive B (batch runs)\n  - Economic impact: each batch contributes 4.51; up to 9.55 batches are feasible.\n  - Resource and compliance effects per batch:\n    - Improves the NOx compliance score by 8.59 points.\n    - Improves net CO2e by 5.54 tons.\n    - Uses 7.52 units of outbound loading bay throughput.\n    - Uses 5.86 hours on Packaging Line B overtime.\n    - Improves the HAP exposure index by 7.20 points.\n    - No draw on high\u2011pressure steam, skilled maintenance hours, or wastewater COD.\n\n- Bio\u2011Resin C (drum fills)\n  - Economic impact: each drum contributes 3.13; we can fill up to 7.56 drums.\n  - Resource and compliance effects per drum:\n    - Returns 3.04 units of high\u2011pressure steam to the budget via heat recovery (i.e., reduces steam demand by 3.04).\n    - Worsens the NOx compliance score by 8.31 points.\n    - Improves net CO2e by 4.90 tons.\n    - Improves wastewater COD discharge by 6.28 units (i.e., reduces the COD index by 6.28).\n    - Worsens the HAP exposure index by 3.98 points.\n    - No impact on outbound loading bay throughput, skilled maintenance hours, or Packaging Line B overtime.\n\n- Catalyst D (cartridge assemblies)\n  - Economic impact: each cartridge contributes 2.65; up to 14.92 cartridges can be assembled.\n  - Resource and compliance effects per cartridge:\n    - Improves the NOx compliance score by 1.65 points.\n    - Improves net CO2e by 0.89 tons.\n    - Frees 2.02 skilled maintenance hours (automation effect).\n    - Frees 5.63 units of outbound loading bay throughput (streamlined shipment impact).\n    - Saves 0.05 hours of Packaging Line B overtime.\n    - Improves the HAP exposure index by 3.67 points.\n    - No draw on high\u2011pressure steam or wastewater COD.\n\n- Composite Panel E (panel production)\n  - Economic impact: each panel contributes 6.92; up to 13.22 panels can be produced.\n  - Resource and compliance effects per panel:\n    - Improves net CO2e by 8.10 tons.\n    - Uses 9.85 skilled maintenance hours.\n    - Worsens wastewater COD discharge by 5.02 units.\n    - Uses 8.26 units of outbound loading bay throughput.\n    - Worsens the HAP exposure index by 9.69 points.\n    - No draw on high\u2011pressure steam, NOx compliance score, or Packaging Line B overtime.\n\n- Sealant Kit F (kit packaging)\n  - Economic impact: each kit contributes 5.47; up to 13.45 kits can be prepared.\n  - Resource and compliance effects per kit:\n    - Worsens the NOx compliance score by 8.52 points.\n    - Uses 5.13 skilled maintenance hours.\n    - Uses 1.22 units of outbound loading bay throughput.\n    - Uses 2.81 hours on Packaging Line B overtime.\n    - Improves the HAP exposure index by 9.95 points.\n    - No impact on high\u2011pressure steam, net CO2e, or wastewater COD.\n\n- Recycled Polymer G (pellet extrusion)\n  - Economic impact: each pellet run contributes 8.18; up to 19.08 runs are possible.\n  - Resource and compliance effects per run:\n    - Returns 2.58 units to the high\u2011pressure steam budget (waste\u2011heat capture).\n    - Improves net CO2e by 4.07 tons.\n    - Uses 3.29 skilled maintenance hours.\n    - Improves wastewater COD discharge by 8.42 units (i.e., reduces the COD index by 8.42).\n    - Frees 6.39 units of outbound loading bay throughput.\n    - Saves 0.71 hours on Packaging Line B overtime.\n    - Worsens the HAP exposure index by 2.03 points.\n\nFacility Specs & Compliance Targets (must not be exceeded in aggregate):\n- High\u2011Pressure Steam Availability: up to 31.11 units.\n- NOx Compliance Score: must be at or below \u22129.47 points (net reduction target).\n- Net CO2e Impact: must be at or below \u2212193.45 tons (carbon drawdown obligation).\n- Skilled Maintenance Hours: up to 103.46 hours.\n- Wastewater COD Discharge Index: must be at or below \u221236.93 units (enhanced treatment target).\n- Outbound Loading Bay Throughput: up to 70.91 units.\n- Packaging Line B Overtime: up to 74.67 hours.\n- HAP Exposure Index: must be at or below \u221291.88 points (net risk reduction target).\n\nPlease use these figures to recommend the production mix that maximizes total contribution while respecting the above facility and compliance limits. We\u2019re comfortable with fractional scheduling (e.g., partial lots or runs) so long as the totals remain within the stated bounds."
+}

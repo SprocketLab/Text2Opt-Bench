@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource capacities are explicitly stated, with zero-usage noted. The LP is mechanically reconstructible; only variable naming for code isn\u2019t specified.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some business prose and repeated \u201cNo use of \u2026\u201d lines add verbosity, though they help clarify zeros. Overall structured and focused.",
+      "realism": 98,
+      "realism_comment": "Very realistic production planning scenario with plausible resources and budgets; coherent and consistent data."
+    },
+    "prompt_tokens_with_data": 1257,
+    "prompt_tokens_without_data": 1257
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 199.70851151409664,
+    "optimal_values": {
+      "Var_0": 8.0078125,
+      "Var_1": 6.997211638705723,
+      "Var_2": 10.0,
+      "Var_3": 0.0,
+      "Var_4": 3.925457729813259,
+      "Var_5": 5.323063568376068,
+      "Var_6": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 64.5
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 119.41
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.01
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 72.63
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 196.47
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 6.95
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 31.22
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.73
+      ],
+      "objective_linear_coefficient": 6.4,
+      "resource_costs": {
+        "C0": 5.12,
+        "C2": 0.54,
+        "C4": 7.1,
+        "C6": 0.01
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.76
+      ],
+      "objective_linear_coefficient": 7.01,
+      "resource_costs": {
+        "C1": 2.23,
+        "C2": 0.33,
+        "C3": 9.71
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 7.99,
+      "resource_costs": {
+        "C0": 2.35,
+        "C1": 4.85,
+        "C3": 0.19,
+        "C4": 8.84
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.5
+      ],
+      "objective_linear_coefficient": 3.43,
+      "resource_costs": {
+        "C0": 4.26,
+        "C3": 2.78
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.48
+      ],
+      "objective_linear_coefficient": 1.01,
+      "resource_costs": {
+        "C2": 5.1,
+        "C3": 0.71,
+        "C5": 1.14
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.07
+      ],
+      "objective_linear_coefficient": 2.92,
+      "resource_costs": {
+        "C1": 8.21,
+        "C2": 4.2,
+        "C4": 8.63,
+        "C6": 5.85
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.77
+      ],
+      "objective_linear_coefficient": 1.93,
+      "resource_costs": {
+        "C0": 3.09,
+        "C1": 3.91,
+        "C3": 5.21,
+        "C4": 7.12
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.73, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.4 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.76, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.01 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.99 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.5, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.43 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.48, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.01 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.07, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.92 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=14.77, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.93 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.12 * vars['Var_0'] + 2.35 * vars['Var_2'] + 4.26 * vars['Var_3'] + 3.09 * vars['Var_6'] <= 64.5, name='C0')\n    m.addConstr(2.23 * vars['Var_1'] + 4.85 * vars['Var_2'] + 8.21 * vars['Var_5'] + 3.91 * vars['Var_6'] <= 119.41, name='C1')\n    m.addConstr(0.54 * vars['Var_0'] + 0.33 * vars['Var_1'] + 5.1 * vars['Var_4'] + 4.2 * vars['Var_5'] <= 49.01, name='C2')\n    m.addConstr(9.71 * vars['Var_1'] + 0.19 * vars['Var_2'] + 2.78 * vars['Var_3'] + 0.71 * vars['Var_4'] + 5.21 * vars['Var_6'] <= 72.63, name='C3')\n    m.addConstr(7.1 * vars['Var_0'] + 8.84 * vars['Var_2'] + 8.63 * vars['Var_5'] + 7.12 * vars['Var_6'] <= 196.47, name='C4')\n    m.addConstr(1.14 * vars['Var_4'] <= 6.95, name='C5')\n    m.addConstr(0.01 * vars['Var_0'] + 5.85 * vars['Var_5'] <= 31.22, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Guidance for the Upcoming Run\n\nHi team,\n\nAs we finalize the upcoming production window, the goal is to maximize total contribution across our seven product families while staying within plant capacities, material budgets, and compliance limits. Below are the levers and the specific details we\u2019ll need the model to respect.\n\nLevers (in order of consideration):\n\n1) Classic Granule Blend\n- Economic impact: adds 6.40 in contribution per batch.\n- Scheduling flexibility: can be set anywhere from 0 (we may elect not to make it) up to 19.73 batches; fractional batches are acceptable.\n- Resource draw per batch:\n  \u2022 Mixing Room A: 5.12 machine-hours.\n  \u2022 QC Laboratory: 0.54 test-slots.\n  \u2022 Active Ingredient Budget: 7.10 material units.\n  \u2022 Cold Chain: 0.01 pallet-equivalents.\n  \u2022 No use of Packaging Crew, Curing Ovens, or Waste Credits.\n\n2) Premium Capsule Run\n- Economic impact: adds 7.01 in contribution per batch.\n- Scheduling flexibility: can be set anywhere from 0 up to 14.76 batches; fractional batches are acceptable.\n- Resource draw per batch:\n  \u2022 Packaging Crew: 2.23 staff-hours.\n  \u2022 QC Laboratory: 0.33 test-slots.\n  \u2022 Curing Ovens: 9.71 machine-hours.\n  \u2022 No use of Mixing Room A, Active Ingredient Budget, Waste Credits, or Cold Chain.\n\n3) Limited Edition Wellness Kits\n- Economic impact: adds 7.99 in contribution per kit.\n- Scheduling flexibility: can be set anywhere from 0 up to 10 kits; orders must be whole kits (no fractional kits).\n- Resource draw per kit:\n  \u2022 Mixing Room A: 2.35 machine-hours.\n  \u2022 Packaging Crew: 4.85 staff-hours.\n  \u2022 Curing Ovens: 0.19 machine-hours.\n  \u2022 Active Ingredient Budget: 8.84 material units.\n  \u2022 No use of QC Laboratory, Waste Credits, or Cold Chain.\n\n4) Standard Tablet Batch\n- Economic impact: adds 3.43 in contribution per batch.\n- Scheduling flexibility: can be set anywhere from 0 up to 19.50 batches; fractional batches are acceptable.\n- Resource draw per batch:\n  \u2022 Mixing Room A: 4.26 machine-hours.\n  \u2022 Curing Ovens: 2.78 machine-hours.\n  \u2022 No use of Packaging Crew, QC Laboratory, Active Ingredient Budget, Waste Credits, or Cold Chain.\n\n5) Lab-Intensive Diagnostic Pack\n- Economic impact: adds 1.01 in contribution per pack.\n- Scheduling flexibility: can be set anywhere from 0 up to 15.48 packs; fractional packs are acceptable.\n- Resource draw per pack:\n  \u2022 QC Laboratory: 5.10 test-slots.\n  \u2022 Curing Ovens: 0.71 machine-hours.\n  \u2022 Waste Credits: 1.14 compliance units.\n  \u2022 No use of Mixing Room A, Packaging Crew, Active Ingredient Budget, or Cold Chain.\n\n6) Export Powder Lot\n- Economic impact: adds 2.92 in contribution per lot.\n- Scheduling flexibility: can be set anywhere from 0 up to 14.07 lots; fractional lots are acceptable.\n- Resource draw per lot:\n  \u2022 Packaging Crew: 8.21 staff-hours.\n  \u2022 QC Laboratory: 4.20 test-slots.\n  \u2022 Active Ingredient Budget: 8.63 material units.\n  \u2022 Cold Chain: 5.85 pallets.\n  \u2022 No use of Mixing Room A, Curing Ovens, or Waste Credits.\n\n7) Rapid Response Sample Kits\n- Economic impact: adds 1.93 in contribution per kit.\n- Scheduling flexibility: can be set anywhere from 0 up to 14.77 kits; fractional kits are acceptable.\n- Resource draw per kit:\n  \u2022 Mixing Room A: 3.09 machine-hours.\n  \u2022 Packaging Crew: 3.91 staff-hours.\n  \u2022 Curing Ovens: 5.21 machine-hours.\n  \u2022 Active Ingredient Budget: 7.12 material units.\n  \u2022 No use of QC Laboratory, Waste Credits, or Cold Chain.\n\nFacility specs & market limits (do not exceed):\n- Mixing Room A capacity: up to 64.50 machine-hours.\n- Packaging Crew capacity: up to 119.41 staff-hours.\n- QC Laboratory capacity: up to 49.01 test-slots.\n- Curing Ovens capacity: up to 72.63 machine-hours.\n- Active Ingredient Budget: up to 196.47 material units.\n- Waste Credits (regulated disposal/quota): up to 6.95 compliance units.\n- Cold Chain capacity: up to 31.22 pallets.\n\nPlease configure the plan to maximize total contribution while observing the above capacities, upper limits per family, and the whole-unit requirement for the Limited Edition Wellness Kits. Happy to discuss any assumptions you need to make on unit definitions or scheduling granularity.\n\nBest,\n[Client Name]"
+}

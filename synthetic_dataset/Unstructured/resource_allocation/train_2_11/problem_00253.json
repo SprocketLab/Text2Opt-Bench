@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "Costs, bounds, and coefficients per program are explicit; constraint thresholds with >= are clear; objective is minimize cost; fractional allowed. Minor lack of explicit variable names.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business-narrative tone and extras (greetings, context) add verbosity; repeated 'no direct effect' notes. Core data is clear; moderate extra text.",
+      "realism": 94,
+      "realism_comment": "Plausible logistics capacity mix with cost and service/ESG/performance/resilience/audit goals; numbers and directions are coherent and consistent."
+    },
+    "prompt_tokens_with_data": 1220,
+    "prompt_tokens_without_data": 1220
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 73.43851920871559,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 12.265911697247697,
+      "Var_2": 0.0,
+      "Var_3": 6.470183486238542,
+      "Var_4": 0.0,
+      "Var_5": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 127.33
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -57.12
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -190.7
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 145.92
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -16.01
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 0.95
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.94
+      ],
+      "objective_linear_coefficient": 4.38,
+      "resource_costs": {
+        "C0": 4.36,
+        "C1": -9.94,
+        "C2": -7.51,
+        "C3": -4.67,
+        "C5": -9.54
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.41
+      ],
+      "objective_linear_coefficient": 4.41,
+      "resource_costs": {
+        "C0": 6.72,
+        "C2": -8.61,
+        "C3": 8.8,
+        "C5": 4.91
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.08
+      ],
+      "objective_linear_coefficient": 2.04,
+      "resource_costs": {
+        "C0": 6.66,
+        "C1": -4.27,
+        "C2": -7.74,
+        "C3": -0.08,
+        "C4": -6.56
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.97
+      ],
+      "objective_linear_coefficient": 2.99,
+      "resource_costs": {
+        "C0": 6.94,
+        "C3": 5.87,
+        "C4": -1.03,
+        "C5": -1.72
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.41
+      ],
+      "objective_linear_coefficient": 5.58,
+      "resource_costs": {
+        "C2": -9.79,
+        "C3": 5.93,
+        "C4": 2.04,
+        "C5": 0.57
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.35
+      ],
+      "objective_linear_coefficient": 4.76,
+      "resource_costs": {
+        "C1": -0.29,
+        "C2": 6.47,
+        "C3": 8.29,
+        "C4": -2.02
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.94, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.38 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.41, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.41 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.08, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.04 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.97, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.99 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.41, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.58 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.35, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.76 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.36 * vars['Var_0'] + 6.72 * vars['Var_1'] + 6.66 * vars['Var_2'] + 6.94 * vars['Var_3'] >= 127.33, name='C0')\n    m.addConstr(-9.94 * vars['Var_0'] + -4.27 * vars['Var_2'] + -0.29 * vars['Var_5'] >= -57.12, name='C1')\n    m.addConstr(-7.51 * vars['Var_0'] + -8.61 * vars['Var_1'] + -7.74 * vars['Var_2'] + -9.79 * vars['Var_4'] + 6.47 * vars['Var_5'] >= -190.7, name='C2')\n    m.addConstr(-4.67 * vars['Var_0'] + 8.8 * vars['Var_1'] + -0.08 * vars['Var_2'] + 5.87 * vars['Var_3'] + 5.93 * vars['Var_4'] + 8.29 * vars['Var_5'] >= 145.92, name='C3')\n    m.addConstr(-6.56 * vars['Var_2'] + -1.03 * vars['Var_3'] + 2.04 * vars['Var_4'] + -2.02 * vars['Var_5'] >= -16.01, name='C4')\n    m.addConstr(-9.54 * vars['Var_0'] + 4.91 * vars['Var_1'] + -1.72 * vars['Var_3'] + 0.57 * vars['Var_4'] >= 0.95, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Q1 Logistics Mix \u2014 Minimize Spend While Hitting Service and Policy Minimums\n\nTeam,\n\nWe\u2019re evaluating how much capacity to secure across six delivery programs for the coming period, with the clear intent to minimize our total outlay while still meeting our minimum service, risk, sustainability, and audit standards. Each program has a per\u2011unit cost, a ceiling on how much we can buy, and distinct impacts on our internal scorecards. Allocations can range from zero up to each program\u2019s maximum.\n\nHere\u2019s how each lever behaves:\n\n1) Nightfall Air Express\n- Commercial terms: variable outlay of 4.38 per unit; we can take anywhere from 0 up to 19.94 units.\n- Service Coverage Points: each unit adds 4.36 points.\n- Net Margin Buffer: each unit draws the buffer down by 9.94 points.\n- Sustainability & ESG Score: each unit lowers the score by 7.51 points.\n- Customer Delivery Performance Index: each unit reduces the index by 4.67 points.\n- Supply Chain Resilience Reserve: no direct effect.\n- Audit Readiness Score: each unit reduces readiness by 9.54 points.\n\n2) Sunrise Regional Haul\n- Commercial terms: variable outlay of 4.41 per unit; we can take anywhere from 0 up to 17.41 units.\n- Service Coverage Points: each unit adds 6.72 points.\n- Net Margin Buffer: no direct effect.\n- Sustainability & ESG Score: each unit lowers the score by 8.61 points.\n- Customer Delivery Performance Index: each unit adds 8.8 points.\n- Supply Chain Resilience Reserve: no direct effect.\n- Audit Readiness Score: each unit adds 4.91 points.\n\n3) Metro Micro\u2011Dispatch\n- Commercial terms: variable outlay of 2.04 per unit; we can take anywhere from 0 up to 9.08 units.\n- Service Coverage Points: each unit adds 6.66 points.\n- Net Margin Buffer: each unit draws the buffer down by 4.27 points.\n- Sustainability & ESG Score: each unit lowers the score by 7.74 points.\n- Customer Delivery Performance Index: each unit reduces the index by 0.08 points.\n- Supply Chain Resilience Reserve: each unit reduces the reserve by 6.56 points.\n- Audit Readiness Score: no direct effect.\n\n4) Dedicated Van Network\n- Commercial terms: variable outlay of 2.99 per unit; we can take anywhere from 0 up to 9.97 units.\n- Service Coverage Points: each unit adds 6.94 points.\n- Net Margin Buffer: no direct effect.\n- Sustainability & ESG Score: no direct effect.\n- Customer Delivery Performance Index: each unit adds 5.87 points.\n- Supply Chain Resilience Reserve: each unit reduces the reserve by 1.03 points.\n- Audit Readiness Score: each unit reduces readiness by 1.72 points.\n\n5) IronRail Consolidation\n- Commercial terms: variable outlay of 5.58 per unit; we can take anywhere from 0 up to 19.41 units.\n- Service Coverage Points: no direct effect.\n- Net Margin Buffer: no direct effect.\n- Sustainability & ESG Score: each unit lowers the score by 9.79 points.\n- Customer Delivery Performance Index: each unit adds 5.93 points.\n- Supply Chain Resilience Reserve: each unit adds 2.04 points.\n- Audit Readiness Score: each unit adds 0.57 points.\n\n6) eFleet Green Partner\n- Commercial terms: variable outlay of 4.76 per unit; we can take anywhere from 0 up to 12.35 units.\n- Service Coverage Points: no direct effect.\n- Net Margin Buffer: each unit draws the buffer down by 0.29 points.\n- Sustainability & ESG Score: each unit improves the score by 6.47 points.\n- Customer Delivery Performance Index: each unit adds 8.29 points.\n- Supply Chain Resilience Reserve: each unit reduces the reserve by 2.02 points.\n- Audit Readiness Score: no direct effect.\n\nCompany standards and minimums we must hit with the combined mix:\n- Service Coverage Points: at least 127.33 points.\n- Net Margin Buffer: at or above \u221257.12 points.\n- Sustainability & ESG Score: at or above \u2212190.7 points.\n- Customer Delivery Performance Index: at least 145.92 points.\n- Supply Chain Resilience Reserve: at or above \u221216.01 points.\n- Audit Readiness Score: at least 0.95 points.\n\nPlease propose the lowest\u2011cost combination of the above programs that satisfies all of these minimums, staying within each program\u2019s availability. If helpful, we\u2019re open to fractional allocations within the stated bounds.\n\nThanks,\n[Client Name]"
+}

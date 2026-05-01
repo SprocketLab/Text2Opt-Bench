@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All bounds, objective coefficients, and per-guardrail impacts with signs and RHS thresholds are explicit. Fractional caps imply continuous vars. Direct LP reconstruction is possible.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some email-style narrative and clarifying parentheticals add length, but most content conveys necessary coefficients and limits.",
+      "realism": 93,
+      "realism_comment": "Plausible supply chain planning with environmental, labor, and cost guardrails. Negative-ledger thresholds are unusual but clearly explained and coherent."
+    },
+    "prompt_tokens_with_data": 1177,
+    "prompt_tokens_without_data": 1177
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 121.00988541310113,
+    "optimal_values": {
+      "Var_0": 5.932673108451834,
+      "Var_1": 6.36,
+      "Var_2": 7.78,
+      "Var_3": 9.19,
+      "Var_4": 0.16710398539072527
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -45.4
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -55.35
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -28.06
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 5.42
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 112.57
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -99.68
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.0
+      ],
+      "objective_linear_coefficient": 5.07,
+      "resource_costs": {
+        "C2": 0.38,
+        "C3": 7.48,
+        "C4": 7.78,
+        "C5": -5.95
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.36
+      ],
+      "objective_linear_coefficient": 5.56,
+      "resource_costs": {
+        "C0": -7.16,
+        "C1": -2.33,
+        "C2": -1.33,
+        "C3": 9.25,
+        "C4": 6.38,
+        "C5": 5.1
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.78
+      ],
+      "objective_linear_coefficient": 3.92,
+      "resource_costs": {
+        "C0": -7.16,
+        "C1": -2.46,
+        "C2": -9.46,
+        "C3": -3.88,
+        "C4": -3.21,
+        "C5": -5.11
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.19
+      ],
+      "objective_linear_coefficient": 2.67,
+      "resource_costs": {
+        "C0": -1.61,
+        "C1": -5.73,
+        "C3": -7.32,
+        "C4": 5.35,
+        "C5": -6.24
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.69
+      ],
+      "objective_linear_coefficient": 3.2,
+      "resource_costs": {
+        "C0": 4.14,
+        "C1": 2.04,
+        "C2": -1.44,
+        "C3": -1.97,
+        "C4": 9.84,
+        "C5": 0.25
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.0, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.07 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.36, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.56 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.78, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.92 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.19, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.67 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.69, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.2 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-7.16 * vars['Var_1'] + -7.16 * vars['Var_2'] + -1.61 * vars['Var_3'] + 4.14 * vars['Var_4'] <= -45.4, name='C0')\n    m.addConstr(-2.33 * vars['Var_1'] + -2.46 * vars['Var_2'] + -5.73 * vars['Var_3'] + 2.04 * vars['Var_4'] <= -55.35, name='C1')\n    m.addConstr(0.38 * vars['Var_0'] + -1.33 * vars['Var_1'] + -9.46 * vars['Var_2'] + -1.44 * vars['Var_4'] <= -28.06, name='C2')\n    m.addConstr(7.48 * vars['Var_0'] + 9.25 * vars['Var_1'] + -3.88 * vars['Var_2'] + -7.32 * vars['Var_3'] + -1.97 * vars['Var_4'] <= 5.42, name='C3')\n    m.addConstr(7.78 * vars['Var_0'] + 6.38 * vars['Var_1'] + -3.21 * vars['Var_2'] + 5.35 * vars['Var_3'] + 9.84 * vars['Var_4'] <= 112.57, name='C4')\n    m.addConstr(-5.95 * vars['Var_0'] + 5.1 * vars['Var_1'] + -5.11 * vars['Var_2'] + -6.24 * vars['Var_3'] + 0.25 * vars['Var_4'] <= -99.68, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 Allocation Proposal \u2014 Maximizing Contribution under Operational Guardrails\n\nTeam,\n\nAs we set the Q1 plan for our packaging and fulfillment network, the goal is to maximize overall contribution while staying within six enterprise guardrails: the Carbon Offset ledger, the Quality & Compliance score, Effluent variance, the Trucking footprint, Skilled labor hours, and our Net Operating Cost savings balance. Below are the five levers we can dial, the value each unlocks per unit, and how each unit affects the guardrails. Each lever can only be set between zero and its practical cap noted.\n\n- Blue Line Packaging Runs (up to 17.0 runs; cannot go below zero)\n  - Financial contribution: each run adds 5.07 in gross contribution.\n  - Carbon Offset ledger: no impact per run.\n  - Quality & Compliance score: no impact per run.\n  - Effluent variance: increases by 0.38 per run.\n  - Trucking footprint: increases by 7.48 road-mile units per run.\n  - Skilled labor hours: consumes 7.78 hours per run.\n  - Net Operating Cost savings balance: improves savings by 5.95 per run (i.e., reduces the cost balance by 5.95).\n\n- Green Channel Promotions (up to 6.36 campaigns; cannot go below zero)\n  - Financial contribution: each campaign adds 5.56 in gross contribution.\n  - Carbon Offset ledger: improves by 7.16 per campaign (i.e., generates 7.16 offsets).\n  - Quality & Compliance score: improves by 2.33 points per campaign.\n  - Effluent variance: reduces by 1.33 per campaign.\n  - Trucking footprint: increases by 9.25 road-mile units per campaign.\n  - Skilled labor hours: consumes 6.38 hours per campaign.\n  - Net Operating Cost savings balance: reduces savings by 5.10 per campaign (i.e., adds 5.10 to operating cost exposure).\n\n- Recycled Resin Blend (up to 7.78 batches; cannot go below zero)\n  - Financial contribution: each batch adds 3.92 in gross contribution.\n  - Carbon Offset ledger: improves by 7.16 per batch.\n  - Quality & Compliance score: improves by 2.46 points per batch.\n  - Effluent variance: reduces by 9.46 per batch.\n  - Trucking footprint: reduces by 3.88 road-mile units per batch.\n  - Skilled labor hours: frees up 3.21 hours per batch.\n  - Net Operating Cost savings balance: improves savings by 5.11 per batch.\n\n- Night Shift Consolidation (up to 9.19 shifts; cannot go below zero)\n  - Financial contribution: each shift adds 2.67 in gross contribution.\n  - Carbon Offset ledger: improves by 1.61 per shift.\n  - Quality & Compliance score: improves by 5.73 points per shift.\n  - Effluent variance: no material impact per shift.\n  - Trucking footprint: reduces by 7.32 road-mile units per shift.\n  - Skilled labor hours: consumes 5.35 hours per shift.\n  - Net Operating Cost savings balance: improves savings by 6.24 per shift.\n\n- Local Kitting Cells (up to 17.69 cells online; cannot go below zero)\n  - Financial contribution: each cell online adds 3.20 in gross contribution.\n  - Carbon Offset ledger: worsens by 4.14 per cell (i.e., adds to emissions burden).\n  - Quality & Compliance score: worsens by 2.04 points per cell.\n  - Effluent variance: reduces by 1.44 per cell.\n  - Trucking footprint: reduces by 1.97 road-mile units per cell.\n  - Skilled labor hours: consumes 9.84 hours per cell.\n  - Net Operating Cost savings balance: reduces savings by 0.25 per cell.\n\nOperating guardrails for the quarter (must be kept at or below these levels):\n- Carbon Offset ledger: -45.4 or lower.\n- Quality & Compliance score: -55.35 or lower.\n- Effluent variance: -28.06 or lower.\n- Trucking footprint: 5.42 road-mile units or lower.\n- Skilled labor hours: 112.57 hours or lower.\n- Net Operating Cost savings balance: -99.68 or lower (i.e., deliver at least 99.68 in net savings).\n\nPlease use the above as the basis for scenario-building. The intent is to lean into the highest-contribution levers while ensuring the aggregate impacts across all five remain within these guardrails."
+}

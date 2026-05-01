@@ -1,0 +1,337 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 13,
+    "num_constraints": 16,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Each item's bounds, integrality, contribution, and per-resource coefficients are explicit; all resource caps given. A human can reconstruct the exact objective and constraints mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some email-style preamble and narrative fluff, but most text encodes necessary coefficients and limits clearly.",
+      "realism": 95,
+      "realism_comment": "Highly plausible production planning scenario with diverse, realistic constraints (plant, QC, marketing, carbon). Minor oddity: non-integer UBs for integer items."
+    },
+    "prompt_tokens_with_data": 1885,
+    "prompt_tokens_without_data": 1885
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 330.0200881945019,
+    "optimal_values": {
+      "Var_0": 6.0,
+      "Var_1": 7.726315789473685,
+      "Var_2": 5.0,
+      "Var_3": 5.0,
+      "Var_4": 4.0,
+      "Var_5": 10.615308866443232,
+      "Var_6": -0.0,
+      "Var_7": 2.5540765391014975,
+      "Var_8": 0.0,
+      "Var_9": 7.2130094451267786,
+      "Var_10": 3.406546005596858,
+      "Var_11": 0.40654775724530745,
+      "Var_12": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 152.15
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 44.11
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 170.08
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 148.48
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 228.58
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 184.95
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.83
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 119.73
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 36.7
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 81.69
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 130.49
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 94.16
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 50.98
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 117.13
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 185.69
+    },
+    "C15": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 64.57
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 2.43,
+      "resource_costs": {
+        "C0": 7.41,
+        "C2": 5.45,
+        "C3": 1.31,
+        "C10": 0.02,
+        "C11": 7.25,
+        "C13": 8.14
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.28
+      ],
+      "objective_linear_coefficient": 4.51,
+      "resource_costs": {
+        "C0": 3.95,
+        "C2": 6.52,
+        "C6": 2.73,
+        "C8": 4.75
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.04
+      ],
+      "objective_linear_coefficient": 7.0,
+      "resource_costs": {
+        "C2": 3.83,
+        "C4": 8.81,
+        "C5": 4.81,
+        "C7": 7.12,
+        "C15": 8.02
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.25
+      ],
+      "objective_linear_coefficient": 6.33,
+      "resource_costs": {
+        "C0": 7.1,
+        "C1": 7.58,
+        "C3": 1.96,
+        "C10": 8.66,
+        "C11": 5.11,
+        "C14": 3.73
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.0
+      ],
+      "objective_linear_coefficient": 5.89,
+      "resource_costs": {
+        "C1": 0.47,
+        "C2": 5.75,
+        "C3": 5.98,
+        "C4": 3.69,
+        "C15": 2.28
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.67
+      ],
+      "objective_linear_coefficient": 8.24,
+      "resource_costs": {
+        "C0": 1.63,
+        "C3": 4.88,
+        "C4": 6.44,
+        "C5": 5.7,
+        "C10": 0.58,
+        "C13": 0.47,
+        "C14": 9.73
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.41
+      ],
+      "objective_linear_coefficient": 1.45,
+      "resource_costs": {
+        "C1": 0.85,
+        "C3": 2.35,
+        "C4": 8.17,
+        "C6": 9.74,
+        "C7": 6.93,
+        "C9": 6.58,
+        "C12": 2.43,
+        "C14": 6.79
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.93
+      ],
+      "objective_linear_coefficient": 4.25,
+      "resource_costs": {
+        "C0": 4.13,
+        "C4": 7.66,
+        "C7": 9.44,
+        "C9": 8.95,
+        "C13": 1.9,
+        "C14": 3.0,
+        "C15": 6.01
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.36
+      ],
+      "objective_linear_coefficient": 4.33,
+      "resource_costs": {
+        "C5": 9.71,
+        "C6": 9.45,
+        "C7": 9.39,
+        "C9": 8.37,
+        "C10": 7.01,
+        "C13": 5.36,
+        "C15": 6.7
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.62
+      ],
+      "objective_linear_coefficient": 8.41,
+      "resource_costs": {
+        "C2": 0.5,
+        "C3": 7.62,
+        "C4": 9.5,
+        "C5": 6.83,
+        "C7": 2.53,
+        "C10": 9.99,
+        "C14": 1.6
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.39
+      ],
+      "objective_linear_coefficient": 3.73,
+      "resource_costs": {
+        "C0": 1.04,
+        "C2": 5.92,
+        "C4": 3.91,
+        "C5": 9.26,
+        "C6": 6.85,
+        "C7": 4.18,
+        "C12": 4.81
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.03
+      ],
+      "objective_linear_coefficient": 3.3,
+      "resource_costs": {
+        "C1": 5.59,
+        "C3": 0.33,
+        "C5": 7.83,
+        "C10": 4.48,
+        "C11": 2.59,
+        "C12": 7.29
+      }
+    },
+    "Var_12": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.06
+      ],
+      "objective_linear_coefficient": 3.47,
+      "resource_costs": {
+        "C2": 4.19,
+        "C5": 3.28,
+        "C11": 0.18,
+        "C13": 2.24,
+        "C14": 8.91
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.43 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.28, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.51 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=17.39, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 3.73 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=9.03, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 3.3 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=12.06, vtype=GRB.INTEGER, name='Var_12')\n    lin_expr += 3.47 * vars['Var_12']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=5.04, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.0 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.25, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.33 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.0, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.89 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.67, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.24 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.41, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 1.45 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=19.93, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 4.25 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=12.36, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 4.33 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=16.62, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 8.41 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.41 * vars['Var_0'] + 3.95 * vars['Var_1'] + 1.04 * vars['Var_10'] + 7.1 * vars['Var_3'] + 1.63 * vars['Var_5'] + 4.13 * vars['Var_7'] <= 152.15, name='C0')\n    m.addConstr(5.59 * vars['Var_11'] + 7.58 * vars['Var_3'] + 0.47 * vars['Var_4'] + 0.85 * vars['Var_6'] <= 44.11, name='C1')\n    m.addConstr(0.02 * vars['Var_0'] + 4.48 * vars['Var_11'] + 8.66 * vars['Var_3'] + 0.58 * vars['Var_5'] + 7.01 * vars['Var_8'] + 9.99 * vars['Var_9'] <= 130.49, name='C10')\n    m.addConstr(7.25 * vars['Var_0'] + 2.59 * vars['Var_11'] + 0.18 * vars['Var_12'] + 5.11 * vars['Var_3'] <= 94.16, name='C11')\n    m.addConstr(4.81 * vars['Var_10'] + 7.29 * vars['Var_11'] + 2.43 * vars['Var_6'] <= 50.98, name='C12')\n    m.addConstr(8.14 * vars['Var_0'] + 2.24 * vars['Var_12'] + 0.47 * vars['Var_5'] + 1.9 * vars['Var_7'] + 5.36 * vars['Var_8'] <= 117.13, name='C13')\n    m.addConstr(8.91 * vars['Var_12'] + 3.73 * vars['Var_3'] + 9.73 * vars['Var_5'] + 6.79 * vars['Var_6'] + 3.0 * vars['Var_7'] + 1.6 * vars['Var_9'] <= 185.69, name='C14')\n    m.addConstr(8.02 * vars['Var_2'] + 2.28 * vars['Var_4'] + 6.01 * vars['Var_7'] + 6.7 * vars['Var_8'] <= 64.57, name='C15')\n    m.addConstr(5.45 * vars['Var_0'] + 6.52 * vars['Var_1'] + 5.92 * vars['Var_10'] + 4.19 * vars['Var_12'] + 3.83 * vars['Var_2'] + 5.75 * vars['Var_4'] + 0.5 * vars['Var_9'] <= 170.08, name='C2')\n    m.addConstr(1.31 * vars['Var_0'] + 0.33 * vars['Var_11'] + 1.96 * vars['Var_3'] + 5.98 * vars['Var_4'] + 4.88 * vars['Var_5'] + 2.35 * vars['Var_6'] + 7.62 * vars['Var_9'] <= 148.48, name='C3')\n    m.addConstr(3.91 * vars['Var_10'] + 8.81 * vars['Var_2'] + 3.69 * vars['Var_4'] + 6.44 * vars['Var_5'] + 8.17 * vars['Var_6'] + 7.66 * vars['Var_7'] + 9.5 * vars['Var_9'] <= 228.58, name='C4')\n    m.addConstr(9.26 * vars['Var_10'] + 7.83 * vars['Var_11'] + 3.28 * vars['Var_12'] + 4.81 * vars['Var_2'] + 5.7 * vars['Var_5'] + 9.71 * vars['Var_8'] + 6.83 * vars['Var_9'] <= 184.95, name='C5')\n    m.addConstr(2.73 * vars['Var_1'] + 6.85 * vars['Var_10'] + 9.74 * vars['Var_6'] + 9.45 * vars['Var_8'] <= 52.83, name='C6')\n    m.addConstr(4.18 * vars['Var_10'] + 7.12 * vars['Var_2'] + 6.93 * vars['Var_6'] + 9.44 * vars['Var_7'] + 9.39 * vars['Var_8'] + 2.53 * vars['Var_9'] <= 119.73, name='C7')\n    m.addConstr(4.75 * vars['Var_1'] <= 36.7, name='C8')\n    m.addConstr(6.58 * vars['Var_6'] + 8.95 * vars['Var_7'] + 8.37 * vars['Var_8'] <= 81.69, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Seasonal Portfolio Production Mix \u2013 Maximize Contribution Under Plant & Market Limits\n\nTeam,\n\nWe\u2019re planning the seasonal portfolio and want to maximize total gross contribution while staying within our plant capacities, compliance requirements, and market-facing limits. A number of items are discrete (whole batches or shipments), and others can be scheduled in partial volumes. Below is the decision set, in the order we need you to consider them, along with how each impacts our shared resources.\n\n- Export Citrus Gin (whole batches, between 0 and 11):\n  Each batch delivers a gross contribution of 2.43. Per batch, it draws 7.41 hours in the mash and ferment room, 5.45 hours on Bottling Line A, and 1.31 hours of the packaging crew. It requires 0.02 hours in the QC lab, 7.25 regulatory/compliance points, and 8.14 points from the marketing activation budget.\n\n- Foil-Sealed Cold Brew (can be partial, between 0 and 10.28):\n  Each unit contributes 4.51. It requires 3.95 hours in mash and ferment, 6.52 hours on Bottling Line A, 2.73 hours of chilling/cold chain capacity, and uses 4.75 units of the limited edition foil seals.\n\n- Spiced Rum Barrels (whole lots, between 0 and 5.04):\n  Each lot contributes 7.00. It uses 3.83 hours on Bottling Line A, 8.81 units of base spirit/blend stock, 4.81 tons from the syrup/sweetener reserve, 7.12 flavoring station batches, and 8.02 weekend overtime windows.\n\n- Heritage Whiskey (whole runs, between 0 and 16.25):\n  Each run contributes 6.33. It draws 7.10 hours in mash and ferment, 7.58 hours on Distillation Column B, and 1.96 packaging crew hours. It also needs 8.66 QC lab hours, 5.11 regulatory/compliance points, and counts for 3.73 tons of our carbon footprint allowance.\n\n- Canned G&T Packs (whole runs, between 0 and 6):\n  Each run contributes 5.89. It taps 0.47 hours of Distillation Column B, 5.75 hours on Bottling Line A, and 5.98 packaging crew hours. It consumes 3.69 units of base spirit/blend stock and 2.28 weekend overtime windows.\n\n- Nitro Stout Shipments (can be partial, between 0 and 10.67):\n  Each shipment contributes 8.24. It uses 1.63 hours in mash and ferment, 4.88 packaging crew hours, 6.44 units of base spirit/blend stock, and 5.70 tons from the syrup/sweetener reserve. It requires 0.58 hours in the QC lab, 0.47 points from the marketing activation budget, and accounts for 9.73 tons in our carbon footprint allowance.\n\n- Chilled Seltzer Kegs (whole kegs, between 0 and 9.41):\n  Each keg contributes 1.45. It taps 0.85 hours on Distillation Column B, 2.35 packaging crew hours, and 8.17 units of base spirit/blend stock. It draws 9.74 hours of chilling/cold chain capacity, 6.93 flavoring station batches, and 6.58 outbound dock slots. It also requires 2.43 staff training certification hours and counts for 6.79 tons of our carbon footprint allowance.\n\n- Flavored Cider Cans (can be partial, between 0 and 19.93):\n  Each unit contributes 4.25. It draws 4.13 hours in mash and ferment and 7.66 units of base spirit/blend stock. It uses 9.44 flavoring station batches and 8.95 outbound dock slots. It spends 1.90 points from the marketing activation budget, accounts for 3.00 tons in our carbon footprint allowance, and uses 6.01 weekend overtime windows.\n\n- Chilled Dessert Liqueur (can be partial, between 0 and 12.36):\n  Each unit contributes 4.33. It consumes 9.71 tons from the syrup/sweetener reserve, 9.45 hours of chilling/cold chain capacity, and 9.39 flavoring station batches. It uses 8.37 outbound dock slots, requires 7.01 QC lab hours, spends 5.36 points from the marketing activation budget, and uses 6.70 weekend overtime windows.\n\n- Premium Vodka (can be partial, between 0 and 16.62):\n  Each unit contributes 8.41. It draws 0.50 hours on Bottling Line A, 7.62 packaging crew hours, and 9.50 units of base spirit/blend stock. It consumes 6.83 tons from the syrup/sweetener reserve, uses 2.53 flavoring station batches, requires 9.99 QC lab hours, and counts for 1.60 tons in our carbon footprint allowance.\n\n- RTD Cocktails (can be partial, between 0 and 17.39):\n  Each unit contributes 3.73. It draws 1.04 hours in mash and ferment, 5.92 hours on Bottling Line A, and 3.91 units of base spirit/blend stock. It consumes 9.26 tons from the syrup/sweetener reserve, 6.85 hours of chilling/cold chain capacity, and 4.18 flavoring station batches. It also requires 4.81 staff training certification hours.\n\n- Botanical Gin (can be partial, between 0 and 9.03):\n  Each unit contributes 3.30. It draws 5.59 hours on Distillation Column B and 0.33 packaging crew hours. It consumes 7.83 tons from the syrup/sweetener reserve, requires 4.48 QC lab hours, uses 2.59 regulatory/compliance points, and needs 7.29 staff training certification hours.\n\n- Export Ros\u00e9 Spritz (whole shipments, between 0 and 12.06):\n  Each shipment contributes 3.47. It draws 4.19 hours on Bottling Line A and consumes 3.28 tons from the syrup/sweetener reserve. It uses 0.18 regulatory/compliance points, spends 2.24 points from the marketing activation budget, and counts for 8.91 tons in our carbon footprint allowance.\n\nFacility Specs & Limits (we must keep all activity within these ceilings):\n- Mash & Ferment Room Hours: up to 152.15\n- Distillation Column B Hours: up to 44.11\n- Bottling Line A Hours: up to 170.08\n- Packaging Crew Hours: up to 148.48\n- Base Spirit & Blend Stock: up to 228.58\n- Syrup & Sweetener Reserve (tons): up to 184.95\n- Chilling/Cold Chain Capacity (hours): up to 52.83\n- Flavoring Station Batches: up to 119.73\n- Limited Edition Foil Seals (units): up to 36.70\n- Outbound Dock Slots: up to 81.69\n- QC Lab Hours: up to 130.49\n- Regulatory/Compliance Points: up to 94.16\n- Staff Training Certification Hours: up to 50.98\n- Marketing Activation Budget (points): up to 117.13\n- Carbon Footprint Allowance (tons CO2e): up to 185.69\n- Weekend Overtime Windows (hours): up to 64.57\n\nPlease use this as the basis for the production mix recommendation. The intent is to push total contribution as high as possible while adhering to every limit above. Happy to clarify any definitions or units as you model the plan."
+}

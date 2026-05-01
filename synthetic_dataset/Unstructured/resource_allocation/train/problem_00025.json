@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, senses, and zero-effects are explicitly stated; two continuous vars with clear limits; constraints map directly; objective is linear cost minimization.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative style with repeated \u2018no effect\u2019 notes adds verbosity but clarifies zero coefficients; overall still focused.",
+      "realism": 95,
+      "realism_comment": "Credible energy dispatch scenario with emissions, noise, renewable, and capacity targets; costs/bounds plausible; negative thresholds slightly unusual but acceptable."
+    },
+    "prompt_tokens_with_data": 762,
+    "prompt_tokens_without_data": 762
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 60.04120064320171,
+    "optimal_values": {
+      "Var_0": 8.013793103448275,
+      "Var_1": 3.0849740932642487
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -7.56
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -28.82
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 29.77
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.62
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.48
+      ],
+      "objective_linear_coefficient": 4.12,
+      "resource_costs": {
+        "C3": 1.45
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.57
+      ],
+      "objective_linear_coefficient": 8.76,
+      "resource_costs": {
+        "C0": -1.71,
+        "C1": -8.45,
+        "C2": 9.65
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.48, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.12 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.57, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.76 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-1.71 * vars['Var_1'] >= -7.56, name='C0')\n    m.addConstr(-8.45 * vars['Var_1'] >= -28.82, name='C1')\n    m.addConstr(9.65 * vars['Var_1'] >= 29.77, name='C2')\n    m.addConstr(1.45 * vars['Var_0'] >= 11.62, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized Dispatch Plan for Onsite Energy and Compliance Coverage\n\nTeam,\n\nFor the upcoming planning window, we need to allocate a mix of onsite resources so we meet all operational and compliance targets at the lowest possible total cost.\n\nLevers we can pull\n\n- Green Heat Blocks (biomass steam hours)\n  - Operating cost: 4.12 per block-equivalent.\n  - Availability: we can schedule anywhere from 0 up to 14.48 block-equivalents; no negative scheduling is possible.\n  - Impact on compliance and service:\n    - Contributes to our renewable coverage requirement at a rate of 1.45 coverage credits per block. This is the only area this resource influences directly.\n    - It has no effect on the urgent capacity coverage target.\n    - It has no effect on the air emissions credit balance.\n    - It has no effect on the neighborhood noise allowance balance.\n\n- Rapid Response Peaker Runs (diesel peaker dispatches)\n  - Operating cost: 8.76 per run-equivalent.\n  - Availability: we can schedule anywhere from 0 up to 7.57 run-equivalents; again, no negative scheduling is possible.\n  - Impact on compliance and service:\n    - Adds to our urgent capacity coverage at 9.65 coverage units per run.\n    - Draws down the air emissions credit ledger by 1.71 tons per run (each run reduces the balance by 1.71).\n    - Draws down the neighborhood noise allowance by 8.45 points per run (each run reduces the balance by 8.45).\n    - It does not contribute to renewable coverage.\n\nFacility specs and compliance thresholds\n\n- Air emissions credit balance: must remain at or above -7.56 tons. The rapid response peaker draws this balance down by 1.71 per run; green heat blocks do not affect it.\n- Neighborhood noise allowance: must remain at or above -28.82 points. The rapid response peaker draws this balance down by 8.45 per run; green heat blocks do not affect it.\n- Urgent capacity coverage: must achieve at least 29.77 coverage units. The rapid response peaker contributes 9.65 units per run; green heat blocks do not affect it.\n- Renewable coverage: must achieve at least 11.62 coverage credits. Green heat blocks contribute 1.45 credits per block; the rapid response peaker does not affect it.\n\nOur objective is to meet the above operational and compliance thresholds at the lowest blended cost by selecting the right mix within the availability limits noted. Please review and confirm if any of the thresholds or cost assumptions have changed before we finalize the dispatch schedule."
+}

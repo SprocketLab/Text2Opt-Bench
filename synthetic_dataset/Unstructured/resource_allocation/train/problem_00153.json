@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit costs, KPI contributions, and upper bounds; 'no minimum' and fractional imply Continuous vars with lb=0. Reach and engagement \u2265 thresholds clearly defined; objective is minimize total spend.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business email framing adds fluff, but technical details are clear and not repetitive. Lists give all parameters succinctly.",
+      "realism": 98,
+      "realism_comment": "A plausible media-mix optimization with costs, KPI minimums, and inventory limits; structure and numbers reflect real planning."
+    },
+    "prompt_tokens_with_data": 718,
+    "prompt_tokens_without_data": 718
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 73.30406547453651,
+    "optimal_values": {
+      "Var_0": 9.014088050314466,
+      "Var_1": 0.0,
+      "Var_2": 11.237549410657463,
+      "Var_3": 8.2,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 101.92
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 166.48
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.77
+      ],
+      "objective_linear_coefficient": 1.16,
+      "resource_costs": {
+        "C0": 7.95,
+        "C1": 0.84
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.55
+      ],
+      "objective_linear_coefficient": 6.13,
+      "resource_costs": {
+        "C0": 6.1,
+        "C1": 3.47
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.78
+      ],
+      "objective_linear_coefficient": 4.52,
+      "resource_costs": {
+        "C1": 8.42
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.2
+      ],
+      "objective_linear_coefficient": 1.47,
+      "resource_costs": {
+        "C0": 3.69,
+        "C1": 7.84
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.53
+      ],
+      "objective_linear_coefficient": 7.9,
+      "resource_costs": {
+        "C0": 2.77,
+        "C1": 6.22
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.77, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.16 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.55, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.13 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.78, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.52 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.2, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.47 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.53, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.9 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.95 * vars['Var_0'] + 6.1 * vars['Var_1'] + 3.69 * vars['Var_3'] + 2.77 * vars['Var_4'] >= 101.92, name='C0')\n    m.addConstr(0.84 * vars['Var_0'] + 3.47 * vars['Var_1'] + 8.42 * vars['Var_2'] + 7.84 * vars['Var_3'] + 6.22 * vars['Var_4'] >= 166.48, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 Launch Mix \u2014 Minimize Spend While Meeting Reach and Engagement Commitments\n\nTeam,\n\nFor the upcoming Q1 launch, we need to assemble a media mix that achieves our minimum brand delivery requirements while keeping total spend as low as possible. Specifically, we must deliver at least 101.92 reach index points and at least 166.48 engagement points across the plan. We can buy each element in fractional increments (no minimum per element), but we are constrained by limited inventory for each. Below are the levers and how they contribute to our two KPIs, along with their unit costs and availability ceilings.\n\n- Blue Banner Display Placements\n  - Unit cost: 1.16 per placement unit.\n  - Delivery impact: each unit contributes 7.95 reach index points and 0.84 engagement points.\n  - Availability: up to 13.77 units may be booked; no minimum commitment.\n\n- Silver Social Video Spots\n  - Unit cost: 6.13 per spot.\n  - Delivery impact: each spot contributes 6.1 reach index points and 3.47 engagement points.\n  - Availability: up to 16.55 spots; no minimum commitment.\n\n- Micro\u2011Influencer Activations\n  - Unit cost: 4.52 per activation.\n  - Delivery impact: each activation contributes 8.42 engagement points and does not add to reach.\n  - Availability: up to 18.78 activations; no minimum commitment.\n\n- Local Radio Endorsements\n  - Unit cost: 1.47 per endorsement unit.\n  - Delivery impact: each unit contributes 3.69 reach index points and 7.84 engagement points.\n  - Availability: up to 8.2 units; no minimum commitment.\n\n- Premium Podcast Sponsorships\n  - Unit cost: 7.9 per sponsorship.\n  - Delivery impact: each sponsorship contributes 2.77 reach index points and 6.22 engagement points.\n  - Availability: up to 9.53 sponsorships; no minimum commitment.\n\nMarket Obligations (minimums to be met across the mix)\n- Reach: at least 101.92 index points.\n- Engagement: at least 166.48 points.\n\nOur approach will be to choose the combination of the above elements that satisfies both of these delivery commitments at the lowest possible total cost, while staying within the stated inventory limits. Please confirm if these parameters align with expectations so we can proceed with the buy plan."
+}

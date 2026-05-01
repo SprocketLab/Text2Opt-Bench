@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and <= capacities are explicit, including zeros via 'No draw' lines. Objective contributions and continuity (fractional batches) are clear to reconstruct exactly.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business email framing adds verbosity; repeated 'No draw' notes increase length but clarify zeros. Overall moderately verbose but purposeful.",
+      "realism": 98,
+      "realism_comment": "Highly plausible production planning LP with multiple resource capacities and contributions; coherent and typical of real-world operations planning."
+    },
+    "prompt_tokens_with_data": 1115,
+    "prompt_tokens_without_data": 1115
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 160.51113149333082,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 5.659496280806782,
+      "Var_2": 0.38019998516686343,
+      "Var_3": 3.1173275809895937,
+      "Var_4": 6.52,
+      "Var_5": 9.355756736249365
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 69.44
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 103.97
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 32.97
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 67.76
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 85.61
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 75.25
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 188.28
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.76
+      ],
+      "objective_linear_coefficient": 1.45,
+      "resource_costs": {
+        "C1": 4.52,
+        "C3": 3.93,
+        "C4": 2.62,
+        "C5": 4.11,
+        "C6": 6.84
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.56
+      ],
+      "objective_linear_coefficient": 2.05,
+      "resource_costs": {
+        "C0": 6.4,
+        "C1": 3.4,
+        "C4": 7.98,
+        "C5": 5.4,
+        "C6": 8.02
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.88
+      ],
+      "objective_linear_coefficient": 7.0,
+      "resource_costs": {
+        "C0": 8.15,
+        "C2": 2.56,
+        "C3": 4.41,
+        "C6": 0.06
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.11
+      ],
+      "objective_linear_coefficient": 4.17,
+      "resource_costs": {
+        "C0": 8.01,
+        "C1": 1.41,
+        "C3": 7.29,
+        "C4": 8.59,
+        "C5": 2.56,
+        "C6": 5.28
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.52
+      ],
+      "objective_linear_coefficient": 8.57,
+      "resource_costs": {
+        "C0": 0.79,
+        "C1": 4.27,
+        "C3": 6.65,
+        "C5": 1.14,
+        "C6": 6.99
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.12
+      ],
+      "objective_linear_coefficient": 8.27,
+      "resource_costs": {
+        "C1": 5.09,
+        "C2": 3.42,
+        "C4": 0.65,
+        "C5": 0.62,
+        "C6": 8.64
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.76, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.45 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.56, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.05 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.88, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.0 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.11, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.17 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.52, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.57 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.12, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.27 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.4 * vars['Var_1'] + 8.15 * vars['Var_2'] + 8.01 * vars['Var_3'] + 0.79 * vars['Var_4'] <= 69.44, name='C0')\n    m.addConstr(4.52 * vars['Var_0'] + 3.4 * vars['Var_1'] + 1.41 * vars['Var_3'] + 4.27 * vars['Var_4'] + 5.09 * vars['Var_5'] <= 103.97, name='C1')\n    m.addConstr(2.56 * vars['Var_2'] + 3.42 * vars['Var_5'] <= 32.97, name='C2')\n    m.addConstr(3.93 * vars['Var_0'] + 4.41 * vars['Var_2'] + 7.29 * vars['Var_3'] + 6.65 * vars['Var_4'] <= 67.76, name='C3')\n    m.addConstr(2.62 * vars['Var_0'] + 7.98 * vars['Var_1'] + 8.59 * vars['Var_3'] + 0.65 * vars['Var_5'] <= 85.61, name='C4')\n    m.addConstr(4.11 * vars['Var_0'] + 5.4 * vars['Var_1'] + 2.56 * vars['Var_3'] + 1.14 * vars['Var_4'] + 0.62 * vars['Var_5'] <= 75.25, name='C5')\n    m.addConstr(6.84 * vars['Var_0'] + 8.02 * vars['Var_1'] + 0.06 * vars['Var_2'] + 5.28 * vars['Var_3'] + 6.99 * vars['Var_4'] + 8.64 * vars['Var_5'] <= 188.28, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan for the next window \u2014 maximize total contribution under plant and logistics limits\n\nTeam,\n\nFor the upcoming planning window, our objective is to maximize total contribution across six offerings while staying within our plant, logistics, and budget limits. We can plan these items in fractional batches where needed. Below are the levers and how each one draws on our constrained resources. Please use this to propose the production mix.\n\n- Aurora Basic Kit\n  - Commercials: contributes 1.45 per unit.\n  - Planning range: between 0 and 8.76 units.\n  - Resource draw per unit:\n    - Skilled Assembly Hours: 4.52\n    - Blending Tank Hours: 3.93\n    - Packaging Line Hours: 2.62\n    - Outbound Dock Windows: 4.11\n    - Operating Budget Units: 6.84\n    - No draw on Furnace A Run-Hours or Chilled Storage Capacity.\n\n- Borealis Pro Kit\n  - Commercials: contributes 2.05 per unit.\n  - Planning range: between 0 and 15.56 units.\n  - Resource draw per unit:\n    - Furnace A Run-Hours: 6.4\n    - Skilled Assembly Hours: 3.4\n    - Packaging Line Hours: 7.98\n    - Outbound Dock Windows: 5.4\n    - Operating Budget Units: 8.02\n    - No draw on Blending Tank Hours or Chilled Storage Capacity.\n\n- Celeste Cold-Chain Unit\n  - Commercials: contributes 7.0 per unit.\n  - Planning range: between 0 and 9.88 units.\n  - Resource draw per unit:\n    - Furnace A Run-Hours: 8.15\n    - Chilled Storage Capacity: 2.56\n    - Blending Tank Hours: 4.41\n    - Operating Budget Units: 0.06\n    - No draw on Skilled Assembly Hours, Packaging Line Hours, or Outbound Dock Windows.\n\n- Dawn Advanced Module\n  - Commercials: contributes 4.17 per unit.\n  - Planning range: between 0 and 18.11 units.\n  - Resource draw per unit:\n    - Furnace A Run-Hours: 8.01\n    - Skilled Assembly Hours: 1.41\n    - Blending Tank Hours: 7.29\n    - Packaging Line Hours: 8.59\n    - Outbound Dock Windows: 2.56\n    - Operating Budget Units: 5.28\n    - No draw on Chilled Storage Capacity.\n\n- Eclipse Limited Edition\n  - Commercials: contributes 8.57 per unit.\n  - Planning range: between 0 and 6.52 units.\n  - Resource draw per unit:\n    - Furnace A Run-Hours: 0.79\n    - Skilled Assembly Hours: 4.27\n    - Blending Tank Hours: 6.65\n    - Outbound Dock Windows: 1.14\n    - Operating Budget Units: 6.99\n    - No draw on Chilled Storage Capacity or Packaging Line Hours.\n\n- Fjord Premium Bundle\n  - Commercials: contributes 8.27 per unit.\n  - Planning range: between 0 and 16.12 units.\n  - Resource draw per unit:\n    - Skilled Assembly Hours: 5.09\n    - Chilled Storage Capacity: 3.42\n    - Packaging Line Hours: 0.65\n    - Outbound Dock Windows: 0.62\n    - Operating Budget Units: 8.64\n    - No draw on Furnace A Run-Hours or Blending Tank Hours.\n\nFacility specs and market limits (do not exceed):\n- Furnace A Run-Hours: 69.44\n- Skilled Assembly Hours: 103.97\n- Chilled Storage Capacity: 32.97\n- Blending Tank Hours: 67.76\n- Packaging Line Hours: 85.61\n- Outbound Dock Windows: 75.25\n- Operating Budget Units: 188.28\n\nPlease come back with the recommended mix that maximizes total contribution within these limits. If any assumption needs refinement (e.g., if we should restrict fractional batching on a specific item), call it out and we\u2019ll align.\n\nThanks,\nMorgan\nVP, Operations"
+}

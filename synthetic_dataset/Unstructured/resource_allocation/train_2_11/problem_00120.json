@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and capacities are explicit; 'none' means zero. Continuous decisions allowed. Objective and four resource constraints follow directly with no missing info.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative and context (greeting, product descriptions) add length, but all figures are provided once and relevant.",
+      "realism": 100,
+      "realism_comment": "Highly plausible production planning with shared resources and capacities; units and constraints reflect real operations."
+    },
+    "prompt_tokens_with_data": 821,
+    "prompt_tokens_without_data": 821
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 168.370224066713,
+    "optimal_values": {
+      "Var_0": 1.598790085212742,
+      "Var_1": 1.8022564102564107,
+      "Var_2": 9.26,
+      "Var_3": 7.850010411137811
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 28.17
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.85
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 39.99
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 112.45
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.73
+      ],
+      "objective_linear_coefficient": 3.8,
+      "resource_costs": {
+        "C0": 0.66,
+        "C1": 9.44,
+        "C3": 8.11
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.18
+      ],
+      "objective_linear_coefficient": 7.64,
+      "resource_costs": {
+        "C0": 1.14,
+        "C1": 3.2,
+        "C2": 5.85,
+        "C3": 6.91
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.26
+      ],
+      "objective_linear_coefficient": 9.3,
+      "resource_costs": {
+        "C0": 0.57,
+        "C2": 3.18,
+        "C3": 7.72
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.21
+      ],
+      "objective_linear_coefficient": 7.95,
+      "resource_costs": {
+        "C0": 2.52,
+        "C3": 1.98
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.73, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.8 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.18, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.64 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.26, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.3 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.21, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.95 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.66 * vars['Var_0'] + 1.14 * vars['Var_1'] + 0.57 * vars['Var_2'] + 2.52 * vars['Var_3'] <= 28.17, name='C0')\n    m.addConstr(9.44 * vars['Var_0'] + 3.2 * vars['Var_1'] <= 49.85, name='C1')\n    m.addConstr(5.85 * vars['Var_1'] + 3.18 * vars['Var_2'] <= 39.99, name='C2')\n    m.addConstr(8.11 * vars['Var_0'] + 6.91 * vars['Var_1'] + 7.72 * vars['Var_2'] + 1.98 * vars['Var_3'] <= 112.45, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request to set the optimal production mix to maximize contribution under current plant limits\n\nTeam,\n\nFor the upcoming planning cycle, our goal is to maximize total contribution margin by allocating production across four product families while staying within our facility and market limits. Below are the levers we can adjust and how each option draws on our constrained resources. We can schedule fractional runs where it makes sense, but no item should be planned below zero or above its stated cap.\n\n- Aurora Cold Brew (cold\u2011chain beverage)\n  - Expected contribution: $3.80k per batch.\n  - Resource draw per batch:\n    - Pack Center hours: 0.66 hours.\n    - Cold\u2011chain pallet\u2011days: 9.44.\n    - Compliance Lab test slots: none.\n    - Line Hours (blending/fill/finish): 8.11 hours.\n  - Planning bounds: not less than 0, not more than 19.73 batches.\n\n- Glacier Greek Yogurt (cultured dairy)\n  - Expected contribution: $7.64k per batch.\n  - Resource draw per batch:\n    - Pack Center hours: 1.14 hours.\n    - Cold\u2011chain pallet\u2011days: 3.2.\n    - Compliance Lab test slots: 5.85.\n    - Line Hours (blending/fill/finish): 6.91 hours.\n  - Planning bounds: not less than 0, not more than 8.18 batches.\n\n- Sundown Canned Soup (shelf\u2011stable)\n  - Expected contribution: $9.30k per batch.\n  - Resource draw per batch:\n    - Pack Center hours: 0.57 hours.\n    - Cold\u2011chain pallet\u2011days: none.\n    - Compliance Lab test slots: 3.18.\n    - Line Hours (blending/cook/retort/finish): 7.72 hours.\n  - Planning bounds: not less than 0, not more than 9.26 batches.\n\n- Trailhead Granola Bars (ambient snack)\n  - Expected contribution: $7.95k per batch.\n  - Resource draw per batch:\n    - Pack Center hours: 2.52 hours.\n    - Cold\u2011chain pallet\u2011days: none.\n    - Compliance Lab test slots: none.\n    - Line Hours (mix/form/bake/pack): 1.98 hours.\n  - Planning bounds: not less than 0, not more than 12.21 batches.\n\nFacility and Market Limits\n- Pack Center hours available: 28.17 hours total.\n- Cold\u2011chain pallet\u2011day capacity available: 49.85 total.\n- Compliance Lab test slots available: 39.99 total.\n- Line Hours available (all production stages combined): 112.45 hours total.\n\nPlease use these figures to determine the mix that delivers the highest total contribution without breaching any of the above limits. Let me know if you need any clarifications before we lock the schedule."
+}

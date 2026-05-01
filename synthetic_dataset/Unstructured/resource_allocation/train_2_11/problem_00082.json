@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, effects (incl. negatives/zeros), and minimum thresholds are explicitly stated; linear objective and >= constraints are clear; no guessing required.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative and repeated explanations add length, but most content enumerates necessary coefficients and limits; modest verbosity.",
+      "realism": 93,
+      "realism_comment": "Plausible planning scenario mixing service modules to meet multi-metric scorecards under capacity and cost; negative impacts and minima make sense."
+    },
+    "prompt_tokens_with_data": 844,
+    "prompt_tokens_without_data": 844
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 112.0450580766298,
+    "optimal_values": {
+      "Var_0": 8.248223589004834,
+      "Var_1": 6.379990782219071,
+      "Var_2": 4.35453976633057
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 90.25
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 76.94
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -79.93
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 13.78
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -87.76
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 73.33
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.48
+      ],
+      "objective_linear_coefficient": 8.31,
+      "resource_costs": {
+        "C0": 4.63,
+        "C1": 9.14,
+        "C2": -5.05,
+        "C3": 9.71,
+        "C4": -7.82,
+        "C5": 7.04
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.24
+      ],
+      "objective_linear_coefficient": 5.59,
+      "resource_costs": {
+        "C0": 8.16,
+        "C1": -2.33,
+        "C3": -8.81,
+        "C4": -6.39,
+        "C5": -1.11
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.09
+      ],
+      "objective_linear_coefficient": 1.8,
+      "resource_costs": {
+        "C1": 3.77,
+        "C2": -8.61,
+        "C3": -2.32,
+        "C4": 5.71,
+        "C5": 5.64
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.48, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.31 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.24, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.59 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.09, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.8 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.63 * vars['Var_0'] + 8.16 * vars['Var_1'] >= 90.25, name='C0')\n    m.addConstr(9.14 * vars['Var_0'] + -2.33 * vars['Var_1'] + 3.77 * vars['Var_2'] >= 76.94, name='C1')\n    m.addConstr(-5.05 * vars['Var_0'] + -8.61 * vars['Var_2'] >= -79.93, name='C2')\n    m.addConstr(9.71 * vars['Var_0'] + -8.81 * vars['Var_1'] + -2.32 * vars['Var_2'] >= 13.78, name='C3')\n    m.addConstr(-7.82 * vars['Var_0'] + -6.39 * vars['Var_1'] + 5.71 * vars['Var_2'] >= -87.76, name='C4')\n    m.addConstr(7.04 * vars['Var_0'] + -1.11 * vars['Var_1'] + 5.64 * vars['Var_2'] >= 73.33, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Plan to Meet Service Commitments at Lowest Total Cost\n\nTeam,\n\nFor the upcoming planning window, we need to assemble a cost-efficient mix of three service modules while meeting our minimum thresholds across six scorecards (reliability, capability, environmental ledger, response, working capital impact, and fulfillment). Our intent is to minimize the total outlay while hitting or exceeding each of these minimums.\n\nLevers we can pull\n- Atlas Prime Engineers\n  - Unit cost: 8.31 per module. We can engage any fractional amount up to a maximum of 11.48 modules; we will not schedule negative capacity.\n  - Performance effects per module:\n    - Reliability: adds 4.63 points.\n    - Technical capability: adds 9.14 points.\n    - Environmental offset ledger: counts as \u22125.05 points (draws the ledger down by 5.05).\n    - Rapid response capacity: adds 9.71 points.\n    - Working capital net impact: counts as \u22127.82 points (absorbs 7.82 units of working capital).\n    - Fulfillment readiness: adds 7.04 points.\n\n- Beacon Flex Technicians\n  - Unit cost: 5.59 per module. We can engage any fractional amount up to a maximum of 11.24 modules; again, no negative scheduling.\n  - Performance effects per module:\n    - Reliability: adds 8.16 points.\n    - Technical capability: reduces the capability index by 2.33 points.\n    - Environmental offset ledger: no effect.\n    - Rapid response capacity: reduces response capacity by 8.81 points.\n    - Working capital net impact: counts as \u22126.39 points (adds 6.39 units to working capital absorption).\n    - Fulfillment readiness: reduces readiness by 1.11 points.\n\n- Cascade Support Pods\n  - Unit cost: 1.80 per module. We can engage any fractional amount up to a maximum of 15.09 modules; no negative scheduling.\n  - Performance effects per module:\n    - Reliability: no effect.\n    - Technical capability: adds 3.77 points.\n    - Environmental offset ledger: counts as \u22128.61 points (draws the ledger down by 8.61).\n    - Rapid response capacity: reduces response capacity by 2.32 points.\n    - Working capital net impact: adds 5.71 points (relieves working capital by 5.71 units).\n    - Fulfillment readiness: adds 5.64 points.\n\nMarket limits and minimums we must meet or exceed\n- Reliability Assurance Score must be no less than 90.25.\n- Technical Capability Index must be no less than 76.94.\n- Environmental Offset Ledger must be no less than \u221279.93.\n- Rapid Response Capacity must be no less than 13.78.\n- Working Capital Net Impact must be no less than \u221287.76.\n- Fulfillment Readiness Points must be no less than 73.33.\n\nPlease use these parameters to develop the lowest-cost mix that satisfies all minimums."
+}

@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All initiatives list bounds, unit costs, and metric impacts (including negatives); floors for each metric are explicit; fractional deployment allowed; objective is the sum of costs.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Email-style narrative and trade-off explanations add flavor but are nonessential; the prompt is lengthy though all key numbers are clear.",
+      "realism": 95,
+      "realism_comment": "A plausible operations planning LP with service, capacity, and compliance floors; impacts include trade-offs; constraints and data are coherent."
+    },
+    "prompt_tokens_with_data": 1128,
+    "prompt_tokens_without_data": 1128
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 82.01409282522792,
+    "optimal_values": {
+      "Var_0": 4.777031933847166,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 1.232292594600878,
+      "Var_4": 3.7597320655794166,
+      "Var_5": 0.0,
+      "Var_6": 3.7825761171883703,
+      "Var_7": 0.0,
+      "Var_8": 3.8107527507996073
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 24.14
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 27.93
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 51.84
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.48
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.52
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -19.79
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.15
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 30.43
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.77
+      ],
+      "objective_linear_coefficient": 6.55,
+      "resource_costs": {
+        "C0": 2.7,
+        "C3": 9.47,
+        "C7": 5.72
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.22
+      ],
+      "objective_linear_coefficient": 9.71,
+      "resource_costs": {
+        "C3": -2.26,
+        "C5": 1.37
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.98
+      ],
+      "objective_linear_coefficient": 6.07,
+      "resource_costs": {
+        "C3": 6.79,
+        "C5": -4.97,
+        "C7": 2.0
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.33
+      ],
+      "objective_linear_coefficient": 4.01,
+      "resource_costs": {
+        "C3": -3.05,
+        "C5": 0.09,
+        "C6": 7.07,
+        "C7": 2.52
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.53
+      ],
+      "objective_linear_coefficient": 1.57,
+      "resource_costs": {
+        "C0": 4.31,
+        "C2": 9.44
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.61
+      ],
+      "objective_linear_coefficient": 8.95,
+      "resource_costs": {
+        "C3": 6.71
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.78
+      ],
+      "objective_linear_coefficient": 6.06,
+      "resource_costs": {
+        "C1": 0.1,
+        "C6": 7.87
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.25
+      ],
+      "objective_linear_coefficient": 2.73,
+      "resource_costs": {
+        "C3": -0.66
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.74
+      ],
+      "objective_linear_coefficient": 4.45,
+      "resource_costs": {
+        "C1": 7.23,
+        "C2": 4.29,
+        "C4": 5.99,
+        "C6": 1.75
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.77, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.55 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.22, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.71 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.98, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.07 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=5.33, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.01 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.53, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.57 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.61, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.95 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=5.78, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.06 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=7.25, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 2.73 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=10.74, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 4.45 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.7 * vars['Var_0'] + 4.31 * vars['Var_4'] >= 24.14, name='C0')\n    m.addConstr(0.1 * vars['Var_6'] + 7.23 * vars['Var_8'] >= 27.93, name='C1')\n    m.addConstr(9.44 * vars['Var_4'] + 4.29 * vars['Var_8'] >= 51.84, name='C2')\n    m.addConstr(9.47 * vars['Var_0'] + -2.26 * vars['Var_1'] + 6.79 * vars['Var_2'] + -3.05 * vars['Var_3'] + 6.71 * vars['Var_5'] + -0.66 * vars['Var_7'] >= 41.48, name='C3')\n    m.addConstr(5.99 * vars['Var_8'] >= 22.52, name='C4')\n    m.addConstr(1.37 * vars['Var_1'] + -4.97 * vars['Var_2'] + 0.09 * vars['Var_3'] >= -19.79, name='C5')\n    m.addConstr(7.07 * vars['Var_3'] + 7.87 * vars['Var_6'] + 1.75 * vars['Var_8'] >= 45.15, name='C6')\n    m.addConstr(5.72 * vars['Var_0'] + 2.0 * vars['Var_2'] + 2.52 * vars['Var_3'] >= 30.43, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing deployment plan to meet our FY25 service and compliance floors\n\nTeam,\n\nAs discussed, our objective is to meet a set of service, capacity, and compliance commitments at the lowest possible steady-state run-rate. Below is the proposed slate of nine deployable initiatives, each with its per-unit cost, scale limits, and how it moves the needles we track (local sourcing, safety certifications, baseline throughput, experience quality, skilling completions, community sentiment, field coverage capacity, and rapid response hours). All initiatives can be deployed in any non\u2011negative amount up to their stated cap (fractional deployment is acceptable).\n\n- Neighborhood Technician Pods\n  - Cost: 6.55 per pod.\n  - Scale: between 0 and 5.77 pods.\n  - Impact: each pod contributes 2.70 Local Sourcing Credits, 9.47 points to the Experience Quality Index, and 5.72 Rapid Response Hours.\n\n- Pop-up Experience Booths (overtime staffed)\n  - Cost: 9.71 per booth team.\n  - Scale: between 0 and 7.22 teams.\n  - Impact: each team reduces the Experience Quality Index by 2.26 points (fatigue/queue trade-off) but improves the Community Sentiment Index by 1.37 points (visible presence and outreach).\n\n- Process Stabilization Kits\n  - Cost: 6.07 per kit.\n  - Scale: between 0 and 7.98 kits.\n  - Impact: each kit adds 6.79 points to the Experience Quality Index, contributes 2.00 Rapid Response Hours, and, due to temporary disruption during installation, reduces the Community Sentiment Index by 4.97 points.\n\n- Contingent Field Crews\n  - Cost: 4.01 per crew.\n  - Scale: between 0 and 5.33 crews.\n  - Impact: each crew adds 7.07 Field Coverage Capacity units and 2.52 Rapid Response Hours, slightly lifts the Community Sentiment Index by 0.09 points, but reduces the Experience Quality Index by 3.05 points (consistency trade-off).\n\n- Regional Contract Manufacturing\n  - Cost: 1.57 per production tranche.\n  - Scale: between 0 and 18.53 tranches.\n  - Impact: each tranche contributes 4.31 Local Sourcing Credits and 9.44 Baseline Throughput Units.\n\n- Quality Command Center\n  - Cost: 8.95 per center module.\n  - Scale: between 0 and 15.61 modules.\n  - Impact: each module adds 6.71 points to the Experience Quality Index.\n\n- Equipment Upgrades\n  - Cost: 6.06 per upgrade package.\n  - Scale: between 0 and 5.78 packages.\n  - Impact: each package contributes 0.10 Safety Certification Credits and 7.87 Field Coverage Capacity units.\n\n- Automation Scripts\n  - Cost: 2.73 per script bundle.\n  - Scale: between 0 and 7.25 bundles.\n  - Impact: each bundle reduces the Experience Quality Index by 0.66 points (usability trade-off).\n\n- E\u2011Learning Platform Rollout\n  - Cost: 4.45 per rollout tranche.\n  - Scale: between 0 and 10.74 tranches.\n  - Impact: each tranche contributes 7.23 Safety Certification Credits, 4.29 Baseline Throughput Units, 5.99 Skilling Completions, and 1.75 Field Coverage Capacity units.\n\nFacility and market commitments (minimums we must collectively achieve across the above initiatives):\n- Local Sourcing Credits: at least 24.14.\n- Safety Certification Credits: at least 27.93.\n- Baseline Throughput Units: at least 51.84.\n- Experience Quality Index: at least 41.48.\n- Skilling Completions: at least 22.52.\n- Community Sentiment Index: must not fall below \u221219.79.\n- Field Coverage Capacity units: at least 45.15.\n- Rapid Response Hours: at least 30.43.\n\nPlease review these levers and their limits; our aim is to select the mix that satisfies every minimum above while minimizing the total run-rate (sum of the per-unit costs at the chosen deployment levels). I\u2019m happy to walk through scenarios and trade-offs at our next working session."
+}

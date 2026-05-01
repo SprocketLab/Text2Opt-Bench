@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, integer nature, bounds, and per-unit contributions to four constraints are explicit with exact RHS mins; objective is clearly cost minimization.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated 'Where they don\u2019t help' lines add verbosity, but figures and structure are precise and non-repetitive overall.",
+      "realism": 92,
+      "realism_comment": "Feels like a realistic staffing mix problem with service SLAs; only minor oddities (decimal caps with integer units, trainees with no credits) but still plausible."
+    },
+    "prompt_tokens_with_data": 1095,
+    "prompt_tokens_without_data": 1095
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 120.44999999999999,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": 2.0,
+      "Var_2": -0.0,
+      "Var_3": 7.0,
+      "Var_4": -0.0,
+      "Var_5": -0.0,
+      "Var_6": 2.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 44.45
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.83
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 28.21
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 12.74
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.35
+      ],
+      "objective_linear_coefficient": 8.01,
+      "resource_costs": {
+        "C1": 7.74
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.29
+      ],
+      "objective_linear_coefficient": 8.36,
+      "resource_costs": {
+        "C0": 9.01,
+        "C1": 6.43
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.4
+      ],
+      "objective_linear_coefficient": 8.97,
+      "resource_costs": {
+        "C0": 9.67
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.04
+      ],
+      "objective_linear_coefficient": 1.72,
+      "resource_costs": {
+        "C0": 3.87,
+        "C2": 4.27
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.01
+      ],
+      "objective_linear_coefficient": 5.55,
+      "resource_costs": {}
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.7
+      ],
+      "objective_linear_coefficient": 9.01,
+      "resource_costs": {
+        "C1": 3.53
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.97
+      ],
+      "objective_linear_coefficient": 9.8,
+      "resource_costs": {
+        "C3": 7.25
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.35, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.01 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.29, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.36 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.4, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.97 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.04, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 1.72 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.01, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.55 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.7, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.01 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=15.97, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 9.8 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.01 * vars['Var_1'] + 9.67 * vars['Var_2'] + 3.87 * vars['Var_3'] >= 44.45, name='C0')\n    m.addConstr(7.74 * vars['Var_0'] + 6.43 * vars['Var_1'] + 3.53 * vars['Var_5'] >= 79.83, name='C1')\n    m.addConstr(4.27 * vars['Var_3'] >= 28.21, name='C2')\n    m.addConstr(7.25 * vars['Var_6'] >= 12.74, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Staffing Mix to Meet Our Service Commitments\n\nTeam,\n\nFor the upcoming period, we need to assemble a low-cost mix of staffing options that still satisfies our minimum service obligations across four areas: daytime coverage, evening/weekend coverage, backlog processing, and the escalation line. All quantities below must be planned in whole-number units, but each option has an upper availability cap. Our aim is to keep total cost as low as possible while meeting or exceeding the minimums noted at the end of this note.\n\nDecision levers (in the order we would plan them):\n\n1) Evening Coverage Specialists\n- What they cost: 8.01 per unit scheduled.\n- How far we can go: anywhere from 0 to 18.35 units are available; scheduling must be in whole units.\n- What they deliver: each unit provides 7.74 coverage credits toward evening/weekend coverage.\n- Where they don\u2019t help: they do not contribute to daytime coverage, backlog processing, or the escalation line.\n\n2) Core Full-Time Agents\n- What they cost: 8.36 per unit scheduled.\n- How far we can go: anywhere from 0 to 10.29 units are available; scheduling must be in whole units.\n- What they deliver: each unit provides 9.01 coverage credits toward daytime coverage and 6.43 coverage credits toward evening/weekend coverage.\n- Where they don\u2019t help: they do not contribute to backlog processing or the escalation line.\n\n3) Daytime Contractors\n- What they cost: 8.97 per unit scheduled.\n- How far we can go: anywhere from 0 to 10.40 units are available; scheduling must be in whole units.\n- What they deliver: each unit provides 9.67 coverage credits toward daytime coverage.\n- Where they don\u2019t help: they do not contribute to evening/weekend coverage, backlog processing, or the escalation line.\n\n4) Back-Office Processors\n- What they cost: 1.72 per unit scheduled.\n- How far we can go: anywhere from 0 to 19.04 units are available; scheduling must be in whole units.\n- What they deliver: each unit provides 3.87 coverage credits toward daytime coverage and 4.27 credits toward backlog processing.\n- Where they don\u2019t help: they do not contribute to evening/weekend coverage or the escalation line.\n\n5) Trainee Cohorts\n- What they cost: 5.55 per unit scheduled.\n- How far we can go: anywhere from 0 to 14.01 units are available; scheduling must be in whole units.\n- What they deliver: these units do not contribute to any of the four measured service obligations for this period (no coverage or processing credits), but they remain an optional spend if we wish to build future capacity.\n\n6) Evening Part-Time Associates\n- What they cost: 9.01 per unit scheduled.\n- How far we can go: anywhere from 0 to 14.70 units are available; scheduling must be in whole units.\n- What they deliver: each unit provides 3.53 coverage credits toward evening/weekend coverage.\n- Where they don\u2019t help: they do not contribute to daytime coverage, backlog processing, or the escalation line.\n\n7) Escalation Engineers\n- What they cost: 9.80 per unit scheduled.\n- How far we can go: anywhere from 0 to 15.97 units are available; scheduling must be in whole units.\n- What they deliver: each unit provides 7.25 coverage credits toward the escalation line.\n- Where they don\u2019t help: they do not contribute to daytime coverage, evening/weekend coverage, or backlog processing.\n\nService obligations for this period (must be met or exceeded):\n- Daytime coverage: at least 44.45 coverage credits in total.\n- Evening/weekend coverage: at least 79.83 coverage credits in total.\n- Backlog processing: at least 28.21 processing credits in total.\n- Escalation line: at least 12.74 coverage credits in total.\n\nIf we deploy the mix above within their availability caps and in whole units, we can satisfy these minimums at the lowest feasible total cost. I\u2019m happy to run scenarios if you\u2019d like to prioritize certain levers or cap spending on others."
+}

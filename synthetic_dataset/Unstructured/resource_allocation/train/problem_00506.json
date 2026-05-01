@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 10,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All per-product margins, bounds, and resource uses are explicit; capacities listed; zero uses specified. Objective is maximize gross contribution. The LP is fully determined without guesswork.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some email-style phrasing and repetition of zero-use entries add length, but most content enumerates necessary coefficients and bounds.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning: equipment hours, ingredient supply, testing, and cold storage with per-lot margins and caps; coefficients and limits are plausible."
+    },
+    "prompt_tokens_with_data": 1617,
+    "prompt_tokens_without_data": 1617
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 524.3756673454245,
+    "optimal_values": {
+      "Var_0": 11.79,
+      "Var_1": 2.2429906542056073,
+      "Var_2": 8.5,
+      "Var_3": 4.644707101767235,
+      "Var_4": 8.77,
+      "Var_5": 5.103635418416071,
+      "Var_6": 2.1068414918414913,
+      "Var_7": 13.26,
+      "Var_8": 0.0,
+      "Var_9": 3.441011235955056
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 116.22
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 54.41
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 104.49
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 84.55
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 176.51
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 9.6
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 233.9
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.79
+      ],
+      "objective_linear_coefficient": 10.0,
+      "resource_costs": {
+        "C4": 8.42
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.33
+      ],
+      "objective_linear_coefficient": 5.78,
+      "resource_costs": {
+        "C2": 8.07,
+        "C3": 0.91,
+        "C5": 4.28
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.5
+      ],
+      "objective_linear_coefficient": 9.96,
+      "resource_costs": {
+        "C0": 7.12,
+        "C1": 4.96,
+        "C3": 4.28,
+        "C6": 3.86
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.66
+      ],
+      "objective_linear_coefficient": 9.25,
+      "resource_costs": {
+        "C2": 5.41,
+        "C4": 5.85,
+        "C6": 3.66
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.77
+      ],
+      "objective_linear_coefficient": 7.64,
+      "resource_costs": {
+        "C0": 4.29
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.19
+      ],
+      "objective_linear_coefficient": 9.2,
+      "resource_costs": {
+        "C3": 8.62,
+        "C4": 9.81
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.82
+      ],
+      "objective_linear_coefficient": 4.39,
+      "resource_costs": {
+        "C0": 8.58,
+        "C6": 8.99
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.26
+      ],
+      "objective_linear_coefficient": 9.59,
+      "resource_costs": {
+        "C2": 4.62,
+        "C6": 9.59
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.36
+      ],
+      "objective_linear_coefficient": 8.06,
+      "resource_costs": {
+        "C0": 5.43,
+        "C1": 9.57
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.82
+      ],
+      "objective_linear_coefficient": 4.51,
+      "resource_costs": {
+        "C1": 3.56,
+        "C6": 9.69
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.79, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 10.0 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.33, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.78 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.5, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.96 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.66, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.25 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.77, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.64 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.19, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.2 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=13.82, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.39 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.26, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 9.59 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=9.36, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 8.06 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=12.82, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 4.51 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.12 * vars['Var_2'] + 4.29 * vars['Var_4'] + 8.58 * vars['Var_6'] + 5.43 * vars['Var_8'] <= 116.22, name='C0')\n    m.addConstr(4.96 * vars['Var_2'] + 9.57 * vars['Var_8'] + 3.56 * vars['Var_9'] <= 54.41, name='C1')\n    m.addConstr(8.07 * vars['Var_1'] + 5.41 * vars['Var_3'] + 4.62 * vars['Var_7'] <= 104.49, name='C2')\n    m.addConstr(0.91 * vars['Var_1'] + 4.28 * vars['Var_2'] + 8.62 * vars['Var_5'] <= 84.55, name='C3')\n    m.addConstr(8.42 * vars['Var_0'] + 5.85 * vars['Var_3'] + 9.81 * vars['Var_5'] <= 176.51, name='C4')\n    m.addConstr(4.28 * vars['Var_1'] <= 9.6, name='C5')\n    m.addConstr(3.86 * vars['Var_2'] + 3.66 * vars['Var_3'] + 8.99 * vars['Var_6'] + 9.59 * vars['Var_7'] + 9.69 * vars['Var_9'] <= 233.9, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix decision for the upcoming cycle \u2014 maximize portfolio contribution under facility limits\n\nTeam,\n\nWe\u2019d like your help identifying the best production mix for our bottled beverage portfolio in the upcoming planning cycle. The goal is to maximize total gross contribution while staying within equipment hours, ingredient supplies, testing capacity, and cold storage limits noted below. We can schedule anywhere from zero up to the stated cap for each item.\n\n- Citrus Sparkle 12\u2011oz\n  - Financials and volume: Each production lot contributes 10.0 in gross margin; we can plan from 0 up to 11.79 lots.\n  - Resource use per lot:\n    - Blending tanks: 0\n    - Fine filtration: 0\n    - Pasteurization tunnel: 0\n    - Bottling line A: 0\n    - Fruit pur\u00e9e supply: 8.42\n    - Allergen testing lab: 0\n    - Cold storage: 0\n\n- Herbal Tonic 8\u2011oz\n  - Financials and volume: Each production lot contributes 5.78 in gross margin; we can plan from 0 up to 13.33 lots.\n  - Resource use per lot:\n    - Blending tanks: 0\n    - Fine filtration: 0\n    - Pasteurization tunnel: 8.07\n    - Bottling line A: 0.91\n    - Fruit pur\u00e9e supply: 0\n    - Allergen testing lab: 4.28\n    - Cold storage: 0\n\n- Cold Brew Coffee 16\u2011oz\n  - Financials and volume: Each production lot contributes 9.96 in gross margin; we can plan from 0 up to 8.5 lots.\n  - Resource use per lot:\n    - Blending tanks: 7.12\n    - Fine filtration: 4.96\n    - Pasteurization tunnel: 0\n    - Bottling line A: 4.28\n    - Fruit pur\u00e9e supply: 0\n    - Allergen testing lab: 0\n    - Cold storage: 3.86\n\n- Protein Smoothie 11\u2011oz\n  - Financials and volume: Each production lot contributes 9.25 in gross margin; we can plan from 0 up to 9.66 lots.\n  - Resource use per lot:\n    - Blending tanks: 0\n    - Fine filtration: 0\n    - Pasteurization tunnel: 5.41\n    - Bottling line A: 0\n    - Fruit pur\u00e9e supply: 5.85\n    - Allergen testing lab: 0\n    - Cold storage: 3.66\n\n- Ginger Shot 2\u2011oz\n  - Financials and volume: Each production lot contributes 7.64 in gross margin; we can plan from 0 up to 8.77 lots.\n  - Resource use per lot:\n    - Blending tanks: 4.29\n    - Fine filtration: 0\n    - Pasteurization tunnel: 0\n    - Bottling line A: 0\n    - Fruit pur\u00e9e supply: 0\n    - Allergen testing lab: 0\n    - Cold storage: 0\n\n- Berry Smoothie 12\u2011oz\n  - Financials and volume: Each production lot contributes 9.2 in gross margin; we can plan from 0 up to 15.19 lots.\n  - Resource use per lot:\n    - Blending tanks: 0\n    - Fine filtration: 0\n    - Pasteurization tunnel: 0\n    - Bottling line A: 8.62\n    - Fruit pur\u00e9e supply: 9.81\n    - Allergen testing lab: 0\n    - Cold storage: 0\n\n- Cucumber\u2011Infused Water 1\u2011L\n  - Financials and volume: Each production lot contributes 4.39 in gross margin; we can plan from 0 up to 13.82 lots.\n  - Resource use per lot:\n    - Blending tanks: 8.58\n    - Fine filtration: 0\n    - Pasteurization tunnel: 0\n    - Bottling line A: 0\n    - Fruit pur\u00e9e supply: 0\n    - Allergen testing lab: 0\n    - Cold storage: 8.99\n\n- Kombucha 16\u2011oz\n  - Financials and volume: Each production lot contributes 9.59 in gross margin; we can plan from 0 up to 13.26 lots.\n  - Resource use per lot:\n    - Blending tanks: 0\n    - Fine filtration: 0\n    - Pasteurization tunnel: 4.62\n    - Bottling line A: 0\n    - Fruit pur\u00e9e supply: 0\n    - Allergen testing lab: 0\n    - Cold storage: 9.59\n\n- Almond Milk 32\u2011oz\n  - Financials and volume: Each production lot contributes 8.06 in gross margin; we can plan from 0 up to 9.36 lots.\n  - Resource use per lot:\n    - Blending tanks: 5.43\n    - Fine filtration: 9.57\n    - Pasteurization tunnel: 0\n    - Bottling line A: 0\n    - Fruit pur\u00e9e supply: 0\n    - Allergen testing lab: 0\n    - Cold storage: 0\n\n- Kefir 12\u2011oz\n  - Financials and volume: Each production lot contributes 4.51 in gross margin; we can plan from 0 up to 12.82 lots.\n  - Resource use per lot:\n    - Blending tanks: 0\n    - Fine filtration: 3.56\n    - Pasteurization tunnel: 0\n    - Bottling line A: 0\n    - Fruit pur\u00e9e supply: 0\n    - Allergen testing lab: 0\n    - Cold storage: 9.69\n\nFacility specs and period limits\n- Blending tanks (available hours this cycle): 116.22\n- Fine filtration (available hours): 54.41\n- Pasteurization tunnel (available hours): 104.49\n- Bottling line A (available hours): 84.55\n- Fruit pur\u00e9e supply (available ingredient units): 176.51\n- Allergen testing lab (available hours): 9.6\n- Cold storage (available capacity units for the period): 233.9\n\nPlease use the above to recommend the highest\u2011value mix across these items for the cycle. Happy to clarify assumptions or refine product caps if your preliminary run suggests a different balance."
+}

@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and inequality directions are explicit; negative ledger/labor/safety sign conventions are clear. Variables are continuous with given upper bounds.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business narrative adds context; slightly verbose but each figure maps directly to the model with minimal repetition.",
+      "realism": 95,
+      "realism_comment": "Plausible production planning with labor, line time, carbon credits, and safety targets; unusual negative sign conventions are explained and coherent."
+    },
+    "prompt_tokens_with_data": 874,
+    "prompt_tokens_without_data": 874
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 131.4672268257888,
+    "optimal_values": {
+      "Var_0": 1.8900171334018212,
+      "Var_1": 4.53912594545307,
+      "Var_2": 9.900790170430136
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -86.81
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.96
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 118.83
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -8.15
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.19
+      ],
+      "objective_linear_coefficient": 7.31,
+      "resource_costs": {
+        "C0": -7.69,
+        "C1": -0.61,
+        "C2": 9.62,
+        "C3": -4.45
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.62
+      ],
+      "objective_linear_coefficient": 7.27,
+      "resource_costs": {
+        "C1": -1.94,
+        "C2": 8.41
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.51
+      ],
+      "objective_linear_coefficient": 8.55,
+      "resource_costs": {
+        "C0": -7.3,
+        "C1": 9.89,
+        "C2": 6.31
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.19, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.31 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.62, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.27 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.51, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.55 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-7.69 * vars['Var_0'] + -7.3 * vars['Var_2'] <= -86.81, name='C0')\n    m.addConstr(-0.61 * vars['Var_0'] + -1.94 * vars['Var_1'] + 9.89 * vars['Var_2'] <= 87.96, name='C1')\n    m.addConstr(9.62 * vars['Var_0'] + 8.41 * vars['Var_1'] + 6.31 * vars['Var_2'] <= 118.83, name='C2')\n    m.addConstr(-4.45 * vars['Var_0'] <= -8.15, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Plan to Maximize Contribution While Meeting Labor, Line Time, Sustainability, and Safety Commitments\n\nTeam,\n\nWe need to set this period\u2019s mix of three revenue-generating activities with the goal of maximizing total contribution while respecting our labor, line-time, sustainability, and safety commitments. We can scale each activity in partial increments; we are not restricted to whole runs.\n\nLevers we can adjust\n\n- EcoGlass Conversion Runs\n  - Economic impact: each run contributes 7.31 in margin.\n  - Practical range: we can schedule anywhere from 0 up to 5.19 runs this period.\n  - Sustainability ledger: each run earns 7.69 carbon credits, which our accounting system records as -7.69 on the Carbon Reduction Ledger.\n  - Day-shift labor: the automation in this conversion frees 0.61 crew-hours per run, logged as -0.61 hours against the day-shift tally.\n  - Line time: requires 9.62 hours per run on the high-speed processing line.\n  - Safety improvement: reduces our risk index by 4.45 points per run, logged as -4.45 on the Safety Improvement Index.\n\n- PET Streamlining Lots\n  - Economic impact: each lot contributes 7.27 in margin.\n  - Practical range: we can schedule anywhere from 0 up to 18.62 lots this period.\n  - Sustainability ledger: no impact; lots do not add to or subtract from the Carbon Reduction Ledger (0 effect).\n  - Day-shift labor: frees 1.94 crew-hours per lot due to reduced rework and material handling, logged as -1.94 hours.\n  - Line time: requires 8.41 hours per lot on the high-speed processing line.\n  - Safety improvement: no effect on the Safety Improvement Index (0 effect).\n\n- Handcrafted Gift Pack Runs\n  - Economic impact: each run contributes 8.55 in margin.\n  - Practical range: we can schedule anywhere from 0 up to 14.51 runs this period.\n  - Sustainability ledger: each run uses premium reclaimed materials that qualify for 7.3 carbon credits, recorded as -7.3 on the Carbon Reduction Ledger.\n  - Day-shift labor: labor-intensive; consumes 9.89 crew-hours per run.\n  - Line time: requires 6.31 hours per run on the high-speed processing line.\n  - Safety improvement: no measured change to the Safety Improvement Index (0 effect).\n\nFacility specs and market limits\n\n- Carbon Reduction Ledger: corporate climate commitment requires the net ledger to be at or below -86.81 credits (we track reductions as negative values; more negative reflects greater reduction).\n- Day-shift crew hours: total net usage must not exceed 87.96 hours across the period (hours freed by the first two activities count as negative usage).\n- High-speed processing line time: total availability is capped at 118.83 hours for this period.\n- Safety Improvement Index: we are committed to a risk reduction that brings the index to at or below -8.15 (improvements are recorded as negative values).\n\nPlease use the above to shape the recommended mix so that we maximize contribution while staying within the listed limits."
+}

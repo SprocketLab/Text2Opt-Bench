@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and capacities are explicit; 'no draw' clarifies zero terms. Minor gap: variable names aren\u2019t specified, though types are clear.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "A bit verbose and repetitive (e.g., 'No draw on other pools'), but most content delivers needed data clearly.",
+      "realism": 97,
+      "realism_comment": "Highly plausible production mix scenario with capacities, costs, and one integer batch requirement; units and constraints align with real operations."
+    },
+    "prompt_tokens_with_data": 795,
+    "prompt_tokens_without_data": 795
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 243.34569886870975,
+    "optimal_values": {
+      "Var_0": 11.47195444962972,
+      "Var_1": 11.0,
+      "Var_2": 7.651715772382424,
+      "Var_3": 9.045766590389016
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 32.48
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 41.07
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 224.76
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.67
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.74
+      ],
+      "objective_linear_coefficient": 3.39,
+      "resource_costs": {
+        "C0": 1.27
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 6.9,
+      "resource_costs": {
+        "C1": 0.14,
+        "C2": 9.64
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.53
+      ],
+      "objective_linear_coefficient": 5.18,
+      "resource_costs": {
+        "C2": 9.64,
+        "C3": 1.29
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.82
+      ],
+      "objective_linear_coefficient": 9.83,
+      "resource_costs": {
+        "C0": 1.98,
+        "C1": 4.37,
+        "C2": 4.97
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.74, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.39 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.9 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.53, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.18 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.82, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.83 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.27 * vars['Var_0'] + 1.98 * vars['Var_3'] <= 32.48, name='C0')\n    m.addConstr(0.14 * vars['Var_1'] + 4.37 * vars['Var_3'] <= 41.07, name='C1')\n    m.addConstr(9.64 * vars['Var_1'] + 9.64 * vars['Var_2'] + 4.97 * vars['Var_3'] <= 224.76, name='C2')\n    m.addConstr(1.29 * vars['Var_2'] <= 12.67, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix decision for next production window \u2014 request to maximize total contribution\n\nTeam,\n\nWe\u2019re planning the production mix for the upcoming window with the aim of maximizing total gross margin. Our four lines draw on a shared set of limited resources: heat-treatment furnace time, quality lab time, a shared base feedstock pool, and our hazardous waste allowance. Below is what each line delivers and consumes so you can set the optimal schedule.\n\n- Amber Resin Modifier (Line A)\n  \u2022 Commercial impact: each lot adds $3.39K in gross margin.\n  \u2022 Flexibility: we can schedule anywhere from 0 up to 13.74 lot-equivalents this window.\n  \u2022 Resource use per lot: draws 1.27 hours of heat-treatment furnace time.\n  \u2022 No draw on other pools: requires no quality lab time, no usage from the shared base feedstock allocation, and no hazardous waste handling capacity.\n\n- Blue Dye Concentrate (Line B)\n  \u2022 Commercial impact: each batch adds $6.90K in gross margin.\n  \u2022 Flexibility: must be planned in whole batches only; anywhere from 0 up to 11 batches.\n  \u2022 Resource use per batch: draws 0.14 hours of quality lab time and 9.64 tonnes from the shared base feedstock pool.\n  \u2022 No draw on other pools: requires no heat-treatment furnace time and no hazardous waste handling capacity.\n\n- Solvent Blend C (Line C)\n  \u2022 Commercial impact: each run adds $5.18K in gross margin.\n  \u2022 Flexibility: we can schedule from 0 up to 9.53 run-equivalents.\n  \u2022 Resource use per run: draws 9.64 tonnes from the shared base feedstock pool and 1.29 tonnes of hazardous waste handling capacity.\n  \u2022 No draw on other pools: requires no heat-treatment furnace time and no quality lab time.\n\n- Premium Protective Coating (Line D)\n  \u2022 Commercial impact: each lot adds $9.83K in gross margin.\n  \u2022 Flexibility: we can schedule from 0 up to 10.82 lot-equivalents.\n  \u2022 Resource use per lot: draws 1.98 hours of heat-treatment furnace time, 4.37 hours of quality lab time, and 4.97 tonnes from the shared base feedstock pool.\n  \u2022 No draw on other pools: requires no hazardous waste handling capacity.\n\nFacility Specs & Limits for this window\n- Heat-treatment furnace time: up to 32.48 hours available.\n- Quality lab time: up to 41.07 hours available.\n- Shared base feedstock: up to 224.76 tonnes available.\n- Hazardous waste handling allowance: up to 12.67 tonnes available.\n\nPlease use the above to set the mix that yields the highest total contribution without breaching any of the listed limits."
+}

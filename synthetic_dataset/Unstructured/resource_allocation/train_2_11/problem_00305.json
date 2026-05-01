@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and constraint coefficients/thresholds are explicit with >= senses and clear cost-min objective. Minor: variable names are not specified explicitly.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Business narrative adds length (intro, sign-off, repeated 'does not affect' notes). Specs are clear; some verbosity is nonessential.",
+      "realism": 93,
+      "realism_comment": "Feels like a genuine resource planning problem with coverage thresholds and cost minimization; types and caps are plausible, though decimal caps for whole crews are slightly odd."
+    },
+    "prompt_tokens_with_data": 1173,
+    "prompt_tokens_without_data": 1173
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 104.59169230769231,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 0.0,
+      "Var_2": 1.0,
+      "Var_3": 8.092307692307692,
+      "Var_4": -0.0,
+      "Var_5": 4.0,
+      "Var_6": 4.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -1.7
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.31
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.13
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 16.38
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.92
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.8
+      ],
+      "objective_linear_coefficient": 5.84,
+      "resource_costs": {
+        "C3": 1.6
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.64
+      ],
+      "objective_linear_coefficient": 8.71,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.78
+      ],
+      "objective_linear_coefficient": 5.06,
+      "resource_costs": {
+        "C1": 2.31,
+        "C3": 0.6
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.78
+      ],
+      "objective_linear_coefficient": 3.16,
+      "resource_costs": {
+        "C3": 1.95
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.11
+      ],
+      "objective_linear_coefficient": 8.61,
+      "resource_costs": {
+        "C4": 0.2
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.75
+      ],
+      "objective_linear_coefficient": 8.65,
+      "resource_costs": {
+        "C0": 0.31,
+        "C2": 5.39
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.47
+      ],
+      "objective_linear_coefficient": 9.84,
+      "resource_costs": {
+        "C1": 3.34,
+        "C4": 4.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.8, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.84 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.64, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.71 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.78, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.06 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.78, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.16 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.11, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 8.61 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=6.75, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.65 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=18.47, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 9.84 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.31 * vars['Var_5'] >= -1.7, name='C0')\n    m.addConstr(2.31 * vars['Var_2'] + 3.34 * vars['Var_6'] >= 15.31, name='C1')\n    m.addConstr(5.39 * vars['Var_5'] >= 20.13, name='C2')\n    m.addConstr(1.6 * vars['Var_0'] + 0.6 * vars['Var_2'] + 1.95 * vars['Var_3'] >= 16.38, name='C3')\n    m.addConstr(0.2 * vars['Var_4'] + 4.46 * vars['Var_6'] >= 15.92, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing deployment plan with minimum coverage thresholds\n\nTeam,\n\nWe\u2019re preparing the next planning cycle and need a straightforward, cost-minimizing allocation of our field resources while honoring several minimum coverage obligations. Below is the proposed structure for the decision, with each lever described in plain business terms and the thresholds we must not fall below.\n\nOur goal: minimize total spend while meeting the specified minimum service, compliance, and readiness levels.\n\nLevers we can adjust\n\n- Neighborhood Response Crews (standard day crews)\n  \u2022 Cost: 5.84 per crew deployed.\n  \u2022 Availability: between 0 and 14.8 crews, and we only deploy whole crews.\n  \u2022 Impact on our obligations: each crew adds 1.6 points to our Service Availability Index. These crews do not affect Client Compliance Credits, Business Continuity Standby, Critical Incident Coverage, or the Community Assurance Score.\n\n- Specialist Bench Hours (ad-hoc analyst support)\n  \u2022 Cost: 8.71 per hour.\n  \u2022 Availability: between 0 and 9.64 hours, and we can book fractional hours.\n  \u2022 Impact on our obligations: these hours are operationally helpful but do not count toward the Community Assurance Score, Client Compliance Credits, Business Continuity Standby, Service Availability Index, or Critical Incident Coverage.\n\n- Certified Inspection Teams\n  \u2022 Cost: 5.06 per team.\n  \u2022 Availability: between 0 and 9.78 teams, and we schedule whole teams only.\n  \u2022 Impact on our obligations: each team contributes 2.31 Client Compliance Credits and 0.6 points to the Service Availability Index. These teams do not affect the Community Assurance Score, Business Continuity Standby, or Critical Incident Coverage.\n\n- Mobile Repair Hours (flex units)\n  \u2022 Cost: 3.16 per hour.\n  \u2022 Availability: between 0 and 8.78 hours, with fractional hours allowed.\n  \u2022 Impact on our obligations: each hour adds 1.95 points to the Service Availability Index. These hours do not contribute to the Community Assurance Score, Client Compliance Credits, Business Continuity Standby, or Critical Incident Coverage.\n\n- Premium Incident Units (specialized gear with operators)\n  \u2022 Cost: 8.61 per unit.\n  \u2022 Availability: between 0 and 13.11 units, and we deploy whole units.\n  \u2022 Impact on our obligations: each unit adds 0.2 to our Critical Incident Coverage. These units do not affect the Community Assurance Score, Client Compliance Credits, Business Continuity Standby, or the Service Availability Index.\n\n- On-Call Overtime Crews (standby)\n  \u2022 Cost: 8.65 per crew.\n  \u2022 Availability: between 0 and 6.75 crews, and we schedule whole crews only.\n  \u2022 Impact on our obligations: each on-call crew adds 5.39 points to Business Continuity Standby and improves the Community Assurance Score by 0.31. These crews do not influence Client Compliance Credits, the Service Availability Index, or Critical Incident Coverage.\n\n- Contracted Network Teams (external partners)\n  \u2022 Cost: 9.84 per team.\n  \u2022 Availability: between 0 and 18.47 teams, and we contract whole teams only.\n  \u2022 Impact on our obligations: each team contributes 3.34 Client Compliance Credits and 4.46 toward Critical Incident Coverage. These teams do not affect the Community Assurance Score, Business Continuity Standby, or the Service Availability Index.\n\nMarket limits and minimum thresholds we must meet\n\n- Community Assurance Score: at least -1.7 points overall. Only On-Call Overtime Crews contribute here (0.31 per crew).\n- Client Compliance Credits: at least 15.31 credits overall. Certified Inspection Teams add 2.31 per team; Contracted Network Teams add 3.34 per team.\n- Business Continuity Standby: at least 20.13 points overall. Only On-Call Overtime Crews contribute here (5.39 per crew).\n- Service Availability Index: at least 16.38 points overall. Neighborhood Response Crews add 1.6 per crew; Certified Inspection Teams add 0.6 per team; Mobile Repair Hours add 1.95 per hour.\n- Critical Incident Coverage: at least 15.92 points overall. Premium Incident Units add 0.2 per unit; Contracted Network Teams add 4.46 per team.\n\nPlease use this framework to generate the lowest-cost mix that satisfies the above minimums within the availability caps noted for each lever. If you need clarifications on any definitions or units, let me know.\n\nThanks,\n[Client Name]\nDirector of Field Operations"
+}

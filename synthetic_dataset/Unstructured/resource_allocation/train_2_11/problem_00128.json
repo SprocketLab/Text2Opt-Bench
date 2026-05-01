@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, signs, and capacities are explicitly stated; continuous decision allowed; negative credits clarified. A unique LP can be reconstructed exactly.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative with repeated 'no draw' notes adds verbosity, but it clarifies zero coefficients; minimal extraneous fluff.",
+      "realism": 100,
+      "realism_comment": "Plausible plant mix problem with utilities, packaging, lab time, wastewater, and sustainability credits; coherent and real-world."
+    },
+    "prompt_tokens_with_data": 925,
+    "prompt_tokens_without_data": 925
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 73.6667523882384,
+    "optimal_values": {
+      "Var_0": 4.1100230643802265,
+      "Var_1": 7.731862043657544,
+      "Var_2": 0.0,
+      "Var_3": 3.460293705566184
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 100.19
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -28.12
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.79
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 1.89
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 36.65
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.11
+      ],
+      "objective_linear_coefficient": 6.05,
+      "resource_costs": {
+        "C2": 4.56,
+        "C4": 5.8
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.99
+      ],
+      "objective_linear_coefficient": 4.62,
+      "resource_costs": {
+        "C0": 9.7,
+        "C1": -4.36,
+        "C4": 0.48
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.31
+      ],
+      "objective_linear_coefficient": 2.43,
+      "resource_costs": {
+        "C0": 6.5,
+        "C1": 8.51,
+        "C3": 4.71
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.07
+      ],
+      "objective_linear_coefficient": 3.78,
+      "resource_costs": {
+        "C0": 7.28,
+        "C2": -1.72,
+        "C4": 2.63
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.11, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.05 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.99, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.62 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.31, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.43 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.07, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.78 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.7 * vars['Var_1'] + 6.5 * vars['Var_2'] + 7.28 * vars['Var_3'] <= 100.19, name='C0')\n    m.addConstr(-4.36 * vars['Var_1'] + 8.51 * vars['Var_2'] <= -28.12, name='C1')\n    m.addConstr(4.56 * vars['Var_0'] + -1.72 * vars['Var_3'] <= 12.79, name='C2')\n    m.addConstr(4.71 * vars['Var_2'] <= 1.89, name='C3')\n    m.addConstr(5.8 * vars['Var_0'] + 0.48 * vars['Var_1'] + 2.63 * vars['Var_3'] <= 36.65, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix decision for the next planning cycle \u2014 maximize contribution within utility, sustainability, lab, and packaging limits\n\nTeam,\n\nFor the upcoming cycle, please set the product mix to maximize total contribution while staying within our plant capacities and policy limits. We can allocate production in fractional batches as needed. Below is the context for each stream and the associated resource impacts and volume limits.\n\n- Aurora Resin Campaign\n  - Economic impact: contributes 6.05 per batch.\n  - Volume flexibility: may be scheduled anywhere between 0 and 9.11 batches this cycle.\n  - Resource use:\n    - Wastewater Treatment Load: adds 4.56 cubic meters per batch.\n    - Final Packaging Line Hours: uses 5.8 hours per batch.\n    - No draw on Boiler & Utilities runtime; no effect on the Net Sustainability Impact Score; no need for Specialist Lab Bench Time.\n\n- Borealis Solvent Blend\n  - Economic impact: contributes 4.62 per batch.\n  - Volume flexibility: may be scheduled anywhere between 0 and 19.99 batches this cycle.\n  - Resource use:\n    - Boiler & Utilities runtime: uses 9.7 run-hours per batch.\n    - Net Sustainability Impact Score: provides a credit of 4.36 points per batch (i.e., lowers our net score by 4.36).\n    - Final Packaging Line Hours: uses 0.48 hours per batch.\n    - No draw on Wastewater Treatment Load; no need for Specialist Lab Bench Time.\n\n- Cinder Reclaim Feed\n  - Economic impact: contributes 2.43 per batch.\n  - Volume flexibility: may be scheduled anywhere between 0 and 12.31 batches this cycle.\n  - Resource use:\n    - Boiler & Utilities runtime: uses 6.5 run-hours per batch.\n    - Net Sustainability Impact Score: adds 8.51 points per batch (i.e., worsens the score by 8.51).\n    - Specialist Lab Bench Time: uses 4.71 hours per batch.\n    - No draw on Wastewater Treatment Load; no use of Final Packaging Line Hours.\n\n- Drift Catalyst Runs\n  - Economic impact: contributes 3.78 per batch.\n  - Volume flexibility: may be scheduled anywhere between 0 and 19.07 batches this cycle.\n  - Resource use:\n    - Boiler & Utilities runtime: uses 7.28 run-hours per batch.\n    - Wastewater Treatment Load: reclaims 1.72 cubic meters per batch (i.e., reduces treatment load by 1.72).\n    - Final Packaging Line Hours: uses 2.63 hours per batch.\n    - No effect on the Net Sustainability Impact Score; no need for Specialist Lab Bench Time.\n\nFacility specs and policy limits for the cycle\n- Boiler & Utilities runtime: total available capacity is 100.19 run-hours.\n- Net Sustainability Impact Score: the combined net score must be at or below -28.12 (more negative is better; credits reduce the score).\n- Wastewater Treatment Load: total capacity is 12.79 cubic meters.\n- Specialist Lab Bench Time: total capacity is 1.89 hours.\n- Final Packaging Line Hours: total capacity is 36.65 hours.\n\nPlease optimize the batch schedule across these four streams to achieve the highest possible total contribution without exceeding any of the above limits. If any assumption needs clarification (e.g., timing within the cycle or overlapping shifts), let me know so we can finalize the run plan."
+}

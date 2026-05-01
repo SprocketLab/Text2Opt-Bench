@@ -1,0 +1,231 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 10,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit variables, bounds, integrality, contribution rates, resource coefficients, and capacities are listed; zeros clarified. The model can be reconstructed mechanically with no guessing.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business memo style adds context; some verbosity, but each coefficient and limit appears once and is needed.",
+      "realism": 97,
+      "realism_comment": "Plausible production planning with solvents, mixer hours, reactor time, hazmat slots, packaging, VOC, steam, loading; batch integrality and capacity limits are realistic."
+    },
+    "prompt_tokens_with_data": 1555,
+    "prompt_tokens_without_data": 1555
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 243.86003826262098,
+    "optimal_values": {
+      "Var_0": 6.36,
+      "Var_1": 1.0533029881434717,
+      "Var_2": -0.0,
+      "Var_3": 0.0,
+      "Var_4": -0.0,
+      "Var_5": 8.70254413563556,
+      "Var_6": 10.798504165442782,
+      "Var_7": 2.0,
+      "Var_8": 0.4406697313375227,
+      "Var_9": 8.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 94.43
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 209.24
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 140.46
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 105.12
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 120.55
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.83
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.3
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 152.86
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.36
+      ],
+      "objective_linear_coefficient": 8.57,
+      "resource_costs": {
+        "C0": 1.71,
+        "C4": 0.19,
+        "C5": 1.64,
+        "C7": 6.32
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.25
+      ],
+      "objective_linear_coefficient": 4.63,
+      "resource_costs": {
+        "C0": 0.21,
+        "C2": 8.36,
+        "C4": 2.01,
+        "C5": 7.97
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.01
+      ],
+      "objective_linear_coefficient": 5.66,
+      "resource_costs": {
+        "C2": 4.06,
+        "C4": 7.37,
+        "C5": 0.91,
+        "C6": 7.78,
+        "C7": 6.66
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.49
+      ],
+      "objective_linear_coefficient": 1.64,
+      "resource_costs": {
+        "C1": 7.01,
+        "C2": 8.82,
+        "C4": 1.26,
+        "C5": 0.9,
+        "C6": 6.6
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.19
+      ],
+      "objective_linear_coefficient": 1.84,
+      "resource_costs": {
+        "C1": 3.89,
+        "C2": 5.73,
+        "C3": 1.57,
+        "C4": 5.47,
+        "C6": 1.01
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.35
+      ],
+      "objective_linear_coefficient": 4.47,
+      "resource_costs": {
+        "C1": 1.88,
+        "C2": 9.68,
+        "C3": 3.11,
+        "C5": 2.65,
+        "C6": 6.4
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.85
+      ],
+      "objective_linear_coefficient": 8.89,
+      "resource_costs": {
+        "C0": 5.34,
+        "C1": 8.63,
+        "C4": 5.04,
+        "C7": 9.0
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.86
+      ],
+      "objective_linear_coefficient": 5.67,
+      "resource_costs": {
+        "C0": 1.24,
+        "C1": 8.11,
+        "C3": 7.51,
+        "C4": 2.0,
+        "C7": 6.6
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.71
+      ],
+      "objective_linear_coefficient": 1.45,
+      "resource_costs": {
+        "C0": 4.87,
+        "C1": 8.73,
+        "C2": 6.09,
+        "C5": 2.14,
+        "C6": 1.37,
+        "C7": 5.17
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.2
+      ],
+      "objective_linear_coefficient": 4.7,
+      "resource_costs": {
+        "C0": 0.91,
+        "C1": 1.85,
+        "C3": 7.87,
+        "C4": 7.35
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.36, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.57 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.25, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.63 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.01, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.66 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.49, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.64 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.19, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.84 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.35, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.47 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=15.85, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.89 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.86, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 5.67 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=8.71, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 1.45 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=10.2, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 4.7 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.71 * vars['Var_0'] + 0.21 * vars['Var_1'] + 5.34 * vars['Var_6'] + 1.24 * vars['Var_7'] + 4.87 * vars['Var_8'] + 0.91 * vars['Var_9'] <= 94.43, name='C0')\n    m.addConstr(7.01 * vars['Var_3'] + 3.89 * vars['Var_4'] + 1.88 * vars['Var_5'] + 8.63 * vars['Var_6'] + 8.11 * vars['Var_7'] + 8.73 * vars['Var_8'] + 1.85 * vars['Var_9'] <= 209.24, name='C1')\n    m.addConstr(8.36 * vars['Var_1'] + 4.06 * vars['Var_2'] + 8.82 * vars['Var_3'] + 5.73 * vars['Var_4'] + 9.68 * vars['Var_5'] + 6.09 * vars['Var_8'] <= 140.46, name='C2')\n    m.addConstr(1.57 * vars['Var_4'] + 3.11 * vars['Var_5'] + 7.51 * vars['Var_7'] + 7.87 * vars['Var_9'] <= 105.12, name='C3')\n    m.addConstr(0.19 * vars['Var_0'] + 2.01 * vars['Var_1'] + 7.37 * vars['Var_2'] + 1.26 * vars['Var_3'] + 5.47 * vars['Var_4'] + 5.04 * vars['Var_6'] + 2.0 * vars['Var_7'] + 7.35 * vars['Var_9'] <= 120.55, name='C4')\n    m.addConstr(1.64 * vars['Var_0'] + 7.97 * vars['Var_1'] + 0.91 * vars['Var_2'] + 0.9 * vars['Var_3'] + 2.65 * vars['Var_5'] + 2.14 * vars['Var_8'] <= 42.83, name='C5')\n    m.addConstr(7.78 * vars['Var_2'] + 6.6 * vars['Var_3'] + 1.01 * vars['Var_4'] + 6.4 * vars['Var_5'] + 1.37 * vars['Var_8'] <= 56.3, name='C6')\n    m.addConstr(6.32 * vars['Var_0'] + 6.66 * vars['Var_2'] + 9.0 * vars['Var_6'] + 6.6 * vars['Var_7'] + 5.17 * vars['Var_8'] <= 152.86, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Maximizing Contribution Across Our Coatings Portfolio Within Plant Limits\n\nTeam,\n\nAs requested, here is a clear picture of how we can allocate production across our ten specialty coatings and binders to maximize total contribution, while staying within our current plant resource limits. The resources that bind us this cycle are:\n- Solvent A allocation\n- Skilled mixer crew hours\n- Reactor Line 2 hours\n- HazMat warehouse slots\n- Packaging resin supply\n- VOC emissions permit\n- Steam and power budget\n- Loading dock time\n\nBelow are the levers we can pull. Each item states its contribution per unit (or batch), how much we\u2019re allowed to run, whether we can run fractional quantities or must run whole batches, and the draw on each resource per unit. Where a resource is not mentioned as a draw, it is zero for that item.\n\n1) Aurora Prime Coating\n- Financials and limits: Generates $8.57 in contribution per unit. We can schedule anywhere from 0 up to 6.36 units, including partial units.\n- Resource impacts per unit: Solvent A 1.71; mixer hours 0; Reactor Line 2 hours 0; HazMat slots 0; packaging resin 0.19; VOC permit 1.64; steam and power 0; loading dock time 6.32.\n\n2) Cascade Satin Finish\n- Financials and limits: Generates $4.63 per unit. We can schedule 0 to 12.25 units, including partial units.\n- Resource impacts per unit: Solvent A 0.21; mixer hours 0; Reactor Line 2 hours 8.36; HazMat slots 0; packaging resin 2.01; VOC permit 7.97; steam and power 0; loading dock time 0.\n\n3) Nimbus Flex Binder\n- Financials and limits: Generates $5.66 per batch. This must be run in whole batches (no partials), with a ceiling of 13.01 batches.\n- Resource impacts per batch: Solvent A 0; mixer hours 0; Reactor Line 2 hours 4.06; HazMat slots 0; packaging resin 7.37; VOC permit 0.91; steam and power 7.78; loading dock time 6.66.\n\n4) Helios Clear Coat\n- Financials and limits: Generates $1.64 per unit. We can schedule 0 to 15.49 units, including partial units.\n- Resource impacts per unit: Solvent A 0; mixer hours 7.01; Reactor Line 2 hours 8.82; HazMat slots 0; packaging resin 1.26; VOC permit 0.9; steam and power 6.6; loading dock time 0.\n\n5) Vertex Primer Batch\n- Financials and limits: Generates $1.84 per batch. Must be scheduled in whole batches only, up to 7.19 batches.\n- Resource impacts per batch: Solvent A 0; mixer hours 3.89; Reactor Line 2 hours 5.73; HazMat slots 1.57; packaging resin 5.47; VOC permit 0; steam and power 1.01; loading dock time 0.\n\n6) Sierra Adhesive\n- Financials and limits: Generates $4.47 per unit. We can schedule 0 to 12.35 units, including partial units.\n- Resource impacts per unit: Solvent A 0; mixer hours 1.88; Reactor Line 2 hours 9.68; HazMat slots 3.11; packaging resin 0; VOC permit 2.65; steam and power 6.4; loading dock time 0.\n\n7) Orion High-Gloss\n- Financials and limits: Generates $8.89 per unit. We can schedule 0 to 15.85 units, including partial units.\n- Resource impacts per unit: Solvent A 5.34; mixer hours 8.63; Reactor Line 2 hours 0; HazMat slots 0; packaging resin 5.04; VOC permit 0; steam and power 0; loading dock time 9.0.\n\n8) Quasar Sealant Campaign\n- Financials and limits: Generates $5.67 per batch. Must be scheduled in whole batches only, up to 13.86 batches.\n- Resource impacts per batch: Solvent A 1.24; mixer hours 8.11; Reactor Line 2 hours 0; HazMat slots 7.51; packaging resin 2.0; VOC permit 0; steam and power 0; loading dock time 6.6.\n\n9) Zenith UV-Cure\n- Financials and limits: Generates $1.45 per unit. We can schedule 0 to 8.71 units, including partial units.\n- Resource impacts per unit: Solvent A 4.87; mixer hours 8.73; Reactor Line 2 hours 6.09; HazMat slots 0; packaging resin 0; VOC permit 2.14; steam and power 1.37; loading dock time 5.17.\n\n10) Echo RustGuard Batch\n- Financials and limits: Generates $4.7 per batch. Must be scheduled in whole batches only, up to 10.2 batches.\n- Resource impacts per batch: Solvent A 0.91; mixer hours 1.85; Reactor Line 2 hours 0; HazMat slots 7.87; packaging resin 7.35; VOC permit 0; steam and power 0; loading dock time 0.\n\nFacility limits for this planning window\n- Solvent A allocation: up to 94.43 units available.\n- Skilled mixer crew hours: up to 209.24 hours available.\n- Reactor Line 2 hours: up to 140.46 hours available.\n- HazMat warehouse slots: up to 105.12 slots available.\n- Packaging resin supply: up to 120.55 units available.\n- VOC emissions permit: up to 42.83 units available.\n- Steam and power budget: up to 56.3 units available.\n- Loading dock time: up to 152.86 hours available.\n\nOur aim is to choose quantities within these limits to maximize total contribution. Please review and confirm if these resource names and unit assumptions align with your expectations; once confirmed, I\u2019ll deliver the recommended production mix and sensitivity insights."
+}

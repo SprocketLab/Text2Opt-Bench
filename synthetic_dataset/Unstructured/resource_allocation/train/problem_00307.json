@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All coefficients, bounds, resource capacities, and integrality are explicit, enabling exact reconstruction. Minor issue: exact variable names are not specified despite the naming requirement.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative email style with some fluff and repeated \"does not use\" statements; mostly necessary details for clarity.",
+      "realism": 95,
+      "realism_comment": "Highly plausible production mix problem with plant/resource limits and per-unit margins; matches real-world operations planning."
+    },
+    "prompt_tokens_with_data": 1186,
+    "prompt_tokens_without_data": 1186
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 322.94496636771294,
+    "optimal_values": {
+      "Var_0": 19.0,
+      "Var_1": -0.0,
+      "Var_2": 13.0,
+      "Var_3": 8.628923766816143,
+      "Var_4": 1.0,
+      "Var_5": -0.0,
+      "Var_6": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 222.63
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 247.81
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 153.46
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 139.46
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 61.02
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.02
+      ],
+      "objective_linear_coefficient": 5.58,
+      "resource_costs": {
+        "C0": 7.07,
+        "C2": 2.0
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.25
+      ],
+      "objective_linear_coefficient": 8.09,
+      "resource_costs": {
+        "C0": 6.19,
+        "C1": 7.15,
+        "C2": 7.33,
+        "C3": 9.2
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.35
+      ],
+      "objective_linear_coefficient": 8.28,
+      "resource_costs": {
+        "C0": 6.36,
+        "C1": 8.49,
+        "C2": 6.57,
+        "C3": 7.63
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.47
+      ],
+      "objective_linear_coefficient": 9.23,
+      "resource_costs": {
+        "C1": 8.92,
+        "C4": 7.07
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.86
+      ],
+      "objective_linear_coefficient": 2.76,
+      "resource_costs": {
+        "C0": 4.66,
+        "C1": 2.15,
+        "C2": 6.27
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 1.22,
+      "resource_costs": {
+        "C0": 7.09
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.28
+      ],
+      "objective_linear_coefficient": 4.48,
+      "resource_costs": {
+        "C1": 9.72,
+        "C2": 2.96,
+        "C3": 4.98
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.02, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.58 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.25, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.09 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.35, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.28 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.47, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.23 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.86, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 2.76 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 1.22 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=17.28, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 4.48 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.07 * vars['Var_0'] + 6.19 * vars['Var_1'] + 6.36 * vars['Var_2'] + 4.66 * vars['Var_4'] + 7.09 * vars['Var_5'] <= 222.63, name='C0')\n    m.addConstr(7.15 * vars['Var_1'] + 8.49 * vars['Var_2'] + 8.92 * vars['Var_3'] + 2.15 * vars['Var_4'] + 9.72 * vars['Var_6'] <= 247.81, name='C1')\n    m.addConstr(2.0 * vars['Var_0'] + 7.33 * vars['Var_1'] + 6.57 * vars['Var_2'] + 6.27 * vars['Var_4'] + 2.96 * vars['Var_6'] <= 153.46, name='C2')\n    m.addConstr(9.2 * vars['Var_1'] + 7.63 * vars['Var_2'] + 4.98 * vars['Var_6'] <= 139.46, name='C3')\n    m.addConstr(7.07 * vars['Var_3'] <= 61.02, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix request to maximize Q1 contribution within plant limits\n\nTeam,\n\nWe\u2019re lining up the seven offerings for the upcoming quarter and want to pick the mix that maximizes total gross margin while staying inside the physical limits of our plant and service resources. Below are the levers and how each offering draws on the five constrained resources. Please use this to recommend the optimal allocation.\n\nThe offerings and their economics\n- Standard Valve Program\n  - Commercial value: each unit contributes $5.58 in gross margin.\n  - Volume flexibility: no minimum commitment (we can produce zero); ceiling of 19.02 units this quarter. Whole units only.\n  - Resource use: per unit, this draws 7.07 hours on Core Fabrication Hours and 2.00 tons of Alloy M feedstock. It does not use Packaging & Final Assembly Line B, Union Technician Overtime Pool, or Metrology Lab Bench Time.\n\n- Premium Regulator Line\n  - Commercial value: each unit contributes $8.09 in gross margin.\n  - Volume flexibility: no minimum commitment; ceiling of 9.25 units. Whole units only.\n  - Resource use: per unit, this draws 6.19 hours on Core Fabrication Hours, 7.15 hours on Packaging & Final Assembly Line B, 7.33 tons of Alloy M feedstock, and 9.20 hours from the Union Technician Overtime Pool. It does not use Metrology Lab Bench Time.\n\n- High-Output Compressor Series\n  - Commercial value: each unit contributes $8.28 in gross margin.\n  - Volume flexibility: no minimum commitment; ceiling of 19.35 units. Whole units only.\n  - Resource use: per unit, this draws 6.36 hours on Core Fabrication Hours, 8.49 hours on Packaging & Final Assembly Line B, 6.57 tons of Alloy M feedstock, and 7.63 hours from the Union Technician Overtime Pool. It does not use Metrology Lab Bench Time.\n\n- Lab-Certified Elite Assemblies\n  - Commercial value: each unit contributes $9.23 in gross margin.\n  - Volume flexibility: no minimum commitment; ceiling of 13.47 units. Partial runs are allowed (this can be scheduled in fractional increments).\n  - Resource use: per unit, this draws 8.92 hours on Packaging & Final Assembly Line B and 7.07 hours of Metrology Lab Bench Time. It does not use Core Fabrication Hours, Alloy M feedstock, or the Union Technician Overtime Pool.\n\n- Economy Pump Heads\n  - Commercial value: each unit contributes $2.76 in gross margin.\n  - Volume flexibility: no minimum commitment; ceiling of 10.86 units. Whole units only.\n  - Resource use: per unit, this draws 4.66 hours on Core Fabrication Hours, 2.15 hours on Packaging & Final Assembly Line B, and 6.27 tons of Alloy M feedstock. It does not use the Union Technician Overtime Pool or Metrology Lab Bench Time.\n\n- Accessory Fastener Kits\n  - Commercial value: each unit contributes $1.22 in gross margin.\n  - Volume flexibility: no minimum commitment; ceiling of 9.00 units. Whole units only.\n  - Resource use: per unit, this draws 7.09 hours on Core Fabrication Hours only. It does not use Packaging & Final Assembly Line B, Alloy M feedstock, the Union Technician Overtime Pool, or Metrology Lab Bench Time.\n\n- Field Service Modules\n  - Commercial value: each unit contributes $4.48 in gross margin.\n  - Volume flexibility: no minimum commitment; ceiling of 17.28 units. Whole units only.\n  - Resource use: per unit, this draws 9.72 hours on Packaging & Final Assembly Line B, 2.96 tons of Alloy M feedstock, and 4.98 hours from the Union Technician Overtime Pool. It does not use Core Fabrication Hours or Metrology Lab Bench Time.\n\nFacility specs and market limits we must not exceed\n- Core Fabrication Hours: up to 222.63 hours available.\n- Packaging & Final Assembly Line B: up to 247.81 hours available.\n- Alloy M feedstock: up to 153.46 tons available.\n- Union Technician Overtime Pool: up to 139.46 hours available.\n- Metrology Lab Bench Time: up to 61.02 hours available.\n\nPlease develop the Q1 production and service plan that maximizes total gross margin under these limits, noting the whole-unit requirements for all offerings except the Lab-Certified Elite Assemblies, which can be scheduled fractionally.\n\nThanks,\nAlex\nVP, Operations and Supply Chain"
+}

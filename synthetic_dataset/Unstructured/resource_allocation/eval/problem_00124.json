@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact coefficients, bounds, and constraint directions are specified; objective (minimize run cost) is clear; negative effects and the environmental floor are unambiguous.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative fluff (greeting, closing) and long description; however the bullet points contain the needed details. Moderately verbose.",
+      "realism": 88,
+      "realism_comment": "Plausible resource-mix planning with scorecard thresholds and tradeoffs. Minor realism nit: fractional 'slots' for lab bookings."
+    },
+    "prompt_tokens_with_data": 1080,
+    "prompt_tokens_without_data": 1080
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 91.78209606829387,
+    "optimal_values": {
+      "Var_0": 10.53,
+      "Var_1": 0.0,
+      "Var_2": 2.372094104444722,
+      "Var_3": 7.8200671315778925
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 56.37
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 60.66
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 118.7
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -137.73
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.04
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.53
+      ],
+      "objective_linear_coefficient": 1.74,
+      "resource_costs": {
+        "C0": 6.32,
+        "C2": 8.64,
+        "C3": -8.77,
+        "C4": 4.17
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.25
+      ],
+      "objective_linear_coefficient": 4.59,
+      "resource_costs": {
+        "C0": -2.17,
+        "C1": -7.5,
+        "C3": 0.48,
+        "C4": -0.71
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.93
+      ],
+      "objective_linear_coefficient": 1.43,
+      "resource_costs": {
+        "C0": -7.36,
+        "C1": -0.01,
+        "C3": -6.51,
+        "C4": 0.64
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.27
+      ],
+      "objective_linear_coefficient": 8.96,
+      "resource_costs": {
+        "C0": 6.87,
+        "C1": 7.76,
+        "C2": 4.39,
+        "C4": 2.38
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.53, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.74 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.25, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.59 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.93, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.43 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.27, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.96 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.32 * vars['Var_0'] + -2.17 * vars['Var_1'] + -7.36 * vars['Var_2'] + 6.87 * vars['Var_3'] >= 56.37, name='C0')\n    m.addConstr(-7.5 * vars['Var_1'] + -0.01 * vars['Var_2'] + 7.76 * vars['Var_3'] >= 60.66, name='C1')\n    m.addConstr(8.64 * vars['Var_0'] + 4.39 * vars['Var_3'] >= 118.7, name='C2')\n    m.addConstr(-8.77 * vars['Var_0'] + 0.48 * vars['Var_1'] + -6.51 * vars['Var_2'] >= -137.73, name='C3')\n    m.addConstr(4.17 * vars['Var_0'] + -0.71 * vars['Var_1'] + 0.64 * vars['Var_2'] + 2.38 * vars['Var_3'] >= 64.04, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Setting our Q1 operating mix to meet mandatory scorecards at the lowest run-rate cost\n\nTeam,\n\nWe need to set the mix of four workstreams for the quarter so that we meet all of our minimum scorecard thresholds while keeping total run-rate cost as low as possible. The scorecards we must meet are: Coverage Credits (service-level throughput), Training & Certification Credits, Compliance Documentation Points, the Environmental Impact Account (our emissions/offset ledger, which is allowed to go negative up to a point), and the Quality Conformance Index. Below are the levers we can pull and how each one influences those scorecards, along with their unit costs and practical limits.\n\n- Premium Field Team Alpha\n  - Cost profile: Each crew-day of Alpha carries an internal run cost of 1.74. We can deploy anywhere from zero up to 10.53 crew-days this period.\n  - Scorecard effects:\n    - Coverage Credits: Adds 6.32 credits per crew-day.\n    - Training & Certification Credits: No effect (zero contribution).\n    - Compliance Documentation Points: Adds 8.64 points per crew-day.\n    - Environmental Impact Account: Reduces the balance by 8.77 credits per crew-day (i.e., a \u22128.77 hit to the ledger).\n    - Quality Conformance Index: Adds 4.17 points per crew-day.\n\n- Contractor Surge Team Bravo\n  - Cost profile: Each crew-day of Bravo costs 4.59. We can book between zero and 6.25 crew-days.\n  - Scorecard effects:\n    - Coverage Credits: Reduces net coverage by 2.17 credits per crew-day (\u22122.17), reflecting supervision and rework drag.\n    - Training & Certification Credits: Reduces the training tally by 7.50 credits per crew-day (\u22127.50), due to deferral of internal modules.\n    - Compliance Documentation Points: No effect (zero contribution).\n    - Environmental Impact Account: Improves the ledger slightly by 0.48 credits per crew-day.\n    - Quality Conformance Index: Reduces quality by 0.71 points per crew-day (\u22120.71).\n\n- Automation Bot Cycles\n  - Cost profile: Each production cycle we schedule costs 1.43. We can run from zero up to 8.93 cycles.\n  - Scorecard effects:\n    - Coverage Credits: Reduces net coverage by 7.36 credits per cycle (\u22127.36) because automation displaces manual coverage credits.\n    - Training & Certification Credits: Slightly reduces training credit by 0.01 per cycle (\u22120.01).\n    - Compliance Documentation Points: No effect (zero contribution).\n    - Environmental Impact Account: Reduces the balance by 6.51 credits per cycle (\u22126.51).\n    - Quality Conformance Index: Adds 0.64 points per cycle.\n\n- External Test Lab Bookings\n  - Cost profile: Each test slot costs 8.96. We can reserve between zero and 13.27 slots.\n  - Scorecard effects:\n    - Coverage Credits: Adds 6.87 credits per slot.\n    - Training & Certification Credits: Adds 7.76 credits per slot.\n    - Compliance Documentation Points: Adds 4.39 points per slot.\n    - Environmental Impact Account: No effect (zero contribution).\n    - Quality Conformance Index: Adds 2.38 points per slot.\n\nFacility and Compliance Minimums (must be met or exceeded)\n- Coverage Credits: At least 56.37 credits for the period.\n- Training & Certification Credits: At least 60.66 credits.\n- Compliance Documentation Points: At least 118.70 points.\n- Environmental Impact Account: The balance must not fall below \u2212137.73 credits (it can be negative, but not more negative than this floor).\n- Quality Conformance Index: At least 64.04 points.\n\nOur task is to choose how many crew-days, cycles, and lab slots to deploy within the stated limits so that we meet or exceed all of the above thresholds at the lowest total run cost. I\u2019m happy to walk through scenarios that strike the right balance between the lower-cost options and the positive scorecard contributions we need."
+}

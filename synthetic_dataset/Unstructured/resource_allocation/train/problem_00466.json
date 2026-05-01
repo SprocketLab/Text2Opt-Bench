@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Clear linear MILP: integer decisions per product, 0\u2013cap bounds, unit margins, per-resource usage, and \u2264 capacities. Zeros explicitly stated; a human can reconstruct the exact model.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style setup and repeated 'no X' per product add verbosity, but most text specifies coefficients, bounds, and limits needed to build the model.",
+      "realism": 94,
+      "realism_comment": "Feels like a realistic production mix problem with plausible resources and capacities; fractional caps with integer runs are slightly odd but acceptable."
+    },
+    "prompt_tokens_with_data": 1401,
+    "prompt_tokens_without_data": 1401
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 393.72,
+    "optimal_values": {
+      "Var_0": 5.0,
+      "Var_1": 9.0,
+      "Var_2": 0.0,
+      "Var_3": 11.0,
+      "Var_4": 14.0,
+      "Var_5": 2.0,
+      "Var_6": 5.0,
+      "Var_7": 5.0,
+      "Var_8": 10.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 93.05
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 134.64
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 94.11
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 192.7
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 149.95
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 299.97
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 304.47
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 217.75
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 169.59
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.49
+      ],
+      "objective_linear_coefficient": 6.03,
+      "resource_costs": {
+        "C0": 2.32,
+        "C1": 9.67,
+        "C3": 6.94,
+        "C4": 9.43,
+        "C5": 4.28,
+        "C8": 5.4
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 5.27,
+      "resource_costs": {
+        "C0": 1.9,
+        "C4": 2.08,
+        "C5": 1.5,
+        "C6": 9.59,
+        "C7": 3.19,
+        "C8": 8.57
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.55
+      ],
+      "objective_linear_coefficient": 3.84,
+      "resource_costs": {
+        "C0": 3.19,
+        "C3": 8.8,
+        "C6": 5.38,
+        "C7": 6.55,
+        "C8": 1.71
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.39
+      ],
+      "objective_linear_coefficient": 8.62,
+      "resource_costs": {
+        "C2": 6.23,
+        "C3": 8.89,
+        "C6": 7.98
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.33
+      ],
+      "objective_linear_coefficient": 7.56,
+      "resource_costs": {
+        "C5": 7.54,
+        "C6": 5.66,
+        "C7": 7.41
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 5.44,
+      "resource_costs": {
+        "C2": 4.27,
+        "C4": 9.01,
+        "C5": 7.04,
+        "C6": 8.78,
+        "C8": 7.34
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.13
+      ],
+      "objective_linear_coefficient": 4.29,
+      "resource_costs": {
+        "C0": 1.96,
+        "C1": 8.13,
+        "C5": 7.76,
+        "C6": 4.01,
+        "C7": 6.98,
+        "C8": 2.91
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.87
+      ],
+      "objective_linear_coefficient": 5.17,
+      "resource_costs": {
+        "C0": 3.94,
+        "C1": 3.67,
+        "C2": 2.79,
+        "C3": 2.17,
+        "C5": 9.81,
+        "C6": 0.02
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.41
+      ],
+      "objective_linear_coefficient": 5.73,
+      "resource_costs": {
+        "C0": 1.41,
+        "C3": 4.87,
+        "C4": 5.71,
+        "C5": 5.39,
+        "C7": 5.03
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.49, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.03 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.27 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.55, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.84 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.39, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.62 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.33, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 7.56 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 5.44 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=17.13, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 4.29 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=17.87, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 5.17 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=10.41, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 5.73 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.32 * vars['Var_0'] + 1.9 * vars['Var_1'] + 3.19 * vars['Var_2'] + 1.96 * vars['Var_6'] + 3.94 * vars['Var_7'] + 1.41 * vars['Var_8'] <= 93.05, name='C0')\n    m.addConstr(9.67 * vars['Var_0'] + 8.13 * vars['Var_6'] + 3.67 * vars['Var_7'] <= 134.64, name='C1')\n    m.addConstr(6.23 * vars['Var_3'] + 4.27 * vars['Var_5'] + 2.79 * vars['Var_7'] <= 94.11, name='C2')\n    m.addConstr(6.94 * vars['Var_0'] + 8.8 * vars['Var_2'] + 8.89 * vars['Var_3'] + 2.17 * vars['Var_7'] + 4.87 * vars['Var_8'] <= 192.7, name='C3')\n    m.addConstr(9.43 * vars['Var_0'] + 2.08 * vars['Var_1'] + 9.01 * vars['Var_5'] + 5.71 * vars['Var_8'] <= 149.95, name='C4')\n    m.addConstr(4.28 * vars['Var_0'] + 1.5 * vars['Var_1'] + 7.54 * vars['Var_4'] + 7.04 * vars['Var_5'] + 7.76 * vars['Var_6'] + 9.81 * vars['Var_7'] + 5.39 * vars['Var_8'] <= 299.97, name='C5')\n    m.addConstr(9.59 * vars['Var_1'] + 5.38 * vars['Var_2'] + 7.98 * vars['Var_3'] + 5.66 * vars['Var_4'] + 8.78 * vars['Var_5'] + 4.01 * vars['Var_6'] + 0.02 * vars['Var_7'] <= 304.47, name='C6')\n    m.addConstr(3.19 * vars['Var_1'] + 6.55 * vars['Var_2'] + 7.41 * vars['Var_4'] + 6.98 * vars['Var_6'] + 5.03 * vars['Var_8'] <= 217.75, name='C7')\n    m.addConstr(5.4 * vars['Var_0'] + 8.57 * vars['Var_1'] + 1.71 * vars['Var_2'] + 7.34 * vars['Var_5'] + 2.91 * vars['Var_6'] <= 169.59, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix decision to maximize quarterly margin under current plant limits\n\nTeam,\n\nWe\u2019re setting the production plan for the quarter with the clear aim of maximizing total gross margin while staying within our facility, workforce, and compliance limits. All items below are scheduled in whole production runs only\u2014no partials\u2014and each product family can be set anywhere from zero up to the listed cap.\n\nLevers we can pull:\n\n- Aquila Sensor Modules\n  Each unit contributes 6.03 to gross margin. We can plan between 0 and 19.49 units.\n  Per unit resource draw: 2.32 Core Production Hours on Line Alpha, 9.67 Certified Technician Hours, no Quality Lab Testing Time, 6.94 Reactor/Assembly Bay Throughput, 9.43 Packaging Line A Slots, 4.28 Outbound Logistics Capacity, no Power Grid Quota, no Warehouse Pallet Space, and 5.4 Compliance Credits.\n\n- Borealis Control Boards\n  Each unit contributes 5.27 to gross margin. We can plan between 0 and 9 units.\n  Per unit resource draw: 1.9 Core Production Hours on Line Alpha, no Certified Technician Hours, no Quality Lab Testing Time, no Reactor/Assembly Bay Throughput, 2.08 Packaging Line A Slots, 1.5 Outbound Logistics Capacity, 9.59 Power Grid Quota, 3.19 Warehouse Pallet Space, and 8.57 Compliance Credits.\n\n- Cerulean Power Units\n  Each unit contributes 3.84 to gross margin. We can plan between 0 and 17.55 units.\n  Per unit resource draw: 3.19 Core Production Hours on Line Alpha, no Certified Technician Hours, no Quality Lab Testing Time, 8.8 Reactor/Assembly Bay Throughput, no Packaging Line A Slots, no Outbound Logistics Capacity, 5.38 Power Grid Quota, 6.55 Warehouse Pallet Space, and 1.71 Compliance Credits.\n\n- Delta Drive Assemblies\n  Each unit contributes 8.62 to gross margin. We can plan between 0 and 19.39 units.\n  Per unit resource draw: no Core Production Hours on Line Alpha, no Certified Technician Hours, 6.23 Quality Lab Testing Time, 8.89 Reactor/Assembly Bay Throughput, no Packaging Line A Slots, no Outbound Logistics Capacity, 7.98 Power Grid Quota, no Warehouse Pallet Space, and no Compliance Credits.\n\n- Eclipse Actuators\n  Each unit contributes 7.56 to gross margin. We can plan between 0 and 14.33 units.\n  Per unit resource draw: no Core Production Hours on Line Alpha, no Certified Technician Hours, no Quality Lab Testing Time, no Reactor/Assembly Bay Throughput, no Packaging Line A Slots, 7.54 Outbound Logistics Capacity, 5.66 Power Grid Quota, 7.41 Warehouse Pallet Space, and no Compliance Credits.\n\n- Fathom Pumps\n  Each unit contributes 5.44 to gross margin. We can plan between 0 and 7 units.\n  Per unit resource draw: no Core Production Hours on Line Alpha, no Certified Technician Hours, 4.27 Quality Lab Testing Time, no Reactor/Assembly Bay Throughput, 9.01 Packaging Line A Slots, 7.04 Outbound Logistics Capacity, 8.78 Power Grid Quota, no Warehouse Pallet Space, and 7.34 Compliance Credits.\n\n- Galvanic Chargers\n  Each unit contributes 4.29 to gross margin. We can plan between 0 and 17.13 units.\n  Per unit resource draw: 1.96 Core Production Hours on Line Alpha, 8.13 Certified Technician Hours, no Quality Lab Testing Time, no Reactor/Assembly Bay Throughput, no Packaging Line A Slots, 7.76 Outbound Logistics Capacity, 4.01 Power Grid Quota, 6.98 Warehouse Pallet Space, and 2.91 Compliance Credits.\n\n- Helios Micro\u2011inverters\n  Each unit contributes 5.17 to gross margin. We can plan between 0 and 17.87 units.\n  Per unit resource draw: 3.94 Core Production Hours on Line Alpha, 3.67 Certified Technician Hours, 2.79 Quality Lab Testing Time, 2.17 Reactor/Assembly Bay Throughput, no Packaging Line A Slots, 9.81 Outbound Logistics Capacity, 0.02 Power Grid Quota, no Warehouse Pallet Space, and no Compliance Credits.\n\n- Ionis Cooling Blocks\n  Each unit contributes 5.73 to gross margin. We can plan between 0 and 10.41 units.\n  Per unit resource draw: 1.41 Core Production Hours on Line Alpha, no Certified Technician Hours, no Quality Lab Testing Time, 4.87 Reactor/Assembly Bay Throughput, 5.71 Packaging Line A Slots, 5.39 Outbound Logistics Capacity, no Power Grid Quota, 5.03 Warehouse Pallet Space, and no Compliance Credits.\n\nFacility specs and market limits to observe (do not exceed):\n\n- Core Production Hours on Line Alpha: 93.05\n- Certified Technician Hours: 134.64\n- Quality Lab Testing Time: 94.11\n- Reactor/Assembly Bay Throughput: 192.7\n- Packaging Line A Slots: 149.95\n- Outbound Logistics Capacity: 299.97\n- Power Grid Quota: 304.47\n- Warehouse Pallet Space: 217.75\n- Compliance Credits: 169.59\n\nPlease use this as the basis to propose the production mix that maximizes total margin without breaching any of the above limits."
+}

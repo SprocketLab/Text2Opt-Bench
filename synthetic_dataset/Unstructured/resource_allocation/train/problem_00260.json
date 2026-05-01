@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit per-lot contributions, bounds, and resource loads with capacities; 'does not require' implies zeros. Objective and constraint mapping are clear and mechanical.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative framing, but most text is data-dense and necessary; bullet structure keeps it clear with minimal fluff.",
+      "realism": 98,
+      "realism_comment": "A credible production planning problem with plausible multi-resource capacities and per-product loads; aligns with real OR applications."
+    },
+    "prompt_tokens_with_data": 1117,
+    "prompt_tokens_without_data": 1117
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 181.24857990020035,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 15.232274582359231,
+      "Var_3": 11.724194107355641,
+      "Var_4": 0.0,
+      "Var_5": 0.6488349389192679
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.69
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 109.16
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 46.0
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 133.4
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 141.19
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 129.88
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.37
+      ],
+      "objective_linear_coefficient": 5.98,
+      "resource_costs": {
+        "C1": 8.62,
+        "C2": 2.33,
+        "C4": 5.58,
+        "C5": 7.13
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.8
+      ],
+      "objective_linear_coefficient": 8.18,
+      "resource_costs": {
+        "C0": 4.27,
+        "C1": 7.6,
+        "C3": 4.59,
+        "C4": 8.59,
+        "C5": 3.93
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.93
+      ],
+      "objective_linear_coefficient": 8.12,
+      "resource_costs": {
+        "C1": 6.82,
+        "C2": 1.29,
+        "C3": 1.72,
+        "C4": 1.84
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.29
+      ],
+      "objective_linear_coefficient": 4.55,
+      "resource_costs": {
+        "C1": 0.45,
+        "C2": 1.75,
+        "C3": 9.05,
+        "C4": 3.87,
+        "C5": 9.1
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.85
+      ],
+      "objective_linear_coefficient": 1.86,
+      "resource_costs": {
+        "C1": 0.67,
+        "C3": 6.5,
+        "C4": 7.33
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.7
+      ],
+      "objective_linear_coefficient": 6.5,
+      "resource_costs": {
+        "C0": 1.91,
+        "C2": 8.99,
+        "C3": 1.69,
+        "C4": 2.15,
+        "C5": 3.32
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.37, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.98 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.8, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.18 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.93, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.12 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.29, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.55 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.85, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.86 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.7, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.5 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.27 * vars['Var_1'] + 1.91 * vars['Var_5'] <= 30.69, name='C0')\n    m.addConstr(8.62 * vars['Var_0'] + 7.6 * vars['Var_1'] + 6.82 * vars['Var_2'] + 0.45 * vars['Var_3'] + 0.67 * vars['Var_4'] <= 109.16, name='C1')\n    m.addConstr(2.33 * vars['Var_0'] + 1.29 * vars['Var_2'] + 1.75 * vars['Var_3'] + 8.99 * vars['Var_5'] <= 46.0, name='C2')\n    m.addConstr(4.59 * vars['Var_1'] + 1.72 * vars['Var_2'] + 9.05 * vars['Var_3'] + 6.5 * vars['Var_4'] + 1.69 * vars['Var_5'] <= 133.4, name='C3')\n    m.addConstr(5.58 * vars['Var_0'] + 8.59 * vars['Var_1'] + 1.84 * vars['Var_2'] + 3.87 * vars['Var_3'] + 7.33 * vars['Var_4'] + 2.15 * vars['Var_5'] <= 141.19, name='C4')\n    m.addConstr(7.13 * vars['Var_0'] + 3.93 * vars['Var_1'] + 9.1 * vars['Var_3'] + 3.32 * vars['Var_5'] <= 129.88, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Capacity Allocation Proposal to Maximize This Period\u2019s Contribution\n\nTeam,\n\nFor the upcoming production period, we need to allocate limited plant resources across six product families to maximize gross contribution. Below are the levers we can pull, with the margin each lot generates and the specific loads they place on shared resources. For each line, we can schedule anywhere from zero up to its stated ceiling; no minimum commitments are required beyond zero.\n\n- Aurora Home Hub (smart controller lots)\n  - Gross contribution: $5.98k per lot.\n  - Scheduling window: 0 to 10.37 lots this period.\n  - Resource impacts per lot:\n    - 8.62 hours of Skilled Assembly.\n    - 2.33 units of Alloy A.\n    - 5.58 hours on the Packaging Line.\n    - 7.13 pallet-equivalents in Finished-Goods Storage.\n    - Does not require Compliance Test Lab time or Heat-Treatment Furnace time.\n\n- Nimbus Pro Outdoor Unit (ruggedized assembly lots)\n  - Gross contribution: $8.18k per lot.\n  - Scheduling window: 0 to 16.8 lots this period.\n  - Resource impacts per lot:\n    - 4.27 hours in the Compliance Test Lab.\n    - 7.6 hours of Skilled Assembly.\n    - 4.59 hours in the Heat-Treatment Furnace.\n    - 8.59 hours on the Packaging Line.\n    - 3.93 pallet-equivalents in Finished-Goods Storage.\n    - Draws no Alloy A beyond what\u2019s noted below in the specs.\n\n- Lumen Sensor Module (compact sensing lots)\n  - Gross contribution: $8.12k per lot.\n  - Scheduling window: 0 to 15.93 lots this period.\n  - Resource impacts per lot:\n    - 6.82 hours of Skilled Assembly.\n    - 1.29 units of Alloy A.\n    - 1.72 hours in the Heat-Treatment Furnace.\n    - 1.84 hours on the Packaging Line.\n    - Does not require Compliance Test Lab time or Finished-Goods Storage.\n\n- ForgeX Heat Exchanger Core (heavy process lots)\n  - Gross contribution: $4.55k per lot.\n  - Scheduling window: 0 to 17.29 lots this period.\n  - Resource impacts per lot:\n    - 0.45 hours of Skilled Assembly.\n    - 1.75 units of Alloy A.\n    - 9.05 hours in the Heat-Treatment Furnace.\n    - 3.87 hours on the Packaging Line.\n    - 9.1 pallet-equivalents in Finished-Goods Storage.\n    - Does not require Compliance Test Lab time.\n\n- Delta Basic Enclosure (value series lots)\n  - Gross contribution: $1.86k per lot.\n  - Scheduling window: 0 to 19.85 lots this period.\n  - Resource impacts per lot:\n    - 0.67 hours of Skilled Assembly.\n    - 6.5 hours in the Heat-Treatment Furnace.\n    - 7.33 hours on the Packaging Line.\n    - Does not require Compliance Test Lab time, Alloy A, or Finished-Goods Storage.\n\n- Alloy Riser Kit (fabricated component lots)\n  - Gross contribution: $6.50k per lot.\n  - Scheduling window: 0 to 19.7 lots this period.\n  - Resource impacts per lot:\n    - 1.91 hours in the Compliance Test Lab.\n    - 8.99 units of Alloy A.\n    - 1.69 hours in the Heat-Treatment Furnace.\n    - 2.15 hours on the Packaging Line.\n    - 3.32 pallet-equivalents in Finished-Goods Storage.\n    - Does not draw on Skilled Assembly hours.\n\nFacility Specs & Period Capacities (do not exceed)\n- Compliance Test Lab: up to 30.69 hours available.\n- Skilled Assembly: up to 109.16 hours available.\n- Alloy A inventory: up to 46.0 units available.\n- Heat-Treatment Furnace: up to 133.4 hours available.\n- Packaging Line: up to 141.19 hours available.\n- Finished-Goods Storage: up to 129.88 pallet-equivalents available.\n\nPlease review the above so we can align on the production mix that delivers the highest total contribution while staying within these operational limits."
+}

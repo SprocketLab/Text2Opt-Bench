@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 10,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Clear LP: 10 continuous levers with caps and unit costs; linear contributions to 9 service metrics with >= thresholds. Objective is minimize total spend. All coefficients and bounds are explicit.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative style and repeated 'does not affect' notes add verbosity beyond model needs, but the numerical specs are precise and necessary.",
+      "realism": 97,
+      "realism_comment": "Highly plausible healthcare resource planning scenario; scaling programs to meet service targets at minimum cost mirrors real OR applications."
+    },
+    "prompt_tokens_with_data": 1479,
+    "prompt_tokens_without_data": 1479
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 148.88173682444028,
+    "optimal_values": {
+      "Var_0": 2.0073370319001382,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 3.0116052631578945,
+      "Var_5": 4.3481840494092365,
+      "Var_6": 12.74,
+      "Var_7": 8.384391383355103,
+      "Var_8": 0.0,
+      "Var_9": 11.51
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 36.47
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.74
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 97.15
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 157.41
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 38.47
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 132.84
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 127.99
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 98.84
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 120.13
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.44
+      ],
+      "objective_linear_coefficient": 5.92,
+      "resource_costs": {
+        "C3": 4.08,
+        "C5": 8.9,
+        "C6": 6.49,
+        "C7": 0.84,
+        "C8": 7.21
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.95
+      ],
+      "objective_linear_coefficient": 4.49,
+      "resource_costs": {
+        "C2": 2.83,
+        "C4": 2.67,
+        "C7": 6.33
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.55
+      ],
+      "objective_linear_coefficient": 5.43,
+      "resource_costs": {
+        "C2": 6.14,
+        "C4": 2.62,
+        "C8": 6.76
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.95
+      ],
+      "objective_linear_coefficient": 6.41,
+      "resource_costs": {
+        "C1": 8.64,
+        "C3": 7.47,
+        "C4": 4.3,
+        "C5": 8.83,
+        "C6": 9.23
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.97
+      ],
+      "objective_linear_coefficient": 4.14,
+      "resource_costs": {
+        "C0": 7.6,
+        "C1": 0.06,
+        "C3": 8.15,
+        "C4": 8.79,
+        "C5": 0.65,
+        "C7": 6.79
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.8
+      ],
+      "objective_linear_coefficient": 4.08,
+      "resource_costs": {
+        "C1": 9.8,
+        "C2": 7.83,
+        "C5": 6.92,
+        "C7": 1.88
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.74
+      ],
+      "objective_linear_coefficient": 3.54,
+      "resource_costs": {
+        "C3": 7.29,
+        "C5": 9.47,
+        "C6": 4.95,
+        "C7": 8.72,
+        "C8": 4.02
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.34
+      ],
+      "objective_linear_coefficient": 1.29,
+      "resource_costs": {
+        "C2": 4.84,
+        "C3": 8.86,
+        "C4": 1.42,
+        "C6": 6.19,
+        "C7": 4.18
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.9
+      ],
+      "objective_linear_coefficient": 6.86,
+      "resource_costs": {
+        "C0": 2.15,
+        "C1": 2.25,
+        "C7": 0.8,
+        "C8": 2.5
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.51
+      ],
+      "objective_linear_coefficient": 4.42,
+      "resource_costs": {
+        "C0": 1.18,
+        "C1": 3.21,
+        "C2": 2.53,
+        "C3": 3.35,
+        "C4": 2.0,
+        "C7": 2.95,
+        "C8": 4.73
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.44, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.92 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.95, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.49 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.55, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.43 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.95, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.41 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.97, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.14 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=5.8, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.08 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.74, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.54 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=18.34, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 1.29 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=12.9, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 6.86 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=11.51, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 4.42 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.6 * vars['Var_4'] + 2.15 * vars['Var_8'] + 1.18 * vars['Var_9'] >= 36.47, name='C0')\n    m.addConstr(8.64 * vars['Var_3'] + 0.06 * vars['Var_4'] + 9.8 * vars['Var_5'] + 2.25 * vars['Var_8'] + 3.21 * vars['Var_9'] >= 79.74, name='C1')\n    m.addConstr(2.83 * vars['Var_1'] + 6.14 * vars['Var_2'] + 7.83 * vars['Var_5'] + 4.84 * vars['Var_7'] + 2.53 * vars['Var_9'] >= 97.15, name='C2')\n    m.addConstr(4.08 * vars['Var_0'] + 7.47 * vars['Var_3'] + 8.15 * vars['Var_4'] + 7.29 * vars['Var_6'] + 8.86 * vars['Var_7'] + 3.35 * vars['Var_9'] >= 157.41, name='C3')\n    m.addConstr(2.67 * vars['Var_1'] + 2.62 * vars['Var_2'] + 4.3 * vars['Var_3'] + 8.79 * vars['Var_4'] + 1.42 * vars['Var_7'] + 2.0 * vars['Var_9'] >= 38.47, name='C4')\n    m.addConstr(8.9 * vars['Var_0'] + 8.83 * vars['Var_3'] + 0.65 * vars['Var_4'] + 6.92 * vars['Var_5'] + 9.47 * vars['Var_6'] >= 132.84, name='C5')\n    m.addConstr(6.49 * vars['Var_0'] + 9.23 * vars['Var_3'] + 4.95 * vars['Var_6'] + 6.19 * vars['Var_7'] >= 127.99, name='C6')\n    m.addConstr(0.84 * vars['Var_0'] + 6.33 * vars['Var_1'] + 6.79 * vars['Var_4'] + 1.88 * vars['Var_5'] + 8.72 * vars['Var_6'] + 4.18 * vars['Var_7'] + 0.8 * vars['Var_8'] + 2.95 * vars['Var_9'] >= 98.84, name='C7')\n    m.addConstr(7.21 * vars['Var_0'] + 6.76 * vars['Var_2'] + 4.02 * vars['Var_6'] + 2.5 * vars['Var_8'] + 4.73 * vars['Var_9'] >= 120.13, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed Quarter Resource Mix to Meet Network Service Commitments at Lowest Cost\n\nTeam,\n\nFor the upcoming planning cycle, our objective is straightforward: meet or exceed all nine service-level commitments while keeping total operating spend as low as possible. Below are the levers we can dial up or down (each can be partially scaled), along with their unit costs, caps, and the specific service areas they influence.\n\nMobile Screening Unit Alpha\n- Unit cost: 5.92; capacity cap: up to 18.44 units.\n- Each unit adds 4.08 toward Preventive Screenings, 8.9 toward Licensed Nurse Hours, 6.49 toward Telemedicine Sessions, 0.84 toward Weekend & Evening Availability, and 7.21 toward Behavioral Health Sessions.\n- It does not move Emergency Response Baseline Coverage, Primary Care Appointment Capacity, Specialist Consultations, or Rural Home Visits.\n\nNeighborhood Nurse Pods\n- Unit cost: 4.49; capacity cap: up to 6.95 units.\n- Each unit adds 2.83 toward Specialist Consultations, 2.67 toward Rural Home Visits, and 6.33 toward Weekend & Evening Availability.\n- It does not affect Emergency Response Baseline Coverage, Primary Care Appointment Capacity, Preventive Screenings, Licensed Nurse Hours, Telemedicine Sessions, or Behavioral Health Sessions.\n\nCommunity Wellness Workshops\n- Unit cost: 5.43; capacity cap: up to 8.55 units.\n- Each unit adds 6.14 toward Specialist Consultations, 2.62 toward Rural Home Visits, and 6.76 toward Behavioral Health Sessions.\n- It does not influence Emergency Response Baseline Coverage, Primary Care Appointment Capacity, Preventive Screenings, Licensed Nurse Hours, Telemedicine Sessions, or Weekend & Evening Availability.\n\nIntegrated Clinic Hub North\n- Unit cost: 6.41; capacity cap: up to 9.95 units.\n- Each unit adds 8.64 toward Primary Care Appointment Capacity, 7.47 toward Preventive Screenings, 4.3 toward Rural Home Visits, 8.83 toward Licensed Nurse Hours, and 9.23 toward Telemedicine Sessions.\n- It does not contribute to Emergency Response Baseline Coverage, Specialist Consultations, Weekend & Evening Availability, or Behavioral Health Sessions.\n\nRural Outreach Fleet\n- Unit cost: 4.14; capacity cap: up to 9.97 units.\n- Each unit adds 7.6 toward Emergency Response Baseline Coverage, 0.06 toward Primary Care Appointment Capacity, 8.15 toward Preventive Screenings, 8.79 toward Rural Home Visits, 0.65 toward Licensed Nurse Hours, and 6.79 toward Weekend & Evening Availability.\n- It does not impact Specialist Consultations, Telemedicine Sessions, or Behavioral Health Sessions.\n\nSpecialist Contracting Package\n- Unit cost: 4.08; capacity cap: up to 5.8 units.\n- Each unit adds 9.8 toward Primary Care Appointment Capacity, 7.83 toward Specialist Consultations, 6.92 toward Licensed Nurse Hours, and 1.88 toward Weekend & Evening Availability.\n- It does not affect Emergency Response Baseline Coverage, Preventive Screenings, Rural Home Visits, Telemedicine Sessions, or Behavioral Health Sessions.\n\nTelehealth Expansion Program\n- Unit cost: 3.54; capacity cap: up to 12.74 units.\n- Each unit adds 7.29 toward Preventive Screenings, 9.47 toward Licensed Nurse Hours, 4.95 toward Telemedicine Sessions, 8.72 toward Weekend & Evening Availability, and 4.02 toward Behavioral Health Sessions.\n- It does not contribute to Emergency Response Baseline Coverage, Primary Care Appointment Capacity, Specialist Consultations, or Rural Home Visits.\n\nEvening & Weekend Clinics Network\n- Unit cost: 1.29; capacity cap: up to 18.34 units.\n- Each unit adds 4.84 toward Specialist Consultations, 8.86 toward Preventive Screenings, 1.42 toward Rural Home Visits, 6.19 toward Telemedicine Sessions, and 4.18 toward Weekend & Evening Availability.\n- It does not affect Emergency Response Baseline Coverage, Primary Care Appointment Capacity, Licensed Nurse Hours, or Behavioral Health Sessions.\n\nBehavioral Health Partnership\n- Unit cost: 6.86; capacity cap: up to 12.9 units.\n- Each unit adds 2.15 toward Emergency Response Baseline Coverage, 2.25 toward Primary Care Appointment Capacity, 0.8 toward Weekend & Evening Availability, and 2.5 toward Behavioral Health Sessions.\n- It does not contribute to Specialist Consultations, Preventive Screenings, Rural Home Visits, Licensed Nurse Hours, or Telemedicine Sessions.\n\nCommunity Health Navigators\n- Unit cost: 4.42; capacity cap: up to 11.51 units.\n- Each unit adds 1.18 toward Emergency Response Baseline Coverage, 3.21 toward Primary Care Appointment Capacity, 2.53 toward Specialist Consultations, 3.35 toward Preventive Screenings, 2.0 toward Rural Home Visits, 2.95 toward Weekend & Evening Availability, and 4.73 toward Behavioral Health Sessions.\n- It does not move Licensed Nurse Hours or Telemedicine Sessions.\n\nFacility Specs and Service-Level Commitments (minimums we must meet or exceed this cycle)\n- Emergency Response Baseline Coverage: at least 36.47\n- Primary Care Appointment Capacity: at least 79.74\n- Specialist Consultations: at least 97.15\n- Preventive Screenings: at least 157.41\n- Rural Home Visits: at least 38.47\n- Licensed Nurse Hours: at least 132.84\n- Telemedicine Sessions: at least 127.99\n- Weekend & Evening Availability: at least 98.84\n- Behavioral Health Sessions: at least 120.13\n\nPlease use this as the basis for assembling a minimum-cost mix that satisfies all commitments. We can dial any lever between zero and its stated cap, and partial deployment is acceptable. I\u2019m available to discuss trade-offs and scenario runs as needed."
+}

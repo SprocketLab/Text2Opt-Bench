@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit bounds, types, objective coefficients, and resource coefficients for all 7 variables; 6 capacity limits given as \u2264. A human can reconstruct the exact model without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some narrative/instructional fluff; the per-item coefficient lists are long but necessary. Overall moderately verbose.",
+      "realism": 95,
+      "realism_comment": "Highly plausible production planning with capacities and integer/continuous decisions; coherent resource usage aligned with a real manufacturing setting."
+    },
+    "prompt_tokens_with_data": 1109,
+    "prompt_tokens_without_data": 1109
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 236.08549498512974,
+    "optimal_values": {
+      "Var_0": 3.0,
+      "Var_1": 0.0,
+      "Var_2": 11.68,
+      "Var_3": 0.2120290226643452,
+      "Var_4": 4.658223259152911,
+      "Var_5": -0.0,
+      "Var_6": 12.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 141.58
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 182.3
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 235.09
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 199.06
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 176.68
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 175.8
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.9
+      ],
+      "objective_linear_coefficient": 1.97,
+      "resource_costs": {
+        "C0": 2.1,
+        "C1": 3.12,
+        "C2": 8.92,
+        "C3": 9.21,
+        "C4": 9.39,
+        "C5": 0.45
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.12
+      ],
+      "objective_linear_coefficient": 1.84,
+      "resource_costs": {
+        "C1": 8.64,
+        "C2": 6.59,
+        "C3": 0.87,
+        "C4": 5.59,
+        "C5": 6.92
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.68
+      ],
+      "objective_linear_coefficient": 6.78,
+      "resource_costs": {
+        "C0": 3.26,
+        "C1": 1.96,
+        "C2": 6.32,
+        "C3": 2.39,
+        "C4": 1.85,
+        "C5": 4.04
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.82
+      ],
+      "objective_linear_coefficient": 1.9,
+      "resource_costs": {
+        "C0": 0.98,
+        "C1": 7.01,
+        "C2": 1.01,
+        "C3": 3.97,
+        "C4": 7.76,
+        "C5": 3.15
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.39
+      ],
+      "objective_linear_coefficient": 8.42,
+      "resource_costs": {
+        "C0": 6.86,
+        "C1": 5.34,
+        "C2": 8.81,
+        "C3": 9.87,
+        "C4": 2.92,
+        "C5": 6.13
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.33
+      ],
+      "objective_linear_coefficient": 1.59,
+      "resource_costs": {
+        "C0": 6.6,
+        "C1": 0.09,
+        "C2": 4.76,
+        "C3": 3.41,
+        "C4": 8.95,
+        "C5": 2.54
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.69
+      ],
+      "objective_linear_coefficient": 9.28,
+      "resource_costs": {
+        "C0": 5.42,
+        "C1": 6.13,
+        "C2": 7.02,
+        "C3": 4.68,
+        "C5": 8.17
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.9, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.97 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.12, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.84 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.68, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.78 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.82, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.9 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.39, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.42 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.33, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 1.59 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.69, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 9.28 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.1 * vars['Var_0'] + 3.26 * vars['Var_2'] + 0.98 * vars['Var_3'] + 6.86 * vars['Var_4'] + 6.6 * vars['Var_5'] + 5.42 * vars['Var_6'] <= 141.58, name='C0')\n    m.addConstr(3.12 * vars['Var_0'] + 8.64 * vars['Var_1'] + 1.96 * vars['Var_2'] + 7.01 * vars['Var_3'] + 5.34 * vars['Var_4'] + 0.09 * vars['Var_5'] + 6.13 * vars['Var_6'] <= 182.3, name='C1')\n    m.addConstr(8.92 * vars['Var_0'] + 6.59 * vars['Var_1'] + 6.32 * vars['Var_2'] + 1.01 * vars['Var_3'] + 8.81 * vars['Var_4'] + 4.76 * vars['Var_5'] + 7.02 * vars['Var_6'] <= 235.09, name='C2')\n    m.addConstr(9.21 * vars['Var_0'] + 0.87 * vars['Var_1'] + 2.39 * vars['Var_2'] + 3.97 * vars['Var_3'] + 9.87 * vars['Var_4'] + 3.41 * vars['Var_5'] + 4.68 * vars['Var_6'] <= 199.06, name='C3')\n    m.addConstr(9.39 * vars['Var_0'] + 5.59 * vars['Var_1'] + 1.85 * vars['Var_2'] + 7.76 * vars['Var_3'] + 2.92 * vars['Var_4'] + 8.95 * vars['Var_5'] <= 176.68, name='C4')\n    m.addConstr(0.45 * vars['Var_0'] + 6.92 * vars['Var_1'] + 4.04 * vars['Var_2'] + 3.15 * vars['Var_3'] + 6.13 * vars['Var_4'] + 2.54 * vars['Var_5'] + 8.17 * vars['Var_6'] <= 175.8, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 production mix decision \u2014 maximize contribution under facility limits\n\nTeam,\n\nWe\u2019re setting the Q1 plan across seven offerings and want to maximize our quarterly contribution while staying within our facility and market limits. Some lines are scheduled in whole-number increments only, while others can be tuned in partial runs. Each unit of output below notes its contribution to the quarter and the draw it places on our shared resources.\n\n- Flagship Reserve Roasts (whole batches only): We can schedule between 0 and 7.9 batches this quarter. Each batch adds 1.97 to the quarter\u2019s value index. Per batch, it uses 2.1 of Green Bean Sorting Hours, 3.12 of Roasting Kettle Capacity, 8.92 of Packaging Line Hours, 9.21 of Quality Lab Time, 9.39 of Chilled Storage Pallets, and 0.45 of Outbound Dock Slots.\n\n- Seasonal Cold Brew Runs (adjustable in partial runs): We can run between 0 and 15.12 units. Each unit adds 1.84 to the value index. Per unit, it uses 8.64 of Roasting Kettle Capacity, 6.59 of Packaging Line Hours, 0.87 of Quality Lab Time, 5.59 of Chilled Storage Pallets, and 6.92 of Outbound Dock Slots; it does not require any Green Bean Sorting Hours.\n\n- Premium Espresso Pods (adjustable in partial runs): We can produce between 0 and 11.68 units. Each unit adds 6.78 to the value index. Per unit, it uses 3.26 of Green Bean Sorting Hours, 1.96 of Roasting Kettle Capacity, 6.32 of Packaging Line Hours, 2.39 of Quality Lab Time, 1.85 of Chilled Storage Pallets, and 4.04 of Outbound Dock Slots.\n\n- House Blend Grounds (adjustable in partial runs): We can produce between 0 and 11.82 units. Each unit adds 1.9 to the value index. Per unit, it uses 0.98 of Green Bean Sorting Hours, 7.01 of Roasting Kettle Capacity, 1.01 of Packaging Line Hours, 3.97 of Quality Lab Time, 7.76 of Chilled Storage Pallets, and 3.15 of Outbound Dock Slots.\n\n- Premium Gift Set Assembly (adjustable in partial runs): We can assemble between 0 and 10.39 units. Each unit adds 8.42 to the value index. Per unit, it uses 6.86 of Green Bean Sorting Hours, 5.34 of Roasting Kettle Capacity, 8.81 of Packaging Line Hours, 9.87 of Quality Lab Time, 2.92 of Chilled Storage Pallets, and 6.13 of Outbound Dock Slots.\n\n- Holiday Bundle Packaging (whole lots only): We can package between 0 and 15.33 lots. Each lot adds 1.59 to the value index. Per lot, it uses 6.6 of Green Bean Sorting Hours, 0.09 of Roasting Kettle Capacity, 4.76 of Packaging Line Hours, 3.41 of Quality Lab Time, 8.95 of Chilled Storage Pallets, and 2.54 of Outbound Dock Slots.\n\n- Subscription Starter Kits (whole kits only): We can launch between 0 and 19.69 kits. Each kit adds 9.28 to the value index. Per kit, it uses 5.42 of Green Bean Sorting Hours, 6.13 of Roasting Kettle Capacity, 7.02 of Packaging Line Hours, 4.68 of Quality Lab Time, and 8.17 of Outbound Dock Slots; it does not require any Chilled Storage Pallets.\n\nFacility specs and market limits (do not exceed):\n- Green Bean Sorting Hours: 141.58\n- Roasting Kettle Capacity: 182.3\n- Packaging Line Hours: 235.09\n- Quality Lab Time: 199.06\n- Chilled Storage Pallets: 176.68\n- Outbound Dock Slots: 175.8\n\nPlease use this to develop the recommended production mix and advise on the allocations that maximize our quarterly contribution while respecting these limits."
+}

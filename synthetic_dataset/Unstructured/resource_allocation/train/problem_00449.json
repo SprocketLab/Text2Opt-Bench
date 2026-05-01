@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, capacities, and integrality are explicitly given. 'No draw' implies zero usage. Objective and constraint mapping are direct and complete.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated structure ('no draw' lines), but most repetition conveys necessary coefficients and bounds.",
+      "realism": 95,
+      "realism_comment": "Feels like a real plant planning problem with plausible resources and integer items; only minor oddity is fractional caps for integer products."
+    },
+    "prompt_tokens_with_data": 1462,
+    "prompt_tokens_without_data": 1462
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 251.65808664430244,
+    "optimal_values": {
+      "Var_0": 3.781910773529955,
+      "Var_1": 1.2045658629219367,
+      "Var_2": 9.62,
+      "Var_3": 13.09,
+      "Var_4": 0.0,
+      "Var_5": 5.623708200089117,
+      "Var_6": 0.0,
+      "Var_7": 12.0,
+      "Var_8": 0.7261099379379926
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 165.16
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 134.85
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 164.25
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 113.4
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 158.68
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 127.04
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 104.13
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.59
+      ],
+      "objective_linear_coefficient": 4.93,
+      "resource_costs": {
+        "C0": 3.78,
+        "C1": 2.47,
+        "C2": 5.44,
+        "C3": 8.69,
+        "C5": 3.44,
+        "C6": 1.76
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.67
+      ],
+      "objective_linear_coefficient": 5.37,
+      "resource_costs": {
+        "C0": 9.27,
+        "C2": 3.07,
+        "C3": 9.5,
+        "C4": 9.65,
+        "C5": 1.32
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.62
+      ],
+      "objective_linear_coefficient": 2.53,
+      "resource_costs": {
+        "C1": 2.52,
+        "C5": 1.21,
+        "C6": 6.28
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.09
+      ],
+      "objective_linear_coefficient": 9.03,
+      "resource_costs": {
+        "C0": 6.85,
+        "C1": 2.3,
+        "C2": 7.68
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.94
+      ],
+      "objective_linear_coefficient": 2.33,
+      "resource_costs": {
+        "C0": 5.44,
+        "C1": 6.06,
+        "C2": 9.01,
+        "C4": 0.55,
+        "C5": 7.4
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.47
+      ],
+      "objective_linear_coefficient": 5.21,
+      "resource_costs": {
+        "C0": 8.26,
+        "C1": 0.08,
+        "C2": 2.38,
+        "C3": 8.84,
+        "C4": 4.9,
+        "C6": 6.59
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.34
+      ],
+      "objective_linear_coefficient": 8.34,
+      "resource_costs": {
+        "C0": 6.41,
+        "C2": 9.66,
+        "C4": 3.91,
+        "C5": 7.83,
+        "C6": 1.48
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.39
+      ],
+      "objective_linear_coefficient": 4.29,
+      "resource_costs": {
+        "C1": 5.34,
+        "C2": 1.55,
+        "C3": 0.37,
+        "C4": 7.31,
+        "C5": 8.4
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.08
+      ],
+      "objective_linear_coefficient": 4.44,
+      "resource_costs": {
+        "C0": 4.93,
+        "C1": 9.13,
+        "C2": 8.16,
+        "C3": 4.01,
+        "C4": 8.27
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.59, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.93 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.67, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.37 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.62, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.53 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.09, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.03 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.94, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.33 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.47, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.21 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.34, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 8.34 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.39, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 4.29 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=10.08, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 4.44 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.78 * vars['Var_0'] + 9.27 * vars['Var_1'] + 6.85 * vars['Var_3'] + 5.44 * vars['Var_4'] + 8.26 * vars['Var_5'] + 6.41 * vars['Var_6'] + 4.93 * vars['Var_8'] <= 165.16, name='C0')\n    m.addConstr(2.47 * vars['Var_0'] + 2.52 * vars['Var_2'] + 2.3 * vars['Var_3'] + 6.06 * vars['Var_4'] + 0.08 * vars['Var_5'] + 5.34 * vars['Var_7'] + 9.13 * vars['Var_8'] <= 134.85, name='C1')\n    m.addConstr(5.44 * vars['Var_0'] + 3.07 * vars['Var_1'] + 7.68 * vars['Var_3'] + 9.01 * vars['Var_4'] + 2.38 * vars['Var_5'] + 9.66 * vars['Var_6'] + 1.55 * vars['Var_7'] + 8.16 * vars['Var_8'] <= 164.25, name='C2')\n    m.addConstr(8.69 * vars['Var_0'] + 9.5 * vars['Var_1'] + 8.84 * vars['Var_5'] + 0.37 * vars['Var_7'] + 4.01 * vars['Var_8'] <= 113.4, name='C3')\n    m.addConstr(9.65 * vars['Var_1'] + 0.55 * vars['Var_4'] + 4.9 * vars['Var_5'] + 3.91 * vars['Var_6'] + 7.31 * vars['Var_7'] + 8.27 * vars['Var_8'] <= 158.68, name='C4')\n    m.addConstr(3.44 * vars['Var_0'] + 1.32 * vars['Var_1'] + 1.21 * vars['Var_2'] + 7.4 * vars['Var_4'] + 7.83 * vars['Var_6'] + 8.4 * vars['Var_7'] <= 127.04, name='C5')\n    m.addConstr(1.76 * vars['Var_0'] + 6.28 * vars['Var_2'] + 6.59 * vars['Var_5'] + 1.48 * vars['Var_6'] <= 104.13, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Plan to Maximize Margin Within Plant and Market Limits\n\nTeam,\n\nFor the upcoming period, our goal is to maximize total contribution margin by choosing the right mix across our nine product and service lines, while staying strictly within plant capacities, storage limits, and compliance thresholds. Below is how each lever contributes to margin and touches our shared resources. Each line can be dialed down to zero if needed; several have caps driven by demand and operational realities. Two offerings must be scheduled in whole units; the rest can be flexed continuously.\n\n- Aurora Series Valves\n  - Margin contribution: 4.93 per unit. We can schedule up to 6.59 units this period.\n  - Resource touchpoints per unit:\n    - Core Processing Hours: 3.78\n    - Skilled Assembly Hours: 2.47\n    - Primary Feedstock: 5.44\n    - QA Lab Time: 8.69\n    - Packing Line Throughput: no draw\n    - Warehouse Space: 3.44 pallet slots\n    - Emissions Credits: 1.76\n\n- Sierra Flow Regulators\n  - Margin contribution: 5.37 per unit. We can schedule up to 5.67 units.\n  - Resource touchpoints per unit:\n    - Core Processing Hours: 9.27\n    - Skilled Assembly Hours: no draw\n    - Primary Feedstock: 3.07\n    - QA Lab Time: 9.50\n    - Packing Line Throughput: 9.65\n    - Warehouse Space: 1.32 pallet slots\n    - Emissions Credits: no draw\n\n- Boreal Couplings\n  - Margin contribution: 2.53 per unit. We can schedule up to 9.62 units.\n  - Resource touchpoints per unit:\n    - Core Processing Hours: no draw\n    - Skilled Assembly Hours: 2.52\n    - Primary Feedstock: no draw\n    - QA Lab Time: no draw\n    - Packing Line Throughput: no draw\n    - Warehouse Space: 1.21 pallet slots\n    - Emissions Credits: 6.28\n\n- Cascade Drive Modules\n  - Margin contribution: 9.03 per unit. We can schedule up to 13.09 units.\n  - Resource touchpoints per unit:\n    - Core Processing Hours: 6.85\n    - Skilled Assembly Hours: 2.30\n    - Primary Feedstock: 7.68\n    - QA Lab Time: no draw\n    - Packing Line Throughput: no draw\n    - Warehouse Space: no draw\n    - Emissions Credits: no draw\n\n- Harbor Assembly Kits\n  - Margin contribution: 2.33 per unit. We can schedule up to 18.94 units.\n  - Resource touchpoints per unit:\n    - Core Processing Hours: 5.44\n    - Skilled Assembly Hours: 6.06\n    - Primary Feedstock: 9.01\n    - QA Lab Time: no draw\n    - Packing Line Throughput: 0.55\n    - Warehouse Space: 7.40 pallet slots\n    - Emissions Credits: no draw\n\n- Zenith Control Packs\n  - Margin contribution: 5.21 per unit. We can schedule up to 16.47 units.\n  - Resource touchpoints per unit:\n    - Core Processing Hours: 8.26\n    - Skilled Assembly Hours: 0.08\n    - Primary Feedstock: 2.38\n    - QA Lab Time: 8.84\n    - Packing Line Throughput: 4.90\n    - Warehouse Space: no draw\n    - Emissions Credits: 6.59\n\n- Orion Power Units (whole units only)\n  - Margin contribution: 8.34 per unit. We can schedule up to 10.34 whole units; no partials.\n  - Resource touchpoints per unit:\n    - Core Processing Hours: 6.41\n    - Skilled Assembly Hours: no draw\n    - Primary Feedstock: 9.66\n    - QA Lab Time: no draw\n    - Packing Line Throughput: 3.91\n    - Warehouse Space: 7.83 pallet slots\n    - Emissions Credits: 1.48\n\n- Nova Field Installations (whole units only)\n  - Margin contribution: 4.29 per unit. We can schedule up to 15.39 whole units; no partials.\n  - Resource touchpoints per unit:\n    - Core Processing Hours: no draw\n    - Skilled Assembly Hours: 5.34\n    - Primary Feedstock: 1.55\n    - QA Lab Time: 0.37\n    - Packing Line Throughput: 7.31\n    - Warehouse Space: 8.40 pallet slots\n    - Emissions Credits: no draw\n\n- Atlas Panel Systems\n  - Margin contribution: 4.44 per unit. We can schedule up to 10.08 units.\n  - Resource touchpoints per unit:\n    - Core Processing Hours: 4.93\n    - Skilled Assembly Hours: 9.13\n    - Primary Feedstock: 8.16\n    - QA Lab Time: 4.01\n    - Packing Line Throughput: 8.27\n    - Warehouse Space: no draw\n    - Emissions Credits: no draw\n\nFacility Specs and Market Limits (do not exceed):\n- Core Processing Hours: 165.16\n- Skilled Assembly Hours: 134.85\n- Primary Feedstock: 164.25\n- QA Lab Time: 113.40\n- Packing Line Throughput: 158.68\n- Warehouse Space (pallet slots): 127.04\n- Emissions Credits: 104.13\n\nPlease use this as the basis for the production schedule that maximizes total margin while respecting these limits. If any assumptions need refining (e.g., caps by product or substitutions across lines), flag them before we lock the plan."
+}

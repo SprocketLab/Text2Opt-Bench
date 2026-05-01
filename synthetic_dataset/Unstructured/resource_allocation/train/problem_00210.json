@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds (including fractional caps), integrality, and capacities are explicitly given; zero-usage resources are specified; maximize objective clear.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative email style adds fluff; repeated 'no X required' notes. Still, most text maps directly to model details.",
+      "realism": 98,
+      "realism_comment": "Very plausible brewery production planning with shared resources, capacities, and discrete brews; units and limits make sense."
+    },
+    "prompt_tokens_with_data": 1116,
+    "prompt_tokens_without_data": 1116
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 120.91139810426542,
+    "optimal_values": {
+      "Var_0": 6.68483412322275,
+      "Var_1": 0.0,
+      "Var_2": 2.0,
+      "Var_3": 6.0,
+      "Var_4": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 69.73
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 61.17
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 84.98
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 23.33
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 108.49
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 20.24
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 86.44
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.73
+      ],
+      "objective_linear_coefficient": 3.93,
+      "resource_costs": {
+        "C1": 8.44,
+        "C2": 3.72,
+        "C4": 8.06,
+        "C6": 8.08
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.37
+      ],
+      "objective_linear_coefficient": 2.05,
+      "resource_costs": {
+        "C1": 7.16,
+        "C2": 9.63,
+        "C4": 9.59,
+        "C5": 1.58,
+        "C6": 1.91
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.05
+      ],
+      "objective_linear_coefficient": 2.8,
+      "resource_costs": {
+        "C0": 1.85,
+        "C2": 6.55,
+        "C3": 4.16,
+        "C4": 9.74,
+        "C5": 0.82,
+        "C6": 4.96
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.02
+      ],
+      "objective_linear_coefficient": 7.44,
+      "resource_costs": {
+        "C0": 8.03,
+        "C2": 2.87,
+        "C5": 1.88,
+        "C6": 0.38
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.47
+      ],
+      "objective_linear_coefficient": 8.88,
+      "resource_costs": {
+        "C0": 3.38,
+        "C1": 0.95,
+        "C2": 4.72,
+        "C6": 0.48
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.73, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.93 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.37, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.05 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.05, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.8 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.02, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.44 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=5.47, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 8.88 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.85 * vars['Var_2'] + 8.03 * vars['Var_3'] + 3.38 * vars['Var_4'] <= 69.73, name='C0')\n    m.addConstr(8.44 * vars['Var_0'] + 7.16 * vars['Var_1'] + 0.95 * vars['Var_4'] <= 61.17, name='C1')\n    m.addConstr(3.72 * vars['Var_0'] + 9.63 * vars['Var_1'] + 6.55 * vars['Var_2'] + 2.87 * vars['Var_3'] + 4.72 * vars['Var_4'] <= 84.98, name='C2')\n    m.addConstr(4.16 * vars['Var_2'] <= 23.33, name='C3')\n    m.addConstr(8.06 * vars['Var_0'] + 9.59 * vars['Var_1'] + 9.74 * vars['Var_2'] <= 108.49, name='C4')\n    m.addConstr(1.58 * vars['Var_1'] + 0.82 * vars['Var_2'] + 1.88 * vars['Var_3'] <= 20.24, name='C5')\n    m.addConstr(8.08 * vars['Var_0'] + 1.91 * vars['Var_1'] + 4.96 * vars['Var_2'] + 0.38 * vars['Var_3'] + 0.48 * vars['Var_4'] <= 86.44, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix decisions to maximize contribution under this cycle\u2019s capacity limits\n\nTeam,\n\nAs we set the production plan for the upcoming window, our goal is to maximize total contribution from five SKUs while staying within staffing, equipment, material, storage, staging, and utility limits. Below are the levers we can pull and how each option uses our constrained resources.\n\nAzure Light Lager (bulk blend, can be partial lots)\n- Financial impact: each thousand cases contributes 3.93 in margin.\n- Planning limits: anywhere from 0 up to 16.73 thousand cases this cycle; partial lots are allowed.\n- Resource use per thousand cases: 8.44 hours of brewhouse staffing; 3.72 units of base malt/hops supply; 8.06 hours on Canning Line 2; 8.08 units from our utility/emissions allotment.\n- No draw on Fermenter Cell A, no time in cold-conditioning tanks, and no truck dock/staging windows required.\n\nCrimson Amber Ale (discrete brews)\n- Financial impact: each brew contributes 2.05 in margin.\n- Planning limits: whole brews only, from 0 up to a technical cap of 9.37 brews (in practice, at most 9 full brews).\n- Resource use per brew: 7.16 hours of brewhouse staffing; 9.63 units of base malt/hops supply; 9.59 hours on Canning Line 2; 1.58 truck dock/staging windows; 1.91 utility/emissions units.\n- No draw on Fermenter Cell A and no time in cold-conditioning tanks.\n\nMidnight Stout (limited-series brews)\n- Financial impact: each brew contributes 2.8 in margin.\n- Planning limits: whole brews only, from 0 up to 7.05 brews (at most 7 full brews).\n- Resource use per brew: 1.85 hours on Fermenter Cell A; 6.55 units of base malt/hops supply; 4.16 hours in cold-conditioning tanks; 9.74 hours on Canning Line 2; 0.82 truck dock/staging windows; 4.96 utility/emissions units.\n- No incremental brewhouse staffing required for this SKU.\n\nCitrus IPA (taproom-focused brews)\n- Financial impact: each brew contributes 7.44 in margin.\n- Planning limits: whole brews only, from 0 up to 16.02 brews (at most 16 full brews).\n- Resource use per brew: 8.03 hours on Fermenter Cell A; 2.87 units of base malt/hops supply; 1.88 truck dock/staging windows; 0.38 utility/emissions units.\n- No brewhouse staffing hours, no cold-conditioning time, and no Canning Line 2 time required.\n\nHazy Session IPA (small-batch runs)\n- Financial impact: each brew contributes 8.88 in margin.\n- Planning limits: whole brews only, from 0 up to 5.47 brews (at most 5 full brews).\n- Resource use per brew: 3.38 hours on Fermenter Cell A; 0.95 hours of brewhouse staffing; 4.72 units of base malt/hops supply; 0.48 utility/emissions units.\n- No time in cold-conditioning tanks, no Canning Line 2 time, and no truck dock/staging windows required.\n\nFacility specs and operating limits for this planning window\n- Fermenter Cell A availability: up to 69.73 hours total.\n- Brewhouse staffing availability: up to 61.17 hours total.\n- Base malt/hops supply: up to 84.98 units total.\n- Cold-conditioning tank time: up to 23.33 hours total.\n- Canning Line 2 availability: up to 108.49 hours total.\n- Truck dock/staging windows: up to 20.24 windows total.\n- Utility/emissions allotment: up to 86.44 units total.\n\nPlease use the above as the basis for the production mix that maximizes total contribution while staying within every limit. If you need any clarifications on the per-unit impacts or the effective caps (e.g., whole-brew rounding), let me know."
+}

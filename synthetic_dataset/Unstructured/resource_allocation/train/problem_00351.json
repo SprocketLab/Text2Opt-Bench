@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 10,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, variable integrality, per-audience contributions, and >= targets are explicitly given. Objective is clearly minimize total spend. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some narrative and repeated 'no measurable impact' statements add length, but they clarify zeros. Mostly necessary detail for precise modeling.",
+      "realism": 100,
+      "realism_comment": "Highly realistic media mix optimization with spend minimization, inventory limits, integer placements, and audience reach targets; data look plausible."
+    },
+    "prompt_tokens_with_data": 1643,
+    "prompt_tokens_without_data": 1643
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 115.4998288941517,
+    "optimal_values": {
+      "Var_0": 3.1987878787878334,
+      "Var_1": 18.16,
+      "Var_2": 8.98,
+      "Var_3": 4.0,
+      "Var_4": 6.0,
+      "Var_5": 2.907294589178356,
+      "Var_6": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 189.7
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 128.9
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.57
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 91.8
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 92.94
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 87.69
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 98.47
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 34.12
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 138.13
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.02
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.08
+      ],
+      "objective_linear_coefficient": 5.4,
+      "resource_costs": {
+        "C0": 8.55,
+        "C1": 9.16,
+        "C2": 1.65,
+        "C5": 7.71
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.16
+      ],
+      "objective_linear_coefficient": 1.03,
+      "resource_costs": {
+        "C0": 2.06,
+        "C2": 1.18,
+        "C3": 4.49,
+        "C4": 6.04,
+        "C5": 5.06,
+        "C6": 8.88,
+        "C7": 0.95,
+        "C8": 5.34,
+        "C9": 1.98
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.98
+      ],
+      "objective_linear_coefficient": 4.52,
+      "resource_costs": {
+        "C0": 4.27,
+        "C1": 9.78,
+        "C2": 2.84,
+        "C3": 3.31,
+        "C5": 8.1,
+        "C6": 5.31,
+        "C7": 0.62,
+        "C8": 6.93,
+        "C9": 7.71
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.79
+      ],
+      "objective_linear_coefficient": 1.58,
+      "resource_costs": {
+        "C0": 4.35,
+        "C3": 3.64,
+        "C4": 6.38,
+        "C7": 3.34,
+        "C8": 6.95,
+        "C9": 0.33
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.14
+      ],
+      "objective_linear_coefficient": 2.78,
+      "resource_costs": {
+        "C0": 8.41,
+        "C2": 4.56,
+        "C3": 1.11,
+        "C4": 1.61,
+        "C5": 2.58,
+        "C6": 1.65,
+        "C8": 5.58
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.68
+      ],
+      "objective_linear_coefficient": 5.48,
+      "resource_costs": {
+        "C0": 7.74,
+        "C1": 4.64,
+        "C3": 6.26,
+        "C4": 8.28,
+        "C9": 4.99
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.09
+      ],
+      "objective_linear_coefficient": 7.5,
+      "resource_costs": {
+        "C0": 6.26,
+        "C1": 3.54,
+        "C2": 6.39,
+        "C4": 0.68,
+        "C6": 9.63,
+        "C7": 5.58,
+        "C8": 6.58,
+        "C9": 4.82
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.08, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.4 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.16, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.03 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.98, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.52 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.79, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 1.58 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.14, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 2.78 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.68, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.48 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.09, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 7.5 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.55 * vars['Var_0'] + 2.06 * vars['Var_1'] + 4.27 * vars['Var_2'] + 4.35 * vars['Var_3'] + 8.41 * vars['Var_4'] + 7.74 * vars['Var_5'] + 6.26 * vars['Var_6'] >= 189.7, name='C0')\n    m.addConstr(9.16 * vars['Var_0'] + 9.78 * vars['Var_2'] + 4.64 * vars['Var_5'] + 3.54 * vars['Var_6'] >= 128.9, name='C1')\n    m.addConstr(1.65 * vars['Var_0'] + 1.18 * vars['Var_1'] + 2.84 * vars['Var_2'] + 4.56 * vars['Var_4'] + 6.39 * vars['Var_6'] >= 79.57, name='C2')\n    m.addConstr(4.49 * vars['Var_1'] + 3.31 * vars['Var_2'] + 3.64 * vars['Var_3'] + 1.11 * vars['Var_4'] + 6.26 * vars['Var_5'] >= 91.8, name='C3')\n    m.addConstr(6.04 * vars['Var_1'] + 6.38 * vars['Var_3'] + 1.61 * vars['Var_4'] + 8.28 * vars['Var_5'] + 0.68 * vars['Var_6'] >= 92.94, name='C4')\n    m.addConstr(7.71 * vars['Var_0'] + 5.06 * vars['Var_1'] + 8.1 * vars['Var_2'] + 2.58 * vars['Var_4'] >= 87.69, name='C5')\n    m.addConstr(8.88 * vars['Var_1'] + 5.31 * vars['Var_2'] + 1.65 * vars['Var_4'] + 9.63 * vars['Var_6'] >= 98.47, name='C6')\n    m.addConstr(0.95 * vars['Var_1'] + 0.62 * vars['Var_2'] + 3.34 * vars['Var_3'] + 5.58 * vars['Var_6'] >= 34.12, name='C7')\n    m.addConstr(5.34 * vars['Var_1'] + 6.93 * vars['Var_2'] + 6.95 * vars['Var_3'] + 5.58 * vars['Var_4'] + 6.58 * vars['Var_6'] >= 138.13, name='C8')\n    m.addConstr(1.98 * vars['Var_1'] + 7.71 * vars['Var_2'] + 0.33 * vars['Var_3'] + 4.99 * vars['Var_5'] + 4.82 * vars['Var_6'] >= 121.02, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Media mix plan to meet multi\u2011segment commitments at minimum spend\n\nTeam,\n\nWe\u2019re preparing the upcoming campaign with a simple mandate: meet or exceed the minimum weekly targeted\u2011impression commitments across ten priority audiences at the lowest possible media outlay. Below are the levers we can pull, the per\u2011unit costs, inventory limits, and exactly how each option contributes to each audience commitment.\n\nLevers we can use\n\n- Signature Print Inserts\n  - Cost: $5.40K per insertion.\n  - Availability: you may buy anywhere from 0 up to 5.08 insertions; fractional insertions are acceptable.\n  - Audience delivery per insertion (in thousands of targeted impressions):\n    - Total Audience Reach: 8.55\n    - Millennial Reach: 9.16\n    - Gen Z Reach: 1.65\n    - Value Seekers/Deal Hunters: 7.71\n    - No measurable impact on Daytime/Family Audience, Business Decision Makers, Tech Enthusiasts, Hyperlocal Community, High\u2011Intent Researchers, or the Existing Customer Base.\n\n- Search & Shopping Digital Blocks\n  - Cost: $1.03K per block.\n  - Availability: you may buy anywhere from 0 up to 18.16 blocks; fractional blocks are acceptable.\n  - Audience delivery per block (in thousands of targeted impressions):\n    - Total Audience Reach: 2.06\n    - Gen Z Reach: 1.18\n    - Daytime/Family Audience: 4.49\n    - Business Decision Makers: 6.04\n    - Value Seekers/Deal Hunters: 5.06\n    - Tech Enthusiasts: 8.88\n    - Hyperlocal Community: 0.95\n    - High\u2011Intent Researchers: 5.34\n    - Existing Customer Base: 1.98\n    - No measurable impact on Millennial Reach.\n\n- Lifestyle Influencer Pods\n  - Cost: $4.52K per pod.\n  - Availability: you may buy anywhere from 0 up to 8.98 pods; fractional pods are acceptable.\n  - Audience delivery per pod (in thousands of targeted impressions):\n    - Total Audience Reach: 4.27\n    - Millennial Reach: 9.78\n    - Gen Z Reach: 2.84\n    - Daytime/Family Audience: 3.31\n    - Value Seekers/Deal Hunters: 8.10\n    - Tech Enthusiasts: 5.31\n    - Hyperlocal Community: 0.62\n    - High\u2011Intent Researchers: 6.93\n    - Existing Customer Base: 7.71\n    - No measurable impact on Business Decision Makers.\n\n- Prime\u2011Time TV Spots\n  - Cost: $1.58K per spot.\n  - Availability: you may buy anywhere from 0 up to 6.79 spots; spots must be purchased in whole units only.\n  - Audience delivery per spot (in thousands of targeted impressions):\n    - Total Audience Reach: 4.35\n    - Daytime/Family Audience: 3.64\n    - Business Decision Makers: 6.38\n    - Hyperlocal Community: 3.34\n    - High\u2011Intent Researchers: 6.95\n    - Existing Customer Base: 0.33\n    - No measurable impact on Millennial Reach, Gen Z Reach, Value Seekers/Deal Hunters, or Tech Enthusiasts.\n\n- Local Radio Clusters\n  - Cost: $2.78K per cluster.\n  - Availability: you may buy anywhere from 0 up to 8.14 clusters; clusters must be purchased in whole units only.\n  - Audience delivery per cluster (in thousands of targeted impressions):\n    - Total Audience Reach: 8.41\n    - Gen Z Reach: 4.56\n    - Daytime/Family Audience: 1.11\n    - Business Decision Makers: 1.61\n    - Value Seekers/Deal Hunters: 2.58\n    - Tech Enthusiasts: 1.65\n    - High\u2011Intent Researchers: 5.58\n    - No measurable impact on Millennial Reach, Hyperlocal Community, or the Existing Customer Base.\n\n- Out\u2011of\u2011Home Panels\n  - Cost: $5.48K per panel.\n  - Availability: you may buy anywhere from 0 up to 8.68 panels; fractional panels are acceptable.\n  - Audience delivery per panel (in thousands of targeted impressions):\n    - Total Audience Reach: 7.74\n    - Millennial Reach: 4.64\n    - Daytime/Family Audience: 6.26\n    - Business Decision Makers: 8.28\n    - Existing Customer Base: 4.99\n    - No measurable impact on Gen Z Reach, Value Seekers/Deal Hunters, Tech Enthusiasts, Hyperlocal Community, or High\u2011Intent Researchers.\n\n- Sponsored Content Series\n  - Cost: $7.50K per series.\n  - Availability: you may buy anywhere from 0 up to 16.09 series; series must be purchased in whole units only.\n  - Audience delivery per series (in thousands of targeted impressions):\n    - Total Audience Reach: 6.26\n    - Millennial Reach: 3.54\n    - Gen Z Reach: 6.39\n    - Business Decision Makers: 0.68\n    - Tech Enthusiasts: 9.63\n    - Hyperlocal Community: 5.58\n    - High\u2011Intent Researchers: 6.58\n    - Existing Customer Base: 4.82\n    - No measurable impact on Daytime/Family Audience or Value Seekers/Deal Hunters.\n\nService level commitments (minimum weekly targets)\n\n- Total Audience Reach: at least 189.70K targeted impressions.\n- Millennial Reach: at least 128.90K targeted impressions.\n- Gen Z Reach: at least 79.57K targeted impressions.\n- Daytime/Family Audience: at least 91.80K targeted impressions.\n- Business Decision Makers: at least 92.94K targeted impressions.\n- Value Seekers/Deal Hunters: at least 87.69K targeted impressions.\n- Tech Enthusiasts: at least 98.47K targeted impressions.\n- Hyperlocal Community: at least 34.12K targeted impressions.\n- High\u2011Intent Researchers: at least 138.13K targeted impressions.\n- Existing Customer Base: at least 121.02K targeted impressions.\n\nPlease assemble the minimum\u2011spend buy that satisfies all ten audience thresholds within the inventory limits above, observing that TV spots, radio clusters, and sponsored content series must be placed in whole units while the other levers can be fractional. Let me know if any assumptions need to be tightened before we lock the plan.\n\nThanks,\nAlex"
+}

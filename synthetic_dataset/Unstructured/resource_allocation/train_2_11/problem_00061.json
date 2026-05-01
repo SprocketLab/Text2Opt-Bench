@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Costs, bounds, and per-unit impacts are explicit; minima and signs clear; zero effects stated; continuous variables implied by fractional bounds.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business narrative adds mild verbosity but little repetition; most content is directly relevant to the model.",
+      "realism": 85,
+      "realism_comment": "Feels like a real resource-mix budgeting problem with plausible metrics; negative threshold is unusual but still credible."
+    },
+    "prompt_tokens_with_data": 652,
+    "prompt_tokens_without_data": 652
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 77.06964269635512,
+    "optimal_values": {
+      "Var_0": 4.962300262804804,
+      "Var_1": 0.0,
+      "Var_2": 6.083516483516484
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 35.82
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -27.12
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 58.18
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 27.68
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.65
+      ],
+      "objective_linear_coefficient": 9.34,
+      "resource_costs": {
+        "C0": 8.25,
+        "C2": 9.91
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.49
+      ],
+      "objective_linear_coefficient": 6.46,
+      "resource_costs": {
+        "C1": -9.65
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.44
+      ],
+      "objective_linear_coefficient": 5.05,
+      "resource_costs": {
+        "C0": -0.71,
+        "C1": 5.53,
+        "C2": 1.48,
+        "C3": 4.55
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.65, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.34 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.49, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.46 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.44, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.05 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.25 * vars['Var_0'] + -0.71 * vars['Var_2'] >= 35.82, name='C0')\n    m.addConstr(-9.65 * vars['Var_1'] + 5.53 * vars['Var_2'] >= -27.12, name='C1')\n    m.addConstr(9.91 * vars['Var_0'] + 1.48 * vars['Var_2'] >= 58.18, name='C2')\n    m.addConstr(4.55 * vars['Var_2'] >= 27.68, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix to meet our minimum commitments at the lowest possible spend\n\nTeam,\n\nWe\u2019re planning the upcoming delivery mix with a single goal: meet all minimum obligations while keeping total spend as low as possible. Below are the levers we can pull, how much each one costs per unit, how each one moves our key delivery metrics, and the practical limits on how much of each we can deploy.\n\n- Premium Compliance Teams\n  - Purpose and cost: A higher-touch option priced at 9.34 per unit.\n  - Delivery impact: Each unit provides 8.25 Regulatory Compliance Credits and 9.91 Training Certification Credits. It does not move the needle on our Customer Sentiment Score or Community Outreach Hours.\n  - Practical limits: We can schedule anywhere from 0 up to 6.65 units.\n\n- Self-Service Automation Blocks\n  - Purpose and cost: A lower-cost option priced at 6.46 per unit.\n  - Delivery impact: Each unit reduces our Customer Sentiment Score by 9.65 points. It has no measurable effect on Regulatory Compliance Credits, Training Certification Credits, or Community Outreach Hours.\n  - Practical limits: We can deploy anywhere from 0 up to 9.49 units.\n\n- Community Support Shifts\n  - Purpose and cost: The most affordable option priced at 5.05 per unit.\n  - Delivery impact: Each unit slightly detracts from Regulatory Compliance Credits by 0.71, improves the Customer Sentiment Score by 5.53 points, adds 1.48 Training Certification Credits, and contributes 4.55 Community Outreach Hours.\n  - Practical limits: We can schedule anywhere from 0 up to 12.44 units.\n\nFacility Specs and Contracted Minimums\n- Regulatory Compliance Credits: at least 35.82 must be delivered.\n- Customer Sentiment Score: must not fall below -27.12.\n- Training Certification Credits: at least 58.18 must be delivered.\n- Community Outreach Hours: at least 27.68 must be delivered.\n\nPlease use the structure above to assemble the lowest-cost mix that achieves all four minimum thresholds without exceeding the practical limits on each option."
+}

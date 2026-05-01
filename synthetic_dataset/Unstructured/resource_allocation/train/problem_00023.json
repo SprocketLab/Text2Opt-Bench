@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and >= requirements are explicit. Fractional days allowed implies continuous vars. Objective to minimize cost is clear. Unique mapping to 2 vars and 4 constraints.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Framed as an email with some narrative/context, but technical details are concise and non-repetitive.",
+      "realism": 96,
+      "realism_comment": "Plausible compliance training allocation with costs, caps, and credit minima; aligns with real corporate planning scenarios."
+    },
+    "prompt_tokens_with_data": 677,
+    "prompt_tokens_without_data": 677
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 51.950271635824045,
+    "optimal_values": {
+      "Var_0": 5.930735930735931,
+      "Var_1": 3.786713758385146
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 27.63
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.1
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 27.99
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 34.8
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.93
+      ],
+      "objective_linear_coefficient": 6.18,
+      "resource_costs": {
+        "C1": 6.93,
+        "C2": 2.21,
+        "C3": 1.36
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.65
+      ],
+      "objective_linear_coefficient": 4.04,
+      "resource_costs": {
+        "C0": 7.91,
+        "C2": 4.03,
+        "C3": 7.06
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.93, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.18 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.65, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.04 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.91 * vars['Var_1'] >= 27.63, name='C0')\n    m.addConstr(6.93 * vars['Var_0'] >= 41.1, name='C1')\n    m.addConstr(2.21 * vars['Var_0'] + 4.03 * vars['Var_1'] >= 27.99, name='C2')\n    m.addConstr(1.36 * vars['Var_0'] + 7.06 * vars['Var_1'] >= 34.8, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing plan to meet our compliance benchmarks\n\nTeam,\n\nWe\u2019re looking to assemble the most economical mix of two training offerings to satisfy our minimum compliance commitments across four scorecards. The objective is to minimize total spend while ensuring we reach or exceed the required credit levels in each area. Partial allocations are acceptable; we can schedule fractional days where needed.\n\nOur levers\n\n1) Data Defense Workshops (instructor-led)\n- Cost profile: Each workshop day costs $6.18.\n- Scheduling window: We\u2019re not obligated to run any of these sessions, but we cannot exceed 14.93 workshop-days in total (allowable range is 0.00 to 14.93).\n- What it counts toward:\n  \u2022 Customer Privacy & Data Protection: Every workshop day provides 6.93 credit-hours.\n  \u2022 Operational Risk & Controls: Every workshop day provides 2.21 credit-hours.\n  \u2022 Quality & Audit Readiness: Every workshop day provides 1.36 credit-hours.\n  \u2022 Environmental Stewardship: This workshop does not generate credit in this category.\n\n2) Sustainability & Quality eLearning Series\n- Cost profile: Each program day costs $4.04.\n- Scheduling window: We may choose to run none, but we cannot exceed 5.65 program-days (allowable range is 0.00 to 5.65).\n- What it counts toward:\n  \u2022 Environmental Stewardship: Every program day provides 7.91 credit-hours.\n  \u2022 Operational Risk & Controls: Every program day provides 4.03 credit-hours.\n  \u2022 Quality & Audit Readiness: Every program day provides 7.06 credit-hours.\n  \u2022 Customer Privacy & Data Protection: This eLearning does not add credit in this category.\n\nCompliance minimums (must be met or exceeded)\n- Environmental Stewardship: at least 27.63 credit-hours.\n- Customer Privacy & Data Protection: at least 41.1 credit-hours.\n- Operational Risk & Controls: at least 27.99 credit-hours.\n- Quality & Audit Readiness: at least 34.8 credit-hours.\n\nPlease use the above parameters to recommend the lowest-cost mix of workshop-days and program-days that achieves all four minimums. Once we have your proposal, we\u2019ll align on scheduling and proceed."
+}

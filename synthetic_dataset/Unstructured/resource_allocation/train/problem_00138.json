@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Precise per-product margins, integer bounds, and per-unit resource uses; capacities are given; 'no draw' clarifies zeros. Objective to maximize total contribution is clear.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business memo style with niceties and repeated 'no draw' notes and boilerplate requirements; minor verbosity but most content is relevant.",
+      "realism": 95,
+      "realism_comment": "Realistic production planning with machine hours, packaging, materials, and waste credits; figures plausible. Fractional max units with integer counts is slightly odd but OK."
+    },
+    "prompt_tokens_with_data": 910,
+    "prompt_tokens_without_data": 910
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 157.1,
+    "optimal_values": {
+      "Var_0": 6.0,
+      "Var_1": 11.0,
+      "Var_2": 1.0,
+      "Var_3": 4.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 98.73
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 86.84
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 61.47
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 81.48
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 105.35
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.06
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 4.89,
+      "resource_costs": {
+        "C1": 8.52,
+        "C4": 7.76
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.0
+      ],
+      "objective_linear_coefficient": 7.48,
+      "resource_costs": {
+        "C0": 6.27,
+        "C2": 2.28,
+        "C3": 6.15,
+        "C4": 0.13
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.74
+      ],
+      "objective_linear_coefficient": 9.36,
+      "resource_costs": {
+        "C0": 9.51,
+        "C2": 8.42,
+        "C3": 6.25,
+        "C4": 5.08,
+        "C5": 2.93
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.81
+      ],
+      "objective_linear_coefficient": 9.03,
+      "resource_costs": {
+        "C0": 3.34,
+        "C1": 6.97,
+        "C3": 1.79,
+        "C5": 3.13
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.89 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.48 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.74, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.36 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.81, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.03 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.27 * vars['Var_1'] + 9.51 * vars['Var_2'] + 3.34 * vars['Var_3'] <= 98.73, name='C0')\n    m.addConstr(8.52 * vars['Var_0'] + 6.97 * vars['Var_3'] <= 86.84, name='C1')\n    m.addConstr(2.28 * vars['Var_1'] + 8.42 * vars['Var_2'] <= 61.47, name='C2')\n    m.addConstr(6.15 * vars['Var_1'] + 6.25 * vars['Var_2'] + 1.79 * vars['Var_3'] <= 81.48, name='C3')\n    m.addConstr(7.76 * vars['Var_0'] + 0.13 * vars['Var_1'] + 5.08 * vars['Var_2'] <= 105.35, name='C4')\n    m.addConstr(2.93 * vars['Var_2'] + 3.13 * vars['Var_3'] <= 17.06, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for production mix recommendation to maximize margin under current plant limits\n\nTeam,\n\nFor the upcoming period, I need your recommendation on how to allocate production across four offerings so we maximize total contribution margin while staying within the plant\u2019s current limits. Quantities must be whole units\u2014no partial builds or shipments\u2014and we\u2019re comfortable with any product\u2019s volume being as low as zero if that\u2019s what the economics and capacities dictate.\n\nHere are the levers we can pull, in the order I\u2019d like you to consider them:\n\n- Nimbus Control Panels\n  - Commercial impact: Each unit contributes 4.89 in margin.\n  - Feasible volume: Between 0 and 11 units this period (whole units only).\n  - Resource profile per unit:\n    - Master assembly hours: 8.52 hours required.\n    - Premium alloy allotment: 7.76 units required.\n    - No draw on CNC machining hours, test bench hours, packaging line hours, or hazardous waste handling credits.\n\n- Zephyr Sensor Units\n  - Commercial impact: Each unit contributes 7.48 in margin.\n  - Feasible volume: Between 0 and 12 units this period (whole units only).\n  - Resource profile per unit:\n    - CNC machining hours: 6.27 hours required.\n    - Test bench hours: 2.28 hours required.\n    - Packaging line hours: 6.15 hours required.\n    - Premium alloy allotment: 0.13 units required.\n    - No draw on master assembly hours or hazardous waste handling credits.\n\n- Orion Power Cores\n  - Commercial impact: Each unit contributes 9.36 in margin.\n  - Feasible volume: Between 0 and 18.74 units this period (whole units only).\n  - Resource profile per unit:\n    - CNC machining hours: 9.51 hours required.\n    - Test bench hours: 8.42 hours required.\n    - Packaging line hours: 6.25 hours required.\n    - Premium alloy allotment: 5.08 units required.\n    - Hazardous waste handling credits: 2.93 credits required.\n    - No draw on master assembly hours.\n\n- Atlas Drive Modules\n  - Commercial impact: Each unit contributes 9.03 in margin.\n  - Feasible volume: Between 0 and 14.81 units this period (whole units only).\n  - Resource profile per unit:\n    - CNC machining hours: 3.34 hours required.\n    - Master assembly hours: 6.97 hours required.\n    - Packaging line hours: 1.79 hours required.\n    - Hazardous waste handling credits: 3.13 credits required.\n    - No draw on test bench hours or premium alloy allotment.\n\nFacility and market limits for this period are as follows:\n- CNC machining hours available: 98.73 hours.\n- Master assembly hours available: 86.84 hours.\n- Test bench hours available: 61.47 hours.\n- Packaging line hours available: 81.48 hours.\n- Premium alloy allotment available: 105.35 units.\n- Hazardous waste handling credits available: 17.06 credits.\n\nPlease come back with the production mix that maximizes our total contribution given the above, observing that all counts must be whole units and cannot be negative. If any assumption needs clarification, let me know before you lock in your recommendation.\n\nThanks,\n[Client Name]"
+}

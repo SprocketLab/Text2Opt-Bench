@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All offerings list contribution, integer booking windows, per-resource hours, and total capacities; objective to maximize total contribution. Coefficients and bounds map directly to constraints.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative setup and generic LP/QP note add fluff, but data is clearly structured; moderate verbosity.",
+      "realism": 93,
+      "realism_comment": "Consulting engagement mix under Design/Engineering/Field hour limits is plausible and common in OR; whole units align. Slightly odd: non-integer upper bounds."
+    },
+    "prompt_tokens_with_data": 776,
+    "prompt_tokens_without_data": 776
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 154.64,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 14.0,
+      "Var_2": 12.0,
+      "Var_3": 6.0,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 118.84
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 108.97
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 101.41
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.29
+      ],
+      "objective_linear_coefficient": 1.28,
+      "resource_costs": {
+        "C0": 2.45,
+        "C1": 5.11
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.07
+      ],
+      "objective_linear_coefficient": 8.44,
+      "resource_costs": {
+        "C0": 8.39,
+        "C2": 4.48
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.85
+      ],
+      "objective_linear_coefficient": 1.37,
+      "resource_costs": {
+        "C1": 6.24
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.01
+      ],
+      "objective_linear_coefficient": 3.34,
+      "resource_costs": {
+        "C1": 5.15,
+        "C2": 5.69
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.88
+      ],
+      "objective_linear_coefficient": 5.16,
+      "resource_costs": {
+        "C0": 8.89,
+        "C1": 7.03,
+        "C2": 1.21
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.29, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.07, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.44 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.85, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.37 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.01, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.34 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.88, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.16 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.45 * vars['Var_0'] + 8.39 * vars['Var_1'] + 8.89 * vars['Var_4'] <= 118.84, name='C0')\n    m.addConstr(5.11 * vars['Var_0'] + 6.24 * vars['Var_2'] + 5.15 * vars['Var_3'] + 7.03 * vars['Var_4'] <= 108.97, name='C1')\n    m.addConstr(4.48 * vars['Var_1'] + 5.69 * vars['Var_3'] + 1.21 * vars['Var_4'] <= 101.41, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Team,\n\nAs we lock our upcoming cycle\u2019s mix of client offerings, the goal is to maximize total contribution while staying within the week\u2019s limited Design Studio hours, Engineering Lab hours, and Field Implementation time. All bookings must be in whole engagements only (no partials).\n\nHere are the levers we can pull, in the order I\u2019d like us to consider them:\n\n- Blueprint Sprint\n  - Expected contribution per engagement: 1.28.\n  - Booking window: from 0 up to 16.29 engagements, whole units only.\n  - Capacity draw per engagement:\n    - Design Studio: 2.45 hours.\n    - Engineering Lab: 5.11 hours.\n    - Field Implementation: none (0.00 hours).\n\n- Launch Readiness Workshop\n  - Expected contribution per engagement: 8.44.\n  - Booking window: from 0 up to 17.07 engagements, whole units only.\n  - Capacity draw per engagement:\n    - Design Studio: 8.39 hours.\n    - Engineering Lab: none (0.00 hours).\n    - Field Implementation: 4.48 hours.\n\n- Systems Hardening Review\n  - Expected contribution per engagement: 1.37.\n  - Booking window: from 0 up to 13.85 engagements, whole units only.\n  - Capacity draw per engagement:\n    - Design Studio: none (0.00 hours).\n    - Engineering Lab: 6.24 hours.\n    - Field Implementation: none (0.00 hours).\n\n- Integration Jumpstart\n  - Expected contribution per engagement: 3.34.\n  - Booking window: from 0 up to 14.01 engagements, whole units only.\n  - Capacity draw per engagement:\n    - Design Studio: none (0.00 hours).\n    - Engineering Lab: 5.15 hours.\n    - Field Implementation: 5.69 hours.\n\n- Transformation Accelerator\n  - Expected contribution per engagement: 5.16.\n  - Booking window: from 0 up to 19.88 engagements, whole units only.\n  - Capacity draw per engagement:\n    - Design Studio: 8.89 hours.\n    - Engineering Lab: 7.03 hours.\n    - Field Implementation: 1.21 hours.\n\nFacility and Market Limits (this cycle):\n- Design Studio availability: no more than 118.84 hours in total across all booked work.\n- Engineering Lab availability: no more than 108.97 hours in total across all booked work.\n- Field Implementation availability: no more than 101.41 hours in total across all booked work.\n\nPlease use the above contribution profiles, per-engagement capacity draws, and booking caps to determine the mix that delivers the highest total contribution without overrunning the stated limits."
+}

@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 11,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and KPI contributions/floors are explicit; objective is clear (min cost) with >= floors. A human can reconstruct the exact MILP without guessing.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some business-narrative fluff and repeated phrasing, but the core info is structured in clear bullets with necessary numbers.",
+      "realism": 96,
+      "realism_comment": "Very plausible staffing/KPI planning problem with integer scheduling and fractional hours; realistic costs, caps, and service-level floors."
+    },
+    "prompt_tokens_with_data": 1417,
+    "prompt_tokens_without_data": 1417
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 280.1425348542456,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": 7.0,
+      "Var_2": 10.0,
+      "Var_3": -0.0,
+      "Var_4": -0.0,
+      "Var_5": -0.0,
+      "Var_6": -0.0,
+      "Var_7": 6.0,
+      "Var_8": 9.0,
+      "Var_9": 1.0,
+      "Var_10": 5.135614702154592
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 128.04
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 25.39
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.11
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 81.86
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 53.0
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 57.85
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 119.1
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 181.4
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 50.27
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.9
+      ],
+      "objective_linear_coefficient": 3.63,
+      "resource_costs": {
+        "C0": 5.97,
+        "C2": 4.09,
+        "C5": 5.01,
+        "C6": 4.14,
+        "C7": 8.82
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.93
+      ],
+      "objective_linear_coefficient": 6.25,
+      "resource_costs": {
+        "C0": 8.07
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.43
+      ],
+      "objective_linear_coefficient": 3.18,
+      "resource_costs": {
+        "C1": 1.24,
+        "C2": 9.67,
+        "C6": 8.73,
+        "C8": 8.27
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.3
+      ],
+      "objective_linear_coefficient": 6.66,
+      "resource_costs": {}
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.79
+      ],
+      "objective_linear_coefficient": 8.36,
+      "resource_costs": {
+        "C7": 2.74
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.26
+      ],
+      "objective_linear_coefficient": 9.18,
+      "resource_costs": {
+        "C1": 2.68,
+        "C2": 9.59
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.17
+      ],
+      "objective_linear_coefficient": 9.55,
+      "resource_costs": {
+        "C6": 9.62
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.46
+      ],
+      "objective_linear_coefficient": 9.15,
+      "resource_costs": {
+        "C4": 8.92,
+        "C7": 9.17,
+        "C8": 5.56
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.95
+      ],
+      "objective_linear_coefficient": 7.85,
+      "resource_costs": {
+        "C0": 2.34,
+        "C2": 5.32,
+        "C3": 9.23,
+        "C5": 3.35
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.02
+      ],
+      "objective_linear_coefficient": 7.65,
+      "resource_costs": {
+        "C1": 6.69,
+        "C7": 6.48,
+        "C8": 9.41
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.8
+      ],
+      "objective_linear_coefficient": 7.54,
+      "resource_costs": {
+        "C1": 1.79,
+        "C7": 7.89
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.9, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 3.63 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.93, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.25 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=9.8, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 7.54 * vars['Var_10']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.43, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.18 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.3, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.66 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.79, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 8.36 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.26, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.18 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=14.17, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 9.55 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=18.46, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 9.15 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=19.95, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 7.85 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=8.02, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 7.65 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.97 * vars['Var_0'] + 8.07 * vars['Var_1'] + 2.34 * vars['Var_8'] >= 128.04, name='C0')\n    m.addConstr(1.79 * vars['Var_10'] + 1.24 * vars['Var_2'] + 2.68 * vars['Var_5'] + 6.69 * vars['Var_9'] >= 25.39, name='C1')\n    m.addConstr(4.09 * vars['Var_0'] + 9.67 * vars['Var_2'] + 9.59 * vars['Var_5'] + 5.32 * vars['Var_8'] >= 89.11, name='C2')\n    m.addConstr(9.23 * vars['Var_8'] >= 81.86, name='C3')\n    m.addConstr(8.92 * vars['Var_7'] >= 53.0, name='C4')\n    m.addConstr(5.01 * vars['Var_0'] + 3.35 * vars['Var_8'] >= 57.85, name='C5')\n    m.addConstr(4.14 * vars['Var_0'] + 8.73 * vars['Var_2'] + 9.62 * vars['Var_6'] >= 119.1, name='C6')\n    m.addConstr(8.82 * vars['Var_0'] + 7.89 * vars['Var_10'] + 2.74 * vars['Var_4'] + 9.17 * vars['Var_7'] + 6.48 * vars['Var_9'] >= 181.4, name='C7')\n    m.addConstr(8.27 * vars['Var_2'] + 5.56 * vars['Var_7'] + 9.41 * vars['Var_9'] >= 50.27, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Daily service mix to meet KPI floors at minimum operating cost\n\nTeam,\n\nWe need your help to set the daily mix of deployments that meets our contractual service-level floors across nine performance categories while minimizing our total operating cost. Most of the levers below must be scheduled in whole numbers; one of them can be used fractionally. Here\u2019s the full picture of each option\u2014its cost, practical cap, and how it contributes to our KPIs.\n\n- Metro Rapid Response Teams\n  - Cost: 3.63 per team per day.\n  - Availability: up to 9.9 teams (whole teams only; floor of zero).\n  - Contribution:\n    - Urban Readiness Index: +5.97 points per team.\n    - Outlying Support Score: +4.09 points per team.\n    - Training & Drills Completion: +5.01 points per team.\n    - Equipment Utilization Coverage: +4.14 points per team.\n    - Night Coverage Stability: +8.82 points per team.\n\n- Base Station Duty Crews\n  - Cost: 6.25 per crew per day.\n  - Availability: up to 16.93 crews (whole crews only; floor of zero).\n  - Contribution:\n    - Urban Readiness Index: +8.07 points per crew.\n\n- Rural Outreach Units\n  - Cost: 3.18 per unit per day.\n  - Availability: up to 15.43 units (whole units only; floor of zero).\n  - Contribution:\n    - Triage & Intake Capacity: +1.24 points per unit.\n    - Outlying Support Score: +9.67 points per unit.\n    - Equipment Utilization Coverage: +8.73 points per unit.\n    - Reporting & Compliance: +8.27 points per unit.\n\n- Public Liaison Placements\n  - Cost: 6.66 per placement per day.\n  - Availability: up to 13.3 placements (whole placements only; floor of zero).\n  - Contribution:\n    - Does not add to any of the nine KPI floors directly; include only if we need presence or community visibility on a given day.\n\n- Night Shift On-Call Pairs\n  - Cost: 8.36 per pair per night.\n  - Availability: up to 7.79 pairs (whole pairs only; floor of zero).\n  - Contribution:\n    - Night Coverage Stability: +2.74 points per pair.\n\n- Triage Surge Teams\n  - Cost: 9.18 per team per day.\n  - Availability: up to 15.26 teams (whole teams only; floor of zero).\n  - Contribution:\n    - Triage & Intake Capacity: +2.68 points per team.\n    - Outlying Support Score: +9.59 points per team.\n\n- Heavy Equipment Crews\n  - Cost: 9.55 per crew per day.\n  - Availability: up to 14.17 crews (whole crews only; floor of zero).\n  - Contribution:\n    - Equipment Utilization Coverage: +9.62 points per crew.\n\n- Patrol & Compliance Vans\n  - Cost: 9.15 per van per day.\n  - Availability: up to 18.46 vans (whole vans only; floor of zero).\n  - Contribution:\n    - Preventive Patrol Commitment: +8.92 points per van.\n    - Night Coverage Stability: +9.17 points per van.\n    - Reporting & Compliance: +5.56 points per van.\n\n- Special Ops Task Groups\n  - Cost: 7.85 per group per day.\n  - Availability: up to 19.95 groups (whole groups only; floor of zero).\n  - Contribution:\n    - Urban Readiness Index: +2.34 points per group.\n    - Outlying Support Score: +5.32 points per group.\n    - Special Operations Preparedness: +9.23 points per group.\n    - Training & Drills Completion: +3.35 points per group.\n\n- Data & Night Response Pods\n  - Cost: 7.65 per pod per day.\n  - Availability: up to 8.02 pods (whole pods only; floor of zero).\n  - Contribution:\n    - Triage & Intake Capacity: +6.69 points per pod.\n    - Night Coverage Stability: +6.48 points per pod.\n    - Reporting & Compliance: +9.41 points per pod.\n\n- Fractional On-Call Hours\n  - Cost: 7.54 per hour.\n  - Availability: up to 9.8 hours (can be scheduled fractionally; floor of zero).\n  - Contribution:\n    - Triage & Intake Capacity: +1.79 points per hour.\n    - Night Coverage Stability: +7.89 points per hour.\n\nFacility Specs and KPI Floors (must be met or exceeded):\n- Urban Readiness Index: at least 128.04 points per day.\n- Triage & Intake Capacity: at least 25.39 points per day.\n- Outlying Support Score: at least 89.11 points per day.\n- Special Operations Preparedness: at least 81.86 points per day.\n- Preventive Patrol Commitment: at least 53.00 points per day.\n- Training & Drills Completion: at least 57.85 points per day.\n- Equipment Utilization Coverage: at least 119.10 points per day.\n- Night Coverage Stability: at least 181.40 points per day.\n- Reporting & Compliance: at least 50.27 points per day.\n\nOur direction is to select the lowest-cost combination of the above that satisfies all of the floors, honoring the practical caps and the whole-number scheduling requirements (with fractional scheduling allowed only for the on-call hours). Please use this specification to produce the recommended daily mix and the related cost projection.\n\nThanks,\n[Client Name]"
+}

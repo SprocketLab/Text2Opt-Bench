@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All costs, contributions, bounds, and >= targets are explicit; one integer variable is clearly stated; zeros are listed. Objective to minimize total spend is clear. Easily reconstructable.",
+      "ambiguity": false,
+      "redundancy": 20,
+      "redundancy_comment": "Some narrative (greeting/sign-off) adds length, but most content is structured data needed for modeling. Low redundancy overall.",
+      "realism": 95,
+      "realism_comment": "A plausible portfolio selection with policy minimums, costs, and purchase limits; integer grants make sense. Slight oddity in non-integer upper bound for an integer item."
+    },
+    "prompt_tokens_with_data": 1150,
+    "prompt_tokens_without_data": 1150
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 108.8020162664528,
+    "optimal_values": {
+      "Var_0": 7.683837335472011,
+      "Var_1": 9.0,
+      "Var_2": 11.88,
+      "Var_3": 0.0,
+      "Var_4": 8.603879794310506
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 233.93
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.34
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 214.64
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 132.25
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 219.11
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 61.12
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 190.61
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 120.69
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.81
+      ],
+      "objective_linear_coefficient": 2.54,
+      "resource_costs": {
+        "C0": 9.94,
+        "C1": 2.5,
+        "C2": 5.86,
+        "C3": 7.29,
+        "C4": 7.34,
+        "C5": 2.09,
+        "C6": 4.64,
+        "C7": 2.95
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.6
+      ],
+      "objective_linear_coefficient": 5.47,
+      "resource_costs": {
+        "C0": 8.86,
+        "C1": 5.11,
+        "C2": 9.02,
+        "C3": 6.59,
+        "C4": 1.56,
+        "C5": 3.13,
+        "C6": 7.6,
+        "C7": 0.77
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.88
+      ],
+      "objective_linear_coefficient": 1.38,
+      "resource_costs": {
+        "C0": 8.11,
+        "C1": 2.14,
+        "C2": 1.86,
+        "C3": 0.5,
+        "C4": 8.14,
+        "C5": 2.48,
+        "C6": 5.62,
+        "C7": 6.6
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.4
+      ],
+      "objective_linear_coefficient": 6.11,
+      "resource_costs": {
+        "C0": 4.83,
+        "C1": 2.18,
+        "C2": 3.98,
+        "C3": 0.8,
+        "C4": 9.61,
+        "C5": 0.09,
+        "C6": 5.33,
+        "C7": 6.98
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.17
+      ],
+      "objective_linear_coefficient": 2.75,
+      "resource_costs": {
+        "C2": 7.71,
+        "C3": 2.2,
+        "C4": 6.04,
+        "C6": 2.92,
+        "C7": 1.54
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.81, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.54 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.6, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.47 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.88, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.38 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.4, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.11 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.17, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.75 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.94 * vars['Var_0'] + 8.86 * vars['Var_1'] + 8.11 * vars['Var_2'] + 4.83 * vars['Var_3'] >= 233.93, name='C0')\n    m.addConstr(2.5 * vars['Var_0'] + 5.11 * vars['Var_1'] + 2.14 * vars['Var_2'] + 2.18 * vars['Var_3'] >= 89.34, name='C1')\n    m.addConstr(5.86 * vars['Var_0'] + 9.02 * vars['Var_1'] + 1.86 * vars['Var_2'] + 3.98 * vars['Var_3'] + 7.71 * vars['Var_4'] >= 214.64, name='C2')\n    m.addConstr(7.29 * vars['Var_0'] + 6.59 * vars['Var_1'] + 0.5 * vars['Var_2'] + 0.8 * vars['Var_3'] + 2.2 * vars['Var_4'] >= 132.25, name='C3')\n    m.addConstr(7.34 * vars['Var_0'] + 1.56 * vars['Var_1'] + 8.14 * vars['Var_2'] + 9.61 * vars['Var_3'] + 6.04 * vars['Var_4'] >= 219.11, name='C4')\n    m.addConstr(2.09 * vars['Var_0'] + 3.13 * vars['Var_1'] + 2.48 * vars['Var_2'] + 0.09 * vars['Var_3'] >= 61.12, name='C5')\n    m.addConstr(4.64 * vars['Var_0'] + 7.6 * vars['Var_1'] + 5.62 * vars['Var_2'] + 5.33 * vars['Var_3'] + 2.92 * vars['Var_4'] >= 190.61, name='C6')\n    m.addConstr(2.95 * vars['Var_0'] + 0.77 * vars['Var_1'] + 6.6 * vars['Var_2'] + 6.98 * vars['Var_3'] + 1.54 * vars['Var_4'] >= 120.69, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing portfolio to meet this year\u2019s mandated service and impact minimums\n\nTeam,\n\nWe need to assemble a portfolio of programs that meets eight mandated service and impact minimums at the lowest possible total spend. Below are the levers we can deploy, what each one costs per unit, how much it contributes toward each of our eight minimums, and any purchase limits. Unless noted, we can buy fractional units; we are not required to buy any minimum amount of any one lever.\n\n- Evergreen Efficiency Blocks\n  - Unit cost: 2.54 per block.\n  - Contribution per block:\n    - Emissions reduction credits: 9.94\n    - Water conservation units: 2.50\n    - Renewable supply certificates: 5.86\n    - Grid resilience score: 7.29\n    - Community benefit hours: 7.34\n    - Local air quality improvements: 2.09\n    - Reliability enhancement points: 4.64\n    - Energy equity outreach score: 2.95\n  - Purchase window: from 0.00 up to 8.81 blocks.\n\n- Regional Retrofit Grants\n  - Unit cost: 5.47 per grant.\n  - Contribution per grant:\n    - Emissions reduction credits: 8.86\n    - Water conservation units: 5.11\n    - Renewable supply certificates: 9.02\n    - Grid resilience score: 6.59\n    - Community benefit hours: 1.56\n    - Local air quality improvements: 3.13\n    - Reliability enhancement points: 7.60\n    - Energy equity outreach score: 0.77\n  - Purchase window: from 0.00 up to 19.6 grants.\n  - Important: these must be procured in whole grants (no partials).\n\n- Smart Grid Upgrades\n  - Unit cost: 1.38 per upgrade unit.\n  - Contribution per unit:\n    - Emissions reduction credits: 8.11\n    - Water conservation units: 2.14\n    - Renewable supply certificates: 1.86\n    - Grid resilience score: 0.50\n    - Community benefit hours: 8.14\n    - Local air quality improvements: 2.48\n    - Reliability enhancement points: 5.62\n    - Energy equity outreach score: 6.60\n  - Purchase window: from 0.00 up to 11.88 units.\n\n- Solar Community Shares\n  - Unit cost: 6.11 per share.\n  - Contribution per share:\n    - Emissions reduction credits: 4.83\n    - Water conservation units: 2.18\n    - Renewable supply certificates: 3.98\n    - Grid resilience score: 0.80\n    - Community benefit hours: 9.61\n    - Local air quality improvements: 0.09\n    - Reliability enhancement points: 5.33\n    - Energy equity outreach score: 6.98\n  - Purchase window: from 0.00 up to 9.4 shares.\n\n- Industrial Process Optimization\n  - Unit cost: 2.75 per project.\n  - Contribution per project:\n    - Emissions reduction credits: 0.00\n    - Water conservation units: 0.00\n    - Renewable supply certificates: 7.71\n    - Grid resilience score: 2.20\n    - Community benefit hours: 6.04\n    - Local air quality improvements: 0.00\n    - Reliability enhancement points: 2.92\n    - Energy equity outreach score: 1.54\n  - Purchase window: from 0.00 up to 19.17 projects.\n\nMarket and compliance minimums we must meet (at least the following totals across the portfolio):\n- Emissions reduction credits: 233.93 or more.\n- Water conservation units: 89.34 or more.\n- Renewable supply certificates: 214.64 or more.\n- Grid resilience score: 132.25 or more.\n- Community benefit hours: 219.11 or more.\n- Local air quality improvements: 61.12 or more.\n- Reliability enhancement points: 190.61 or more.\n- Energy equity outreach score: 120.69 or more.\n\nPlease use this to propose the least-cost mix that satisfies all eight minimums while honoring the purchase windows and the whole-unit requirement on Regional Retrofit Grants.\n\nThanks,\nAva\nVP, Sustainability & Regulatory Programs"
+}

@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and effects are explicit with correct signs; negative targets clarified; fractional deployments imply continuity. The full LP can be reconstructed without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Corporate narrative and repeated 'No effect on...' lines add verbosity but also clarity; could be more concise.",
+      "realism": 95,
+      "realism_comment": "Plausible sustainability planning with financial benefits, crew hours, compliance indices, and storage capacity; fractional scaling noted."
+    },
+    "prompt_tokens_with_data": 1125,
+    "prompt_tokens_without_data": 1125
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 315.7030104183757,
+    "optimal_values": {
+      "Var_0": 9.674528301886793,
+      "Var_1": 15.17,
+      "Var_2": 5.326086956521738,
+      "Var_3": 19.56
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -37.45
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 41.02
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -4.81
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 0.32
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.18
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.94
+      ],
+      "objective_linear_coefficient": 8.08,
+      "resource_costs": {
+        "C0": -4.28,
+        "C1": 4.24
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.17
+      ],
+      "objective_linear_coefficient": 6.05,
+      "resource_costs": {
+        "C3": -0.77
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.43
+      ],
+      "objective_linear_coefficient": 6.69,
+      "resource_costs": {
+        "C2": -2.02,
+        "C4": 5.98
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.56
+      ],
+      "objective_linear_coefficient": 5.63,
+      "resource_costs": {
+        "C4": -0.75
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.94, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.08 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.17, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.05 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.43, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.69 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.56, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.63 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-4.28 * vars['Var_0'] <= -37.45, name='C0')\n    m.addConstr(4.24 * vars['Var_0'] <= 41.02, name='C1')\n    m.addConstr(-2.02 * vars['Var_2'] <= -4.81, name='C2')\n    m.addConstr(-0.77 * vars['Var_1'] <= 0.32, name='C3')\n    m.addConstr(5.98 * vars['Var_2'] + -0.75 * vars['Var_3'] <= 17.18, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the FY Plan for Sustainability Investments and Capacity Limits\n\nTeam,\n\nWe\u2019re preparing a near-term resource allocation plan with the simple objective of maximizing net benefit from our sustainability and operations initiatives while staying within our facility and compliance limits. Below are the four levers we can pull this cycle, along with the practical effects each has on our constraints and the maximum scale we can responsibly pursue.\n\nLevers we can adjust\n\n1) Aurora Methane Capture Pods\n- Financial impact: Each deployed pod is expected to add 8.08 units of net annual contribution.\n- Scale: We can deploy anywhere from 0 up to 17.94 pods this period.\n- Effect on Methane Offset Commitment: Every pod improves (reduces) our methane exposure by 4.28 credit units. This metric is tracked against a cap expressed as a negative target; more negative is better for us.\n- Effect on Specialist Crew Availability: Each pod consumes 4.24 crew\u2011hours from our certified methane recovery team.\n- No effect on Hazardous Waste Abatement Target: Pods do not move this metric.\n- No effect on Compliance Incident Score: No measurable influence.\n- No effect on On\u2011site Storage Utilization: No space requirement tied to these pods.\n\n2) Vigilant Operator Workshops\n- Financial impact: Each workshop is expected to add 6.05 units of net annual contribution through efficiency and loss avoidance.\n- Scale: We can schedule anywhere from 0 up to 15.17 workshops.\n- Effect on Compliance Incident Score: Every workshop reduces the score by 0.77 points, helping us stay well below the allowable threshold.\n- No effect on Methane Offset Commitment: Workshops don\u2019t affect methane credits.\n- No effect on Specialist Crew Availability: No draw on the specialist methane crew calendar.\n- No effect on Hazardous Waste Abatement Target: No direct impact on this abatement index.\n- No effect on On\u2011site Storage Utilization: No sustained storage requirement.\n\n3) Helix Material Recovery Lines\n- Financial impact: Each recovery line deployed is expected to add 6.69 units of net annual contribution through diverted material value and disposal savings.\n- Scale: We can commission anywhere from 0 up to 19.43 lines.\n- Effect on Hazardous Waste Abatement Target: Each line improves (reduces) the hazardous waste index by 2.02 points, contributing to our over\u2011achievement goal.\n- Effect on On\u2011site Storage Utilization: Each line requires 5.98 capacity units of on\u2011site storage (feed, staging, or output buffer).\n- No effect on Methane Offset Commitment: No methane credit movement from these lines.\n- No effect on Specialist Crew Availability: No use of the certified methane crew.\n- No effect on Compliance Incident Score: No direct change observed in the score.\n\n4) Atlas Decommissioning Drives\n- Financial impact: Each decommissioning drive is expected to add 5.63 units of net annual contribution through avoided maintenance and footprint reduction.\n- Scale: We can run anywhere from 0 up to 19.56 drives.\n- Effect on On\u2011site Storage Utilization: Each drive frees 0.75 capacity units (a reduction in required storage), helping alleviate space constraints.\n- No effect on Methane Offset Commitment: No methane credit change from these drives.\n- No effect on Specialist Crew Availability: No demand on the certified methane crew.\n- No effect on Hazardous Waste Abatement Target: No direct effect on the abatement index.\n- No effect on Compliance Incident Score: No measurable change attributable to the drives.\n\nFacility specs and market limits (must not be exceeded)\n\n- Methane Offset Commitment: Our net methane position must be at or below \u221237.45 credit units.\n- Specialist Crew Availability: Certified methane recovery crew time is limited to no more than 41.02 hours in the planning window.\n- Hazardous Waste Abatement Target: Our net hazardous waste index must be at or below \u22124.81 points (i.e., we are committing to an over\u2011achievement level of reduction).\n- Compliance Incident Score: The facility\u2019s incident score must not exceed 0.32.\n- On\u2011site Storage Utilization: Combined use of on\u2011site storage cannot exceed 17.18 capacity units.\n\nPlease review these figures so we can align on the deployment mix that drives the highest overall contribution while staying strictly within the limits above. I\u2019m happy to discuss assumptions behind the contribution estimates and the practicalities of fractional deployments where applicable."
+}

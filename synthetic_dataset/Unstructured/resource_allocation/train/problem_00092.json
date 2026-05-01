@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All unit costs, bounds, and quality impacts are explicit; continuous vars, two >= thresholds, and min-cost objective are clearly stated, enabling a unique LP reconstruction.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business narrative adds verbosity, but parameters are precise and non-repetitive.",
+      "realism": 85,
+      "realism_comment": "Plausible formulation/blending problem; linear additive effects and no total blend constraint are simplifications but still realistic."
+    },
+    "prompt_tokens_with_data": 696,
+    "prompt_tokens_without_data": 696
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 12.75320512820513,
+    "optimal_values": {
+      "Var_0": 3.685897435897436,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 23.71
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 17.25
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.71
+      ],
+      "objective_linear_coefficient": 3.46,
+      "resource_costs": {
+        "C0": 7.94,
+        "C1": 4.68
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.42
+      ],
+      "objective_linear_coefficient": 2.05,
+      "resource_costs": {
+        "C0": -4.01,
+        "C1": -0.17
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.52
+      ],
+      "objective_linear_coefficient": 4.12,
+      "resource_costs": {
+        "C1": -1.23
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.64
+      ],
+      "objective_linear_coefficient": 7.86,
+      "resource_costs": {
+        "C0": 2.09
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.71, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.46 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.42, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.05 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.52, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.12 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.64, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.86 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.94 * vars['Var_0'] + -4.01 * vars['Var_1'] + 2.09 * vars['Var_3'] >= 23.71, name='C0')\n    m.addConstr(4.68 * vars['Var_0'] + -0.17 * vars['Var_1'] + -1.23 * vars['Var_2'] >= 17.25, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized Formulation Plan for the New Adhesive Blend\n\nTeam,\n\nWe need a practical plan to assemble the new adhesive blend at the lowest possible total material spend while still hitting two non\u2011negotiable quality standards: a minimum Structural Strength Score and a minimum Stability Index across the blend. All materials can be procured in fractional quantities, and nothing is mandated\u2014we can choose to use zero of any item if that helps us minimize cost and still meet the floor levels.\n\nBelow are the levers we can pull, in the order we\u2019ll consider them, with their unit costs, procurement caps, and how each unit affects the two quality metrics.\n\n- Prime Resin X7\n  - Cost to buy: 3.46 per unit.\n  - Availability: anywhere from 0.00 up to 7.71 units.\n  - Quality impact per unit:\n    - Adds 7.94 points to the Structural Strength Score.\n    - Adds 4.68 points to the Stability Index.\n\n- Economy Plasticizer B2\n  - Cost to buy: 2.05 per unit.\n  - Availability: anywhere from 0.00 up to 14.42 units.\n  - Quality impact per unit:\n    - Reduces the Structural Strength Score by 4.01 points.\n    - Reduces the Stability Index by 0.17 points.\n\n- Carrier Solvent C9\n  - Cost to buy: 4.12 per unit.\n  - Availability: anywhere from 0.00 up to 9.52 units.\n  - Quality impact per unit:\n    - No material effect on the Structural Strength Score.\n    - Reduces the Stability Index by 1.23 points.\n\n- Crosslinker D4\n  - Cost to buy: 7.86 per unit.\n  - Availability: anywhere from 0.00 up to 7.64 units.\n  - Quality impact per unit:\n    - Adds 2.09 points to the Structural Strength Score.\n    - No material effect on the Stability Index.\n\nQuality standards and minimums to respect\n- Structural Strength Score: must reach at least 23.71 points across the blend.\n- Stability Index: must reach at least 17.25 points across the blend.\n\nPlease use the above economics, caps, and quality effects to determine the least\u2011cost combination of inputs that satisfies both minimum scores."
+}

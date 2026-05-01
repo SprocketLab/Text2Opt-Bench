@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and resource limits are explicit; partial batches imply continuous variables; 'none' means zero. Objective and <= resource constraints are unambiguous.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Email-style narrative adds some fluff, but the numeric specs are clearly structured with no repetition of data.",
+      "realism": 98,
+      "realism_comment": "Highly realistic product-mix planning with plausible manufacturing, budget, and environmental constraints."
+    },
+    "prompt_tokens_with_data": 1122,
+    "prompt_tokens_without_data": 1122
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 55.69693420887809,
+    "optimal_values": {
+      "Var_0": 0.24638233931104353,
+      "Var_1": 15.32,
+      "Var_2": 0.0,
+      "Var_3": 1.8274805900003261,
+      "Var_4": 8.622409002607348
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 35.02
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.11
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 47.68
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 99.21
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 55.2
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 74.58
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 53.0
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.95
+      ],
+      "objective_linear_coefficient": 4.92,
+      "resource_costs": {
+        "C0": 3.39,
+        "C3": 0.55,
+        "C4": 8.42,
+        "C5": 5.52,
+        "C6": 3.92
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.32
+      ],
+      "objective_linear_coefficient": 1.6,
+      "resource_costs": {
+        "C2": 0.66,
+        "C4": 2.61,
+        "C5": 3.67,
+        "C6": 2.85
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.43
+      ],
+      "objective_linear_coefficient": 1.27,
+      "resource_costs": {
+        "C1": 4.25,
+        "C2": 9.94,
+        "C3": 8.09,
+        "C4": 5.82,
+        "C5": 9.8,
+        "C6": 8.68
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.62
+      ],
+      "objective_linear_coefficient": 4.7,
+      "resource_costs": {
+        "C0": 2.9,
+        "C3": 2.9,
+        "C4": 5.02,
+        "C5": 9.3,
+        "C6": 1.64
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.41
+      ],
+      "objective_linear_coefficient": 2.48,
+      "resource_costs": {
+        "C0": 3.35,
+        "C1": 8.09,
+        "C2": 0.66,
+        "C3": 8.37,
+        "C4": 0.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.95, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.92 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.32, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.6 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.43, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.27 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.62, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.7 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.41, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.48 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.39 * vars['Var_0'] + 2.9 * vars['Var_3'] + 3.35 * vars['Var_4'] <= 35.02, name='C0')\n    m.addConstr(4.25 * vars['Var_2'] + 8.09 * vars['Var_4'] <= 77.11, name='C1')\n    m.addConstr(0.66 * vars['Var_1'] + 9.94 * vars['Var_2'] + 0.66 * vars['Var_4'] <= 47.68, name='C2')\n    m.addConstr(0.55 * vars['Var_0'] + 8.09 * vars['Var_2'] + 2.9 * vars['Var_3'] + 8.37 * vars['Var_4'] <= 99.21, name='C3')\n    m.addConstr(8.42 * vars['Var_0'] + 2.61 * vars['Var_1'] + 5.82 * vars['Var_2'] + 5.02 * vars['Var_3'] + 0.46 * vars['Var_4'] <= 55.2, name='C4')\n    m.addConstr(5.52 * vars['Var_0'] + 3.67 * vars['Var_1'] + 9.8 * vars['Var_2'] + 9.3 * vars['Var_3'] <= 74.58, name='C5')\n    m.addConstr(3.92 * vars['Var_0'] + 2.85 * vars['Var_1'] + 8.68 * vars['Var_2'] + 1.64 * vars['Var_3'] <= 53.0, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Product mix decision for this cycle \u2014 please maximize total contribution under current operating limits\n\nTeam,\n\nAs discussed, we\u2019re setting our monthly build plan across five offerings with the aim of maximizing total contribution. We can schedule partial batches if needed. Below is what each option yields financially and what it draws from our constrained resources. Please keep each item within its stated range and respect the facility and market limits at the end.\n\n- Apex Fiber Panels\n  - Commercial impact: each batch adds 4.92 in contribution.\n  - Volume flexibility: can be set anywhere from 0 up to 5.95 batches this cycle.\n  - Resource use per batch:\n    - Autoclave A hours: 3.39\n    - Platinum catalyst drums: none\n    - Specialist QA lab hours: none\n    - Composite assembly line hours: 0.55\n    - Curing bay slot\u2011hours: 8.42\n    - Outbound shipments budget (k$): 5.52\n    - VOC emissions credits: 3.92\n\n- Nexus Resin Kits\n  - Commercial impact: each batch adds 1.60 in contribution.\n  - Volume flexibility: can be set anywhere from 0 up to 15.32 batches this cycle.\n  - Resource use per batch:\n    - Autoclave A hours: none\n    - Platinum catalyst drums: none\n    - Specialist QA lab hours: 0.66\n    - Composite assembly line hours: none\n    - Curing bay slot\u2011hours: 2.61\n    - Outbound shipments budget (k$): 3.67\n    - VOC emissions credits: 2.85\n\n- Vertex Custom Laminates\n  - Commercial impact: each batch adds 1.27 in contribution.\n  - Volume flexibility: can be set anywhere from 0 up to 14.43 batches this cycle.\n  - Resource use per batch:\n    - Autoclave A hours: none\n    - Platinum catalyst drums: 4.25\n    - Specialist QA lab hours: 9.94\n    - Composite assembly line hours: 8.09\n    - Curing bay slot\u2011hours: 5.82\n    - Outbound shipments budget (k$): 9.80\n    - VOC emissions credits: 8.68\n\n- Summit Core Blocks\n  - Commercial impact: each batch adds 4.70 in contribution.\n  - Volume flexibility: can be set anywhere from 0 up to 16.62 batches this cycle.\n  - Resource use per batch:\n    - Autoclave A hours: 2.90\n    - Platinum catalyst drums: none\n    - Specialist QA lab hours: none\n    - Composite assembly line hours: 2.90\n    - Curing bay slot\u2011hours: 5.02\n    - Outbound shipments budget (k$): 9.30\n    - VOC emissions credits: 1.64\n\n- Helix Structural Tubes\n  - Commercial impact: each batch adds 2.48 in contribution.\n  - Volume flexibility: can be set anywhere from 0 up to 11.41 batches this cycle.\n  - Resource use per batch:\n    - Autoclave A hours: 3.35\n    - Platinum catalyst drums: 8.09\n    - Specialist QA lab hours: 0.66\n    - Composite assembly line hours: 8.37\n    - Curing bay slot\u2011hours: 0.46\n    - Outbound shipments budget (k$): none\n    - VOC emissions credits: none\n\nFacility and market limits for this planning window:\n- Autoclave A hours: no more than 35.02 hours available in total.\n- Platinum catalyst drums: no more than 77.11 units available in total.\n- Specialist QA lab hours: no more than 47.68 hours available in total.\n- Composite assembly line hours: no more than 99.21 hours available in total.\n- Curing bay slot\u2011hours: no more than 55.20 slot\u2011hours available in total.\n- Outbound shipments budget (k$): no more than 74.58 available in total.\n- VOC emissions credits: no more than 53.00 credits available in total.\n\nPlease use the above to generate the mix that maximizes overall contribution while staying within every limit. If any assumption needs clarification, let me know."
+}

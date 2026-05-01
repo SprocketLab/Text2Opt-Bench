@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Costs, bounds, integrality, and all 7 >= constraints are explicitly given; contributions per unit are clear. Minor nuance: fractional caps with integer units, but standard modeling is clear.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds fluff, but the technical bullet lists are necessary to specify the model. Some verbosity beyond the essential details.",
+      "realism": 97,
+      "realism_comment": "Very plausible sourcing mix problem with cost minimization and nutrient/quality targets under capacity limits; data and units feel realistic."
+    },
+    "prompt_tokens_with_data": 1025,
+    "prompt_tokens_without_data": 1025
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 67.59009771986972,
+    "optimal_values": {
+      "Var_0": 1.0,
+      "Var_1": 2.0,
+      "Var_2": 18.0,
+      "Var_3": 4.85342019543974
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 47.23
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 150.96
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.45
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 91.04
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 122.61
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 14.9
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 18.96
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.74
+      ],
+      "objective_linear_coefficient": 9.12,
+      "resource_costs": {
+        "C2": 6.58,
+        "C3": 6.92,
+        "C4": 6.16,
+        "C6": 3.06
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.47
+      ],
+      "objective_linear_coefficient": 8.56,
+      "resource_costs": {
+        "C1": 8.83,
+        "C2": 1.04,
+        "C3": 1.11,
+        "C4": 6.64,
+        "C6": 0.29
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.66
+      ],
+      "objective_linear_coefficient": 1.58,
+      "resource_costs": {
+        "C0": 1.23,
+        "C1": 7.59,
+        "C2": 9.51,
+        "C3": 7.12,
+        "C4": 5.26,
+        "C6": 0.99
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.2
+      ],
+      "objective_linear_coefficient": 2.66,
+      "resource_costs": {
+        "C0": 7.14,
+        "C1": 5.01,
+        "C2": 9.5,
+        "C3": 1.3,
+        "C4": 1.85,
+        "C5": 3.07
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.74, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 9.12 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.47, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.56 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.66, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.58 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.2, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.66 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.23 * vars['Var_2'] + 7.14 * vars['Var_3'] >= 47.23, name='C0')\n    m.addConstr(8.83 * vars['Var_1'] + 7.59 * vars['Var_2'] + 5.01 * vars['Var_3'] >= 150.96, name='C1')\n    m.addConstr(6.58 * vars['Var_0'] + 1.04 * vars['Var_1'] + 9.51 * vars['Var_2'] + 9.5 * vars['Var_3'] >= 153.45, name='C2')\n    m.addConstr(6.92 * vars['Var_0'] + 1.11 * vars['Var_1'] + 7.12 * vars['Var_2'] + 1.3 * vars['Var_3'] >= 91.04, name='C3')\n    m.addConstr(6.16 * vars['Var_0'] + 6.64 * vars['Var_1'] + 5.26 * vars['Var_2'] + 1.85 * vars['Var_3'] >= 122.61, name='C4')\n    m.addConstr(3.07 * vars['Var_3'] >= 14.9, name='C5')\n    m.addConstr(3.06 * vars['Var_0'] + 0.29 * vars['Var_1'] + 0.99 * vars['Var_2'] >= 18.96, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Sourcing Plan for Fortified Meal Blend\n\nTeam,\n\nAs discussed, we\u2019re preparing the Q1 sourcing mix for our fortified meal blend. The mandate is to meet or exceed our quality and performance specifications at the lowest total landed cost. We have four supply levers available, three of which are procured in whole units only, and one that can be drawn fractionally. Below are the details we\u2019ll use to guide the allocation.\n\nGolden Grain Base (whole truckloads)\n- Commercial terms: $9.12 per truckload. We may purchase anywhere from zero up to the supplier cap of 18.74 truckloads (booked in whole truckloads only).\n- Quality/performance impact per truckload:\n  - Hydration Balance: no contribution.\n  - Protein Density: no contribution.\n  - Caloric Load: adds 6.58 units.\n  - Complex Carbohydrates: adds 6.92 units.\n  - Micronutrient Mix: adds 6.16 units.\n  - Stabilizer S Coverage: no contribution.\n  - Insoluble Fiber: adds 3.06 units.\n\nSoy Protein Packs (whole pallets)\n- Commercial terms: $8.56 per pallet. We may purchase anywhere from zero up to 10.47 pallets (booked in whole pallets only).\n- Quality/performance impact per pallet:\n  - Hydration Balance: no contribution.\n  - Protein Density: adds 8.83 units.\n  - Caloric Load: adds 1.04 units.\n  - Complex Carbohydrates: adds 1.11 units.\n  - Micronutrient Mix: adds 6.64 units.\n  - Stabilizer S Coverage: no contribution.\n  - Insoluble Fiber: adds 0.29 units.\n\nEnriched Cereal Mix (whole totes)\n- Commercial terms: $1.58 per tote. We may purchase anywhere from zero up to 18.66 totes (booked in whole totes only).\n- Quality/performance impact per tote:\n  - Hydration Balance: adds 1.23 units.\n  - Protein Density: adds 7.59 units.\n  - Caloric Load: adds 9.51 units.\n  - Complex Carbohydrates: adds 7.12 units.\n  - Micronutrient Mix: adds 5.26 units.\n  - Stabilizer S Coverage: no contribution.\n  - Insoluble Fiber: adds 0.99 units.\n\nFortification Syrup (fractional, liquid draw)\n- Commercial terms: $2.66 per kiloliter. We may draw anywhere from zero up to 16.20 kiloliters (fractional volumes permitted).\n- Quality/performance impact per kiloliter:\n  - Hydration Balance: adds 7.14 units.\n  - Protein Density: adds 5.01 units.\n  - Caloric Load: adds 9.50 units.\n  - Complex Carbohydrates: adds 1.30 units.\n  - Micronutrient Mix: adds 1.85 units.\n  - Stabilizer S Coverage: adds 3.07 units.\n  - Insoluble Fiber: no contribution.\n\nFacility Specs and Minimum Formulation Targets (must be met or exceeded)\n- Hydration Balance: at least 47.23 units total.\n- Protein Density: at least 150.96 units total.\n- Caloric Load: at least 153.45 units total.\n- Complex Carbohydrates: at least 91.04 units total.\n- Micronutrient Mix: at least 122.61 units total.\n- Stabilizer S Coverage: at least 14.90 units total.\n- Insoluble Fiber: at least 18.96 units total.\n\nOur goal is to minimize the total spend across these four inputs while meeting each of the above minimums. Please proceed to model the mix accordingly and flag any feasibility issues related to the availability caps noted above.\n\nRegards,\n[Client Name]\nHead of Operations"
+}

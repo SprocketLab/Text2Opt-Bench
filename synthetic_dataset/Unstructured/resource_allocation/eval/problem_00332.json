@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, costs, and per-unit impacts are given with exact coefficients; thresholds and inequality directions are explicit, enabling exact LP reconstruction without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Framed as a business email with narrative and trade-off notes; adds some verbosity but the technical data is clear and non-repetitive.",
+      "realism": 95,
+      "realism_comment": "Highly plausible industrial blending/cost-minimization scenario with realistic operational metrics and caps; constraints and signs make sense."
+    },
+    "prompt_tokens_with_data": 1438,
+    "prompt_tokens_without_data": 1438
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 84.45110818185675,
+    "optimal_values": {
+      "Var_0": 3.311632242428217,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.5454545454545454,
+      "Var_4": 5.501436731479497,
+      "Var_5": 0.0,
+      "Var_6": 6.661561264822135
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -11.29
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 14.51
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 108.51
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 0.18
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 40.36
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 26.62
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 12.05
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 29.6
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.84
+      ],
+      "objective_linear_coefficient": 7.33,
+      "resource_costs": {
+        "C0": -0.97,
+        "C4": 9.33,
+        "C6": 4.49,
+        "C7": -1.19
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.25
+      ],
+      "objective_linear_coefficient": 4.44,
+      "resource_costs": {
+        "C4": -1.39
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.95
+      ],
+      "objective_linear_coefficient": 5.65,
+      "resource_costs": {
+        "C1": -4.37,
+        "C2": -0.28,
+        "C5": 7.23,
+        "C6": -4.48,
+        "C7": -3.52
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.03
+      ],
+      "objective_linear_coefficient": 9.81,
+      "resource_costs": {
+        "C0": -0.94,
+        "C1": 4.13,
+        "C3": 0.33,
+        "C6": -1.93
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.14
+      ],
+      "objective_linear_coefficient": 4.65,
+      "resource_costs": {
+        "C2": 7.93,
+        "C4": 1.72,
+        "C5": 6.14,
+        "C7": 9.4
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.04
+      ],
+      "objective_linear_coefficient": 4.25,
+      "resource_costs": {
+        "C1": -1.62,
+        "C6": 0.77,
+        "C7": -2.34
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.94
+      ],
+      "objective_linear_coefficient": 4.39,
+      "resource_costs": {
+        "C1": 1.84,
+        "C2": 9.74,
+        "C7": 3.35
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.84, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.33 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.25, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.44 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.95, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.65 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.03, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.81 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.14, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.65 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.04, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.25 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.94, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.39 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-0.97 * vars['Var_0'] + -0.94 * vars['Var_3'] >= -11.29, name='C0')\n    m.addConstr(-4.37 * vars['Var_2'] + 4.13 * vars['Var_3'] + -1.62 * vars['Var_5'] + 1.84 * vars['Var_6'] >= 14.51, name='C1')\n    m.addConstr(-0.28 * vars['Var_2'] + 7.93 * vars['Var_4'] + 9.74 * vars['Var_6'] >= 108.51, name='C2')\n    m.addConstr(0.33 * vars['Var_3'] >= 0.18, name='C3')\n    m.addConstr(9.33 * vars['Var_0'] + -1.39 * vars['Var_1'] + 1.72 * vars['Var_4'] >= 40.36, name='C4')\n    m.addConstr(7.23 * vars['Var_2'] + 6.14 * vars['Var_4'] >= 26.62, name='C5')\n    m.addConstr(4.49 * vars['Var_0'] + -4.48 * vars['Var_2'] + -1.93 * vars['Var_3'] + 0.77 * vars['Var_5'] >= 12.05, name='C6')\n    m.addConstr(-1.19 * vars['Var_0'] + -3.52 * vars['Var_2'] + 9.4 * vars['Var_4'] + -2.34 * vars['Var_5'] + 3.35 * vars['Var_6'] >= 29.6, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Blend Plan for New Industrial Lubricant \u2013 Decision Levers and Operating Thresholds\n\nTeam,\n\nAs discussed, our goal is to minimize total production spend while ensuring the new industrial lubricant meets or exceeds all of our operational and compliance thresholds. Below are the seven levers we can pull (each optional with a minimum commitment of 0 units, and capped as noted), along with their per\u2011unit costs and the way each impacts our key measures. At the end, I\u2019ve summarized the minimum levels we must achieve across the eight measures.\n\nDecision levers\n\n1) Base Oil A\u2011Alpha\n- Unit cost: 7.33 per unit; allocation range: 0 to 15.84 units.\n- Net Working Capital: reduces the buffer by 0.97 per unit.\n- Service Reliability Score: no effect.\n- Base Throughput: no effect.\n- Required Training Hours: no effect.\n- Circularity Credits: adds 9.33 per unit.\n- Quality Certification Points: no effect.\n- Skilled Technician Hours: adds 4.49 per unit.\n- Process Safety Margin: reduces the margin by 1.19 per unit.\n\n2) Viscosity Reducer B\u2011Bravo\n- Unit cost: 4.44 per unit; allocation range: 0 to 9.25 units.\n- Net Working Capital: no effect.\n- Service Reliability Score: no effect.\n- Base Throughput: no effect.\n- Required Training Hours: no effect.\n- Circularity Credits: reduces credits by 1.39 per unit.\n- Quality Certification Points: no effect.\n- Skilled Technician Hours: no effect.\n- Process Safety Margin: no effect.\n\n3) Anti\u2011Wear Additive C\u2011Charlie\n- Unit cost: 5.65 per unit; allocation range: 0 to 10.95 units.\n- Net Working Capital: no effect.\n- Service Reliability Score: reduces the score by 4.37 per unit.\n- Base Throughput: slightly reduces throughput by 0.28 per unit.\n- Required Training Hours: no effect.\n- Circularity Credits: no effect.\n- Quality Certification Points: adds 7.23 per unit.\n- Skilled Technician Hours: reduces available hours by 4.48 per unit.\n- Process Safety Margin: reduces the margin by 3.52 per unit.\n\n4) Oxidation Stabilizer D\u2011Delta\n- Unit cost: 9.81 per unit; allocation range: 0 to 12.03 units.\n- Net Working Capital: reduces the buffer by 0.94 per unit.\n- Service Reliability Score: improves the score by 4.13 per unit.\n- Base Throughput: no effect.\n- Required Training Hours: contributes 0.33 hours per unit.\n- Circularity Credits: no effect.\n- Quality Certification Points: no effect.\n- Skilled Technician Hours: reduces available hours by 1.93 per unit.\n- Process Safety Margin: no effect.\n\n5) Load\u2011Bearing Booster E\u2011Echo\n- Unit cost: 4.65 per unit; allocation range: 0 to 18.14 units.\n- Net Working Capital: no effect.\n- Service Reliability Score: no effect.\n- Base Throughput: adds 7.93 units per unit blended.\n- Required Training Hours: no effect.\n- Circularity Credits: adds 1.72 per unit.\n- Quality Certification Points: adds 6.14 per unit.\n- Skilled Technician Hours: no effect.\n- Process Safety Margin: adds 9.4 per unit.\n\n6) Cost Saver F\u2011Foxtrot\n- Unit cost: 4.25 per unit; allocation range: 0 to 18.04 units.\n- Net Working Capital: no effect.\n- Service Reliability Score: reduces the score by 1.62 per unit.\n- Base Throughput: no effect.\n- Required Training Hours: no effect.\n- Circularity Credits: no effect.\n- Quality Certification Points: no effect.\n- Skilled Technician Hours: adds 0.77 per unit.\n- Process Safety Margin: reduces the margin by 2.34 per unit.\n\n7) High\u2011Performance Enhancer G\u2011Golf\n- Unit cost: 4.39 per unit; allocation range: 0 to 11.94 units.\n- Net Working Capital: no effect.\n- Service Reliability Score: improves the score by 1.84 per unit.\n- Base Throughput: adds 9.74 units per unit blended.\n- Required Training Hours: no effect.\n- Circularity Credits: no effect.\n- Quality Certification Points: no effect.\n- Skilled Technician Hours: no effect.\n- Process Safety Margin: adds 3.35 per unit.\n\nMarket and operating thresholds (must be met or exceeded in aggregate)\n- Net Working Capital floor: at least \u221211.29 (we must not fall below a \u221211.29 buffer).\n- Service Reliability Score: at least 14.51.\n- Base Throughput: at least 108.51 units.\n- Required Training Hours: at least 0.18 hours.\n- Circularity Credits: at least 40.36 credits.\n- Quality Certification Points: at least 26.62 points.\n- Skilled Technician Hours: at least 12.05 hours.\n- Process Safety Margin: at least 29.6 margin points.\n\nPlease use the above to identify the lowest\u2011cost mix that satisfies all minimums. Note the tighter trade\u2011offs: C\u2011Charlie is valuable for quality points but erodes reliability, skilled hours, and safety margin; D\u2011Delta is expensive but shores up reliability and training; E\u2011Echo and G\u2011Golf are the primary throughput drivers; A\u2011Alpha is a strong circularity and skilled\u2011hours contributor but draws on working capital and slightly compresses safety margin; F\u2011Foxtrot is economical yet pressures reliability and safety.\n\nHappy to review the first cut of the proposed blend once you\u2019ve run the numbers.\n\nBest,\n[Client Name]\nVP, Operations & Product Compliance"
+}

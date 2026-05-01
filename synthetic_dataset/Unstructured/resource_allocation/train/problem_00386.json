@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact per-lot margins, upper bounds, resource coefficients, and capacities are specified; zero impacts are explicit. Objective and <= constraints are straightforward to reconstruct.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some email-style narrative and repeated headings add length, but most text conveys necessary coefficients and bounds.",
+      "realism": 98,
+      "realism_comment": "Brewery production planning across brew, bottling, packaging, storage, QA, and docks feels realistic and coherent."
+    },
+    "prompt_tokens_with_data": 1548,
+    "prompt_tokens_without_data": 1548
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 297.1503311757791,
+    "optimal_values": {
+      "Var_0": 10.59,
+      "Var_1": 2.124729893379783,
+      "Var_2": 0.0,
+      "Var_3": 4.198613013882792,
+      "Var_4": 9.2,
+      "Var_5": 5.052816644559362,
+      "Var_6": 0.0,
+      "Var_7": 8.06
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 103.44
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 233.47
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 103.21
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 232.84
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 181.77
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 213.32
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 125.18
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.59
+      ],
+      "objective_linear_coefficient": 5.05,
+      "resource_costs": {
+        "C0": 2.18,
+        "C1": 3.36,
+        "C2": 0.69,
+        "C3": 2.84,
+        "C4": 4.71,
+        "C5": 5.21,
+        "C6": 2.73
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.22
+      ],
+      "objective_linear_coefficient": 2.67,
+      "resource_costs": {
+        "C0": 9.9,
+        "C1": 8.53,
+        "C2": 0.47,
+        "C3": 3.85,
+        "C4": 4.94,
+        "C5": 3.18
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.5
+      ],
+      "objective_linear_coefficient": 3.75,
+      "resource_costs": {
+        "C0": 8.71,
+        "C1": 0.41,
+        "C2": 3.16,
+        "C3": 4.4,
+        "C4": 7.53,
+        "C5": 6.6,
+        "C6": 4.95
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.24
+      ],
+      "objective_linear_coefficient": 9.93,
+      "resource_costs": {
+        "C0": 7.65,
+        "C2": 4.34,
+        "C3": 2.93,
+        "C4": 1.22,
+        "C5": 1.35,
+        "C6": 7.46
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.2
+      ],
+      "objective_linear_coefficient": 9.78,
+      "resource_costs": {
+        "C0": 2.94,
+        "C1": 5.8,
+        "C2": 4.58,
+        "C3": 8.85,
+        "C4": 4.4,
+        "C5": 8.95,
+        "C6": 2.18
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.96
+      ],
+      "objective_linear_coefficient": 9.08,
+      "resource_costs": {
+        "C0": 0.03,
+        "C1": 8.74,
+        "C2": 4.9,
+        "C3": 9.96,
+        "C4": 8.31,
+        "C5": 6.97,
+        "C6": 3.78
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.26
+      ],
+      "objective_linear_coefficient": 4.17,
+      "resource_costs": {
+        "C0": 1.26,
+        "C1": 6.63,
+        "C2": 6.96,
+        "C3": 2.75,
+        "C4": 6.72,
+        "C5": 9.72,
+        "C6": 6.25
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.06
+      ],
+      "objective_linear_coefficient": 7.5,
+      "resource_costs": {
+        "C1": 9.69,
+        "C3": 6.27,
+        "C4": 2.65,
+        "C5": 2.36,
+        "C6": 3.2
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.59, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.05 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.22, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.67 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.5, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.75 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.24, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.93 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.2, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.78 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.96, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.08 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.26, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.17 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=8.06, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.5 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.18 * vars['Var_0'] + 9.9 * vars['Var_1'] + 8.71 * vars['Var_2'] + 7.65 * vars['Var_3'] + 2.94 * vars['Var_4'] + 0.03 * vars['Var_5'] + 1.26 * vars['Var_6'] <= 103.44, name='C0')\n    m.addConstr(3.36 * vars['Var_0'] + 8.53 * vars['Var_1'] + 0.41 * vars['Var_2'] + 5.8 * vars['Var_4'] + 8.74 * vars['Var_5'] + 6.63 * vars['Var_6'] + 9.69 * vars['Var_7'] <= 233.47, name='C1')\n    m.addConstr(0.69 * vars['Var_0'] + 0.47 * vars['Var_1'] + 3.16 * vars['Var_2'] + 4.34 * vars['Var_3'] + 4.58 * vars['Var_4'] + 4.9 * vars['Var_5'] + 6.96 * vars['Var_6'] <= 103.21, name='C2')\n    m.addConstr(2.84 * vars['Var_0'] + 3.85 * vars['Var_1'] + 4.4 * vars['Var_2'] + 2.93 * vars['Var_3'] + 8.85 * vars['Var_4'] + 9.96 * vars['Var_5'] + 2.75 * vars['Var_6'] + 6.27 * vars['Var_7'] <= 232.84, name='C3')\n    m.addConstr(4.71 * vars['Var_0'] + 4.94 * vars['Var_1'] + 7.53 * vars['Var_2'] + 1.22 * vars['Var_3'] + 4.4 * vars['Var_4'] + 8.31 * vars['Var_5'] + 6.72 * vars['Var_6'] + 2.65 * vars['Var_7'] <= 181.77, name='C4')\n    m.addConstr(5.21 * vars['Var_0'] + 3.18 * vars['Var_1'] + 6.6 * vars['Var_2'] + 1.35 * vars['Var_3'] + 8.95 * vars['Var_4'] + 6.97 * vars['Var_5'] + 9.72 * vars['Var_6'] + 2.36 * vars['Var_7'] <= 213.32, name='C5')\n    m.addConstr(2.73 * vars['Var_0'] + 4.95 * vars['Var_2'] + 7.46 * vars['Var_3'] + 2.18 * vars['Var_4'] + 3.78 * vars['Var_5'] + 6.25 * vars['Var_6'] + 3.2 * vars['Var_7'] <= 125.18, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix decision for Q2 \u2013 maximizing portfolio margin within plant limits\n\nTeam,\n\nWe need your help finalizing the Q2 production mix across our eight SKUs with the clear goal of maximizing overall contribution margin while staying within our plant capacities and market constraints. Below is how each product draws on our shared resources and the per\u2011lot economics we\u2019re targeting. We can choose to produce as few as zero lots for any SKU; the upper bound noted for each item reflects demand ceilings and operational practicalities for the quarter.\n\n- Amber Ridge Lager\n  - Contribution: adds 5.05 of net margin per production lot.\n  - Run limits: up to 10.59 lots this quarter (minimum is zero).\n  - Resource impacts per lot:\n    - Brew Kettle Hours: 2.18\n    - Bottling Line Hours: 3.36\n    - Hops & Specialty Additives: 0.69\n    - Packaging & Labeling Runtime: 2.84\n    - Cold Storage Capacity: 4.71\n    - QA Lab Testing Time: 5.21\n    - Loading Dock Time Slots: 2.73\n\n- Citrus Wave Light\n  - Contribution: adds 2.67 of net margin per production lot.\n  - Run limits: up to 9.22 lots this quarter (minimum is zero).\n  - Resource impacts per lot:\n    - Brew Kettle Hours: 9.9\n    - Bottling Line Hours: 8.53\n    - Hops & Specialty Additives: 0.47\n    - Packaging & Labeling Runtime: 3.85\n    - Cold Storage Capacity: 4.94\n    - QA Lab Testing Time: 3.18\n    - Loading Dock Time Slots: 0 (no incremental dock usage on its own)\n\n- Midnight Stout\n  - Contribution: adds 3.75 of net margin per production lot.\n  - Run limits: up to 12.5 lots this quarter (minimum is zero).\n  - Resource impacts per lot:\n    - Brew Kettle Hours: 8.71\n    - Bottling Line Hours: 0.41\n    - Hops & Specialty Additives: 3.16\n    - Packaging & Labeling Runtime: 4.4\n    - Cold Storage Capacity: 7.53\n    - QA Lab Testing Time: 6.6\n    - Loading Dock Time Slots: 4.95\n\n- Highland IPA\n  - Contribution: adds 9.93 of net margin per production lot.\n  - Run limits: up to 8.24 lots this quarter (minimum is zero).\n  - Resource impacts per lot:\n    - Brew Kettle Hours: 7.65\n    - Bottling Line Hours: 0 (keg\u2011only format; no draw on bottling)\n    - Hops & Specialty Additives: 4.34\n    - Packaging & Labeling Runtime: 2.93\n    - Cold Storage Capacity: 1.22\n    - QA Lab Testing Time: 1.35\n    - Loading Dock Time Slots: 7.46\n\n- Farmhouse Saison\n  - Contribution: adds 9.78 of net margin per production lot.\n  - Run limits: up to 9.2 lots this quarter (minimum is zero).\n  - Resource impacts per lot:\n    - Brew Kettle Hours: 2.94\n    - Bottling Line Hours: 5.8\n    - Hops & Specialty Additives: 4.58\n    - Packaging & Labeling Runtime: 8.85\n    - Cold Storage Capacity: 4.4\n    - QA Lab Testing Time: 8.95\n    - Loading Dock Time Slots: 2.18\n\n- Riverbend Pilsner\n  - Contribution: adds 9.08 of net margin per production lot.\n  - Run limits: up to 9.96 lots this quarter (minimum is zero).\n  - Resource impacts per lot:\n    - Brew Kettle Hours: 0.03\n    - Bottling Line Hours: 8.74\n    - Hops & Specialty Additives: 4.9\n    - Packaging & Labeling Runtime: 9.96\n    - Cold Storage Capacity: 8.31\n    - QA Lab Testing Time: 6.97\n    - Loading Dock Time Slots: 3.78\n\n- Alpine Wheat\n  - Contribution: adds 4.17 of net margin per production lot.\n  - Run limits: up to 12.26 lots this quarter (minimum is zero).\n  - Resource impacts per lot:\n    - Brew Kettle Hours: 1.26\n    - Bottling Line Hours: 6.63\n    - Hops & Specialty Additives: 6.96\n    - Packaging & Labeling Runtime: 2.75\n    - Cold Storage Capacity: 6.72\n    - QA Lab Testing Time: 9.72\n    - Loading Dock Time Slots: 6.25\n\n- Berry Hefe Seasonal\n  - Contribution: adds 7.5 of net margin per production lot.\n  - Run limits: up to 8.06 lots this quarter (minimum is zero).\n  - Resource impacts per lot:\n    - Brew Kettle Hours: 0 (wort sourced externally; no kettle draw)\n    - Bottling Line Hours: 9.69\n    - Hops & Specialty Additives: 0 (no draw on specialty quota)\n    - Packaging & Labeling Runtime: 6.27\n    - Cold Storage Capacity: 2.65\n    - QA Lab Testing Time: 2.36\n    - Loading Dock Time Slots: 3.2\n\nFacility specs for Q2\n- Brew Kettle Hours available: 103.44\n- Bottling Line Hours available: 233.47\n- Hops & Specialty Additives quota: 103.21\n- Packaging & Labeling Runtime available: 232.84\n- Cold Storage Capacity available: 181.77\n- QA Lab Testing Time available: 213.32\n- Loading Dock Time Slots available: 125.18\n\nPlease use the above as the basis to recommend the production mix that maximizes total margin without breaching any of the plant or market limits. If you need clarification on any of the per\u2011lot draws or the run caps, let me know."
+}

@@ -1,0 +1,621 @@
+{
+    "meta": {
+        "optimization_type": "LP",
+        "problem_type": "disaster response logistics",
+        "goal": "MINIMIZE",
+        "num_vars": 30,
+        "num_constraints": 23,
+        "is_integer": true,
+        "prompt_tokens_with_data": 1030,
+        "prompt_tokens_without_data": 754
+    },
+    "instance_data": {
+        "n_depots": 2,
+        "n_units": 3,
+        "n_supplies": 2,
+        "n_days": 1,
+        "total_vehicles": 20,
+        "vehicle_capacity": 100.0,
+        "demands": [
+            [
+                [
+                    31.6
+                ],
+                [
+                    20.42
+                ]
+            ],
+            [
+                [
+                    31.13
+                ],
+                [
+                    23.02
+                ]
+            ],
+            [
+                [
+                    12.55
+                ],
+                [
+                    33.61
+                ]
+            ]
+        ],
+        "depot_supplies": [
+            [
+                [
+                    30.99
+                ],
+                [
+                    43.24
+                ]
+            ],
+            [
+                [
+                    39.26
+                ],
+                [
+                    33.52
+                ]
+            ]
+        ],
+        "transport_costs": [
+            [
+                4.94,
+                1.84,
+                1.23
+            ],
+            [
+                3.7,
+                4.25,
+                2.7
+            ]
+        ],
+        "risk_costs": [
+            [
+                143.66,
+                66.64,
+                102.99
+            ],
+            [
+                196.05,
+                151.06,
+                62.86
+            ]
+        ],
+        "vehicle_cost": 10.0,
+        "supply_volumes": [
+            0.6,
+            1.11
+        ],
+        "penalty_costs": [
+            76.38,
+            69.66
+        ]
+    },
+    "gurobi_result": {
+        "solver_status": 2,
+        "theoretical_optimum": 1240.5277999999998,
+        "optimal_values": {
+            "Flow_D0_U0_S0_Day0": 0.0,
+            "Flow_D0_U0_S1_Day0": 0.0,
+            "Flow_D0_U1_S0_Day0": 30.99,
+            "Flow_D0_U1_S1_Day0": 23.02,
+            "Flow_D0_U2_S0_Day0": 0.0,
+            "Flow_D0_U2_S1_Day0": 20.220000000000002,
+            "Flow_D1_U0_S0_Day0": 26.709999999999997,
+            "Flow_D1_U0_S1_Day0": 20.130000000000006,
+            "Flow_D1_U1_S0_Day0": 0.0,
+            "Flow_D1_U1_S1_Day0": 0.0,
+            "Flow_D1_U2_S0_Day0": 12.55,
+            "Flow_D1_U2_S1_Day0": 13.389999999999997,
+            "Slack_U0_S0_Day0": 4.890000000000004,
+            "Slack_U0_S1_Day0": 0.2899999999999956,
+            "Slack_U1_S0_Day0": 0.14000000000000057,
+            "Slack_U1_S1_Day0": 0.0,
+            "Slack_U2_S0_Day0": 0.0,
+            "Slack_U2_S1_Day0": 0.0,
+            "Veh_D0_U0_Day0": 0.0,
+            "Veh_D0_U1_Day0": 1.0,
+            "Veh_D0_U2_Day0": 1.0,
+            "Veh_D1_U0_Day0": 1.0,
+            "Veh_D1_U1_Day0": -0.0,
+            "Veh_D1_U2_Day0": 1.0,
+            "Route_D0_U0_Day0": 0.0,
+            "Route_D0_U1_Day0": 1.0,
+            "Route_D0_U2_Day0": 1.0,
+            "Route_D1_U0_Day0": 1.0,
+            "Route_D1_U1_Day0": -0.0,
+            "Route_D1_U2_Day0": 1.0
+        }
+    },
+    "constraints": {
+        "DepotCap_D0_S0_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 30.99
+        },
+        "DepotCap_D0_S1_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 43.24
+        },
+        "DepotCap_D1_S0_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 39.26
+        },
+        "DepotCap_D1_S1_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 33.52
+        },
+        "Demand_U0_S0_Day0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 31.6
+        },
+        "Demand_U0_S1_Day0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 20.42
+        },
+        "Demand_U1_S0_Day0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 31.13
+        },
+        "Demand_U1_S1_Day0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 23.02
+        },
+        "Demand_U2_S0_Day0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 12.55
+        },
+        "Demand_U2_S1_Day0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 33.61
+        },
+        "VehCap_D0_U0_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "VehCap_D0_U1_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "VehCap_D0_U2_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "VehCap_D1_U0_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "VehCap_D1_U1_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "VehCap_D1_U2_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "RouteAct_D0_U0_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "RouteAct_D0_U1_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "RouteAct_D0_U2_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "RouteAct_D1_U0_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "RouteAct_D1_U1_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "RouteAct_D1_U2_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "FleetSize_Day0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 20.0
+        }
+    },
+    "variables": {
+        "Flow_D0_U0_S0_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 4.94,
+            "resource_costs": {
+                "DepotCap_D0_S0_Day0": 1.0,
+                "Demand_U0_S0_Day0": 1.0,
+                "VehCap_D0_U0_Day0": 0.6
+            }
+        },
+        "Flow_D0_U0_S1_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 4.94,
+            "resource_costs": {
+                "DepotCap_D0_S1_Day0": 1.0,
+                "Demand_U0_S1_Day0": 1.0,
+                "VehCap_D0_U0_Day0": 1.11
+            }
+        },
+        "Flow_D0_U1_S0_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 1.84,
+            "resource_costs": {
+                "DepotCap_D0_S0_Day0": 1.0,
+                "Demand_U1_S0_Day0": 1.0,
+                "VehCap_D0_U1_Day0": 0.6
+            }
+        },
+        "Flow_D0_U1_S1_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 1.84,
+            "resource_costs": {
+                "DepotCap_D0_S1_Day0": 1.0,
+                "Demand_U1_S1_Day0": 1.0,
+                "VehCap_D0_U1_Day0": 1.11
+            }
+        },
+        "Flow_D0_U2_S0_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 1.23,
+            "resource_costs": {
+                "DepotCap_D0_S0_Day0": 1.0,
+                "Demand_U2_S0_Day0": 1.0,
+                "VehCap_D0_U2_Day0": 0.6
+            }
+        },
+        "Flow_D0_U2_S1_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 1.23,
+            "resource_costs": {
+                "DepotCap_D0_S1_Day0": 1.0,
+                "Demand_U2_S1_Day0": 1.0,
+                "VehCap_D0_U2_Day0": 1.11
+            }
+        },
+        "Flow_D1_U0_S0_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 3.7,
+            "resource_costs": {
+                "DepotCap_D1_S0_Day0": 1.0,
+                "Demand_U0_S0_Day0": 1.0,
+                "VehCap_D1_U0_Day0": 0.6
+            }
+        },
+        "Flow_D1_U0_S1_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 3.7,
+            "resource_costs": {
+                "DepotCap_D1_S1_Day0": 1.0,
+                "Demand_U0_S1_Day0": 1.0,
+                "VehCap_D1_U0_Day0": 1.11
+            }
+        },
+        "Flow_D1_U1_S0_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 4.25,
+            "resource_costs": {
+                "DepotCap_D1_S0_Day0": 1.0,
+                "Demand_U1_S0_Day0": 1.0,
+                "VehCap_D1_U1_Day0": 0.6
+            }
+        },
+        "Flow_D1_U1_S1_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 4.25,
+            "resource_costs": {
+                "DepotCap_D1_S1_Day0": 1.0,
+                "Demand_U1_S1_Day0": 1.0,
+                "VehCap_D1_U1_Day0": 1.11
+            }
+        },
+        "Flow_D1_U2_S0_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 2.7,
+            "resource_costs": {
+                "DepotCap_D1_S0_Day0": 1.0,
+                "Demand_U2_S0_Day0": 1.0,
+                "VehCap_D1_U2_Day0": 0.6
+            }
+        },
+        "Flow_D1_U2_S1_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 2.7,
+            "resource_costs": {
+                "DepotCap_D1_S1_Day0": 1.0,
+                "Demand_U2_S1_Day0": 1.0,
+                "VehCap_D1_U2_Day0": 1.11
+            }
+        },
+        "Slack_U0_S0_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 76.38,
+            "resource_costs": {
+                "Demand_U0_S0_Day0": 1.0
+            }
+        },
+        "Slack_U0_S1_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 69.66,
+            "resource_costs": {
+                "Demand_U0_S1_Day0": 1.0
+            }
+        },
+        "Slack_U1_S0_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 76.38,
+            "resource_costs": {
+                "Demand_U1_S0_Day0": 1.0
+            }
+        },
+        "Slack_U1_S1_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 69.66,
+            "resource_costs": {
+                "Demand_U1_S1_Day0": 1.0
+            }
+        },
+        "Slack_U2_S0_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 76.38,
+            "resource_costs": {
+                "Demand_U2_S0_Day0": 1.0
+            }
+        },
+        "Slack_U2_S1_Day0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 69.66,
+            "resource_costs": {
+                "Demand_U2_S1_Day0": 1.0
+            }
+        },
+        "Veh_D0_U0_Day0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.0,
+            "resource_costs": {
+                "VehCap_D0_U0_Day0": -100.0,
+                "RouteAct_D0_U0_Day0": 1.0,
+                "FleetSize_Day0": 1.0
+            }
+        },
+        "Veh_D0_U1_Day0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.0,
+            "resource_costs": {
+                "VehCap_D0_U1_Day0": -100.0,
+                "RouteAct_D0_U1_Day0": 1.0,
+                "FleetSize_Day0": 1.0
+            }
+        },
+        "Veh_D0_U2_Day0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.0,
+            "resource_costs": {
+                "VehCap_D0_U2_Day0": -100.0,
+                "RouteAct_D0_U2_Day0": 1.0,
+                "FleetSize_Day0": 1.0
+            }
+        },
+        "Veh_D1_U0_Day0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.0,
+            "resource_costs": {
+                "VehCap_D1_U0_Day0": -100.0,
+                "RouteAct_D1_U0_Day0": 1.0,
+                "FleetSize_Day0": 1.0
+            }
+        },
+        "Veh_D1_U1_Day0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.0,
+            "resource_costs": {
+                "VehCap_D1_U1_Day0": -100.0,
+                "RouteAct_D1_U1_Day0": 1.0,
+                "FleetSize_Day0": 1.0
+            }
+        },
+        "Veh_D1_U2_Day0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.0,
+            "resource_costs": {
+                "VehCap_D1_U2_Day0": -100.0,
+                "RouteAct_D1_U2_Day0": 1.0,
+                "FleetSize_Day0": 1.0
+            }
+        },
+        "Route_D0_U0_Day0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 143.66,
+            "resource_costs": {
+                "RouteAct_D0_U0_Day0": -20.0
+            }
+        },
+        "Route_D0_U1_Day0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 66.64,
+            "resource_costs": {
+                "RouteAct_D0_U1_Day0": -20.0
+            }
+        },
+        "Route_D0_U2_Day0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 102.99,
+            "resource_costs": {
+                "RouteAct_D0_U2_Day0": -20.0
+            }
+        },
+        "Route_D1_U0_Day0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 196.05,
+            "resource_costs": {
+                "RouteAct_D1_U0_Day0": -20.0
+            }
+        },
+        "Route_D1_U1_Day0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 151.06,
+            "resource_costs": {
+                "RouteAct_D1_U1_Day0": -20.0
+            }
+        },
+        "Route_D1_U2_Day0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 62.86,
+            "resource_costs": {
+                "RouteAct_D1_U2_Day0": -20.0
+            }
+        }
+    },
+    "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    m = Model(\"Disaster_Response_Logistics\")\n    m.setParam(\"TimeLimit\", 300)  # Set time limit to 300 seconds\n\n    # Data\n    depots = list(range(2))  # D0..D1\n    units = list(range(3))  # U0..U2\n    supplies = list(range(2))  # S0..S1\n    days = list(range(1))  # Day0..Day0\n\n    demands = [[[31.6], [20.42]], [[31.13], [23.02]], [[12.55], [33.61]]]\n    depot_supplies = [[[30.99], [43.24]], [[39.26], [33.52]]]\n    transport_costs = [[4.94, 1.84, 1.23], [3.7, 4.25, 2.7]]\n    risk_costs = [[143.66, 66.64, 102.99], [196.05, 151.06, 62.86]]\n    supply_volumes = [0.6, 1.11]\n    penalty_costs = [76.38, 69.66]\n    vehicle_cost = 10.0\n    vehicle_capacity = 100.0\n    total_vehicles = 20\n\n    # Decision variables\n    # Flow_D{d}_U{u}_S{s}_Day{t}: Amount of supply s from depot d to unit u on day t\n    flows = {}\n    for t in days:\n        for d in depots:\n            for u in units:\n                for s in supplies:\n                    flows[(d, u, s, t)] = m.addVar(lb=0.0, vtype=GRB.CONTINUOUS, name=f\"Flow_D{d}_U{u}_S{s}_Day{t}\")\n\n    # Slack_U{u}_S{s}_Day{t}: Shortage of supply s at unit u on day t\n    slacks = {}\n    for t in days:\n        for u in units:\n            for s in supplies:\n                slacks[(u, s, t)] = m.addVar(lb=0.0, vtype=GRB.CONTINUOUS, name=f\"Slack_U{u}_S{s}_Day{t}\")\n\n    # Veh_D{d}_U{u}_Day{t}: Number of vehicles on route d->u on day t\n    vehicles = {}\n    for t in days:\n        for d in depots:\n            for u in units:\n                vehicles[(d, u, t)] = m.addVar(lb=0.0, vtype=GRB.INTEGER, name=f\"Veh_D{d}_U{u}_Day{t}\")\n\n    # Route_D{d}_U{u}_Day{t}: Route d->u is active on day t (binary)\n    routes = {}\n    for t in days:\n        for d in depots:\n            for u in units:\n                routes[(d, u, t)] = m.addVar(vtype=GRB.BINARY, name=f\"Route_D{d}_U{u}_Day{t}\")\n\n    # Objective: Minimize total cost (transport + penalty + vehicle + risk)\n    obj = quicksum(\n        transport_costs[d][u] * flows[(d, u, s, t)]\n        for t in days for d in depots for u in units for s in supplies\n    )\n    obj += quicksum(\n        penalty_costs[s] * slacks[(u, s, t)]\n        for t in days for u in units for s in supplies\n    )\n    obj += quicksum(\n        vehicle_cost * vehicles[(d, u, t)]\n        for t in days for d in depots for u in units\n    )\n    obj += quicksum(\n        risk_costs[d][u] * routes[(d, u, t)]\n        for t in days for d in depots for u in units\n    )\n    m.setObjective(obj, GRB.MINIMIZE)\n\n    # Depot capacity constraints: Total outflow <= supply\n    for t in days:\n        for d in depots:\n            for s in supplies:\n                m.addConstr(\n                    quicksum(flows[(d, u, s, t)] for u in units) <= depot_supplies[d][s][t],\n                    name=f\"DepotCap_D{d}_S{s}_Day{t}\"\n                )\n\n    # Demand constraints: Inflow + slack >= demand\n    for t in days:\n        for u in units:\n            for s in supplies:\n                m.addConstr(\n                    quicksum(flows[(d, u, s, t)] for d in depots) + slacks[(u, s, t)] >= demands[u][s][t],\n                    name=f\"Demand_U{u}_S{s}_Day{t}\"\n                )\n\n    # Vehicle capacity constraints: Total volume <= vehicles * capacity\n    for t in days:\n        for d in depots:\n            for u in units:\n                m.addConstr(\n                    quicksum(supply_volumes[s] * flows[(d, u, s, t)] for s in supplies) <= vehicle_capacity * vehicles[(d, u, t)],\n                    name=f\"VehCap_D{d}_U{u}_Day{t}\"\n                )\n\n    # Route activation constraints: vehicles <= total_vehicles * route\n    for t in days:\n        for d in depots:\n            for u in units:\n                m.addConstr(\n                    vehicles[(d, u, t)] <= total_vehicles * routes[(d, u, t)],\n                    name=f\"RouteAct_D{d}_U{u}_Day{t}\"\n                )\n\n    # Fleet size constraints: Total vehicles <= total_vehicles\n    for t in days:\n        m.addConstr(\n            quicksum(vehicles[(d, u, t)] for d in depots for u in units) <= total_vehicles,\n            name=f\"FleetSize_Day{t}\"\n        )\n\n    m.optimize()\n    return m\n```",
+    "LLM_description": "1. Situation:\nWidespread flooding and landslides have disrupted ground lines of communication across the region. Supply Depot Bravo (port-side storage) and Logistics Node Delta (airfield) remain operational with limited inventories and handling capacity. Forward Operating Base Alpha (isolated valley), Field Hospital Charlie (coastal urban area), and the 3rd Relief Battalion (supporting multiple displacement sites) report urgent requirements for potable water and medical kits. Several corridors traverse unstable slopes and contested zones; convoy movement requires security escorts and route clearance. Air assets are committed elsewhere, placing immediate emphasis on ground convoys.\n\n2. Mission:\nDeliver life-sustaining supplies from Supply Depot Bravo and Logistics Node Delta to Forward Operating Base Alpha, Field Hospital Charlie, and the 3rd Relief Battalion within the current operational period, minimizing total operational cost (variable transport, shortage penalties for unmet need, per-vehicle deployment, and fixed security risk costs for activating routes) while adhering to supply, capacity, and security constraints.\n\n3. Execution/Concept:\n- We will determine shipment flows by supply type from each depot to each receiving unit and assign vehicles to origin\u2013destination pairs accordingly.\n- Constraints:\n  - Depot capacity: Outbound shipments by supply type from each depot cannot exceed available stock at that node.\n  - Demand fulfillment: Inbound deliveries by supply type to each unit should meet stated requirements; any shortfall is recorded as slack and incurs a penalty reflecting humanitarian impact and priority.\n  - Vehicle capacity: Vehicles have fixed carrying capacity; load planning accounts for the different load volumes per supply type. Vehicles are indivisible; fractional dispatch is not permitted.\n  - Route activation: Vehicles can only be dispatched on routes that are activated for the period. Activating a route (sending any vehicles) incurs a fixed Risk Cost, representing the overhead of security escorts, route clearance, and command-and-control\u2014this cost applies once per activated route regardless of how many vehicles are assigned to that route.\n  - Fleet availability: The total number of vehicles dispatched across all routes cannot exceed the fleet available for the period.\n- Risk and route considerations:\n  - Valley corridors to Forward Operating Base Alpha are exposed to landslide aftermath and intermittent security threats; escort and clearance requirements drive the fixed risk cost when activated.\n  - Coastal access to Field Hospital Charlie is constrained by inundated segments and debris; clearance assets will be allocated if the route is activated.\n  - Central corridors to the 3rd Relief Battalion traverse areas with civil unrest, requiring convoy discipline and potential detours.\n- Cost drivers and priorities:\n  - Variable transport costs differ by route and supply type due to distance, road condition, and handling. Bulky water loads may consume capacity rapidly; compact medical kits have lower volume but high urgency.\n  - Shortage penalty rates reflect life-saving priorities at Field Hospital Charlie and stabilization needs at other sites.\n  - Vehicle deployment costs apply per vehicle used; to amortize fixed route risk costs, planners should consolidate loads on any activated route when feasible.\n- Coordination:\n  - Logistics will synchronize with security and engineering for route activation and windows of movement.\n  - Staging will occur at depots to pre-pack loads by destination and supply type, maximizing vehicle utilization within capacity limits.\n  - Final dispatch decisions will balance meeting critical demand against the combined cost of transport, risk, and vehicle usage.\n\n4. Annex A - Logistics Data:\nUnit Demands (Units x Supplies):\nUnit\\Supply | S 0 | S 1\n-----------------------\nU 0        |  31.60 |  20.42\nU 1        |  31.13 |  23.02\nU 2        |  12.55 |  33.61\nDepot Supplies (Depots x Supplies):\nDepot\\Supply | S 0 | S 1\n------------------------\nD 0        |  30.99 |  43.24\nD 1        |  39.26 |  33.52\nTransport Costs (Depot x Unit):\nDepot\\Unit | U 0 | U 1 | U 2\n----------------------------\nD 0        |   4.94 |   1.84 |   1.23\nD 1        |   3.70 |   4.25 |   2.70\nRisk Costs (Depot x Unit):\nDepot\\Unit | U 0 | U 1 | U 2\n----------------------------\nD 0        | 143.66 |  66.64 | 102.99\nD 1        | 196.05 | 151.06 |  62.86\nPenalty Costs per Unit Shortage: [Supply S0: 76.38, Supply S1: 69.66]\nVolume per Supply Unit: [Supply S0: 0.6, Supply S1: 1.11]\nFleet Parameters: Cost 10.0, Capacity 100.0, Total 20",
+    "LLM_description_template": "1. Situation:\nWidespread flooding and landslides have disrupted ground lines of communication across the region. Supply Depot Bravo (port-side storage) and Logistics Node Delta (airfield) remain operational with limited inventories and handling capacity. Forward Operating Base Alpha (isolated valley), Field Hospital Charlie (coastal urban area), and the 3rd Relief Battalion (supporting multiple displacement sites) report urgent requirements for potable water and medical kits. Several corridors traverse unstable slopes and contested zones; convoy movement requires security escorts and route clearance. Air assets are committed elsewhere, placing immediate emphasis on ground convoys.\n\n2. Mission:\nDeliver life-sustaining supplies from Supply Depot Bravo and Logistics Node Delta to Forward Operating Base Alpha, Field Hospital Charlie, and the 3rd Relief Battalion within the current operational period, minimizing total operational cost (variable transport, shortage penalties for unmet need, per-vehicle deployment, and fixed security risk costs for activating routes) while adhering to supply, capacity, and security constraints.\n\n3. Execution/Concept:\n- We will determine shipment flows by supply type from each depot to each receiving unit and assign vehicles to origin\u2013destination pairs accordingly.\n- Constraints:\n  - Depot capacity: Outbound shipments by supply type from each depot cannot exceed available stock at that node.\n  - Demand fulfillment: Inbound deliveries by supply type to each unit should meet stated requirements; any shortfall is recorded as slack and incurs a penalty reflecting humanitarian impact and priority.\n  - Vehicle capacity: Vehicles have fixed carrying capacity; load planning accounts for the different load volumes per supply type. Vehicles are indivisible; fractional dispatch is not permitted.\n  - Route activation: Vehicles can only be dispatched on routes that are activated for the period. Activating a route (sending any vehicles) incurs a fixed Risk Cost, representing the overhead of security escorts, route clearance, and command-and-control\u2014this cost applies once per activated route regardless of how many vehicles are assigned to that route.\n  - Fleet availability: The total number of vehicles dispatched across all routes cannot exceed the fleet available for the period.\n- Risk and route considerations:\n  - Valley corridors to Forward Operating Base Alpha are exposed to landslide aftermath and intermittent security threats; escort and clearance requirements drive the fixed risk cost when activated.\n  - Coastal access to Field Hospital Charlie is constrained by inundated segments and debris; clearance assets will be allocated if the route is activated.\n  - Central corridors to the 3rd Relief Battalion traverse areas with civil unrest, requiring convoy discipline and potential detours.\n- Cost drivers and priorities:\n  - Variable transport costs differ by route and supply type due to distance, road condition, and handling. Bulky water loads may consume capacity rapidly; compact medical kits have lower volume but high urgency.\n  - Shortage penalty rates reflect life-saving priorities at Field Hospital Charlie and stabilization needs at other sites.\n  - Vehicle deployment costs apply per vehicle used; to amortize fixed route risk costs, planners should consolidate loads on any activated route when feasible.\n- Coordination:\n  - Logistics will synchronize with security and engineering for route activation and windows of movement.\n  - Staging will occur at depots to pre-pack loads by destination and supply type, maximizing vehicle utilization within capacity limits.\n  - Final dispatch decisions will balance meeting critical demand against the combined cost of transport, risk, and vehicle usage.\n\n4. Annex A - Logistics Data:\n{DEMANDS}\n{DEPOT_SUPPLIES}\n{TRANSPORT_COSTS}\n{RISK_COSTS}\n{PENALTY_COSTS}\n{SUPPLY_VOLUMES}\nFleet Parameters: Cost {VEHICLE_COST}, Capacity {VEHICLE_CAPACITY}, Total {TOTAL_VEHICLES}"
+}

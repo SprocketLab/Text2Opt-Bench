@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and per-unit contributions are explicit; minima are at-least targets. Model reconstructs exactly with >= constraints and linear cost.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Email framing and repeated 'no contribution' lines add verbosity; core data is clear. Some fluff (greeting, sign-off), but most length lists necessary coefficients.",
+      "realism": 92,
+      "realism_comment": "A realistic SLA-driven resource mix problem with plausible levers and service metrics; fractional availability bounds are somewhat synthetic but acceptable."
+    },
+    "prompt_tokens_with_data": 1508,
+    "prompt_tokens_without_data": 1508
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 121.60626871001458,
+    "optimal_values": {
+      "Var_0": 3.5744823066669995,
+      "Var_1": 4.0,
+      "Var_2": 8.0,
+      "Var_3": 0.0,
+      "Var_4": 8.466127401415573,
+      "Var_5": 0.0,
+      "Var_6": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 103.17
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 128.43
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 16.64
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.4
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 70.06
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 110.26
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.01
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 2.49
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 78.31
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.59
+      ],
+      "objective_linear_coefficient": 3.25,
+      "resource_costs": {
+        "C0": 5.48,
+        "C3": 7.69,
+        "C4": 0.79,
+        "C5": 7.73,
+        "C6": 7.72,
+        "C7": 4.73,
+        "C8": 0.24
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.42
+      ],
+      "objective_linear_coefficient": 3.49,
+      "resource_costs": {
+        "C0": 3.91,
+        "C2": 1.88,
+        "C3": 7.62,
+        "C4": 1.77,
+        "C5": 4.49
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.99
+      ],
+      "objective_linear_coefficient": 4.53,
+      "resource_costs": {
+        "C5": 1.43,
+        "C6": 2.1,
+        "C8": 9.63
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.23
+      ],
+      "objective_linear_coefficient": 6.58,
+      "resource_costs": {
+        "C0": 5.62,
+        "C1": 5.69,
+        "C2": 0.26
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.87
+      ],
+      "objective_linear_coefficient": 5.19,
+      "resource_costs": {
+        "C0": 8.44,
+        "C1": 9.89,
+        "C2": 1.2,
+        "C3": 6.61,
+        "C4": 7.08,
+        "C5": 3.86
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.93
+      ],
+      "objective_linear_coefficient": 8.85,
+      "resource_costs": {
+        "C5": 4.33
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.69
+      ],
+      "objective_linear_coefficient": 3.17,
+      "resource_costs": {
+        "C1": 8.94,
+        "C4": 2.51,
+        "C5": 4.11,
+        "C6": 5.81,
+        "C7": 0.44,
+        "C8": 0.97
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.59, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.25 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.42, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.49 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.99, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.53 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.23, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.58 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.87, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.19 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=7.93, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.85 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.69, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 3.17 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.48 * vars['Var_0'] + 3.91 * vars['Var_1'] + 5.62 * vars['Var_3'] + 8.44 * vars['Var_4'] >= 103.17, name='C0')\n    m.addConstr(5.69 * vars['Var_3'] + 9.89 * vars['Var_4'] + 8.94 * vars['Var_6'] >= 128.43, name='C1')\n    m.addConstr(1.88 * vars['Var_1'] + 0.26 * vars['Var_3'] + 1.2 * vars['Var_4'] >= 16.64, name='C2')\n    m.addConstr(7.69 * vars['Var_0'] + 7.62 * vars['Var_1'] + 6.61 * vars['Var_4'] >= 89.4, name='C3')\n    m.addConstr(0.79 * vars['Var_0'] + 1.77 * vars['Var_1'] + 7.08 * vars['Var_4'] + 2.51 * vars['Var_6'] >= 70.06, name='C4')\n    m.addConstr(7.73 * vars['Var_0'] + 4.49 * vars['Var_1'] + 1.43 * vars['Var_2'] + 3.86 * vars['Var_4'] + 4.33 * vars['Var_5'] + 4.11 * vars['Var_6'] >= 110.26, name='C5')\n    m.addConstr(7.72 * vars['Var_0'] + 2.1 * vars['Var_2'] + 5.81 * vars['Var_6'] >= 41.01, name='C6')\n    m.addConstr(4.73 * vars['Var_0'] + 0.44 * vars['Var_6'] >= 2.49, name='C7')\n    m.addConstr(0.24 * vars['Var_0'] + 9.63 * vars['Var_2'] + 0.97 * vars['Var_6'] >= 78.31, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Inputs for a cost-minimizing service mix to meet our SLA commitments\n\nHi team,\n\nAs discussed, we want to assemble next period\u2019s support mix in a way that meets all of our service-level commitments while keeping total spend as low as possible. Below are the levers we can pull (including what each one costs per unit, how many units we can use, whether they must be booked in whole units, and how they contribute to each of our tracked commitments). I\u2019ve also summarized the minimums we must hit for the period at the end.\n\nLevers we can pull\n\n- Bronze Support Blocks\n  - Cost and availability: 3.25 per block; we can schedule anywhere from 0 up to 16.59 blocks, and we can take fractional blocks.\n  - What this delivers per block:\n    - Baseline Service Hours: 5.48\n    - Priority Response Hours: no contribution\n    - Training & Knowledge Transfer: no contribution\n    - Incident Resolutions: 7.69\n    - Quality/Compliance Audits: 0.79\n    - Completed Work Orders: 7.73\n    - After-Hours Coverage: 7.72\n    - Regulatory Reports Filed: 4.73\n    - Customer Outreach & Engagements: 0.24\n  - No impact on commitments not listed above.\n\n- Field Dispatch Days\n  - Cost and availability: 3.49 per day; we can schedule between 0 and 18.42 days, but these must be booked as whole days.\n  - What this delivers per day:\n    - Baseline Service Hours: 3.91\n    - Priority Response Hours: no contribution\n    - Training & Knowledge Transfer: 1.88\n    - Incident Resolutions: 7.62\n    - Quality/Compliance Audits: 1.77\n    - Completed Work Orders: 4.49\n    - After-Hours Coverage: no contribution\n    - Regulatory Reports Filed: no contribution\n    - Customer Outreach & Engagements: no contribution\n  - No impact on commitments not listed above.\n\n- Customer Success Sprints\n  - Cost and availability: 4.53 per sprint; we can schedule between 0 and 18.99 sprints, and these must be booked in whole sprints.\n  - What this delivers per sprint:\n    - Baseline Service Hours: no contribution\n    - Priority Response Hours: no contribution\n    - Training & Knowledge Transfer: no contribution\n    - Incident Resolutions: no contribution\n    - Quality/Compliance Audits: no contribution\n    - Completed Work Orders: 1.43\n    - After-Hours Coverage: 2.10\n    - Regulatory Reports Filed: no contribution\n    - Customer Outreach & Engagements: 9.63\n  - No impact on commitments not listed above.\n\n- Executive Oversight Hours\n  - Cost and availability: 6.58 per hour-block; we can schedule anywhere from 0 up to 10.23 blocks, and we can take fractional blocks.\n  - What this delivers per block:\n    - Baseline Service Hours: 5.62\n    - Priority Response Hours: 5.69\n    - Training & Knowledge Transfer: 0.26\n    - Incident Resolutions: no contribution\n    - Quality/Compliance Audits: no contribution\n    - Completed Work Orders: no contribution\n    - After-Hours Coverage: no contribution\n    - Regulatory Reports Filed: no contribution\n    - Customer Outreach & Engagements: no contribution\n  - No impact on commitments not listed above.\n\n- Cross-Functional Blitz Days\n  - Cost and availability: 5.19 per day; we can schedule anywhere from 0 up to 19.87 days, and we can take fractional days.\n  - What this delivers per day:\n    - Baseline Service Hours: 8.44\n    - Priority Response Hours: 9.89\n    - Training & Knowledge Transfer: 1.20\n    - Incident Resolutions: 6.61\n    - Quality/Compliance Audits: 7.08\n    - Completed Work Orders: 3.86\n    - After-Hours Coverage: no contribution\n    - Regulatory Reports Filed: no contribution\n    - Customer Outreach & Engagements: no contribution\n  - No impact on commitments not listed above.\n\n- Specialist Interventions\n  - Cost and availability: 8.85 per intervention; we can schedule anywhere from 0 up to 7.93 interventions, and we can take fractional interventions.\n  - What this delivers per intervention:\n    - Completed Work Orders: 4.33\n    - All other commitments: no contribution\n\n- Night Ops Blocks\n  - Cost and availability: 3.17 per block; we can schedule between 0 and 11.69 blocks, but these must be booked as whole blocks.\n  - What this delivers per block:\n    - Baseline Service Hours: no contribution\n    - Priority Response Hours: 8.94\n    - Training & Knowledge Transfer: no contribution\n    - Incident Resolutions: no contribution\n    - Quality/Compliance Audits: 2.51\n    - Completed Work Orders: 4.11\n    - After-Hours Coverage: 5.81\n    - Regulatory Reports Filed: 0.44\n    - Customer Outreach & Engagements: 0.97\n  - No impact on commitments not listed above.\n\nService-level commitments for the period (minimums we must hit)\n\n- Baseline Service Hours: at least 103.17\n- Priority Response Hours: at least 128.43\n- Training & Knowledge Transfer: at least 16.64\n- Incident Resolutions: at least 89.40\n- Quality/Compliance Audits: at least 70.06\n- Completed Work Orders: at least 110.26\n- After-Hours Coverage: at least 41.01\n- Regulatory Reports Filed: at least 2.49\n- Customer Outreach & Engagements: at least 78.31\n\nPlease use the above to build the lowest-cost mix that still satisfies every minimum. Happy to discuss any naming or unit assumptions if you need them adjusted for modeling clarity.\n\nBest,\n[Your Client]"
+}

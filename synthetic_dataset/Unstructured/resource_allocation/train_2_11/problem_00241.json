@@ -1,0 +1,140 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and contribution coefficients are explicit; floors are clear (>=). Objective is minimize spend. Model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business narrative (greeting, procurement note) adds verbosity, but core specs are clear, non-repetitive, and necessary.",
+      "realism": 98,
+      "realism_comment": "Highly realistic service procurement/resource allocation with caps, integer units, and multi-commitment floors; data and rules are plausible."
+    },
+    "prompt_tokens_with_data": 1202,
+    "prompt_tokens_without_data": 1202
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 131.43915789473687,
+    "optimal_values": {
+      "Var_0": 2.0,
+      "Var_1": 13.890526315789474,
+      "Var_2": 0.0,
+      "Var_3": 6.0,
+      "Var_4": 0.0,
+      "Var_5": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 80.84
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 118.96
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 33.94
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.64
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 56.06
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.67
+      ],
+      "objective_linear_coefficient": 6.41,
+      "resource_costs": {
+        "C0": 7.43,
+        "C2": 0.16,
+        "C3": 6.85,
+        "C4": 4.8
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.99
+      ],
+      "objective_linear_coefficient": 6.95,
+      "resource_costs": {
+        "C0": 4.75,
+        "C1": 7.81,
+        "C3": 7.11,
+        "C4": 3.68
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.31
+      ],
+      "objective_linear_coefficient": 8.17,
+      "resource_costs": {
+        "C1": 9.96,
+        "C3": 3.64
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.0
+      ],
+      "objective_linear_coefficient": 3.68,
+      "resource_costs": {
+        "C1": 1.89,
+        "C2": 5.81,
+        "C3": 8.04
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.84
+      ],
+      "objective_linear_coefficient": 4.38,
+      "resource_costs": {
+        "C1": 5.73
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.98
+      ],
+      "objective_linear_coefficient": 4.61,
+      "resource_costs": {
+        "C3": 1.66
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.67, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.41 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.99, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.95 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.31, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.17 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.68 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.84, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.38 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.98, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.61 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.43 * vars['Var_0'] + 4.75 * vars['Var_1'] >= 80.84, name='C0')\n    m.addConstr(7.81 * vars['Var_1'] + 9.96 * vars['Var_2'] + 1.89 * vars['Var_3'] + 5.73 * vars['Var_4'] >= 118.96, name='C1')\n    m.addConstr(0.16 * vars['Var_0'] + 5.81 * vars['Var_3'] >= 33.94, name='C2')\n    m.addConstr(6.85 * vars['Var_0'] + 7.11 * vars['Var_1'] + 3.64 * vars['Var_2'] + 8.04 * vars['Var_3'] + 1.66 * vars['Var_5'] >= 153.64, name='C3')\n    m.addConstr(4.8 * vars['Var_0'] + 3.68 * vars['Var_1'] >= 56.06, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing our 12-month service mix to meet minimum commitments at the lowest possible spend\n\nTeam,\n\nAs discussed, we need to assemble the least-cost mix of service options to satisfy our five contract pillars for the year. Each option below has a fully loaded unit rate and yields credited hours toward one or more of our commitments. There is no minimum purchase on any option (we can select zero), but we do have caps and, in two cases, we must buy in whole units only. Our aim is to meet or exceed all minimums while minimizing total spend.\n\nThe levers we can pull\n\n1) Emergency Response Crews (Tier A)\n- Commercials: $6.41K per crew-unit.\n- Availability: up to 11.67 crew-units for the year; these must be scheduled in whole crew units (no fractional crews).\n- Impact on commitments:\n  \u2022 Round-the-Clock Incident Standby: each crew-unit contributes 7.43 credited standby-hours.\n  \u2022 Training & Knowledge Transfer: no contribution.\n  \u2022 Compliance Field Inspections: 0.16 inspection-hours per crew-unit.\n  \u2022 General Operations Coverage: 6.85 service-hours per crew-unit.\n  \u2022 Executive Stakeholder Briefings: 4.80 briefing-hours per crew-unit.\n\n2) Field Service Teams (Hybrid)\n- Commercials: $6.95K per team-unit.\n- Availability: up to 17.99 team-units for the year; fractional units are allowed.\n- Impact on commitments:\n  \u2022 Round-the-Clock Incident Standby: 4.75 credited standby-hours per team-unit.\n  \u2022 Training & Knowledge Transfer: 7.81 hours per team-unit.\n  \u2022 Compliance Field Inspections: no contribution.\n  \u2022 General Operations Coverage: 7.11 service-hours per team-unit.\n  \u2022 Executive Stakeholder Briefings: 3.68 briefing-hours per team-unit.\n\n3) Specialist Consultants (Expert Sessions)\n- Commercials: $8.17K per consultant-unit.\n- Availability: up to 10.31 consultant-units; fractional units are allowed.\n- Impact on commitments:\n  \u2022 Round-the-Clock Incident Standby: no contribution.\n  \u2022 Training & Knowledge Transfer: 9.96 hours per consultant-unit.\n  \u2022 Compliance Field Inspections: no contribution.\n  \u2022 General Operations Coverage: 3.64 service-hours per consultant-unit.\n  \u2022 Executive Stakeholder Briefings: no contribution.\n\n4) Temporary Technicians (Seasonal)\n- Commercials: $3.68K per tech-unit.\n- Availability: up to 17.00 tech-units; must be scheduled in whole units (full placements only).\n- Impact on commitments:\n  \u2022 Round-the-Clock Incident Standby: no contribution.\n  \u2022 Training & Knowledge Transfer: 1.89 hours per tech-unit.\n  \u2022 Compliance Field Inspections: 5.81 inspection-hours per tech-unit.\n  \u2022 General Operations Coverage: 8.04 service-hours per tech-unit.\n  \u2022 Executive Stakeholder Briefings: no contribution.\n\n5) Training Contractors (Modular Curriculum)\n- Commercials: $4.38K per training-unit.\n- Availability: up to 8.84 training-units; fractional units are allowed.\n- Impact on commitments:\n  \u2022 Round-the-Clock Incident Standby: no contribution.\n  \u2022 Training & Knowledge Transfer: 5.73 hours per training-unit.\n  \u2022 Compliance Field Inspections: no contribution.\n  \u2022 General Operations Coverage: no contribution.\n  \u2022 Executive Stakeholder Briefings: no contribution.\n\n6) Remote Support Licenses (Tiered Seat Packs)\n- Commercials: $4.61K per license-unit.\n- Availability: up to 9.98 license-units; fractional units are allowed.\n- Impact on commitments:\n  \u2022 Round-the-Clock Incident Standby: no contribution.\n  \u2022 Training & Knowledge Transfer: no contribution.\n  \u2022 Compliance Field Inspections: no contribution.\n  \u2022 General Operations Coverage: 1.66 service-hours per license-unit.\n  \u2022 Executive Stakeholder Briefings: no contribution.\n\nService-level floors (contract year)\n- Round-the-Clock Incident Standby: at least 80.84 credited standby-hours.\n- Training & Knowledge Transfer: at least 118.96 hours.\n- Compliance Field Inspections: at least 33.94 inspection-hours.\n- General Operations Coverage: at least 153.64 service-hours.\n- Executive Stakeholder Briefings: at least 56.06 briefing-hours.\n\nPlease configure the mix that meets or exceeds all five floors above while keeping total spend as low as possible, observing the caps and unit rules noted for each option. If you need any additional definitions of \u201cunit\u201d for procurement purposes (e.g., crew-unit as a crew-month equivalent), let me know and I\u2019ll align with Finance and Vendor Management."
+}

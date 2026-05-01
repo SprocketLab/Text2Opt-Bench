@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, and constraints are explicit; objective and signs are clear. Minor potential ambiguity on integrality/variable naming.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative and context adds verbosity, but details are concise via bullet points; little repetition.",
+      "realism": 92,
+      "realism_comment": "Plausible business planning with capacity and sustainability trade-offs; numbers and logic are realistic."
+    },
+    "prompt_tokens_with_data": 706,
+    "prompt_tokens_without_data": 706
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 126.3833101965602,
+    "optimal_values": {
+      "Var_0": 10.52,
+      "Var_1": 8.59090909090909,
+      "Var_2": 8.239864864864865
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 51.03
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -5.94
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.52
+      ],
+      "objective_linear_coefficient": 5.9,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.8
+      ],
+      "objective_linear_coefficient": 1.3,
+      "resource_costs": {
+        "C0": 5.94,
+        "C1": -4.95
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.97
+      ],
+      "objective_linear_coefficient": 6.45,
+      "resource_costs": {
+        "C1": 4.44
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.52, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.9 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.8, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.3 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.97, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.45 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.94 * vars['Var_1'] <= 51.03, name='C0')\n    m.addConstr(-4.95 * vars['Var_1'] + 4.44 * vars['Var_2'] <= -5.94, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix decision for the upcoming planning window \u2014 maximize contribution within our capacity and sustainability commitments\n\nTeam,\n\nWe\u2019re asking for your help to maximize total contribution in the next planning window while staying within our operating limits. We have three levers we can pull; each has different economics and operational/compliance impacts, and each has a hard cap on how much we can push it.\n\nLevers we can adjust\n\n- Premium Add\u2011On Packages\n  - Commercial impact: These generate a contribution of 5.9 per unit.\n  - Operating impact: They do not draw on our assembly\u2011bay hours.\n  - Compliance impact: They are neutral to our net sustainability score (no positive or negative effect).\n  - Feasible range: We can allocate between 0 and 10.52 units in the period.\n\n- Greenline Refurbishment Runs\n  - Commercial impact: These generate a contribution of 1.3 per run.\n  - Operating impact: Each run consumes 5.94 assembly\u2011bay hours.\n  - Compliance impact: Each run improves the net sustainability score by 4.95 points (i.e., it subtracts 4.95 from the cumulative score).\n  - Feasible range: We can schedule between 0 and 15.8 runs in the period.\n\n- Standard Outsourced Lots\n  - Commercial impact: These generate a contribution of 6.45 per lot.\n  - Operating impact: These lots are outsourced and do not consume our assembly\u2011bay hours.\n  - Compliance impact: Each lot adds 4.44 points to the net sustainability score.\n  - Feasible range: We can place between 0 and 8.97 lots in the period.\n\nFacility specs and compliance limits\n\n- Assembly\u2011bay hours: We have at most 51.03 hours available for the period. Only the Greenline Refurbishment Runs draw on this capacity (5.94 hours per run); the other two levers do not use these hours.\n\n- Net sustainability score (lower is better): The combined score for the plan\u2014calculated by adding 4.44 points for every Standard Outsourced Lot and subtracting 4.95 points for every Greenline Refurbishment Run (Premium Add\u2011On Packages have no effect)\u2014must not exceed \u22125.94 for the period.\n\nPlease use these parameters to recommend the mix that delivers the highest total contribution while honoring both the assembly capacity and the sustainability threshold."
+}

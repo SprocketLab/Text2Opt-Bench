@@ -1,0 +1,417 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 16,
+    "num_constraints": 14,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All caps, costs, and metric contributions are explicit; floors map to >= constraints; variables are continuous in [0, cap]. Objective is clear cost minimization. No guessing.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Long narrative with repeated phrasing and some fluff; most length encodes necessary coefficients and bounds.",
+      "realism": 95,
+      "realism_comment": "Plausible field service resource mix with KPI floors and cost minimization; data and structure resemble real OR planning."
+    },
+    "prompt_tokens_with_data": 2302,
+    "prompt_tokens_without_data": 2302
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 323.7493735267622,
+    "optimal_values": {
+      "Var_0": 1.4333966169235497,
+      "Var_1": 5.174218770286796,
+      "Var_2": 6.611768701727542,
+      "Var_3": 0.0,
+      "Var_4": 8.437959306490065,
+      "Var_5": 12.841962403354252,
+      "Var_6": 0.0,
+      "Var_7": 1.689109305034977,
+      "Var_8": 8.03,
+      "Var_9": 7.050269904961621,
+      "Var_10": 0.0,
+      "Var_11": 0.0,
+      "Var_12": 11.26,
+      "Var_13": 8.7,
+      "Var_14": 0.0,
+      "Var_15": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 200.14
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 203.38
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 78.06
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 228.12
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 208.17
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 242.15
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 200.8
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 147.74
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 196.33
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 213.6
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 149.27
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 166.56
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 280.78
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 132.9
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.7
+      ],
+      "objective_linear_coefficient": 7.02,
+      "resource_costs": {
+        "C0": 7.95,
+        "C1": 9.93,
+        "C2": 2.53,
+        "C4": 2.01,
+        "C5": 7.31,
+        "C7": 3.18,
+        "C9": 4.77,
+        "C10": 5.25,
+        "C12": 8.74,
+        "C13": 2.57
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.45
+      ],
+      "objective_linear_coefficient": 2.32,
+      "resource_costs": {
+        "C4": 0.22,
+        "C5": 9.91,
+        "C6": 5.64,
+        "C7": 4.63,
+        "C10": 1.03,
+        "C11": 1.05,
+        "C12": 2.33,
+        "C13": 7.5
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.9
+      ],
+      "objective_linear_coefficient": 7.95,
+      "resource_costs": {
+        "C1": 4.21,
+        "C3": 3.12,
+        "C8": 1.12,
+        "C10": 7.97,
+        "C12": 5.32
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.26
+      ],
+      "objective_linear_coefficient": 4.86,
+      "resource_costs": {
+        "C1": 3.94,
+        "C3": 0.4,
+        "C4": 4.91,
+        "C5": 5.67,
+        "C6": 6.33,
+        "C9": 8.03,
+        "C10": 0.9,
+        "C11": 0.79,
+        "C12": 1.6
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.68
+      ],
+      "objective_linear_coefficient": 4.51,
+      "resource_costs": {
+        "C1": 7.2,
+        "C3": 8.26,
+        "C6": 3.81,
+        "C7": 4.62,
+        "C12": 7.34
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.79
+      ],
+      "objective_linear_coefficient": 4.04,
+      "resource_costs": {
+        "C1": 7.89,
+        "C2": 7.08,
+        "C3": 1.81,
+        "C4": 9.46,
+        "C5": 8.25,
+        "C6": 3.77,
+        "C7": 0.64,
+        "C9": 6.82,
+        "C11": 4.37,
+        "C12": 8.78,
+        "C13": 6.03
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.31
+      ],
+      "objective_linear_coefficient": 9.74,
+      "resource_costs": {
+        "C0": 2.07,
+        "C1": 1.08,
+        "C3": 6.03,
+        "C4": 0.89,
+        "C5": 6.28,
+        "C6": 1.29,
+        "C7": 2.52,
+        "C9": 8.45,
+        "C11": 5.08,
+        "C12": 6.62,
+        "C13": 7.88
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.75
+      ],
+      "objective_linear_coefficient": 5.31,
+      "resource_costs": {
+        "C1": 8.3,
+        "C2": 6.39,
+        "C4": 5.71,
+        "C5": 8.54,
+        "C6": 2.41,
+        "C9": 4.25,
+        "C10": 5.36,
+        "C11": 1.21
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.03
+      ],
+      "objective_linear_coefficient": 4.14,
+      "resource_costs": {
+        "C0": 5.96,
+        "C2": 2.31,
+        "C3": 4.65,
+        "C4": 6.65,
+        "C6": 7.35,
+        "C8": 5.03,
+        "C9": 5.24,
+        "C10": 2.82,
+        "C11": 4.78,
+        "C12": 4.06
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.23
+      ],
+      "objective_linear_coefficient": 2.54,
+      "resource_costs": {
+        "C0": 1.1,
+        "C2": 1.58,
+        "C3": 1.8,
+        "C4": 7.28,
+        "C6": 1.8,
+        "C7": 7.18,
+        "C8": 1.04,
+        "C11": 9.16,
+        "C13": 1.84
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.62
+      ],
+      "objective_linear_coefficient": 2.3,
+      "resource_costs": {
+        "C0": 1.79,
+        "C1": 6.95,
+        "C3": 0.04,
+        "C4": 6.15,
+        "C5": 4.01,
+        "C8": 5.02,
+        "C9": 1.7,
+        "C12": 7.08,
+        "C13": 6.84
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.54
+      ],
+      "objective_linear_coefficient": 7.33,
+      "resource_costs": {
+        "C0": 7.66,
+        "C1": 6.42,
+        "C2": 0.33,
+        "C3": 9.76,
+        "C6": 9.41,
+        "C7": 5.17,
+        "C8": 9.49,
+        "C9": 0.98,
+        "C12": 5.81
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.26
+      ],
+      "objective_linear_coefficient": 7.94,
+      "resource_costs": {
+        "C0": 4.29,
+        "C3": 5.73,
+        "C4": 7.57,
+        "C6": 6.74,
+        "C8": 8.06,
+        "C9": 6.21,
+        "C10": 4.62,
+        "C12": 2.83
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.7
+      ],
+      "objective_linear_coefficient": 1.11,
+      "resource_costs": {
+        "C0": 9.75,
+        "C2": 5.19,
+        "C4": 3.15,
+        "C5": 7.63,
+        "C6": 1.67,
+        "C7": 2.46,
+        "C8": 7.36
+      }
+    },
+    "Var_14": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.47
+      ],
+      "objective_linear_coefficient": 7.67,
+      "resource_costs": {
+        "C3": 0.23,
+        "C5": 9.63,
+        "C7": 2.7,
+        "C11": 8.29,
+        "C12": 3.13,
+        "C13": 3.12
+      }
+    },
+    "Var_15": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.12
+      ],
+      "objective_linear_coefficient": 7.44,
+      "resource_costs": {
+        "C0": 0.24,
+        "C1": 8.33,
+        "C2": 1.82,
+        "C4": 5.92,
+        "C5": 4.21,
+        "C6": 2.45,
+        "C7": 3.27,
+        "C8": 3.7,
+        "C9": 7.2,
+        "C10": 0.74,
+        "C11": 0.88,
+        "C13": 1.64
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.7, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.02 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.45, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.32 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=11.62, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 2.3 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=18.54, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 7.33 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=11.26, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 7.94 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=8.7, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 1.11 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=18.47, vtype=GRB.CONTINUOUS, name='Var_14')\n    lin_expr += 7.67 * vars['Var_14']\n    vars['Var_15'] = m.addVar(lb=0.0, ub=9.12, vtype=GRB.CONTINUOUS, name='Var_15')\n    lin_expr += 7.44 * vars['Var_15']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.9, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.95 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.26, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.86 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.68, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.51 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.79, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.04 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.31, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 9.74 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=19.75, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 5.31 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=8.03, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 4.14 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=10.23, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 2.54 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.95 * vars['Var_0'] + 1.79 * vars['Var_10'] + 7.66 * vars['Var_11'] + 4.29 * vars['Var_12'] + 9.75 * vars['Var_13'] + 0.24 * vars['Var_15'] + 2.07 * vars['Var_6'] + 5.96 * vars['Var_8'] + 1.1 * vars['Var_9'] >= 200.14, name='C0')\n    m.addConstr(9.93 * vars['Var_0'] + 6.95 * vars['Var_10'] + 6.42 * vars['Var_11'] + 8.33 * vars['Var_15'] + 4.21 * vars['Var_2'] + 3.94 * vars['Var_3'] + 7.2 * vars['Var_4'] + 7.89 * vars['Var_5'] + 1.08 * vars['Var_6'] + 8.3 * vars['Var_7'] >= 203.38, name='C1')\n    m.addConstr(5.25 * vars['Var_0'] + 1.03 * vars['Var_1'] + 4.62 * vars['Var_12'] + 0.74 * vars['Var_15'] + 7.97 * vars['Var_2'] + 0.9 * vars['Var_3'] + 5.36 * vars['Var_7'] + 2.82 * vars['Var_8'] >= 149.27, name='C10')\n    m.addConstr(1.05 * vars['Var_1'] + 8.29 * vars['Var_14'] + 0.88 * vars['Var_15'] + 0.79 * vars['Var_3'] + 4.37 * vars['Var_5'] + 5.08 * vars['Var_6'] + 1.21 * vars['Var_7'] + 4.78 * vars['Var_8'] + 9.16 * vars['Var_9'] >= 166.56, name='C11')\n    m.addConstr(8.74 * vars['Var_0'] + 2.33 * vars['Var_1'] + 7.08 * vars['Var_10'] + 5.81 * vars['Var_11'] + 2.83 * vars['Var_12'] + 3.13 * vars['Var_14'] + 5.32 * vars['Var_2'] + 1.6 * vars['Var_3'] + 7.34 * vars['Var_4'] + 8.78 * vars['Var_5'] + 6.62 * vars['Var_6'] + 4.06 * vars['Var_8'] >= 280.78, name='C12')\n    m.addConstr(2.57 * vars['Var_0'] + 7.5 * vars['Var_1'] + 6.84 * vars['Var_10'] + 3.12 * vars['Var_14'] + 1.64 * vars['Var_15'] + 6.03 * vars['Var_5'] + 7.88 * vars['Var_6'] + 1.84 * vars['Var_9'] >= 132.9, name='C13')\n    m.addConstr(2.53 * vars['Var_0'] + 0.33 * vars['Var_11'] + 5.19 * vars['Var_13'] + 1.82 * vars['Var_15'] + 7.08 * vars['Var_5'] + 6.39 * vars['Var_7'] + 2.31 * vars['Var_8'] + 1.58 * vars['Var_9'] >= 78.06, name='C2')\n    m.addConstr(0.04 * vars['Var_10'] + 9.76 * vars['Var_11'] + 5.73 * vars['Var_12'] + 0.23 * vars['Var_14'] + 3.12 * vars['Var_2'] + 0.4 * vars['Var_3'] + 8.26 * vars['Var_4'] + 1.81 * vars['Var_5'] + 6.03 * vars['Var_6'] + 4.65 * vars['Var_8'] + 1.8 * vars['Var_9'] >= 228.12, name='C3')\n    m.addConstr(2.01 * vars['Var_0'] + 0.22 * vars['Var_1'] + 6.15 * vars['Var_10'] + 7.57 * vars['Var_12'] + 3.15 * vars['Var_13'] + 5.92 * vars['Var_15'] + 4.91 * vars['Var_3'] + 9.46 * vars['Var_5'] + 0.89 * vars['Var_6'] + 5.71 * vars['Var_7'] + 6.65 * vars['Var_8'] + 7.28 * vars['Var_9'] >= 208.17, name='C4')\n    m.addConstr(7.31 * vars['Var_0'] + 9.91 * vars['Var_1'] + 4.01 * vars['Var_10'] + 7.63 * vars['Var_13'] + 9.63 * vars['Var_14'] + 4.21 * vars['Var_15'] + 5.67 * vars['Var_3'] + 8.25 * vars['Var_5'] + 6.28 * vars['Var_6'] + 8.54 * vars['Var_7'] >= 242.15, name='C5')\n    m.addConstr(5.64 * vars['Var_1'] + 9.41 * vars['Var_11'] + 6.74 * vars['Var_12'] + 1.67 * vars['Var_13'] + 2.45 * vars['Var_15'] + 6.33 * vars['Var_3'] + 3.81 * vars['Var_4'] + 3.77 * vars['Var_5'] + 1.29 * vars['Var_6'] + 2.41 * vars['Var_7'] + 7.35 * vars['Var_8'] + 1.8 * vars['Var_9'] >= 200.8, name='C6')\n    m.addConstr(3.18 * vars['Var_0'] + 4.63 * vars['Var_1'] + 5.17 * vars['Var_11'] + 2.46 * vars['Var_13'] + 2.7 * vars['Var_14'] + 3.27 * vars['Var_15'] + 4.62 * vars['Var_4'] + 0.64 * vars['Var_5'] + 2.52 * vars['Var_6'] + 7.18 * vars['Var_9'] >= 147.74, name='C7')\n    m.addConstr(5.02 * vars['Var_10'] + 9.49 * vars['Var_11'] + 8.06 * vars['Var_12'] + 7.36 * vars['Var_13'] + 3.7 * vars['Var_15'] + 1.12 * vars['Var_2'] + 5.03 * vars['Var_8'] + 1.04 * vars['Var_9'] >= 196.33, name='C8')\n    m.addConstr(4.77 * vars['Var_0'] + 1.7 * vars['Var_10'] + 0.98 * vars['Var_11'] + 6.21 * vars['Var_12'] + 7.2 * vars['Var_15'] + 8.03 * vars['Var_3'] + 6.82 * vars['Var_5'] + 8.45 * vars['Var_6'] + 4.25 * vars['Var_7'] + 5.24 * vars['Var_8'] >= 213.6, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized Field Service Mix for This Quarter\n\nTeam,\n\nWe\u2019re preparing the quarterly deployment plan for our field service and customer operations. The goal is to meet or exceed all contractual service floors across our fourteen operating metrics while minimizing our run-rate cost. Below is the mix of levers we can flex this quarter; each lever can be partially deployed up to its cap and comes with a per-unit operating cost and measurable contributions to the service metrics. Please review with the cost target in mind.\n\nMetro Fast-Response Crews (cap up to 9.70 crew-days; unit cost 7.02)\nEach crew-day here drives 7.95 Metropolitan Response Hours, 9.93 Priority Case Resolutions, and 2.53 Onboarding Training Sessions. It also processes 2.01 Warranty Claims and supports 7.31 Same-Day Deliveries. Community Outreach benefits by 3.18 units, Rural Service Calls by 4.77, and Quality Audits by 5.25. Parts Installed increases by 8.74, and Sustainability Reporting Items by 2.57.\n\nExtended Hours Backlog Team (cap up to 18.45 crew-days; unit cost 2.32)\nEach crew-day contributes 0.22 Warranty Claims Processed, 9.91 Same-Day Deliveries, and 5.64 Safety Compliance Inspections. We get 4.63 Community Outreach Events, 1.03 Quality Audits Completed, and 1.05 Customer Feedback Interviews. Parts Installed rise by 2.33 per crew-day, and Sustainability Reporting Items by 7.50.\n\nTechnical Specialist Dispatches (cap up to 10.90 crew-days; unit cost 7.95)\nEvery crew-day here yields 4.21 Priority Case Resolutions and 3.12 Preventive Maintenance Visits. It also adds 1.12 Digital Support Tickets, 7.97 Quality Audits Completed, and 5.32 Parts Installed.\n\nInstallation Taskforce (cap up to 6.26 crew-days; unit cost 4.86)\nPer crew-day, we gain 3.94 Priority Case Resolutions and 0.40 Preventive Maintenance Visits. Warranty Claims Processed increase by 4.91, Same-Day Deliveries by 5.67, and Safety Compliance Inspections by 6.33. Rural Service Calls grow by 8.03 per crew-day, with 0.90 Quality Audits and 0.79 Customer Feedback Interviews. Parts Installed add 1.60.\n\nWarranty Field Unit (cap up to 9.68 crew-days; unit cost 4.51)\nEach crew-day delivers 7.20 Priority Case Resolutions and 8.26 Preventive Maintenance Visits. It provides 3.81 Safety Compliance Inspections and 4.62 Community Outreach Events, plus 7.34 Parts Installed.\n\nRegional Support Fleet (cap up to 17.79 crew-days; unit cost 4.04)\nPer crew-day, we secure 7.89 Priority Case Resolutions and 7.08 Onboarding Training Sessions. Preventive Maintenance Visits increase by 1.81, Warranty Claims Processed by 9.46, and Same-Day Deliveries by 8.25. This also boosts Safety Compliance Inspections by 3.77, Community Outreach Events by 0.64, and Rural Service Calls by 6.82. Customer Feedback Interviews rise by 4.37, Parts Installed by 8.78, and Sustainability Reporting Items by 6.03.\n\nContractor Surge Capacity (cap up to 19.31 crew-days; unit cost 9.74)\nEach crew-day adds 2.07 Metropolitan Response Hours and 1.08 Priority Case Resolutions. It supports 6.03 Preventive Maintenance Visits and 0.89 Warranty Claims, with 6.28 Same-Day Deliveries and 1.29 Safety Compliance Inspections. Community Outreach grows by 2.52 per crew-day, Rural Service Calls by 8.45, and Customer Feedback Interviews by 5.08. Parts Installed increase by 6.62, and Sustainability Reporting Items by 7.88.\n\nMixed-Shift Crew Pool (cap up to 19.75 crew-days; unit cost 5.31)\nPer crew-day, this pool contributes 8.30 Priority Case Resolutions and 6.39 Onboarding Training Sessions. Warranty Claims Processed rise by 5.71, Same-Day Deliveries by 8.54, and Safety Compliance Inspections by 2.41. We also net 4.25 Rural Service Calls, 5.36 Quality Audits Completed, and 1.21 Customer Feedback Interviews.\n\nDigital-First Hybrid Team (cap up to 8.03 crew-days; unit cost 4.14)\nEach crew-day provides 5.96 Metropolitan Response Hours and 2.31 Onboarding Training Sessions. It adds 4.65 Preventive Maintenance Visits, 6.65 Warranty Claims Processed, and 7.35 Safety Compliance Inspections. Digital Support Tickets increase by 5.03, Rural Service Calls by 5.24, and Quality Audits by 2.82. We also gain 4.78 Customer Feedback Interviews and 4.06 Parts Installed.\n\nCommunity Field Agents (cap up to 10.23 crew-days; unit cost 2.54)\nPer crew-day, we add 1.10 Metropolitan Response Hours and 1.58 Onboarding Training Sessions. Preventive Maintenance Visits increase by 1.80, Warranty Claims Processed by 7.28, and Safety Compliance Inspections by 1.80. Community Outreach Events grow by 7.18, Digital Support Tickets by 1.04, and Customer Feedback Interviews by 9.16. Sustainability Reporting Items increase by 1.84.\n\nQuality & Expedite Cell (cap up to 11.62 crew-days; unit cost 2.30)\nEach crew-day strengthens 1.79 Metropolitan Response Hours and 6.95 Priority Case Resolutions. It completes 0.04 Preventive Maintenance Visits, processes 6.15 Warranty Claims, and supports 4.01 Same-Day Deliveries. Digital Support Tickets increase by 5.02, Rural Service Calls by 1.70, Parts Installed by 7.08, and Sustainability Reporting Items by 6.84.\n\nNew Customer Launch Team (cap up to 18.54 crew-days; unit cost 7.33)\nPer crew-day, we deliver 7.66 Metropolitan Response Hours and 6.42 Priority Case Resolutions. Onboarding Training Sessions rise by 0.33, and Preventive Maintenance Visits by 9.76. Safety Compliance Inspections increase by 9.41, Community Outreach Events by 5.17, and Digital Support Tickets by 9.49. Rural Service Calls add 0.98 per crew-day, and Parts Installed increase by 5.81.\n\nParts Replacement Crew (cap up to 11.26 crew-days; unit cost 7.94)\nEach crew-day provides 4.29 Metropolitan Response Hours and 5.73 Preventive Maintenance Visits. Warranty Claims Processed rise by 7.57, Safety Compliance Inspections by 6.74, and Digital Support Tickets by 8.06. Rural Service Calls increase by 6.21, Quality Audits Completed by 4.62, and Parts Installed by 2.83.\n\nEco Outreach Squad (cap up to 8.70 crew-days; unit cost 1.11)\nPer crew-day, we gain 9.75 Metropolitan Response Hours and 5.19 Onboarding Training Sessions. It contributes 3.15 Warranty Claims Processed and 7.63 Same-Day Deliveries. Safety Compliance Inspections increase by 1.67, Community Outreach Events by 2.46, and Digital Support Tickets by 7.36.\n\nEvent-Driven Rapid Unit (cap up to 18.47 crew-days; unit cost 7.67)\nEach crew-day yields 0.23 Preventive Maintenance Visits, 9.63 Same-Day Deliveries, and 2.70 Community Outreach Events. We also add 8.29 Customer Feedback Interviews, 3.13 Parts Installed, and 3.12 Sustainability Reporting Items.\n\nCoverage Stabilization Crew (cap up to 9.12 crew-days; unit cost 7.44)\nPer crew-day, this crew contributes 0.24 Metropolitan Response Hours and 8.33 Priority Case Resolutions. Onboarding Training Sessions rise by 1.82, Warranty Claims Processed by 5.92, and Same-Day Deliveries by 4.21. Safety Compliance Inspections increase by 2.45, Community Outreach Events by 3.27, and Digital Support Tickets by 3.70. Rural Service Calls grow by 7.20, Quality Audits Completed by 0.74, Customer Feedback Interviews by 0.88, and Sustainability Reporting Items by 1.64.\n\nFacility Specs and Market Limits (minimum service floors to be met this quarter)\n- Metropolitan Response Hours: at least 200.14\n- Priority Case Resolutions: at least 203.38\n- Onboarding Training Sessions: at least 78.06\n- Preventive Maintenance Visits: at least 228.12\n- Warranty Claims Processed: at least 208.17\n- Same-Day Deliveries: at least 242.15\n- Safety Compliance Inspections: at least 200.80\n- Community Outreach Events: at least 147.74\n- Digital Support Tickets: at least 196.33\n- Rural Service Calls: at least 213.60\n- Quality Audits Completed: at least 149.27\n- Customer Feedback Interviews: at least 166.56\n- Parts Installed: at least 280.78\n- Sustainability Reporting Items: at least 132.90\n\nIf we all align on these levers and limits, we\u2019ll target the lowest feasible operating cost while honoring every contractual and compliance floor. I\u2019m available to walk through the sensitivities and the trade-offs among the crews before we lock the schedule."
+}

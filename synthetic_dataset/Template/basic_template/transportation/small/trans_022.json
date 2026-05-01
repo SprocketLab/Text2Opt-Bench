@@ -1,0 +1,688 @@
+{
+    "meta": {
+        "optimization_type": "LP",
+        "problem_type": "Transportation Problem",
+        "goal": "MINIMIZE",
+        "num_vars": 40,
+        "num_constraints": 14,
+        "is_integer": false,
+        "prompt_tokens_with_data": 653,
+        "prompt_tokens_without_data": 311
+    },
+    "instance_data": {
+        "integer_flows": false,
+        "num_sources": 4,
+        "num_destinations": 10,
+        "supplies": [
+            143,
+            206,
+            168,
+            200
+        ],
+        "demands": [
+            69,
+            52,
+            12,
+            42,
+            20,
+            33,
+            32,
+            64,
+            79,
+            57
+        ],
+        "cost_matrix": [
+            [
+                13.81,
+                27.13,
+                9.69,
+                16.75,
+                22.38,
+                13.91,
+                14.63,
+                5.4,
+                20.21,
+                10.53
+            ],
+            [
+                6.93,
+                8.45,
+                20.34,
+                27.61,
+                24.73,
+                5.28,
+                11.79,
+                7.75,
+                16.68,
+                25.33
+            ],
+            [
+                6.87,
+                19.3,
+                19.58,
+                19.97,
+                5.82,
+                14.57,
+                19.89,
+                12.95,
+                23.02,
+                24.32
+            ],
+            [
+                9.71,
+                25.01,
+                24.55,
+                21.45,
+                25.41,
+                6.95,
+                6.47,
+                24.77,
+                9.95,
+                14.03
+            ]
+        ]
+    },
+    "gurobi_result": {
+        "solver_status": 2,
+        "theoretical_optimum": 4037.9500000000007,
+        "optimal_values": {
+            "Flow_S0_D0": 0.0,
+            "Flow_S0_D1": 0.0,
+            "Flow_S0_D2": 12.0,
+            "Flow_S0_D3": 42.0,
+            "Flow_S0_D4": 0.0,
+            "Flow_S0_D5": 0.0,
+            "Flow_S0_D6": 0.0,
+            "Flow_S0_D7": 32.0,
+            "Flow_S0_D8": 0.0,
+            "Flow_S0_D9": 57.0,
+            "Flow_S1_D0": 0.0,
+            "Flow_S1_D1": 52.0,
+            "Flow_S1_D2": 0.0,
+            "Flow_S1_D3": 0.0,
+            "Flow_S1_D4": 0.0,
+            "Flow_S1_D5": 33.0,
+            "Flow_S1_D6": 0.0,
+            "Flow_S1_D7": 32.0,
+            "Flow_S1_D8": 0.0,
+            "Flow_S1_D9": 0.0,
+            "Flow_S2_D0": 69.0,
+            "Flow_S2_D1": 0.0,
+            "Flow_S2_D2": 0.0,
+            "Flow_S2_D3": 0.0,
+            "Flow_S2_D4": 20.0,
+            "Flow_S2_D5": 0.0,
+            "Flow_S2_D6": 0.0,
+            "Flow_S2_D7": 0.0,
+            "Flow_S2_D8": 0.0,
+            "Flow_S2_D9": 0.0,
+            "Flow_S3_D0": 0.0,
+            "Flow_S3_D1": 0.0,
+            "Flow_S3_D2": 0.0,
+            "Flow_S3_D3": 0.0,
+            "Flow_S3_D4": 0.0,
+            "Flow_S3_D5": 0.0,
+            "Flow_S3_D6": 32.0,
+            "Flow_S3_D7": 0.0,
+            "Flow_S3_D8": 79.0,
+            "Flow_S3_D9": 0.0
+        }
+    },
+    "constraints": {
+        "Supply_S0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 143.0
+        },
+        "Supply_S1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 206.0
+        },
+        "Supply_S2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 168.0
+        },
+        "Supply_S3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 200.0
+        },
+        "Demand_D0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 69.0
+        },
+        "Demand_D1": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 52.0
+        },
+        "Demand_D2": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 12.0
+        },
+        "Demand_D3": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 42.0
+        },
+        "Demand_D4": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 20.0
+        },
+        "Demand_D5": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 33.0
+        },
+        "Demand_D6": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 32.0
+        },
+        "Demand_D7": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 64.0
+        },
+        "Demand_D8": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 79.0
+        },
+        "Demand_D9": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 57.0
+        }
+    },
+    "variables": {
+        "Flow_S0_D0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 13.81,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D0": 1.0
+            }
+        },
+        "Flow_S0_D1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 27.13,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D1": 1.0
+            }
+        },
+        "Flow_S0_D2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 9.69,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D2": 1.0
+            }
+        },
+        "Flow_S0_D3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 16.75,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D3": 1.0
+            }
+        },
+        "Flow_S0_D4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 22.38,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D4": 1.0
+            }
+        },
+        "Flow_S0_D5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 13.91,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D5": 1.0
+            }
+        },
+        "Flow_S0_D6": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 14.63,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D6": 1.0
+            }
+        },
+        "Flow_S0_D7": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 5.4,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D7": 1.0
+            }
+        },
+        "Flow_S0_D8": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 20.21,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D8": 1.0
+            }
+        },
+        "Flow_S0_D9": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.53,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D9": 1.0
+            }
+        },
+        "Flow_S1_D0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 6.93,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D0": 1.0
+            }
+        },
+        "Flow_S1_D1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 8.45,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D1": 1.0
+            }
+        },
+        "Flow_S1_D2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 20.34,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D2": 1.0
+            }
+        },
+        "Flow_S1_D3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 27.61,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D3": 1.0
+            }
+        },
+        "Flow_S1_D4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 24.73,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D4": 1.0
+            }
+        },
+        "Flow_S1_D5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 5.28,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D5": 1.0
+            }
+        },
+        "Flow_S1_D6": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 11.79,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D6": 1.0
+            }
+        },
+        "Flow_S1_D7": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 7.75,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D7": 1.0
+            }
+        },
+        "Flow_S1_D8": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 16.68,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D8": 1.0
+            }
+        },
+        "Flow_S1_D9": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 25.33,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D9": 1.0
+            }
+        },
+        "Flow_S2_D0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 6.87,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D0": 1.0
+            }
+        },
+        "Flow_S2_D1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 19.3,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D1": 1.0
+            }
+        },
+        "Flow_S2_D2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 19.58,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D2": 1.0
+            }
+        },
+        "Flow_S2_D3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 19.97,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D3": 1.0
+            }
+        },
+        "Flow_S2_D4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 5.82,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D4": 1.0
+            }
+        },
+        "Flow_S2_D5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 14.57,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D5": 1.0
+            }
+        },
+        "Flow_S2_D6": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 19.89,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D6": 1.0
+            }
+        },
+        "Flow_S2_D7": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 12.95,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D7": 1.0
+            }
+        },
+        "Flow_S2_D8": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 23.02,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D8": 1.0
+            }
+        },
+        "Flow_S2_D9": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 24.32,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D9": 1.0
+            }
+        },
+        "Flow_S3_D0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 9.71,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D0": 1.0
+            }
+        },
+        "Flow_S3_D1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 25.01,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D1": 1.0
+            }
+        },
+        "Flow_S3_D2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 24.55,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D2": 1.0
+            }
+        },
+        "Flow_S3_D3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 21.45,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D3": 1.0
+            }
+        },
+        "Flow_S3_D4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 25.41,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D4": 1.0
+            }
+        },
+        "Flow_S3_D5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 6.95,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D5": 1.0
+            }
+        },
+        "Flow_S3_D6": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 6.47,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D6": 1.0
+            }
+        },
+        "Flow_S3_D7": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 24.77,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D7": 1.0
+            }
+        },
+        "Flow_S3_D8": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 9.95,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D8": 1.0
+            }
+        },
+        "Flow_S3_D9": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 14.03,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D9": 1.0
+            }
+        }
+    },
+    "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    m = Model(\"Transportation_Problem\")\n    m.setParam(\"TimeLimit\", 300)  # Set time limit to 300 seconds\n\n    # Data\n    sources = list(range(4))  # S0..S3\n    destinations = list(range(10))  # D0..D9\n\n    supplies = [143, 206, 168, 200]\n    demands = [69, 52, 12, 42, 20, 33, 32, 64, 79, 57]\n\n    # Cost matrix: rows correspond to sources S0..S3, columns to destinations D0..D9\n    costs = [\n        [ 13.81,  27.13,   9.69,  16.75,  22.38,  13.91,  14.63,   5.40,  20.21,  10.53],  # S0\n        [  6.93,   8.45,  20.34,  27.61,  24.73,   5.28,  11.79,   7.75,  16.68,  25.33],  # S1\n        [  6.87,  19.30,  19.58,  19.97,   5.82,  14.57,  19.89,  12.95,  23.02,  24.32],  # S2\n        [  9.71,  25.01,  24.55,  21.45,  25.41,   6.95,   6.47,  24.77,   9.95,  14.03],  # S3\n    ]\n\n    # Decision variables:\n    # Flow_S{i}_D{j} >= 0 is the quantity shipped from source i to destination j\n    flows = {}\n    for i in sources:\n        for j in destinations:\n            flows[(i, j)] = m.addVar(lb=0.0, vtype=GRB.CONTINUOUS, name=f\"Flow_S{i}_D{j}\")\n\n    # Objective: Minimize total transportation cost\n    m.setObjective(\n        quicksum(costs[i][j] * flows[(i, j)] for i in sources for j in destinations),\n        GRB.MINIMIZE\n    )\n\n    # Supply constraints: Shipments from each source <= its supply\n    for i in sources:\n        m.addConstr(\n            quicksum(flows[(i, j)] for j in destinations) <= supplies[i],\n            name=f\"Supply_S{i}\"\n        )\n\n    # Demand constraints: Shipments to each destination >= its demand\n    for j in destinations:\n        m.addConstr(\n            quicksum(flows[(i, j)] for i in sources) >= demands[j],\n            name=f\"Demand_D{j}\"\n        )\n\n    m.optimize()\n    return m\n```",
+    "LLM_description": "To: Operations and Finance Leadership\nFrom: Supply Chain Director\nSubject: Cost-Effective Shipping Plan for Multi-Source Distribution\nDate: As of today\n\nSituation:\nWe operate a network with multiple source locations serving multiple destinations. As demand remains firm and freight markets remain dynamic, routing orders intelligently is essential to control transportation spend and protect service levels. Matching origins to destinations thoughtfully reduces cost, keeps shelves stocked, and minimizes the need for expedited shipments.\n\nProblem:\nWe need to determine how much to ship from each source to each destination. Each source has limited available inventory and throughput. Each destination has a defined requirement that must be covered. Shipping costs differ by route due to distance, mode, and carrier agreements. Partial shipments are allowed, so destinations can be served from more than one source and orders do not need to ship in whole pallet quantities.\n\nGoal:\nDevelop a shipping plan that meets every destination\u2019s requirement without exceeding any source\u2019s availability, while achieving the lowest possible total transportation cost. The resulting plan will specify lane-level allocations for execution and provide a clear view of the expected freight spend for financial review.\n\nNext Steps:\n- Use the attached data to evaluate routing options and propose a source-to-destination allocation that meets all requirements at the lowest total cost.\n- Review operational feasibility with site teams and address any lane or handling limitations.\n- Finalize and publish the plan for execution, with ongoing monitoring of cost and service performance.\n\nAnnex \u2013 Shipping Data:\n[143, 206, 168, 200]\n[69, 52, 12, 42, 20, 33, 32, 64, 79, 57]\nCost Matrix (4 sources \u00d7 10 destinations):\n\nSource\\Dest | D 0 | D 1 | D 2 | D 3 | D 4 | D 5 | D 6 | D 7 | D 8 | D 9\n-----------------------------------------------------------------------\nS 0        |  13.81 |  27.13 |   9.69 |  16.75 |  22.38 |  13.91 |  14.63 |   5.40 |  20.21 |  10.53\nS 1        |   6.93 |   8.45 |  20.34 |  27.61 |  24.73 |   5.28 |  11.79 |   7.75 |  16.68 |  25.33\nS 2        |   6.87 |  19.30 |  19.58 |  19.97 |   5.82 |  14.57 |  19.89 |  12.95 |  23.02 |  24.32\nS 3        |   9.71 |  25.01 |  24.55 |  21.45 |  25.41 |   6.95 |   6.47 |  24.77 |   9.95 |  14.03",
+    "LLM_description_template": "To: Operations and Finance Leadership\nFrom: Supply Chain Director\nSubject: Cost-Effective Shipping Plan for Multi-Source Distribution\nDate: As of today\n\nSituation:\nWe operate a network with multiple source locations serving multiple destinations. As demand remains firm and freight markets remain dynamic, routing orders intelligently is essential to control transportation spend and protect service levels. Matching origins to destinations thoughtfully reduces cost, keeps shelves stocked, and minimizes the need for expedited shipments.\n\nProblem:\nWe need to determine how much to ship from each source to each destination. Each source has limited available inventory and throughput. Each destination has a defined requirement that must be covered. Shipping costs differ by route due to distance, mode, and carrier agreements. Partial shipments are allowed, so destinations can be served from more than one source and orders do not need to ship in whole pallet quantities.\n\nGoal:\nDevelop a shipping plan that meets every destination\u2019s requirement without exceeding any source\u2019s availability, while achieving the lowest possible total transportation cost. The resulting plan will specify lane-level allocations for execution and provide a clear view of the expected freight spend for financial review.\n\nNext Steps:\n- Use the attached data to evaluate routing options and propose a source-to-destination allocation that meets all requirements at the lowest total cost.\n- Review operational feasibility with site teams and address any lane or handling limitations.\n- Finalize and publish the plan for execution, with ongoing monitoring of cost and service performance.\n\nAnnex \u2013 Shipping Data:\n{SUPPLIES}\n{DEMANDS}\n{COST_MATRIX}"
+}

@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 10,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and per-option contributions are explicit; 'at least' gives >=. LB=0 implied. Fractional caps on integer units are clear (floor effect). Objective is clear cost minimization.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Memo-style and verbose; repeats \u201cno contribution\u201d often and includes some fluff, but most verbosity conveys needed coefficients and bounds.",
+      "realism": 94,
+      "realism_comment": "Feels like a genuine staffing/service planning MILP with plausible metrics, costs, caps, and integrality. Structure matches real-world resource allocation."
+    },
+    "prompt_tokens_with_data": 1610,
+    "prompt_tokens_without_data": 1610
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 141.80491238390096,
+    "optimal_values": {
+      "Var_0": 8.09,
+      "Var_1": 3.405448916408669,
+      "Var_2": 3.0,
+      "Var_3": 14.0,
+      "Var_4": 15.0,
+      "Var_5": 1.0,
+      "Var_6": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 104.13
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 105.97
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.67
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 137.25
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 113.06
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 96.55
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 94.47
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.97
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 21.55
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 65.32
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.09
+      ],
+      "objective_linear_coefficient": 1.09,
+      "resource_costs": {
+        "C0": 2.55,
+        "C1": 0.56,
+        "C2": 6.04,
+        "C3": 9.86,
+        "C4": 7.9,
+        "C9": 6.68
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.04
+      ],
+      "objective_linear_coefficient": 7.49,
+      "resource_costs": {
+        "C1": 3.23,
+        "C4": 0.8,
+        "C5": 2.44,
+        "C8": 0.78,
+        "C9": 3.32
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.94
+      ],
+      "objective_linear_coefficient": 9.75,
+      "resource_costs": {
+        "C0": 1.52,
+        "C1": 8.34,
+        "C4": 3.51,
+        "C5": 1.18,
+        "C6": 8.67,
+        "C7": 2.16,
+        "C8": 9.03
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.44
+      ],
+      "objective_linear_coefficient": 2.7,
+      "resource_costs": {
+        "C1": 4.09,
+        "C4": 4.77,
+        "C5": 5.45,
+        "C6": 7.47,
+        "C7": 1.06
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.16
+      ],
+      "objective_linear_coefficient": 2.05,
+      "resource_costs": {
+        "C0": 5.49,
+        "C3": 4.33,
+        "C5": 0.9
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.67
+      ],
+      "objective_linear_coefficient": 9.68,
+      "resource_costs": {
+        "C1": 8.16,
+        "C3": 8.14,
+        "C5": 2.74,
+        "C6": 1.25
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.55
+      ],
+      "objective_linear_coefficient": 8.27,
+      "resource_costs": {
+        "C0": 9.67,
+        "C1": 0.41,
+        "C3": 0.13,
+        "C5": 3.0
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.09, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.09 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.04, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.49 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.94, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.75 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.44, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.7 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.16, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 2.05 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.67, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.68 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=14.55, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 8.27 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.55 * vars['Var_0'] + 1.52 * vars['Var_2'] + 5.49 * vars['Var_4'] + 9.67 * vars['Var_6'] >= 104.13, name='C0')\n    m.addConstr(0.56 * vars['Var_0'] + 3.23 * vars['Var_1'] + 8.34 * vars['Var_2'] + 4.09 * vars['Var_3'] + 8.16 * vars['Var_5'] + 0.41 * vars['Var_6'] >= 105.97, name='C1')\n    m.addConstr(6.04 * vars['Var_0'] >= 41.67, name='C2')\n    m.addConstr(9.86 * vars['Var_0'] + 4.33 * vars['Var_4'] + 8.14 * vars['Var_5'] + 0.13 * vars['Var_6'] >= 137.25, name='C3')\n    m.addConstr(7.9 * vars['Var_0'] + 0.8 * vars['Var_1'] + 3.51 * vars['Var_2'] + 4.77 * vars['Var_3'] >= 113.06, name='C4')\n    m.addConstr(2.44 * vars['Var_1'] + 1.18 * vars['Var_2'] + 5.45 * vars['Var_3'] + 0.9 * vars['Var_4'] + 2.74 * vars['Var_5'] + 3.0 * vars['Var_6'] >= 96.55, name='C5')\n    m.addConstr(8.67 * vars['Var_2'] + 7.47 * vars['Var_3'] + 1.25 * vars['Var_5'] >= 94.47, name='C6')\n    m.addConstr(2.16 * vars['Var_2'] + 1.06 * vars['Var_3'] >= 11.97, name='C7')\n    m.addConstr(0.78 * vars['Var_1'] + 9.03 * vars['Var_2'] >= 21.55, name='C8')\n    m.addConstr(6.68 * vars['Var_0'] + 3.32 * vars['Var_1'] >= 65.32, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Service Mix to Meet Our Coverage and Compliance Minimums\n\nTeam,\n\nWe need to choose a mix of internal crews and contract blocks that meets our minimum service and compliance commitments while keeping total spend as low as possible. All options below are subject to availability caps, and we can elect to deploy none of a given option unless stated otherwise. Where noted, some options can be booked in fractional blocks, while others must be scheduled in whole units only.\n\nLevers to pull (in this exact sequence):\n\n- Contracted Specialist Pool A (hourly blocks)\n  \u2022 Cost: $1.09 per block. Available in fractional blocks from 0 up to 8.09 blocks.\n  \u2022 Impact per block:\n    \u2013 Baseline Field Support: +2.55\n    \u2013 Urban Response Coverage: +0.56\n    \u2013 Specialist A Certification Hours: +6.04\n    \u2013 Emergency Readiness Index: +9.86\n    \u2013 Training & Documentation Compliance: +7.90\n    \u2013 Preventive Work Orders Closed: no contribution\n    \u2013 Safety & Regulatory Inspections: no contribution\n    \u2013 Community Safety Drills: no contribution\n    \u2013 Customer Education & Outreach Events: no contribution\n    \u2013 Helpdesk SLA Points: +6.68\n\n- Contracted Generalist Pool B (hourly blocks)\n  \u2022 Cost: $7.49 per block. Available in fractional blocks from 0 up to 16.04 blocks.\n  \u2022 Impact per block:\n    \u2013 Baseline Field Support: no contribution\n    \u2013 Urban Response Coverage: +3.23\n    \u2013 Specialist A Certification Hours: no contribution\n    \u2013 Emergency Readiness Index: no contribution\n    \u2013 Training & Documentation Compliance: +0.80\n    \u2013 Preventive Work Orders Closed: +2.44\n    \u2013 Safety & Regulatory Inspections: no contribution\n    \u2013 Community Safety Drills: no contribution\n    \u2013 Customer Education & Outreach Events: +0.78\n    \u2013 Helpdesk SLA Points: +3.32\n\n- Full-Time Alpha Crews\n  \u2022 Cost: $9.75 per crew. Must be scheduled in whole crews only, up to a cap equivalent of 6.94 crews.\n  \u2022 Impact per crew:\n    \u2013 Baseline Field Support: +1.52\n    \u2013 Urban Response Coverage: +8.34\n    \u2013 Specialist A Certification Hours: no contribution\n    \u2013 Emergency Readiness Index: no contribution\n    \u2013 Training & Documentation Compliance: +3.51\n    \u2013 Preventive Work Orders Closed: +1.18\n    \u2013 Safety & Regulatory Inspections: +8.67\n    \u2013 Community Safety Drills: +2.16\n    \u2013 Customer Education & Outreach Events: +9.03\n    \u2013 Helpdesk SLA Points: no contribution\n\n- Full-Time Bravo Crews\n  \u2022 Cost: $2.70 per crew. Must be scheduled in whole crews only, up to a cap equivalent of 14.44 crews.\n  \u2022 Impact per crew:\n    \u2013 Baseline Field Support: no contribution\n    \u2013 Urban Response Coverage: +4.09\n    \u2013 Specialist A Certification Hours: no contribution\n    \u2013 Emergency Readiness Index: no contribution\n    \u2013 Training & Documentation Compliance: +4.77\n    \u2013 Preventive Work Orders Closed: +5.45\n    \u2013 Safety & Regulatory Inspections: +7.47\n    \u2013 Community Safety Drills: +1.06\n    \u2013 Customer Education & Outreach Events: no contribution\n    \u2013 Helpdesk SLA Points: no contribution\n\n- Utility Support Teams\n  \u2022 Cost: $2.05 per team. Must be scheduled in whole teams only, up to a cap equivalent of 18.16 teams.\n  \u2022 Impact per team:\n    \u2013 Baseline Field Support: +5.49\n    \u2013 Urban Response Coverage: no contribution\n    \u2013 Specialist A Certification Hours: no contribution\n    \u2013 Emergency Readiness Index: +4.33\n    \u2013 Training & Documentation Compliance: no contribution\n    \u2013 Preventive Work Orders Closed: +0.90\n    \u2013 Safety & Regulatory Inspections: no contribution\n    \u2013 Community Safety Drills: no contribution\n    \u2013 Customer Education & Outreach Events: no contribution\n    \u2013 Helpdesk SLA Points: no contribution\n\n- Rapid Response Units\n  \u2022 Cost: $9.68 per unit. Must be scheduled in whole units only, up to a cap equivalent of 13.67 units.\n  \u2022 Impact per unit:\n    \u2013 Baseline Field Support: no contribution\n    \u2013 Urban Response Coverage: +8.16\n    \u2013 Specialist A Certification Hours: no contribution\n    \u2013 Emergency Readiness Index: +8.14\n    \u2013 Training & Documentation Compliance: no contribution\n    \u2013 Preventive Work Orders Closed: +2.74\n    \u2013 Safety & Regulatory Inspections: +1.25\n    \u2013 Community Safety Drills: no contribution\n    \u2013 Customer Education & Outreach Events: no contribution\n    \u2013 Helpdesk SLA Points: no contribution\n\n- Senior Field Engineers\n  \u2022 Cost: $8.27 per engineer. Must be scheduled in whole engineers only, up to a cap equivalent of 14.55 engineers.\n  \u2022 Impact per engineer:\n    \u2013 Baseline Field Support: +9.67\n    \u2013 Urban Response Coverage: +0.41\n    \u2013 Specialist A Certification Hours: no contribution\n    \u2013 Emergency Readiness Index: +0.13\n    \u2013 Training & Documentation Compliance: no contribution\n    \u2013 Preventive Work Orders Closed: +3.00\n    \u2013 Safety & Regulatory Inspections: no contribution\n    \u2013 Community Safety Drills: no contribution\n    \u2013 Customer Education & Outreach Events: no contribution\n    \u2013 Helpdesk SLA Points: no contribution\n\nService and compliance minimums we must meet (market/operating limits):\n\n- Baseline Field Support: at least 104.13\n- Urban Response Coverage: at least 105.97\n- Specialist A Certification Hours: at least 41.67\n- Emergency Readiness Index: at least 137.25\n- Training & Documentation Compliance: at least 113.06\n- Preventive Work Orders Closed: at least 96.55\n- Safety & Regulatory Inspections: at least 94.47\n- Community Safety Drills: at least 11.97\n- Customer Education & Outreach Events: at least 21.55\n- Helpdesk SLA Points: at least 65.32\n\nPlease use the above as the decision frame: select the mix (respecting fractional booking where allowed and whole-unit scheduling where required, and not exceeding the stated caps) that meets or exceeds every minimum while minimizing total cost. Let me know if you need any clarifications on the caps, unit definitions, or the contribution values."
+}

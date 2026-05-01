@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Precise costs, bounds, contributions, and >= floors are fully specified; one integer var noted. Objective is clear. Only minor issue: variable names not explicitly prescribed.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Memo-style and verbose with repeated 'no contribution' entries and narrative, but structured and necessary details are present.",
+      "realism": 92,
+      "realism_comment": "A plausible deployment planning case with capacities, costs, and target metrics; coherent and consistent with real-world resource allocation."
+    },
+    "prompt_tokens_with_data": 1474,
+    "prompt_tokens_without_data": 1474
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 154.23822832579054,
+    "optimal_values": {
+      "Var_0": 9.272655698391818,
+      "Var_1": 4.0,
+      "Var_2": 0.8083917984380893,
+      "Var_3": 0.0,
+      "Var_4": 2.988610407274221,
+      "Var_5": 9.07,
+      "Var_6": 0.0,
+      "Var_7": 7.227666949776544
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 97.92
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 98.2
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 21.62
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.06
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.67
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 83.54
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 117.03
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.68
+      ],
+      "objective_linear_coefficient": 5.55,
+      "resource_costs": {
+        "C1": 0.12,
+        "C3": 4.88,
+        "C4": 8.16,
+        "C5": 8.61,
+        "C6": 8.46
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.93
+      ],
+      "objective_linear_coefficient": 3.87,
+      "resource_costs": {
+        "C1": 8.96,
+        "C3": 9.9
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.8
+      ],
+      "objective_linear_coefficient": 9.96,
+      "resource_costs": {
+        "C0": 9.76,
+        "C3": 6.86,
+        "C5": 4.58,
+        "C6": 3.77
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.02
+      ],
+      "objective_linear_coefficient": 9.89,
+      "resource_costs": {
+        "C0": 4.38,
+        "C1": 9.83,
+        "C3": 3.05,
+        "C4": 0.62,
+        "C6": 2.69
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.11
+      ],
+      "objective_linear_coefficient": 2.82,
+      "resource_costs": {
+        "C0": 0.82,
+        "C1": 7.41,
+        "C4": 6.19,
+        "C6": 1.58
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.07
+      ],
+      "objective_linear_coefficient": 1.6,
+      "resource_costs": {
+        "C0": 3.52,
+        "C2": 6.15
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.26
+      ],
+      "objective_linear_coefficient": 4.56,
+      "resource_costs": {
+        "C1": 4.34,
+        "C3": 1.07,
+        "C4": 9.12,
+        "C5": 2.52,
+        "C6": 0.95
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.36
+      ],
+      "objective_linear_coefficient": 7.79,
+      "resource_costs": {
+        "C0": 7.7,
+        "C1": 5.41,
+        "C3": 8.67,
+        "C4": 5.86,
+        "C6": 9.89
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.68, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.55 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.93, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.87 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.8, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.96 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.02, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.89 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.11, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.82 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.07, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.6 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.26, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.56 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=14.36, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.79 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.76 * vars['Var_2'] + 4.38 * vars['Var_3'] + 0.82 * vars['Var_4'] + 3.52 * vars['Var_5'] + 7.7 * vars['Var_7'] >= 97.92, name='C0')\n    m.addConstr(0.12 * vars['Var_0'] + 8.96 * vars['Var_1'] + 9.83 * vars['Var_3'] + 7.41 * vars['Var_4'] + 4.34 * vars['Var_6'] + 5.41 * vars['Var_7'] >= 98.2, name='C1')\n    m.addConstr(6.15 * vars['Var_5'] >= 21.62, name='C2')\n    m.addConstr(4.88 * vars['Var_0'] + 9.9 * vars['Var_1'] + 6.86 * vars['Var_2'] + 3.05 * vars['Var_3'] + 1.07 * vars['Var_6'] + 8.67 * vars['Var_7'] >= 153.06, name='C3')\n    m.addConstr(8.16 * vars['Var_0'] + 0.62 * vars['Var_3'] + 6.19 * vars['Var_4'] + 9.12 * vars['Var_6'] + 5.86 * vars['Var_7'] >= 89.67, name='C4')\n    m.addConstr(8.61 * vars['Var_0'] + 4.58 * vars['Var_2'] + 2.52 * vars['Var_6'] >= 83.54, name='C5')\n    m.addConstr(8.46 * vars['Var_0'] + 3.77 * vars['Var_2'] + 2.69 * vars['Var_3'] + 1.58 * vars['Var_4'] + 0.95 * vars['Var_6'] + 9.89 * vars['Var_7'] >= 117.03, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing deployment plan to meet our Q4 operating commitments\n\nTeam,\n\nWe\u2019re preparing a portfolio of deployment options to meet or exceed seven mandatory performance commitments for Q4 at the lowest total cost. Each option below can be dialed up or down within its availability limits and contributes to several of our tracked metrics. Unless noted otherwise, these options can be allocated in fractional quantities; our intent is to hit the required minimums across all metrics while minimizing total spend.\n\nDecision levers and their effects\n\n1) Blue Horizon On\u2011Demand Analysts\n- Unit cost: 5.55 per analyst assignment.\n- Availability: up to 17.68 assignments (between 0.0 and 17.68).\n- Contribution per assignment:\n  \u2022 Safety & Compliance Hours: no contribution.\n  \u2022 Quality Assurance Credits: 0.12 credits.\n  \u2022 Specialized Response Tickets: no contribution.\n  \u2022 Operational Throughput Units: 4.88 units.\n  \u2022 Community Impact Credits: 8.16 credits.\n  \u2022 Essential Support Tasks Completed: 8.61 tasks.\n  \u2022 Resilience Readiness Score: 8.46 points.\n\n2) Greyline Specialist Crews\n- Unit cost: 3.87 per crew.\n- Availability: up to 10.93 crews (between 0.0 and 10.93), whole crews only (no partial crews).\n- Contribution per crew:\n  \u2022 Safety & Compliance Hours: no contribution.\n  \u2022 Quality Assurance Credits: 8.96 credits.\n  \u2022 Specialized Response Tickets: no contribution.\n  \u2022 Operational Throughput Units: 9.90 units.\n  \u2022 Community Impact Credits: no contribution.\n  \u2022 Essential Support Tasks Completed: no contribution.\n  \u2022 Resilience Readiness Score: no contribution.\n\n3) Aurora Systems Overhauls\n- Unit cost: 9.96 per overhaul.\n- Availability: up to 15.80 overhauls (between 0.0 and 15.8).\n- Contribution per overhaul:\n  \u2022 Safety & Compliance Hours: 9.76 hours.\n  \u2022 Quality Assurance Credits: no contribution.\n  \u2022 Specialized Response Tickets: no contribution.\n  \u2022 Operational Throughput Units: 6.86 units.\n  \u2022 Community Impact Credits: no contribution.\n  \u2022 Essential Support Tasks Completed: 4.58 tasks.\n  \u2022 Resilience Readiness Score: 3.77 points.\n\n4) Summit Field Installations\n- Unit cost: 9.89 per installation.\n- Availability: up to 8.02 installations (between 0.0 and 8.02).\n- Contribution per installation:\n  \u2022 Safety & Compliance Hours: 4.38 hours.\n  \u2022 Quality Assurance Credits: 9.83 credits.\n  \u2022 Specialized Response Tickets: no contribution.\n  \u2022 Operational Throughput Units: 3.05 units.\n  \u2022 Community Impact Credits: 0.62 credits.\n  \u2022 Essential Support Tasks Completed: no contribution.\n  \u2022 Resilience Readiness Score: 2.69 points.\n\n5) Harborline Preventive Visits\n- Unit cost: 2.82 per visit.\n- Availability: up to 10.11 visits (between 0.0 and 10.11).\n- Contribution per visit:\n  \u2022 Safety & Compliance Hours: 0.82 hours.\n  \u2022 Quality Assurance Credits: 7.41 credits.\n  \u2022 Specialized Response Tickets: no contribution.\n  \u2022 Operational Throughput Units: no contribution.\n  \u2022 Community Impact Credits: 6.19 credits.\n  \u2022 Essential Support Tasks Completed: no contribution.\n  \u2022 Resilience Readiness Score: 1.58 points.\n\n6) Cobalt Emergency Dispatches\n- Unit cost: 1.60 per dispatch.\n- Availability: up to 9.07 dispatches (between 0.0 and 9.07).\n- Contribution per dispatch:\n  \u2022 Safety & Compliance Hours: 3.52 hours.\n  \u2022 Quality Assurance Credits: no contribution.\n  \u2022 Specialized Response Tickets: 6.15 tickets.\n  \u2022 Operational Throughput Units: no contribution.\n  \u2022 Community Impact Credits: no contribution.\n  \u2022 Essential Support Tasks Completed: no contribution.\n  \u2022 Resilience Readiness Score: no contribution.\n\n7) Orchid Support Shifts\n- Unit cost: 4.56 per shift.\n- Availability: up to 9.26 shifts (between 0.0 and 9.26).\n- Contribution per shift:\n  \u2022 Safety & Compliance Hours: no contribution.\n  \u2022 Quality Assurance Credits: 4.34 credits.\n  \u2022 Specialized Response Tickets: no contribution.\n  \u2022 Operational Throughput Units: 1.07 units.\n  \u2022 Community Impact Credits: 9.12 credits.\n  \u2022 Essential Support Tasks Completed: 2.52 tasks.\n  \u2022 Resilience Readiness Score: 0.95 points.\n\n8) Vanguard Integration Projects\n- Unit cost: 7.79 per project.\n- Availability: up to 14.36 projects (between 0.0 and 14.36).\n- Contribution per project:\n  \u2022 Safety & Compliance Hours: 7.70 hours.\n  \u2022 Quality Assurance Credits: 5.41 credits.\n  \u2022 Specialized Response Tickets: no contribution.\n  \u2022 Operational Throughput Units: 8.67 units.\n  \u2022 Community Impact Credits: 5.86 credits.\n  \u2022 Essential Support Tasks Completed: no contribution.\n  \u2022 Resilience Readiness Score: 9.89 points.\n\nCommitment floors (must be met or exceeded)\n- Safety & Compliance Hours: at least 97.92 hours.\n- Quality Assurance Credits: at least 98.20 credits.\n- Specialized Response Tickets: at least 21.62 tickets.\n- Operational Throughput Units: at least 153.06 units.\n- Community Impact Credits: at least 89.67 credits.\n- Essential Support Tasks Completed: at least 83.54 tasks.\n- Resilience Readiness Score: at least 117.03 points.\n\nOur objective is to assemble the least-cost combination of the above options while satisfying each of these minimums. Please use this as the working specification for the build-out of the allocation plan."
+}

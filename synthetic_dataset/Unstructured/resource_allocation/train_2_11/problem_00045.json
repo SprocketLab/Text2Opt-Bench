@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, senses, and objective are explicitly stated; fractional (continuous) vars and upper bounds clear. Directly maps to the gold model without guesswork.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated details (coverage contributions listed twice), but mostly purposeful context; not excessively verbose.",
+      "realism": 92,
+      "realism_comment": "Plausible media mix optimization with coverage and brand guardrails; numbers sensible, though the brand floor is non-binding but still realistic."
+    },
+    "prompt_tokens_with_data": 717,
+    "prompt_tokens_without_data": 717
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 7.079779411764706,
+    "optimal_values": {
+      "Var_0": 5.404411764705882,
+      "Var_1": 0.0,
+      "Var_2": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 44.1
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -1.03
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.63
+      ],
+      "objective_linear_coefficient": 1.31,
+      "resource_costs": {
+        "C0": 8.16
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.93
+      ],
+      "objective_linear_coefficient": 7.34,
+      "resource_costs": {
+        "C0": 6.62
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.95
+      ],
+      "objective_linear_coefficient": 9.51,
+      "resource_costs": {
+        "C0": 8.77,
+        "C1": 0.62
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.63, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.31 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.93, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.34 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.95, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.51 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.16 * vars['Var_0'] + 6.62 * vars['Var_1'] + 8.77 * vars['Var_2'] >= 44.1, name='C0')\n    m.addConstr(0.62 * vars['Var_2'] >= -1.03, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Media mix plan to minimize spend while meeting coverage and brand guardrails\n\nTeam,\n\nWe need to finalize a lean media mix that meets our minimum coverage commitments at the lowest possible outlay. The plan relies on three placement types, each with its own unit cost, availability limits, and contribution to our coverage target and brand guardrails. We can buy fractional packages where it makes sense, but we cannot go below zero units on any line.\n\nLevers\n\n- Local Radio Spot Packages\n  - Cost profile: Each package is priced at 1.31 per unit.\n  - Availability: We can place up to 8.63 packages this period; there is no minimum purchase requirement beyond zero.\n  - Coverage contribution: Every package contributes 8.16 coverage credits toward our reach commitment.\n  - Brand guardrails: This line has no incremental effect on the Brand Sentiment Index (adds 0.00 to that metric per package).\n\n- Metro Transit Wraps\n  - Cost profile: Each wrap package is priced at 7.34 per unit.\n  - Availability: We can place up to 8.93 packages; again, zero is a permissible minimum.\n  - Coverage contribution: Each package contributes 6.62 coverage credits toward the reach commitment.\n  - Brand guardrails: This line is neutral on the Brand Sentiment Index (adds 0.00 per package).\n\n- Community Event Sponsorships\n  - Cost profile: Each sponsorship is priced at 9.51 per unit.\n  - Availability: We can place up to 17.95 sponsorship units; minimum purchase is zero.\n  - Coverage contribution: Each sponsorship contributes 8.77 coverage credits toward the reach commitment.\n  - Brand guardrails: Each unit improves the Brand Sentiment Index by 0.62 points, supporting our floor requirement.\n\nFacility specs and market limits\n\n- Minimum coverage commitment: The combined coverage credits from the selected packages and sponsorships must reach at least 44.1. Local Radio contributes 8.16 per unit; Metro Transit contributes 6.62 per unit; Community Events contributes 8.77 per unit.\n- Brand sentiment floor: The composite Brand Sentiment Index must not fall below -1.03. Only Community Event Sponsorships affect this index, at +0.62 points per unit; Local Radio and Metro Transit are neutral.\n\nObjective\n\n- Minimize total media spend while respecting the availability limits above and meeting both the minimum coverage commitment and the brand sentiment floor."
+}

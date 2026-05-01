@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All products' contributions, integer decisions, upper bounds, and per-resource hours and capacities are explicitly specified; constraints and objective can be constructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style narrative and repeating 'whole units' note add verbosity; otherwise the bullet data is precise.",
+      "realism": 97,
+      "realism_comment": "Classic production mix with machining/assembly/coating capacities and whole-unit builds; coefficients and limits are plausible and consistent."
+    },
+    "prompt_tokens_with_data": 741,
+    "prompt_tokens_without_data": 741
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 152.44,
+    "optimal_values": {
+      "Var_0": 10.0,
+      "Var_1": 11.0,
+      "Var_2": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.47
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.13
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 27.1
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.5
+      ],
+      "objective_linear_coefficient": 5.41,
+      "resource_costs": {
+        "C0": 3.94,
+        "C1": 2.18
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 8.94,
+      "resource_costs": {
+        "C0": 3.4,
+        "C1": 5.25,
+        "C2": 1.15
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.16
+      ],
+      "objective_linear_coefficient": 7.51,
+      "resource_costs": {
+        "C0": 4.92,
+        "C1": 7.56,
+        "C2": 6.75
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.5, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.41 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.94 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.16, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.51 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.94 * vars['Var_0'] + 3.4 * vars['Var_1'] + 4.92 * vars['Var_2'] <= 77.47, name='C0')\n    m.addConstr(2.18 * vars['Var_0'] + 5.25 * vars['Var_1'] + 7.56 * vars['Var_2'] <= 87.13, name='C1')\n    m.addConstr(1.15 * vars['Var_1'] + 6.75 * vars['Var_2'] <= 27.1, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Weekly build mix request to maximize contribution under hours and coating limits\n\nTeam,\n\nFor the upcoming production window, please propose the mix of three build programs that maximizes total contribution while staying within the available hours in our machining, assembly, and coating operations. All commitments must be made in whole units only (no partial builds), but we are not obligated to run any given program if it does not make sense\u2014zero is an acceptable quantity for each.\n\nHere are the levers at your disposal, in the order we\u2019ll evaluate them:\n\n- Sierra Compact Enclosures\n  - Financial impact: Each completed unit adds 5.41 to contribution.\n  - Throughput bounds: We may build anywhere from 0 up to 11.5 units this period. Although decisions are in whole units, the ceiling is dictated by the 11.5-unit cap.\n  - Resource use per unit:\n    - Atlas machining center: 3.94 hours per unit.\n    - Mercury assembly cell: 2.18 hours per unit.\n    - Nimbus coating booth: no time required (0.00 hours).\n\n- Horizon Control Cabinets\n  - Financial impact: Each completed unit adds 8.94 to contribution.\n  - Throughput bounds: We may build anywhere from 0 up to 11.0 units, in whole units only.\n  - Resource use per unit:\n    - Atlas machining center: 3.4 hours per unit.\n    - Mercury assembly cell: 5.25 hours per unit.\n    - Nimbus coating booth: 1.15 hours per unit.\n\n- Titan Field Frames\n  - Financial impact: Each completed unit adds 7.51 to contribution.\n  - Throughput bounds: We may build anywhere from 0 up to 9.16 units, in whole units only.\n  - Resource use per unit:\n    - Atlas machining center: 4.92 hours per unit.\n    - Mercury assembly cell: 7.56 hours per unit.\n    - Nimbus coating booth: 6.75 hours per unit.\n\nFacility limits for this period (do not exceed):\n- Atlas machining center availability: 77.47 hours.\n- Mercury assembly cell availability: 87.13 hours.\n- Nimbus coating booth availability: 27.1 hours.\n\nOur objective is to allocate whole-unit builds across these three programs to maximize total contribution, without overspending the Atlas, Mercury, or Nimbus hour budgets and while respecting the per-program caps listed above. Please return a recommended build plan and the resulting contribution, along with a check that the final hour usage on each center does not exceed the stated availability."
+}

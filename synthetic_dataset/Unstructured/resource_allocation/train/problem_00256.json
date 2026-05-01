@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "All coefficients, bounds, and resource mappings are explicit; integrality vs continuity noted; capacities and objective clear. Slight mismatch in variable naming vs code but model is fully specified.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style narrative adds verbosity, but most text conveys structured numeric specs for a clear model; minimal fluff.",
+      "realism": 96,
+      "realism_comment": "A plausible production planning/resource allocation scenario with realistic capacities and contributions; constraints make operational sense."
+    },
+    "prompt_tokens_with_data": 1146,
+    "prompt_tokens_without_data": 1146
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 233.11242209330157,
+    "optimal_values": {
+      "Var_0": 3.0331491712707184,
+      "Var_1": 5.5700934579439245,
+      "Var_2": 5.0,
+      "Var_3": 2.9900094466550255,
+      "Var_4": 8.51,
+      "Var_5": 8.047945205479452
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 6.1
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 35.25
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 64.06
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 18.73
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 10.98
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 35.48
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.97
+      ],
+      "objective_linear_coefficient": 5.75,
+      "resource_costs": {
+        "C3": 2.37,
+        "C4": 3.62
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.19
+      ],
+      "objective_linear_coefficient": 8.79,
+      "resource_costs": {
+        "C2": 5.54,
+        "C5": 3.21
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.76
+      ],
+      "objective_linear_coefficient": 8.8,
+      "resource_costs": {
+        "C0": 1.0,
+        "C2": 0.63,
+        "C5": 3.52
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.61
+      ],
+      "objective_linear_coefficient": 6.06,
+      "resource_costs": {
+        "C2": 8.94,
+        "C3": 3.86
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.51
+      ],
+      "objective_linear_coefficient": 3.24,
+      "resource_costs": {}
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.55
+      ],
+      "objective_linear_coefficient": 9.57,
+      "resource_costs": {
+        "C1": 4.38
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.97, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.75 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.19, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.79 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.76, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.8 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.61, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.06 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.51, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.24 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.55, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.57 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.0 * vars['Var_2'] <= 6.1, name='C0')\n    m.addConstr(4.38 * vars['Var_5'] <= 35.25, name='C1')\n    m.addConstr(5.54 * vars['Var_1'] + 0.63 * vars['Var_2'] + 8.94 * vars['Var_3'] <= 64.06, name='C2')\n    m.addConstr(2.37 * vars['Var_0'] + 3.86 * vars['Var_3'] <= 18.73, name='C3')\n    m.addConstr(3.62 * vars['Var_0'] <= 10.98, name='C4')\n    m.addConstr(3.21 * vars['Var_1'] + 3.52 * vars['Var_2'] <= 35.48, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix to maximize contribution under next-cycle capacity limits\n\nTeam,\n\nFor the upcoming cycle, we need to decide how to deploy our limited internal capacities and partner allocations across six product programs to maximize total contribution. Below are the levers we can pull, including the per-lot contribution each program generates, the internal resources they consume or don\u2019t consume, and the practical ceilings we face on each program.\n\n- Signature Botanicals Kits\n  - Contribution: 5.75 per production lot.\n  - Internal resource impact per lot:\n    - Barrel House slots: none.\n    - Allergen\u2011Free Line time: none.\n    - Main Kitchen kettle\u2011hours: none.\n    - Packaging Line A hours: 2.37.\n    - Botanical ingredients inventory units: 3.62.\n    - Chilled storage pallet\u2011days: none.\n  - Volume bounds: may be scheduled in partial lots; up to 13.97 lots; minimum commitment is zero.\n\n- Chef\u2019s Chilled Bowls\n  - Contribution: 8.79 per production lot.\n  - Internal resource impact per lot:\n    - Barrel House slots: none.\n    - Allergen\u2011Free Line time: none.\n    - Main Kitchen kettle\u2011hours: 5.54.\n    - Packaging Line A hours: none.\n    - Botanical ingredients inventory units: none.\n    - Chilled storage pallet\u2011days: 3.21.\n  - Volume bounds: partial lots allowed; up to 18.19 lots; minimum commitment is zero.\n\n- Reserve Barrel Sauces\n  - Contribution: 8.80 per production lot.\n  - Internal resource impact per lot:\n    - Barrel House slots: 1.00.\n    - Allergen\u2011Free Line time: none.\n    - Main Kitchen kettle\u2011hours: 0.63.\n    - Packaging Line A hours: none.\n    - Botanical ingredients inventory units: none.\n    - Chilled storage pallet\u2011days: 3.52.\n  - Volume bounds: full batches only (no partial lots); up to 9.76 lots in the period; minimum commitment is zero.\n\n- Harvest Seasonal Soups\n  - Contribution: 6.06 per production lot.\n  - Internal resource impact per lot:\n    - Barrel House slots: none.\n    - Allergen\u2011Free Line time: none.\n    - Main Kitchen kettle\u2011hours: 8.94.\n    - Packaging Line A hours: 3.86.\n    - Botanical ingredients inventory units: none.\n    - Chilled storage pallet\u2011days: none.\n  - Volume bounds: partial lots allowed; up to 14.61 lots; minimum commitment is zero.\n\n- Partner Snack Boxes\n  - Contribution: 3.24 per production lot.\n  - Internal resource impact per lot:\n    - Barrel House slots: none.\n    - Allergen\u2011Free Line time: none.\n    - Main Kitchen kettle\u2011hours: none.\n    - Packaging Line A hours: none.\n    - Botanical ingredients inventory units: none.\n    - Chilled storage pallet\u2011days: none.\n  - Volume bounds: partial lots allowed via co\u2011manufacturing; up to 8.51 lots; minimum commitment is zero.\n\n- Allergen\u2011Free Nutrition Bars\n  - Contribution: 9.57 per production lot.\n  - Internal resource impact per lot:\n    - Barrel House slots: none.\n    - Allergen\u2011Free Line time: 4.38.\n    - Main Kitchen kettle\u2011hours: none.\n    - Packaging Line A hours: none.\n    - Botanical ingredients inventory units: none.\n    - Chilled storage pallet\u2011days: none.\n  - Volume bounds: partial lots allowed; up to 8.55 lots; minimum commitment is zero.\n\nFacility and market limits for the period\n- Barrel House slots (for aging capacity): no more than 6.1 total across all programs.\n- Allergen\u2011Free Line time: no more than 35.25 total hours.\n- Main Kitchen kettle\u2011hours: no more than 64.06 in total.\n- Packaging Line A time: no more than 18.73 total hours.\n- Botanical ingredients inventory: no more than 10.98 total units.\n- Chilled storage: no more than 35.48 total pallet\u2011days.\n\nObjective\nMaximize total contribution across the six programs while respecting the above limits and program\u2011specific caps.\n\nPlease review and confirm if you\u2019d like us to proceed with optimization using these parameters, or if any contribution rates, caps, or capacity limits need updating before we lock the plan."
+}

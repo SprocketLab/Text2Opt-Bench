@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and coverage coefficients are explicit; constraints are \u2018at least\u2019 thresholds. Minor gap: variable names not given, but the model is fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative and template instructions add verbosity, but most text is needed to list parameters and impacts; little true fluff or repetition.",
+      "realism": 90,
+      "realism_comment": "Plausible staffing/coverage planning MILP with costs, availability caps, and service minima. Numbers are precise/unusual but still realistic."
+    },
+    "prompt_tokens_with_data": 1001,
+    "prompt_tokens_without_data": 1001
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 155.63240416358707,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 5.101948051948051,
+      "Var_2": 15.884121704853413,
+      "Var_3": -0.0,
+      "Var_4": 14.35,
+      "Var_5": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 127.07
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 168.25
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 112.79
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 29.21
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.93
+      ],
+      "objective_linear_coefficient": 6.27,
+      "resource_costs": {
+        "C0": 0.78,
+        "C2": 3.3
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.92
+      ],
+      "objective_linear_coefficient": 7.42,
+      "resource_costs": {
+        "C0": 3.08,
+        "C2": 5.95
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.26
+      ],
+      "objective_linear_coefficient": 3.53,
+      "resource_costs": {
+        "C1": 5.04,
+        "C2": 3.69,
+        "C3": 2.17
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.25
+      ],
+      "objective_linear_coefficient": 5.15,
+      "resource_costs": {
+        "C0": 3.78,
+        "C1": 8.47
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.35
+      ],
+      "objective_linear_coefficient": 4.3,
+      "resource_costs": {
+        "C0": 7.76,
+        "C1": 8.03,
+        "C2": 1.66,
+        "C3": 1.21
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.36
+      ],
+      "objective_linear_coefficient": 9.79,
+      "resource_costs": {
+        "C0": 2.62,
+        "C1": 2.64,
+        "C2": 0.17,
+        "C3": 3.24
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.93, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.27 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.92, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.42 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.26, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.53 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.25, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 5.15 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.35, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.3 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.36, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.79 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.78 * vars['Var_0'] + 3.08 * vars['Var_1'] + 3.78 * vars['Var_3'] + 7.76 * vars['Var_4'] + 2.62 * vars['Var_5'] >= 127.07, name='C0')\n    m.addConstr(5.04 * vars['Var_2'] + 8.47 * vars['Var_3'] + 8.03 * vars['Var_4'] + 2.64 * vars['Var_5'] >= 168.25, name='C1')\n    m.addConstr(3.3 * vars['Var_0'] + 5.95 * vars['Var_1'] + 3.69 * vars['Var_2'] + 1.66 * vars['Var_4'] + 0.17 * vars['Var_5'] >= 112.79, name='C2')\n    m.addConstr(2.17 * vars['Var_2'] + 1.21 * vars['Var_4'] + 3.24 * vars['Var_5'] >= 29.21, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Crew mix plan to meet coverage obligations at minimum cost\n\nTeam,\n\nAs discussed, we need a cost\u2011efficient staffing mix that satisfies our contracted coverage across four service obligations: Core Site Coverage, Specialist Support Coverage, Preventive Maintenance Coverage, and Emergency Readiness Coverage. Our goal is to meet or exceed each minimum with the lowest possible total spend. Below are the levers we can use and how each one contributes to these obligations.\n\nCrew options and how they contribute\n\n1) Baseline Field Crews\n- Day rate: 6.27 per crew\u2011day.\n- Availability: we may schedule anywhere from 0 up to 13.93 crew\u2011days, but only in whole\u2011day increments.\n- Coverage impact per crew\u2011day:\n  \u2022 Core Site Coverage: adds 0.78 units.\n  \u2022 Specialist Support Coverage: no impact.\n  \u2022 Preventive Maintenance Coverage: adds 3.30 units.\n  \u2022 Emergency Readiness Coverage: no impact.\n\n2) Precision Maintenance Contractors\n- Day rate: 7.42 per crew\u2011day.\n- Availability: 0 to 12.92 crew\u2011days; fractional (partial) deployment is allowed.\n- Coverage impact per crew\u2011day:\n  \u2022 Core Site Coverage: adds 3.08 units.\n  \u2022 Specialist Support Coverage: no impact.\n  \u2022 Preventive Maintenance Coverage: adds 5.95 units.\n  \u2022 Emergency Readiness Coverage: no impact.\n\n3) Auxiliary Regional Teams\n- Day rate: 3.53 per team\u2011day.\n- Availability: 0 to 18.26 team\u2011days; fractional deployment is allowed.\n- Coverage impact per team\u2011day:\n  \u2022 Core Site Coverage: no impact.\n  \u2022 Specialist Support Coverage: adds 5.04 units.\n  \u2022 Preventive Maintenance Coverage: adds 3.69 units.\n  \u2022 Emergency Readiness Coverage: adds 2.17 units.\n\n4) Senior Engineer Shifts\n- Shift rate: 5.15 per shift.\n- Availability: 0 to 8.25 shifts, in whole shifts only.\n- Coverage impact per shift:\n  \u2022 Core Site Coverage: adds 3.78 units.\n  \u2022 Specialist Support Coverage: adds 8.47 units.\n  \u2022 Preventive Maintenance Coverage: no impact.\n  \u2022 Emergency Readiness Coverage: no impact.\n\n5) All\u2011Channel Overtime Blocks\n- Block rate: 4.3 per block.\n- Availability: 0 to 14.35 blocks; fractional deployment is allowed.\n- Coverage impact per block:\n  \u2022 Core Site Coverage: adds 7.76 units.\n  \u2022 Specialist Support Coverage: adds 8.03 units.\n  \u2022 Preventive Maintenance Coverage: adds 1.66 units.\n  \u2022 Emergency Readiness Coverage: adds 1.21 units.\n\n6) Rapid Response Crews\n- Day rate: 9.79 per crew\u2011day.\n- Availability: 0 to 16.36 crew\u2011days, in whole\u2011day increments only.\n- Coverage impact per crew\u2011day:\n  \u2022 Core Site Coverage: adds 2.62 units.\n  \u2022 Specialist Support Coverage: adds 2.64 units.\n  \u2022 Preventive Maintenance Coverage: adds 0.17 units.\n  \u2022 Emergency Readiness Coverage: adds 3.24 units.\n\nService level minimums we must meet or exceed\n- Core Site Coverage: at least 127.07 units in total.\n- Specialist Support Coverage: at least 168.25 units in total.\n- Preventive Maintenance Coverage: at least 112.79 units in total.\n- Emergency Readiness Coverage: at least 29.21 units in total.\n\nPlease build the mix that satisfies all of the above minimums while minimizing total spend, staying within the availability caps, and honoring which options must be scheduled in whole units versus those that can be deployed fractionally."
+}

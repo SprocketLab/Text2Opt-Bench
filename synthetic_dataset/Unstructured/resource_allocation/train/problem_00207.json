@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, objective coefficients, and constraint impacts are given explicitly with clear sign conventions; a model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative style with repeated sign clarifications makes it longer than needed, but each number is purposeful; moderate verbosity.",
+      "realism": 98,
+      "realism_comment": "Genuine campus energy dispatch with grid, water, steam, chilled water, landfill, and NOx limits; objectives and magnitudes are plausible."
+    },
+    "prompt_tokens_with_data": 1379,
+    "prompt_tokens_without_data": 1379
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 200.30065153643466,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 1.9025744101228135,
+      "Var_2": 4.922018846296985,
+      "Var_3": 3.88,
+      "Var_4": 18.02
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -30.34
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 43.23
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -10.47
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 15.02
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.79
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -8.91
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -18.39
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.15
+      ],
+      "objective_linear_coefficient": 1.4,
+      "resource_costs": {
+        "C0": 7.32,
+        "C1": 4.37,
+        "C3": -2.57,
+        "C4": -0.48,
+        "C5": -9.08
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.06
+      ],
+      "objective_linear_coefficient": 3.65,
+      "resource_costs": {
+        "C0": -8.9,
+        "C1": 3.94,
+        "C2": -5.68,
+        "C3": 9.59,
+        "C5": 3.52,
+        "C6": 5.25
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.4
+      ],
+      "objective_linear_coefficient": 7.16,
+      "resource_costs": {
+        "C0": 0.65,
+        "C1": 7.26,
+        "C3": -5.87,
+        "C6": 6.64
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.94
+      ],
+      "objective_linear_coefficient": 7.73,
+      "resource_costs": {
+        "C0": -4.28,
+        "C3": 2.95,
+        "C4": 3.18,
+        "C6": -6.96
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.02
+      ],
+      "objective_linear_coefficient": 7.11,
+      "resource_costs": {
+        "C3": -0.18,
+        "C4": 0.58,
+        "C5": -3.04,
+        "C6": -5.31
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.15, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.4 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.06, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.65 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.4, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.16 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.94, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.73 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.02, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.11 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.32 * vars['Var_0'] + -8.9 * vars['Var_1'] + 0.65 * vars['Var_2'] + -4.28 * vars['Var_3'] <= -30.34, name='C0')\n    m.addConstr(4.37 * vars['Var_0'] + 3.94 * vars['Var_1'] + 7.26 * vars['Var_2'] <= 43.23, name='C1')\n    m.addConstr(-5.68 * vars['Var_1'] <= -10.47, name='C2')\n    m.addConstr(-2.57 * vars['Var_0'] + 9.59 * vars['Var_1'] + -5.87 * vars['Var_2'] + 2.95 * vars['Var_3'] + -0.18 * vars['Var_4'] <= 15.02, name='C3')\n    m.addConstr(-0.48 * vars['Var_0'] + 3.18 * vars['Var_3'] + 0.58 * vars['Var_4'] <= 22.79, name='C4')\n    m.addConstr(-9.08 * vars['Var_0'] + 3.52 * vars['Var_1'] + -3.04 * vars['Var_4'] <= -8.91, name='C5')\n    m.addConstr(5.25 * vars['Var_1'] + 6.64 * vars['Var_2'] + -6.96 * vars['Var_3'] + -5.31 * vars['Var_4'] <= -18.39, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Week-Ahead Dispatch Decision to Maximize Contribution Within Site Limits\n\nTeam,\n\nWe\u2019re finalizing the week-ahead resource plan for the campus. Our goal is to maximize net operating contribution while staying within our utility capacities and ESG/compliance commitments. Below are the five levers we can pull, the value each creates, how much of each we can schedule, and how each one moves the specific site limits we track.\n\n1) Heat Pump Train A\n- Economic impact: generates 1.40 units of contribution per scheduled unit.\n- Feasible range: can be scheduled anywhere from 0 up to 14.15 units.\n- Grid position (import is positive, export is negative): increases net grid import by 7.32 per unit.\n- Process water use: increases by 4.37 per unit.\n- Compliance credit ledger: no impact (zero).\n- Boiler steam draw (positive is draw, negative is return): returns 2.57 per unit (i.e., reduces draw by 2.57).\n- Chilled water load: reduces by 0.48 per unit.\n- Landfill diversion ledger (negative is good): improves by 9.08 per unit (i.e., reduces net landfill burden by 9.08).\n- NOx-equivalent vs baseline (negative is good): no impact (zero).\n\n2) Biogas Engine Unit B\n- Economic impact: generates 3.65 units of contribution per scheduled unit.\n- Feasible range: can be scheduled anywhere from 0 up to 11.06 units.\n- Grid position: improves by 8.90 per unit (exports to the grid; recorded as \u22128.90 to the import measure).\n- Process water use: increases by 3.94 per unit.\n- Compliance credit ledger: improves by 5.68 per unit (recorded as \u22125.68).\n- Boiler steam draw: increases by 9.59 per unit.\n- Chilled water load: no impact (zero).\n- Landfill diversion ledger: worsens by 3.52 per unit (increases net landfill burden).\n- NOx-equivalent vs baseline: worsens by 5.25 per unit.\n\n3) Steam Recompression Skid C\n- Economic impact: generates 7.16 units of contribution per scheduled unit.\n- Feasible range: can be scheduled anywhere from 0 up to 12.40 units.\n- Grid position: increases net grid import by 0.65 per unit.\n- Process water use: increases by 7.26 per unit.\n- Compliance credit ledger: no impact (zero).\n- Boiler steam draw: returns 5.87 per unit (i.e., reduces draw by 5.87).\n- Chilled water load: no impact (zero).\n- Landfill diversion ledger: no impact (zero).\n- NOx-equivalent vs baseline: worsens by 6.64 per unit.\n\n4) Pressure Let-Down Turbine D\n- Economic impact: generates 7.73 units of contribution per scheduled unit.\n- Feasible range: can be scheduled anywhere from 0 up to 10.94 units.\n- Grid position: improves by 4.28 per unit (exports power; recorded as \u22124.28 to the import measure).\n- Process water use: no impact (zero).\n- Compliance credit ledger: no impact (zero).\n- Boiler steam draw: increases by 2.95 per unit.\n- Chilled water load: increases by 3.18 per unit.\n- Landfill diversion ledger: no impact (zero).\n- NOx-equivalent vs baseline: improves by 6.96 per unit (recorded as \u22126.96).\n\n5) Cold Loop Optimization E\n- Economic impact: generates 7.11 units of contribution per scheduled unit.\n- Feasible range: can be scheduled anywhere from 0 up to 18.02 units.\n- Grid position: no impact (zero).\n- Process water use: no impact (zero).\n- Compliance credit ledger: no impact (zero).\n- Boiler steam draw: returns 0.18 per unit (i.e., reduces draw by 0.18).\n- Chilled water load: increases by 0.58 per unit.\n- Landfill diversion ledger: improves by 3.04 per unit (recorded as \u22123.04).\n- NOx-equivalent vs baseline: improves by 5.31 per unit (recorded as \u22125.31).\n\nFacility Specs & Compliance Targets (must not be exceeded)\n- Net grid position (import positive, export negative): at or below \u221230.34 for the horizon. This reflects a net export requirement of at least 30.34.\n- Process water capacity: at or below 43.23 for the horizon.\n- Compliance credit ledger: at or below \u221210.47 for the horizon (i.e., we must accrue at least 10.47 in credits; the ledger records credits as negative).\n- Boiler steam draw: at or below 15.02 for the horizon.\n- Chilled water capacity: at or below 22.79 for the horizon.\n- Landfill diversion ledger: at or below \u22128.91 for the horizon (we must be net-negative by at least 8.91).\n- NOx-equivalent vs baseline: at or below \u221218.39 for the horizon (at least 18.39 below baseline).\n\nAll five initiatives are optional and nonnegative\u2014nothing requires a minimum run, and we can schedule fractional amounts anywhere from zero up to the maximums noted above. Please review and confirm these levers and limits so we can finalize the dispatch that maximizes contribution while respecting the site\u2019s capacities and commitments."
+}

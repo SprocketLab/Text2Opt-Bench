@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit objective coefficients, bounds, types, and resource usage with totals; 'no draw' clarifies zeros. Non-integer UBs on integer vars are acceptable; the model is reconstructible.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business narrative and repeated 'No draw on...' entries add verbosity but also clarify zero coefficients. Clear yet somewhat wordy.",
+      "realism": 95,
+      "realism_comment": "Convincing production planning scenario with plausible capacities and per-unit resource usage; constraints and objective are coherent and practical."
+    },
+    "prompt_tokens_with_data": 963,
+    "prompt_tokens_without_data": 963
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 263.7115274940927,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": 6.7421602787456445,
+      "Var_2": 4.0,
+      "Var_3": 15.0,
+      "Var_4": 6.123563218390805
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 19.2
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 46.07
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 36.88
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 19.35
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 25.12
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 7.34,
+      "resource_costs": {
+        "C1": 1.26,
+        "C2": 1.73,
+        "C4": 1.55
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.06
+      ],
+      "objective_linear_coefficient": 6.96,
+      "resource_costs": {
+        "C3": 2.87
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.46
+      ],
+      "objective_linear_coefficient": 9.03,
+      "resource_costs": {
+        "C0": 4.55,
+        "C4": 2.45
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.11
+      ],
+      "objective_linear_coefficient": 6.53,
+      "resource_costs": {}
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.27
+      ],
+      "objective_linear_coefficient": 2.72,
+      "resource_costs": {
+        "C1": 5.65,
+        "C2": 3.48
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.34 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.06, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.96 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=5.46, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.03 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.11, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.53 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.27, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.72 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.55 * vars['Var_2'] <= 19.2, name='C0')\n    m.addConstr(1.26 * vars['Var_0'] + 5.65 * vars['Var_4'] <= 46.07, name='C1')\n    m.addConstr(1.73 * vars['Var_0'] + 3.48 * vars['Var_4'] <= 36.88, name='C2')\n    m.addConstr(2.87 * vars['Var_1'] <= 19.35, name='C3')\n    m.addConstr(1.55 * vars['Var_0'] + 2.45 * vars['Var_2'] <= 25.12, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance requested on next-cycle production mix to maximize contribution\n\nHello team,\n\nFor the upcoming planning window, we\u2019re looking to set the mix of five offerings to maximize total contribution while staying within the current operating limits of our plant and logistics. Below is the practical business detail for each lever and how it draws on the shared resources this period.\n\n- Aurora Panels\n  - Financials: Each panel returns a contribution of 7.34.\n  - Planning bounds: Whole panels only; we can plan as few as zero and no more than 10 panels this cycle.\n  - Resource impact per panel:\n    - CNC machining center time: 1.26 hours per panel.\n    - Finishing line time: 1.73 hours per panel.\n    - Outbound dock allocation: 1.55 dock slots per panel.\n    - No draw on Alloy A feedstock.\n    - No draw on packing crew-hours.\n\n- Nova Cartridges\n  - Financials: Each cartridge returns a contribution of 6.96.\n  - Planning bounds: Can be planned fractionally; anywhere from 0 up to 12.06 cartridges.\n  - Resource impact per cartridge:\n    - Packing crew-hours: 2.87 hours per cartridge.\n    - No draw on Alloy A feedstock.\n    - No draw on CNC machining center time.\n    - No draw on finishing line time.\n    - No draw on outbound dock allocation.\n\n- Peregrine Kits\n  - Financials: Each kit returns a contribution of 9.03.\n  - Planning bounds: Whole kits only; anywhere from 0 up to a cap of 5.46 kits (scheduled in whole batches).\n  - Resource impact per kit:\n    - Alloy A feedstock: 4.55 units per kit.\n    - Outbound dock allocation: 2.45 dock slots per kit.\n    - No draw on CNC machining center time.\n    - No draw on finishing line time.\n    - No draw on packing crew-hours.\n\n- Orion Frames\n  - Financials: Each frame returns a contribution of 6.53.\n  - Planning bounds: Whole frames only; we can plan from 0 up to 15.11 frames (scheduled in whole units).\n  - Resource impact per frame:\n    - No draw on Alloy A feedstock.\n    - No draw on CNC machining center time.\n    - No draw on finishing line time.\n    - No draw on packing crew-hours.\n    - No draw on outbound dock allocation. (Frames utilize an unconstrained assembly route this period.)\n\n- Echo Modules\n  - Financials: Each module returns a contribution of 2.72.\n  - Planning bounds: Can be planned fractionally; anywhere from 0 up to 14.27 modules.\n  - Resource impact per module:\n    - CNC machining center time: 5.65 hours per module.\n    - Finishing line time: 3.48 hours per module.\n    - No draw on Alloy A feedstock.\n    - No draw on packing crew-hours.\n    - No draw on outbound dock allocation.\n\nFacility and handling limits for this cycle (do not exceed):\n- Alloy A feedstock availability: up to 19.2 units in total.\n- CNC machining center availability: up to 46.07 hours in total.\n- Finishing line availability: up to 36.88 hours in total.\n- Packing crew-hours availability: up to 19.35 hours in total.\n- Outbound dock allocation: up to 25.12 dock slots in total.\n\nPlease use the above to determine the mix that maximizes our total contribution while respecting these limits. Let us know if any additional detail is needed."
+}

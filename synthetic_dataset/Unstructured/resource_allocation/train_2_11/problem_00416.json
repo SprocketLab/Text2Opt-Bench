@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 10,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and resource limits are explicitly stated; linear objective and constraints reconstructable without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business email framing and repeated 'does not require' lists add verbosity, though they clarify zero coefficients.",
+      "realism": 97,
+      "realism_comment": "Plausible beverage production planning with realistic resources and capacities; aligns with real-world OR applications."
+    },
+    "prompt_tokens_with_data": 1347,
+    "prompt_tokens_without_data": 1347
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 287.3933476581308,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 19.85,
+      "Var_2": 0.0,
+      "Var_3": 10.362499999999999,
+      "Var_4": 2.579600570613409,
+      "Var_5": 0.0,
+      "Var_6": 6.876016260162602,
+      "Var_7": 11.379480840543883
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 113.76
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 110.64
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 122.81
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 33.83
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.58
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 137.87
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.37
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 92.06
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 13.45
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.73
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.95
+      ],
+      "objective_linear_coefficient": 4.75,
+      "resource_costs": {
+        "C1": 0.29,
+        "C2": 5.92,
+        "C4": 3.2,
+        "C5": 9.15,
+        "C7": 7.06
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.85
+      ],
+      "objective_linear_coefficient": 8.55,
+      "resource_costs": {
+        "C0": 4.82
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.86
+      ],
+      "objective_linear_coefficient": 5.71,
+      "resource_costs": {
+        "C4": 2.01,
+        "C5": 7.32,
+        "C7": 0.49
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.94
+      ],
+      "objective_linear_coefficient": 5.26,
+      "resource_costs": {
+        "C4": 1.6
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.46
+      ],
+      "objective_linear_coefficient": 7.63,
+      "resource_costs": {
+        "C0": 7.01,
+        "C1": 5.7,
+        "C5": 8.6,
+        "C6": 0.58,
+        "C9": 5.0
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.27
+      ],
+      "objective_linear_coefficient": 2.06,
+      "resource_costs": {
+        "C0": 5.89,
+        "C2": 7.69,
+        "C6": 3.46
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.33
+      ],
+      "objective_linear_coefficient": 3.18,
+      "resource_costs": {
+        "C2": 7.17,
+        "C3": 4.92,
+        "C5": 3.56,
+        "C8": 1.7
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.25
+      ],
+      "objective_linear_coefficient": 1.9,
+      "resource_costs": {
+        "C1": 5.98,
+        "C2": 4.18,
+        "C7": 8.09,
+        "C9": 1.8
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.95, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.75 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.85, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.55 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.86, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.71 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.94, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.26 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.46, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.63 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.27, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.06 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=17.33, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.18 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=18.25, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 1.9 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.82 * vars['Var_1'] + 7.01 * vars['Var_4'] + 5.89 * vars['Var_5'] <= 113.76, name='C0')\n    m.addConstr(0.29 * vars['Var_0'] + 5.7 * vars['Var_4'] + 5.98 * vars['Var_7'] <= 110.64, name='C1')\n    m.addConstr(5.92 * vars['Var_0'] + 7.69 * vars['Var_5'] + 7.17 * vars['Var_6'] + 4.18 * vars['Var_7'] <= 122.81, name='C2')\n    m.addConstr(4.92 * vars['Var_6'] <= 33.83, name='C3')\n    m.addConstr(3.2 * vars['Var_0'] + 2.01 * vars['Var_2'] + 1.6 * vars['Var_3'] <= 16.58, name='C4')\n    m.addConstr(9.15 * vars['Var_0'] + 7.32 * vars['Var_2'] + 8.6 * vars['Var_4'] + 3.56 * vars['Var_6'] <= 137.87, name='C5')\n    m.addConstr(0.58 * vars['Var_4'] + 3.46 * vars['Var_5'] <= 17.37, name='C6')\n    m.addConstr(7.06 * vars['Var_0'] + 0.49 * vars['Var_2'] + 8.09 * vars['Var_7'] <= 92.06, name='C7')\n    m.addConstr(1.7 * vars['Var_6'] <= 13.45, name='C8')\n    m.addConstr(5.0 * vars['Var_4'] + 1.8 * vars['Var_7'] <= 65.73, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Plan for Q2 Beverage Portfolio \u2013 Capacity and Margin Guidance\n\nHi team,\n\nWe need your recommendation on the production mix for eight beverage offerings in the upcoming cycle. The objective is to maximize total contribution across the portfolio while staying within our operational and market limits. Each line item can be scheduled anywhere from 0 up to its stated maximum; there are no minimum commitments.\n\n- Aurora Sparkling Minis (250 ml): Each batch contributes 4.75 to portfolio margin. We can run between 0 and 7.95 batches. Per batch, this run draws 0.29 hours from the Labeling & Packaging crew, 5.92 units of Filtration Bed throughput, 3.2 hours on Bottling Line B, 9.15 units of Warehouse Staging space, and 7.06 Outbound Freight slots. It does not require Boiler/Pasteurizer time, Premium Mixing Bay time, QC Lab slots, Water Treatment, or Trade Promotion budget.\n\n- Heritage Still 1L: Each batch contributes 8.55 to portfolio margin. We can run between 0 and 19.85 batches. Per batch, this run requires 4.82 Boiler & Pasteurizer hours and does not consume other constrained resources (no Labeling & Packaging crew time, Filtration throughput, Mixing Bay time, Bottling Line B hours, Warehouse space, QC Lab slots, Outbound Freight slots, Water Treatment, or Trade Promotion budget).\n\n- Citrus Tonic Cans: Each batch contributes 5.71 to portfolio margin. We can run between 0 and 14.86 batches. Per batch, this run uses 2.01 hours on Bottling Line B, 7.32 units of Warehouse Staging space, and 0.49 Outbound Freight slots. It does not draw Boiler/Pasteurizer hours, Labeling & Packaging crew time, Filtration throughput, Premium Mixing Bay time, QC Lab slots, Water Treatment, or Trade Promotion budget.\n\n- Cold Brew Bottles: Each batch contributes 5.26 to portfolio margin. We can run between 0 and 18.94 batches. Per batch, this run uses 1.6 hours on Bottling Line B only, with no demands on Boiler/Pasteurizer hours, Labeling & Packaging crew time, Filtration throughput, Premium Mixing Bay time, Warehouse space, QC Lab slots, Outbound Freight slots, Water Treatment, or Trade Promotion budget.\n\n- Mountain Spring Sparkling (750 ml): Each batch contributes 7.63 to portfolio margin. We can run between 0 and 11.46 batches. Per batch, this run requires 7.01 Boiler & Pasteurizer hours, 5.7 Labeling & Packaging crew hours, 8.6 units of Warehouse Staging space, 0.58 QC Lab slots, and 5.0 of Trade Promotion budget. It does not use Filtration throughput, Premium Mixing Bay time, Bottling Line B hours, Outbound Freight slots, or Water Treatment.\n\n- Kids Juice Pouches: Each batch contributes 2.06 to portfolio margin. We can run between 0 and 18.27 batches. Per batch, this run draws 5.89 Boiler & Pasteurizer hours, 7.69 units of Filtration Bed throughput, and 3.46 QC Lab slots. It does not use Labeling & Packaging crew time, Premium Mixing Bay time, Bottling Line B hours, Warehouse space, Outbound Freight slots, Water Treatment, or Trade Promotion budget.\n\n- Premium Kombucha: Each batch contributes 3.18 to portfolio margin. We can run between 0 and 17.33 batches. Per batch, this run uses 7.17 units of Filtration Bed throughput, 4.92 Premium Mixing Bay hours, 3.56 units of Warehouse Staging space, and 1.7 Water Treatment capacity. It does not require Boiler/Pasteurizer hours, Labeling & Packaging crew time, Bottling Line B hours, QC Lab slots, Outbound Freight slots, or Trade Promotion budget.\n\n- Seltzer Variety Packs: Each batch contributes 1.9 to portfolio margin. We can run between 0 and 18.25 batches. Per batch, this run draws 5.98 Labeling & Packaging crew hours, 4.18 units of Filtration Bed throughput, 8.09 Outbound Freight slots, and 1.8 of Trade Promotion budget. It does not require Boiler/Pasteurizer hours, Premium Mixing Bay time, Bottling Line B hours, Warehouse space, QC Lab slots, or Water Treatment.\n\nFacility specs and market limits (maximum available this cycle):\n- Boiler & Pasteurizer hours: up to 113.76\n- Labeling & Packaging crew hours: up to 110.64\n- Filtration Bed throughput: up to 122.81\n- Premium Mixing Bay time: up to 33.83\n- Bottling Line B hours: up to 16.58\n- Warehouse Staging space: up to 137.87\n- QC Lab slots: up to 17.37\n- Outbound Freight slots: up to 92.06\n- Water Treatment capacity: up to 13.45\n- Trade Promotion budget: up to 65.73\n\nPlease propose the optimal batch plan that maximizes total contribution while respecting these limits. If you need any clarifications on product definitions or resource measurement units, let me know.\n\nThanks,\n[Client Name]\nVP, Manufacturing & Supply Chain"
+}

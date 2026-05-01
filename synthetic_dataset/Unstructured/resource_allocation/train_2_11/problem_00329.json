@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Every initiative has clear bounds and contribution; each resource effect (including credits) is quantified. Facility limits are explicit with <= sense, enabling an unambiguous LP reconstruction.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business context is verbose but structured; some repeated \u201cno measurable impact\u201d notes. Overall little fluff and minimal repetition.",
+      "realism": 96,
+      "realism_comment": "Plausible portfolio mix/capacity planning with hours, carbon, audits, throughput, waste, capital, and risk. Negative caps/credits are explained, matching real compliance framing."
+    },
+    "prompt_tokens_with_data": 1578,
+    "prompt_tokens_without_data": 1578
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 265.7890763557941,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 6.923334810940202,
+      "Var_2": 0.4448818688050306,
+      "Var_3": 2.2519050921010098,
+      "Var_4": 1.285537479498204,
+      "Var_5": 13.07,
+      "Var_6": 16.69
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 190.0
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -54.53
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 5.06
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 156.32
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 7.54
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 161.87
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -4.29
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.55
+      ],
+      "objective_linear_coefficient": 8.82,
+      "resource_costs": {
+        "C0": 7.68,
+        "C1": 6.1,
+        "C2": 1.82,
+        "C3": 3.41,
+        "C4": -0.97,
+        "C5": 7.28
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.55
+      ],
+      "objective_linear_coefficient": 4.84,
+      "resource_costs": {
+        "C1": -1.72,
+        "C2": 2.68,
+        "C5": 3.4,
+        "C6": 5.57
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.73
+      ],
+      "objective_linear_coefficient": 2.82,
+      "resource_costs": {
+        "C0": 9.43,
+        "C1": -4.23,
+        "C3": 9.96,
+        "C5": 7.76
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.54
+      ],
+      "objective_linear_coefficient": 9.55,
+      "resource_costs": {
+        "C0": 7.08,
+        "C1": 1.41,
+        "C3": 5.78,
+        "C5": 8.36
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.67
+      ],
+      "objective_linear_coefficient": 6.28,
+      "resource_costs": {
+        "C0": 3.22,
+        "C2": 8.21,
+        "C3": -0.41,
+        "C4": 5.07,
+        "C5": -1.02,
+        "C6": 1.07
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.07
+      ],
+      "objective_linear_coefficient": 3.32,
+      "resource_costs": {
+        "C0": 8.11,
+        "C1": -3.36,
+        "C2": -1.84,
+        "C3": 2.07,
+        "C4": 1.51,
+        "C5": 6.63
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.69
+      ],
+      "objective_linear_coefficient": 9.47,
+      "resource_costs": {
+        "C0": 2.3,
+        "C3": 6.71,
+        "C4": -4.64,
+        "C5": 1.84,
+        "C6": -2.65
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.55, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.55, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.84 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.73, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.82 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.54, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.55 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.67, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.28 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.07, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.32 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.69, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 9.47 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.68 * vars['Var_0'] + 9.43 * vars['Var_2'] + 7.08 * vars['Var_3'] + 3.22 * vars['Var_4'] + 8.11 * vars['Var_5'] + 2.3 * vars['Var_6'] <= 190.0, name='C0')\n    m.addConstr(6.1 * vars['Var_0'] + -1.72 * vars['Var_1'] + -4.23 * vars['Var_2'] + 1.41 * vars['Var_3'] + -3.36 * vars['Var_5'] <= -54.53, name='C1')\n    m.addConstr(1.82 * vars['Var_0'] + 2.68 * vars['Var_1'] + 8.21 * vars['Var_4'] + -1.84 * vars['Var_5'] <= 5.06, name='C2')\n    m.addConstr(3.41 * vars['Var_0'] + 9.96 * vars['Var_2'] + 5.78 * vars['Var_3'] + -0.41 * vars['Var_4'] + 2.07 * vars['Var_5'] + 6.71 * vars['Var_6'] <= 156.32, name='C3')\n    m.addConstr(-0.97 * vars['Var_0'] + 5.07 * vars['Var_4'] + 1.51 * vars['Var_5'] + -4.64 * vars['Var_6'] <= 7.54, name='C4')\n    m.addConstr(7.28 * vars['Var_0'] + 3.4 * vars['Var_1'] + 7.76 * vars['Var_2'] + 8.36 * vars['Var_3'] + -1.02 * vars['Var_4'] + 6.63 * vars['Var_5'] + 1.84 * vars['Var_6'] <= 161.87, name='C5')\n    m.addConstr(5.57 * vars['Var_1'] + 1.07 * vars['Var_4'] + -2.65 * vars['Var_6'] <= -4.29, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Planning for Q1 Portfolio \u2014 Maximize Contribution while Staying within Plant and Compliance Limits\n\nTeam,\n\nWe are preparing the Q1 portfolio mix across seven initiatives and would like your help optimizing the allocation. The objective is to maximize overall contribution while staying within our operating capacities and compliance thresholds. Below are the levers we can adjust, along with what each contributes per unit and how each draws on (or relieves) our constrained resources.\n\n- Aurora Premium Assemblies\n  - Contribution: Each unit adds 8.82 to our net benefit.\n  - Scale: We can schedule anywhere from 0 up to 9.55 units this quarter.\n  - Core Production Hours: Uses 7.68 hours per unit.\n  - Carbon Delta: Adds 6.10 units per unit (i.e., worsens the carbon delta by 6.10).\n  - Certified Quality Audits: Requires 1.82 audit slots per unit.\n  - Logistics Throughput: Consumes 3.41 throughput points per unit.\n  - Residual Waste: Reduces residual waste by 0.97 units per unit (a diversion credit).\n  - Capital Occupancy: Draws 7.28 capacity units per unit.\n  - Risk Index: No measurable impact on the risk index.\n\n- Borealis Aftermarket Kits\n  - Contribution: Each unit adds 4.84 to our net benefit.\n  - Scale: We can schedule anywhere from 0 up to 7.55 units.\n  - Carbon Delta: Improves the carbon delta by 1.72 units per unit (a reduction).\n  - Certified Quality Audits: Requires 2.68 audit slots per unit.\n  - Capital Occupancy: Draws 3.40 capacity units per unit.\n  - Risk Index: Increases the risk index by 5.57 units per unit.\n  - Core Production Hours, Logistics Throughput, Residual Waste: No draw on these categories.\n\n- Glacier Microline\n  - Contribution: Each unit adds 2.82 to our net benefit.\n  - Scale: We can schedule anywhere from 0 up to 18.73 units.\n  - Core Production Hours: Uses 9.43 hours per unit.\n  - Carbon Delta: Improves the carbon delta by 4.23 units per unit (a reduction).\n  - Logistics Throughput: Consumes 9.96 throughput points per unit.\n  - Capital Occupancy: Draws 7.76 capacity units per unit.\n  - Certified Quality Audits, Residual Waste, Risk Index: No draw on these categories.\n\n- Summit High-Throughput Line\n  - Contribution: Each unit adds 9.55 to our net benefit.\n  - Scale: We can schedule anywhere from 0 up to 10.54 units.\n  - Core Production Hours: Uses 7.08 hours per unit.\n  - Carbon Delta: Adds 1.41 units per unit (worsens the carbon delta).\n  - Logistics Throughput: Consumes 5.78 throughput points per unit.\n  - Capital Occupancy: Draws 8.36 capacity units per unit.\n  - Certified Quality Audits, Residual Waste, Risk Index: No draw on these categories.\n\n- Evergreen Premium Kit\n  - Contribution: Each unit adds 6.28 to our net benefit.\n  - Scale: We can schedule anywhere from 0 up to 6.67 units.\n  - Core Production Hours: Uses 3.22 hours per unit.\n  - Certified Quality Audits: Requires 8.21 audit slots per unit (heavy compliance workload).\n  - Logistics Throughput: Provides a 0.41 throughput credit per unit (reduces handling load).\n  - Residual Waste: Adds 5.07 units per unit (increases residual waste).\n  - Capital Occupancy: Provides a 1.02 capacity credit per unit (reduces capital occupancy).\n  - Risk Index: Increases the risk index by 1.07 units per unit.\n  - Carbon Delta: No measurable impact.\n\n- Aspect Pre-Certified Service\n  - Contribution: Each unit adds 3.32 to our net benefit.\n  - Scale: We can schedule anywhere from 0 up to 13.07 units.\n  - Core Production Hours: Uses 8.11 hours per unit.\n  - Carbon Delta: Improves the carbon delta by 3.36 units per unit (a reduction).\n  - Certified Quality Audits: Provides a 1.84 audit-slot credit per unit (reduces internal testing needs).\n  - Logistics Throughput: Consumes 2.07 throughput points per unit.\n  - Residual Waste: Adds 1.51 units per unit.\n  - Capital Occupancy: Draws 6.63 capacity units per unit.\n  - Risk Index: No measurable impact.\n\n- Zenith Recycled Materials Program\n  - Contribution: Each unit adds 9.47 to our net benefit.\n  - Scale: We can schedule anywhere from 0 up to 16.69 units.\n  - Core Production Hours: Uses 2.30 hours per unit.\n  - Logistics Throughput: Consumes 6.71 throughput points per unit.\n  - Residual Waste: Reduces residual waste by 4.64 units per unit (strong diversion benefit).\n  - Capital Occupancy: Draws 1.84 capacity units per unit.\n  - Risk Index: Improves the risk index by 2.65 units per unit (reduces net risk).\n  - Carbon Delta, Certified Quality Audits: No measurable impact.\n\nFacility Specs & Compliance Limits (do not exceed)\n- Core Production Hours: Maximum of 190.00 hours available.\n- Carbon Delta: Must be at or below -54.53 units. In other words, the plan must deliver net reductions exceeding baseline by at least 54.53 units.\n- Certified Quality Audits: No more than 5.06 audit slots available.\n- Logistics Throughput: No more than 156.32 throughput points available.\n- Residual Waste: No more than 7.54 residual waste units allowed after diversion efforts.\n- Capital Occupancy: No more than 161.87 capacity units available.\n- Risk Index: Must be at or below -4.29. In other words, we need a net risk reduction of at least 4.29 units relative to the baseline.\n\nPlease use the above as the basis to recommend the optimal Q1 mix that maximizes our contribution while staying within these limits. If any assumption needs refinement (e.g., unit definitions or accounting for fractional allocations), let me know so we can confirm before you run the model."
+}

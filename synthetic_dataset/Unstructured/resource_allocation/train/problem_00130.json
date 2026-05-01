@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Margins, caps, resource usage, and capacities are explicit; partial runs imply continuous vars with 0 lower bounds. Objective is maximize gross contribution. No missing info.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Memo style with notes, greetings, and explanations adds verbosity; repeated zero-usage notes, but content is mostly relevant to the model.",
+      "realism": 99,
+      "realism_comment": "Very realistic production planning with sugar, line time, lab, and cold-chain constraints; per-product margins and usages are plausible and consistent."
+    },
+    "prompt_tokens_with_data": 1115,
+    "prompt_tokens_without_data": 1115
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 176.52461545779,
+    "optimal_values": {
+      "Var_0": 15.892513895571222,
+      "Var_1": 0.0,
+      "Var_2": 12.628450106157112,
+      "Var_3": 4.618233618233619
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 118.96
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.14
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 32.42
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 224.77
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 117.88
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.05
+      ],
+      "objective_linear_coefficient": 4.08,
+      "resource_costs": {
+        "C3": 9.25
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.95
+      ],
+      "objective_linear_coefficient": 1.7,
+      "resource_costs": {
+        "C0": 2.65,
+        "C3": 6.82,
+        "C4": 6.76
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.16
+      ],
+      "objective_linear_coefficient": 7.37,
+      "resource_costs": {
+        "C0": 9.42,
+        "C3": 3.96,
+        "C4": 5.05
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.74
+      ],
+      "objective_linear_coefficient": 4.03,
+      "resource_costs": {
+        "C1": 2.5,
+        "C2": 7.02,
+        "C3": 6.01
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.05, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.08 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.95, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.7 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.16, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.37 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.74, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.03 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.65 * vars['Var_1'] + 9.42 * vars['Var_2'] <= 118.96, name='C0')\n    m.addConstr(2.5 * vars['Var_3'] <= 12.14, name='C1')\n    m.addConstr(7.02 * vars['Var_3'] <= 32.42, name='C2')\n    m.addConstr(9.25 * vars['Var_0'] + 6.82 * vars['Var_1'] + 3.96 * vars['Var_2'] + 6.01 * vars['Var_3'] <= 224.77, name='C3')\n    m.addConstr(6.76 * vars['Var_1'] + 5.05 * vars['Var_2'] <= 117.88, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 Beverage Mix \u2013 Request to Maximize Gross Contribution under Line, Storage, and Material Limits\n\nTeam,\n\nAs we finalize the Q2 production plan across our beverage programs, please develop a mix that maximizes total gross contribution given our limited materials, line time, lab availability, and cold-chain capacity. Volumes below are in thousand-case equivalents (TCE); partial runs are permitted. There is no minimum commitment for any item (we can choose anywhere from 0 up to the stated cap for each).\n\nThe levers we can pull\n\n- Bluewater Seltzer (Canned)\n  - Margin impact: Each TCE contributes 4.08 to gross margin.\n  - Practical ceiling: We can schedule up to 17.05 TCE this quarter; we\u2019re not obligated to run any if it doesn\u2019t make sense.\n  - Resource usage per TCE:\n    - Organic sugar supply: 0.00 metric tons (no draw).\n    - Certified specialist hours: 0.00 hours (no draw).\n    - Microbiology/QA bench time: 0.00 slot-hours (no draw).\n    - Filling Line A runtime: 9.25 line-hours.\n    - Cold-chain pallet positions: 0.00 pallets (ambient-stable).\n  - Notes: This item relies almost entirely on Filling Line A time; it does not compete for sugar, specialist hours, QA bench time, or cold storage.\n\n- Heritage Iced Tea (Glass)\n  - Margin impact: Each TCE contributes 1.70 to gross margin.\n  - Practical ceiling: Up to 10.95 TCE; no minimum run required.\n  - Resource usage per TCE:\n    - Organic sugar supply: 2.65 metric tons.\n    - Certified specialist hours: 0.00 hours.\n    - Microbiology/QA bench time: 0.00 slot-hours.\n    - Filling Line A runtime: 6.82 line-hours.\n    - Cold-chain pallet positions: 6.76 pallets.\n  - Notes: Competes for sugar, Line A time, and cold storage; does not require specialist or extra bench time beyond routine checks.\n\n- WildFerm Kombucha (Glass, Fermented)\n  - Margin impact: Each TCE contributes 7.37 to gross margin.\n  - Practical ceiling: Up to 15.16 TCE; no minimum run required.\n  - Resource usage per TCE:\n    - Organic sugar supply: 9.42 metric tons.\n    - Certified specialist hours: 0.00 hours.\n    - Microbiology/QA bench time: 0.00 slot-hours.\n    - Filling Line A runtime: 3.96 line-hours.\n    - Cold-chain pallet positions: 5.05 pallets.\n  - Notes: Heavy sugar draw with modest Line A time and meaningful cold-chain needs; no reliance on specialist or additional bench time.\n\n- Clinical Isotonic Shots (Vials)\n  - Margin impact: Each TCE contributes 4.03 to gross margin.\n  - Practical ceiling: Up to 10.74 TCE; no minimum run required.\n  - Resource usage per TCE:\n    - Organic sugar supply: 0.00 metric tons (no draw).\n    - Certified specialist hours: 2.50 hours.\n    - Microbiology/QA bench time: 7.02 slot-hours.\n    - Filling Line A runtime: 6.01 line-hours.\n    - Cold-chain pallet positions: 0.00 pallets (shelf-stable).\n  - Notes: This program is constrained primarily by certified specialist hours and QA bench availability, with additional pressure on Line A; it does not use sugar or cold storage.\n\nFacility and market limits for the quarter\n\n- Organic sugar available for the period: up to 118.96 metric tons in total.\n- Certified specialist hours available: up to 12.14 hours in total.\n- Microbiology/QA bench time available: up to 32.42 slot-hours in total.\n- Filling Line A runtime available: up to 224.77 line-hours in total.\n- Cold-chain pallet positions available: up to 117.88 pallets in total.\n\nPlease use the above to recommend the optimal TCE allocation across the four items to maximize gross contribution while staying within these limits. Let me know if you need any clarifications on assumptions or units.\n\nThanks,\n[Client Name]\nVP, Operations"
+}

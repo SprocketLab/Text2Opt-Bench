@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, objective coefficients, and constraint impacts (including negative-ledger semantics) are explicitly stated; a model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Business narrative and repeated sign-convention explanations add fluff, but technical content is clear and non-repetitive.",
+      "realism": 96,
+      "realism_comment": "Realistic resource-mix planning with crew-hours, water, power, and compliance caps; negative-ledger accounting is plausible and consistent."
+    },
+    "prompt_tokens_with_data": 947,
+    "prompt_tokens_without_data": 947
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 113.78700123602825,
+    "optimal_values": {
+      "Var_0": 11.780203019529461,
+      "Var_1": 4.745856978563752,
+      "Var_2": 1.6610169491525424
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -3.31
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 58.91
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 31.53
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -0.98
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.61
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.92
+      ],
+      "objective_linear_coefficient": 7.58,
+      "resource_costs": {
+        "C2": 4.57,
+        "C4": 2.92
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.04
+      ],
+      "objective_linear_coefficient": 1.92,
+      "resource_costs": {
+        "C1": 8.99,
+        "C2": -4.7,
+        "C4": -1.56
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.0
+      ],
+      "objective_linear_coefficient": 9.26,
+      "resource_costs": {
+        "C0": -2.11,
+        "C1": 9.78,
+        "C3": -0.59,
+        "C4": 8.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.92, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.58 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.04, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.92 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=5.0, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.26 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-2.11 * vars['Var_2'] <= -3.31, name='C0')\n    m.addConstr(8.99 * vars['Var_1'] + 9.78 * vars['Var_2'] <= 58.91, name='C1')\n    m.addConstr(4.57 * vars['Var_0'] + -4.7 * vars['Var_1'] <= 31.53, name='C2')\n    m.addConstr(-0.59 * vars['Var_2'] <= -0.98, name='C3')\n    m.addConstr(2.92 * vars['Var_0'] + -1.56 * vars['Var_1'] + 8.46 * vars['Var_2'] <= 49.61, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix to maximize contribution under plant capacity and compliance targets\n\nTeam,\n\nAs discussed, we\u2019re setting the operating mix for the upcoming period to maximize total contribution while staying within our facility and compliance limits. We have three practical levers to dial in (all scalable in fractional increments), each with a clear unit margin and a defined impact on labor, utilities, and compliance ledgers.\n\nLevers we can pull (in this exact sequence):\n- Blue Label Batch Production\n  - Financials: Generates 7.58 in contribution per batch.\n  - Operating window: Can run anywhere from 0 up to 15.92 batches this period.\n  - Resource impacts: Draws 4.57 units of freshwater per batch and 2.92 units of electrical load per batch.\n  - No draw on skilled crew hours for this line, and it does not influence the carbon removal ledger or the safety/ hazard compliance score (no impact on those ledgers).\n\n- Utilities Reclamation Initiative\n  - Financials: Generates 1.92 in contribution per work order completed.\n  - Operating window: Can be scheduled from 0 up to 16.04 work orders.\n  - Resource impacts: Requires 8.99 skilled crew-hours per work order. It frees up utilities by lowering freshwater withdrawals by 4.70 units per work order and reducing electrical load by 1.56 units per work order.\n  - No effect on the carbon removal ledger and no effect on the safety/ hazard compliance score.\n\n- Carbon-Positive Biochar Line\n  - Financials: Generates 9.26 in contribution per production batch.\n  - Operating window: Can be run from 0 up to 5.00 batches.\n  - Resource impacts: Uses 9.78 skilled crew-hours per batch and 8.46 units of electrical load per batch; it has no draw on freshwater.\n  - Compliance benefits: Improves the net carbon position by 2.11 removal units per batch (we keep the carbon removal ledger as a negative number\u2014each batch pushes the ledger down by 2.11). It also improves the safety/ hazard compliance score by 0.59 per batch (again recorded as a negative contribution in that ledger).\n\nFacility and compliance limits we must respect:\n- Net Carbon Removal Ledger: The period must close no higher than -3.31 units. We record removals as negative numbers, so this effectively means achieving at least 3.31 units of removal.\n- Skilled Crew-Hour Capacity: Total crew-hours available are capped at 58.91.\n- Freshwater Withdrawals: Total draw cannot exceed 31.53 units.\n- Safety/Hazard Compliance Score: The period must close no higher than -0.98. We record over-compliance as a negative value, so this reflects a requirement to maintain at least 0.98 units of cushion below the regulatory line.\n- Electrical Load Budget: Total electrical load is capped at 49.61 units.\n\nPlease review these parameters. The intent is to select the volumes of the three levers within their respective ranges\u20140 to 15.92 for the Blue Label batches, 0 to 16.04 for the Utilities Reclamation work orders, and 0 to 5.00 for the Biochar batches\u2014to maximize total contribution (7.58, 1.92, and 9.26 per unit respectively) without breaching any of the above limits. I\u2019m available to discuss trade-offs, especially around the crew-hour bottleneck and how the Utilities Reclamation initiative\u2019s water and power savings interact with the higher-margin Biochar line."
+}

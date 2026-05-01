@@ -1,0 +1,186 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, objective coefficients, signs, and constraint limits are explicit. \u2018No impact\u2019 clarifies zeros; negative thresholds and credits clearly indicate coefficient signs.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo style with repeated \u2018No impact\u2019 lines adds length; minor fluff, but repetition serves to clarify zero coefficients.",
+      "realism": 92,
+      "realism_comment": "Feels like a realistic planning LP with capacities, risk, and compliance. Negative thresholds are unusual but explained as net reductions; numbers are plausible."
+    },
+    "prompt_tokens_with_data": 1492,
+    "prompt_tokens_without_data": 1492
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 493.416833963685,
+    "optimal_values": {
+      "Var_0": 10.227450980392156,
+      "Var_1": 15.761419964856495,
+      "Var_2": 12.18,
+      "Var_3": 13.07843137254902,
+      "Var_4": 0.0,
+      "Var_5": 0.0,
+      "Var_6": 10.64,
+      "Var_7": 12.51
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 96.05
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 26.68
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 0.36
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -154.84
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -62.52
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.64
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 26.08
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -53.08
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.47
+      ],
+      "objective_linear_coefficient": 9.66,
+      "resource_costs": {
+        "C0": 8.82,
+        "C3": -5.12,
+        "C5": 5.8,
+        "C6": 2.55
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.47
+      ],
+      "objective_linear_coefficient": 5.72,
+      "resource_costs": {
+        "C0": 7.03,
+        "C3": -8.26,
+        "C5": -1.24,
+        "C7": 1.02
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.18
+      ],
+      "objective_linear_coefficient": 6.05,
+      "resource_costs": {
+        "C3": -2.84
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.76
+      ],
+      "objective_linear_coefficient": 8.52,
+      "resource_costs": {
+        "C1": 2.04,
+        "C4": -6.89,
+        "C7": -5.98
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.42
+      ],
+      "objective_linear_coefficient": 4.69,
+      "resource_costs": {
+        "C1": 1.55,
+        "C4": -0.37,
+        "C5": 4.01
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.72
+      ],
+      "objective_linear_coefficient": 8.18,
+      "resource_costs": {
+        "C0": -3.89,
+        "C1": 4.0,
+        "C4": -8.0
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.64
+      ],
+      "objective_linear_coefficient": 7.96,
+      "resource_costs": {
+        "C2": -0.51,
+        "C5": -0.15,
+        "C7": -8.36
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.51
+      ],
+      "objective_linear_coefficient": 2.77,
+      "resource_costs": {
+        "C0": -8.39,
+        "C3": -7.36,
+        "C7": 0.48
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.47, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.66 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.47, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.72 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.18, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.05 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.76, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.52 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.42, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.69 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.72, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.18 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.64, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 7.96 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=12.51, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 2.77 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.82 * vars['Var_0'] + 7.03 * vars['Var_1'] + -3.89 * vars['Var_5'] + -8.39 * vars['Var_7'] <= 96.05, name='C0')\n    m.addConstr(2.04 * vars['Var_3'] + 1.55 * vars['Var_4'] + 4.0 * vars['Var_5'] <= 26.68, name='C1')\n    m.addConstr(-0.51 * vars['Var_6'] <= 0.36, name='C2')\n    m.addConstr(-5.12 * vars['Var_0'] + -8.26 * vars['Var_1'] + -2.84 * vars['Var_2'] + -7.36 * vars['Var_7'] <= -154.84, name='C3')\n    m.addConstr(-6.89 * vars['Var_3'] + -0.37 * vars['Var_4'] + -8.0 * vars['Var_5'] <= -62.52, name='C4')\n    m.addConstr(5.8 * vars['Var_0'] + -1.24 * vars['Var_1'] + 4.01 * vars['Var_4'] + -0.15 * vars['Var_6'] <= 52.64, name='C5')\n    m.addConstr(2.55 * vars['Var_0'] <= 26.08, name='C6')\n    m.addConstr(1.02 * vars['Var_1'] + -5.98 * vars['Var_3'] + -8.36 * vars['Var_6'] + 0.48 * vars['Var_7'] <= -53.08, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation brief for maximizing next quarter\u2019s contribution\n\nTeam,\n\nAs we plan the upcoming quarter, our goal is to maximize overall contribution while staying within the operational, regulatory, and market limits described below. Quantities can be partial; there is no minimum commitment on any item (we can choose zero), but each has an upper limit on how much we can schedule. Here is how each initiative contributes value and draws on or releases the various capacities.\n\n- North Plant Premium Build Slots\n  - Value: each scheduled build adds 9.66 to contribution.\n  - Quantity window: between 0 and 12.47 builds.\n  - Resource impacts:\n    - Core plant throughput hours: draws 8.82 hours per build.\n    - Supply chain exposure index: reduces the index by 5.12 per build (offset credit).\n    - Outbound distribution slots: uses 5.8 slots per build.\n    - Engineering support bandwidth: consumes 2.55 units per build.\n    - No impact on quality lab hours, compliance exceptions budget, wastewater discharge index, or portfolio risk score.\n\n- Contract Manufacturing Batch Beta\n  - Value: each batch adds 5.72 to contribution.\n  - Quantity window: between 0 and 17.47 batches.\n  - Resource impacts:\n    - Core plant throughput hours: draws 7.03 hours per batch.\n    - Supply chain exposure index: reduces the index by 8.26 per batch (offset credit).\n    - Outbound distribution slots: returns 1.24 slots to the pool per batch (capacity credit).\n    - Portfolio risk score: increases the score by 1.02 per batch.\n    - No impact on quality lab hours, compliance exceptions budget, wastewater discharge index, or engineering support bandwidth.\n\n- Supplier Buyback Program\n  - Value: each program cycle adds 6.05 to contribution.\n  - Quantity window: between 0 and 12.18 cycles.\n  - Resource impacts:\n    - Supply chain exposure index: reduces the index by 2.84 per cycle (offset credit).\n    - No impact on core plant throughput hours, quality lab hours, compliance exceptions budget, wastewater discharge index, outbound distribution slots, engineering support bandwidth, or portfolio risk score.\n\n- Green Retrofit Initiative\n  - Value: each retrofit adds 8.52 to contribution.\n  - Quantity window: between 0 and 16.76 retrofits.\n  - Resource impacts:\n    - Quality lab review hours: uses 2.04 hours per retrofit.\n    - Wastewater discharge index: reduces the index by 6.89 per retrofit (environmental offset).\n    - Portfolio risk score: reduces the score by 5.98 per retrofit (risk mitigation).\n    - No impact on core plant throughput hours, compliance exceptions budget, supply chain exposure index, outbound distribution slots, or engineering support bandwidth.\n\n- Marketing Campaign Delta\n  - Value: each campaign adds 4.69 to contribution.\n  - Quantity window: between 0 and 18.42 campaigns.\n  - Resource impacts:\n    - Quality lab review hours: uses 1.55 hours per campaign.\n    - Wastewater discharge index: reduces the index by 0.37 per campaign (environmental offset).\n    - Outbound distribution slots: uses 4.01 slots per campaign.\n    - No impact on core plant throughput hours, compliance exceptions budget, supply chain exposure index, engineering support bandwidth, or portfolio risk score.\n\n- Automation Rollout Phase Epsilon\n  - Value: each site rollout adds 8.18 to contribution.\n  - Quantity window: between 0 and 14.72 site rollouts.\n  - Resource impacts:\n    - Core plant throughput hours: returns 3.89 hours per rollout (capacity relief).\n    - Quality lab review hours: uses 4.00 hours per rollout.\n    - Wastewater discharge index: reduces the index by 8.00 per rollout (environmental offset).\n    - No impact on compliance exceptions budget, supply chain exposure index, outbound distribution slots, engineering support bandwidth, or portfolio risk score.\n\n- Cybersecurity Hardening Package\n  - Value: each package adds 7.96 to contribution.\n  - Quantity window: between 0 and 10.64 packages.\n  - Resource impacts:\n    - Compliance exceptions budget: reduces anticipated exceptions by 0.51 per package (compliance credit).\n    - Outbound distribution slots: returns 0.15 slots per package (capacity credit).\n    - Portfolio risk score: reduces the score by 8.36 per package (risk mitigation).\n    - No impact on core plant throughput hours, quality lab review hours, supply chain exposure index, wastewater discharge index, or engineering support bandwidth.\n\n- Last\u2011Mile Delivery Pilot\n  - Value: each pilot adds 2.77 to contribution.\n  - Quantity window: between 0 and 12.51 pilots.\n  - Resource impacts:\n    - Core plant throughput hours: returns 8.39 hours per pilot (capacity relief).\n    - Supply chain exposure index: reduces the index by 7.36 per pilot (offset credit).\n    - Portfolio risk score: increases the score slightly by 0.48 per pilot.\n    - No impact on quality lab review hours, compliance exceptions budget, wastewater discharge index, outbound distribution slots, or engineering support bandwidth.\n\nFacility specs and market limits we must respect:\n- Core plant throughput hours: combined draw must not exceed 96.05.\n- Quality lab review hours: combined draw must not exceed 26.68.\n- Compliance exceptions budget: combined impact must not exceed 0.36.\n- Supply chain exposure index: combined impact must be at or below \u2212154.84 (i.e., we need a net reduction to that level or lower).\n- Wastewater discharge index: combined impact must be at or below \u221262.52 (net environmental reduction to that level or lower).\n- Outbound distribution slots: combined usage must not exceed 52.64.\n- Engineering support bandwidth: combined draw must not exceed 26.08.\n- Portfolio risk score: combined impact must be at or below \u221253.08 (more conservative than this threshold).\n\nPlease use the above as the basis for the allocation plan that maximizes total contribution while staying within these limits."
+}

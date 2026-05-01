@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality and resource capacities are explicit; constraints map directly. Only minor gap: variable names not specified though required.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Clear but verbose; repeats 'does not use' lists and email-style fluff. Extra text aids clarity but could be leaner.",
+      "realism": 98,
+      "realism_comment": "Very realistic production mix planning with plausible resources and limits; fractional caps on integer lots are a minor quirk but acceptable."
+    },
+    "prompt_tokens_with_data": 1131,
+    "prompt_tokens_without_data": 1131
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 128.44498449906487,
+    "optimal_values": {
+      "Var_0": 8.603821656050956,
+      "Var_1": 0.0,
+      "Var_2": 7.2,
+      "Var_3": 0.0,
+      "Var_4": 0.9383277093358351,
+      "Var_5": 4.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.66
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 67.54
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 97.4
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 51.29
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.29
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.49
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 78.95
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.71
+      ],
+      "objective_linear_coefficient": 7.11,
+      "resource_costs": {
+        "C0": 4.24,
+        "C1": 7.85,
+        "C4": 4.98,
+        "C5": 3.97
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.35
+      ],
+      "objective_linear_coefficient": 1.48,
+      "resource_costs": {
+        "C0": 0.7,
+        "C1": 2.94,
+        "C3": 4.88,
+        "C4": 0.25,
+        "C6": 3.69
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.2
+      ],
+      "objective_linear_coefficient": 8.15,
+      "resource_costs": {
+        "C2": 8.11,
+        "C3": 6.45,
+        "C6": 2.17
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.33
+      ],
+      "objective_linear_coefficient": 4.98,
+      "resource_costs": {
+        "C1": 9.97,
+        "C2": 3.8,
+        "C3": 5.08
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.4
+      ],
+      "objective_linear_coefficient": 3.7,
+      "resource_costs": {
+        "C0": 9.57,
+        "C3": 3.46,
+        "C5": 6.18
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.7
+      ],
+      "objective_linear_coefficient": 1.28,
+      "resource_costs": {
+        "C0": 1.05,
+        "C2": 9.06,
+        "C4": 7.83,
+        "C5": 5.83,
+        "C6": 7.06
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.71, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.11 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.35, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.48 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.2, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.15 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.33, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.98 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.4, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.7 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.7, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 1.28 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.24 * vars['Var_0'] + 0.7 * vars['Var_1'] + 9.57 * vars['Var_4'] + 1.05 * vars['Var_5'] <= 49.66, name='C0')\n    m.addConstr(7.85 * vars['Var_0'] + 2.94 * vars['Var_1'] + 9.97 * vars['Var_3'] <= 67.54, name='C1')\n    m.addConstr(8.11 * vars['Var_2'] + 3.8 * vars['Var_3'] + 9.06 * vars['Var_5'] <= 97.4, name='C2')\n    m.addConstr(4.88 * vars['Var_1'] + 6.45 * vars['Var_2'] + 5.08 * vars['Var_3'] + 3.46 * vars['Var_4'] <= 51.29, name='C3')\n    m.addConstr(4.98 * vars['Var_0'] + 0.25 * vars['Var_1'] + 7.83 * vars['Var_5'] <= 87.29, name='C4')\n    m.addConstr(3.97 * vars['Var_0'] + 6.18 * vars['Var_4'] + 5.83 * vars['Var_5'] <= 77.49, name='C5')\n    m.addConstr(3.69 * vars['Var_1'] + 2.17 * vars['Var_2'] + 7.06 * vars['Var_5'] <= 78.95, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Plan to Maximize Contribution This Period\n\nTeam,\n\nWe need to settle the production and kitting mix across six offerings to maximize total contribution this period while staying within our staffing, facility, materials, and logistics limits. Below are the levers we control and the exact resource implications per unit, along with practical caps on each.\n\n- Aurora Blend Kits\n  - Financials and volume: Each kit contributes 7.11 per unit. We can schedule any nonnegative quantity up to 19.71 kits this period, and they may be split across partial batches.\n  - What it draws on: Per kit, this uses 4.24 core processing hours, 7.85 skilled technician hours, 4.98 cleanroom slots, and 3.97 warehouse pallet positions.\n  - What it does not use: No demand on Alloy A feedstock, packaging & inspection line time, or outbound trucking mileage.\n\n- Nimbus Starter Packs\n  - Financials and volume: Each pack contributes 1.48 per unit. We can schedule any nonnegative quantity up to 8.35 packs, and partial batches are acceptable.\n  - What it draws on: Per pack, this uses 0.70 core processing hours, 2.94 skilled technician hours, 4.88 hours on the packaging & inspection line, 0.25 cleanroom slots, and 3.69 miles of the outbound trucking mileage allotment.\n  - What it does not use: No draw on Alloy A feedstock or warehouse pallet positions.\n\n- Orion Premium Units\n  - Financials and volume: Each unit contributes 8.15 per unit. We can schedule any nonnegative quantity up to 7.20 units, and partial batches are acceptable.\n  - What it draws on: Per unit, this uses 8.11 units of Alloy A feedstock, 6.45 hours on the packaging & inspection line, and 2.17 miles of outbound trucking mileage.\n  - What it does not use: No draw on core processing hours, skilled technician hours, cleanroom slots, or warehouse pallet positions.\n\n- Helios Assembly Lots\n  - Financials and volume: Each lot contributes 4.98 per lot. We can schedule any nonnegative volume up to 14.33 lots, and this must be planned in whole lots only.\n  - What it draws on: Per lot, this uses 9.97 skilled technician hours, 3.80 units of Alloy A feedstock, and 5.08 hours on the packaging & inspection line.\n  - What it does not use: No draw on core processing hours, cleanroom slots, warehouse pallet positions, or outbound trucking mileage.\n\n- Zephyr Bulk Packs\n  - Financials and volume: Each pack contributes 3.70 per unit. We can schedule any nonnegative quantity up to 14.40 packs, and partial batches are acceptable.\n  - What it draws on: Per pack, this uses 9.57 core processing hours, 3.46 hours on the packaging & inspection line, and 6.18 warehouse pallet positions.\n  - What it does not use: No draw on skilled technician hours, Alloy A feedstock, cleanroom slots, or outbound trucking mileage.\n\n- Quasar Promo Bundles\n  - Financials and volume: Each bundle contributes 1.28 per bundle. We can schedule any nonnegative volume up to 17.70 bundles, and this must be planned in whole bundles only.\n  - What it draws on: Per bundle, this uses 1.05 core processing hours, 9.06 units of Alloy A feedstock, 7.83 cleanroom slots, 5.83 warehouse pallet positions, and 7.06 miles of outbound trucking mileage.\n  - What it does not use: No draw on skilled technician hours or packaging & inspection line time.\n\nFacility specs and market limits we must not exceed\n- Core processing hours available: 49.66\n- Skilled technician hours available: 67.54\n- Alloy A feedstock available: 97.40\n- Packaging & inspection line time available: 51.29\n- Cleanroom slots available: 87.29\n- Warehouse pallet positions available: 77.49\n- Outbound trucking mileage allotment: 78.95\n\nPlease use the above to configure the plan that maximizes total contribution while staying within every listed limit. All quantities must remain nonnegative and respect the per-offering caps noted above."
+}

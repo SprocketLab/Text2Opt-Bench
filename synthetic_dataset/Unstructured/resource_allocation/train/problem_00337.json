@@ -1,0 +1,199 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "Caps, objective coefficients, and per-factor loadings are explicit; all guardrails are '<=' (even negatives). Non-impacted factors clearly implied as zero. Model is fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative adds length (intro/context), but each bullet gives exact coefficients and limits. Minimal repetition overall.",
+      "realism": 98,
+      "realism_comment": "Feels like a real portfolio allocation with factor guardrails and contributions; negative 'net short' targets are plausible."
+    },
+    "prompt_tokens_with_data": 1275,
+    "prompt_tokens_without_data": 1275
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 285.04574472049785,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 2.1086650895453416,
+      "Var_2": 6.424184929393069,
+      "Var_3": 9.412717289138348,
+      "Var_4": 0.0,
+      "Var_5": 4.5817425811706745,
+      "Var_6": 17.257010026881982
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 181.32
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -69.96
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 147.95
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -82.85
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 158.71
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -53.07
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 94.6
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -88.44
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.65
+      ],
+      "objective_linear_coefficient": 3.82,
+      "resource_costs": {
+        "C0": 1.09,
+        "C1": -0.97,
+        "C2": 4.87,
+        "C3": 8.59,
+        "C4": 3.62,
+        "C5": 9.66,
+        "C7": 6.06
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.72
+      ],
+      "objective_linear_coefficient": 2.94,
+      "resource_costs": {
+        "C0": 6.85,
+        "C1": 2.04,
+        "C2": -3.28,
+        "C3": 4.36,
+        "C4": -3.82,
+        "C5": -8.06,
+        "C6": -2.51,
+        "C7": 5.46
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.45
+      ],
+      "objective_linear_coefficient": 7.48,
+      "resource_costs": {
+        "C0": 5.3,
+        "C1": 7.07,
+        "C2": -2.38,
+        "C3": 5.91,
+        "C4": 4.42,
+        "C5": -0.86,
+        "C6": -9.24
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.54
+      ],
+      "objective_linear_coefficient": 5.85,
+      "resource_costs": {
+        "C0": -0.31,
+        "C1": 0.67,
+        "C3": -4.61,
+        "C4": 5.85,
+        "C6": -3.81,
+        "C7": 2.81
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.8
+      ],
+      "objective_linear_coefficient": 1.49,
+      "resource_costs": {
+        "C0": 6.08,
+        "C1": -6.12,
+        "C3": -0.98,
+        "C4": 9.42,
+        "C6": 3.83,
+        "C7": -5.22
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.29
+      ],
+      "objective_linear_coefficient": 9.39,
+      "resource_costs": {
+        "C0": 6.2,
+        "C1": 5.12,
+        "C2": 7.91,
+        "C4": 1.12,
+        "C5": -5.35,
+        "C7": -3.37
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.94
+      ],
+      "objective_linear_coefficient": 7.69,
+      "resource_costs": {
+        "C0": 6.22,
+        "C1": -8.66,
+        "C2": 7.76,
+        "C3": -9.24,
+        "C4": 4.53,
+        "C5": -1.27,
+        "C6": 9.89,
+        "C7": -6.43
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.65, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.72, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.94 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.45, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.48 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.54, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.85 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.8, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.49 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.29, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.39 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.94, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 7.69 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.09 * vars['Var_0'] + 6.85 * vars['Var_1'] + 5.3 * vars['Var_2'] + -0.31 * vars['Var_3'] + 6.08 * vars['Var_4'] + 6.2 * vars['Var_5'] + 6.22 * vars['Var_6'] <= 181.32, name='C0')\n    m.addConstr(-0.97 * vars['Var_0'] + 2.04 * vars['Var_1'] + 7.07 * vars['Var_2'] + 0.67 * vars['Var_3'] + -6.12 * vars['Var_4'] + 5.12 * vars['Var_5'] + -8.66 * vars['Var_6'] <= -69.96, name='C1')\n    m.addConstr(4.87 * vars['Var_0'] + -3.28 * vars['Var_1'] + -2.38 * vars['Var_2'] + 7.91 * vars['Var_5'] + 7.76 * vars['Var_6'] <= 147.95, name='C2')\n    m.addConstr(8.59 * vars['Var_0'] + 4.36 * vars['Var_1'] + 5.91 * vars['Var_2'] + -4.61 * vars['Var_3'] + -0.98 * vars['Var_4'] + -9.24 * vars['Var_6'] <= -82.85, name='C3')\n    m.addConstr(3.62 * vars['Var_0'] + -3.82 * vars['Var_1'] + 4.42 * vars['Var_2'] + 5.85 * vars['Var_3'] + 9.42 * vars['Var_4'] + 1.12 * vars['Var_5'] + 4.53 * vars['Var_6'] <= 158.71, name='C4')\n    m.addConstr(9.66 * vars['Var_0'] + -8.06 * vars['Var_1'] + -0.86 * vars['Var_2'] + -5.35 * vars['Var_5'] + -1.27 * vars['Var_6'] <= -53.07, name='C5')\n    m.addConstr(-2.51 * vars['Var_1'] + -9.24 * vars['Var_2'] + -3.81 * vars['Var_3'] + 3.83 * vars['Var_4'] + 9.89 * vars['Var_6'] <= 94.6, name='C6')\n    m.addConstr(6.06 * vars['Var_0'] + 5.46 * vars['Var_1'] + 2.81 * vars['Var_3'] + -5.22 * vars['Var_4'] + -3.37 * vars['Var_5'] + -6.43 * vars['Var_6'] <= -88.44, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Factor-constrained allocation plan to maximize portfolio contribution\n\nTeam,\n\nWe\u2019re ready to set our Q1 allocations across seven strategies with the goal of maximizing expected net contribution. We\u2019ll do this within our Risk Committee guardrails on eight exposures. Below are the levers we can pull\u2014each can be scaled from zero up to its cap\u2014and how each one loads the portfolio across those guardrails.\n\n- Blue Harbor Equity Sleeve (cap: $8.65M)\n  Every $1M here adds an expected 3.82 contribution points. It increases Equity Beta by 1.09 units, cuts Interest Rate Duration by 0.97 units (negative loading), lifts Credit Spread tilt by 4.87 units, raises the FX Dollar Bias by 8.59 units, increases Commodity Sensitivity by 3.62 units, and adds 9.66 units to Volatility Carry. It also increases Regulatory Capital Drag by 6.06 units. It does not materially touch the Liquidity Stress Load guardrail.\n\n- Sierra Macro Overlay (cap: $15.72M)\n  Each $1M contributes 2.94 points. It raises Equity Beta by 6.85 units and Interest Rate Duration by 2.04 units. It reduces Credit Spread tilt by 3.28 units and trims Commodity Sensitivity by 3.82 units. It adds 4.36 units to FX Dollar Bias, decreases Volatility Carry by 8.06 units, lowers Liquidity Stress Load by 2.51 units, and increases Regulatory Capital Drag by 5.46 units.\n\n- Orion EM Carry (cap: $15.45M)\n  Each $1M adds 7.48 points. It lifts Equity Beta by 5.3 units and Interest Rate Duration by 7.07 units. It reduces Credit Spread tilt by 2.38 units and increases FX Dollar Bias by 5.91 units. It adds 4.42 units to Commodity Sensitivity, reduces Volatility Carry by 0.86 units, and lowers Liquidity Stress Load by 9.24 units. It does not materially add to Regulatory Capital Drag.\n\n- Vega Convertible Hedge (cap: $19.54M)\n  Each $1M adds 5.85 points. It slightly reduces Equity Beta by 0.31 units, increases Interest Rate Duration by 0.67 units, trims FX Dollar Bias by 4.61 units, adds 5.85 units to Commodity Sensitivity, and decreases Liquidity Stress Load by 3.81 units. It increases Regulatory Capital Drag by 2.81 units. It has no meaningful draw on the Credit Spread or Volatility Carry guardrails.\n\n- Aspen Green Bond Sleeve (cap: $17.80M)\n  Each $1M adds 1.49 points. It increases Equity Beta by 6.08 units and cuts Interest Rate Duration by 6.12 units. It slightly reduces FX Dollar Bias by 0.98 units, adds 9.42 units to Commodity Sensitivity, and increases Liquidity Stress Load by 3.83 units. It reduces Regulatory Capital Drag by 5.22 units. It does not materially affect the Credit Spread or Volatility Carry guardrails.\n\n- Atlas Private Credit (cap: $14.29M)\n  Each $1M adds 9.39 points. It increases Equity Beta by 6.2 units and Interest Rate Duration by 5.12 units. It adds 7.91 units to Credit Spread tilt and 1.12 units to Commodity Sensitivity, reduces Volatility Carry by 5.35 units, and trims Regulatory Capital Drag by 3.37 units. It does not materially touch the FX Dollar Bias or Liquidity Stress Load guardrails.\n\n- Nimbus Commodity Trend (cap: $19.94M)\n  Each $1M adds 7.69 points. It increases Equity Beta by 6.22 units and Credit Spread tilt by 7.76 units, cuts Interest Rate Duration by 8.66 units, reduces FX Dollar Bias by 9.24 units, and adds 4.53 units to Commodity Sensitivity. It decreases Volatility Carry by 1.27 units, increases Liquidity Stress Load by 9.89 units, and reduces Regulatory Capital Drag by 6.43 units.\n\nRisk Committee guardrails (all exposures must be kept at or below these levels):\n- Equity Beta Exposure: 181.32 units\n- Interest Rate Duration Tilt: -69.96 units (net short target or lower)\n- Credit Spread Tilt: 147.95 units\n- FX Dollar Bias: -82.85 units (net short target or lower)\n- Commodity Sensitivity: 158.71 units\n- Volatility Carry: -53.07 units (net short target or lower)\n- Liquidity Stress Load: 94.60 units\n- Regulatory Capital Drag: -88.44 units (net short target or lower)\n\nPlease use this as the playbook for the allocation run. The objective remains to maximize the portfolio\u2019s expected contribution while respecting these eight guardrails. Let me know if any of the caps or guardrails need to be adjusted for the upcoming cycle."
+}

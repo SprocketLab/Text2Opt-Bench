@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact bounds, coefficients, and constraint senses are given; returns/exports clearly imply negative resource use. Variables are continuous by wording. The LP can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style narrative adds some verbosity, but the numerical specs are clear and not repetitively stated.",
+      "realism": 97,
+      "realism_comment": "Plausible plant planning with water/power limits and reclaim/export effects; coefficients and limits feel realistic."
+    },
+    "prompt_tokens_with_data": 677,
+    "prompt_tokens_without_data": 677
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 92.68130983935744,
+    "optimal_values": {
+      "Var_0": 4.831425702811245,
+      "Var_1": 9.22,
+      "Var_2": 11.25
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.82
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 78.88
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.24
+      ],
+      "objective_linear_coefficient": 1.55,
+      "resource_costs": {
+        "C0": 7.23,
+        "C1": 9.96
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.22
+      ],
+      "objective_linear_coefficient": 6.58,
+      "resource_costs": {
+        "C0": -2.22,
+        "C1": -0.3
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.25
+      ],
+      "objective_linear_coefficient": 2.18,
+      "resource_costs": {
+        "C0": -3.05,
+        "C1": 2.98
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.24, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.55 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.22, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.58 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.25, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.18 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.23 * vars['Var_0'] + -2.22 * vars['Var_1'] + -3.05 * vars['Var_2'] <= 16.82, name='C0')\n    m.addConstr(9.96 * vars['Var_0'] + -0.3 * vars['Var_1'] + 2.98 * vars['Var_2'] <= 78.88, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the allocation decision under our water and power limits\n\nTeam,\n\nAs we finalize the upcoming plan, our objective is to maximize total contribution from three operating levers while staying within our site-wide freshwater and grid-draw allowances. Each lever can be dialed anywhere from zero up to its technical limit; the combined net effects on water and electricity must remain within the caps noted below.\n\n- Line Aurora (Premium Resin Campaign). Each unit of allocation to Aurora adds 1.55 in contribution. It is water intensive, drawing 7.23 units of freshwater per unit of allocation, and it is power hungry, consuming 9.96 units of electricity per unit. We can allocate anywhere from 0 up to 11.24 units to Aurora for the period.\n\n- Cogent Loop (Waste-to-Energy Reclaimer). Each unit allocated to the Cogent Loop adds 6.58 in contribution. As it runs, it returns 2.22 units of water back into our usable supply per unit of allocation, reducing our net freshwater intake by the same amount. On the energy side, it exports 0.30 units of electricity per unit, reducing our net grid draw. This lever can be set between 0 and 9.22 units for the period.\n\n- ClearStream Upgrade (Ultrafiltration Membrane Train). Each unit of ClearStream adds 2.18 in contribution. It substantially reduces water needs by returning 3.05 units of water per unit of allocation (a net credit against intake), but it does require power, drawing 2.98 units of electricity per unit. ClearStream can be dialed anywhere from 0 to 11.25 units for the period.\n\nFacility specs and policy limits the plan must respect:\n- Freshwater intake allowance: the net freshwater drawn across the combined plan must not exceed 16.82 units.\n- Grid draw ceiling: the net electricity taken from the grid across the combined plan must not exceed 78.88 units.\n\nNotes: \u201cReturns\u201d and \u201cexports\u201d above reduce our net totals against the limits. Each lever may be set anywhere from zero up to its stated maximum; none may go below zero. Our intent is to choose the mix that delivers the highest total contribution while honoring both the freshwater and grid-draw ceilings."
+}

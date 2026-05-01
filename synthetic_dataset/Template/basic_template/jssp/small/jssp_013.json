@@ -1,0 +1,479 @@
+{
+    "meta": {
+        "optimization_type": "LP",
+        "problem_type": "job shop scheduling",
+        "goal": "MINIMIZE",
+        "num_vars": 19,
+        "num_constraints": 27,
+        "is_integer": true,
+        "prompt_tokens_with_data": 649,
+        "prompt_tokens_without_data": 467
+    },
+    "instance_data": {
+        "n_jobs": 3,
+        "n_machines": 3,
+        "processing_times": [
+            [
+                9,
+                27,
+                30
+            ],
+            [
+                11,
+                27,
+                24
+            ],
+            [
+                13,
+                9,
+                19
+            ]
+        ],
+        "machine_assignments": [
+            [
+                1,
+                2,
+                0
+            ],
+            [
+                2,
+                1,
+                0
+            ],
+            [
+                0,
+                2,
+                1
+            ]
+        ]
+    },
+    "gurobi_result": {
+        "solver_status": 2,
+        "theoretical_optimum": 92.0,
+        "optimal_values": {
+            "Start_0_0": 0.0,
+            "Start_0_1": 22.0,
+            "Start_0_2": 62.0,
+            "Start_1_0": 0.0,
+            "Start_1_1": 11.0,
+            "Start_1_2": 38.0,
+            "Start_2_0": 0.0,
+            "Start_2_1": 13.0,
+            "Start_2_2": 38.0,
+            "Cmax": 92.0,
+            "Y_0_2_1_2": 0.0,
+            "Y_0_2_2_0": 0.0,
+            "Y_1_2_2_0": 0.0,
+            "Y_0_0_1_1": 1.0,
+            "Y_0_0_2_2": 1.0,
+            "Y_1_1_2_2": 1.0,
+            "Y_0_1_1_0": 0.0,
+            "Y_0_1_2_1": 0.0,
+            "Y_1_0_2_1": 1.0
+        }
+    },
+    "constraints": {
+        "Prec_0_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -9.0
+        },
+        "Prec_0_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -27.0
+        },
+        "Prec_1_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -11.0
+        },
+        "Prec_1_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -27.0
+        },
+        "Prec_2_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -13.0
+        },
+        "Prec_2_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -9.0
+        },
+        "Disj_A_0_2_1_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 139.0
+        },
+        "Disj_B_0_2_1_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -24.0
+        },
+        "Disj_A_0_2_2_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 139.0
+        },
+        "Disj_B_0_2_2_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -13.0
+        },
+        "Disj_A_1_2_2_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 145.0
+        },
+        "Disj_B_1_2_2_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -13.0
+        },
+        "Disj_A_0_0_1_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 160.0
+        },
+        "Disj_B_0_0_1_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -27.0
+        },
+        "Disj_A_0_0_2_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 160.0
+        },
+        "Disj_B_0_0_2_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -19.0
+        },
+        "Disj_A_1_1_2_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 142.0
+        },
+        "Disj_B_1_1_2_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -19.0
+        },
+        "Disj_A_0_1_1_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 142.0
+        },
+        "Disj_B_0_1_1_0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -11.0
+        },
+        "Disj_A_0_1_2_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 142.0
+        },
+        "Disj_B_0_1_2_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -9.0
+        },
+        "Disj_A_1_0_2_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 158.0
+        },
+        "Disj_B_1_0_2_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -9.0
+        },
+        "Makespan_J0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -30.0
+        },
+        "Makespan_J1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -24.0
+        },
+        "Makespan_J2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": -19.0
+        }
+    },
+    "variables": {
+        "Start_0_0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_0_0": 1.0,
+                "Disj_A_0_0_1_1": 1.0,
+                "Disj_B_0_0_1_1": -1.0,
+                "Disj_A_0_0_2_2": 1.0,
+                "Disj_B_0_0_2_2": -1.0
+            }
+        },
+        "Start_0_1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_0_0": -1.0,
+                "Prec_0_1": 1.0,
+                "Disj_A_0_1_1_0": 1.0,
+                "Disj_B_0_1_1_0": -1.0,
+                "Disj_A_0_1_2_1": 1.0,
+                "Disj_B_0_1_2_1": -1.0
+            }
+        },
+        "Start_0_2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_0_1": -1.0,
+                "Disj_A_0_2_1_2": 1.0,
+                "Disj_B_0_2_1_2": -1.0,
+                "Disj_A_0_2_2_0": 1.0,
+                "Disj_B_0_2_2_0": -1.0,
+                "Makespan_J0": 1.0
+            }
+        },
+        "Start_1_0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_1_0": 1.0,
+                "Disj_A_0_1_1_0": -1.0,
+                "Disj_B_0_1_1_0": 1.0,
+                "Disj_A_1_0_2_1": 1.0,
+                "Disj_B_1_0_2_1": -1.0
+            }
+        },
+        "Start_1_1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_1_0": -1.0,
+                "Prec_1_1": 1.0,
+                "Disj_A_0_0_1_1": -1.0,
+                "Disj_B_0_0_1_1": 1.0,
+                "Disj_A_1_1_2_2": 1.0,
+                "Disj_B_1_1_2_2": -1.0
+            }
+        },
+        "Start_1_2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_1_1": -1.0,
+                "Disj_A_0_2_1_2": -1.0,
+                "Disj_B_0_2_1_2": 1.0,
+                "Disj_A_1_2_2_0": 1.0,
+                "Disj_B_1_2_2_0": -1.0,
+                "Makespan_J1": 1.0
+            }
+        },
+        "Start_2_0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_2_0": 1.0,
+                "Disj_A_0_2_2_0": -1.0,
+                "Disj_B_0_2_2_0": 1.0,
+                "Disj_A_1_2_2_0": -1.0,
+                "Disj_B_1_2_2_0": 1.0
+            }
+        },
+        "Start_2_1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_2_0": -1.0,
+                "Prec_2_1": 1.0,
+                "Disj_A_0_1_2_1": -1.0,
+                "Disj_B_0_1_2_1": 1.0,
+                "Disj_A_1_0_2_1": -1.0,
+                "Disj_B_1_0_2_1": 1.0
+            }
+        },
+        "Start_2_2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Prec_2_1": -1.0,
+                "Disj_A_0_0_2_2": -1.0,
+                "Disj_B_0_0_2_2": 1.0,
+                "Disj_A_1_1_2_2": -1.0,
+                "Disj_B_1_1_2_2": 1.0,
+                "Makespan_J2": 1.0
+            }
+        },
+        "Cmax": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                169.0
+            ],
+            "objective_linear_coefficient": 1.0,
+            "resource_costs": {
+                "Makespan_J0": -1.0,
+                "Makespan_J1": -1.0,
+                "Makespan_J2": -1.0
+            }
+        },
+        "Y_0_2_1_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_2_1_2": 169.0,
+                "Disj_B_0_2_1_2": -169.0
+            }
+        },
+        "Y_0_2_2_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_2_2_0": 169.0,
+                "Disj_B_0_2_2_0": -169.0
+            }
+        },
+        "Y_1_2_2_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_1_2_2_0": 169.0,
+                "Disj_B_1_2_2_0": -169.0
+            }
+        },
+        "Y_0_0_1_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_0_1_1": 169.0,
+                "Disj_B_0_0_1_1": -169.0
+            }
+        },
+        "Y_0_0_2_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_0_2_2": 169.0,
+                "Disj_B_0_0_2_2": -169.0
+            }
+        },
+        "Y_1_1_2_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_1_1_2_2": 169.0,
+                "Disj_B_1_1_2_2": -169.0
+            }
+        },
+        "Y_0_1_1_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_1_1_0": 169.0,
+                "Disj_B_0_1_1_0": -169.0
+            }
+        },
+        "Y_0_1_2_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_0_1_2_1": 169.0,
+                "Disj_B_0_1_2_1": -169.0
+            }
+        },
+        "Y_1_0_2_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "Disj_A_1_0_2_1": 169.0,
+                "Disj_B_1_0_2_1": -169.0
+            }
+        }
+    },
+    "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    m = Model(\"JSSP\")\n    m.setParam('TimeLimit', 300)\n\n    # --- Data ---\n    n_jobs = 3\n    n_machines = 3\n    processing_times = [[9, 27, 30], [11, 27, 24], [13, 9, 19]]\n    machine_assignments = [[1, 2, 0], [2, 1, 0], [0, 2, 1]]\n\n    # Big-M: sum of all processing times\n    M = sum(processing_times[j][o] for j in range(n_jobs) for o in range(n_machines))\n\n    # --- Variables ---\n    # Start times for each operation\n    S = {}\n    for j in range(n_jobs):\n        for o in range(n_machines):\n            S[(j,o)] = m.addVar(lb=0, ub=M, vtype=GRB.CONTINUOUS, name=f\"Start_{j}_{o}\")\n\n    # Makespan variable\n    Cmax = m.addVar(lb=0, ub=M, vtype=GRB.CONTINUOUS, name=\"Cmax\")\n\n    # Build machine -> [(job, op)] mapping\n    machine_ops = {mach: [] for mach in range(n_machines)}\n    for j in range(n_jobs):\n        for o in range(n_machines):\n            machine_ops[machine_assignments[j][o]].append((j, o))\n\n    # Disjunctive binary variables for each pair on same machine\n    Y = {}\n    for mach in range(n_machines):\n        ops = machine_ops[mach]\n        for i in range(len(ops)):\n            for k in range(i+1, len(ops)):\n                j1, o1 = ops[i]\n                j2, o2 = ops[k]\n                Y[(j1,o1,j2,o2)] = m.addVar(vtype=GRB.BINARY, name=f\"Y_{j1}_{o1}_{j2}_{o2}\")\n\n    # --- Objective: minimize makespan ---\n    m.setObjective(Cmax, GRB.MINIMIZE)\n\n    # --- Constraints ---\n    # 1. Precedence: operations within a job must follow order\n    for j in range(n_jobs):\n        for o in range(n_machines - 1):\n            m.addConstr(\n                S[(j,o+1)] >= S[(j,o)] + processing_times[j][o],\n                name=f\"Prec_{j}_{o}\")\n\n    # 2. Disjunctive: no two operations on the same machine overlap\n    for mach in range(n_machines):\n        ops = machine_ops[mach]\n        for i in range(len(ops)):\n            for k in range(i+1, len(ops)):\n                j1, o1 = ops[i]\n                j2, o2 = ops[k]\n                p1 = processing_times[j1][o1]\n                p2 = processing_times[j2][o2]\n                y = Y[(j1,o1,j2,o2)]\n                m.addConstr(\n                    S[(j1,o1)] + p1 <= S[(j2,o2)] + M * (1 - y),\n                    name=f\"Disj_A_{j1}_{o1}_{j2}_{o2}\")\n                m.addConstr(\n                    S[(j2,o2)] + p2 <= S[(j1,o1)] + M * y,\n                    name=f\"Disj_B_{j1}_{o1}_{j2}_{o2}\")\n\n    # 3. Makespan: Cmax >= completion of last operation of each job\n    for j in range(n_jobs):\n        last_op = n_machines - 1\n        m.addConstr(\n            Cmax >= S[(j, last_op)] + processing_times[j][last_op],\n            name=f\"Makespan_J{j}\")\n\n    m.optimize()\n    return m\n```",
+    "LLM_description": "Subject: Coordinated scheduling across specialized workstations to meet current order commitments\n\nContext\nOur plant operates as a job-shop with multiple specialized workstations. We are preparing to schedule a set of customer orders that each follow a defined, fixed sequence of operations. Every operation is routed to a specific machine and has a known processing duration. While the scope is focused, the variation in operation times and the differing machine capabilities create natural bottlenecks and waiting points that require careful coordination.\n\nScheduling Challenge\nWe need a production schedule that sequences all operations across the available machines so that work flows smoothly and all orders finish as early as possible. Because each job\u2019s operations must follow a set order, the way we sequence one machine affects start times on the next machine in the route. Poor sequencing can generate unnecessary queues and machine idle time, extending overall completion.\n\nOperating Rules and Requirements\n- Fixed routing within each job: operations must be executed in their prescribed order and cannot start until the prior step for that job is complete.\n- Machine specificity: each operation is tied to a designated workstation and must be performed there for its known duration.\n- Capacity exclusivity: each workstation can process a single operation at a time; tasks cannot overlap on the same machine.\n- No preemption: once an operation starts, it runs to completion without interruption or transfer.\n- Cross-job interleaving is allowed when precedence rules and machine availability permit, provided no machine capacity conflicts occur.\n\nGoal\nProduce a feasible, conflict-free schedule that completes all jobs in the shortest overall time, minimizing the time until the last job finishes (makespan). In doing so, we will aim to reduce waiting and idle periods, balance load across machines, and maintain reliable handoffs between operations.\n\nNext Steps\n- Consolidate and verify the operation sequences, machine assignments, and processing times for each job.\n- Evaluate alternative sequences on each machine to mitigate bottlenecks and limit downstream waiting.\n- Prepare a baseline machine-loading plan and visual schedule for review, then iterate based on observed constraints and opportunities to shorten overall completion time.\n\nANNEX \u2013 PRODUCTION DATA\n- Number of jobs: 3\n- Number of machines: 3\n- Operation processing times: Processing Times (time units per operation):\n  Each job has 3 operations performed in sequence.\n  - Job 1: [Op1: 9, Op2: 27, Op3: 30]\n  - Job 2: [Op1: 11, Op2: 27, Op3: 24]\n  - Job 3: [Op1: 13, Op2: 9, Op3: 19]\n- Machine assignments (by job and operation): Machine Assignments (which machine each operation uses):\n  Machine indices: 0 to 2\n  - Job 1: [Op1: Machine 1, Op2: Machine 2, Op3: Machine 0]\n  - Job 2: [Op1: Machine 2, Op2: Machine 1, Op3: Machine 0]\n  - Job 3: [Op1: Machine 0, Op2: Machine 2, Op3: Machine 1]",
+    "LLM_description_template": "Subject: Coordinated scheduling across specialized workstations to meet current order commitments\n\nContext\nOur plant operates as a job-shop with multiple specialized workstations. We are preparing to schedule a set of customer orders that each follow a defined, fixed sequence of operations. Every operation is routed to a specific machine and has a known processing duration. While the scope is focused, the variation in operation times and the differing machine capabilities create natural bottlenecks and waiting points that require careful coordination.\n\nScheduling Challenge\nWe need a production schedule that sequences all operations across the available machines so that work flows smoothly and all orders finish as early as possible. Because each job\u2019s operations must follow a set order, the way we sequence one machine affects start times on the next machine in the route. Poor sequencing can generate unnecessary queues and machine idle time, extending overall completion.\n\nOperating Rules and Requirements\n- Fixed routing within each job: operations must be executed in their prescribed order and cannot start until the prior step for that job is complete.\n- Machine specificity: each operation is tied to a designated workstation and must be performed there for its known duration.\n- Capacity exclusivity: each workstation can process a single operation at a time; tasks cannot overlap on the same machine.\n- No preemption: once an operation starts, it runs to completion without interruption or transfer.\n- Cross-job interleaving is allowed when precedence rules and machine availability permit, provided no machine capacity conflicts occur.\n\nGoal\nProduce a feasible, conflict-free schedule that completes all jobs in the shortest overall time, minimizing the time until the last job finishes (makespan). In doing so, we will aim to reduce waiting and idle periods, balance load across machines, and maintain reliable handoffs between operations.\n\nNext Steps\n- Consolidate and verify the operation sequences, machine assignments, and processing times for each job.\n- Evaluate alternative sequences on each machine to mitigate bottlenecks and limit downstream waiting.\n- Prepare a baseline machine-loading plan and visual schedule for review, then iterate based on observed constraints and opportunities to shorten overall completion time.\n\nANNEX \u2013 PRODUCTION DATA\n- Number of jobs: {NUM_JOBS}\n- Number of machines: {NUM_MACHINES}\n- Operation processing times: {PROCESSING_TIMES}\n- Machine assignments (by job and operation): {MACHINE_ASSIGNMENTS}"
+}

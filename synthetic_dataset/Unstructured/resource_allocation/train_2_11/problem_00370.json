@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, types, bounds, coefficients, and resource limits are explicit; integrality vs fractional is specified; objective and constraint mapping are unambiguous.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style framing and repeated 'does not use' notes add verbosity, but details directly specify the model.",
+      "realism": 96,
+      "realism_comment": "Highly plausible production planning scenario with realistic resources and limits; minor oddity of non-integer caps for integer items."
+    },
+    "prompt_tokens_with_data": 1144,
+    "prompt_tokens_without_data": 1144
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 264.35803379416285,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 4.0,
+      "Var_2": 1.0,
+      "Var_3": 6.072196620583718,
+      "Var_4": 12.0,
+      "Var_5": 11.0,
+      "Var_6": 3.0,
+      "Var_7": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.83
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.31
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 95.14
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 194.68
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 72.77
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.25
+      ],
+      "objective_linear_coefficient": 3.17,
+      "resource_costs": {
+        "C2": 9.41
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.73
+      ],
+      "objective_linear_coefficient": 8.27,
+      "resource_costs": {
+        "C1": 6.99,
+        "C3": 2.69,
+        "C4": 2.15
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.33
+      ],
+      "objective_linear_coefficient": 3.4,
+      "resource_costs": {
+        "C2": 4.91
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.22
+      ],
+      "objective_linear_coefficient": 3.02,
+      "resource_costs": {
+        "C3": 7.54,
+        "C4": 6.51
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.89
+      ],
+      "objective_linear_coefficient": 8.22,
+      "resource_costs": {
+        "C2": 6.5,
+        "C3": 3.75
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.98
+      ],
+      "objective_linear_coefficient": 9.52,
+      "resource_costs": {
+        "C2": 1.07,
+        "C3": 6.42,
+        "C4": 2.24
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.77
+      ],
+      "objective_linear_coefficient": 2.06,
+      "resource_costs": {
+        "C3": 7.21
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.2
+      ],
+      "objective_linear_coefficient": 1.95,
+      "resource_costs": {
+        "C0": 7.89,
+        "C2": 5.44,
+        "C3": 0.94,
+        "C4": 6.75
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.25, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 3.17 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.73, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.27 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.33, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.4 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.22, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.02 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.89, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 8.22 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.98, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.52 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=13.77, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 2.06 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=16.2, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 1.95 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.89 * vars['Var_7'] <= 17.83, name='C0')\n    m.addConstr(6.99 * vars['Var_1'] <= 30.31, name='C1')\n    m.addConstr(9.41 * vars['Var_0'] + 4.91 * vars['Var_2'] + 6.5 * vars['Var_4'] + 1.07 * vars['Var_5'] + 5.44 * vars['Var_7'] <= 95.14, name='C2')\n    m.addConstr(2.69 * vars['Var_1'] + 7.54 * vars['Var_3'] + 3.75 * vars['Var_4'] + 6.42 * vars['Var_5'] + 7.21 * vars['Var_6'] + 0.94 * vars['Var_7'] <= 194.68, name='C3')\n    m.addConstr(2.15 * vars['Var_1'] + 6.51 * vars['Var_3'] + 2.24 * vars['Var_5'] + 6.75 * vars['Var_7'] <= 72.77, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio Mix Decision for the Wellness Manufacturing Line (Maximize Total Contribution)\n\nTeam,\n\nWe need to finalize the production mix for the upcoming cycle with the clear goal of maximizing total contribution across our wellness portfolio. Below are the decision levers and the way each option draws on our shared capacities. Unless noted, units are produced in whole counts; we can produce any given option from none up to its stated cap.\n\n- Mountain Mint Concentrate (batch-based)\n  - Contribution: 3.17 per batch.\n  - Production cap: up to 11.25 batches (whole batches only).\n  - Capacity impacts: draws 9.41 hours per batch from the Blending & Distillation Tanks; does not require Packaging Line time, Cold Storage space, Launch Support team hours, or Compliance Testing bench time.\n\n- Flagship Wellness Kit (kit-based)\n  - Contribution: 8.27 per kit.\n  - Production cap: up to 18.73 kits (whole kits only).\n  - Capacity impacts: uses 6.99 team hours per kit from Launch Support; takes 2.69 hours per kit on the Packaging Line and 2.15 pallets per kit in Cold Storage; does not use Blending & Distillation Tanks or Compliance Testing bench time.\n\n- Citrus Cleanse Base (batch-based)\n  - Contribution: 3.4 per batch.\n  - Production cap: up to 17.33 batches (whole batches only).\n  - Capacity impacts: draws 4.91 hours per batch from the Blending & Distillation Tanks; does not require Packaging Line time, Cold Storage space, Launch Support team hours, or Compliance Testing bench time.\n\n- Bulk Infusion Top\u2011Up (open run, can be fractional)\n  - Contribution: 3.02 per run.\n  - Production cap: up to 16.22 runs (can schedule fractional runs).\n  - Capacity impacts: uses 7.54 hours per run on the Packaging Line and 6.51 pallets per run in Cold Storage; does not use Blending & Distillation Tanks, Launch Support team hours, or Compliance Testing bench time.\n\n- Premium Adaptogen Blend (batch-based)\n  - Contribution: 8.22 per batch.\n  - Production cap: up to 15.89 batches (whole batches only).\n  - Capacity impacts: draws 6.5 hours per batch from the Blending & Distillation Tanks and 3.75 hours per batch on the Packaging Line; does not require Cold Storage space, Launch Support team hours, or Compliance Testing bench time.\n\n- Travel Sampler Pack (pack-based)\n  - Contribution: 9.52 per pack.\n  - Production cap: up to 11.98 packs (whole packs only).\n  - Capacity impacts: pulls 1.07 hours per pack from the Blending & Distillation Tanks, 6.42 hours per pack on the Packaging Line, and 2.24 pallets per pack in Cold Storage; does not use Launch Support team hours or Compliance Testing bench time.\n\n- Commercial Bulk Case (case-based)\n  - Contribution: 2.06 per case.\n  - Production cap: up to 13.77 cases (whole cases only).\n  - Capacity impacts: uses 7.21 hours per case on the Packaging Line; does not use Blending & Distillation Tanks, Cold Storage space, Launch Support team hours, or Compliance Testing bench time.\n\n- Herbal Shot Series (case-based)\n  - Contribution: 1.95 per case.\n  - Production cap: up to 16.2 cases (whole cases only).\n  - Capacity impacts: consumes 7.89 bench hours per case in Compliance Testing, 5.44 hours per case from the Blending & Distillation Tanks, 0.94 hours per case on the Packaging Line, and 6.75 pallets per case in Cold Storage; does not require Launch Support team hours.\n\nFacility Specs & Market Limits (apply across the entire portfolio)\n- Compliance Testing bench time is limited to 17.83 hours total.\n- Launch Support team hours are limited to 30.31 hours total.\n- Blending & Distillation Tank availability is capped at 95.14 hours total.\n- Packaging Line time is capped at 194.68 hours total.\n- Cold Storage capacity is limited to 72.77 pallets total.\n\nPlease use these parameters to frame the production plan that maximizes contribution while respecting the above limits. If you need clarifications on unit definitions or scheduling conventions, let me know.\n\nThanks,\nAva Martinez\nVP, Operations Planning"
+}

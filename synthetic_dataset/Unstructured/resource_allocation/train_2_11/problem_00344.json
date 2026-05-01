@@ -1,0 +1,190 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, variable types, and >= thresholds are specified explicitly; zeros are clear via 'no material contribution'; objective is unambiguous cost minimization.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated 'no material contribution' notes, but most length conveys necessary data for each ingredient and metric.",
+      "realism": 94,
+      "realism_comment": "Classic feed blending MILP with nutrient minima and integer pack decision; metrics and costs are plausible, minor oddity with fractional pack cap."
+    },
+    "prompt_tokens_with_data": 1230,
+    "prompt_tokens_without_data": 1230
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 151.70234618317787,
+    "optimal_values": {
+      "Var_0": 4.794995714969502,
+      "Var_1": 8.340982188948562,
+      "Var_2": 8.802666666666665,
+      "Var_3": 0.0,
+      "Var_4": 12.21150056172666,
+      "Var_5": 0.7766301627576682,
+      "Var_6": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.89
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 140.06
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 116.26
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 66.02
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 99.21
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 144.8
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 33.08
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 31.03
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 76.69
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.14
+      ],
+      "objective_linear_coefficient": 4.5,
+      "resource_costs": {
+        "C0": 7.06,
+        "C1": 8.4,
+        "C4": 7.64,
+        "C7": 1.54,
+        "C8": 1.12
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.85
+      ],
+      "objective_linear_coefficient": 1.69,
+      "resource_costs": {
+        "C0": 2.83,
+        "C2": 6.07,
+        "C4": 6.05,
+        "C6": 9.79,
+        "C7": 6.68,
+        "C8": 2.26
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.98
+      ],
+      "objective_linear_coefficient": 9.52,
+      "resource_costs": {
+        "C1": 8.88,
+        "C2": 5.71,
+        "C3": 7.5,
+        "C4": 0.17,
+        "C5": 4.59,
+        "C8": 5.86
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.03
+      ],
+      "objective_linear_coefficient": 1.91,
+      "resource_costs": {
+        "C2": 8.85,
+        "C4": 5.55,
+        "C8": 7.59
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.91
+      ],
+      "objective_linear_coefficient": 2.33,
+      "resource_costs": {
+        "C1": 1.77,
+        "C2": 9.15,
+        "C4": 6.76,
+        "C5": 8.5,
+        "C6": 3.19
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.71
+      ],
+      "objective_linear_coefficient": 4.86,
+      "resource_costs": {
+        "C0": 9.57,
+        "C4": 5.21,
+        "C5": 0.77,
+        "C6": 7.67,
+        "C7": 5.38,
+        "C8": 1.14
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.66
+      ],
+      "objective_linear_coefficient": 5.98,
+      "resource_costs": {
+        "C0": 1.67,
+        "C5": 9.73,
+        "C7": 1.38
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.14, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.5 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.85, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.69 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.98, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.52 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.03, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.91 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.91, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.33 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.71, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.86 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.66, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 5.98 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.06 * vars['Var_0'] + 2.83 * vars['Var_1'] + 9.57 * vars['Var_5'] + 1.67 * vars['Var_6'] >= 64.89, name='C0')\n    m.addConstr(8.4 * vars['Var_0'] + 8.88 * vars['Var_2'] + 1.77 * vars['Var_4'] >= 140.06, name='C1')\n    m.addConstr(6.07 * vars['Var_1'] + 5.71 * vars['Var_2'] + 8.85 * vars['Var_3'] + 9.15 * vars['Var_4'] >= 116.26, name='C2')\n    m.addConstr(7.5 * vars['Var_2'] >= 66.02, name='C3')\n    m.addConstr(7.64 * vars['Var_0'] + 6.05 * vars['Var_1'] + 0.17 * vars['Var_2'] + 5.55 * vars['Var_3'] + 6.76 * vars['Var_4'] + 5.21 * vars['Var_5'] >= 99.21, name='C4')\n    m.addConstr(4.59 * vars['Var_2'] + 8.5 * vars['Var_4'] + 0.77 * vars['Var_5'] + 9.73 * vars['Var_6'] >= 144.8, name='C5')\n    m.addConstr(9.79 * vars['Var_1'] + 3.19 * vars['Var_4'] + 7.67 * vars['Var_5'] >= 33.08, name='C6')\n    m.addConstr(1.54 * vars['Var_0'] + 6.68 * vars['Var_1'] + 5.38 * vars['Var_5'] + 1.38 * vars['Var_6'] >= 31.03, name='C7')\n    m.addConstr(1.12 * vars['Var_0'] + 2.26 * vars['Var_1'] + 5.86 * vars['Var_2'] + 7.59 * vars['Var_3'] + 1.14 * vars['Var_5'] >= 76.69, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Blend Plan for the Fortified Feed Program\n\nTeam,\n\nWe\u2019re preparing the Q1 fortified feed formulation with the goal of minimizing total ingredient cost while still meeting all of our minimum nutrition and compliance thresholds. Below are the levers we can pull\u2014each ingredient\u2019s unit price, how much we can use, and exactly how each one contributes to our nine required quality metrics. Unless noted otherwise, these can be allocated in fractional units as needed.\n\n- Golden Maize Base\n  - Target economics: 4.50 per unit; can use anywhere from 0 up to 19.14 units.\n  - Contribution profile per unit:\n    - Energy Delivery: 7.06\n    - Protein Contribution: 8.40\n    - Calcium: 7.64\n    - Omega Index: 1.54\n    - Vitamin Completeness Score: 1.12\n    - No material contribution to Fiber Content, Bypass Protein, Phosphorus, or Sodium.\n\n- Soy Fortify Mix\n  - Target economics: 1.69 per unit; can use 0 to 17.85 units.\n  - Contribution profile per unit:\n    - Energy Delivery: 2.83\n    - Fiber Content: 6.07\n    - Calcium: 6.05\n    - Sodium: 9.79\n    - Omega Index: 6.68\n    - Vitamin Completeness Score: 2.26\n    - No material contribution to Protein Contribution, Bypass Protein, or Phosphorus.\n\n- Marine Protein Concentrate\n  - Target economics: 9.52 per unit; can use 0 to 16.98 units.\n  - Contribution profile per unit:\n    - Protein Contribution: 8.88\n    - Fiber Content: 5.71\n    - Bypass Protein: 7.50\n    - Calcium: 0.17\n    - Phosphorus: 4.59\n    - Vitamin Completeness Score: 5.86\n    - No material contribution to Energy Delivery, Sodium, or Omega Index.\n\n- Alfalfa Fiber Pellet\n  - Target economics: 1.91 per unit; can use 0 to 13.03 units.\n  - Contribution profile per unit:\n    - Fiber Content: 8.85\n    - Calcium: 5.55\n    - Vitamin Completeness Score: 7.59\n    - No material contribution to Energy Delivery, Protein Contribution, Bypass Protein, Phosphorus, Sodium, or Omega Index.\n\n- Whey Mineral Blend\n  - Target economics: 2.33 per unit; can use 0 to 13.91 units.\n  - Contribution profile per unit:\n    - Protein Contribution: 1.77\n    - Fiber Content: 9.15\n    - Calcium: 6.76\n    - Phosphorus: 8.50\n    - Sodium: 3.19\n    - No material contribution to Energy Delivery, Bypass Protein, Omega Index, or Vitamin Completeness Score.\n\n- Cereal Mineral Premix\n  - Target economics: 4.86 per unit; can use 0 to 16.71 units.\n  - Contribution profile per unit:\n    - Energy Delivery: 9.57\n    - Calcium: 5.21\n    - Phosphorus: 0.77\n    - Sodium: 7.67\n    - Omega Index: 5.38\n    - Vitamin Completeness Score: 1.14\n    - No material contribution to Protein Contribution, Fiber Content, or Bypass Protein.\n\n- Vitamin-Booster Packs (whole packs only)\n  - Target economics: 5.98 per pack; may deploy from 0 up to 11.66 packs in whole-pack increments.\n  - Contribution profile per pack:\n    - Energy Delivery: 1.67\n    - Phosphorus: 9.73\n    - Omega Index: 1.38\n    - No material contribution to Protein Contribution, Fiber Content, Bypass Protein, Calcium, Sodium, or Vitamin Completeness Score.\n\nFacility Specs and Minimum Quality Standards (must be met or exceeded by the final blend)\n- Energy Delivery: at least 64.89\n- Protein Contribution: at least 140.06\n- Fiber Content: at least 116.26\n- Bypass Protein: at least 66.02\n- Calcium: at least 99.21\n- Phosphorus: at least 144.80\n- Sodium: at least 33.08\n- Omega Index: at least 31.03\n- Vitamin Completeness Score: at least 76.69\n\nOur objective is to meet all of the above minimums at the lowest total ingredient cost while respecting the availability caps on each item and the whole-pack nature of the booster packs. Please review and confirm these inputs so we can proceed with the final allocation."
+}

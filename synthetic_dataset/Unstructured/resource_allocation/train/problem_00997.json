@@ -1,0 +1,426 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 17,
+    "num_constraints": 14,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Clear per-product bounds, contributions, and resource coefficients; capacities with 'do not exceed' clarify inequality. Partial lots imply continuous vars. A human can reconstruct the LP mechanically.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Verbose and repetitive across 17 items, but most detail is necessary to specify coefficients. Minor narrative fluff (greeting/Q1 context).",
+      "realism": 98,
+      "realism_comment": "Highly plausible build-mix LP: shop hours, materials, QA, compliance, logistics and market limits mirror real manufacturing planning."
+    },
+    "prompt_tokens_with_data": 2455,
+    "prompt_tokens_without_data": 2455
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 504.3690561702468,
+    "optimal_values": {
+      "Var_0": 6.2802918591645165,
+      "Var_1": 0.0,
+      "Var_2": 7.205844557235877,
+      "Var_3": 0.0,
+      "Var_4": 0.0,
+      "Var_5": 7.461748918164557,
+      "Var_6": 0.0,
+      "Var_7": 0.0,
+      "Var_8": 0.0,
+      "Var_9": 12.92,
+      "Var_10": 9.955059656886961,
+      "Var_11": 0.0,
+      "Var_12": 11.07,
+      "Var_13": 13.51031636863824,
+      "Var_14": 0.0,
+      "Var_15": 0.0,
+      "Var_16": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 197.72
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 210.28
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 157.93
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 260.63
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 98.22
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 93.94
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 286.1
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 253.49
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 204.7
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 223.99
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 156.58
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 113.57
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 161.84
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 154.41
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.7
+      ],
+      "objective_linear_coefficient": 8.92,
+      "resource_costs": {
+        "C1": 4.25,
+        "C2": 1.38,
+        "C5": 3.98,
+        "C6": 8.24,
+        "C12": 9.92
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.57
+      ],
+      "objective_linear_coefficient": 1.71,
+      "resource_costs": {
+        "C0": 3.07,
+        "C3": 5.88,
+        "C6": 9.52,
+        "C7": 4.94,
+        "C11": 4.36,
+        "C12": 7.14
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.23
+      ],
+      "objective_linear_coefficient": 7.87,
+      "resource_costs": {
+        "C2": 8.52,
+        "C6": 0.63,
+        "C7": 4.46,
+        "C9": 6.6,
+        "C10": 2.19
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.11
+      ],
+      "objective_linear_coefficient": 4.77,
+      "resource_costs": {
+        "C0": 5.84,
+        "C1": 9.06,
+        "C2": 3.95,
+        "C3": 0.68,
+        "C5": 0.5,
+        "C7": 2.25,
+        "C8": 0.99,
+        "C10": 9.54,
+        "C12": 1.24,
+        "C13": 0.44
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.14
+      ],
+      "objective_linear_coefficient": 3.33,
+      "resource_costs": {
+        "C0": 8.78,
+        "C1": 0.87,
+        "C2": 7.5,
+        "C3": 2.66,
+        "C4": 3.05,
+        "C6": 3.49,
+        "C8": 1.42,
+        "C9": 4.88,
+        "C10": 3.37,
+        "C11": 3.44,
+        "C12": 0.65
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.17
+      ],
+      "objective_linear_coefficient": 8.54,
+      "resource_costs": {
+        "C0": 9.7,
+        "C1": 7.42,
+        "C2": 1.29,
+        "C3": 5.15,
+        "C6": 7.17,
+        "C7": 4.19,
+        "C8": 8.13,
+        "C9": 6.84,
+        "C10": 2.05,
+        "C12": 2.44
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.01
+      ],
+      "objective_linear_coefficient": 3.67,
+      "resource_costs": {
+        "C0": 2.98,
+        "C1": 3.45,
+        "C2": 0.2,
+        "C3": 9.84,
+        "C6": 7.73,
+        "C7": 1.98,
+        "C8": 5.35,
+        "C9": 7.33,
+        "C10": 8.63
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.68
+      ],
+      "objective_linear_coefficient": 1.14,
+      "resource_costs": {
+        "C3": 1.14,
+        "C5": 6.37,
+        "C6": 4.65,
+        "C7": 9.81,
+        "C9": 5.22,
+        "C11": 5.61,
+        "C12": 9.5,
+        "C13": 8.23
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.87
+      ],
+      "objective_linear_coefficient": 4.2,
+      "resource_costs": {
+        "C0": 2.18,
+        "C2": 1.82,
+        "C3": 4.25,
+        "C6": 3.39,
+        "C8": 9.01,
+        "C9": 0.85,
+        "C11": 1.72,
+        "C12": 0.32,
+        "C13": 1.93
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.92
+      ],
+      "objective_linear_coefficient": 4.55,
+      "resource_costs": {
+        "C6": 6.14,
+        "C8": 3.85,
+        "C11": 2.47,
+        "C13": 1.06
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.29
+      ],
+      "objective_linear_coefficient": 4.97,
+      "resource_costs": {
+        "C0": 9.51,
+        "C2": 0.81,
+        "C3": 4.48,
+        "C6": 0.39,
+        "C9": 9.73,
+        "C10": 3.26,
+        "C12": 8.17
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.29
+      ],
+      "objective_linear_coefficient": 3.88,
+      "resource_costs": {
+        "C0": 7.28,
+        "C1": 8.51,
+        "C2": 5.22,
+        "C3": 7.58,
+        "C5": 1.61,
+        "C6": 3.92,
+        "C7": 9.31,
+        "C8": 8.11,
+        "C10": 2.77,
+        "C13": 2.24
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.07
+      ],
+      "objective_linear_coefficient": 8.37,
+      "resource_costs": {
+        "C2": 2.3,
+        "C3": 9.67,
+        "C6": 8.41,
+        "C9": 0.85,
+        "C10": 1.83
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.17
+      ],
+      "objective_linear_coefficient": 9.4,
+      "resource_costs": {
+        "C0": 2.27,
+        "C1": 7.9,
+        "C2": 3.31,
+        "C3": 5.06,
+        "C4": 7.27,
+        "C8": 3.49,
+        "C9": 0.06,
+        "C11": 1.38,
+        "C13": 2.32
+      }
+    },
+    "Var_14": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.02
+      ],
+      "objective_linear_coefficient": 2.16,
+      "resource_costs": {
+        "C3": 1.31,
+        "C6": 8.5,
+        "C7": 9.47,
+        "C8": 6.24,
+        "C9": 5.71,
+        "C12": 3.28,
+        "C13": 1.01
+      }
+    },
+    "Var_15": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.61
+      ],
+      "objective_linear_coefficient": 5.27,
+      "resource_costs": {
+        "C0": 7.91,
+        "C1": 2.01,
+        "C3": 0.72,
+        "C4": 7.51,
+        "C5": 1.81,
+        "C6": 0.59,
+        "C7": 8.05,
+        "C8": 4.43,
+        "C9": 8.72,
+        "C10": 0.38,
+        "C11": 3.15,
+        "C13": 7.45
+      }
+    },
+    "Var_16": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.14
+      ],
+      "objective_linear_coefficient": 2.53,
+      "resource_costs": {
+        "C0": 2.05,
+        "C2": 5.08,
+        "C3": 8.98,
+        "C5": 7.22,
+        "C7": 8.51,
+        "C8": 5.19,
+        "C9": 3.53,
+        "C12": 3.18
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.7, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.92 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.57, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.71 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=18.29, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 4.97 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=6.29, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 3.88 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=11.07, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 8.37 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=16.17, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 9.4 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=18.02, vtype=GRB.CONTINUOUS, name='Var_14')\n    lin_expr += 2.16 * vars['Var_14']\n    vars['Var_15'] = m.addVar(lb=0.0, ub=16.61, vtype=GRB.CONTINUOUS, name='Var_15')\n    lin_expr += 5.27 * vars['Var_15']\n    vars['Var_16'] = m.addVar(lb=0.0, ub=19.14, vtype=GRB.CONTINUOUS, name='Var_16')\n    lin_expr += 2.53 * vars['Var_16']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.23, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.87 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.11, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.77 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.14, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.33 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.17, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.54 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.01, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.67 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=19.68, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 1.14 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=17.87, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 4.2 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=12.92, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 4.55 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.07 * vars['Var_1'] + 9.51 * vars['Var_10'] + 7.28 * vars['Var_11'] + 2.27 * vars['Var_13'] + 7.91 * vars['Var_15'] + 2.05 * vars['Var_16'] + 5.84 * vars['Var_3'] + 8.78 * vars['Var_4'] + 9.7 * vars['Var_5'] + 2.98 * vars['Var_6'] + 2.18 * vars['Var_8'] <= 197.72, name='C0')\n    m.addConstr(4.25 * vars['Var_0'] + 8.51 * vars['Var_11'] + 7.9 * vars['Var_13'] + 2.01 * vars['Var_15'] + 9.06 * vars['Var_3'] + 0.87 * vars['Var_4'] + 7.42 * vars['Var_5'] + 3.45 * vars['Var_6'] <= 210.28, name='C1')\n    m.addConstr(3.26 * vars['Var_10'] + 2.77 * vars['Var_11'] + 1.83 * vars['Var_12'] + 0.38 * vars['Var_15'] + 2.19 * vars['Var_2'] + 9.54 * vars['Var_3'] + 3.37 * vars['Var_4'] + 2.05 * vars['Var_5'] + 8.63 * vars['Var_6'] <= 156.58, name='C10')\n    m.addConstr(4.36 * vars['Var_1'] + 1.38 * vars['Var_13'] + 3.15 * vars['Var_15'] + 3.44 * vars['Var_4'] + 5.61 * vars['Var_7'] + 1.72 * vars['Var_8'] + 2.47 * vars['Var_9'] <= 113.57, name='C11')\n    m.addConstr(9.92 * vars['Var_0'] + 7.14 * vars['Var_1'] + 8.17 * vars['Var_10'] + 3.28 * vars['Var_14'] + 3.18 * vars['Var_16'] + 1.24 * vars['Var_3'] + 0.65 * vars['Var_4'] + 2.44 * vars['Var_5'] + 9.5 * vars['Var_7'] + 0.32 * vars['Var_8'] <= 161.84, name='C12')\n    m.addConstr(2.24 * vars['Var_11'] + 2.32 * vars['Var_13'] + 1.01 * vars['Var_14'] + 7.45 * vars['Var_15'] + 0.44 * vars['Var_3'] + 8.23 * vars['Var_7'] + 1.93 * vars['Var_8'] + 1.06 * vars['Var_9'] <= 154.41, name='C13')\n    m.addConstr(1.38 * vars['Var_0'] + 0.81 * vars['Var_10'] + 5.22 * vars['Var_11'] + 2.3 * vars['Var_12'] + 3.31 * vars['Var_13'] + 5.08 * vars['Var_16'] + 8.52 * vars['Var_2'] + 3.95 * vars['Var_3'] + 7.5 * vars['Var_4'] + 1.29 * vars['Var_5'] + 0.2 * vars['Var_6'] + 1.82 * vars['Var_8'] <= 157.93, name='C2')\n    m.addConstr(5.88 * vars['Var_1'] + 4.48 * vars['Var_10'] + 7.58 * vars['Var_11'] + 9.67 * vars['Var_12'] + 5.06 * vars['Var_13'] + 1.31 * vars['Var_14'] + 0.72 * vars['Var_15'] + 8.98 * vars['Var_16'] + 0.68 * vars['Var_3'] + 2.66 * vars['Var_4'] + 5.15 * vars['Var_5'] + 9.84 * vars['Var_6'] + 1.14 * vars['Var_7'] + 4.25 * vars['Var_8'] <= 260.63, name='C3')\n    m.addConstr(7.27 * vars['Var_13'] + 7.51 * vars['Var_15'] + 3.05 * vars['Var_4'] <= 98.22, name='C4')\n    m.addConstr(3.98 * vars['Var_0'] + 1.61 * vars['Var_11'] + 1.81 * vars['Var_15'] + 7.22 * vars['Var_16'] + 0.5 * vars['Var_3'] + 6.37 * vars['Var_7'] <= 93.94, name='C5')\n    m.addConstr(8.24 * vars['Var_0'] + 9.52 * vars['Var_1'] + 0.39 * vars['Var_10'] + 3.92 * vars['Var_11'] + 8.41 * vars['Var_12'] + 8.5 * vars['Var_14'] + 0.59 * vars['Var_15'] + 0.63 * vars['Var_2'] + 3.49 * vars['Var_4'] + 7.17 * vars['Var_5'] + 7.73 * vars['Var_6'] + 4.65 * vars['Var_7'] + 3.39 * vars['Var_8'] + 6.14 * vars['Var_9'] <= 286.1, name='C6')\n    m.addConstr(4.94 * vars['Var_1'] + 9.31 * vars['Var_11'] + 9.47 * vars['Var_14'] + 8.05 * vars['Var_15'] + 8.51 * vars['Var_16'] + 4.46 * vars['Var_2'] + 2.25 * vars['Var_3'] + 4.19 * vars['Var_5'] + 1.98 * vars['Var_6'] + 9.81 * vars['Var_7'] <= 253.49, name='C7')\n    m.addConstr(8.11 * vars['Var_11'] + 3.49 * vars['Var_13'] + 6.24 * vars['Var_14'] + 4.43 * vars['Var_15'] + 5.19 * vars['Var_16'] + 0.99 * vars['Var_3'] + 1.42 * vars['Var_4'] + 8.13 * vars['Var_5'] + 5.35 * vars['Var_6'] + 9.01 * vars['Var_8'] + 3.85 * vars['Var_9'] <= 204.7, name='C8')\n    m.addConstr(9.73 * vars['Var_10'] + 0.85 * vars['Var_12'] + 0.06 * vars['Var_13'] + 5.71 * vars['Var_14'] + 8.72 * vars['Var_15'] + 3.53 * vars['Var_16'] + 6.6 * vars['Var_2'] + 4.88 * vars['Var_4'] + 6.84 * vars['Var_5'] + 7.33 * vars['Var_6'] + 5.22 * vars['Var_7'] + 0.85 * vars['Var_8'] <= 223.99, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Build Mix Decision for Q1 \u2013 Maximizing Contribution Under Plant and Market Limits\n\nTeam,\n\nWe need to set our Q1 build mix across our 17 product families to maximize total contribution while staying within the limits of our shops, materials, compliance, and logistics. Below are the levers we can pull, the economics of each, and exactly how they touch our constrained resources. Each figure below is on a \u201cper production lot\u201d basis, and we can schedule anywhere between zero and the maximum cited for each item.\n\n- Aurora Series Pump\n  - Contribution: 8.92 per lot; feasible run: 0 to 16.7 lots.\n  - Draws: 4.25 hours from CNC Cell Bravo, 1.38 tons of Alloy A, 3.98 hours of QA Bench time, 8.24 furnace-hours in the Heat-Treatment Furnace, and 9.92 Compliance Sign-offs.\n\n- Borealis Compact Valve\n  - Contribution: 1.71 per lot; feasible run: 0 to 10.57 lots.\n  - Draws: 3.07 machine-hours in Stamping Cell Alpha, 5.88 hours on Assembly Line Delta, 9.52 furnace-hours from the Heat-Treatment Furnace, 4.94 Skilled Fitters overtime hours, 4.36 hours on the Electrical Testing Bench, and 7.14 Compliance Sign-offs.\n\n- Cobalt Flow Meter\n  - Contribution: 7.87 per lot; feasible run: 0 to 13.23 lots.\n  - Draws: 8.52 tons of Alloy A, 0.63 furnace-hours in the Heat-Treatment Furnace, 4.46 Skilled Fitters overtime hours, 6.6 Shipping Dock slots, and 2.19 hours in the Inspection Bay.\n\n- Dynamo Gate Assembly\n  - Contribution: 4.77 per lot; feasible run: 0 to 12.11 lots.\n  - Draws: 5.84 machine-hours in Stamping Cell Alpha; 9.06 hours from CNC Cell Bravo; 3.95 tons of Alloy A; 0.68 hours on Assembly Line Delta; 0.5 hours of QA Bench time; 2.25 Skilled Fitters overtime hours; 0.99 hours in the Finishing Booth; 9.54 hours in the Inspection Bay; 1.24 Compliance Sign-offs; and 0.44 units of Hazardous Waste Handling.\n\n- Eclipse Safety Coupler\n  - Contribution: 3.33 per lot; feasible run: 0 to 11.14 lots.\n  - Draws: 8.78 machine-hours in Stamping Cell Alpha; 0.87 hours in CNC Cell Bravo; 7.5 tons of Alloy A; 2.66 hours on Assembly Line Delta; 3.05 units from Composite Casing Inventory; 3.49 furnace-hours; 1.42 hours in the Finishing Booth; 4.88 Shipping Dock slots; 3.37 hours in the Inspection Bay; 3.44 hours on the Electrical Testing Bench; and 0.65 Compliance Sign-offs.\n\n- Falcon Pressure Regulator\n  - Contribution: 8.54 per lot; feasible run: 0 to 16.17 lots.\n  - Draws: 9.7 machine-hours in Stamping Cell Alpha; 7.42 hours from CNC Cell Bravo; 1.29 tons of Alloy A; 5.15 hours on Assembly Line Delta; 7.17 furnace-hours; 4.19 Skilled Fitters overtime hours; 8.13 hours in the Finishing Booth; 6.84 Shipping Dock slots; 2.05 hours in the Inspection Bay; and 2.44 Compliance Sign-offs.\n\n- Glacier Relief Valve\n  - Contribution: 3.67 per lot; feasible run: 0 to 11.01 lots.\n  - Draws: 2.98 machine-hours in Stamping Cell Alpha; 3.45 hours in CNC Cell Bravo; 0.2 tons of Alloy A; 9.84 hours on Assembly Line Delta; 7.73 furnace-hours; 1.98 Skilled Fitters overtime hours; 5.35 hours in the Finishing Booth; 7.33 Shipping Dock slots; and 8.63 hours in the Inspection Bay.\n\n- Horizon Sensor Housing\n  - Contribution: 1.14 per lot; feasible run: 0 to 19.68 lots.\n  - Draws: 1.14 hours on Assembly Line Delta; 6.37 hours of QA Bench time; 4.65 furnace-hours; 9.81 Skilled Fitters overtime hours; 5.22 Shipping Dock slots; 5.61 hours on the Electrical Testing Bench; 9.5 Compliance Sign-offs; and 8.23 units of Hazardous Waste Handling.\n\n- Ionex Flow Controller\n  - Contribution: 4.2 per lot; feasible run: 0 to 17.87 lots.\n  - Draws: 2.18 machine-hours in Stamping Cell Alpha; 1.82 tons of Alloy A; 4.25 hours on Assembly Line Delta; 3.39 furnace-hours; 9.01 hours in the Finishing Booth; 0.85 Shipping Dock slots; 1.72 hours on the Electrical Testing Bench; 0.32 Compliance Sign-offs; and 1.93 units of Hazardous Waste Handling.\n\n- Jade Microfilter Unit\n  - Contribution: 4.55 per lot; feasible run: 0 to 12.92 lots.\n  - Draws: 6.14 furnace-hours; 3.85 hours in the Finishing Booth; 2.47 hours on the Electrical Testing Bench; and 1.06 units of Hazardous Waste Handling.\n\n- Keystone Turbine Kit\n  - Contribution: 4.97 per lot; feasible run: 0 to 18.29 lots.\n  - Draws: 9.51 machine-hours in Stamping Cell Alpha; 0.81 tons of Alloy A; 4.48 hours on Assembly Line Delta; 0.39 furnace-hours; 9.73 Shipping Dock slots; 3.26 hours in the Inspection Bay; and 8.17 Compliance Sign-offs.\n\n- Lumos Actuator Set\n  - Contribution: 3.88 per lot; feasible run: 0 to 6.29 lots.\n  - Draws: 7.28 machine-hours in Stamping Cell Alpha; 8.51 hours in CNC Cell Bravo; 5.22 tons of Alloy A; 7.58 hours on Assembly Line Delta; 1.61 hours of QA Bench time; 3.92 furnace-hours; 9.31 Skilled Fitters overtime hours; 8.11 hours in the Finishing Booth; 2.77 hours in the Inspection Bay; and 2.24 units of Hazardous Waste Handling.\n\n- Mirage Servo Array\n  - Contribution: 8.37 per lot; feasible run: 0 to 11.07 lots.\n  - Draws: 2.3 tons of Alloy A; 9.67 hours on Assembly Line Delta; 8.41 furnace-hours; 0.85 Shipping Dock slots; and 1.83 hours in the Inspection Bay.\n\n- Nimbus Flow Core\n  - Contribution: 9.4 per lot; feasible run: 0 to 16.17 lots.\n  - Draws: 2.27 machine-hours in Stamping Cell Alpha; 7.9 hours in CNC Cell Bravo; 3.31 tons of Alloy A; 5.06 hours on Assembly Line Delta; 7.27 units from Composite Casing Inventory; 3.49 hours in the Finishing Booth; 0.06 Shipping Dock slots; 1.38 hours on the Electrical Testing Bench; and 2.32 units of Hazardous Waste Handling.\n\n- Orion Valve Kit\n  - Contribution: 2.16 per lot; feasible run: 0 to 18.02 lots.\n  - Draws: 1.31 hours on Assembly Line Delta; 8.5 furnace-hours; 9.47 Skilled Fitters overtime hours; 6.24 hours in the Finishing Booth; 5.71 Shipping Dock slots; 3.28 Compliance Sign-offs; and 1.01 units of Hazardous Waste Handling.\n\n- Pinnacle Seal Assembly\n  - Contribution: 5.27 per lot; feasible run: 0 to 16.61 lots.\n  - Draws: 7.91 machine-hours in Stamping Cell Alpha; 2.01 hours in CNC Cell Bravo; 0.72 hours on Assembly Line Delta; 7.51 units from Composite Casing Inventory; 1.81 hours of QA Bench time; 0.59 furnace-hours; 8.05 Skilled Fitters overtime hours; 4.43 hours in the Finishing Booth; 8.72 Shipping Dock slots; 0.38 hours in the Inspection Bay; 3.15 hours on the Electrical Testing Bench; and 7.45 units of Hazardous Waste Handling.\n\n- Quasar Control Manifold\n  - Contribution: 2.53 per lot; feasible run: 0 to 19.14 lots.\n  - Draws: 2.05 machine-hours in Stamping Cell Alpha; 5.08 tons of Alloy A; 8.98 hours on Assembly Line Delta; 7.22 hours of QA Bench time; 8.51 Skilled Fitters overtime hours; 5.19 hours in the Finishing Booth; 3.53 Shipping Dock slots; and 3.18 Compliance Sign-offs.\n\nFacility Specs and Market Limits (do not exceed):\n- Stamping Cell Alpha: 197.72 machine-hours available.\n- CNC Cell Bravo: 210.28 machine-hours available.\n- Alloy A supply: 157.93 tons available.\n- Assembly Line Delta: 260.63 line-hours available.\n- Composite Casing Inventory: 98.22 units available.\n- QA Bench time: 93.94 hours available.\n- Heat-Treatment Furnace: 286.10 furnace-hours available.\n- Skilled Fitters overtime: 253.49 hours available.\n- Finishing Booth: 204.70 hours available.\n- Shipping Dock: 223.99 slot-equivalents available.\n- Inspection Bay: 156.58 hours available.\n- Electrical Testing Bench: 113.57 hours available.\n- Compliance Sign-offs: 161.84 sign-off units available.\n- Hazardous Waste Handling: 154.41 units available.\n\nPlease use these figures to recommend the build mix that maximizes total contribution for the quarter within the limits above. If needed, we can schedule partial lots to fine-tune the plan."
+}

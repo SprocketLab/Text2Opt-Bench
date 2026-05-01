@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "Explicit coefficients, bounds, and inequality directions; continuous vars with caps; VOC effect is \u22122.73 per batch. Baseline not given but 0 effect for orders makes constraint clear; model is reconstructable.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Business-memo style adds context; slightly verbose but not repetitive. Nearly all content supports the model specification.",
+      "realism": 94,
+      "realism_comment": "Feels like a real planning task: process time capacity, environmental ledger, margins, fractional scaling. Numbers and logic are plausible."
+    },
+    "prompt_tokens_with_data": 500,
+    "prompt_tokens_without_data": 500
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 83.92437362637362,
+    "optimal_values": {
+      "Var_0": 0.47527472527472525,
+      "Var_1": 10.04
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 3.46
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 1.64
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.34
+      ],
+      "objective_linear_coefficient": 8.64,
+      "resource_costs": {
+        "C0": 7.28,
+        "C1": -2.73
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.04
+      ],
+      "objective_linear_coefficient": 7.95,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.34, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.64 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.04, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.95 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.28 * vars['Var_0'] <= 3.46, name='C0')\n    m.addConstr(-2.73 * vars['Var_0'] <= 1.64, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocating this period\u2019s mix to maximize contribution\n\nTeam,\n\nFor this planning cycle, our goal is to maximize total contribution by choosing how much to commit to two revenue streams. We can scale both options in fractional increments as needed; there are no minimum commitments, only the caps and limits noted below.\n\n- Blue Solvent Blend campaign (run on Column A): Each batch contributes 8.64 in incremental margin. Operationally, every batch uses 7.28 hours of Column A time. Environmental performance is favorable: each batch reduces our net VOC ledger by 2.73 units due to off\u2011gas recovery. We may run as many as 10.34 batches this period, and we\u2019re not obligated to run any if conditions don\u2019t warrant it.\n\n- Offsite Tolling orders: Each order contributes 7.95 in incremental margin. Because this work is executed externally, it draws 0.00 hours from Column A and has 0.00 effect on the VOC ledger. We can place up to 10.04 orders this period, with no minimum commitment.\n\nFacility and market limits for the period\n- Column A runtime available: 3.46 hours maximum.\n- Net VOC ledger limit: 1.64 units or less by period end.\n\nPlease use the figures above when shaping the mix; the intent is to push total contribution as high as possible while staying within the stated capacity and compliance limits."
+}

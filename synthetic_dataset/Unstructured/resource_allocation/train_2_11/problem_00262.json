@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, contributions, bounds, integrality/continuity, and >= target levels are explicitly stated. Objective is minimize spend. The exact LP can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style prose adds some verbosity, but every coefficient, limit, and requirement is clearly specified with minimal repetition.",
+      "realism": 92,
+      "realism_comment": "Very plausible resource planning scenario with discrete and continuous choices and multiple KPIs; fractional caps are unusual but defensible."
+    },
+    "prompt_tokens_with_data": 1076,
+    "prompt_tokens_without_data": 1076
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 133.08846354166664,
+    "optimal_values": {
+      "Var_0": 16.0,
+      "Var_1": 3.0,
+      "Var_2": 5.0,
+      "Var_3": 12.0,
+      "Var_4": 5.0,
+      "Var_5": 0.39322916666666247
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 88.75
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 37.1
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 50.33
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 47.64
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 8.73
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 81.33
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 6.03
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.84
+      ],
+      "objective_linear_coefficient": 1.14,
+      "resource_costs": {
+        "C2": 1.77
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.26
+      ],
+      "objective_linear_coefficient": 9.32,
+      "resource_costs": {
+        "C2": 3.29,
+        "C3": 1.4
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.57
+      ],
+      "objective_linear_coefficient": 6.31,
+      "resource_costs": {
+        "C0": 0.61,
+        "C1": 0.97,
+        "C2": 2.42,
+        "C4": 5.33,
+        "C6": 3.75
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.41
+      ],
+      "objective_linear_coefficient": 2.28,
+      "resource_costs": {
+        "C0": 7.06,
+        "C1": 3.77,
+        "C5": 6.48
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.45
+      ],
+      "objective_linear_coefficient": 5.09,
+      "resource_costs": {
+        "C0": 4.97,
+        "C3": 8.91,
+        "C5": 0.11
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.21
+      ],
+      "objective_linear_coefficient": 6.43,
+      "resource_costs": {
+        "C2": 0.58,
+        "C5": 7.68
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.84, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.14 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.26, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.32 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.57, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.31 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.41, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.28 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.45, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.09 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.21, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.43 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.61 * vars['Var_2'] + 7.06 * vars['Var_3'] + 4.97 * vars['Var_4'] >= 88.75, name='C0')\n    m.addConstr(0.97 * vars['Var_2'] + 3.77 * vars['Var_3'] >= 37.1, name='C1')\n    m.addConstr(1.77 * vars['Var_0'] + 3.29 * vars['Var_1'] + 2.42 * vars['Var_2'] + 0.58 * vars['Var_5'] >= 50.33, name='C2')\n    m.addConstr(1.4 * vars['Var_1'] + 8.91 * vars['Var_4'] >= 47.64, name='C3')\n    m.addConstr(5.33 * vars['Var_2'] >= 8.73, name='C4')\n    m.addConstr(6.48 * vars['Var_3'] + 0.11 * vars['Var_4'] + 7.68 * vars['Var_5'] >= 81.33, name='C5')\n    m.addConstr(3.75 * vars['Var_2'] >= 6.03, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing resource mix to meet service, accreditation, and compliance commitments\n\nTeam,\n\nAs discussed, we need to assemble a mix of work packages that meets or surpasses our minimum service, accreditation, compliance, and reach commitments while keeping total spend as low as possible. Below is the proposed menu of levers we can pull, including unit economics, purchasing limits, and exactly how each option contributes to our required metrics. Unless noted otherwise, packages are deployed in whole-unit increments only and may be selected in quantities from zero up to their stated caps.\n\nThe levers\n\n1) Basic Support Blocks\n- Purpose and impact: Each block contributes 1.77 Technical Coverage Credits. It has no material effect on Baseline Service Capacity, Rapid Response Hours, Expert Accreditation Hours, Regulatory Training Credits, Distribution Reach Units, or the Audit Preparedness Score.\n- Unit cost: 1.14 per block.\n- Availability: Up to the equivalent of 16.84 blocks under current approvals; operationally, these are whole blocks.\n\n2) Senior Specialist Interventions\n- Purpose and impact: Each intervention delivers 3.29 Technical Coverage Credits and 1.4 Expert Accreditation Hours. It does not contribute to Baseline Service Capacity, Rapid Response Hours, Regulatory Training Credits, Distribution Reach Units, or the Audit Preparedness Score.\n- Unit cost: 9.32 per intervention.\n- Availability: Up to the equivalent of 19.26 interventions; ordered in whole interventions.\n\n3) Compliance Training Cohorts\n- Purpose and impact: Each cohort adds 0.61 to Baseline Service Capacity, 0.97 Rapid Response Hours, 2.42 Technical Coverage Credits, 5.33 Regulatory Training Credits, and 3.75 points to the Audit Preparedness Score. It has no effect on Expert Accreditation Hours or Distribution Reach Units.\n- Unit cost: 6.31 per cohort.\n- Availability: Up to the equivalent of 9.57 cohorts; purchased as whole cohorts.\n\n4) Core Operations Shifts\n- Purpose and impact: Each shift contributes 7.06 to Baseline Service Capacity, 3.77 Rapid Response Hours, and 6.48 Distribution Reach Units. It does not add to Technical Coverage Credits, Expert Accreditation Hours, Regulatory Training Credits, or the Audit Preparedness Score.\n- Unit cost: 2.28 per shift.\n- Availability: Up to the equivalent of 14.41 shifts; scheduled as whole shifts.\n\n5) Specialty Project Sprints\n- Purpose and impact: Each sprint adds 4.97 to Baseline Service Capacity, 8.91 Expert Accreditation Hours, and 0.11 Distribution Reach Units. It does not contribute to Rapid Response Hours, Technical Coverage Credits, Regulatory Training Credits, or the Audit Preparedness Score.\n- Unit cost: 5.09 per sprint.\n- Availability: Up to the equivalent of 9.45 sprints; executed in whole sprints.\n\n6) Flexible Logistics Hours\n- Purpose and impact: Each hour provides 0.58 Technical Coverage Credits and 7.68 Distribution Reach Units. It does not add to Baseline Service Capacity, Rapid Response Hours, Expert Accreditation Hours, Regulatory Training Credits, or the Audit Preparedness Score.\n- Unit cost: 6.43 per hour.\n- Availability: Up to 15.21 hours, adjustable in fractional increments.\n\nFacility specs and minimum commitments\n- Baseline Service Capacity: at least 88.75 units total.\n- Rapid Response Hours: at least 37.1 hours total.\n- Technical Coverage Credits: at least 50.33 credits total.\n- Expert Accreditation Hours: at least 47.64 hours total.\n- Regulatory Training Credits: at least 8.73 credits total.\n- Distribution Reach Units: at least 81.33 units total.\n- Audit Preparedness Score: at least 6.03 points total.\n\nOur objective is to meet or exceed all of the above commitments at the lowest total spend by choosing an appropriate combination of these six options within their availability limits and whole-unit requirements (with the exception of Flexible Logistics Hours, which may be dialed in fractionally). Please let me know if you\u2019d like a scenario run highlighting the least-cost mix under current price points and caps."
+}

@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, integrality, objective coefficients, resource usages, and capacity limits are explicitly stated; constraints are clearly 'do not exceed'; LB=0 noted. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative/branding and intro text, but the core data is crisply listed without repetition; minor verbosity only.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning scenario with plausible resources, budgets, and market limits; coefficients and capacities make sense."
+    },
+    "prompt_tokens_with_data": 1030,
+    "prompt_tokens_without_data": 1030
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 230.0661678832117,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": -0.0,
+      "Var_2": 5.673357664233583,
+      "Var_3": 8.0,
+      "Var_4": 16.0,
+      "Var_5": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 84.22
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 86.53
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 125.42
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 124.89
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 237.54
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 71.53
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.32
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 76.06
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.61
+      ],
+      "objective_linear_coefficient": 1.49,
+      "resource_costs": {
+        "C0": 4.77,
+        "C1": 3.68,
+        "C3": 8.16,
+        "C4": 9.55,
+        "C5": 4.32,
+        "C6": 3.77,
+        "C7": 3.36
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.38
+      ],
+      "objective_linear_coefficient": 1.37,
+      "resource_costs": {
+        "C1": 2.37,
+        "C2": 6.54,
+        "C4": 4.0,
+        "C5": 1.07,
+        "C6": 3.29,
+        "C7": 1.65
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.86
+      ],
+      "objective_linear_coefficient": 6.9,
+      "resource_costs": {
+        "C0": 8.71,
+        "C1": 5.48,
+        "C5": 7.95,
+        "C6": 0.5
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.1
+      ],
+      "objective_linear_coefficient": 9.62,
+      "resource_costs": {
+        "C1": 6.93,
+        "C2": 5.95,
+        "C4": 7.2,
+        "C7": 9.07
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.06
+      ],
+      "objective_linear_coefficient": 6.71,
+      "resource_costs": {
+        "C4": 5.55,
+        "C5": 1.04
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 1.1,
+      "resource_costs": {
+        "C0": 2.83,
+        "C2": 6.61,
+        "C3": 8.72,
+        "C4": 8.21,
+        "C7": 0.54
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.61, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.49 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.38, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 1.37 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=5.86, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.9 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.1, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.62 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=16.06, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.71 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 1.1 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.77 * vars['Var_0'] + 8.71 * vars['Var_2'] + 2.83 * vars['Var_5'] <= 84.22, name='C0')\n    m.addConstr(3.68 * vars['Var_0'] + 2.37 * vars['Var_1'] + 5.48 * vars['Var_2'] + 6.93 * vars['Var_3'] <= 86.53, name='C1')\n    m.addConstr(6.54 * vars['Var_1'] + 5.95 * vars['Var_3'] + 6.61 * vars['Var_5'] <= 125.42, name='C2')\n    m.addConstr(8.16 * vars['Var_0'] + 8.72 * vars['Var_5'] <= 124.89, name='C3')\n    m.addConstr(9.55 * vars['Var_0'] + 4.0 * vars['Var_1'] + 7.2 * vars['Var_3'] + 5.55 * vars['Var_4'] + 8.21 * vars['Var_5'] <= 237.54, name='C4')\n    m.addConstr(4.32 * vars['Var_0'] + 1.07 * vars['Var_1'] + 7.95 * vars['Var_2'] + 1.04 * vars['Var_4'] <= 71.53, name='C5')\n    m.addConstr(3.77 * vars['Var_0'] + 3.29 * vars['Var_1'] + 0.5 * vars['Var_2'] <= 52.32, name='C6')\n    m.addConstr(3.36 * vars['Var_0'] + 1.65 * vars['Var_1'] + 9.07 * vars['Var_3'] + 0.54 * vars['Var_5'] <= 76.06, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Spring Portfolio Mix \u2013 Maximizing Contribution Within Plant and Market Limits\n\nTeam,\n\nAs we plan the spring production portfolio, our goal is to maximize overall contribution across our offerings while staying inside the practical limits of our equipment, budgets, utilities, and market commitments. None of the items below carry a minimum commitment; each can be scheduled at zero if needed. Some are fully scalable, and others must be scheduled in whole units.\n\n- Copper Kettle IPA (flex-batch)\n  - Financials: contributes 1.49 per batch. We can scale it up to 7.61 batches; fractional batches are acceptable.\n  - Operations and market impact per batch:\n    - Mash & Boil Kettle Hours: 4.77\n    - Packaging Line Hours: 3.68\n    - Lab QC Hours: 8.16\n    - Loading Dock Time: 9.55\n    - Local Marketing Spend: 4.32\n    - Utility Steam Credits: 3.77\n    - Retail Placement Points: 3.36\n\n- Heritage Lager (whole runs)\n  - Financials: contributes 1.37 per run. Up to 16.38 runs; schedule in whole runs only.\n  - Operations and market impact per run:\n    - Packaging Line Hours: 2.37\n    - Cold Store Pallet Slots: 6.54\n    - Loading Dock Time: 4.00\n    - Local Marketing Spend: 1.07\n    - Utility Steam Credits: 3.29\n    - Retail Placement Points: 1.65\n\n- Small-Batch Sour Ale (flex-batch)\n  - Financials: contributes 6.90 per batch. Up to 5.86 batches; fractional batches are acceptable.\n  - Operations and market impact per batch:\n    - Mash & Boil Kettle Hours: 8.71\n    - Packaging Line Hours: 5.48\n    - Local Marketing Spend: 7.95\n    - Utility Steam Credits: 0.50\n\n- Seasonal Stout (whole batches)\n  - Financials: contributes 9.62 per batch. Up to 10.10 batches; schedule in whole batches only.\n  - Operations and market impact per batch:\n    - Packaging Line Hours: 6.93\n    - Cold Store Pallet Slots: 5.95\n    - Loading Dock Time: 7.20\n    - Retail Placement Points: 9.07\n\n- Canned Seltzer (whole production lots)\n  - Financials: contributes 6.71 per lot. Up to 16.06 lots; schedule in whole lots only.\n  - Operations and market impact per lot:\n    - Loading Dock Time: 5.55\n    - Local Marketing Spend: 1.04\n\n- Export Pilsner (whole container shipments)\n  - Financials: contributes 1.10 per container. Up to 9.00 containers; schedule in whole containers only.\n  - Operations and market impact per container:\n    - Mash & Boil Kettle Hours: 2.83\n    - Cold Store Pallet Slots: 6.61\n    - Lab QC Hours: 8.72\n    - Loading Dock Time: 8.21\n    - Retail Placement Points: 0.54\n\nFacility and Market Limits (do not exceed):\n- Mash & Boil Kettle Hours: 84.22 available\n- Packaging Line Hours: 86.53 available\n- Cold Store Pallet Slots: 125.42 available\n- Lab QC Hours: 124.89 available\n- Loading Dock Time: 237.54 available\n- Local Marketing Spend: 71.53 available\n- Utility Steam Credits: 52.32 available\n- Retail Placement Points: 76.06 available\n\nPlease use these parameters to recommend the optimal mix that maximizes total contribution while staying within all operational, budgetary, utility, and market limits."
+}

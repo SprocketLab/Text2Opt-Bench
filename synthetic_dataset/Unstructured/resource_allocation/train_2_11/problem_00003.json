@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "All costs, bounds, effects, and guardrails are explicit: minimize 2.82*Var_0+9.39*Var_1 with 0.34*Var_1>=0.02 and -1.33*Var_1>=-6.63; variables are continuous with stated bounds.",
+      "ambiguity": false,
+      "redundancy": 38,
+      "redundancy_comment": "Business narrative is verbose with repeated clarifications, but most text supports the model; all quantitative details are clear and directly usable.",
+      "realism": 90,
+      "realism_comment": "A plausible operations planning scenario (service vs risk, caps) with realistic guardrails; simplified but credible and consistent."
+    },
+    "prompt_tokens_with_data": 646,
+    "prompt_tokens_without_data": 646
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 0.5523529411764706,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.058823529411764705
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 0.02
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -6.63
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.94
+      ],
+      "objective_linear_coefficient": 2.82,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.3
+      ],
+      "objective_linear_coefficient": 9.39,
+      "resource_costs": {
+        "C0": 0.34,
+        "C1": -1.33
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.94, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.3, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.39 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.34 * vars['Var_1'] >= 0.02, name='C0')\n    m.addConstr(-1.33 * vars['Var_1'] >= -6.63, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing allocation plan with service and risk guardrails\n\nTeam,\n\nAs discussed, we\u2019re looking to set a lean plan that keeps our overall operating outlay as low as possible while meeting two mandatory guardrails: a minimum service score and a minimum buffer on our risk index. We have two levers we can deploy, with fractional commitments permitted, and we\u2019ll need to respect their individual caps.\n\n- Back-Office Coordination Blocks\n  - Scope: Optional internal support capacity that smooths workflows but does not directly move our measured performance metrics.\n  - Cost impact: Each block carries an operating expense of 2.82 per unit.\n  - Effect on service score: No direct contribution (0.00 per unit).\n  - Effect on risk index: No direct contribution (0.00 per unit).\n  - Allowable range: We can book any non-negative amount up to a ceiling of 8.94 units (floor is 0.00).\n\n- Frontline Response Hours\n  - Scope: Customer-facing coverage that lifts our measured service level but draws down our risk buffer as we lean into expedited work.\n  - Cost impact: Each hour costs 9.39 per unit.\n  - Effect on service score: Adds 0.34 points per unit.\n  - Effect on risk index: Pulls the index downward by 1.33 points per unit (i.e., a negative impact on the buffer we track).\n  - Allowable range: We can allocate from 0.00 up to a cap of 11.3 units.\n\nFacility specs and guardrails\n- Service score floor: The combined plan must deliver at least 0.02 points on our service score.\n- Risk index floor: The combined plan must keep the risk index at or above -6.63 points overall (we will tolerate a negative reading, but not below this threshold).\n\nPlease use the above parameters exactly as stated\u2014costs per unit, the specific effects on the two metrics (including the zero impacts where noted), and the stated lower and upper bounds on each lever\u2014when preparing the allocation that minimizes total spend while staying within these limits."
+}

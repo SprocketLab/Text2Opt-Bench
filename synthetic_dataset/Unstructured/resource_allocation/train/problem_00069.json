@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, types, bounds, objective coefficients, and resource consumptions are explicitly stated; constraints and totals are clear. Implementation is mechanical with no guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Clear but verbose business narrative; several nonessential sentences add length without affecting the math.",
+      "realism": 94,
+      "realism_comment": "Very plausible plant scheduling/resource allocation with integer batches and capacities; slight oddity in 14.07 batch cap but still realistic."
+    },
+    "prompt_tokens_with_data": 805,
+    "prompt_tokens_without_data": 805
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 66.52624561403506,
+    "optimal_values": {
+      "Var_0": 10.0,
+      "Var_1": 1.5298245614035053,
+      "Var_2": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 58.68
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 41.16
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 55.92
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 19.01
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.07
+      ],
+      "objective_linear_coefficient": 5.21,
+      "resource_costs": {
+        "C1": 3.68,
+        "C2": 2.0,
+        "C3": 1.02
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.91
+      ],
+      "objective_linear_coefficient": 9.43,
+      "resource_costs": {
+        "C0": 5.23,
+        "C1": 2.85,
+        "C2": 3.44,
+        "C3": 5.28
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.0
+      ],
+      "objective_linear_coefficient": 3.77,
+      "resource_costs": {
+        "C0": 8.0,
+        "C1": 5.65,
+        "C2": 8.5
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.07, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.21 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.91, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.43 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.77 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.23 * vars['Var_1'] + 8.0 * vars['Var_2'] <= 58.68, name='C0')\n    m.addConstr(3.68 * vars['Var_0'] + 2.85 * vars['Var_1'] + 5.65 * vars['Var_2'] <= 41.16, name='C1')\n    m.addConstr(2.0 * vars['Var_0'] + 3.44 * vars['Var_1'] + 8.5 * vars['Var_2'] <= 55.92, name='C2')\n    m.addConstr(1.02 * vars['Var_0'] + 5.28 * vars['Var_1'] <= 19.01, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposal to Maximize Contribution from Q1 Specialty Lines Under Current Plant Limits\n\nTeam,\n\nWe are setting up the production mix for the upcoming period with a single objective: maximize total contribution while staying within the specific operating and compliance limits of the plant. The four limiting resources this cycle are Reactor Bay A hours, skilled-crew time, feedstock V barrels, and certified inspection slots. Below are the levers available to us, in the order we will decide them, including their per\u2011unit contribution and what they draw from each constrained area.\n\n\u2022 Heritage Amber Small\u2011Batch Contracts (whole batches only)\n  - Financials: Each batch contributes 5.21 in gross margin.\n  - What it draws: Per batch, it requires 3.68 hours of skilled crew time, 2.00 barrels of feedstock V, and 1.02 hours of certified inspection. It does not consume any Reactor Bay A hours.\n  - Practical limits: There is no minimum commitment (we can choose zero), and the calendar allows up to 14.07 batches this period; because these are batch contracts, we must schedule whole batches only.\n\n\u2022 Blue Bond Portfolio Throughput (continuously adjustable)\n  - Financials: Each unit of throughput contributes 9.43 in gross margin.\n  - What it draws: For every unit run, it uses 5.23 Reactor Bay A hours, 2.85 hours of skilled crew time, 3.44 barrels of feedstock V, and 5.28 hours of certified inspection.\n  - Practical limits: No minimum commitment (we can choose zero), and the line can take up to 19.91 units this period; we can run fractional amounts as needed.\n\n\u2022 Citrine Pilot Lots (whole lots only)\n  - Financials: Each pilot lot contributes 3.77 in gross margin.\n  - What it draws: Each lot uses 8.00 Reactor Bay A hours, 5.65 hours of skilled crew time, and 8.50 barrels of feedstock V. It does not require any certified inspection time.\n  - Practical limits: No minimum commitment (we can choose zero), with a ceiling of 6.00 lots this period; these must be scheduled as whole lots only.\n\nFacility specs and market limits for this period\n- Reactor Bay A availability: not to exceed 58.68 hours in total across all chosen work.\n- Skilled crew availability: not to exceed 41.16 hours in total.\n- Feedstock V supply: not to exceed 55.92 barrels in total.\n- Certified inspection capacity: not to exceed 19.01 hours in total.\n\nWithin these limits, our task is to choose how many Heritage Amber batches, how much Blue Bond throughput, and how many Citrine pilot lots to run so that total contribution is as high as possible. Please review and confirm these operating allowances so we can finalize the production plan."
+}

@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All unit costs, bounds, and per-option contributions to energy, carbon, and reserve are explicit; continuous decisions allowed; >= targets stated. Model reconstructible without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business narrative and bullets are somewhat verbose and repetitive, plus template/instructions, but they remain consistent and informative.",
+      "realism": 95,
+      "realism_comment": "A realistic power procurement problem with energy, reserve, and carbon obligations; data are plausible. Minor oddity: battery option has no effect."
+    },
+    "prompt_tokens_with_data": 930,
+    "prompt_tokens_without_data": 930
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 23.080141388174805,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 9.82133676092545,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 76.41
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -16.84
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 10.77
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.44
+      ],
+      "objective_linear_coefficient": 5.34,
+      "resource_costs": {
+        "C0": 9.25
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.91
+      ],
+      "objective_linear_coefficient": 2.35,
+      "resource_costs": {
+        "C0": 7.78,
+        "C2": 8.4
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.4
+      ],
+      "objective_linear_coefficient": 2.71,
+      "resource_costs": {
+        "C0": 1.52,
+        "C1": -1.59
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.29
+      ],
+      "objective_linear_coefficient": 6.95,
+      "resource_costs": {}
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.32
+      ],
+      "objective_linear_coefficient": 6.99,
+      "resource_costs": {
+        "C1": -2.38,
+        "C2": 0.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.44, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.34 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.91, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.35 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.4, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.71 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.29, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.95 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.32, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.99 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.25 * vars['Var_0'] + 7.78 * vars['Var_1'] + 1.52 * vars['Var_2'] >= 76.41, name='C0')\n    m.addConstr(-1.59 * vars['Var_2'] + -2.38 * vars['Var_4'] >= -16.84, name='C1')\n    m.addConstr(8.4 * vars['Var_1'] + 0.46 * vars['Var_4'] >= 10.77, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimization plan for next period\u2019s power supply mix\n\nTeam,\n\nFor the upcoming delivery period, we need to assemble a portfolio of supply options that meets our operating obligations at the lowest possible total procurement cost. Below are the levers we can pull, what each one costs us per unit, how much it contributes (or doesn\u2019t) to our three obligations, and any limits on how much of each we can take. We can dial each option in fractional amounts, anywhere from zero up to its stated cap.\n\n- Blue Ridge Hydro blocks\n  - Cost: $5.34 per block procured.\n  - Energy Delivery Commitment: each block contributes 9.25 MWh toward our scheduled energy requirement.\n  - Carbon Compliance Balance: no impact; it neither adds penalties nor credits (0 effect).\n  - Ancillary Reserve Obligation: no impact; it does not provide qualifying reserve capacity (0 MW).\n  - Availability: we may procure anywhere from 0 up to 12.44 blocks.\n\n- Prairie Wind day-ahead tranches\n  - Cost: $2.35 per tranche.\n  - Energy Delivery Commitment: each tranche contributes 7.78 MWh toward scheduled energy.\n  - Carbon Compliance Balance: no impact (0 effect).\n  - Ancillary Reserve Obligation: each tranche provides 8.4 MW of qualifying reserve capability.\n  - Availability: we may procure anywhere from 0 up to 18.91 tranches.\n\n- Western Peaker gas runs\n  - Cost: $2.71 per run.\n  - Energy Delivery Commitment: each run contributes 1.52 MWh toward scheduled energy.\n  - Carbon Compliance Balance: each run worsens our balance by 1.59 metric tons of CO2e (i.e., reduces the balance by 1.59).\n  - Ancillary Reserve Obligation: no impact; does not provide qualifying reserve (0 MW).\n  - Availability: we may schedule anywhere from 0 up to 16.4 runs.\n\n- MidCity Battery lease modules\n  - Cost: $6.95 per module.\n  - Energy Delivery Commitment: no counted contribution toward scheduled energy (0 MWh).\n  - Carbon Compliance Balance: no impact (0 effect).\n  - Ancillary Reserve Obligation: no counted contribution to qualifying reserve (0 MW).\n  - Availability: we may lease anywhere from 0 up to 15.29 modules.\n\n- Harbor Diesel standby blocks\n  - Cost: $6.99 per block.\n  - Energy Delivery Commitment: no counted contribution toward scheduled energy (0 MWh).\n  - Carbon Compliance Balance: each block worsens our balance by 2.38 metric tons of CO2e (i.e., reduces the balance by 2.38).\n  - Ancillary Reserve Obligation: each block provides 0.46 MW of qualifying reserve capability.\n  - Availability: we may schedule anywhere from 0 up to 7.32 blocks.\n\nMarket limits and obligations for the period\n- Energy Delivery Commitment: deliver at least 76.41 MWh of scheduled energy across the portfolio.\n- Carbon Compliance Balance: keep the net balance at or above -16.84 metric tons CO2e for the period.\n- Ancillary Reserve Obligation: provide at least 10.77 MW of qualifying reserve capacity.\n\nOur aim is to meet or exceed these three obligations while minimizing the total spend implied by the unit costs above. Please review and confirm any operational constraints or procurement preferences so we can proceed with the optimal mix."
+}

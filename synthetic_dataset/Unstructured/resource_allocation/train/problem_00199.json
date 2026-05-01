@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, integrality, coefficients, and resource capacities are explicitly stated; objective is clearly to maximize total contribution. Zero-use resources are unambiguous.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds fluff (greeting, sign-off, trade-off note). Some repetition per product, but technical details are precise and necessary.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning scenario with plausible resources, capacities, and batch integrality/fractionality; aligns with real OR applications."
+    },
+    "prompt_tokens_with_data": 1140,
+    "prompt_tokens_without_data": 1140
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 190.69582186252245,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 12.0,
+      "Var_2": 4.8967367335197505,
+      "Var_3": 6.2,
+      "Var_4": 6.2214120209296695
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 139.41
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 75.0
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 137.36
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 203.45
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 156.31
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.69
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.67
+      ],
+      "objective_linear_coefficient": 5.8,
+      "resource_costs": {
+        "C0": 9.74,
+        "C1": 3.59,
+        "C2": 7.69,
+        "C3": 9.87,
+        "C4": 6.42,
+        "C5": 4.18
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.57
+      ],
+      "objective_linear_coefficient": 3.45,
+      "resource_costs": {
+        "C0": 1.63,
+        "C2": 3.51,
+        "C3": 6.89,
+        "C4": 8.67
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.36
+      ],
+      "objective_linear_coefficient": 7.49,
+      "resource_costs": {
+        "C0": 6.91,
+        "C1": 7.96,
+        "C2": 3.71,
+        "C4": 9.9,
+        "C5": 0.61
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.2
+      ],
+      "objective_linear_coefficient": 8.17,
+      "resource_costs": {
+        "C0": 3.38,
+        "C2": 6.01,
+        "C3": 9.15,
+        "C5": 4.43
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.54
+      ],
+      "objective_linear_coefficient": 9.96,
+      "resource_costs": {
+        "C0": 2.26,
+        "C1": 5.79,
+        "C2": 0.82,
+        "C3": 6.98,
+        "C4": 0.26,
+        "C5": 9.2
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.67, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.8 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.57, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.45 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.36, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.49 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.2, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.17 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.54, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.96 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.74 * vars['Var_0'] + 1.63 * vars['Var_1'] + 6.91 * vars['Var_2'] + 3.38 * vars['Var_3'] + 2.26 * vars['Var_4'] <= 139.41, name='C0')\n    m.addConstr(3.59 * vars['Var_0'] + 7.96 * vars['Var_2'] + 5.79 * vars['Var_4'] <= 75.0, name='C1')\n    m.addConstr(7.69 * vars['Var_0'] + 3.51 * vars['Var_1'] + 3.71 * vars['Var_2'] + 6.01 * vars['Var_3'] + 0.82 * vars['Var_4'] <= 137.36, name='C2')\n    m.addConstr(9.87 * vars['Var_0'] + 6.89 * vars['Var_1'] + 9.15 * vars['Var_3'] + 6.98 * vars['Var_4'] <= 203.45, name='C3')\n    m.addConstr(6.42 * vars['Var_0'] + 8.67 * vars['Var_1'] + 9.9 * vars['Var_2'] + 0.26 * vars['Var_4'] <= 156.31, name='C4')\n    m.addConstr(4.18 * vars['Var_0'] + 0.61 * vars['Var_2'] + 4.43 * vars['Var_3'] + 9.2 * vars['Var_4'] <= 87.69, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Decision \u2014 Maximize Contribution Within Q1 Facility Limits\n\nTeam,\n\nI\u2019m writing to align on the Q1 production mix across five product families. Our goal is to maximize total contribution while staying within six shared plant resources. Two of these lines must be scheduled in whole batches; the others can be dialed up or down fractionally. Below are the levers and how each one draws on our constrained resources.\n\nAurora Core Router (whole batches only)\n- Economic impact: Each batch contributes 5.8 in margin.\n- Scale: We can run anywhere from 0 up to 11.67 batches this quarter, but commitments must be whole batches.\n- Resource draw per batch:\n  \u2022 CNC Machining Center A: 9.74 hours\n  \u2022 Certified Assembly Cell B: 3.59 hours\n  \u2022 Advanced Materials allocation: 7.69 units\n  \u2022 Test & Calibration benches: 9.87 hours\n  \u2022 Paint/Finishing booths: 6.42 hours\n  \u2022 Outbound loading dock: 4.18 slots\n\nBorealis Travel Adapter (whole batches only)\n- Economic impact: Each batch contributes 3.45 in margin.\n- Scale: We can run anywhere from 0 up to 13.57 batches, in whole batches only.\n- Resource draw per batch:\n  \u2022 CNC Machining Center A: 1.63 hours\n  \u2022 Certified Assembly Cell B: 0 hours (no certified assembly required)\n  \u2022 Advanced Materials allocation: 3.51 units\n  \u2022 Test & Calibration benches: 6.89 hours\n  \u2022 Paint/Finishing booths: 8.67 hours\n  \u2022 Outbound loading dock: 0 slots (ships direct; no dock use)\n\nCascade Power Pack (fractional runs allowed)\n- Economic impact: Each batch contributes 7.49 in margin.\n- Scale: We can run anywhere from 0 up to 12.36 batches, and we may run partial batches.\n- Resource draw per batch:\n  \u2022 CNC Machining Center A: 6.91 hours\n  \u2022 Certified Assembly Cell B: 7.96 hours\n  \u2022 Advanced Materials allocation: 3.71 units\n  \u2022 Test & Calibration benches: 0 hours (no bench time required)\n  \u2022 Paint/Finishing booths: 9.90 hours\n  \u2022 Outbound loading dock: 0.61 slots\n\nDenali Field Transmitter (fractional runs allowed)\n- Economic impact: Each batch contributes 8.17 in margin.\n- Scale: We can run anywhere from 0 up to 6.2 batches, with partial batches permitted.\n- Resource draw per batch:\n  \u2022 CNC Machining Center A: 3.38 hours\n  \u2022 Certified Assembly Cell B: 0 hours (no certified assembly required)\n  \u2022 Advanced Materials allocation: 6.01 units\n  \u2022 Test & Calibration benches: 9.15 hours\n  \u2022 Paint/Finishing booths: 0 hours (no finishing required)\n  \u2022 Outbound loading dock: 4.43 slots\n\nEclipse Pro Case (fractional runs allowed)\n- Economic impact: Each batch contributes 9.96 in margin.\n- Scale: We can run anywhere from 0 up to 9.54 batches, with partial batches permitted.\n- Resource draw per batch:\n  \u2022 CNC Machining Center A: 2.26 hours\n  \u2022 Certified Assembly Cell B: 5.79 hours\n  \u2022 Advanced Materials allocation: 0.82 units\n  \u2022 Test & Calibration benches: 6.98 hours\n  \u2022 Paint/Finishing booths: 0.26 hours\n  \u2022 Outbound loading dock: 9.20 slots\n\nFacility Specs and Q1 Limits\n- CNC Machining Center A capacity: up to 139.41 hours in the period\n- Certified Assembly Cell B capacity: up to 75.00 hours\n- Advanced Materials allocation: up to 137.36 units\n- Test & Calibration benches capacity: up to 203.45 hours\n- Paint/Finishing booths capacity: up to 156.31 hours\n- Outbound loading dock capacity: up to 87.69 slots\n\nPlease use the above economics, batch-size rules (whole vs. partial), and the stated resource capacities to finalize the optimal production plan that maximizes total contribution for the quarter. I\u2019m available to discuss trade-offs if any single resource becomes the binding constraint.\n\nBest regards,\n[Client Name]\nVP, Operations"
+}

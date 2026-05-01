@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and ledger impacts are explicit; 'fractionally' implies continuous; targets are <= -74.23 and <= -35.4. Linear maximize objective. A modeler can rebuild exactly.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style narrative adds context; bullet details are precise but some explanatory prose is unnecessary. Not repetitive.",
+      "realism": 95,
+      "realism_comment": "Feels like a real planning problem: five initiatives with per-unit profit, carbon, and risk impacts, caps, and targets. Plausible trade-offs and terminology."
+    },
+    "prompt_tokens_with_data": 830,
+    "prompt_tokens_without_data": 830
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 382.6525,
+    "optimal_values": {
+      "Var_0": 8.92,
+      "Var_1": 19.33,
+      "Var_2": 14.69,
+      "Var_3": 7.08,
+      "Var_4": 13.67
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -74.23
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -35.4
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.92
+      ],
+      "objective_linear_coefficient": 8.33,
+      "resource_costs": {
+        "C1": 0.36
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.33
+      ],
+      "objective_linear_coefficient": 9.74,
+      "resource_costs": {
+        "C0": -3.75,
+        "C1": 1.47
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.69
+      ],
+      "objective_linear_coefficient": 2.87,
+      "resource_costs": {
+        "C0": -7.53,
+        "C1": -6.05
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.08
+      ],
+      "objective_linear_coefficient": 3.05,
+      "resource_costs": {
+        "C0": 3.57,
+        "C1": -2.46
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.67
+      ],
+      "objective_linear_coefficient": 4.12,
+      "resource_costs": {
+        "C0": -0.16,
+        "C1": 1.85
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.92, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.33 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.33, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.74 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.69, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.87 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.08, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.05 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.67, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.12 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-3.75 * vars['Var_1'] + -7.53 * vars['Var_2'] + 3.57 * vars['Var_3'] + -0.16 * vars['Var_4'] <= -74.23, name='C0')\n    m.addConstr(0.36 * vars['Var_0'] + 1.47 * vars['Var_1'] + -6.05 * vars['Var_2'] + -2.46 * vars['Var_3'] + 1.85 * vars['Var_4'] <= -35.4, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Maximizing Contribution While Hitting Our Carbon and Risk Targets\n\nTeam,\n\nAs we finalize this quarter\u2019s plan, we need to decide how far to scale five revenue-generating levers so that we maximize total operating contribution while meeting two enterprise commitments: our Carbon Reduction Ledger and our Operations Risk Score. For clarity, negative impacts on these ledgers reflect improvements (reductions), and positive impacts reflect increases relative to baseline.\n\nHere are the levers we can dial up or down this quarter. Each can be scaled fractionally from a floor of zero up to its stated cap.\n\n- Reliability Fast-Track Maintenance\n  - Business impact: adds 8.33 in operating contribution per unit of deployment.\n  - Scalability: from 0 up to 8.92 units.\n  - Carbon Reduction Ledger: neutral; no change per unit (0).\n  - Operations Risk Score: adds 0.36 points per unit (slight uptick in risk from compressed work windows).\n\n- Rail Lane Consolidation Program\n  - Business impact: adds 9.74 in operating contribution per consolidated lane.\n  - Scalability: from 0 up to 19.33 lanes.\n  - Carbon Reduction Ledger: reduces emissions by 3.75 tCO2e per lane.\n  - Operations Risk Score: adds 1.47 points per lane (yard activity and interchange exposure).\n\n- Heat Recovery Loop Modules\n  - Business impact: adds 2.87 in operating contribution per module.\n  - Scalability: from 0 up to 14.69 modules.\n  - Carbon Reduction Ledger: reduces emissions by 7.53 tCO2e per module.\n  - Operations Risk Score: reduces risk by 6.05 points per module (less steam handling and hot work exposure).\n\n- Robotic Handling Pods\n  - Business impact: adds 3.05 in operating contribution per pod.\n  - Scalability: from 0 up to 7.08 pods.\n  - Carbon Reduction Ledger: adds 3.57 tCO2e per pod (higher electricity draw).\n  - Operations Risk Score: reduces risk by 2.46 points per pod (fewer manual lifts).\n\n- Customer Pick\u2011Up Incentives\n  - Business impact: adds 4.12 in operating contribution per campaign block.\n  - Scalability: from 0 up to 13.67 blocks.\n  - Carbon Reduction Ledger: reduces emissions by 0.16 tCO2e per block (fewer delivery miles).\n  - Operations Risk Score: adds 1.85 points per block (increased on-site traffic management).\n\nFacility Targets and Limits\n- Carbon Reduction Ledger target: the combined effect of the above actions must close at or below \u221274.23 tCO2e relative to baseline.\n- Operations Risk Score target: the combined effect must close at or below \u221235.4 points relative to baseline.\n\nPlease use the above impacts, per\u2011unit contributions, and caps to determine the mix that maximizes total operating contribution while satisfying both ledger targets."
+}

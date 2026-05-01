@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and three resource constraints are explicitly stated; the model can be reconstructed mechanically without assumptions.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some business narrative adds context but introduces mild verbosity; technical details are clear and non-repetitive.",
+      "realism": 96,
+      "realism_comment": "Plausible plant scheduling with capacity and permit limits; slight oddity is fractional upper bounds on integer lots."
+    },
+    "prompt_tokens_with_data": 760,
+    "prompt_tokens_without_data": 760
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 142.56,
+    "optimal_values": {
+      "Var_0": 5.0,
+      "Var_1": -0.0,
+      "Var_2": 16.0,
+      "Var_3": 7.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 91.74
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 3.41
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 91.06
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.99
+      ],
+      "objective_linear_coefficient": 5.91,
+      "resource_costs": {
+        "C2": 5.51
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 5.18,
+      "resource_costs": {
+        "C0": 5.04,
+        "C1": 0.23,
+        "C2": 5.77
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.87
+      ],
+      "objective_linear_coefficient": 6.0,
+      "resource_costs": {
+        "C0": 1.93,
+        "C2": 3.81
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.6
+      ],
+      "objective_linear_coefficient": 2.43,
+      "resource_costs": {
+        "C0": 8.55
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.99, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.91 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.18 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.87, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.0 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.6, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.43 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.04 * vars['Var_1'] + 1.93 * vars['Var_2'] + 8.55 * vars['Var_3'] <= 91.74, name='C0')\n    m.addConstr(0.23 * vars['Var_1'] <= 3.41, name='C1')\n    m.addConstr(5.51 * vars['Var_0'] + 5.77 * vars['Var_1'] + 3.81 * vars['Var_2'] <= 91.06, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Recommendation to Maximize Weekly Contribution Under Plant and Permit Limits\n\nTeam,\n\nFor the upcoming scheduling window, our goal is to maximize total contribution while staying within three shared limits: Unit Operations time, emissions permits, and packaging line capacity. All decisions must be made in whole-lot increments only (no partial runs). Below are the four levers we can pull, with their economics and how each one draws on the constrained resources.\n\n- Blue Label Repack Lots\n  - Commercially, this is straightforward contract repacking that monetizes our idle filler time. Each lot generates an incremental contribution of 5.91.\n  - Operating impact per lot: uses 5.51 hours on the Packaging & Labeling line, with no draw on Unit Operations time and no emissions permits required.\n  - We can schedule anywhere from zero up to 17.99 lots this period, in whole-lot increments.\n\n- Premium Solvent Blend A Batches\n  - This is a high-touch, high-spec blend with solid returns. Each batch adds 5.18 in contribution.\n  - Operating impact per batch: draws 5.04 hours of Unit Operations time, consumes 0.23 emissions permit units, and requires 5.77 hours on the Packaging & Labeling line.\n  - We can book between zero and 7.0 batches, whole batches only.\n\n- Industrial Cleaner B Runs\n  - Strong margin and lighter on core unit time. Each run contributes 6.00.\n  - Operating impact per run: uses 1.93 hours of Unit Operations time and 3.81 hours on the Packaging & Labeling line, with no emissions permits needed.\n  - We can plan from zero up to 17.87 runs, whole runs only.\n\n- Base Distillate C (Bulk) Campaigns\n  - Lower return but a useful absorber of Unit Operations capacity when packaging is tight. Each campaign adds 2.43 in contribution.\n  - Operating impact per campaign: draws 8.55 hours of Unit Operations time, with no Packaging & Labeling time and no emissions permits required.\n  - We can commit from zero up to 11.6 campaigns, whole campaigns only.\n\nFacility and Compliance Limits for the Period\n- Unit Operations time (reactor/distillation, combined): 91.74 hours total available across all activities.\n- Emissions permits (VOC-equivalent units): 3.41 total available across all activities.\n- Packaging & Labeling line capacity: 91.06 hours total available across all activities.\n\nPlease use the above economics and limits to set the mix that maximizes our total contribution while respecting the caps on Unit Operations time, permits, and packaging."
+}

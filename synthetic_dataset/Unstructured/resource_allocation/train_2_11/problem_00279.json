@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, signs, and constraint thresholds are explicit; objective is clear. Fractional caps imply continuous vars. Model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business prose and repeated clarifiers (e.g., no effect), but most content maps directly to coefficients and limits; minimal unnecessary repetition.",
+      "realism": 92,
+      "realism_comment": "Feels like a real plant mix problem with capacities, budgets, and credit ledgers; negative thresholds for credits are unusual but plausible and clearly explained."
+    },
+    "prompt_tokens_with_data": 1481,
+    "prompt_tokens_without_data": 1481
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 265.16145158290226,
+    "optimal_values": {
+      "Var_0": 8.42,
+      "Var_1": 7.716590348224602,
+      "Var_2": 2.215008654079762,
+      "Var_3": 10.431707982185241,
+      "Var_4": 0.12814404480347882,
+      "Var_5": 11.10540959660252
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 222.51
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -40.53
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -36.26
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -106.88
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -59.21
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.17
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 159.51
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -222.35
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.42
+      ],
+      "objective_linear_coefficient": 6.61,
+      "resource_costs": {
+        "C0": 6.53,
+        "C1": -6.28,
+        "C2": -4.97,
+        "C3": -9.74,
+        "C4": 7.09,
+        "C6": 3.21
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.68
+      ],
+      "objective_linear_coefficient": 4.54,
+      "resource_costs": {
+        "C2": -4.78,
+        "C3": -8.36,
+        "C5": 8.87,
+        "C6": 7.99,
+        "C7": -4.15
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.95
+      ],
+      "objective_linear_coefficient": 2.69,
+      "resource_costs": {
+        "C0": 5.49,
+        "C1": 7.24,
+        "C2": 6.54,
+        "C7": -8.0
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.05
+      ],
+      "objective_linear_coefficient": 7.09,
+      "resource_costs": {
+        "C0": 9.21,
+        "C1": -0.74,
+        "C3": -2.96,
+        "C4": -5.8,
+        "C5": 4.37,
+        "C6": -2.75,
+        "C7": -7.33
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.36
+      ],
+      "objective_linear_coefficient": 2.09,
+      "resource_costs": {
+        "C0": 9.44,
+        "C1": -0.77,
+        "C5": -3.37,
+        "C6": 0.07,
+        "C7": 1.11
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.48
+      ],
+      "objective_linear_coefficient": 8.49,
+      "resource_costs": {
+        "C0": 5.23,
+        "C1": -3.61,
+        "C3": 6.35,
+        "C4": -7.14,
+        "C5": -2.38,
+        "C6": 8.96,
+        "C7": -8.67
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.42, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.61 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.68, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.54 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.95, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.69 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.05, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.09 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.36, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.09 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.48, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.49 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.53 * vars['Var_0'] + 5.49 * vars['Var_2'] + 9.21 * vars['Var_3'] + 9.44 * vars['Var_4'] + 5.23 * vars['Var_5'] <= 222.51, name='C0')\n    m.addConstr(-6.28 * vars['Var_0'] + 7.24 * vars['Var_2'] + -0.74 * vars['Var_3'] + -0.77 * vars['Var_4'] + -3.61 * vars['Var_5'] <= -40.53, name='C1')\n    m.addConstr(-4.97 * vars['Var_0'] + -4.78 * vars['Var_1'] + 6.54 * vars['Var_2'] <= -36.26, name='C2')\n    m.addConstr(-9.74 * vars['Var_0'] + -8.36 * vars['Var_1'] + -2.96 * vars['Var_3'] + 6.35 * vars['Var_5'] <= -106.88, name='C3')\n    m.addConstr(7.09 * vars['Var_0'] + -5.8 * vars['Var_3'] + -7.14 * vars['Var_5'] <= -59.21, name='C4')\n    m.addConstr(8.87 * vars['Var_1'] + 4.37 * vars['Var_3'] + -3.37 * vars['Var_4'] + -2.38 * vars['Var_5'] <= 87.17, name='C5')\n    m.addConstr(3.21 * vars['Var_0'] + 7.99 * vars['Var_1'] + -2.75 * vars['Var_3'] + 0.07 * vars['Var_4'] + 8.96 * vars['Var_5'] <= 159.51, name='C6')\n    m.addConstr(-4.15 * vars['Var_1'] + -8.0 * vars['Var_2'] + -7.33 * vars['Var_3'] + 1.11 * vars['Var_4'] + -8.67 * vars['Var_5'] <= -222.35, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Operating Mix Decision Brief \u2014 Maximize Margin Within Facility Specs\n\nHi team,\n\nAhead of the upcoming planning cycle, we need to select the mix of six production initiatives at the Northstar Plant to maximize overall contribution margin while staying within our operational capacities and compliance ledgers. Below is the decision context, leveraging what we know about program limits, per\u2011unit margin, and how each initiative draws on or gives back to the different resources we manage.\n\nThe levers\n\n1) Ocean Regrind Line (Line A)\n- Commercial impact: Each batch adds 6.61 margin points.\n- Scheduling window: Up to 8.42 batches this period; no minimum commitment.\n- Resource touchpoints per batch (in the order we track them):\n  - Core processing hours: draws 6.53 hours.\n  - Community footprint ledger: creates 6.28 units of community benefit credit (pulls the ledger down).\n  - Supply chain stress score: eases pressure by 4.97 points.\n  - Hazard handling load: reduces burden by 9.74 points.\n  - Waste storage balance: adds 7.09 units to the waste balance (uses capacity).\n  - Premium materials budget: no draw.\n  - Skilled labor hours: uses 3.21 hours.\n  - Carbon cap ledger: no effect.\n\n2) Alpine Pack Cell (Line B)\n- Commercial impact: Each batch adds 4.54 margin points.\n- Scheduling window: Up to 16.68 batches; no minimum commitment.\n- Resource touchpoints per batch:\n  - Core processing hours: no draw.\n  - Community footprint ledger: no effect.\n  - Supply chain stress score: eases pressure by 4.78 points.\n  - Hazard handling load: reduces burden by 8.36 points.\n  - Waste storage balance: no effect.\n  - Premium materials budget: consumes 8.87 units of budget.\n  - Skilled labor hours: uses 7.99 hours.\n  - Carbon cap ledger: earns 4.15 units of carbon credit (pulls the ledger down).\n\n3) Delta Resin Extruder (Line C)\n- Commercial impact: Each batch adds 2.69 margin points.\n- Scheduling window: Up to 7.95 batches; no minimum commitment.\n- Resource touchpoints per batch:\n  - Core processing hours: draws 5.49 hours.\n  - Community footprint ledger: increases footprint by 7.24 units (pushes the ledger up).\n  - Supply chain stress score: increases pressure by 6.54 points.\n  - Hazard handling load: no effect.\n  - Waste storage balance: no effect.\n  - Premium materials budget: no draw.\n  - Skilled labor hours: no draw.\n  - Carbon cap ledger: earns 8.0 units of carbon credit (pulls the ledger down).\n\n4) Terra Compost Film (Line D)\n- Commercial impact: Each run adds 7.09 margin points.\n- Scheduling window: Up to 17.05 runs; no minimum commitment.\n- Resource touchpoints per run:\n  - Core processing hours: draws 9.21 hours.\n  - Community footprint ledger: creates 0.74 units of community benefit credit.\n  - Supply chain stress score: no effect.\n  - Hazard handling load: reduces burden by 2.96 points.\n  - Waste storage balance: reduces waste burden by 5.8 units (frees capacity).\n  - Premium materials budget: consumes 4.37 units of budget.\n  - Skilled labor hours: frees 2.75 hours back to the pool.\n  - Carbon cap ledger: earns 7.33 units of carbon credit.\n\n5) Nova Direct Print Bay (Line E)\n- Commercial impact: Each run adds 2.09 margin points.\n- Scheduling window: Up to 14.36 runs; no minimum commitment.\n- Resource touchpoints per run:\n  - Core processing hours: draws 9.44 hours.\n  - Community footprint ledger: creates 0.77 units of community benefit credit.\n  - Supply chain stress score: no effect.\n  - Hazard handling load: no effect.\n  - Waste storage balance: no effect.\n  - Premium materials budget: gives back 3.37 units of budget (frees capacity).\n  - Skilled labor hours: uses 0.07 hours.\n  - Carbon cap ledger: adds 1.11 units of carbon burden (pushes the ledger up).\n\n6) Phoenix Refurb Cell (Line F)\n- Commercial impact: Each run adds 8.49 margin points.\n- Scheduling window: Up to 16.48 runs; no minimum commitment.\n- Resource touchpoints per run:\n  - Core processing hours: draws 5.23 hours.\n  - Community footprint ledger: creates 3.61 units of community benefit credit.\n  - Supply chain stress score: no effect.\n  - Hazard handling load: increases burden by 6.35 points.\n  - Waste storage balance: reduces waste burden by 7.14 units.\n  - Premium materials budget: gives back 2.38 units of budget (frees capacity).\n  - Skilled labor hours: uses 8.96 hours.\n  - Carbon cap ledger: earns 8.67 units of carbon credit.\n\nFacility specs and limits we must honor\n\n- Core processing hours: cap at 222.51 hours for the period.\n- Community footprint ledger: keep the aggregate ledger at \u221240.53 or lower (more credit is better).\n- Supply chain stress score: keep the aggregate score at \u221236.26 or lower.\n- Hazard handling load: keep the aggregate load at \u2212106.88 or lower.\n- Waste storage balance: keep the aggregate balance at \u221259.21 or lower.\n- Premium materials budget: do not exceed 87.17 units.\n- Skilled labor hours: do not exceed 159.51 hours.\n- Carbon cap ledger: keep the aggregate ledger at \u2212222.35 or lower.\n\nPlease use the above program-by-program details and facility specs to recommend the operating mix that maximizes total margin while holding all ledgers and capacities within the stated limits. If any assumptions are needed around partial batches or sequencing, flag them and we\u2019ll align."
+}

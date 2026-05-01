@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, integrality, objective coefficients, and resource consumptions are explicitly stated; capacities map directly to four linear constraints. No guessing required.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some business prose and salutations add length, but technical content is focused, non-repetitive, and necessary to define the model.",
+      "realism": 98,
+      "realism_comment": "Highly plausible plant planning scenario with clear capacities, integrality choices, and resource couplings; numbers and context feel realistic."
+    },
+    "prompt_tokens_with_data": 943,
+    "prompt_tokens_without_data": 943
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 247.42887056148783,
+    "optimal_values": {
+      "Var_0": 8.0,
+      "Var_1": 8.394613583138174,
+      "Var_2": 8.0,
+      "Var_3": 4.928290844035525,
+      "Var_4": 0.7612293144208042,
+      "Var_5": 8.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.59
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 71.69
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.78
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 33.71
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.14
+      ],
+      "objective_linear_coefficient": 6.07,
+      "resource_costs": {
+        "C2": 3.32
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.13
+      ],
+      "objective_linear_coefficient": 6.42,
+      "resource_costs": {
+        "C1": 8.54,
+        "C3": 3.92
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 5.08,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.33
+      ],
+      "objective_linear_coefficient": 7.19,
+      "resource_costs": {
+        "C0": 9.25
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.72
+      ],
+      "objective_linear_coefficient": 8.33,
+      "resource_costs": {
+        "C0": 9.2,
+        "C2": 4.23
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 7.82,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.14, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.07 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.13, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.42 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.08 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.33, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.19 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.72, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.33 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 7.82 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.25 * vars['Var_3'] + 9.2 * vars['Var_4'] <= 52.59, name='C0')\n    m.addConstr(8.54 * vars['Var_1'] <= 71.69, name='C1')\n    m.addConstr(3.32 * vars['Var_0'] + 4.23 * vars['Var_4'] <= 29.78, name='C2')\n    m.addConstr(3.92 * vars['Var_1'] <= 33.71, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Plan to Maximize Contribution Under Current Plant and Market Limits\n\nTeam,\n\nFor the upcoming planning window, our objective is to maximize total net contribution across our portfolio while staying within four operating limits: Column Bravo run-hours, senior assembly hours, specialty resin availability, and final inspection bench time. Below are the six levers we can pull, with the revenue lift each provides and how each one draws on our constrained resources. Unless noted otherwise, we can choose zero and go up to the stated cap; some commitments must be in whole units, others can be partial.\n\n- EcoCore Kits\n  - Financial impact: adds 6.07 of contribution per kit.\n  - Operating impact: uses 3.32 units of specialty resin per kit; does not draw on Column Bravo run-hours (0), senior assembly hours (0), or final inspection bench time (0).\n  - Planning bounds: minimum of 0; capped at 8.14 kit-equivalents for the period, but orders must be placed in whole kits.\n\n- Custom Assembly Packages\n  - Financial impact: adds 6.42 of contribution per package.\n  - Operating impact: requires 8.54 senior assembly hours and 3.92 hours of final inspection per package; does not use Column Bravo run-hours (0) or specialty resin (0).\n  - Planning bounds: minimum of 0; can be flexed continuously up to 16.13 packages (partial builds allowed).\n\n- Standard Modules (Outsourced)\n  - Financial impact: adds 5.08 of contribution per module.\n  - Operating impact: handled off the plant\u2019s bottlenecks; no usage of Column Bravo run-hours (0), senior assembly hours (0), specialty resin (0), or final inspection bench time (0).\n  - Planning bounds: minimum of 0; up to 8 modules total, committed in whole modules.\n\n- Catalyst Blend Campaigns\n  - Financial impact: adds 7.19 of contribution per campaign unit.\n  - Operating impact: consumes 9.25 hours on Column Bravo per campaign unit; no senior assembly hours (0), no specialty resin (0), and no final inspection bench time (0).\n  - Planning bounds: minimum of 0; can be scheduled up to 6.33 campaign units, with partial runs permitted.\n\n- Advanced Membrane Runs\n  - Financial impact: adds 8.33 of contribution per run.\n  - Operating impact: draws 9.20 hours on Column Bravo and 4.23 units of specialty resin per run; does not require senior assembly hours (0) or final inspection bench time (0).\n  - Planning bounds: minimum of 0; may be run continuously up to 7.72 runs (partial runs allowed).\n\n- Offsite Upgrade Installations\n  - Financial impact: adds 7.82 of contribution per installation.\n  - Operating impact: delivered via partners, so no load on Column Bravo run-hours (0), senior assembly hours (0), specialty resin (0), or final inspection bench time (0).\n  - Planning bounds: minimum of 0; up to 8 installations, committed in whole installations.\n\nFacility and Market Limits (do not exceed)\n- Column Bravo run-hours: 52.59 total available for the period.\n- Senior assembly hours: 71.69 total available.\n- Specialty resin allocation: 29.78 units total.\n- Final inspection bench time: 33.71 total hours.\n\nPlease review so we can lock the mix that delivers the highest total contribution without breaching any of the above limits."
+}

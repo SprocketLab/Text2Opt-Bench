@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and >= demand targets are explicit; objective is minimize total variable cost. Directly maps to LP/MIP.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business narrative adds length; some repeated phrasing about hours and limits, but mostly relevant. Moderate verbosity.",
+      "realism": 98,
+      "realism_comment": "Plausible production planning with co-product reactor, batch integrality, capacity limits, and demand commitments; parameters plausible."
+    },
+    "prompt_tokens_with_data": 706,
+    "prompt_tokens_without_data": 706
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 8.972765957446807,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 7.669030732860519,
+      "Var_2": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 33.73
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 32.44
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.79
+      ],
+      "objective_linear_coefficient": 7.84,
+      "resource_costs": {
+        "C0": 3.21
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.73
+      ],
+      "objective_linear_coefficient": 1.17,
+      "resource_costs": {
+        "C0": 6.53,
+        "C1": 4.23
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.5
+      ],
+      "objective_linear_coefficient": 4.88,
+      "resource_costs": {
+        "C1": 5.28
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.79, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.84 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.73, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.17 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.5, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.88 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.21 * vars['Var_0'] + 6.53 * vars['Var_1'] >= 33.73, name='C0')\n    m.addConstr(4.23 * vars['Var_1'] + 5.28 * vars['Var_2'] >= 32.44, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimized operating plan to meet dual product commitments\n\nTeam,\n\nWe need to settle on an operating mix for this period that meets our two delivery obligations at the lowest possible variable cost. The two deliverables we are tracking are:\n- Base Component (our bulk base stream), and\n- Premium Component (the higher-spec additive stream).\n\nBelow are the three levers we can pull, with their economics, operating limits, and how each one contributes to the two deliverables.\n\nAquaBase Column A (base-only hours). Each run-hour on this column yields 3.21 metric tons of the Base Component and does not contribute to the Premium Component. The all-in variable cost for running this unit is 7.84 per hour. We can schedule anywhere from zero up to 19.79 hours this period, including partial hours; there is no minimum run requirement.\n\nDual-Stream Reactor B (co-product hours). Each run-hour on this reactor produces both streams: 6.53 metric tons of the Base Component and 4.23 metric tons of the Premium Component per hour. The variable cost to operate is 1.17 per hour. This unit can be scheduled from zero up to 14.73 hours, and partial-hour operation is permissible.\n\nPremium Batch Skid C (premium-only batches). Each batch on this skid yields 5.28 metric tons of the Premium Component and does not add to the Base Component. The variable cost is 4.88 per batch. Batches must be scheduled in whole numbers only\u2014no partial batches\u2014and availability is capped at 10.5 batches for the period (we can choose zero if needed, but cannot exceed the 10.5 cap in total).\n\nOur objective is to configure these three options to meet all obligations at the lowest combined run-rate spend.\n\nMarket limits and facility specs for this period\n- Minimum delivery commitment for the Base Component: at least 33.73 metric tons in total.\n- Minimum delivery commitment for the Premium Component: at least 32.44 metric tons in total.\n- Maximum run availability: AquaBase Column A up to 19.79 hours; Dual-Stream Reactor B up to 14.73 hours; Premium Batch Skid C up to 10.5 whole batches.\n\nPlease build a production plan that satisfies the above minimums while adhering to the stated maximums and whole-batch restriction on the premium skid, with total variable cost minimized."
+}

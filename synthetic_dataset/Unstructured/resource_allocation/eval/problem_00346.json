@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, types, objective and resource coefficients are explicit; capacities listed; one integer item noted. Direct mapping to constraints enables exact reconstruction.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative is somewhat verbose with repeated 'does not use' notes, but each detail maps to a coefficient; little true redundancy.",
+      "realism": 98,
+      "realism_comment": "Realistic production-planning with plausible multi-resource limits (furnace, labor, feedstock, lab, water, waste, hazmat, logistics, cash). Minor oddity: fractional max for an integer item."
+    },
+    "prompt_tokens_with_data": 1231,
+    "prompt_tokens_without_data": 1231
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 320.04970837876783,
+    "optimal_values": {
+      "Var_0": 5.921987041036716,
+      "Var_1": 3.139426032223265,
+      "Var_2": 11.63,
+      "Var_3": 13.0,
+      "Var_4": 3.2491547317846065e-16,
+      "Var_5": 10.840403563566126,
+      "Var_6": 1.0646336481141976
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 171.43
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 137.83
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 81.29
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 58.7
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 58.23
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 38.02
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.37
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 147.18
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 177.39
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.16
+      ],
+      "objective_linear_coefficient": 7.96,
+      "resource_costs": {
+        "C1": 6.78,
+        "C2": 4.63,
+        "C4": 0.31,
+        "C5": 2.95,
+        "C6": 0.34,
+        "C7": 8.87,
+        "C8": 4.87
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.6
+      ],
+      "objective_linear_coefficient": 4.17,
+      "resource_costs": {
+        "C0": 7.91,
+        "C1": 4.85,
+        "C3": 0.46,
+        "C4": 0.72,
+        "C8": 9.05
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.63
+      ],
+      "objective_linear_coefficient": 7.12,
+      "resource_costs": {
+        "C1": 5.08,
+        "C2": 2.24
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.75
+      ],
+      "objective_linear_coefficient": 7.74,
+      "resource_costs": {
+        "C0": 4.49,
+        "C2": 2.14,
+        "C4": 2.93,
+        "C8": 7.87
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.28
+      ],
+      "objective_linear_coefficient": 5.16,
+      "resource_costs": {
+        "C0": 9.65,
+        "C2": 8.58,
+        "C3": 7.12,
+        "C4": 7.95,
+        "C6": 2.57
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.68
+      ],
+      "objective_linear_coefficient": 6.67,
+      "resource_costs": {
+        "C0": 6.16,
+        "C1": 1.66,
+        "C3": 4.25,
+        "C4": 1.48,
+        "C7": 8.26,
+        "C8": 0.69
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.86
+      ],
+      "objective_linear_coefficient": 3.84,
+      "resource_costs": {
+        "C0": 2.57,
+        "C1": 2.53,
+        "C5": 7.5,
+        "C6": 1.47,
+        "C7": 4.8,
+        "C8": 9.72
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.16, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.96 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.6, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.17 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.63, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.12 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.75, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.74 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.28, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.16 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.68, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.67 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=6.86, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.84 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.91 * vars['Var_1'] + 4.49 * vars['Var_3'] + 9.65 * vars['Var_4'] + 6.16 * vars['Var_5'] + 2.57 * vars['Var_6'] <= 171.43, name='C0')\n    m.addConstr(6.78 * vars['Var_0'] + 4.85 * vars['Var_1'] + 5.08 * vars['Var_2'] + 1.66 * vars['Var_5'] + 2.53 * vars['Var_6'] <= 137.83, name='C1')\n    m.addConstr(4.63 * vars['Var_0'] + 2.24 * vars['Var_2'] + 2.14 * vars['Var_3'] + 8.58 * vars['Var_4'] <= 81.29, name='C2')\n    m.addConstr(0.46 * vars['Var_1'] + 7.12 * vars['Var_4'] + 4.25 * vars['Var_5'] <= 58.7, name='C3')\n    m.addConstr(0.31 * vars['Var_0'] + 0.72 * vars['Var_1'] + 2.93 * vars['Var_3'] + 7.95 * vars['Var_4'] + 1.48 * vars['Var_5'] <= 58.23, name='C4')\n    m.addConstr(2.95 * vars['Var_0'] + 7.5 * vars['Var_6'] <= 38.02, name='C5')\n    m.addConstr(0.34 * vars['Var_0'] + 2.57 * vars['Var_4'] + 1.47 * vars['Var_6'] <= 12.37, name='C6')\n    m.addConstr(8.87 * vars['Var_0'] + 8.26 * vars['Var_5'] + 4.8 * vars['Var_6'] <= 147.18, name='C7')\n    m.addConstr(4.87 * vars['Var_0'] + 9.05 * vars['Var_1'] + 7.87 * vars['Var_3'] + 0.69 * vars['Var_5'] + 9.72 * vars['Var_6'] <= 177.39, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Team,\n\nWe\u2019re planning the upcoming period\u2019s mix across seven offerings with the intention to maximize total contribution while staying within our plant, logistics, and budget limits. Each line item below can be dialed anywhere from zero up to the stated maximum; partial runs are fine where noted, and one item must be purchased/produced in whole units only.\n\n- Aurora Sensors (up to 18.16 units; partial runs allowed): These deliver a contribution of 7.96 per unit. They draw 6.78 hours of skilled assembly per unit and consume 4.63 units of alloy feedstock. Cooling water requirements are modest at 0.31 units per unit. They generate 2.95 units of waste handling throughput and need 0.34 HazMat permit credits. On the logistics side, they take 8.87 outbound dock slots per unit. Cash usage is 4.87 per unit. Aurora Sensors do not need any Furnace Line 1 hours and do not require Quality Lab bench time.\n\n- Nimbus Controllers (up to 17.6 units; partial runs allowed): These contribute 4.17 per unit. They rely on 7.91 hours of Furnace Line 1 time and need 4.85 skilled assembly hours per unit. Quality Lab usage is 0.46 bench hours per unit, and cooling water is 0.72 per unit. Cash usage is 9.05 per unit. Nimbus Controllers do not use alloy feedstock, generate no waste, need no HazMat permit credits, and do not consume outbound dock slots.\n\n- Cobalt Microvalves (up to 11.63 units; partial runs allowed): Each unit contributes 7.12. These are assembly-intensive at 5.08 skilled hours per unit and consume 2.24 units of alloy feedstock. They have no draw on Furnace Line 1, Quality Lab, cooling water, waste handling, HazMat permits, outbound dock slots, or the cash budget beyond baseline.\n\n- Atlas Industrial Rigs (up to 19.75 units; whole units only\u2014no partial builds): Each rig contributes 7.74. They use 4.49 hours of Furnace Line 1 time per rig and 2.14 units of alloy feedstock. Cooling water requirements are 2.93 per rig. Cash usage is 7.87 per rig. Atlas Industrial Rigs do not require skilled assembly, Quality Lab time, waste handling, HazMat permit credits, or outbound dock slots.\n\n- Zephyr Composite Panels (up to 10.28 units; partial runs allowed): These contribute 5.16 per unit. They are heavy users of Furnace Line 1 at 9.65 hours per unit and consume 8.58 units of alloy feedstock. Quality Lab usage is 7.12 bench hours per unit, cooling water consumption is 7.95 per unit, and they require 2.57 HazMat permit credits per unit. Zephyr Panels do not require skilled assembly, generate no waste, do not consume outbound dock slots, and do not draw on the cash budget beyond baseline.\n\n- Orion Packaging Kits (up to 17.68 units; partial runs allowed): Each kit contributes 6.67. They use 6.16 hours of Furnace Line 1 time and 1.66 skilled assembly hours per unit. Quality Lab usage is 4.25 bench hours per unit, with cooling water at 1.48 per unit. Logistics needs are significant at 8.26 outbound dock slots per unit. Cash usage is 0.69 per unit. Orion Kits do not consume alloy feedstock, generate no waste, and require no HazMat permit credits.\n\n- Lumen Smart Modules (up to 6.86 units; partial runs allowed): These contribute 3.84 per unit. They use 2.57 hours of Furnace Line 1 time and 2.53 skilled assembly hours per unit. They are waste-intensive at 7.5 units of waste handling throughput per unit and need 1.47 HazMat permit credits. Logistics consumption is 4.8 outbound dock slots per unit. Cash usage is 9.72 per unit. Lumen Modules do not consume alloy feedstock, require no Quality Lab bench time, and need no cooling water.\n\nFacility Specs & Market Limits\n- Furnace Line 1 hours: up to 171.43\n- Skilled assembly labor hours: up to 137.83\n- Alloy feedstock inventory: up to 81.29\n- Quality Lab bench hours: up to 58.7\n- Cooling water capacity: up to 58.23\n- Waste handling throughput: up to 38.02\n- HazMat permit credits: up to 12.37\n- Outbound dock slots: up to 147.18\n- Cash budget: up to 177.39\n\nPlease use the above to shape the portfolio so that total contribution is maximized without breaching any of the stated limits."
+}

@@ -1,0 +1,620 @@
+{
+    "meta": {
+        "optimization_type": "LP",
+        "problem_type": "modified facility location",
+        "goal": "MINIMIZE",
+        "num_vars": 30,
+        "num_constraints": 17,
+        "is_integer": true,
+        "prompt_tokens_with_data": 921,
+        "prompt_tokens_without_data": 745
+    },
+    "instance_data": {
+        "n_facilities": 3,
+        "n_customers": 9,
+        "facility_coordinates": [
+            [
+                69,
+                25
+            ],
+            [
+                20,
+                49
+            ],
+            [
+                48,
+                72
+            ]
+        ],
+        "customer_coordinates": [
+            [
+                43,
+                25
+            ],
+            [
+                14,
+                21
+            ],
+            [
+                66,
+                94
+            ],
+            [
+                86,
+                45
+            ],
+            [
+                58,
+                1
+            ],
+            [
+                68,
+                55
+            ],
+            [
+                90,
+                54
+            ],
+            [
+                85,
+                39
+            ],
+            [
+                29,
+                87
+            ]
+        ],
+        "facility_capacities": [
+            145.0,
+            162.0,
+            178.0
+        ],
+        "customer_demands": [
+            39.0,
+            28.0,
+            31.0,
+            22.0,
+            37.0,
+            10.0,
+            33.0,
+            18.0,
+            47.0
+        ],
+        "fixed_costs": [
+            359.0,
+            120.0,
+            301.0
+        ],
+        "transport_rate": 0.5,
+        "modifiers": [
+            "max_open",
+            "anti_affinity",
+            "demand_cap"
+        ],
+        "modifier_params": {
+            "max_open_K": 2,
+            "anti_affinity_pair": [
+                0,
+                1
+            ],
+            "demand_cap_P": 58
+        }
+    },
+    "gurobi_result": {
+        "solver_status": 2,
+        "theoretical_optimum": 4744.888521313431,
+        "optimal_values": {
+            "Open_F0": 1.0,
+            "Open_F1": 0.0,
+            "Open_F2": 1.0,
+            "Ship_F0_C0": 39.0,
+            "Ship_F0_C1": 0.0,
+            "Ship_F0_C2": 0.0,
+            "Ship_F0_C3": 22.0,
+            "Ship_F0_C4": 37.0,
+            "Ship_F0_C5": 0.0,
+            "Ship_F0_C6": 29.0,
+            "Ship_F0_C7": 18.0,
+            "Ship_F0_C8": 0.0,
+            "Ship_F1_C0": 0.0,
+            "Ship_F1_C1": 0.0,
+            "Ship_F1_C2": 0.0,
+            "Ship_F1_C3": 0.0,
+            "Ship_F1_C4": 0.0,
+            "Ship_F1_C5": 0.0,
+            "Ship_F1_C6": 0.0,
+            "Ship_F1_C7": 0.0,
+            "Ship_F1_C8": 0.0,
+            "Ship_F2_C0": 0.0,
+            "Ship_F2_C1": 28.0,
+            "Ship_F2_C2": 31.0,
+            "Ship_F2_C3": 0.0,
+            "Ship_F2_C4": 0.0,
+            "Ship_F2_C5": 10.0,
+            "Ship_F2_C6": 4.0,
+            "Ship_F2_C7": 0.0,
+            "Ship_F2_C8": 47.0
+        }
+    },
+    "constraints": {
+        "Demand_C0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 39.0
+        },
+        "Demand_C1": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 28.0
+        },
+        "Demand_C2": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 31.0
+        },
+        "Demand_C3": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 22.0
+        },
+        "Demand_C4": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 37.0
+        },
+        "Demand_C5": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 10.0
+        },
+        "Demand_C6": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 33.0
+        },
+        "Demand_C7": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 18.0
+        },
+        "Demand_C8": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 47.0
+        },
+        "Capacity_F0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Capacity_F1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Capacity_F2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "MaxOpen": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 2.0
+        },
+        "AntiAff_F0_F1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 1.0
+        },
+        "DemCap_F0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 153.7
+        },
+        "DemCap_F1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 153.7
+        },
+        "DemCap_F2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 153.7
+        }
+    },
+    "variables": {
+        "Open_F0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 359.0,
+            "resource_costs": {
+                "Capacity_F0": -145.0,
+                "MaxOpen": 1.0,
+                "AntiAff_F0_F1": 1.0
+            }
+        },
+        "Open_F1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 120.0,
+            "resource_costs": {
+                "Capacity_F1": -162.0,
+                "MaxOpen": 1.0,
+                "AntiAff_F0_F1": 1.0
+            }
+        },
+        "Open_F2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 301.0,
+            "resource_costs": {
+                "Capacity_F2": -178.0,
+                "MaxOpen": 1.0
+            }
+        },
+        "Ship_F0_C0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 13.0,
+            "resource_costs": {
+                "Demand_C0": 1.0,
+                "Capacity_F0": 1.0,
+                "DemCap_F0": 1.0
+            }
+        },
+        "Ship_F0_C1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 27.572631357924475,
+            "resource_costs": {
+                "Demand_C1": 1.0,
+                "Capacity_F0": 1.0,
+                "DemCap_F0": 1.0
+            }
+        },
+        "Ship_F0_C2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 34.532593299664015,
+            "resource_costs": {
+                "Demand_C2": 1.0,
+                "Capacity_F0": 1.0,
+                "DemCap_F0": 1.0
+            }
+        },
+        "Ship_F0_C3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 13.124404748406688,
+            "resource_costs": {
+                "Demand_C3": 1.0,
+                "Capacity_F0": 1.0,
+                "DemCap_F0": 1.0
+            }
+        },
+        "Ship_F0_C4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 13.200378782444085,
+            "resource_costs": {
+                "Demand_C4": 1.0,
+                "Capacity_F0": 1.0,
+                "DemCap_F0": 1.0
+            }
+        },
+        "Ship_F0_C5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 15.008331019803634,
+            "resource_costs": {
+                "Demand_C5": 1.0,
+                "Capacity_F0": 1.0,
+                "DemCap_F0": 1.0
+            }
+        },
+        "Ship_F0_C6": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 17.902513789968157,
+            "resource_costs": {
+                "Demand_C6": 1.0,
+                "Capacity_F0": 1.0,
+                "DemCap_F0": 1.0
+            }
+        },
+        "Ship_F0_C7": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.63014581273465,
+            "resource_costs": {
+                "Demand_C7": 1.0,
+                "Capacity_F0": 1.0,
+                "DemCap_F0": 1.0
+            }
+        },
+        "Ship_F0_C8": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 36.89173349139343,
+            "resource_costs": {
+                "Demand_C8": 1.0,
+                "Capacity_F0": 1.0,
+                "DemCap_F0": 1.0
+            }
+        },
+        "Ship_F1_C0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 16.62077013859466,
+            "resource_costs": {
+                "Demand_C0": 1.0,
+                "Capacity_F1": 1.0,
+                "DemCap_F1": 1.0
+            }
+        },
+        "Ship_F1_C1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 14.317821063276353,
+            "resource_costs": {
+                "Demand_C1": 1.0,
+                "Capacity_F1": 1.0,
+                "DemCap_F1": 1.0
+            }
+        },
+        "Ship_F1_C2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 32.17530108639234,
+            "resource_costs": {
+                "Demand_C2": 1.0,
+                "Capacity_F1": 1.0,
+                "DemCap_F1": 1.0
+            }
+        },
+        "Ship_F1_C3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 33.06055050963308,
+            "resource_costs": {
+                "Demand_C3": 1.0,
+                "Capacity_F1": 1.0,
+                "DemCap_F1": 1.0
+            }
+        },
+        "Ship_F1_C4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 30.610455730027933,
+            "resource_costs": {
+                "Demand_C4": 1.0,
+                "Capacity_F1": 1.0,
+                "DemCap_F1": 1.0
+            }
+        },
+        "Ship_F1_C5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 24.186773244895647,
+            "resource_costs": {
+                "Demand_C5": 1.0,
+                "Capacity_F1": 1.0,
+                "DemCap_F1": 1.0
+            }
+        },
+        "Ship_F1_C6": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 35.0891721190455,
+            "resource_costs": {
+                "Demand_C6": 1.0,
+                "Capacity_F1": 1.0,
+                "DemCap_F1": 1.0
+            }
+        },
+        "Ship_F1_C7": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 32.882366094914765,
+            "resource_costs": {
+                "Demand_C7": 1.0,
+                "Capacity_F1": 1.0,
+                "DemCap_F1": 1.0
+            }
+        },
+        "Ship_F1_C8": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 19.525624189766635,
+            "resource_costs": {
+                "Demand_C8": 1.0,
+                "Capacity_F1": 1.0,
+                "DemCap_F1": 1.0
+            }
+        },
+        "Ship_F2_C0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 23.632604596192948,
+            "resource_costs": {
+                "Demand_C0": 1.0,
+                "Capacity_F2": 1.0,
+                "DemCap_F2": 1.0
+            }
+        },
+        "Ship_F2_C1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 30.64718584144391,
+            "resource_costs": {
+                "Demand_C1": 1.0,
+                "Capacity_F2": 1.0,
+                "DemCap_F2": 1.0
+            }
+        },
+        "Ship_F2_C2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 14.212670403551895,
+            "resource_costs": {
+                "Demand_C2": 1.0,
+                "Capacity_F2": 1.0,
+                "DemCap_F2": 1.0
+            }
+        },
+        "Ship_F2_C3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 23.30772404161333,
+            "resource_costs": {
+                "Demand_C3": 1.0,
+                "Capacity_F2": 1.0,
+                "DemCap_F2": 1.0
+            }
+        },
+        "Ship_F2_C4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 35.8503835404867,
+            "resource_costs": {
+                "Demand_C4": 1.0,
+                "Capacity_F2": 1.0,
+                "DemCap_F2": 1.0
+            }
+        },
+        "Ship_F2_C5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 13.124404748406688,
+            "resource_costs": {
+                "Demand_C5": 1.0,
+                "Capacity_F2": 1.0,
+                "DemCap_F2": 1.0
+            }
+        },
+        "Ship_F2_C6": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 22.847319317591726,
+            "resource_costs": {
+                "Demand_C6": 1.0,
+                "Capacity_F2": 1.0,
+                "DemCap_F2": 1.0
+            }
+        },
+        "Ship_F2_C7": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 24.78911051248108,
+            "resource_costs": {
+                "Demand_C7": 1.0,
+                "Capacity_F2": 1.0,
+                "DemCap_F2": 1.0
+            }
+        },
+        "Ship_F2_C8": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 12.103718436910205,
+            "resource_costs": {
+                "Demand_C8": 1.0,
+                "Capacity_F2": 1.0,
+                "DemCap_F2": 1.0
+            }
+        }
+    },
+    "gold_solution": "```python\nimport math\nfrom gurobipy import *\n\ndef solve_problem():\n    m = Model(\"Modified_Facility_Location\")\n    m.setParam('TimeLimit', 300)\n\n    nf = 3\n    nc = 9\n    facility_coords = [(69, 25), (20, 49), (48, 72)]\n    customer_coords = [(43, 25), (14, 21), (66, 94), (86, 45), (58, 1), (68, 55), (90, 54), (85, 39), (29, 87)]\n    capacities = [145.0, 162.0, 178.0]\n    demands = [39.0, 28.0, 31.0, 22.0, 37.0, 10.0, 33.0, 18.0, 47.0]\n    fixed_costs = [359.0, 120.0, 301.0]\n    rate = 0.5\n\n    # Compute distances\n    dist = {}\n    for i in range(nf):\n        for j in range(nc):\n            dx = facility_coords[i][0] - customer_coords[j][0]\n            dy = facility_coords[i][1] - customer_coords[j][1]\n            dist[(i,j)] = math.sqrt(dx*dx + dy*dy)\n\n    # Variables\n    open_f = {i: m.addVar(vtype=GRB.BINARY, name=f'Open_F{i}') for i in range(nf)}\n    ship = {(i,j): m.addVar(lb=0, vtype=GRB.CONTINUOUS, name=f'Ship_F{i}_C{j}')\n            for i in range(nf) for j in range(nc)}\n\n    # Objective\n    obj = quicksum(fixed_costs[i]*open_f[i] for i in range(nf))\n    obj += quicksum(dist[(i,j)]*rate*ship[(i,j)] for i in range(nf) for j in range(nc))\n    m.setObjective(obj, GRB.MINIMIZE)\n\n    # Demand satisfaction\n    for j in range(nc):\n        m.addConstr(quicksum(ship[(i,j)] for i in range(nf)) >= demands[j])\n\n    # Capacity linking\n    for i in range(nf):\n        m.addConstr(quicksum(ship[(i,j)] for j in range(nc)) <= capacities[i]*open_f[i])\n\n    # Policy: at most 2 facilities open\n    m.addConstr(quicksum(open_f[i] for i in range(nf)) <= 2)\n\n    # Policy: F0 and F1 cannot both open\n    m.addConstr(open_f[0] + open_f[1] <= 1)\n\n    # Policy: no facility serves > 58% of total demand\n    total_demand = 265.0\n    for i in range(nf):\n        m.addConstr(quicksum(ship[(i,j)] for j in range(nc)) <= 0.58*total_demand)\n\n    m.optimize()\n    return m\n```",
+    "LLM_description": "Subject: Decision Memo \u2014 Warehouse Openings and Customer Allocation for the Upcoming Distribution Network\n\nOverview\nWe are assessing the company\u2019s distribution network to determine which candidate warehouses to open and how to route product to each customer in order to minimize total delivered cost while maintaining service and regulatory compliance. The scope includes three candidate distribution centers and nine customer delivery points, each described by geographic coordinates. The analysis will recommend the most cost-effective combination of sites to operate and the associated shipment plan to fully serve all customers.\n\nBusiness Requirements\n- Service coverage: Every customer\u2019s demand must be fully satisfied within the planning horizon. Shipments may be sourced from one or more operating distribution centers as needed to meet service commitments.\n- Facility activation: A facility may only ship product if it is formally opened. Opening any warehouse triggers its corresponding fixed operating cost.\n- Throughput limits: Each distribution center can handle only up to its maximum available capacity. Planned shipments from a site will not exceed that site\u2019s capacity.\n- Transportation cost: Shipping expense is volume- and distance-based using the per\u2011unit transport rate provided in the data annex. Distances are determined from the facility and customer coordinates in the dataset.\n\nOperating Policies and Regulatory Requirements\nThe following policies are mandatory and must be enforced throughout the evaluation and in the recommended network design:\n- Operating span: The company may operate at most 2 distribution centers at any given time to remain within management oversight capacity.\n- Market zoning: Due to overlapping market zones, facilities F0 and F1 may not operate at the same time. Any network option that opens both is not permitted.\n- Risk balance: To avoid over\u2011reliance on any one site, no single distribution center may fulfill more than 58% of the total system demand. Shipment plans must be diversified accordingly.\n\nDecision Approach\n- Evaluate feasible network options that open zero, one, or two sites, with emphasis on candidates that satisfy the operating span limit of 2 and the market zoning rule (F0 and F1 cannot be opened together).\n- For each feasible option, allocate customer volumes so that every customer is fully served without exceeding any facility\u2019s capacity, while ensuring that no site\u2019s share of total demand exceeds 58%.\n- Estimate total cost for each option by combining fixed opening costs with distance- and volume-based transportation expense at the transport rate specified in the annex.\n- Select the configuration and routing plan that achieves the lowest total cost while satisfying all service commitments, facility capacity limits, and the mandatory policies above.\n\nDeliverables\n- Recommended distribution network: which warehouse(es) to open and which to keep closed.\n- Customer-to-facility shipment plan that meets all customer demand, with evidence that no site exceeds its capacity and that the 58% demand share limit is respected.\n- Cost-to-serve summary separating fixed facility costs and transportation costs, with sensitivity commentary on demand, capacities, and transport rate.\n- Implementation notes highlighting the policy rationale (operating span of 2 sites, F0/F1 zoning restriction, and demand share cap) to support ongoing governance.\n\nNext Steps\nUpon approval of the methodology, we will finalize the dataset, run the analysis, and present the recommended network configuration with supporting cost and service metrics. Any updates to customer demand, facility capacity, or rate assumptions will be incorporated prior to finalizing the recommendation.\n\nAnnex \u2014 Data Inputs\n- Candidate facility coordinates: Facility Coordinates:\n  - F0: (69, 25)\n  - F1: (20, 49)\n  - F2: (48, 72)\n- Customer coordinates: Customer Coordinates:\n  - C0: (43, 25)\n  - C1: (14, 21)\n  - C2: (66, 94)\n  - C3: (86, 45)\n  - C4: (58, 1)\n  - C5: (68, 55)\n  - C6: (90, 54)\n  - C7: (85, 39)\n  - C8: (29, 87)\n- Facility capacities: [145.0, 162.0, 178.0]\n- Customer demands: [39.0, 28.0, 31.0, 22.0, 37.0, 10.0, 33.0, 18.0, 47.0]\n- Facility fixed opening costs: [359.0, 120.0, 301.0]\n- Transport rate: 0.5",
+    "LLM_description_template": "Subject: Decision Memo \u2014 Warehouse Openings and Customer Allocation for the Upcoming Distribution Network\n\nOverview\nWe are assessing the company\u2019s distribution network to determine which candidate warehouses to open and how to route product to each customer in order to minimize total delivered cost while maintaining service and regulatory compliance. The scope includes three candidate distribution centers and nine customer delivery points, each described by geographic coordinates. The analysis will recommend the most cost-effective combination of sites to operate and the associated shipment plan to fully serve all customers.\n\nBusiness Requirements\n- Service coverage: Every customer\u2019s demand must be fully satisfied within the planning horizon. Shipments may be sourced from one or more operating distribution centers as needed to meet service commitments.\n- Facility activation: A facility may only ship product if it is formally opened. Opening any warehouse triggers its corresponding fixed operating cost.\n- Throughput limits: Each distribution center can handle only up to its maximum available capacity. Planned shipments from a site will not exceed that site\u2019s capacity.\n- Transportation cost: Shipping expense is volume- and distance-based using the per\u2011unit transport rate provided in the data annex. Distances are determined from the facility and customer coordinates in the dataset.\n\nOperating Policies and Regulatory Requirements\nThe following policies are mandatory and must be enforced throughout the evaluation and in the recommended network design:\n- Operating span: The company may operate at most 2 distribution centers at any given time to remain within management oversight capacity.\n- Market zoning: Due to overlapping market zones, facilities F0 and F1 may not operate at the same time. Any network option that opens both is not permitted.\n- Risk balance: To avoid over\u2011reliance on any one site, no single distribution center may fulfill more than 58% of the total system demand. Shipment plans must be diversified accordingly.\n\nDecision Approach\n- Evaluate feasible network options that open zero, one, or two sites, with emphasis on candidates that satisfy the operating span limit of 2 and the market zoning rule (F0 and F1 cannot be opened together).\n- For each feasible option, allocate customer volumes so that every customer is fully served without exceeding any facility\u2019s capacity, while ensuring that no site\u2019s share of total demand exceeds 58%.\n- Estimate total cost for each option by combining fixed opening costs with distance- and volume-based transportation expense at the transport rate specified in the annex.\n- Select the configuration and routing plan that achieves the lowest total cost while satisfying all service commitments, facility capacity limits, and the mandatory policies above.\n\nDeliverables\n- Recommended distribution network: which warehouse(es) to open and which to keep closed.\n- Customer-to-facility shipment plan that meets all customer demand, with evidence that no site exceeds its capacity and that the 58% demand share limit is respected.\n- Cost-to-serve summary separating fixed facility costs and transportation costs, with sensitivity commentary on demand, capacities, and transport rate.\n- Implementation notes highlighting the policy rationale (operating span of 2 sites, F0/F1 zoning restriction, and demand share cap) to support ongoing governance.\n\nNext Steps\nUpon approval of the methodology, we will finalize the dataset, run the analysis, and present the recommended network configuration with supporting cost and service metrics. Any updates to customer demand, facility capacity, or rate assumptions will be incorporated prior to finalizing the recommendation.\n\nAnnex \u2014 Data Inputs\n- Candidate facility coordinates: {FACILITY_COORDINATES}\n- Customer coordinates: {CUSTOMER_COORDINATES}\n- Facility capacities: {FACILITY_CAPACITIES}\n- Customer demands: {CUSTOMER_DEMANDS}\n- Facility fixed opening costs: {FIXED_COSTS}\n- Transport rate: {TRANSPORT_RATE}"
+}

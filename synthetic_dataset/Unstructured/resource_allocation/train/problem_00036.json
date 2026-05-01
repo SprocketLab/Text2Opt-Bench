@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, and constraint directions are explicit. Performance effects and targets map to -1.22x<=-0.53 and -4.46x<=-3.66. Variables and capacities clearly bounded.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business email style adds context but includes some fluff; still concise on data. Minimal repetition.",
+      "realism": 92,
+      "realism_comment": "Plausible planning scenario with capacity, emissions, and performance targets. Slight unrealism from fractional lots/blitzes, but otherwise realistic."
+    },
+    "prompt_tokens_with_data": 741,
+    "prompt_tokens_without_data": 741
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 78.47986018237083,
+    "optimal_values": {
+      "Var_0": 3.7781155015197565,
+      "Var_1": 16.71
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -0.53
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -3.66
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.43
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.8
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 3.47
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.64
+      ],
+      "objective_linear_coefficient": 4.85,
+      "resource_costs": {
+        "C2": 3.29,
+        "C3": 3.44,
+        "C4": 0.27
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.71
+      ],
+      "objective_linear_coefficient": 3.6,
+      "resource_costs": {
+        "C0": -1.22,
+        "C1": -4.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.64, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.85 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.71, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.6 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-1.22 * vars['Var_1'] <= -0.53, name='C0')\n    m.addConstr(-4.46 * vars['Var_1'] <= -3.66, name='C1')\n    m.addConstr(3.29 * vars['Var_0'] <= 12.43, name='C2')\n    m.addConstr(3.44 * vars['Var_0'] <= 14.8, name='C3')\n    m.addConstr(0.27 * vars['Var_0'] <= 3.47, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance for This Quarter\u2019s Value Mix Under Capacity and Performance Targets\n\nTeam,\n\nAs we lock our quarterly plan, our intent is to maximize the total contribution to the business while staying within plant capacities, emissions limits, and two aggressive performance targets. We have two levers to pull; please use the details below to set up the mix and quantify the trade\u2011offs.\n\n1) Blue Alloy Production Lots (Line A)\n- Economic impact: Each lot adds 4.85 units to our quarterly value contribution.\n- Capacity draw: Every lot requires 3.29 hours in the Compounding Bay, 3.44 hours on the Finishing Lines, and uses 0.27 tons of our CO2\u2011equivalent allowance.\n- Performance targets: Running Blue Alloy lots does not move our On\u2011Time Delivery Variance or the Regulatory Nonconformity Delta at all; those metrics remain unchanged when we add or remove lots from the plan.\n- Practical bounds: We can schedule anywhere from 0 up to 11.64 lots this quarter; we cannot exceed that ceiling.\n\n2) Compliance & Reliability Blitzes (Cross\u2011Functional)\n- Economic impact: Each blitz contributes 3.6 units to the quarter\u2019s overall value.\n- Performance targets: Each blitz improves our schedule position by 1.22 days (i.e., it pushes the On\u2011Time Delivery Variance more negative) and reduces the Regulatory Nonconformity Delta by 4.46 points.\n- Capacity draw: Blitzes do not consume production hours in the Compounding Bay or on the Finishing Lines and do not use any of our CO2\u2011equivalent allowance.\n- Practical bounds: We may plan anywhere from 0 up to 16.71 blitzes this quarter.\n\nFacility Specs and Targets (do not breach)\n- On\u2011Time Delivery Variance target: must be at or below \u22120.53 days (we need to be ahead of plan by at least 0.53 days).\n- Regulatory Nonconformity Delta target: must be at or below \u22123.66 points.\n- Compounding Bay hours available this quarter: 12.43 hours total.\n- Finishing Line hours available this quarter: 14.8 hours total.\n- CO2\u2011equivalent emissions allowance: 3.47 tons total.\n\nPlease set the mix of Blue Alloy lots and Compliance & Reliability blitzes to maximize the overall value while respecting the above limits. Note that the Blue Alloy campaign strains physical capacity and emissions but does not help with the two performance targets, whereas the blitzes directly improve those targets without drawing on plant hours or emissions."
+}

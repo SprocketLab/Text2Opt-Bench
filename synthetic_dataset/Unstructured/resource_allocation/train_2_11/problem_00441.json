@@ -1,0 +1,210 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All variables, bounds, integrality, objective costs, and >= service-level contributions are explicitly stated; mapping to constraints is mechanical and precise.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative tone and repeated 'does not contribute' notes add verbosity, but most text conveys necessary coefficients, bounds, and requirements.",
+      "realism": 94,
+      "realism_comment": "Plausible field operations planning with mixed integer/fractional choices and service-level minimums; costs and credits align with real-world resource allocation."
+    },
+    "prompt_tokens_with_data": 1443,
+    "prompt_tokens_without_data": 1443
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 116.99918783406648,
+    "optimal_values": {
+      "Var_0": 12.0,
+      "Var_1": -0.0,
+      "Var_2": 10.47892720306512,
+      "Var_3": 0.0,
+      "Var_4": 8.0,
+      "Var_5": -0.0,
+      "Var_6": -0.0,
+      "Var_7": 4.208971058268643,
+      "Var_8": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 176.79
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 171.45
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 158.26
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 209.94
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 29.18
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 132.41
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 108.55
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.47
+      ],
+      "objective_linear_coefficient": 4.12,
+      "resource_costs": {
+        "C0": 8.48,
+        "C1": 7.75,
+        "C2": 8.59,
+        "C3": 4.06,
+        "C4": 2.31,
+        "C5": 2.77,
+        "C6": 3.65
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.38
+      ],
+      "objective_linear_coefficient": 5.91,
+      "resource_costs": {
+        "C0": 9.04,
+        "C1": 6.49,
+        "C2": 5.37,
+        "C3": 1.08,
+        "C6": 0.09
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.72
+      ],
+      "objective_linear_coefficient": 2.77,
+      "resource_costs": {
+        "C0": 2.61,
+        "C1": 5.72,
+        "C2": 0.84,
+        "C3": 8.87,
+        "C4": 3.42,
+        "C5": 6.4
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.95
+      ],
+      "objective_linear_coefficient": 8.9,
+      "resource_costs": {
+        "C3": 5.15,
+        "C5": 8.04
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.63
+      ],
+      "objective_linear_coefficient": 4.08,
+      "resource_costs": {
+        "C0": 5.96,
+        "C2": 6.01,
+        "C3": 4.35,
+        "C5": 1.03,
+        "C6": 9.92
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.28
+      ],
+      "objective_linear_coefficient": 5.21,
+      "resource_costs": {
+        "C0": 2.14,
+        "C2": 5.82,
+        "C3": 2.41,
+        "C6": 9.94
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.57
+      ],
+      "objective_linear_coefficient": 5.4,
+      "resource_costs": {
+        "C1": 4.52,
+        "C3": 4.09,
+        "C4": 7.02,
+        "C5": 7.7
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.39
+      ],
+      "objective_linear_coefficient": 1.4,
+      "resource_costs": {
+        "C1": 5.47,
+        "C3": 9.3,
+        "C5": 5.67
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.99
+      ],
+      "objective_linear_coefficient": 9.2,
+      "resource_costs": {
+        "C0": 6.83,
+        "C2": 9.54,
+        "C3": 8.03,
+        "C4": 3.67,
+        "C5": 8.4,
+        "C6": 6.84
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.47, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.12 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.38, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.91 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.72, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.77 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.95, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.9 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.63, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 4.08 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.28, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 5.21 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.57, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 5.4 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=12.39, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 1.4 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=5.99, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 9.2 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.48 * vars['Var_0'] + 9.04 * vars['Var_1'] + 2.61 * vars['Var_2'] + 5.96 * vars['Var_4'] + 2.14 * vars['Var_5'] + 6.83 * vars['Var_8'] >= 176.79, name='C0')\n    m.addConstr(7.75 * vars['Var_0'] + 6.49 * vars['Var_1'] + 5.72 * vars['Var_2'] + 4.52 * vars['Var_6'] + 5.47 * vars['Var_7'] >= 171.45, name='C1')\n    m.addConstr(8.59 * vars['Var_0'] + 5.37 * vars['Var_1'] + 0.84 * vars['Var_2'] + 6.01 * vars['Var_4'] + 5.82 * vars['Var_5'] + 9.54 * vars['Var_8'] >= 158.26, name='C2')\n    m.addConstr(4.06 * vars['Var_0'] + 1.08 * vars['Var_1'] + 8.87 * vars['Var_2'] + 5.15 * vars['Var_3'] + 4.35 * vars['Var_4'] + 2.41 * vars['Var_5'] + 4.09 * vars['Var_6'] + 9.3 * vars['Var_7'] + 8.03 * vars['Var_8'] >= 209.94, name='C3')\n    m.addConstr(2.31 * vars['Var_0'] + 3.42 * vars['Var_2'] + 7.02 * vars['Var_6'] + 3.67 * vars['Var_8'] >= 29.18, name='C4')\n    m.addConstr(2.77 * vars['Var_0'] + 6.4 * vars['Var_2'] + 8.04 * vars['Var_3'] + 1.03 * vars['Var_4'] + 7.7 * vars['Var_6'] + 5.67 * vars['Var_7'] + 8.4 * vars['Var_8'] >= 132.41, name='C5')\n    m.addConstr(3.65 * vars['Var_0'] + 0.09 * vars['Var_1'] + 9.92 * vars['Var_4'] + 9.94 * vars['Var_5'] + 6.84 * vars['Var_8'] >= 108.55, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Q4 Field Operations Mix to Hit All Commitments at Lowest Cost\n\nTeam,\n\nWe need to finalize the service mix for the coming period to meet our minimum service-level commitments at the lowest total budget. Below is the menu of deployment options we can draw from. Some of these come in whole-package increments only, while others can be dialed in fractionally up to their caps. For each option, I\u2019ve outlined the budget impact per unit, how many we can feasibly deploy, and the service credits each unit contributes toward our seven commitments: Rapid Response Coverage, Preventive Maintenance, Warranty & Recall Closures, Field Service Hours Coverage, Training & Knowledge Transfer, New Installations, and Compliance Inspections.\n\n- Core Day Crew (whole-team packages only; up to 12.47 team-equivalents; budget impact 4.12 per team)\n  Each team contributes 8.48 credits to Rapid Response Coverage, 7.75 to Preventive Maintenance, 8.59 to Warranty & Recall Closures, 4.06 to Field Service Hours Coverage, 2.31 to Training & Knowledge Transfer, 2.77 to New Installations, and 3.65 to Compliance Inspections. We can assign anywhere from zero up to 12.47 teams.\n\n- Rapid Response Vans (whole-unit packages only; up to 11.38 vans; budget impact 5.91 per van)\n  Each van delivers 9.04 Rapid Response credits, 6.49 Preventive Maintenance credits, 5.37 Warranty & Recall closure credits, 1.08 Field Service Hours credits, and a small 0.09 toward Compliance Inspections. These do not contribute to Training & Knowledge Transfer or New Installations. We can assign anywhere from zero up to 11.38 vans.\n\n- Specialist Technicians (flexible; can be fractional up to 16.72 technician-units; budget impact 2.77 per unit)\n  Each unit provides 2.61 Rapid Response credits, 5.72 Preventive Maintenance credits, 0.84 Warranty & Recall credits, 8.87 Field Service Hours credits, 3.42 Training & Knowledge Transfer credits, and 6.40 New Installation credits. They do not contribute to Compliance Inspections. We can assign anywhere from zero up to 16.72 units.\n\n- Project Team (Temporary) (flexible; can be fractional up to 15.95 team-units; budget impact 8.90 per unit)\n  Each unit contributes 5.15 Field Service Hours credits and 8.04 New Installation credits. They do not add to Rapid Response, Preventive Maintenance, Warranty & Recall, Training & Knowledge Transfer, or Compliance Inspections. We can assign anywhere from zero up to 15.95 units.\n\n- Compliance Crew A (whole-team packages only; up to 8.63 teams; budget impact 4.08 per team)\n  Each team contributes 5.96 Rapid Response credits, 6.01 Warranty & Recall credits, 4.35 Field Service Hours credits, 1.03 New Installation credits, and 9.92 Compliance Inspection credits. They do not contribute to Preventive Maintenance or Training & Knowledge Transfer. We can assign anywhere from zero up to 8.63 teams.\n\n- Compliance Crew B (whole-team packages only; up to 16.28 teams; budget impact 5.21 per team)\n  Each team adds 2.14 Rapid Response credits, 5.82 Warranty & Recall credits, 2.41 Field Service Hours credits, and 9.94 Compliance Inspection credits. They do not contribute to Preventive Maintenance, Training & Knowledge Transfer, or New Installations. We can assign anywhere from zero up to 16.28 teams.\n\n- Training & PM Blitz Team (whole-team packages only; up to 8.57 teams; budget impact 5.40 per team)\n  Each team provides 4.52 Preventive Maintenance credits, 4.09 Field Service Hours credits, 7.02 Training & Knowledge Transfer credits, and 7.70 New Installation credits. They do not contribute to Rapid Response, Warranty & Recall, or Compliance Inspections. We can assign anywhere from zero up to 8.57 teams.\n\n- Field Apprentices (flexible; can be fractional up to 12.39 apprentice-units; budget impact 1.40 per unit)\n  Each unit contributes 5.47 Preventive Maintenance credits, 9.30 Field Service Hours credits, and 5.67 New Installation credits. They do not add to Rapid Response, Warranty & Recall, Training & Knowledge Transfer, or Compliance Inspections. We can assign anywhere from zero up to 12.39 units.\n\n- Premium Contractors (flexible; can be fractional up to 5.99 contractor-units; budget impact 9.20 per unit)\n  Each unit delivers 6.83 Rapid Response credits, 9.54 Warranty & Recall credits, 8.03 Field Service Hours credits, 3.67 Training & Knowledge Transfer credits, 8.40 New Installation credits, and 6.84 Compliance Inspection credits. They do not contribute to Preventive Maintenance. We can assign anywhere from zero up to 5.99 units.\n\nFacility Specs / Service-Level Minimums (must be met or exceeded while minimizing total spend)\n- Rapid Response Coverage: at least 176.79 credits\n- Preventive Maintenance: at least 171.45 credits\n- Warranty & Recall Closures: at least 158.26 credits\n- Field Service Hours Coverage: at least 209.94 credits\n- Training & Knowledge Transfer: at least 29.18 credits\n- New Installations: at least 132.41 credits\n- Compliance Inspections: at least 108.55 credits\n\nPlease proceed to structure the mix of the above options to meet all the above minimums at the lowest total budget, respecting the whole-package requirements where noted and the stated deployment caps."
+}

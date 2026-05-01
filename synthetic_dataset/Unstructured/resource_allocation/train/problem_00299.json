@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, caps, and resource limits are explicit; continuous vars implied; negative offsets explained. Variable names aren't specified, but math is clear to reconstruct the LP.",
+      "ambiguity": false,
+      "redundancy": 38,
+      "redundancy_comment": "Narrative style adds context but is verbose; includes prose not needed for formulation. Data per item is precise with minimal repetition.",
+      "realism": 98,
+      "realism_comment": "Very plausible plant mix-planning LP with hours, resin quota, and rack slots; negative offsets are realistic. Coefficients and limits match real operations."
+    },
+    "prompt_tokens_with_data": 1052,
+    "prompt_tokens_without_data": 1052
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 283.05736508821866,
+    "optimal_values": {
+      "Var_0": 10.37,
+      "Var_1": 9.95,
+      "Var_2": 0.6580421601424462,
+      "Var_3": 0.0,
+      "Var_4": 6.41,
+      "Var_5": 11.774319306930694,
+      "Var_6": 9.81
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 62.41
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 45.64
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.46
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 94.98
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.37
+      ],
+      "objective_linear_coefficient": 3.85,
+      "resource_costs": {
+        "C0": 5.17,
+        "C1": 0.95,
+        "C2": -4.62,
+        "C3": 1.58
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.95
+      ],
+      "objective_linear_coefficient": 9.85,
+      "resource_costs": {
+        "C0": 2.64,
+        "C1": 6.12,
+        "C2": 1.28,
+        "C3": -0.84
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.15
+      ],
+      "objective_linear_coefficient": 1.09,
+      "resource_costs": {
+        "C0": -0.94,
+        "C1": 3.67,
+        "C2": 8.39
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        20.0
+      ],
+      "objective_linear_coefficient": 2.21,
+      "resource_costs": {
+        "C0": 3.63,
+        "C1": 2.32,
+        "C2": 9.63,
+        "C3": 2.13
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.41
+      ],
+      "objective_linear_coefficient": 3.6,
+      "resource_costs": {
+        "C0": -4.37,
+        "C1": 0.25,
+        "C2": -3.84,
+        "C3": -1.95
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.65
+      ],
+      "objective_linear_coefficient": 9.33,
+      "resource_costs": {
+        "C1": -2.99,
+        "C2": 6.63,
+        "C3": 8.08
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.81
+      ],
+      "objective_linear_coefficient": 1.17,
+      "resource_costs": {
+        "C0": -1.57,
+        "C1": 0.62,
+        "C2": -2.25,
+        "C3": 0.44
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.37, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.85 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.95, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.85 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.15, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.09 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=20.0, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.21 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.41, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.6 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.65, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.33 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.81, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.17 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.17 * vars['Var_0'] + 2.64 * vars['Var_1'] + -0.94 * vars['Var_2'] + 3.63 * vars['Var_3'] + -4.37 * vars['Var_4'] + -1.57 * vars['Var_6'] <= 62.41, name='C0')\n    m.addConstr(0.95 * vars['Var_0'] + 6.12 * vars['Var_1'] + 3.67 * vars['Var_2'] + 2.32 * vars['Var_3'] + 0.25 * vars['Var_4'] + -2.99 * vars['Var_5'] + 0.62 * vars['Var_6'] <= 45.64, name='C1')\n    m.addConstr(-4.62 * vars['Var_0'] + 1.28 * vars['Var_1'] + 8.39 * vars['Var_2'] + 9.63 * vars['Var_3'] + -3.84 * vars['Var_4'] + 6.63 * vars['Var_5'] + -2.25 * vars['Var_6'] <= 52.46, name='C2')\n    m.addConstr(1.58 * vars['Var_0'] + -0.84 * vars['Var_1'] + 2.13 * vars['Var_3'] + -1.95 * vars['Var_4'] + 8.08 * vars['Var_5'] + 0.44 * vars['Var_6'] <= 94.98, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan to maximize contribution under our plant constraints\n\nTeam,\n\nFor the upcoming scheduling window, we want to maximize total contribution from our portfolio while staying within our shared resource limits at the main site. Each option below can be dialed up or down (including partial lots), subject to its own cap and the plant\u2019s capacities on Line A hours, Finishing Bay hours, virgin resin quota, and warehouse rack slots.\n\n- BlueLine Recycled Bottles\n  - Financials: Each lot adds 3.85 to contribution. We can run up to 10.37 lots.\n  - Resource impact per lot: Draws 5.17 hours from Line A and 0.95 hours in the Finishing Bay. Because of its high recycled content, it offsets the virgin resin requirement by 4.62 units. It occupies 1.58 rack slots in the warehouse.\n\n- SilverCap Premium Jars\n  - Financials: Each lot adds 9.85 to contribution. We can produce up to 9.95 lots.\n  - Resource impact per lot: Draws 2.64 hours from Line A and 6.12 hours in the Finishing Bay. Uses 1.28 units of virgin resin. Because these ship flat, each lot frees 0.84 warehouse rack slot relative to the baseline.\n\n- EcoPellet Injection Run\n  - Financials: Each lot adds 1.09 to contribution. We can schedule up to 17.15 lots.\n  - Resource impact per lot: By consolidating setups, each lot actually frees 0.94 hours on Line A. It requires 3.67 hours in the Finishing Bay and consumes 8.39 units of virgin resin. No warehouse impact.\n\n- Titan Bottling Batch\n  - Financials: Each lot adds 2.21 to contribution. We can go up to 20.0 lots.\n  - Resource impact per lot: Draws 3.63 hours from Line A and 2.32 hours in the Finishing Bay. Uses 9.63 units of virgin resin. Occupies 2.13 rack slots.\n\n- Reman Core Regrind\n  - Financials: Each lot adds 3.6 to contribution. We can process up to 6.41 lots.\n  - Resource impact per lot: This program materially relieves several bottlenecks; each lot frees 4.37 hours on Line A. It requires 0.25 hours in the Finishing Bay. By reclaiming material, it returns 3.84 units back against the virgin resin quota and frees 1.95 warehouse rack slots.\n\n- Premium FastTrack Contracts\n  - Financials: Each contract lot adds 9.33 to contribution. We can fulfill up to 13.65 lots.\n  - Resource impact per lot: These are pre-packaged and bypass some in-house steps, reducing Finishing Bay time by 2.99 hours per lot. They do not draw any Line A hours. They require 6.63 units of virgin resin and occupy 8.08 rack slots.\n\n- Scout Micro Batch\n  - Financials: Each lot adds 1.17 to contribution. We can allocate up to 9.81 lots.\n  - Resource impact per lot: Frees 1.57 hours on Line A by leveraging quick-change fixtures. Requires 0.62 hours in the Finishing Bay. Uses reclaimed feedstock and therefore offsets 2.25 units against the virgin resin requirement. Occupies 0.44 rack slots.\n\nFacility specs and limits\n- Line A hours: We must keep total Line A use within 62.41 hours across the mix.\n- Finishing Bay hours: Total Finishing Bay time is capped at 45.64 hours.\n- Virgin resin quota: We have up to 52.46 units available; reclaimed offsets count against this limit.\n- Warehouse rack slots: Total occupancy cannot exceed 94.98 slots.\n\nPlease use the above as the basis for the allocation plan so we capture as much contribution as possible without breaching any plant or market limits."
+}

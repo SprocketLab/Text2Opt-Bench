@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, costs, and contributions are explicit; thresholds are clear; continuous decisions stated; objective is total spend minimization with no missing parameters.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Includes narrative/context and notes not strictly needed, but not repetitive; technical details are concise and clear.",
+      "realism": 93,
+      "realism_comment": "Plausible compliance procurement scenario with availability limits and cost minimization; coefficients and thresholds are sensible and realistic."
+    },
+    "prompt_tokens_with_data": 651,
+    "prompt_tokens_without_data": 651
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 60.39681990879479,
+    "optimal_values": {
+      "Var_0": 7.151465798045602,
+      "Var_1": 5.739199999999999
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.91
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 54.0
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 35.87
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.6
+      ],
+      "objective_linear_coefficient": 1.64,
+      "resource_costs": {
+        "C0": 6.14
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.75
+      ],
+      "objective_linear_coefficient": 8.48,
+      "resource_costs": {
+        "C1": 9.54,
+        "C2": 6.25
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.6, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.64 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.75, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.48 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.14 * vars['Var_0'] >= 43.91, name='C0')\n    m.addConstr(9.54 * vars['Var_1'] >= 54.0, name='C1')\n    m.addConstr(6.25 * vars['Var_1'] >= 35.87, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix to meet compliance thresholds with two procurement levers\n\nTeam,\n\nAs we finalize our plan for the upcoming compliance cycle, we need to decide how much to commit to two available initiatives so that we meet three required index thresholds at the lowest possible total spend. We can split purchases across partial units if needed; the aim is to minimize our overall outlay while still clearing the minimums noted below.\n\nThe levers we can pull\n\n1) Sustainable Materials Credits \u2013 Tier A (Supplier Block A)\n- Unit economics: Each block carries a spend of $1.64.\n- Availability: We may purchase anywhere from 0.0 up to 12.6 blocks.\n- Impact on required indices:\n  - Contributes 6.14 points per block toward our Sustainable Materials Score.\n  - Provides 0 toward the Workforce Readiness Score.\n  - Provides 0 toward the Community Outreach Score.\n- Notes: This option is the only one that moves the Sustainable Materials requirement for us; it does not generate any credit for workforce or community obligations.\n\n2) Workforce & Community Bundle (Program B)\n- Unit economics: Each bundle carries a spend of $8.48.\n- Availability: We may purchase anywhere from 0.0 up to 16.75 bundles.\n- Impact on required indices:\n  - Contributes 9.54 points per bundle toward our Workforce Readiness Score.\n  - Contributes 6.25 points per bundle toward our Community Outreach Score.\n  - Provides 0 toward the Sustainable Materials Score.\n- Notes: This option is the only one that advances both our workforce and community targets; it does not move the Sustainable Materials requirement.\n\nMarket limits and compliance thresholds\n- Sustainable Materials Score: We must achieve at least 43.91 points.\n- Workforce Readiness Score: We must achieve at least 54.0 points.\n- Community Outreach Score: We must achieve at least 35.87 points.\n\nPlease use the above to identify the lowest-cost mix of the two initiatives that clears all three thresholds, respecting the availability limits on each option. I\u2019m happy to discuss any assumptions or operational constraints before we lock in the plan."
+}

@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and >= targets are explicit; objective is cost minimization. Math model is fully reconstructible; only minor code-level naming isn't specified.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business memo tone adds context but is wordy; coefficients and limits are stated once with minimal repetition.",
+      "realism": 96,
+      "realism_comment": "Plausible resource allocation to meet service SLAs using internal effort and partner bundles with costs, caps, and clear targets."
+    },
+    "prompt_tokens_with_data": 800,
+    "prompt_tokens_without_data": 800
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 44.92188679245283,
+    "optimal_values": {
+      "Var_0": 1.8833619210977706,
+      "Var_1": 9.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 18.9
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 53.1
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 9.36
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 26.83
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 72.46
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.28
+      ],
+      "objective_linear_coefficient": 7.7,
+      "resource_costs": {
+        "C0": 5.57,
+        "C1": 5.83,
+        "C2": 5.05,
+        "C3": 1.52,
+        "C4": 1.85
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 3.38,
+      "resource_costs": {
+        "C0": 1.13,
+        "C1": 4.68,
+        "C3": 2.9,
+        "C4": 7.83
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.28, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.7 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.38 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.57 * vars['Var_0'] + 1.13 * vars['Var_1'] >= 18.9, name='C0')\n    m.addConstr(5.83 * vars['Var_0'] + 4.68 * vars['Var_1'] >= 53.1, name='C1')\n    m.addConstr(5.05 * vars['Var_0'] >= 9.36, name='C2')\n    m.addConstr(1.52 * vars['Var_0'] + 2.9 * vars['Var_1'] >= 26.83, name='C3')\n    m.addConstr(1.85 * vars['Var_0'] + 7.83 * vars['Var_1'] >= 72.46, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed cost-minimizing mix to meet Q4 service commitments\n\nTeam,\n\nWe\u2019re looking to meet five service commitments this quarter while keeping total spend as low as possible. To do that, we can draw from two levers: internal specialist effort and partner-delivered bundles. The plan below outlines what each lever delivers against our commitments, how much it costs per unit, and the practical limits on how much we can deploy. Our goal is to cover all minimums at the lowest total outlay.\n\nLever 1 \u2014 Internal Specialist Effort (scalable in fractional increments)\n- Cost profile: Each unit of internal specialist effort carries an all-in cost of 7.70.\n- Capacity window: We can schedule anywhere from zero up to 13.28 units; we\u2019re not required to schedule any if not needed, and we can flex in partial units (e.g., 0.5, 1.25).\n- Impact on commitments:\n  - Priority Response Coverage: every unit contributes 5.57 coverage credits.\n  - Standard Resolution Throughput: every unit contributes 5.83 throughput credits.\n  - Knowledge Content Updates: every unit contributes 5.05 update credits.\n  - Training & Enablement Sessions: every unit contributes 1.52 session credits.\n  - After-hours Support Coverage: every unit contributes 1.85 coverage credits.\n\nLever 2 \u2014 Partner Support Bundles (whole bundles only)\n- Cost profile: Each partner bundle costs 3.38.\n- Capacity window: We may purchase anywhere from zero to 10 bundles; because the partner sells only complete bundles, we must buy whole numbers (no partial bundles).\n- Impact on commitments:\n  - Priority Response Coverage: every bundle adds 1.13 coverage credits.\n  - Standard Resolution Throughput: every bundle adds 4.68 throughput credits.\n  - Knowledge Content Updates: these bundles do not contribute to content updates (0 impact).\n  - Training & Enablement Sessions: every bundle adds 2.90 session credits.\n  - After-hours Support Coverage: every bundle adds 7.83 coverage credits.\n\nMarket limits and minimum service levels we must meet\n- Priority Response Coverage: at least 18.90 credits.\n- Standard Resolution Throughput: at least 53.10 credits.\n- Knowledge Content Updates: at least 9.36 credits.\n- Training & Enablement Sessions: at least 26.83 credits.\n- After-hours Support Coverage: at least 72.46 credits.\n\nPlease review this structure so we can align on the most economical combination of internal effort (up to 13.28 units, fractional allowed) and partner bundles (up to 10, whole bundles only) that collectively satisfies all five minimums while minimizing spend at the unit costs of 7.70 and 3.38, respectively. Once approved, we\u2019ll proceed to finalize the deployment schedule and purchase orders."
+}

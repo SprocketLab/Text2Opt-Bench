@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Clear LP: 5 continuous vars with bounds & costs; per-unit metric coefficients and eight floor constraints ('at least' => >=) specified. Minimal assumptions; model reconstructable mechanically.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Narrative business tone and repeated 'no material impact' make it somewhat verbose, but the quantitative details are clear and focused.",
+      "realism": 95,
+      "realism_comment": "Feels like a genuine planning problem with plausible levers, costs, ranges, and regulatory/service thresholds; constraint signs and floors are coherent."
+    },
+    "prompt_tokens_with_data": 1216,
+    "prompt_tokens_without_data": 1216
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 83.50959582152126,
+    "optimal_values": {
+      "Var_0": 1.7147327495592535,
+      "Var_1": 0.0,
+      "Var_2": 7.374201787994892,
+      "Var_3": 1.240478498459588,
+      "Var_4": 8.024726955770562
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -81.6
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -15.48
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.39
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -6.08
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -57.74
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.45
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -5.07
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 104.24
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.54
+      ],
+      "objective_linear_coefficient": 1.42,
+      "resource_costs": {
+        "C2": 4.9,
+        "C3": -0.64,
+        "C5": 5.98,
+        "C6": -2.72,
+        "C7": -5.23
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.63
+      ],
+      "objective_linear_coefficient": 5.8,
+      "resource_costs": {
+        "C0": 5.99
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.31
+      ],
+      "objective_linear_coefficient": 4.54,
+      "resource_costs": {
+        "C0": -3.13,
+        "C1": 0.33,
+        "C3": -0.54,
+        "C4": -7.83,
+        "C7": 6.57
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.22
+      ],
+      "objective_linear_coefficient": 8.87,
+      "resource_costs": {
+        "C0": -5.16,
+        "C1": 2.12,
+        "C5": 1.66
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.41
+      ],
+      "objective_linear_coefficient": 4.56,
+      "resource_costs": {
+        "C0": -5.73,
+        "C1": -2.56,
+        "C2": 4.36,
+        "C7": 8.07
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.54, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.42 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.63, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.8 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.31, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.54 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.22, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.87 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.41, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.56 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.99 * vars['Var_1'] + -3.13 * vars['Var_2'] + -5.16 * vars['Var_3'] + -5.73 * vars['Var_4'] >= -81.6, name='C0')\n    m.addConstr(0.33 * vars['Var_2'] + 2.12 * vars['Var_3'] + -2.56 * vars['Var_4'] >= -15.48, name='C1')\n    m.addConstr(4.9 * vars['Var_0'] + 4.36 * vars['Var_4'] >= 43.39, name='C2')\n    m.addConstr(-0.64 * vars['Var_0'] + -0.54 * vars['Var_2'] >= -6.08, name='C3')\n    m.addConstr(-7.83 * vars['Var_2'] >= -57.74, name='C4')\n    m.addConstr(5.98 * vars['Var_0'] + 1.66 * vars['Var_3'] >= 11.45, name='C5')\n    m.addConstr(-2.72 * vars['Var_0'] >= -5.07, name='C6')\n    m.addConstr(-5.23 * vars['Var_0'] + 6.57 * vars['Var_2'] + 8.07 * vars['Var_4'] >= 104.24, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Weekly mix recommendation to minimize variable spend while meeting regulatory and service floors\n\nTeam,\n\nWe need your support to set our upcoming weekly mix across five workstreams so that we minimize total variable spend while still satisfying a set of regulatory, labor, and customer service thresholds. Each lever can be dialed fractionally within its feasible range; we are not constrained to whole batches.\n\nThe levers\n\n1) Alpha Specialty Blend on Line A\n- Scope: May run between 0 and 6.54 units this week.\n- Unit cost: 1.42 per unit.\n- How it moves our metrics per unit scheduled:\n  - Net Energy Compliance Index: no material impact.\n  - Working Capital Coverage: no material impact.\n  - Premium\u2011Grade Output: contributes +4.9 units.\n  - Effluent Neutrality Score: reduces the score by 0.64.\n  - Landfill Avoidance Score: no material impact.\n  - Skilled Technician Hours: consumes +5.98 hours.\n  - NOx Credit Bank: draws down by 2.72 credits.\n  - Customer Fulfillment Index: reduces the index by 5.23.\n\n2) Purchased Utility Boost\n- Scope: May be procured between 0 and 17.63 units.\n- Unit cost: 5.8 per unit.\n- How it moves our metrics per unit procured:\n  - Net Energy Compliance Index: increases by 5.99.\n  - Working Capital Coverage: no material impact.\n  - Premium\u2011Grade Output: no material impact.\n  - Effluent Neutrality Score: no material impact.\n  - Landfill Avoidance Score: no material impact.\n  - Skilled Technician Hours: no material impact.\n  - NOx Credit Bank: no material impact.\n  - Customer Fulfillment Index: no material impact.\n\n3) Bravo Bulk Run\n- Scope: May run between 0 and 8.31 units.\n- Unit cost: 4.54 per unit.\n- How it moves our metrics per unit scheduled:\n  - Net Energy Compliance Index: decreases by 3.13 (exothermic run offsets grid draw).\n  - Working Capital Coverage: improves by 0.33.\n  - Premium\u2011Grade Output: no material impact.\n  - Effluent Neutrality Score: reduces the score by 0.54.\n  - Landfill Avoidance Score: decreases by 7.83 (greater landfill pressure).\n  - Skilled Technician Hours: no material impact.\n  - NOx Credit Bank: no material impact.\n  - Customer Fulfillment Index: increases by 6.57.\n\n4) Heat\u2011Recovery Campaign\n- Scope: May run between 0 and 16.22 units.\n- Unit cost: 8.87 per unit.\n- How it moves our metrics per unit scheduled:\n  - Net Energy Compliance Index: decreases by 5.16 (onsite heat recovery).\n  - Working Capital Coverage: improves by 2.12.\n  - Premium\u2011Grade Output: no material impact.\n  - Effluent Neutrality Score: no material impact.\n  - Landfill Avoidance Score: no material impact.\n  - Skilled Technician Hours: consumes +1.66 hours.\n  - NOx Credit Bank: no material impact.\n  - Customer Fulfillment Index: no material impact.\n\n5) Delta High\u2011Value Coating\n- Scope: May run between 0 and 11.41 units.\n- Unit cost: 4.56 per unit.\n- How it moves our metrics per unit scheduled:\n  - Net Energy Compliance Index: decreases by 5.73 (steam returned to the grid).\n  - Working Capital Coverage: reduces by 2.56 (heavier WIP tie\u2011up).\n  - Premium\u2011Grade Output: contributes +4.36 units.\n  - Effluent Neutrality Score: no material impact.\n  - Landfill Avoidance Score: no material impact.\n  - Skilled Technician Hours: no material impact.\n  - NOx Credit Bank: no material impact.\n  - Customer Fulfillment Index: increases by 8.07.\n\nFacility specs and minimum requirements we must respect\n\n- Net Energy Compliance Index must be at least \u221281.6.\n- Working Capital Coverage must be at least \u221215.48.\n- Premium\u2011Grade Output must be at least 43.39 units.\n- Effluent Neutrality Score must be at least \u22126.08.\n- Landfill Avoidance Score must be at least \u221257.74.\n- Skilled Technician Hours committed must be at least 11.45 hours.\n- NOx Credit Bank must be at least \u22125.07 credits.\n- Customer Fulfillment Index must be at least 104.24.\n\nPlease configure the least\u2011cost mix of the above levers within their individual ranges so that all of the above floors are met simultaneously. Happy to discuss any assumptions behind the indices or unit definitions if helpful before you run the scenario."
+}

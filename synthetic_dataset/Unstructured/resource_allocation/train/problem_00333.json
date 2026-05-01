@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All unit costs, bounds, and per-unit metric impacts are explicit; floors are clear (>=). Fractional use allowed. Only minor confusion about exact variable names from coding boilerplate.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style narrative and coding instructions add length, but most text maps directly to coefficients, bounds, and floors with little true fluff.",
+      "realism": 95,
+      "realism_comment": "Plausible sourcing LP with capacities and policy floors across metrics. Scenario is realistic; negative floors are unusual but still credible."
+    },
+    "prompt_tokens_with_data": 1476,
+    "prompt_tokens_without_data": 1476
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 68.82711278423514,
+    "optimal_values": {
+      "Var_0": 5.81,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 4.238688219684406,
+      "Var_4": 0.0,
+      "Var_5": 3.0341388495880746,
+      "Var_6": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -94.73
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -16.32
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -135.92
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -41.39
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 67.25
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -7.69
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 40.4
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -152.82
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.81
+      ],
+      "objective_linear_coefficient": 3.86,
+      "resource_costs": {
+        "C0": 8.6,
+        "C1": 3.34,
+        "C2": -9.31,
+        "C3": -4.21,
+        "C4": 4.05,
+        "C5": 7.2,
+        "C6": 4.95,
+        "C7": -8.1
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.29
+      ],
+      "objective_linear_coefficient": 8.97,
+      "resource_costs": {
+        "C0": -8.73,
+        "C1": -5.93,
+        "C2": 0.42,
+        "C3": 4.53,
+        "C5": -0.55,
+        "C6": -9.73
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.66
+      ],
+      "objective_linear_coefficient": 9.87,
+      "resource_costs": {
+        "C1": -5.11,
+        "C2": -7.4,
+        "C3": -2.81,
+        "C5": 2.52
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.57
+      ],
+      "objective_linear_coefficient": 7.06,
+      "resource_costs": {
+        "C1": 1.14,
+        "C2": -4.51,
+        "C3": 4.56,
+        "C4": 3.6,
+        "C5": -5.37,
+        "C6": 9.16
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.85
+      ],
+      "objective_linear_coefficient": 3.83,
+      "resource_costs": {
+        "C0": -9.43,
+        "C2": -9.3,
+        "C3": -8.1,
+        "C4": -0.32,
+        "C5": 0.91,
+        "C6": 1.09,
+        "C7": -9.83
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.58
+      ],
+      "objective_linear_coefficient": 5.43,
+      "resource_costs": {
+        "C1": 6.0,
+        "C2": 3.04,
+        "C3": -4.08,
+        "C4": 9.38,
+        "C5": -2.25,
+        "C6": -8.96,
+        "C7": -8.46
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.63
+      ],
+      "objective_linear_coefficient": 6.57,
+      "resource_costs": {
+        "C0": -5.81,
+        "C2": 7.96,
+        "C5": -1.67,
+        "C7": -5.33
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.81, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.86 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.29, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.97 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.66, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.87 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.57, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.06 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.85, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.83 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.58, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.43 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=6.63, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.57 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.6 * vars['Var_0'] + -8.73 * vars['Var_1'] + -9.43 * vars['Var_4'] + -5.81 * vars['Var_6'] >= -94.73, name='C0')\n    m.addConstr(3.34 * vars['Var_0'] + -5.93 * vars['Var_1'] + -5.11 * vars['Var_2'] + 1.14 * vars['Var_3'] + 6.0 * vars['Var_5'] >= -16.32, name='C1')\n    m.addConstr(-9.31 * vars['Var_0'] + 0.42 * vars['Var_1'] + -7.4 * vars['Var_2'] + -4.51 * vars['Var_3'] + -9.3 * vars['Var_4'] + 3.04 * vars['Var_5'] + 7.96 * vars['Var_6'] >= -135.92, name='C2')\n    m.addConstr(-4.21 * vars['Var_0'] + 4.53 * vars['Var_1'] + -2.81 * vars['Var_2'] + 4.56 * vars['Var_3'] + -8.1 * vars['Var_4'] + -4.08 * vars['Var_5'] >= -41.39, name='C3')\n    m.addConstr(4.05 * vars['Var_0'] + 3.6 * vars['Var_3'] + -0.32 * vars['Var_4'] + 9.38 * vars['Var_5'] >= 67.25, name='C4')\n    m.addConstr(7.2 * vars['Var_0'] + -0.55 * vars['Var_1'] + 2.52 * vars['Var_2'] + -5.37 * vars['Var_3'] + 0.91 * vars['Var_4'] + -2.25 * vars['Var_5'] + -1.67 * vars['Var_6'] >= -7.69, name='C5')\n    m.addConstr(4.95 * vars['Var_0'] + -9.73 * vars['Var_1'] + 9.16 * vars['Var_3'] + 1.09 * vars['Var_4'] + -8.96 * vars['Var_5'] >= 40.4, name='C6')\n    m.addConstr(-8.1 * vars['Var_0'] + -9.83 * vars['Var_4'] + -8.46 * vars['Var_5'] + -5.33 * vars['Var_6'] >= -152.82, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "To: Optimization & Supply Planning Team\nFrom: Head of Strategic Sourcing\nSubject: Minimizing Total Landed Cost for the Q3 Battery Program While Hitting Policy Floors\n\nWe\u2019re preparing the Q3 mix across seven sourcing programs for battery components. The objective is to minimize total landed cost while still meeting the company\u2019s mandated floors on our scorecard metrics (traceability, labor/ethics, carbon balance, manufacturing resilience, domestic content, supplier quality, lead\u2011time advantage, and geopolitical risk buffer). Each program can be blended fractionally up to its capacity, and each one moves the metrics in different directions.\n\nBelow are the levers we can pull, in the order we want you to evaluate them, along with their unit costs, available capacity, and the way each one affects the eight scorecard metrics per unit taken.\n\n- Atlas Core Cells (Program A)\n  - Unit landed cost: 3.86 per unit; available volume: 0 up to 5.81 units.\n  - Impact per unit:\n    - Traceability points: +8.6\n    - Labor & ethics rating: +3.34\n    - Carbon balance: \u22129.31\n    - Manufacturing resilience: \u22124.21\n    - North American content: +4.05\n    - Supplier quality: +7.2\n    - Lead\u2011time advantage: +4.95\n    - Geopolitical risk buffer: \u22128.1\n\n- Borealis High\u2011Rate Cells (Program B)\n  - Unit landed cost: 8.97 per unit; available volume: 0 up to 8.29 units.\n  - Impact per unit:\n    - Traceability points: \u22128.73\n    - Labor & ethics rating: \u22125.93\n    - Carbon balance: +0.42\n    - Manufacturing resilience: +4.53\n    - North American content: no impact\n    - Supplier quality: \u22120.55\n    - Lead\u2011time advantage: \u22129.73\n    - Geopolitical risk buffer: no impact\n\n- Cobalt\u2011Light Modules (Program C)\n  - Unit landed cost: 9.87 per unit; available volume: 0 up to 17.66 units.\n  - Impact per unit:\n    - Traceability points: no impact\n    - Labor & ethics rating: \u22125.11\n    - Carbon balance: \u22127.4\n    - Manufacturing resilience: \u22122.81\n    - North American content: no impact\n    - Supplier quality: +2.52\n    - Lead\u2011time advantage: no impact\n    - Geopolitical risk buffer: no impact\n\n- Delta Fast\u2011Charge Packs (Program D)\n  - Unit landed cost: 7.06 per unit; available volume: 0 up to 9.57 units.\n  - Impact per unit:\n    - Traceability points: no impact\n    - Labor & ethics rating: +1.14\n    - Carbon balance: \u22124.51\n    - Manufacturing resilience: +4.56\n    - North American content: +3.6\n    - Supplier quality: \u22125.37\n    - Lead\u2011time advantage: +9.16\n    - Geopolitical risk buffer: no impact\n\n- Evergreen Recycled Feedstock (Program E)\n  - Unit landed cost: 3.83 per unit; available volume: 0 up to 8.85 units.\n  - Impact per unit:\n    - Traceability points: \u22129.43\n    - Labor & ethics rating: no impact\n    - Carbon balance: \u22129.3\n    - Manufacturing resilience: \u22128.1\n    - North American content: \u22120.32\n    - Supplier quality: +0.91\n    - Lead\u2011time advantage: +1.09\n    - Geopolitical risk buffer: \u22129.83\n\n- Frontier Domestic Cells (Program F)\n  - Unit landed cost: 5.43 per unit; available volume: 0 up to 14.58 units.\n  - Impact per unit:\n    - Traceability points: no impact\n    - Labor & ethics rating: +6.0\n    - Carbon balance: +3.04\n    - Manufacturing resilience: \u22124.08\n    - North American content: +9.38\n    - Supplier quality: \u22122.25\n    - Lead\u2011time advantage: \u22128.96\n    - Geopolitical risk buffer: \u22128.46\n\n- Glacier Specialty Cells (Program G)\n  - Unit landed cost: 6.57 per unit; available volume: 0 up to 6.63 units.\n  - Impact per unit:\n    - Traceability points: \u22125.81\n    - Labor & ethics rating: no impact\n    - Carbon balance: +7.96\n    - Manufacturing resilience: no impact\n    - North American content: no impact\n    - Supplier quality: \u22121.67\n    - Lead\u2011time advantage: no impact\n    - Geopolitical risk buffer: \u22125.33\n\nMarket and Policy Floors (these are minimums we must collectively achieve across the chosen mix):\n- Traceability points must be at least \u221294.73.\n- Labor & ethics rating must be at least \u221216.32.\n- Carbon balance must be at least \u2212135.92.\n- Manufacturing resilience must be at least \u221241.39.\n- North American content must be at least 67.25.\n- Supplier quality must be at least \u22127.69.\n- Lead\u2011time advantage must be at least 40.4.\n- Geopolitical risk buffer must be at least \u2212152.82.\n\nPlease use the above to assemble the lowest\u2011cost blend that satisfies all the floors, staying within each program\u2019s available volume (each can be set anywhere from zero up to its cap). If any floor looks tight based on these sensitivities\u2014particularly the positive targets for North American content (67.25) and lead\u2011time advantage (40.4)\u2014flag it so we can discuss whether to push volume toward the stronger contributors despite their unit costs."
+}

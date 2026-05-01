@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and per-unit contributions plus RHS minimums are explicit. Objective (min cost) and >= constraints are clear; zeros are specified.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business-narrative style adds fluff (greetings, qualitative notes) but specs are clear and non-repetitive; could be more concise.",
+      "realism": 94,
+      "realism_comment": "Scenario is a plausible public health resource-mix MILP; contributions and minimums make sense. Slightly unrealistic fractional caps for integer resources."
+    },
+    "prompt_tokens_with_data": 805,
+    "prompt_tokens_without_data": 805
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 161.81798842257598,
+    "optimal_values": {
+      "Var_0": 2.3357452966714907,
+      "Var_1": 9.0,
+      "Var_2": 5.0,
+      "Var_3": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 78.02
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 51.86
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 63.72
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 33.96
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.19
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.86
+      ],
+      "objective_linear_coefficient": 8.84,
+      "resource_costs": {
+        "C0": 1.43,
+        "C1": 0.5,
+        "C2": 1.13,
+        "C3": 6.91,
+        "C4": 7.0
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.93
+      ],
+      "objective_linear_coefficient": 9.43,
+      "resource_costs": {
+        "C0": 8.41,
+        "C3": 1.98
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.42
+      ],
+      "objective_linear_coefficient": 4.75,
+      "resource_costs": {
+        "C1": 9.75,
+        "C2": 3.88
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.67
+      ],
+      "objective_linear_coefficient": 6.51,
+      "resource_costs": {
+        "C1": 0.58,
+        "C2": 8.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.86, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.84 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.93, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.43 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.42, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.75 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.67, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.51 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.43 * vars['Var_0'] + 8.41 * vars['Var_1'] >= 78.02, name='C0')\n    m.addConstr(0.5 * vars['Var_0'] + 9.75 * vars['Var_2'] + 0.58 * vars['Var_3'] >= 51.86, name='C1')\n    m.addConstr(1.13 * vars['Var_0'] + 3.88 * vars['Var_2'] + 8.46 * vars['Var_3'] >= 63.72, name='C2')\n    m.addConstr(6.91 * vars['Var_0'] + 1.98 * vars['Var_1'] >= 33.96, name='C3')\n    m.addConstr(7.0 * vars['Var_0'] >= 15.19, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix for meeting our Q3 public health commitments\n\nHi team,\n\nWe need your help to identify the least-cost blend of deployable resources to hit our mandated Q3 service levels across five deliverable categories: vaccinations, patient consultations, lab processing, field response coverage, and community education. The objective is to minimize total program spend while meeting or exceeding each commitment.\n\nHere are the levers we can pull and how each one contributes.\n\n- Integrated Community Health FTEs\n  - Budget impact: 8.84 per FTE. This pool can be dialed up in fractional increments, from zero up to 13.86 FTEs for the period.\n  - Per FTE, this role delivers across all of our commitments: 1.43 vaccination units, 0.50 hours of patient consultations, 1.13 lab test batches, 6.91 field response shift equivalents, and 7.0 community education sessions.\n  - This option is our only contributor to community education; it also provides meaningful field coverage and moderate support to vaccinations and lab work, with a smaller lift to consultations.\n\n- Mobile Vaccination Crews\n  - Budget impact: 9.43 per crew. These are booked in whole crews only, anywhere from zero up to 12.93 crews within the quarter\u2019s capacity.\n  - Each crew delivers 8.41 vaccination units and adds 1.98 field response shift equivalents.\n  - These crews do not contribute to patient consultation hours, lab test batches, or community education sessions.\n\n- Clinic Consultation Blocks\n  - Budget impact: 4.75 per block. These are scheduled in full blocks, from zero up to 14.42 blocks this quarter.\n  - Each block provides 9.75 hours of patient consultations and 3.88 lab test batches.\n  - These blocks do not add to vaccinations, field response coverage, or community education.\n\n- Lab Processing Lots\n  - Budget impact: 6.51 per lot. Lots are released in whole increments, from zero up to 7.67 lots for the period.\n  - Each lot contributes 0.58 hours of patient consultations and 8.46 lab test batches.\n  - Lots do not add to vaccinations, field response coverage, or community education.\n\nFacility and program minimums for Q3\n- Vaccinations: deliver at least 78.02 units across the mix.\n- Patient consultations: provide at least 51.86 hours.\n- Lab processing: complete at least 63.72 test batches.\n- Field response coverage: staff at least 33.96 shift equivalents.\n- Community education: conduct at least 15.19 sessions.\n\nPlease use the unit costs and availability caps above to build a plan that meets or exceeds every minimum at the lowest total budget impact. Let me know if you need further detail on definitions or measurement conventions for any of the deliverables."
+}

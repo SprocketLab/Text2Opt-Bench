@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 10,
+    "num_constraints": 12,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit costs, bounds, integrality, and KPI contributions for all variables; clear >= targets; objective minimize cost. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative and repeated phrasing make it lengthy, but most text conveys required coefficients and bounds; little irrelevant fluff.",
+      "realism": 88,
+      "realism_comment": "Feels like a real portfolio/KPI allocation problem; contributions plausible though stylized. Non-integer caps for integer levers slightly odd."
+    },
+    "prompt_tokens_with_data": 1840,
+    "prompt_tokens_without_data": 1840
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 277.0713893324715,
+    "optimal_values": {
+      "Var_0": 10.0,
+      "Var_1": 9.0,
+      "Var_2": 8.38557934368153,
+      "Var_3": -0.0,
+      "Var_4": 6.616892566257269,
+      "Var_5": 4.0,
+      "Var_6": 0.0,
+      "Var_7": 2.9683257918552037,
+      "Var_8": 5.265519111924491,
+      "Var_9": 8.52
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 182.43
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 65.93
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 132.88
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 272.96
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 218.16
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 129.3
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 193.0
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 220.6
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 181.23
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 57.86
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 192.36
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 167.29
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.95
+      ],
+      "objective_linear_coefficient": 2.0,
+      "resource_costs": {
+        "C3": 5.66,
+        "C5": 6.87,
+        "C6": 1.96,
+        "C8": 0.81,
+        "C9": 4.29,
+        "C10": 7.25,
+        "C11": 5.04
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.98
+      ],
+      "objective_linear_coefficient": 6.36,
+      "resource_costs": {
+        "C0": 3.89,
+        "C3": 9.94,
+        "C4": 2.52,
+        "C6": 4.48,
+        "C7": 6.15,
+        "C8": 4.96,
+        "C10": 5.24
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.93
+      ],
+      "objective_linear_coefficient": 7.97,
+      "resource_costs": {
+        "C0": 4.69,
+        "C1": 1.43,
+        "C3": 6.61,
+        "C4": 7.08,
+        "C5": 4.96,
+        "C6": 6.72,
+        "C7": 5.15
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.33
+      ],
+      "objective_linear_coefficient": 8.05,
+      "resource_costs": {
+        "C1": 3.37,
+        "C2": 7.25,
+        "C3": 5.18,
+        "C4": 0.45,
+        "C5": 2.6,
+        "C7": 0.26,
+        "C10": 7.46,
+        "C11": 1.59
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.08
+      ],
+      "objective_linear_coefficient": 3.75,
+      "resource_costs": {
+        "C0": 2.56,
+        "C1": 7.74,
+        "C2": 4.76,
+        "C3": 5.63,
+        "C5": 4.32,
+        "C6": 5.41,
+        "C7": 1.47,
+        "C8": 5.25,
+        "C10": 8.58,
+        "C11": 4.72
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.44
+      ],
+      "objective_linear_coefficient": 9.15,
+      "resource_costs": {
+        "C0": 5.2,
+        "C2": 1.35,
+        "C4": 2.19,
+        "C5": 3.88,
+        "C6": 9.68,
+        "C8": 8.95,
+        "C9": 0.46,
+        "C10": 0.59,
+        "C11": 7.26
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.26
+      ],
+      "objective_linear_coefficient": 6.74,
+      "resource_costs": {
+        "C3": 7.61,
+        "C7": 0.22,
+        "C8": 2.01,
+        "C9": 6.81,
+        "C10": 1.44,
+        "C11": 3.11
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.33
+      ],
+      "objective_linear_coefficient": 6.8,
+      "resource_costs": {
+        "C0": 4.3,
+        "C3": 7.48,
+        "C5": 5.92,
+        "C7": 6.94,
+        "C8": 6.98,
+        "C9": 4.42,
+        "C10": 7.3,
+        "C11": 8.26
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.75
+      ],
+      "objective_linear_coefficient": 7.82,
+      "resource_costs": {
+        "C0": 9.95,
+        "C2": 8.25,
+        "C4": 8.28,
+        "C5": 2.56,
+        "C6": 0.42,
+        "C7": 5.56,
+        "C10": 0.17,
+        "C11": 7.01
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.52
+      ],
+      "objective_linear_coefficient": 1.2,
+      "resource_costs": {
+        "C0": 1.1,
+        "C1": 5.8,
+        "C2": 9.23,
+        "C3": 2.94,
+        "C4": 9.83,
+        "C7": 9.29,
+        "C8": 4.37,
+        "C10": 8.99,
+        "C11": 3.79
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.95, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.0 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.98, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.36 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.93, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.97 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.33, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.05 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.08, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.75 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.44, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.15 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=6.26, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.74 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.33, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 6.8 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=6.75, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 7.82 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=8.52, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 1.2 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.89 * vars['Var_1'] + 4.69 * vars['Var_2'] + 2.56 * vars['Var_4'] + 5.2 * vars['Var_5'] + 4.3 * vars['Var_7'] + 9.95 * vars['Var_8'] + 1.1 * vars['Var_9'] >= 182.43, name='C0')\n    m.addConstr(1.43 * vars['Var_2'] + 3.37 * vars['Var_3'] + 7.74 * vars['Var_4'] + 5.8 * vars['Var_9'] >= 65.93, name='C1')\n    m.addConstr(7.25 * vars['Var_0'] + 5.24 * vars['Var_1'] + 7.46 * vars['Var_3'] + 8.58 * vars['Var_4'] + 0.59 * vars['Var_5'] + 1.44 * vars['Var_6'] + 7.3 * vars['Var_7'] + 0.17 * vars['Var_8'] + 8.99 * vars['Var_9'] >= 192.36, name='C10')\n    m.addConstr(5.04 * vars['Var_0'] + 1.59 * vars['Var_3'] + 4.72 * vars['Var_4'] + 7.26 * vars['Var_5'] + 3.11 * vars['Var_6'] + 8.26 * vars['Var_7'] + 7.01 * vars['Var_8'] + 3.79 * vars['Var_9'] >= 167.29, name='C11')\n    m.addConstr(7.25 * vars['Var_3'] + 4.76 * vars['Var_4'] + 1.35 * vars['Var_5'] + 8.25 * vars['Var_8'] + 9.23 * vars['Var_9'] >= 132.88, name='C2')\n    m.addConstr(5.66 * vars['Var_0'] + 9.94 * vars['Var_1'] + 6.61 * vars['Var_2'] + 5.18 * vars['Var_3'] + 5.63 * vars['Var_4'] + 7.61 * vars['Var_6'] + 7.48 * vars['Var_7'] + 2.94 * vars['Var_9'] >= 272.96, name='C3')\n    m.addConstr(2.52 * vars['Var_1'] + 7.08 * vars['Var_2'] + 0.45 * vars['Var_3'] + 2.19 * vars['Var_5'] + 8.28 * vars['Var_8'] + 9.83 * vars['Var_9'] >= 218.16, name='C4')\n    m.addConstr(6.87 * vars['Var_0'] + 4.96 * vars['Var_2'] + 2.6 * vars['Var_3'] + 4.32 * vars['Var_4'] + 3.88 * vars['Var_5'] + 5.92 * vars['Var_7'] + 2.56 * vars['Var_8'] >= 129.3, name='C5')\n    m.addConstr(1.96 * vars['Var_0'] + 4.48 * vars['Var_1'] + 6.72 * vars['Var_2'] + 5.41 * vars['Var_4'] + 9.68 * vars['Var_5'] + 0.42 * vars['Var_8'] >= 193.0, name='C6')\n    m.addConstr(6.15 * vars['Var_1'] + 5.15 * vars['Var_2'] + 0.26 * vars['Var_3'] + 1.47 * vars['Var_4'] + 0.22 * vars['Var_6'] + 6.94 * vars['Var_7'] + 5.56 * vars['Var_8'] + 9.29 * vars['Var_9'] >= 220.6, name='C7')\n    m.addConstr(0.81 * vars['Var_0'] + 4.96 * vars['Var_1'] + 5.25 * vars['Var_4'] + 8.95 * vars['Var_5'] + 2.01 * vars['Var_6'] + 6.98 * vars['Var_7'] + 4.37 * vars['Var_9'] >= 181.23, name='C8')\n    m.addConstr(4.29 * vars['Var_0'] + 0.46 * vars['Var_5'] + 6.81 * vars['Var_6'] + 4.42 * vars['Var_7'] >= 57.86, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Quarterly Portfolio Allocation \u2013 Minimize Spend While Hitting All Commitments\n\nTeam,\n\nFor this quarter, our objective is to meet or exceed our mandated service, compliance, and market commitments at the lowest possible total operating cost. Below are the levers we can adjust, their unit costs, caps, and the specific contributions each makes toward our twelve required KPIs.\n\n- Field Repair Crews (Tier A)\n  - Unit cost: 2.00 per crew assignment.\n  - Range: may schedule anywhere from 0 up to 10.95 crew assignments; bookable only in whole assignments.\n  - Impact: each assignment counts 5.66 toward Production Throughput Hours, 6.87 toward Customer Service Resolution Points, 1.96 toward Technical Training Hours, 0.81 toward Environmental Compliance Credits, 4.29 toward Community Events Hosted, 7.25 toward Warranty and Recall Actions Completed, and 5.04 toward the Cybersecurity Hardening Index.\n\n- Mobile Outreach Units\n  - Unit cost: 6.36 per unit deployed.\n  - Range: may deploy from 0 up to 12.98 units; deployable only in whole units.\n  - Impact: each unit counts 3.89 toward Public Safety Outreach Credits, 9.94 toward Production Throughput Hours, 2.52 toward the Regional Coverage Index, 4.48 toward Technical Training Hours, 6.15 toward the Marketing Impressions Index, 4.96 toward Environmental Compliance Credits, and 5.24 toward Warranty and Recall Actions Completed.\n\n- Lean Process Upgrades\n  - Unit cost: 7.97 per upgrade.\n  - Range: may implement from 0 up to 14.93 upgrades; can be dialed in fractional increments.\n  - Impact: each upgrade counts 4.69 toward Public Safety Outreach Credits, 1.43 toward the Internal Safety Audit Score, 6.61 toward Production Throughput Hours, 7.08 toward the Regional Coverage Index, 4.96 toward Customer Service Resolution Points, 6.72 toward Technical Training Hours, and 5.15 toward the Marketing Impressions Index.\n\n- Quality Lab Runs\n  - Unit cost: 8.05 per lab run.\n  - Range: may schedule from 0 up to 6.33 runs; bookable only in whole runs.\n  - Impact: each run counts 3.37 toward the Internal Safety Audit Score, 7.25 toward the Quality Assurance Certification Count, 5.18 toward Production Throughput Hours, 0.45 toward the Regional Coverage Index, 2.6 toward Customer Service Resolution Points, 0.26 toward the Marketing Impressions Index, 7.46 toward Warranty and Recall Actions Completed, and 1.59 toward the Cybersecurity Hardening Index.\n\n- Safety Compliance Workshops\n  - Unit cost: 3.75 per workshop.\n  - Range: may host from 0 up to 7.08 workshops; can be dialed in fractional increments.\n  - Impact: each workshop counts 2.56 toward Public Safety Outreach Credits, 7.74 toward the Internal Safety Audit Score, 4.76 toward the Quality Assurance Certification Count, 5.63 toward Production Throughput Hours, 4.32 toward Customer Service Resolution Points, 5.41 toward Technical Training Hours, 1.47 toward the Marketing Impressions Index, 5.25 toward Environmental Compliance Credits, 8.58 toward Warranty and Recall Actions Completed, and 4.72 toward the Cybersecurity Hardening Index.\n\n- New Equipment Purchases\n  - Unit cost: 9.15 per unit purchased.\n  - Range: may purchase from 0 up to 16.44 units; purchasable only in whole units.\n  - Impact: each unit counts 5.2 toward Public Safety Outreach Credits, 1.35 toward the Quality Assurance Certification Count, 2.19 toward the Regional Coverage Index, 3.88 toward Customer Service Resolution Points, 9.68 toward Technical Training Hours, 8.95 toward Environmental Compliance Credits, 0.46 toward Community Events Hosted, 0.59 toward Warranty and Recall Actions Completed, and 7.26 toward the Cybersecurity Hardening Index.\n\n- Digital Campaign Boosters\n  - Unit cost: 6.74 per booster.\n  - Range: may deploy from 0 up to 6.26 boosters; can be dialed in fractional increments.\n  - Impact: each booster counts 7.61 toward Production Throughput Hours, 0.22 toward the Marketing Impressions Index, 2.01 toward Environmental Compliance Credits, 6.81 toward Community Events Hosted, 1.44 toward Warranty and Recall Actions Completed, and 3.11 toward the Cybersecurity Hardening Index.\n\n- Regional Roadshows\n  - Unit cost: 6.80 per roadshow.\n  - Range: may run from 0 up to 15.33 roadshows; can be dialed in fractional increments.\n  - Impact: each roadshow counts 4.3 toward Public Safety Outreach Credits, 7.48 toward Production Throughput Hours, 5.92 toward Customer Service Resolution Points, 6.94 toward the Marketing Impressions Index, 6.98 toward Environmental Compliance Credits, 4.42 toward Community Events Hosted, 7.3 toward Warranty and Recall Actions Completed, and 8.26 toward the Cybersecurity Hardening Index.\n\n- Green Tech Pilots\n  - Unit cost: 7.82 per pilot.\n  - Range: may launch from 0 up to 6.75 pilots; can be dialed in fractional increments.\n  - Impact: each pilot counts 9.95 toward Public Safety Outreach Credits, 8.25 toward the Quality Assurance Certification Count, 8.28 toward the Regional Coverage Index, 2.56 toward Customer Service Resolution Points, 0.42 toward Technical Training Hours, 5.56 toward the Marketing Impressions Index, 0.17 toward Warranty and Recall Actions Completed, and 7.01 toward the Cybersecurity Hardening Index.\n\n- Customer Loyalty Offers\n  - Unit cost: 1.20 per offer tranche.\n  - Range: may issue from 0 up to 8.52 tranches; can be dialed in fractional increments.\n  - Impact: each tranche counts 1.1 toward Public Safety Outreach Credits, 5.8 toward the Internal Safety Audit Score, 9.23 toward the Quality Assurance Certification Count, 2.94 toward Production Throughput Hours, 9.83 toward the Regional Coverage Index, 9.29 toward the Marketing Impressions Index, 4.37 toward Environmental Compliance Credits, 8.99 toward Warranty and Recall Actions Completed, and 3.79 toward the Cybersecurity Hardening Index.\n\nFacility Specs \u2013 Minimum Commitments for the Quarter\n- Public Safety Outreach Credits: at least 182.43\n- Internal Safety Audit Score: at least 65.93\n- Quality Assurance Certification Count: at least 132.88\n- Production Throughput Hours: at least 272.96\n- Regional Coverage Index: at least 218.16\n- Customer Service Resolution Points: at least 129.3\n- Technical Training Hours: at least 193.0\n- Marketing Impressions Index: at least 220.6\n- Environmental Compliance Credits: at least 181.23\n- Community Events Hosted: at least 57.86\n- Warranty and Recall Actions Completed: at least 192.36\n- Cybersecurity Hardening Index: at least 167.29\n\nPlease prepare the allocation plan that meets or exceeds all of the above commitments at the lowest aggregate cost, while respecting each lever\u2019s cap and whether it can be set in whole units or fractional increments. If you need any clarifications on the definitions of the metrics or the levers, let me know."
+}

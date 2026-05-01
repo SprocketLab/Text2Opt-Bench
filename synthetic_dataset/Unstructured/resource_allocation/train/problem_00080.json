@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource limits (incl. zeros) are explicit; objective is clear. Variable names aren't given, but mapping to 3 product variables is obvious.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Business-email framing adds minor fluff, but bullet details are concise and relevant with minimal repetition.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production mix problem with equipment hours, storage limits, and integer lot-size; data and constraints are plausible."
+    },
+    "prompt_tokens_with_data": 819,
+    "prompt_tokens_without_data": 819
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 66.69857316209931,
+    "optimal_values": {
+      "Var_0": 1.520578420467185,
+      "Var_1": 6.637678228334513,
+      "Var_2": 4.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.23
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 48.3
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 69.8
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 50.64
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.07
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.79
+      ],
+      "objective_linear_coefficient": 8.59,
+      "resource_costs": {
+        "C0": 8.99,
+        "C1": 7.41,
+        "C2": 6.48,
+        "C3": 3.48
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.6
+      ],
+      "objective_linear_coefficient": 2.41,
+      "resource_costs": {
+        "C2": 3.59,
+        "C3": 6.38,
+        "C4": 9.09
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.56
+      ],
+      "objective_linear_coefficient": 9.41,
+      "resource_costs": {
+        "C0": 8.89,
+        "C1": 9.15,
+        "C2": 9.01,
+        "C3": 0.75,
+        "C4": 1.14
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.79, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.59 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.6, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.41 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.56, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.41 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.99 * vars['Var_0'] + 8.89 * vars['Var_2'] <= 49.23, name='C0')\n    m.addConstr(7.41 * vars['Var_0'] + 9.15 * vars['Var_2'] <= 48.3, name='C1')\n    m.addConstr(6.48 * vars['Var_0'] + 3.59 * vars['Var_1'] + 9.01 * vars['Var_2'] <= 69.8, name='C2')\n    m.addConstr(3.48 * vars['Var_0'] + 6.38 * vars['Var_1'] + 0.75 * vars['Var_2'] <= 50.64, name='C3')\n    m.addConstr(9.09 * vars['Var_1'] + 1.14 * vars['Var_2'] <= 65.07, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for production mix recommendation to maximize contribution\n\nTeam,\n\nAs we lock our next scheduling window, I need a recommended production mix that maximizes total contribution while staying within our equipment and handling limits. We have three candidate runs, each drawing on the same pool of blending capacity, heat treatment, fill-line time, lab/sanitation, and cold storage. Details below.\n\n- Citrus Sparkle (specialty run)\n  - Value: contributes 8.59 per production lot.\n  - Flexibility: we can schedule anywhere from 0 up to 13.79 lots, and partial lots are acceptable.\n  - Resource impact per lot:\n    - Blending tank hours: 8.99\n    - Pasteurizer hours: 7.41\n    - Fill line hours: 6.48\n    - Lab/sanitation hours: 3.48\n    - Cold storage: no draw (0)\n  - Notes: No minimum commitment; it\u2019s permissible to do none of this run if capacity is better used elsewhere.\n\n- White-Label Kombucha (co-pack)\n  - Value: contributes 2.41 per production lot.\n  - Flexibility: we can schedule anywhere from 0 up to 16.6 lots, and partial lots are acceptable.\n  - Resource impact per lot:\n    - Fill line hours: 3.59\n    - Lab/sanitation hours: 6.38\n    - Cold storage (pallet equivalents): 9.09\n    - Blending tank hours: no draw (0)\n    - Pasteurizer hours: no draw (0)\n  - Notes: Fermentation is offsite, hence no blending/pasteurizer usage on our end.\n\n- Core Energy Shots (core batch)\n  - Value: contributes 9.41 per production lot.\n  - Flexibility: capped at 17.56 lots by licensing; these must be scheduled in whole lots only (no partial lots).\n  - Resource impact per lot:\n    - Blending tank hours: 8.89\n    - Pasteurizer hours: 9.15\n    - Fill line hours: 9.01\n    - Lab/sanitation hours: 0.75\n    - Cold storage (pallet equivalents): 1.14\n  - Notes: No minimum commitment; acceptable to schedule zero lots if constraints bind.\n\nFacility specs and operating limits for this window (do not exceed):\n- Blending tank availability: up to 49.23 hours total.\n- Pasteurizer availability: up to 48.3 hours total.\n- Fill line availability: up to 69.8 hours total.\n- Lab and sanitation availability: up to 50.64 hours total.\n- Cold storage capacity: up to 65.07 pallet-equivalents total.\n\nPlease come back with the mix that delivers the highest total contribution given the above limits and lot-size rules.\n\nThanks,\nAlicia\nPlant General Manager"
+}

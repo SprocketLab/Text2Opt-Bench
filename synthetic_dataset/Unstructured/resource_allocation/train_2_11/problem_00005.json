@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, and contributions are explicit; 'optional' and 'partial' imply continuous vars with lb=0. Objective is minimize spend; constraints use 'at least' (>=) with zero cross-effects.",
+      "ambiguity": false,
+      "redudancy": 30,
+      "redundancy_comment": "Business-style narrative and repeated 'what it delivers/does not deliver' lines add length, but details are relevant. Moderate verbosity without irrelevant fluff.",
+      "realism": 90,
+      "realism_comment": "Plausible service delivery planning: choose mix of outreach and field deployments to meet coverage and compliance thresholds under availability limits, with per-unit costs."
+    },
+    "prompt_tokens_with_data": 546,
+    "prompt_tokens_without_data": 546
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 59.73628441705854,
+    "optimal_values": {
+      "Var_0": 4.231428571428571,
+      "Var_1": 7.838819523269012
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 69.06
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 14.81
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.19
+      ],
+      "objective_linear_coefficient": 7.3,
+      "resource_costs": {
+        "C1": 3.5
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.87
+      ],
+      "objective_linear_coefficient": 3.68,
+      "resource_costs": {
+        "C0": 8.81
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.19, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.3 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.87, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.68 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.81 * vars['Var_1'] >= 69.06, name='C0')\n    m.addConstr(3.5 * vars['Var_0'] >= 14.81, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix for next cycle\u2019s service delivery\n\nTeam,\n\nWe\u2019re planning the next cycle and want to meet our service obligations at the lowest possible total spend. There are two resourcing options we can deploy, each with its own per\u2011unit cost and contribution to our required service metrics. Our aim is to minimize overall spend while still clearing both minimums described below.\n\nThe levers we can pull\n\n1) Care Outreach Blocks\n- Scope and flexibility: This is optional; we can allocate anywhere from 0.0 up to 13.19 blocks (partial blocks are acceptable).\n- Unit cost: Each block carries a spend of 7.3.\n- What it delivers: Each block contributes 3.5 units toward our Customer Care Compliance requirement.\n- What it does not deliver: This option does not contribute at all to Field Service Coverage.\n\n2) Field Coverage Deployments\n- Scope and flexibility: This is optional; we can allocate anywhere from 0.0 up to 14.87 deployments (partial deployments are acceptable).\n- Unit cost: Each deployment carries a spend of 3.68.\n- What it delivers: Each deployment contributes 8.81 units toward our Field Service Coverage requirement.\n- What it does not deliver: This option does not contribute at all to Customer Care Compliance.\n\nService requirements (minimums we must clear)\n- Field Service Coverage must total at least 69.06 units across the plan.\n- Customer Care Compliance must total at least 14.81 units across the plan.\n\nPlease recommend the least\u2011cost mix of the two options that satisfies both minimums while staying within the stated availability limits."
+}

@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Variables, bounds, integrality, costs, and per-option contributions are clearly given; 'at least' demand constraints and zero contributions are explicit. Minor oddity: integer options have fractional upper bounds.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated 'no contribution' statements add length, but structure is clear and not overly repetitive.",
+      "realism": 92,
+      "realism_comment": "Realistic service capacity planning with options, availability limits, and minimum commitments. Slightly odd fractional availability for integer units, but overall plausible."
+    },
+    "prompt_tokens_with_data": 1165,
+    "prompt_tokens_without_data": 1165
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 204.53540534745687,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 10.99,
+      "Var_2": 12.91,
+      "Var_3": -0.0,
+      "Var_4": -0.0,
+      "Var_5": 8.005056179775284,
+      "Var_6": 2.6512727942530843,
+      "Var_7": 11.600655710212978
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 149.93
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 220.83
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 217.67
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 122.29
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 60.8
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.68
+      ],
+      "objective_linear_coefficient": 4.48,
+      "resource_costs": {
+        "C1": 2.81,
+        "C2": 3.15
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.99
+      ],
+      "objective_linear_coefficient": 5.7,
+      "resource_costs": {
+        "C1": 6.86,
+        "C2": 8.0,
+        "C3": 7.44
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.91
+      ],
+      "objective_linear_coefficient": 2.7,
+      "resource_costs": {
+        "C1": 9.61,
+        "C2": 8.79,
+        "C4": 8.53
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.95
+      ],
+      "objective_linear_coefficient": 8.89,
+      "resource_costs": {
+        "C0": 5.16,
+        "C1": 4.02,
+        "C3": 0.06
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 9.73,
+      "resource_costs": {
+        "C1": 5.49,
+        "C2": 6.25,
+        "C4": 1.02
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.6
+      ],
+      "objective_linear_coefficient": 7.96,
+      "resource_costs": {
+        "C0": 9.02,
+        "C1": 2.67,
+        "C3": 2.84
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.39
+      ],
+      "objective_linear_coefficient": 5.53,
+      "resource_costs": {
+        "C2": 6.44,
+        "C3": 6.71,
+        "C4": 0.39
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.97
+      ],
+      "objective_linear_coefficient": 2.47,
+      "resource_costs": {
+        "C0": 6.7
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.68, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.48 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.99, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.7 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.91, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.7 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.95, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.89 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 9.73 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.6, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.96 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.39, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 5.53 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.97, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 2.47 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.16 * vars['Var_3'] + 9.02 * vars['Var_5'] + 6.7 * vars['Var_7'] >= 149.93, name='C0')\n    m.addConstr(2.81 * vars['Var_0'] + 6.86 * vars['Var_1'] + 9.61 * vars['Var_2'] + 4.02 * vars['Var_3'] + 5.49 * vars['Var_4'] + 2.67 * vars['Var_5'] >= 220.83, name='C1')\n    m.addConstr(3.15 * vars['Var_0'] + 8.0 * vars['Var_1'] + 8.79 * vars['Var_2'] + 6.25 * vars['Var_4'] + 6.44 * vars['Var_6'] >= 217.67, name='C2')\n    m.addConstr(7.44 * vars['Var_1'] + 0.06 * vars['Var_3'] + 2.84 * vars['Var_5'] + 6.71 * vars['Var_6'] >= 122.29, name='C3')\n    m.addConstr(8.53 * vars['Var_2'] + 1.02 * vars['Var_4'] + 0.39 * vars['Var_6'] >= 60.8, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix to Meet Service Commitments Across Five Lines\n\nTeam,\n\nWe need to assemble a lowest-cost portfolio of service capacity to meet our contractual and regulatory commitments across five lines of work this period: Emergency Coverage, Preventive Maintenance, New Installations, Quality Inspections, and Warranty Support. Each option below can be deployed within its availability limits and contributes specific amounts of capacity to those lines. Our goal is to minimize total spend while meeting the minimum commitments stated at the end of this memo.\n\nThe levers we can use\n\n- Community Maintenance Squads (whole squads only)\n  \u2022 Cost: 4.48 per squad deployed.  \n  \u2022 Availability: we may deploy anywhere from 0 up to 17.68 squads; squads must be booked in whole units.  \n  \u2022 Impact: each squad provides 2.81 units toward Preventive Maintenance and 3.15 units toward New Installations. These squads do not contribute to Emergency Coverage, Quality Inspections, or Warranty Support.\n\n- Regional Flex Technicians (scalable hours)\n  \u2022 Cost: 5.70 per block of capacity.  \n  \u2022 Availability: anywhere from 0 up to 10.99 blocks; can be fractional.  \n  \u2022 Impact: each block delivers 6.86 units of Preventive Maintenance, 8.00 units of New Installations, and 7.44 units of Quality Inspections. No contribution to Emergency Coverage or Warranty Support.\n\n- Outsourced Preventive Pods (scalable hours)\n  \u2022 Cost: 2.70 per block of capacity.  \n  \u2022 Availability: anywhere from 0 up to 12.91 blocks; can be fractional.  \n  \u2022 Impact: each block adds 9.61 units to Preventive Maintenance, 8.79 units to New Installations, and 8.53 units to Warranty Support. No contribution to Emergency Coverage or Quality Inspections.\n\n- Emergency Response Teams (whole teams only)\n  \u2022 Cost: 8.89 per team deployed.  \n  \u2022 Availability: anywhere from 0 up to 6.95 teams; teams must be booked in whole units.  \n  \u2022 Impact: each team contributes 5.16 units to Emergency Coverage, 4.02 units to Preventive Maintenance, and 0.06 units to Quality Inspections. No contribution to New Installations or Warranty Support.\n\n- Premium Installation Contractors (whole crews only)\n  \u2022 Cost: 9.73 per crew deployed.  \n  \u2022 Availability: anywhere from 0 up to 9.00 crews; crews must be booked in whole units.  \n  \u2022 Impact: each crew supplies 5.49 units of Preventive Maintenance, 6.25 units of New Installations, and 1.02 units of Warranty Support. No contribution to Emergency Coverage or Quality Inspections.\n\n- Rapid Response Packages (scalable hours)\n  \u2022 Cost: 7.96 per package.  \n  \u2022 Availability: anywhere from 0 up to 13.60 packages; can be fractional.  \n  \u2022 Impact: each package yields 9.02 units of Emergency Coverage, 2.67 units of Preventive Maintenance, and 2.84 units of Quality Inspections. No contribution to New Installations or Warranty Support.\n\n- Quality & Retrofit Specialists (scalable hours)\n  \u2022 Cost: 5.53 per block of capacity.  \n  \u2022 Availability: anywhere from 0 up to 10.39 blocks; can be fractional.  \n  \u2022 Impact: each block contributes 6.44 units to New Installations, 6.71 units to Quality Inspections, and 0.39 units to Warranty Support. No contribution to Emergency Coverage or Preventive Maintenance.\n\n- Night Emergency Cover (scalable hours)\n  \u2022 Cost: 2.47 per block of capacity.  \n  \u2022 Availability: anywhere from 0 up to 13.97 blocks; can be fractional.  \n  \u2022 Impact: each block supplies 6.70 units of Emergency Coverage only. No contribution to Preventive Maintenance, New Installations, Quality Inspections, or Warranty Support.\n\nMarket limits and minimum commitments\n\n- Emergency Coverage: at least 149.93 units must be delivered.  \n- Preventive Maintenance: at least 220.83 units must be delivered.  \n- New Installations: at least 217.67 units must be delivered.  \n- Quality Inspections: at least 122.29 units must be delivered.  \n- Warranty Support: at least 60.80 units must be delivered.\n\nPlease use the above as the basis for identifying the least expensive mix that satisfies all minimums without exceeding the stated availability for each option."
+}

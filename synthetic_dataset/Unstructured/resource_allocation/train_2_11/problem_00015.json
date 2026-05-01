@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "Numbers, bounds, and inequality directions are clearly stated. Objective is minimize total run cost. Variables are continuous with 0\u2013UB bounds. Coefficients map directly to constraints (including zero noise for Blue Ridge).",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Contains narrative/context and explanations; not repetitive. Extra wording beyond the math but mostly helpful.",
+      "realism": 92,
+      "realism_comment": "Plausible operational planning with coverage/community/noise floors and cost minimization; coefficients and bounds make sense."
+    },
+    "prompt_tokens_with_data": 651,
+    "prompt_tokens_without_data": 651
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 103.6197470468155,
+    "optimal_values": {
+      "Var_0": 8.487713873675213,
+      "Var_1": 4.870451376821144
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 62.68
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -47.46
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -33.28
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.19
+      ],
+      "objective_linear_coefficient": 6.82,
+      "resource_costs": {
+        "C0": 5.21,
+        "C1": -5.89
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.79
+      ],
+      "objective_linear_coefficient": 9.39,
+      "resource_costs": {
+        "C0": 3.79,
+        "C1": 0.52,
+        "C2": -5.49
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.19, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.79, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.39 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.21 * vars['Var_0'] + 3.79 * vars['Var_1'] >= 62.68, name='C0')\n    m.addConstr(-5.89 * vars['Var_0'] + 0.52 * vars['Var_1'] >= -47.46, name='C1')\n    m.addConstr(-5.49 * vars['Var_1'] >= -33.28, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the cost-minimizing mix for coverage, community impact, and noise buffer\n\nTeam,\n\nWe need to set the operating plan for this cycle with a clear aim: cover our service and output commitments at the lowest total run cost while staying within our community and noise parameters. We can scale both workstreams in fractional hours, but neither can be negative; each has an upper limit given our staffing and equipment availability.\n\nLevers under consideration\n\n- Blue Ridge Line (hours scheduled)\n  - Run cost: 6.82 per hour.\n  - Contribution to Output Coverage: adds 5.21 coverage units for every hour we run.\n  - Community Impact Balance: erodes the balance by 5.89 points per hour (i.e., a negative pull on the balance).\n  - Noise Buffer: no measurable effect; running this line does not change the buffer.\n  - Operating window: anywhere from 0 up to 13.19 hours this cycle.\n\n- Emerald Shift (hours scheduled)\n  - Run cost: 9.39 per hour.\n  - Contribution to Output Coverage: adds 3.79 coverage units per hour.\n  - Community Impact Balance: improves the balance by 0.52 points per hour (a positive push).\n  - Noise Buffer: draws down the buffer by 5.49 points per hour (i.e., reduces the remaining buffer).\n  - Operating window: anywhere from 0 up to 16.79 hours this cycle.\n\nFacility specs and compliance floors\n\n- Output Coverage: we must achieve at least 62.68 coverage units in total across the mix.\n- Community Impact Balance: the net balance must be no worse than \u221247.46 points (we can tolerate deficit down to that floor but not beyond).\n- Noise Buffer: the net buffer must be no worse than \u221233.28 points (cannot let the buffer drop below that level).\n\nPlease structure the schedule of Blue Ridge Line and Emerald Shift within their respective maximums to minimize total operating spend while meeting the output coverage, community impact, and noise buffer floors above. Let me know if you need any additional context on the definitions of coverage units or balance scoring."
+}

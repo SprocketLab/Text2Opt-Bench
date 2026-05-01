@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-product profit, bounds (incl. integrality), and resource usage; caps stated as 'up to' for each resource. A human can build the exact LP/MIP mechanically.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds fluff; details repeated per item and again in caps list. Still clear and structured.",
+      "realism": 92,
+      "realism_comment": "Believable brewery production planning with plausible resources and caps; slight oddity (e.g., 17.51 integer bound, 'credits') but overall realistic."
+    },
+    "prompt_tokens_with_data": 1166,
+    "prompt_tokens_without_data": 1166
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 263.5609943144654,
+    "optimal_values": {
+      "Var_0": 5.0,
+      "Var_1": 6.36616352201258,
+      "Var_2": 7.237598742138361,
+      "Var_3": 12.52,
+      "Var_4": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 166.41
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 1.23
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 44.63
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 180.62
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 175.42
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 61.64
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 109.87
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 8.03,
+      "resource_costs": {
+        "C0": 7.11,
+        "C2": 6.19,
+        "C3": 6.53,
+        "C4": 5.81,
+        "C6": 0.57
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.58
+      ],
+      "objective_linear_coefficient": 7.41,
+      "resource_costs": {
+        "C0": 3.96,
+        "C1": 0.06,
+        "C3": 5.07,
+        "C4": 9.54,
+        "C6": 4.96
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.93
+      ],
+      "objective_linear_coefficient": 4.28,
+      "resource_costs": {
+        "C0": 6.0,
+        "C3": 0.39,
+        "C5": 6.01,
+        "C6": 4.03
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.52
+      ],
+      "objective_linear_coefficient": 8.04,
+      "resource_costs": {
+        "C0": 4.97,
+        "C3": 5.14,
+        "C4": 6.84
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.51
+      ],
+      "objective_linear_coefficient": 8.92,
+      "resource_costs": {
+        "C3": 9.54,
+        "C5": 3.18,
+        "C6": 6.31
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.03 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.58, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.41 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.93, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.28 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.52, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.04 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.51, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 8.92 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.11 * vars['Var_0'] + 3.96 * vars['Var_1'] + 6.0 * vars['Var_2'] + 4.97 * vars['Var_3'] <= 166.41, name='C0')\n    m.addConstr(0.06 * vars['Var_1'] <= 1.23, name='C1')\n    m.addConstr(6.19 * vars['Var_0'] <= 44.63, name='C2')\n    m.addConstr(6.53 * vars['Var_0'] + 5.07 * vars['Var_1'] + 0.39 * vars['Var_2'] + 5.14 * vars['Var_3'] + 9.54 * vars['Var_4'] <= 180.62, name='C3')\n    m.addConstr(5.81 * vars['Var_0'] + 9.54 * vars['Var_1'] + 6.84 * vars['Var_3'] <= 175.42, name='C4')\n    m.addConstr(6.01 * vars['Var_2'] + 3.18 * vars['Var_4'] <= 61.64, name='C5')\n    m.addConstr(0.57 * vars['Var_0'] + 4.96 * vars['Var_1'] + 4.03 * vars['Var_2'] + 6.31 * vars['Var_4'] <= 109.87, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposal for Maximizing Portfolio Contribution Within Q1 Operating Limits\n\nTeam,\n\nAs we finalize the Q1 production slate, our goal is to maximize total contribution while respecting facility capacities and market constraints. Below is the proposed framing of each run category and how it taps our scarce resources. Two of the offerings must be scheduled in whole runs; the others may be dialed up or down continuously.\n\n- Skyline Pilsner (core lager runs)\n  - Economic impact: each run adds 8.03 units of contribution.\n  - Planning bounds: can be scheduled only in whole runs, anywhere from 0 up to 8 runs this quarter.\n  - Resource footprint per run:\n    - Brewhouse A time: 7.11 hours.\n    - Labeling/Compliance allowance: no draw.\n    - Freshwater allocation: 6.19 units.\n    - Packaging Line K time: 6.53 hours.\n    - Premium ingredients (specialty hops & malt): 5.81 units.\n    - Cold storage: no use.\n    - Outbound logistics credits: 0.57 units.\n\n- Harbor Amber (amber ale runs)\n  - Economic impact: each run adds 7.41 units of contribution.\n  - Planning bounds: can be scheduled from 0 up to 9.58 runs; partial runs are acceptable.\n  - Resource footprint per run:\n    - Brewhouse A time: 3.96 hours.\n    - Labeling/Compliance allowance: 0.06 units.\n    - Freshwater allocation: no additional draw.\n    - Packaging Line K time: 5.07 hours.\n    - Premium ingredients: 9.54 units.\n    - Cold storage: no use.\n    - Outbound logistics credits: 4.96 units.\n\n- Citrus Session (session ale runs)\n  - Economic impact: each run adds 4.28 units of contribution.\n  - Planning bounds: can be scheduled from 0 up to 12.93 runs; partial runs are acceptable.\n  - Resource footprint per run:\n    - Brewhouse A time: 6.00 hours.\n    - Labeling/Compliance allowance: no draw.\n    - Freshwater allocation: no additional draw (contract brewing arrangement covers water).\n    - Packaging Line K time: 0.39 hours.\n    - Premium ingredients: no use of the premium pool.\n    - Cold storage: 6.01 units.\n    - Outbound logistics credits: 4.03 units.\n\n- Barrel-Aged Reserve (reserve series runs)\n  - Economic impact: each run adds 8.04 units of contribution.\n  - Planning bounds: can be scheduled from 0 up to 12.52 runs; partial runs are acceptable.\n  - Resource footprint per run:\n    - Brewhouse A time: 4.97 hours.\n    - Labeling/Compliance allowance: no draw.\n    - Freshwater allocation: no additional draw.\n    - Packaging Line K time: 5.14 hours.\n    - Premium ingredients: 6.84 units.\n    - Cold storage: no use.\n    - Outbound logistics credits: no use.\n\n- Limited Release IPA (seasonal IPA runs)\n  - Economic impact: each run adds 8.92 units of contribution.\n  - Planning bounds: can be scheduled only in whole runs, anywhere from 0 up to 17.51 runs this quarter.\n  - Resource footprint per run:\n    - Brewhouse A time: no use (wort supplied offsite).\n    - Labeling/Compliance allowance: no draw.\n    - Freshwater allocation: no additional draw.\n    - Packaging Line K time: 9.54 hours.\n    - Premium ingredients: no use of the premium pool at our site.\n    - Cold storage: 3.18 units.\n    - Outbound logistics credits: 6.31 units.\n\nFacility and Market Limits (Q1 caps not to be exceeded)\n- Brewhouse A time: up to 166.41 hours across all runs.\n- Labeling/Compliance allowance: up to 1.23 units total.\n- Freshwater allocation: up to 44.63 units total.\n- Packaging Line K time: up to 180.62 hours total.\n- Premium ingredients pool: up to 175.42 units total.\n- Cold storage: up to 61.64 units total.\n- Outbound logistics credits: up to 109.87 units total.\n\nPlease review. With these levers and limits, we can set the mix to maximize our overall contribution while staying within our operational and regulatory envelopes. I\u2019ll circulate a recommended schedule once I\u2019ve run the portfolio through our planning model."
+}

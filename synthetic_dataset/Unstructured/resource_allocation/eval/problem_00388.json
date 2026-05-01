@@ -1,0 +1,196 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All contributions, bounds, integrality, and resource usages (including zeros) are explicit; capacities clearly stated; objective is maximize contribution. Model is reconstructable exactly.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Some narrative and repeated phrasing add length, but bullet lists precisely convey needed data, including explicit zeros for unused resources.",
+      "realism": 95,
+      "realism_comment": "Highly plausible production-planning MIP with realistic constraints and resources; only minor oddity is non-integer upper bounds for integer items."
+    },
+    "prompt_tokens_with_data": 1462,
+    "prompt_tokens_without_data": 1462
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 225.66485236890105,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 7.0,
+      "Var_2": 11.968503937007872,
+      "Var_3": 5.6046950766776975,
+      "Var_4": 0.0,
+      "Var_5": 3.0,
+      "Var_6": 1.677996528876054,
+      "Var_7": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 86.91
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 116.11
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 88.36
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 105.92
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.14
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 148.05
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 99.63
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.32
+      ],
+      "objective_linear_coefficient": 4.08,
+      "resource_costs": {
+        "C0": 5.64,
+        "C1": 4.17,
+        "C2": 3.31,
+        "C4": 4.42,
+        "C6": 9.68
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.92
+      ],
+      "objective_linear_coefficient": 6.16,
+      "resource_costs": {
+        "C0": 3.6,
+        "C1": 0.19,
+        "C5": 4.34
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.47
+      ],
+      "objective_linear_coefficient": 8.27,
+      "resource_costs": {
+        "C0": 2.29,
+        "C1": 3.69,
+        "C2": 2.36,
+        "C3": 1.76,
+        "C5": 6.42,
+        "C6": 7.62
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.14
+      ],
+      "objective_linear_coefficient": 8.8,
+      "resource_costs": {
+        "C1": 8.42,
+        "C2": 8.59,
+        "C3": 9.56,
+        "C5": 0.67
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.84
+      ],
+      "objective_linear_coefficient": 2.7,
+      "resource_costs": {
+        "C1": 6.08,
+        "C2": 5.86,
+        "C3": 9.78,
+        "C4": 3.42,
+        "C5": 5.48,
+        "C6": 5.28
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.96
+      ],
+      "objective_linear_coefficient": 6.28,
+      "resource_costs": {
+        "C0": 8.34,
+        "C1": 2.64,
+        "C2": 3.99,
+        "C3": 2.43,
+        "C5": 9.88,
+        "C6": 2.81
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.84
+      ],
+      "objective_linear_coefficient": 9.18,
+      "resource_costs": {
+        "C0": 5.14,
+        "C1": 9.24,
+        "C3": 1.89,
+        "C4": 3.5,
+        "C5": 1.61
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.94
+      ],
+      "objective_linear_coefficient": 1.23,
+      "resource_costs": {
+        "C1": 5.36,
+        "C3": 3.16,
+        "C5": 6.68,
+        "C6": 3.8
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.32, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.08 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.92, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.16 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.47, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.27 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.14, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.8 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.84, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.7 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.96, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 6.28 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=6.84, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 9.18 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=19.94, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 1.23 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.64 * vars['Var_0'] + 3.6 * vars['Var_1'] + 2.29 * vars['Var_2'] + 8.34 * vars['Var_5'] + 5.14 * vars['Var_6'] <= 86.91, name='C0')\n    m.addConstr(4.17 * vars['Var_0'] + 0.19 * vars['Var_1'] + 3.69 * vars['Var_2'] + 8.42 * vars['Var_3'] + 6.08 * vars['Var_4'] + 2.64 * vars['Var_5'] + 9.24 * vars['Var_6'] + 5.36 * vars['Var_7'] <= 116.11, name='C1')\n    m.addConstr(3.31 * vars['Var_0'] + 2.36 * vars['Var_2'] + 8.59 * vars['Var_3'] + 5.86 * vars['Var_4'] + 3.99 * vars['Var_5'] <= 88.36, name='C2')\n    m.addConstr(1.76 * vars['Var_2'] + 9.56 * vars['Var_3'] + 9.78 * vars['Var_4'] + 2.43 * vars['Var_5'] + 1.89 * vars['Var_6'] + 3.16 * vars['Var_7'] <= 105.92, name='C3')\n    m.addConstr(4.42 * vars['Var_0'] + 3.42 * vars['Var_4'] + 3.5 * vars['Var_6'] <= 29.14, name='C4')\n    m.addConstr(4.34 * vars['Var_1'] + 6.42 * vars['Var_2'] + 0.67 * vars['Var_3'] + 5.48 * vars['Var_4'] + 9.88 * vars['Var_5'] + 1.61 * vars['Var_6'] + 6.68 * vars['Var_7'] <= 148.05, name='C5')\n    m.addConstr(9.68 * vars['Var_0'] + 7.62 * vars['Var_2'] + 5.28 * vars['Var_4'] + 2.81 * vars['Var_5'] + 3.8 * vars['Var_7'] <= 99.63, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Q2 Mix to Maximize Contribution Under Facility Limits\n\nTeam,\n\nWe\u2019re planning the Q2 production and rollout mix across eight offerings, with the aim of maximizing total contribution. Each option uses different combinations of plant hours, raw inputs, storage space, distribution dollars, and environmental allowance, and a few must be scheduled in whole units. Below is the detail you\u2019ll need to recommend the best mix.\n\n- Classic Foundation Kits (whole units only)\n  \u2022 Each kit adds 4.08 to contribution.\n  \u2022 We can schedule anywhere from zero up to 9.32 kits, but kits must be whole units.\n  \u2022 Per kit, this draws 5.64 hours on Assembly Cell A, 4.17 units of composite feedstock M, and 3.31 chiller throughput slots.\n  \u2022 Storage is material: 4.42 rack-space units in Warehouse Bay 4 per kit.\n  \u2022 Environmental impact allowance usage is 9.68 units per kit.\n  \u2022 This option does not draw Finishing & QA hours or distribution budget.\n\n- Premium Starter Packs (whole units only)\n  \u2022 Each pack adds 6.16 to contribution.\n  \u2022 We may plan between zero and 7.92 packs, in whole units only.\n  \u2022 Per pack, this uses 3.6 Assembly Cell A hours and a very small 0.19 of composite feedstock M.\n  \u2022 Distribution & launch budget usage is 4.34 per pack.\n  \u2022 No chiller, Finishing & QA, Warehouse Bay 4 space, or environmental allowance draw for this pack.\n\n- Bulk Refill Drums (fractional throughput allowed)\n  \u2022 Each drum adds 8.27 to contribution.\n  \u2022 We can set volume anywhere from zero up to 16.47 drums, including fractional volumes.\n  \u2022 Per drum, usage includes 2.29 Assembly Cell A hours, 3.69 of composite feedstock M, and 2.36 chiller throughput slots.\n  \u2022 Finishing & QA labor requirements are 1.76 hours per drum.\n  \u2022 Distribution & launch budget draw is 6.42 per drum.\n  \u2022 Environmental impact allowance draw is 7.62 per drum.\n  \u2022 No Warehouse Bay 4 storage needed for drums.\n\n- Specialty Blend Lots (fractional batch sizing allowed)\n  \u2022 Each lot adds 8.8 to contribution.\n  \u2022 We can plan between zero and 16.14 lots, including fractional lots.\n  \u2022 Per lot, this consumes 8.42 of composite feedstock M and 8.59 chiller throughput slots.\n  \u2022 Finishing & QA labor is significant at 9.56 hours per lot.\n  \u2022 Distribution & launch budget usage is modest at 0.67 per lot.\n  \u2022 No Assembly Cell A hours, Warehouse Bay 4 space, or environmental allowance required for this lot.\n\n- Eco-Series Modules (fractional lot sizing allowed)\n  \u2022 Each module adds 2.7 to contribution.\n  \u2022 We may schedule between zero and 14.84 modules, including fractional modules.\n  \u2022 Per module, this draws 6.08 of composite feedstock M and 5.86 chiller throughput slots.\n  \u2022 Finishing & QA labor comes to 9.78 hours per module.\n  \u2022 Warehouse Bay 4 storage is 3.42 rack-space units per module.\n  \u2022 Distribution & launch budget usage is 5.48 per module.\n  \u2022 Environmental impact allowance draw is 5.28 per module.\n  \u2022 No Assembly Cell A hours needed for modules.\n\n- Contract Manufacturing Runs (whole runs only)\n  \u2022 Each run adds 6.28 to contribution.\n  \u2022 We can schedule from zero up to 16.96 runs, in whole runs only.\n  \u2022 Per run, this uses 8.34 Assembly Cell A hours, 2.64 of composite feedstock M, and 3.99 chiller throughput slots.\n  \u2022 Finishing & QA labor is 2.43 hours per run.\n  \u2022 Distribution & launch budget usage is 9.88 per run.\n  \u2022 Environmental impact allowance draw is 2.81 per run.\n  \u2022 No Warehouse Bay 4 storage required.\n\n- Express Custom Jobs (fractional sizing allowed)\n  \u2022 Each job adds 9.18 to contribution.\n  \u2022 We can plan anywhere from zero to 6.84 jobs, including fractional jobs.\n  \u2022 Per job, this draws 5.14 Assembly Cell A hours and 9.24 of composite feedstock M.\n  \u2022 Finishing & QA labor is 1.89 hours per job.\n  \u2022 Warehouse Bay 4 storage is 3.5 rack-space units per job.\n  \u2022 Distribution & launch budget usage is 1.61 per job.\n  \u2022 No chiller usage or environmental allowance draw for these jobs.\n\n- Aftermarket Accessories (fractional production allowed)\n  \u2022 Each bundle adds 1.23 to contribution.\n  \u2022 We may plan between zero and 19.94 bundles, including fractional bundles.\n  \u2022 Per bundle, this draws 5.36 of composite feedstock M.\n  \u2022 Finishing & QA labor is 3.16 hours per bundle.\n  \u2022 Distribution & launch budget usage is 6.68 per bundle.\n  \u2022 Environmental impact allowance draw is 3.8 per bundle.\n  \u2022 No Assembly Cell A hours, chiller slots, or Warehouse Bay 4 storage required.\n\nFacility Specs & Market Limits (do not exceed):\n- Assembly Cell A is limited to 86.91 hours this period.\n- Composite feedstock M is limited to 116.11 total units.\n- Chiller throughput is capped at 88.36 slots.\n- Finishing & QA labor is capped at 105.92 hours.\n- Warehouse Bay 4 has 29.14 rack-space units available.\n- Distribution & launch budget is limited to 148.05 in total.\n- Environmental impact allowance is capped at 99.63 units.\n\nPlease use this to recommend the precise mix that maximizes our total contribution while staying within these facility and market limits."
+}

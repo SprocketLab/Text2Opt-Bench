@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, and capacities are clearly specified; linear objective and <= constraints are unambiguous. Only variable type/name not explicit, though continuity is implied.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative email style with repeated 'no draw' notes; somewhat verbose but all details directly map to model coefficients and capacities.",
+      "realism": 98,
+      "realism_comment": "Authentic production planning with plausible resources, capacities, and contributions; constraints reflect real operational limits."
+    },
+    "prompt_tokens_with_data": 886,
+    "prompt_tokens_without_data": 886
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 90.12149867107968,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 11.889273356401384,
+      "Var_2": 6.601449275362319
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 18.22
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 66.3
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.67
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 68.72
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 6.33
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 8.4
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.95
+      ],
+      "objective_linear_coefficient": 4.59,
+      "resource_costs": {
+        "C1": 2.28,
+        "C2": 7.06,
+        "C3": 8.64,
+        "C5": 0.96
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.49
+      ],
+      "objective_linear_coefficient": 5.72,
+      "resource_costs": {
+        "C3": 5.78
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.82
+      ],
+      "objective_linear_coefficient": 3.35,
+      "resource_costs": {
+        "C0": 2.76,
+        "C1": 8.69,
+        "C4": 0.69
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.95, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.59 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.49, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.72 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.82, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.35 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.76 * vars['Var_2'] <= 18.22, name='C0')\n    m.addConstr(2.28 * vars['Var_0'] + 8.69 * vars['Var_2'] <= 66.3, name='C1')\n    m.addConstr(7.06 * vars['Var_0'] <= 42.67, name='C2')\n    m.addConstr(8.64 * vars['Var_0'] + 5.78 * vars['Var_1'] <= 68.72, name='C3')\n    m.addConstr(0.69 * vars['Var_2'] <= 6.33, name='C4')\n    m.addConstr(0.96 * vars['Var_0'] <= 8.4, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix decision for the upcoming run \u2013 request to maximize total contribution within plant limits\n\nTeam,\n\nFor the upcoming production window, we want to set the product mix that maximizes our total gross contribution while staying within the plant\u2019s staffing, materials, line time, and compliance constraints. Below are the levers we can pull and the limits we must respect.\n\nWhat we can make and how each option uses our resources:\n- Cranberry Sparkle (glass bottles)\n  - Financials and volume: This line contributes 4.59 per kiloliter of finished beverage. We may choose to produce none or as much as 6.95 kL this period.\n  - How it uses resources, per kL produced:\n    - Blending crew hours: draws 2.28 hours.\n    - 12-micron shrink film reels: consumes 7.06 reels for multipack wrapping.\n    - Carbonation & Filling Line B time: requires 8.64 machine-hours.\n    - Type-X crown caps: uses 0.96 pallet-equivalents.\n    - Botanical compliance certificates: no draw.\n    - Allergen-controlled cold storage: no draw.\n\n- Citrus Lift (cans)\n  - Financials and volume: This line contributes 5.72 per kiloliter. We may choose to produce none or as much as 13.49 kL this period.\n  - How it uses resources, per kL produced:\n    - Carbonation & Filling Line B time: requires 5.78 machine-hours.\n    - Blending crew hours: no draw.\n    - 12-micron shrink film reels: no draw.\n    - Botanical compliance certificates: no draw.\n    - Allergen-controlled cold storage: no draw.\n    - Type-X crown caps: no draw.\n\n- Ginger Calm (allergen-controlled, glass-free line)\n  - Financials and volume: This line contributes 3.35 per kiloliter. We may choose to produce none or as much as 17.82 kL this period.\n  - How it uses resources, per kL produced:\n    - Botanical compliance certificates (for ginger/botanical sourcing): draws 2.76 certificate units.\n    - Blending crew hours: draws 8.69 hours.\n    - Allergen-controlled cold storage: uses 0.69 rack-day equivalents.\n    - 12-micron shrink film reels: no draw.\n    - Carbonation & Filling Line B time: no draw.\n    - Type-X crown caps: no draw.\n\nFacility specs and period limits we cannot exceed:\n- Botanical compliance certificates available for the period: 18.22 units.\n- Blending crew hours available: 66.3 hours.\n- 12-micron shrink film reels available: 42.67 reels.\n- Carbonation & Filling Line B time available: 68.72 machine-hours.\n- Allergen-controlled cold storage capacity: 6.33 rack-day equivalents.\n- Type-X crown caps available: 8.4 pallet-equivalents.\n\nPlease use the above to determine the production plan that delivers the highest total gross contribution while staying at or under these limits. If any assumption needs clarification (e.g., per-kL draws, caps on maximum run sizes, or the availability figures), let me know so we can lock the schedule."
+}

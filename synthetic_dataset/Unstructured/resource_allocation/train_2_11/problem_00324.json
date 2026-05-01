@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and KPI minima are explicitly specified; objective is clear. Mapping from levers to KPIs is unambiguous; nonnegativity and caps are clear.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some corporate narrative and repeated phrasing, but most content is structured and necessary to define the LP.",
+      "realism": 95,
+      "realism_comment": "A plausible service-mix capacity planning model with KPI minimums, costs, and caps; aligns well with real resource allocation."
+    },
+    "prompt_tokens_with_data": 1209,
+    "prompt_tokens_without_data": 1209
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 124.53128147936744,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 11.358521415332216,
+      "Var_2": 0.0,
+      "Var_3": 7.34,
+      "Var_4": 14.816378956922513,
+      "Var_5": 4.318321076925569,
+      "Var_6": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 74.94
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.88
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 183.87
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 56.66
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.14
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 195.34
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 173.78
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.16
+      ],
+      "objective_linear_coefficient": 5.94,
+      "resource_costs": {
+        "C0": 3.54,
+        "C1": 4.23,
+        "C2": 7.54,
+        "C6": 2.11
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.71
+      ],
+      "objective_linear_coefficient": 2.19,
+      "resource_costs": {
+        "C1": 0.3,
+        "C2": 4.87,
+        "C3": 2.03,
+        "C4": 9.37,
+        "C5": 3.81,
+        "C6": 9.67
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.01
+      ],
+      "objective_linear_coefficient": 2.35,
+      "resource_costs": {
+        "C0": 3.16,
+        "C1": 4.6,
+        "C6": 2.33
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.34
+      ],
+      "objective_linear_coefficient": 4.52,
+      "resource_costs": {
+        "C0": 2.68,
+        "C1": 1.15,
+        "C2": 5.13,
+        "C3": 5.64,
+        "C4": 1.6,
+        "C5": 9.94,
+        "C6": 4.66
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.96
+      ],
+      "objective_linear_coefficient": 3.63,
+      "resource_costs": {
+        "C0": 3.5,
+        "C1": 2.41,
+        "C2": 8.01,
+        "C3": 3.47,
+        "C4": 2.36,
+        "C5": 3.36,
+        "C6": 6.65
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.28
+      ],
+      "objective_linear_coefficient": 2.94,
+      "resource_costs": {
+        "C0": 0.79,
+        "C1": 7.98,
+        "C2": 4.44,
+        "C5": 6.79
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.18
+      ],
+      "objective_linear_coefficient": 6.08,
+      "resource_costs": {
+        "C0": 3.9,
+        "C2": 8.2,
+        "C4": 8.38,
+        "C5": 7.94,
+        "C6": 6.17
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.16, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.94 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.71, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.19 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.01, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.35 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.34, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.52 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.96, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.63 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.28, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.94 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=17.18, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.08 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.54 * vars['Var_0'] + 3.16 * vars['Var_2'] + 2.68 * vars['Var_3'] + 3.5 * vars['Var_4'] + 0.79 * vars['Var_5'] + 3.9 * vars['Var_6'] >= 74.94, name='C0')\n    m.addConstr(4.23 * vars['Var_0'] + 0.3 * vars['Var_1'] + 4.6 * vars['Var_2'] + 1.15 * vars['Var_3'] + 2.41 * vars['Var_4'] + 7.98 * vars['Var_5'] >= 64.88, name='C1')\n    m.addConstr(7.54 * vars['Var_0'] + 4.87 * vars['Var_1'] + 5.13 * vars['Var_3'] + 8.01 * vars['Var_4'] + 4.44 * vars['Var_5'] + 8.2 * vars['Var_6'] >= 183.87, name='C2')\n    m.addConstr(2.03 * vars['Var_1'] + 5.64 * vars['Var_3'] + 3.47 * vars['Var_4'] >= 56.66, name='C3')\n    m.addConstr(9.37 * vars['Var_1'] + 1.6 * vars['Var_3'] + 2.36 * vars['Var_4'] + 8.38 * vars['Var_6'] >= 153.14, name='C4')\n    m.addConstr(3.81 * vars['Var_1'] + 9.94 * vars['Var_3'] + 3.36 * vars['Var_4'] + 6.79 * vars['Var_5'] + 7.94 * vars['Var_6'] >= 195.34, name='C5')\n    m.addConstr(2.11 * vars['Var_0'] + 9.67 * vars['Var_1'] + 2.33 * vars['Var_2'] + 4.66 * vars['Var_3'] + 6.65 * vars['Var_4'] + 6.17 * vars['Var_6'] >= 173.78, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Configure our Q1 service mix to meet minimum commitments at lowest run\u2011rate\n\nTeam,\n\nAs we finalize our Q1 plan, we need to configure a mix of seven operational levers so that we meet or exceed our baseline obligations across seven KPI categories, while minimizing total run\u2011rate cost.\n\nBelow are the levers we can pull this quarter. For each, I\u2019ve noted the per\u2011unit run\u2011rate, the practical operating range we have available (we can deploy anywhere from zero up to the stated cap this period), and how each unit contributes to our KPI baselines.\n\n1) Blue Team Field Shifts\n- Run\u2011rate: 5.94 per shift\n- Available range this period: 0 to 8.16 shifts\n- Per\u2011shift contributions:\n  - Core Coverage: +3.54 credits\n  - Customer Engagement: +4.23 credits\n  - Resolution: +7.54 credits\n  - Compliance & Assurance: +2.11 credits\n\n2) Silver Desk Agents\n- Run\u2011rate: 2.19 per agent\u2011day\n- Available range this period: 0 to 17.71 agent\u2011days\n- Per\u2011agent\u2011day contributions:\n  - Customer Engagement: +0.3 credits\n  - Resolution: +4.87 credits\n  - Rapid Response: +2.03 credits\n  - Onsite Execution: +9.37 credits\n  - Preventive Service: +3.81 credits\n  - Compliance & Assurance: +9.67 credits\n\n3) Green Mobile Pods\n- Run\u2011rate: 2.35 per unit\u2011day\n- Available range this period: 0 to 16.01 unit\u2011days\n- Per\u2011unit\u2011day contributions:\n  - Core Coverage: +3.16 credits\n  - Customer Engagement: +4.6 credits\n  - Compliance & Assurance: +2.33 credits\n\n4) Crimson Response Units\n- Run\u2011rate: 4.52 per unit\u2011day\n- Available range this period: 0 to 7.34 unit\u2011days\n- Per\u2011unit\u2011day contributions:\n  - Core Coverage: +2.68 credits\n  - Customer Engagement: +1.15 credits\n  - Resolution: +5.13 credits\n  - Rapid Response: +5.64 credits\n  - Onsite Execution: +1.6 credits\n  - Preventive Service: +9.94 credits\n  - Compliance & Assurance: +4.66 credits\n\n5) Amber Project Crews\n- Run\u2011rate: 3.63 per crew\u2011day\n- Available range this period: 0 to 19.96 crew\u2011days\n- Per\u2011crew\u2011day contributions:\n  - Core Coverage: +3.5 credits\n  - Customer Engagement: +2.41 credits\n  - Resolution: +8.01 credits\n  - Rapid Response: +3.47 credits\n  - Onsite Execution: +2.36 credits\n  - Preventive Service: +3.36 credits\n  - Compliance & Assurance: +6.65 credits\n\n6) Indigo Quality Analysts\n- Run\u2011rate: 2.94 per analyst\u2011day\n- Available range this period: 0 to 14.28 analyst\u2011days\n- Per\u2011analyst\u2011day contributions:\n  - Core Coverage: +0.79 credits\n  - Customer Engagement: +7.98 credits\n  - Resolution: +4.44 credits\n  - Preventive Service: +6.79 credits\n\n7) Platinum Specialist Contractors\n- Run\u2011rate: 6.08 per contractor\u2011day\n- Available range this period: 0 to 17.18 contractor\u2011days\n- Per\u2011contractor\u2011day contributions:\n  - Core Coverage: +3.9 credits\n  - Resolution: +8.2 credits\n  - Onsite Execution: +8.38 credits\n  - Preventive Service: +7.94 credits\n  - Compliance & Assurance: +6.17 credits\n\nFacility Specs and Baseline Commitments (minimums for the period)\n- Core Coverage: at least 74.94 credits\n- Customer Engagement: at least 64.88 credits\n- Resolution: at least 183.87 credits\n- Rapid Response: at least 56.66 credits\n- Onsite Execution: at least 153.14 credits\n- Preventive Service: at least 195.34 credits\n- Compliance & Assurance: at least 173.78 credits\n\nPlease come back with the mix that satisfies all of the above minimums at the lowest total run\u2011rate, respecting each lever\u2019s available range. If any assumptions need to be clarified (e.g., definitions of \u201ccredits\u201d by KPI or period length), let me know and we\u2019ll align quickly."
+}

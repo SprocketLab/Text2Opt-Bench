@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Exact margins, bounds, resource usage, and capacities are given; integrality clearly stated. Objective and all 6 constraints are reconstructible. Only variable names are not specified.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Slightly verbose email-style narrative with repeated phrasing, but mostly provides necessary data. Could be more concise.",
+      "realism": 97,
+      "realism_comment": "Highly realistic production mix planning with shared resources and discrete/continuous choices; coefficients and limits are plausible."
+    },
+    "prompt_tokens_with_data": 1278,
+    "prompt_tokens_without_data": 1278
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 391.7825,
+    "optimal_values": {
+      "Var_0": 10.11,
+      "Var_1": 8.0,
+      "Var_2": 9.14,
+      "Var_3": 2.0,
+      "Var_4": -0.0,
+      "Var_5": 2.0,
+      "Var_6": -0.0,
+      "Var_7": 15.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 88.41
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 115.0
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 166.24
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 98.02
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 119.4
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 146.12
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.11
+      ],
+      "objective_linear_coefficient": 9.27,
+      "resource_costs": {
+        "C0": 7.12,
+        "C3": 5.74,
+        "C4": 7.03,
+        "C5": 7.05
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 7.53,
+      "resource_costs": {
+        "C1": 0.7,
+        "C2": 6.06,
+        "C5": 3.34
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.14
+      ],
+      "objective_linear_coefficient": 7.02,
+      "resource_costs": {
+        "C1": 9.61,
+        "C3": 1.34,
+        "C5": 2.78
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.69
+      ],
+      "objective_linear_coefficient": 8.66,
+      "resource_costs": {
+        "C0": 4.67,
+        "C2": 8.14,
+        "C3": 0.7,
+        "C4": 3.48,
+        "C5": 0.1
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.2
+      ],
+      "objective_linear_coefficient": 5.41,
+      "resource_costs": {
+        "C0": 5.61,
+        "C1": 1.68,
+        "C2": 9.8,
+        "C3": 5.7,
+        "C4": 3.57,
+        "C5": 0.92
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.39
+      ],
+      "objective_linear_coefficient": 8.12,
+      "resource_costs": {
+        "C1": 8.01,
+        "C2": 5.46,
+        "C4": 4.53,
+        "C5": 1.0
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.37
+      ],
+      "objective_linear_coefficient": 3.57,
+      "resource_costs": {
+        "C2": 5.2,
+        "C3": 4.02,
+        "C4": 5.57,
+        "C5": 4.36
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.88
+      ],
+      "objective_linear_coefficient": 9.34,
+      "resource_costs": {
+        "C2": 6.01,
+        "C4": 0.63,
+        "C5": 0.15
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.11, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.27 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.53 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.14, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.02 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.69, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.66 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.2, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.41 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.39, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.12 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=18.37, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 3.57 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.88, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 9.34 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.12 * vars['Var_0'] + 4.67 * vars['Var_3'] + 5.61 * vars['Var_4'] <= 88.41, name='C0')\n    m.addConstr(0.7 * vars['Var_1'] + 9.61 * vars['Var_2'] + 1.68 * vars['Var_4'] + 8.01 * vars['Var_5'] <= 115.0, name='C1')\n    m.addConstr(6.06 * vars['Var_1'] + 8.14 * vars['Var_3'] + 9.8 * vars['Var_4'] + 5.46 * vars['Var_5'] + 5.2 * vars['Var_6'] + 6.01 * vars['Var_7'] <= 166.24, name='C2')\n    m.addConstr(5.74 * vars['Var_0'] + 1.34 * vars['Var_2'] + 0.7 * vars['Var_3'] + 5.7 * vars['Var_4'] + 4.02 * vars['Var_6'] <= 98.02, name='C3')\n    m.addConstr(7.03 * vars['Var_0'] + 3.48 * vars['Var_3'] + 3.57 * vars['Var_4'] + 4.53 * vars['Var_5'] + 5.57 * vars['Var_6'] + 0.63 * vars['Var_7'] <= 119.4, name='C4')\n    m.addConstr(7.05 * vars['Var_0'] + 3.34 * vars['Var_1'] + 2.78 * vars['Var_2'] + 0.1 * vars['Var_3'] + 0.92 * vars['Var_4'] + 1.0 * vars['Var_5'] + 4.36 * vars['Var_6'] + 0.15 * vars['Var_7'] <= 146.12, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Decision for the Coming Planning Cycle\n\nTeam,\n\nWe need to set our production mix to maximize total contribution while staying within the practical limits of our plant and support functions. Below are the levers we can pull, their individual economics, and exactly how each one draws on our shared resources. Some of these items can be set in fractional quantities; others are scheduled in whole-number batches. Each lever can be set anywhere from 0.0 up to its stated cap.\n\n- Aurora Premium Blend (bulk blend)\n  \u2022 Margin: Each unit contributes 9.27 to gross margin.\n  \u2022 Range: Anywhere from 0.0 up to 10.11 units may be blended.\n  \u2022 Resource impacts per unit produced:\n    - Blend Room A time: 7.12 hours\n    - Effluent treatment capacity: 5.74 units\n    - Packing line throughput: 7.03 standard throughput units\n    - Energy budget: 7.05 energy units\n\n- Metro Assembly Kit (discrete kits)\n  \u2022 Margin: Each kit contributes 7.53 to gross margin.\n  \u2022 Range: Schedule anywhere from 0.0 up to 11.0 kits; these are whole-kit builds.\n  \u2022 Resource impacts per kit:\n    - Skilled technician hours: 0.7 hours\n    - Reactor Train B time: 6.06 hours\n    - Energy budget: 3.34 energy units\n\n- Stabilizer Additive Flow (bulk additive)\n  \u2022 Margin: Each unit contributes 7.02 to gross margin.\n  \u2022 Range: Anywhere from 0.0 up to 9.14 units can be metered in.\n  \u2022 Resource impacts per unit:\n    - Skilled technician hours: 9.61 hours\n    - Effluent treatment capacity: 1.34 units\n    - Energy budget: 2.78 energy units\n\n- Delta Catalyst Batch (discrete batches)\n  \u2022 Margin: Each batch contributes 8.66 to gross margin.\n  \u2022 Range: Schedule anywhere from 0.0 up to 13.69 batches; these are whole batches.\n  \u2022 Resource impacts per batch:\n    - Blend Room A time: 4.67 hours\n    - Reactor Train B time: 8.14 hours\n    - Effluent treatment capacity: 0.7 units\n    - Packing line throughput: 3.48 standard throughput units\n    - Energy budget: 0.1 energy units\n\n- Horizon Base Compound Lot (discrete lots)\n  \u2022 Margin: Each lot contributes 5.41 to gross margin.\n  \u2022 Range: Schedule anywhere from 0.0 up to 19.2 lots; these are whole lots.\n  \u2022 Resource impacts per lot:\n    - Blend Room A time: 5.61 hours\n    - Skilled technician hours: 1.68 hours\n    - Reactor Train B time: 9.8 hours\n    - Effluent treatment capacity: 5.7 units\n    - Packing line throughput: 3.57 standard throughput units\n    - Energy budget: 0.92 energy units\n\n- Velocity Performance Pack (discrete packs)\n  \u2022 Margin: Each pack contributes 8.12 to gross margin.\n  \u2022 Range: Schedule anywhere from 0.0 up to 12.39 packs; these are whole packs.\n  \u2022 Resource impacts per pack:\n    - Skilled technician hours: 8.01 hours\n    - Reactor Train B time: 5.46 hours\n    - Packing line throughput: 4.53 standard throughput units\n    - Energy budget: 1.0 energy units\n\n- Standard Run Stream (discrete runs)\n  \u2022 Margin: Each run contributes 3.57 to gross margin.\n  \u2022 Range: Schedule anywhere from 0.0 up to 18.37 runs; these are whole runs.\n  \u2022 Resource impacts per run:\n    - Reactor Train B time: 5.2 hours\n    - Effluent treatment capacity: 4.02 units\n    - Packing line throughput: 5.57 standard throughput units\n    - Energy budget: 4.36 energy units\n\n- Signature Label Release (discrete releases)\n  \u2022 Margin: Each release contributes 9.34 to gross margin.\n  \u2022 Range: Schedule anywhere from 0.0 up to 15.88 releases; these are whole releases.\n  \u2022 Resource impacts per release:\n    - Reactor Train B time: 6.01 hours\n    - Packing line throughput: 0.63 standard throughput units\n    - Energy budget: 0.15 energy units\n\nFacility Specs and Operating Limits (do not exceed):\n- Blend Room A capacity: 88.41 hours\n- Skilled technician availability: 115.0 hours\n- Reactor Train B availability: 166.24 hours\n- Effluent treatment capacity: 98.02 units\n- Packing line throughput: 119.4 standard throughput units\n- Energy budget: 146.12 energy units\n\nPlease use the above to shape the plan that achieves the highest total contribution without breaching any of these limits. If you need clarifications on the definitions or units for any resource, let me know."
+}

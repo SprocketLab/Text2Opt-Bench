@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and <= capacities are spelled out clearly for each lever; a model can be reconstructed mechanically. Minor variable naming unspecified.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business prose and repeated 'no draw' lines add verbosity, but most text conveys necessary data to set coefficients, bounds, and constraint senses.",
+      "realism": 98,
+      "realism_comment": "Plausible distillery production/release planning with resource capacities (hours, inventory, docks) and mixed integer decisions; numbers and logic are realistic."
+    },
+    "prompt_tokens_with_data": 1018,
+    "prompt_tokens_without_data": 1018
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 174.89541238959183,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": 8.539912734410224,
+      "Var_2": 4.0,
+      "Var_3": 6.85028248587571
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.8
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 76.51
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 46.9
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 101.37
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 129.86
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 55.79
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.78
+      ],
+      "objective_linear_coefficient": 8.93,
+      "resource_costs": {
+        "C0": 0.44,
+        "C3": 1.21,
+        "C4": 9.04
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.17
+      ],
+      "objective_linear_coefficient": 2.37,
+      "resource_costs": {
+        "C0": 2.04,
+        "C1": 4.26,
+        "C3": 0.21,
+        "C5": 1.84
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.63
+      ],
+      "objective_linear_coefficient": 1.48,
+      "resource_costs": {
+        "C1": 1.11,
+        "C2": 3.3,
+        "C3": 9.39,
+        "C5": 3.68
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.74
+      ],
+      "objective_linear_coefficient": 9.98,
+      "resource_costs": {
+        "C1": 5.21,
+        "C2": 4.5,
+        "C3": 5.93,
+        "C4": 7.08,
+        "C5": 3.31
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.78, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.93 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.17, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.37 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.63, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.48 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.74, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.98 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.44 * vars['Var_0'] + 2.04 * vars['Var_1'] <= 22.8, name='C0')\n    m.addConstr(4.26 * vars['Var_1'] + 1.11 * vars['Var_2'] + 5.21 * vars['Var_3'] <= 76.51, name='C1')\n    m.addConstr(3.3 * vars['Var_2'] + 4.5 * vars['Var_3'] <= 46.9, name='C2')\n    m.addConstr(1.21 * vars['Var_0'] + 0.21 * vars['Var_1'] + 9.39 * vars['Var_2'] + 5.93 * vars['Var_3'] <= 101.37, name='C3')\n    m.addConstr(9.04 * vars['Var_0'] + 7.08 * vars['Var_3'] <= 129.86, name='C4')\n    m.addConstr(1.84 * vars['Var_1'] + 3.68 * vars['Var_2'] + 3.31 * vars['Var_3'] <= 55.79, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 Bottling and Release Mix \u2013 Request to Maximize Contribution\n\nTeam,\n\nAs discussed, we need to set our Q1 production and release mix to maximize total contribution while staying within our operating and supply limits. Below are the four levers we can pull this quarter. Please use the per\u2011unit contribution values and the specific resource draws and bounds exactly as stated to build the recommended mix.\n\nThe levers\n\n1) Emerald Gin \u2013 small-batch runs (whole runs only)\n- Value: Each completed run contributes 8.93 in margin.\n- Volume limits: We can schedule as many whole runs as we like up to a hard cap of 18.78 runs for the quarter; there is no minimum (it\u2019s acceptable to do zero).\n- Resource impacts per run:\n  - Master Blender Oversight: 0.44 hours.\n  - Packaging Line B: no draw.\n  - Aged Spirit Warehouse Allocation: no draw.\n  - Distillation & QA (shared services): 1.21 hours.\n  - Type\u2011A Glass Inventory: 9.04 units.\n  - Outbound Dock Windows: no draw.\n\n2) Citrus Vodka \u2013 flexible bottling lots (can be fractional)\n- Value: Each lot adds 2.37 in margin.\n- Volume limits: Up to 9.17 lots are feasible this quarter; lots may be partial, with a lower bound of zero.\n- Resource impacts per lot:\n  - Master Blender Oversight: 2.04 hours.\n  - Packaging Line B: 4.26 hours.\n  - Aged Spirit Warehouse Allocation: no draw.\n  - Distillation & QA (shared services): 0.21 hours.\n  - Type\u2011A Glass Inventory: no draw.\n  - Outbound Dock Windows: 1.84 slots.\n\n3) Spiced Rum \u2013 batch runs (whole runs only)\n- Value: Each completed run contributes 1.48 in margin.\n- Volume limits: Up to 12.63 runs may be scheduled; runs must be whole numbers, and we can choose zero.\n- Resource impacts per run:\n  - Master Blender Oversight: no draw.\n  - Packaging Line B: 1.11 hours.\n  - Aged Spirit Warehouse Allocation: 3.3 units.\n  - Distillation & QA (shared services): 9.39 hours.\n  - Type\u2011A Glass Inventory: no draw.\n  - Outbound Dock Windows: 3.68 slots.\n\n4) Single Malt Whiskey \u2013 release volume (can be fractional)\n- Value: Each unit released contributes 9.98 in margin.\n- Volume limits: Up to 17.74 release units are available this quarter; fractional releases are acceptable with a minimum of zero.\n- Resource impacts per release unit:\n  - Master Blender Oversight: no draw.\n  - Packaging Line B: 5.21 hours.\n  - Aged Spirit Warehouse Allocation: 4.5 units.\n  - Distillation & QA (shared services): 5.93 hours.\n  - Type\u2011A Glass Inventory: 7.08 units.\n  - Outbound Dock Windows: 3.31 slots.\n\nFacility specs and market limits (do not exceed)\n- Master Blender Oversight: up to 22.8 hours available this quarter.\n- Packaging Line B: up to 76.51 hours available.\n- Aged Spirit Warehouse Allocation: up to 46.9 units available.\n- Distillation & QA (shared services): up to 101.37 hours available.\n- Type\u2011A Glass Inventory: up to 129.86 units available.\n- Outbound Dock Windows: up to 55.79 slots available.\n\nPlease develop the Q1 mix to maximize total contribution across these four levers, enforcing the whole\u2011run requirement for Emerald Gin and Spiced Rum, allowing partial lots/volume for Citrus Vodka and Single Malt Whiskey, and keeping all resource draws within the limits above."
+}

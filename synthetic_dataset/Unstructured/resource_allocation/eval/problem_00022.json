@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, signs, and inequality directions are explicit; variables are continuous; objective minimizes cost; GRI floor with negative effect is clear.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Business memo style adds context but is verbose and repeats impacts; still clear and not excessively repetitive.",
+      "realism": 95,
+      "realism_comment": "Energy procurement with costs and compliance thresholds is plausible and coherent; constraints and bounds make real-world sense."
+    },
+    "prompt_tokens_with_data": 863,
+    "prompt_tokens_without_data": 863
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 30.51169082125604,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 9.77938808373591
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 8.65
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 76.61
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 60.73
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -47.47
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.54
+      ],
+      "objective_linear_coefficient": 7.04,
+      "resource_costs": {
+        "C0": -8.09,
+        "C1": -6.82
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.82
+      ],
+      "objective_linear_coefficient": 3.12,
+      "resource_costs": {
+        "C0": 2.54,
+        "C1": 9.08,
+        "C2": 6.21,
+        "C3": -4.51
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.54, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.04 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.82, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.12 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-8.09 * vars['Var_0'] + 2.54 * vars['Var_1'] >= 8.65, name='C0')\n    m.addConstr(-6.82 * vars['Var_0'] + 9.08 * vars['Var_1'] >= 76.61, name='C1')\n    m.addConstr(6.21 * vars['Var_1'] >= 60.73, name='C2')\n    m.addConstr(-4.51 * vars['Var_1'] >= -47.47, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "To: Operations Strategy & Finance Stakeholders\nFrom: Energy Procurement Office\nSubject: Setting the Q2 supply mix to minimize spend while meeting compliance and risk thresholds\n\nWe\u2019re preparing the Q2 supply plan and need guidance on how to balance two supply levers to minimize total spend while meeting our compliance targets and staying within our risk floor. Below is the business framing of the decision with the cost and performance impacts of each lever and the limits we must honor.\n\nOur levers\n\n1) Legacy Thermal Dispatch Blocks\n- Commercial terms: Each block carries a cost of 7.04 per unit. We can dispatch anywhere from 0.00 up to 10.54 blocks this quarter; no negative dispatch is permitted.\n- Impact on our targets:\n  - Renewable Obligation Score (ROS): Every block of legacy dispatch reduces the ROS by 8.09 points. This is a penalty that counts against our minimum ROS requirement.\n  - Portfolio Clean Energy Points (PCEP): Each block reduces our PCEP by 6.82 points, again counting against the minimum we must achieve.\n  - Low-Carbon Fuel Standard (LCFS) credits: No impact; legacy dispatch contributes 0.00 credits to this measure.\n  - Grid Resilience Index (GRI): No impact; legacy dispatch changes the GRI by 0.00.\n\n2) Renewable PPA Slices\n- Commercial terms: Each slice costs 3.12 per unit. We may contract between 0.00 and 19.82 slices this quarter; we can buy partial slices within that band.\n- Impact on our targets:\n  - Renewable Obligation Score (ROS): Each slice adds 2.54 points toward the ROS.\n  - Portfolio Clean Energy Points (PCEP): Each slice adds 9.08 points toward the PCEP.\n  - Low-Carbon Fuel Standard (LCFS) credits: Each slice adds 6.21 credits toward the LCFS tally.\n  - Grid Resilience Index (GRI): Each slice reduces the GRI by 4.51 points. This effect counts against the GRI floor described below.\n\nFacility specs and market limits we must meet\n\n- Renewable Obligation Score: After accounting for the penalties from legacy dispatch and the additions from renewable slices, the ROS must reach at least 8.65 points.\n- Portfolio Clean Energy Points: Net PCEP must be at least 76.61 points.\n- Low-Carbon Fuel Standard credits: We must accumulate at least 60.73 credits.\n- Grid Resilience Index: We can tolerate a reduction, but the GRI cannot fall below -47.47. Each renewable slice moves this index down by 4.51, so the combined plan must respect this floor.\n\nOur objective is to choose the mix of legacy thermal dispatch blocks (costing 7.04 each, available between 0.00 and 10.54) and renewable PPA slices (costing 3.12 each, available between 0.00 and 19.82) that minimizes total spend while simultaneously hitting the minimums for ROS, PCEP, and LCFS, and staying no lower than the -47.47 floor on the GRI."
+}

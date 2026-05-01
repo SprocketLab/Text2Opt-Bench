@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All per-unit benefits, bounds, and resource impacts are specified; constraints and signs (uses vs returns, adds vs reductions) are clear, enabling exact LP reconstruction.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative context adds some fluff; bullet descriptions are long but provide all necessary data.",
+      "realism": 95,
+      "realism_comment": "Convincing Q1 portfolio allocation with cash, specialist hours, test-bay, and carbon index; negative threshold is unusual but plausible."
+    },
+    "prompt_tokens_with_data": 998,
+    "prompt_tokens_without_data": 998
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 497.6221449330784,
+    "optimal_values": {
+      "Var_0": 18.74,
+      "Var_1": 12.82,
+      "Var_2": 14.45,
+      "Var_3": 15.75,
+      "Var_4": 18.45,
+      "Var_5": 8.56,
+      "Var_6": 4.370803059273419
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 143.33
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 84.88
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 120.91
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -200.26
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.74
+      ],
+      "objective_linear_coefficient": 7.85,
+      "resource_costs": {
+        "C1": 0.78,
+        "C2": 2.93,
+        "C3": -9.64
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.82
+      ],
+      "objective_linear_coefficient": 2.63,
+      "resource_costs": {
+        "C0": 7.63,
+        "C1": 2.18,
+        "C2": 6.96,
+        "C3": -7.12
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.45
+      ],
+      "objective_linear_coefficient": 7.3,
+      "resource_costs": {
+        "C0": -4.3,
+        "C1": -1.45,
+        "C2": -8.51,
+        "C3": 1.02
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.75
+      ],
+      "objective_linear_coefficient": 1.1,
+      "resource_costs": {
+        "C0": -7.56,
+        "C1": -1.67,
+        "C2": 9.68,
+        "C3": -4.32
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.45
+      ],
+      "objective_linear_coefficient": 6.7,
+      "resource_costs": {
+        "C0": 7.43,
+        "C1": 3.69,
+        "C2": -9.84,
+        "C3": -7.45
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.56
+      ],
+      "objective_linear_coefficient": 6.73,
+      "resource_costs": {
+        "C1": -0.16,
+        "C2": 3.85,
+        "C3": -7.11
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.45
+      ],
+      "objective_linear_coefficient": 2.92,
+      "resource_costs": {
+        "C0": 9.06,
+        "C1": 5.23,
+        "C2": 7.76,
+        "C3": 4.81
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.74, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.85 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.82, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.63 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.45, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.3 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.75, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.1 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.45, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.7 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.56, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.73 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=14.45, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.92 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.63 * vars['Var_1'] + -4.3 * vars['Var_2'] + -7.56 * vars['Var_3'] + 7.43 * vars['Var_4'] + 9.06 * vars['Var_6'] <= 143.33, name='C0')\n    m.addConstr(0.78 * vars['Var_0'] + 2.18 * vars['Var_1'] + -1.45 * vars['Var_2'] + -1.67 * vars['Var_3'] + 3.69 * vars['Var_4'] + -0.16 * vars['Var_5'] + 5.23 * vars['Var_6'] <= 84.88, name='C1')\n    m.addConstr(2.93 * vars['Var_0'] + 6.96 * vars['Var_1'] + -8.51 * vars['Var_2'] + 9.68 * vars['Var_3'] + -9.84 * vars['Var_4'] + 3.85 * vars['Var_5'] + 7.76 * vars['Var_6'] <= 120.91, name='C2')\n    m.addConstr(-9.64 * vars['Var_0'] + -7.12 * vars['Var_1'] + 1.02 * vars['Var_2'] + -4.32 * vars['Var_3'] + -7.45 * vars['Var_4'] + -7.11 * vars['Var_5'] + 4.81 * vars['Var_6'] <= -200.26, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix to maximize net benefit while staying within our Q1 limits\n\nTeam,\n\nAs we finalize the Q1 operating plan, our goal is to maximize total net benefit from a set of seven scalable initiatives while staying inside our cash envelope, specialist-hour availability, test-bay occupancy, and compliance thresholds. Each initiative can be dialed anywhere from zero up to its cap this quarter; the figures below are per unit of scale.\n\n- Inline Quality Sensor Deployment \u2013 Phase Alpha\n  Each unit delivers 7.85 units of net benefit. We can roll out anywhere from zero up to 18.74 units this quarter. Per unit, this requires 0.78 specialist hours and 2.93 hours on the test bay; it does not draw on the cash envelope. It improves our Net Carbon Exposure Index by 9.64 points (a reduction).\n\n- Closed-Loop Water Skids\n  Each unit delivers 2.63 units of net benefit. We can deploy anywhere from zero up to 12.82 units. Per unit, it uses 7.63 units of cash, 2.18 specialist hours, and 6.96 hours on the test bay. It reduces the Net Carbon Exposure Index by 7.12 points.\n\n- Offsite Tolling Partnerships\n  Each engagement delivers 7.3 units of net benefit. We can engage anywhere from zero up to 14.45 units. Per unit, it returns 4.3 units of cash to the envelope, frees 1.45 specialist hours, and releases 8.51 hours of test-bay occupancy back into the schedule; it does add 1.02 points to the Net Carbon Exposure Index.\n\n- Vendor-Funded Rework Program\n  Each unit delivers 1.1 units of net benefit. We can run anywhere from zero up to 15.75 units. Per unit, it returns 7.56 units of cash, frees 1.67 specialist hours, and consumes 9.68 hours of test-bay time. It reduces the Net Carbon Exposure Index by 4.32 points.\n\n- High-Efficiency Filter Upgrade\n  Each unit delivers 6.7 units of net benefit. We can implement anywhere from zero up to 18.45 units. Per unit, it uses 7.43 units of cash and 3.69 specialist hours, while returning 9.84 hours of test-bay capacity back to the schedule. It reduces the Net Carbon Exposure Index by 7.45 points.\n\n- Recycled Feedstock Switch\n  Each unit delivers 6.73 units of net benefit. We can transition anywhere from zero up to 8.56 units. Per unit, it does not draw on the cash envelope, frees 0.16 specialist hours thanks to vendor support, and requires 3.85 hours on the test bay. It reduces the Net Carbon Exposure Index by 7.11 points.\n\n- Premium Packaging Launch\n  Each unit delivers 2.92 units of net benefit. We can activate anywhere from zero up to 14.45 units. Per unit, it uses 9.06 units of cash, 5.23 specialist hours, and 7.76 hours on the test bay. It adds 4.81 points to the Net Carbon Exposure Index.\n\nFacility specs and limits for Q1:\n- Cash envelope: not to exceed 143.33 units.\n- Specialist team availability: not to exceed 84.88 hours.\n- Test-bay occupancy: not to exceed 120.91 hours.\n- Net Carbon Exposure Index: must be maintained at -200.26 or lower.\n\nPlease use this as the basis to draft the recommended mix and scaling levels for each initiative. The allocation should target the highest total net benefit while staying inside each limit above. I\u2019m available to review trade-offs and sensitivity if needed."
+}

@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit costs, bounds, integrality (whole vs fractional), and per-lever contributions to six >= targets; objective is to minimize spend. Minor 'practically capped' notes but formal bounds are clear.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style text is verbose with repeated 'no contribution' and 'practically capped' notes, but most content serves specification.",
+      "realism": 92,
+      "realism_comment": "Very plausible service planning model with clear targets and resource levers. One lever with no benefit is unusual but still realistic."
+    },
+    "prompt_tokens_with_data": 1188,
+    "prompt_tokens_without_data": 1188
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 140.1058909512761,
+    "optimal_values": {
+      "Var_0": 3.0,
+      "Var_1": -0.0,
+      "Var_2": 8.314385150812067,
+      "Var_3": 6.945011600928075,
+      "Var_4": 12.0,
+      "Var_5": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 124.79
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 52.35
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 34.89
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 46.43
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 116.22
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 82.95
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.13
+      ],
+      "objective_linear_coefficient": 6.7,
+      "resource_costs": {
+        "C3": 3.57
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.03
+      ],
+      "objective_linear_coefficient": 6.94,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.09
+      ],
+      "objective_linear_coefficient": 4.52,
+      "resource_costs": {
+        "C0": 9.51,
+        "C1": 0.57,
+        "C4": 8.62
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.44
+      ],
+      "objective_linear_coefficient": 1.73,
+      "resource_costs": {
+        "C0": 4.21,
+        "C1": 4.35,
+        "C5": 8.75
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.61
+      ],
+      "objective_linear_coefficient": 2.13,
+      "resource_costs": {
+        "C0": 3.29,
+        "C3": 3.24,
+        "C5": 4.47
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.98
+      ],
+      "objective_linear_coefficient": 8.97,
+      "resource_costs": {
+        "C1": 3.48,
+        "C2": 7.35,
+        "C4": 8.91
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.13, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.7 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.03, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.94 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.09, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.52 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.44, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.73 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.61, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 2.13 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=6.98, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.97 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.51 * vars['Var_2'] + 4.21 * vars['Var_3'] + 3.29 * vars['Var_4'] >= 124.79, name='C0')\n    m.addConstr(0.57 * vars['Var_2'] + 4.35 * vars['Var_3'] + 3.48 * vars['Var_5'] >= 52.35, name='C1')\n    m.addConstr(7.35 * vars['Var_5'] >= 34.89, name='C2')\n    m.addConstr(3.57 * vars['Var_0'] + 3.24 * vars['Var_4'] >= 46.43, name='C3')\n    m.addConstr(8.62 * vars['Var_2'] + 8.91 * vars['Var_5'] >= 116.22, name='C4')\n    m.addConstr(8.75 * vars['Var_3'] + 4.47 * vars['Var_4'] >= 82.95, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing deployment plan to meet our Q1 service commitments\n\nTeam,\n\nAs discussed, we need to cover a set of minimum service commitments across our channels while keeping total program spend to an absolute minimum. Below is the menu of deployable options (our levers), what each one costs per unit, exactly how each contributes to the six commitments we have to hit, and the practical limits on how much of each lever we can use. Where relevant, I\u2019ve also noted whether we can dial a lever in fractional increments or if it must be booked in whole lots. All levers are optional (we can choose zero), and each lever is capped at the levels shown.\n\nThe levers\n\n- Nightline Specialist Shifts\n  - Unit cost: 6.70 per shift-lot.\n  - Contribution to commitments:\n    - After-hours coverage blocks: adds 3.57 blocks per shift-lot.\n    - No contribution to core service coverage, rapid response interactions, specialized case interventions, community outreach credits, or chronic care sessions.\n  - Availability: 0 up to 14.13 shift-lots. These are booked in whole lots; operationally, we would not exceed 14 lots even though the cap is set at 14.13.\n\n- Executive Oversight Add\u2011On\n  - Unit cost: 6.94 per add-on.\n  - Contribution to commitments:\n    - No direct contribution to any of the six measured commitments (core service coverage, rapid response interactions, specialized case interventions, after-hours coverage blocks, community outreach credits, or chronic care sessions).\n  - Availability: 0 up to 11.03 add-ons. Booked in whole add-ons; practically capped at 11.\n\n- Tele\u2011Support Hours\n  - Unit cost: 4.52 per hour-lot.\n  - Contribution to commitments:\n    - Core service coverage: adds 9.51 coverage points per hour-lot.\n    - Rapid response interactions: adds 0.57 interactions per hour-lot.\n    - Community outreach credits: adds 8.62 credits per hour-lot.\n    - No contribution to specialized case interventions, after-hours coverage blocks, or chronic care sessions.\n  - Availability: 0 up to 16.09 hour-lots. Can be dialed in fractional increments.\n\n- Mobile Support Vans\n  - Unit cost: 1.73 per van\u2011day lot.\n  - Contribution to commitments:\n    - Core service coverage: adds 4.21 coverage points per van\u2011day lot.\n    - Rapid response interactions: adds 4.35 interactions per van\u2011day lot.\n    - Chronic care sessions: adds 8.75 sessions per van\u2011day lot.\n    - No contribution to specialized case interventions, after-hours coverage blocks, or community outreach credits.\n  - Availability: 0 up to 16.44 van\u2011day lots. Can be dialed in fractional increments.\n\n- Weekend Cover Crews\n  - Unit cost: 2.13 per crew\u2011day lot.\n  - Contribution to commitments:\n    - Core service coverage: adds 3.29 coverage points per crew\u2011day lot.\n    - After-hours coverage blocks: adds 3.24 blocks per crew\u2011day lot.\n    - Chronic care sessions: adds 4.47 sessions per crew\u2011day lot.\n    - No contribution to rapid response interactions, specialized case interventions, or community outreach credits.\n  - Availability: 0 up to 12.61 crew\u2011day lots. Booked in whole lots; practically capped at 12.\n\n- Regional Outreach Packages\n  - Unit cost: 8.97 per package.\n  - Contribution to commitments:\n    - Rapid response interactions: adds 3.48 interactions per package.\n    - Specialized case interventions: adds 7.35 interventions per package.\n    - Community outreach credits: adds 8.91 credits per package.\n    - No contribution to core service coverage, after-hours coverage blocks, or chronic care sessions.\n  - Availability: 0 up to 6.98 packages. Booked in whole packages; practically capped at 6.\n\nFacility specs and contracted minimums (must hit at least these levels)\n\n- Core service coverage: \u2265 124.79 coverage points.\n- Rapid response interactions: \u2265 52.35 interactions.\n- Specialized case interventions: \u2265 34.89 interventions.\n- After-hours coverage blocks: \u2265 46.43 blocks.\n- Community outreach credits: \u2265 116.22 credits.\n- Chronic care sessions: \u2265 82.95 sessions.\n\nOur objective is to choose a feasible mix that meets or exceeds each minimum above at the lowest total program cost, within the availability limits for each lever. Please use this framework for the upcoming optimization run and share the recommended mix and projected spend."
+}

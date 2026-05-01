@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, caps, integrality, contributions, and thresholds are explicit, enabling exact LP reconstruction. Only minor ambiguity on variable naming.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Includes narrative and coding instructions beyond the model data, but the core data is structured and not repetitive.",
+      "realism": 95,
+      "realism_comment": "Feels like a genuine service operations allocation with costs, availabilities, and minimum service-levels; highly plausible."
+    },
+    "prompt_tokens_with_data": 1087,
+    "prompt_tokens_without_data": 1087
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 110.41,
+    "optimal_values": {
+      "Var_0": 7.0,
+      "Var_1": 2.0,
+      "Var_2": 1.0,
+      "Var_3": 9.0,
+      "Var_4": 3.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 67.8
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 125.33
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 70.27
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 162.02
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.04
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 44.81
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 141.75
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.36
+      ],
+      "objective_linear_coefficient": 5.5,
+      "resource_costs": {
+        "C0": 0.14,
+        "C1": 3.89,
+        "C2": 5.7,
+        "C3": 8.74,
+        "C6": 8.71
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.12
+      ],
+      "objective_linear_coefficient": 3.71,
+      "resource_costs": {
+        "C0": 5.45,
+        "C1": 3.55,
+        "C2": 1.88,
+        "C3": 9.54,
+        "C4": 0.4,
+        "C5": 8.75,
+        "C6": 5.12
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.85
+      ],
+      "objective_linear_coefficient": 2.24,
+      "resource_costs": {
+        "C1": 8.96,
+        "C3": 8.67,
+        "C5": 1.7
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 3.77,
+      "resource_costs": {
+        "C0": 4.17,
+        "C1": 9.09,
+        "C3": 8.43,
+        "C4": 1.87,
+        "C5": 2.97,
+        "C6": 7.18
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.22
+      ],
+      "objective_linear_coefficient": 9.44,
+      "resource_costs": {
+        "C0": 6.9,
+        "C1": 0.36,
+        "C2": 9.26,
+        "C4": 9.48,
+        "C6": 2.5
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.36, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.5 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.12, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.71 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.85, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.24 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.77 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.22, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 9.44 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.14 * vars['Var_0'] + 5.45 * vars['Var_1'] + 4.17 * vars['Var_3'] + 6.9 * vars['Var_4'] >= 67.8, name='C0')\n    m.addConstr(3.89 * vars['Var_0'] + 3.55 * vars['Var_1'] + 8.96 * vars['Var_2'] + 9.09 * vars['Var_3'] + 0.36 * vars['Var_4'] >= 125.33, name='C1')\n    m.addConstr(5.7 * vars['Var_0'] + 1.88 * vars['Var_1'] + 9.26 * vars['Var_4'] >= 70.27, name='C2')\n    m.addConstr(8.74 * vars['Var_0'] + 9.54 * vars['Var_1'] + 8.67 * vars['Var_2'] + 8.43 * vars['Var_3'] >= 162.02, name='C3')\n    m.addConstr(0.4 * vars['Var_1'] + 1.87 * vars['Var_3'] + 9.48 * vars['Var_4'] >= 45.04, name='C4')\n    m.addConstr(8.75 * vars['Var_1'] + 1.7 * vars['Var_2'] + 2.97 * vars['Var_3'] >= 44.81, name='C5')\n    m.addConstr(8.71 * vars['Var_0'] + 5.12 * vars['Var_1'] + 7.18 * vars['Var_3'] + 2.5 * vars['Var_4'] >= 141.75, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for cost-minimizing plan to meet service-level commitments\n\nTeam,\n\nWe need to determine the mix of five work packages to run this period so that we meet all of our contractual service-level commitments at the lowest possible total spend. Each work package below is priced per unit and converts into specific volumes of \u201ccompliance credits\u201d across our seven service categories. Units must be scheduled in whole numbers only, and we cannot exceed the availability limits listed for each package.\n\nLevers we can pull\n\n- Rapid-Response Crew A\n  - Cost: 5.50 per unit.\n  - Availability: 0 up to 16.36 units (whole units only).\n  - What it delivers, per unit:\n    - Emergency Coverage Credits: 0.14\n    - Preventive Maintenance Coverage: 3.89\n    - Repair Throughput: 5.70\n    - Rapid Response Coverage: 8.74\n    - Safety Inspections: 0.00 (no contribution)\n    - Technician Training Certifications: 0.00 (no contribution)\n    - Post-Service Follow-Up: 8.71\n\n- Field Service Pods\n  - Cost: 3.71 per unit.\n  - Availability: 0 up to 6.12 units (whole units only).\n  - What it delivers, per unit:\n    - Emergency Coverage Credits: 5.45\n    - Preventive Maintenance Coverage: 3.55\n    - Repair Throughput: 1.88\n    - Rapid Response Coverage: 9.54\n    - Safety Inspections: 0.40\n    - Technician Training Certifications: 8.75\n    - Post-Service Follow-Up: 5.12\n\n- Preventive Maintenance Blitz Teams\n  - Cost: 2.24 per unit.\n  - Availability: 0 up to 7.85 units (whole units only).\n  - What it delivers, per unit:\n    - Emergency Coverage Credits: 0.00 (no contribution)\n    - Preventive Maintenance Coverage: 8.96\n    - Repair Throughput: 0.00 (no contribution)\n    - Rapid Response Coverage: 8.67\n    - Safety Inspections: 0.00 (no contribution)\n    - Technician Training Certifications: 1.70\n    - Post-Service Follow-Up: 0.00 (no contribution)\n\n- Mobile Service Hubs\n  - Cost: 3.77 per unit.\n  - Availability: 0 up to 10.00 units (whole units only).\n  - What it delivers, per unit:\n    - Emergency Coverage Credits: 4.17\n    - Preventive Maintenance Coverage: 9.09\n    - Repair Throughput: 0.00 (no contribution)\n    - Rapid Response Coverage: 8.43\n    - Safety Inspections: 1.87\n    - Technician Training Certifications: 2.97\n    - Post-Service Follow-Up: 7.18\n\n- Safety & Compliance Auditors\n  - Cost: 9.44 per unit.\n  - Availability: 0 up to 19.22 units (whole units only).\n  - What it delivers, per unit:\n    - Emergency Coverage Credits: 6.90\n    - Preventive Maintenance Coverage: 0.36\n    - Repair Throughput: 9.26\n    - Rapid Response Coverage: 0.00 (no contribution)\n    - Safety Inspections: 9.48\n    - Technician Training Certifications: 0.00 (no contribution)\n    - Post-Service Follow-Up: 2.50\n\nService-level commitments (minimums we must meet or exceed)\n\n- Emergency Coverage Credits: at least 67.80\n- Preventive Maintenance Coverage: at least 125.33\n- Repair Throughput: at least 70.27\n- Rapid Response Coverage: at least 162.02\n- Safety Inspections: at least 45.04\n- Technician Training Certifications: at least 44.81\n- Post-Service Follow-Up: at least 141.75\n\nPlease propose the least-cost combination of these whole-unit packages that meets or exceeds each of the above service thresholds while staying within the stated availability caps for each work package."
+}

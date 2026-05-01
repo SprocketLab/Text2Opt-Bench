@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, per-unit outputs, and >= requirements are explicit; partial days imply continuous vars. Objective is clear: minimize total spend. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated phrasing add verbosity, but data is structured and relevant. Moderate extra text without harming clarity.",
+      "realism": 95,
+      "realism_comment": "Very plausible field-operations planning: mix of crews, multi-metric service levels, costs, and availability. Mirrors real resource allocation problems."
+    },
+    "prompt_tokens_with_data": 751,
+    "prompt_tokens_without_data": 751
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 156.03252918118264,
+    "optimal_values": {
+      "Var_0": 6.323884001448788,
+      "Var_1": 4.112262276145858,
+      "Var_2": 8.657142857142858
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 42.66
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 81.81
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 131.63
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 125.95
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 71.02
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.99
+      ],
+      "objective_linear_coefficient": 7.2,
+      "resource_costs": {
+        "C0": 4.91,
+        "C2": 3.59,
+        "C3": 9.83,
+        "C4": 3.86
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.7
+      ],
+      "objective_linear_coefficient": 6.64,
+      "resource_costs": {
+        "C0": 1.37,
+        "C2": 7.71,
+        "C3": 3.28,
+        "C4": 9.25
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.97
+      ],
+      "objective_linear_coefficient": 9.61,
+      "resource_costs": {
+        "C0": 0.82,
+        "C1": 9.45,
+        "C2": 8.92,
+        "C3": 5.81,
+        "C4": 1.26
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.99, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.2 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.7, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.64 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.97, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.61 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.91 * vars['Var_0'] + 1.37 * vars['Var_1'] + 0.82 * vars['Var_2'] >= 42.66, name='C0')\n    m.addConstr(9.45 * vars['Var_2'] >= 81.81, name='C1')\n    m.addConstr(3.59 * vars['Var_0'] + 7.71 * vars['Var_1'] + 8.92 * vars['Var_2'] >= 131.63, name='C2')\n    m.addConstr(9.83 * vars['Var_0'] + 3.28 * vars['Var_1'] + 5.81 * vars['Var_2'] >= 125.95, name='C3')\n    m.addConstr(3.86 * vars['Var_0'] + 9.25 * vars['Var_1'] + 1.26 * vars['Var_2'] >= 71.02, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix of Field Teams to Meet Service Commitments at Minimum Cost\n\nTeam,\n\nFor the upcoming period, we need to assemble a cost-effective mix of three field deployment options to satisfy our mandated service commitments. Our goal is to meet or exceed each requirement listed below while minimizing our total fully loaded deployment spend.\n\nLevers we can pull\n\n- Baseline Field Maintenance Crew\n  - Cost profile: Fully loaded at 7.20 per crew-day.\n  - Availability: We can schedule anywhere from 0 up to 18.99 crew-days this period (partial days are permissible).\n  - What it delivers per crew-day:\n    - Network Coverage Hours: 4.91\n    - Regulatory Compliance Audits: none (no impact on this requirement)\n    - Preventive Maintenance Score: 3.59\n    - Safety Inspection Score: 9.83\n    - Community Engagement Score: 3.86\n\n- Regional Support Crew\n  - Cost profile: Fully loaded at 6.64 per crew-day.\n  - Availability: We can schedule anywhere from 0 up to 18.70 crew-days this period (partial days are permissible).\n  - What it delivers per crew-day:\n    - Network Coverage Hours: 1.37\n    - Regulatory Compliance Audits: none (no impact on this requirement)\n    - Preventive Maintenance Score: 7.71\n    - Safety Inspection Score: 3.28\n    - Community Engagement Score: 9.25\n\n- Certified Compliance Team\n  - Cost profile: Fully loaded at 9.61 per crew-day.\n  - Availability: We can schedule anywhere from 0 up to 9.97 crew-days this period (partial days are permissible).\n  - What it delivers per crew-day:\n    - Network Coverage Hours: 0.82\n    - Regulatory Compliance Audits: 9.45\n    - Preventive Maintenance Score: 8.92\n    - Safety Inspection Score: 5.81\n    - Community Engagement Score: 1.26\n\nService commitments and operating limits\n\n- Network Coverage Hours: At least 42.66 must be delivered across the period.\n- Regulatory Compliance Audits: At least 81.81 must be completed (only the Certified Compliance Team contributes here).\n- Preventive Maintenance Score: At least 131.63 is required.\n- Safety Inspection Score: At least 125.95 is required.\n- Community Engagement Score: At least 71.02 is required.\n\nPlease use the above cost profiles, delivery rates, and availability limits to determine the least-cost mix of the three options that achieves all five minimum service levels."
+}

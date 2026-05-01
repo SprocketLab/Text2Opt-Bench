@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality (whole units), and per-unit nutrient contributions are explicit; nine >= thresholds with exact RHS. Objective is minimize total cost. Fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some email-style narrative and closing fluff, but the numeric specification is clear and necessary. Mild verbosity.",
+      "realism": 95,
+      "realism_comment": "A classic feed formulation cost-minimization with plausible nutrient minima and discrete purchase units. Coefficients/limits feel realistic."
+    },
+    "prompt_tokens_with_data": 1377,
+    "prompt_tokens_without_data": 1377
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 255.3429005527972,
+    "optimal_values": {
+      "Var_0": 6.0,
+      "Var_1": 6.0,
+      "Var_2": 10.0,
+      "Var_3": 0.0,
+      "Var_4": 0.0,
+      "Var_5": 3.9964788732394343,
+      "Var_6": 8.394185255417398,
+      "Var_7": 9.402777777777777
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 91.35
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 61.93
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 137.51
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 130.79
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 164.72
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 104.83
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 58.13
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 155.53
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 147.14
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.86
+      ],
+      "objective_linear_coefficient": 9.98,
+      "resource_costs": {
+        "C0": 1.93,
+        "C1": 2.34,
+        "C2": 4.88,
+        "C4": 4.61,
+        "C6": 1.78,
+        "C7": 9.23,
+        "C8": 4.74
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.0
+      ],
+      "objective_linear_coefficient": 1.02,
+      "resource_costs": {
+        "C0": 1.01,
+        "C1": 9.9,
+        "C2": 3.37,
+        "C3": 0.88,
+        "C4": 3.37,
+        "C6": 4.33,
+        "C7": 8.59
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.56
+      ],
+      "objective_linear_coefficient": 8.14,
+      "resource_costs": {
+        "C4": 2.0,
+        "C5": 3.61,
+        "C6": 3.17,
+        "C8": 9.6
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.35
+      ],
+      "objective_linear_coefficient": 7.58,
+      "resource_costs": {
+        "C4": 0.14,
+        "C6": 1.55,
+        "C7": 5.35
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.61
+      ],
+      "objective_linear_coefficient": 6.88,
+      "resource_costs": {
+        "C0": 4.88,
+        "C1": 4.57,
+        "C2": 4.8,
+        "C4": 2.74,
+        "C5": 3.32,
+        "C6": 2.45,
+        "C8": 0.9
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.2
+      ],
+      "objective_linear_coefficient": 7.73,
+      "resource_costs": {
+        "C0": 5.47,
+        "C4": 0.83,
+        "C7": 9.62,
+        "C8": 5.68
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.88
+      ],
+      "objective_linear_coefficient": 4.9,
+      "resource_costs": {
+        "C0": 6.32,
+        "C1": 2.22,
+        "C3": 8.8,
+        "C4": 9.73
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.63
+      ],
+      "objective_linear_coefficient": 3.82,
+      "resource_costs": {
+        "C2": 9.36,
+        "C3": 6.98,
+        "C4": 1.26,
+        "C5": 8.2,
+        "C7": 2.09
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.86, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 9.98 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.0, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.02 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.56, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.14 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.35, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.58 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.61, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.88 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.2, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.73 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.88, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.9 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.63, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.82 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.93 * vars['Var_0'] + 1.01 * vars['Var_1'] + 4.88 * vars['Var_4'] + 5.47 * vars['Var_5'] + 6.32 * vars['Var_6'] >= 91.35, name='C0')\n    m.addConstr(2.34 * vars['Var_0'] + 9.9 * vars['Var_1'] + 4.57 * vars['Var_4'] + 2.22 * vars['Var_6'] >= 61.93, name='C1')\n    m.addConstr(4.88 * vars['Var_0'] + 3.37 * vars['Var_1'] + 4.8 * vars['Var_4'] + 9.36 * vars['Var_7'] >= 137.51, name='C2')\n    m.addConstr(0.88 * vars['Var_1'] + 8.8 * vars['Var_6'] + 6.98 * vars['Var_7'] >= 130.79, name='C3')\n    m.addConstr(4.61 * vars['Var_0'] + 3.37 * vars['Var_1'] + 2.0 * vars['Var_2'] + 0.14 * vars['Var_3'] + 2.74 * vars['Var_4'] + 0.83 * vars['Var_5'] + 9.73 * vars['Var_6'] + 1.26 * vars['Var_7'] >= 164.72, name='C4')\n    m.addConstr(3.61 * vars['Var_2'] + 3.32 * vars['Var_4'] + 8.2 * vars['Var_7'] >= 104.83, name='C5')\n    m.addConstr(1.78 * vars['Var_0'] + 4.33 * vars['Var_1'] + 3.17 * vars['Var_2'] + 1.55 * vars['Var_3'] + 2.45 * vars['Var_4'] >= 58.13, name='C6')\n    m.addConstr(9.23 * vars['Var_0'] + 8.59 * vars['Var_1'] + 5.35 * vars['Var_3'] + 9.62 * vars['Var_5'] + 2.09 * vars['Var_7'] >= 155.53, name='C7')\n    m.addConstr(4.74 * vars['Var_0'] + 9.6 * vars['Var_2'] + 0.9 * vars['Var_4'] + 5.68 * vars['Var_5'] >= 147.14, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Feed Formulation Plan \u2013 Inputs, Effects, and Minimum Requirements\n\nTeam,\n\nWe need to finalize a lowest-cost composition for the next production cycle of our blended feed. The objective is to minimize total ingredient spend while meeting or exceeding a set of nine minimum nutrition and handling thresholds for the herd. Below are the levers we can adjust\u2014each ingredient\u2019s per-unit cost, sourcing limits, and exactly how each one contributes to the different requirements we must satisfy.\n\nLevers we can adjust\n\n1) Soy-Protein Pellets (whole-sack orders only)\n- Sourcing window: 0 up to 14.86 sacks; whole sacks only.\n- Unit cost: 9.98 per sack.\n- Per sack, this adds 1.93 units toward Metabolizable Energy, 2.34 units toward Crude Protein, 4.88 units toward Starch/Carbohydrates, 4.61 units toward Total Dry Matter, 1.78 units toward Dietary Fiber, 9.23 units toward Essential Amino Acids, and 4.74 units toward Fats. It does not materially move the Calcium & Trace Minerals or Phosphorus totals.\n\n2) Fishmeal Supplement (drawdown in fractional amounts allowed)\n- Sourcing window: 0 up to 6.00 tubs; partial tubs allowed.\n- Unit cost: 1.02 per tub.\n- Per tub, this adds 1.01 units to Metabolizable Energy, 9.90 units to Crude Protein, 3.37 units to Starch/Carbohydrates, 0.88 units to Calcium & Trace Minerals, 3.37 units to Total Dry Matter, 4.33 units to Dietary Fiber, and 8.59 units to Essential Amino Acids.\n\n3) Mineral-Enriched Grain Blocks (whole-pallet orders only)\n- Sourcing window: 0 up to 18.56 pallets; whole pallets only.\n- Unit cost: 8.14 per pallet.\n- Per pallet, this adds 2.00 units to Total Dry Matter, 3.61 units to Phosphorus, 3.17 units to Dietary Fiber, and 9.60 units to Fats.\n\n4) Legume Hull Pellets (fractional orders allowed)\n- Sourcing window: 0 up to 12.35 tons; partial tons allowed.\n- Unit cost: 7.58 per ton.\n- Per ton, this adds 0.14 units to Total Dry Matter, 1.55 units to Dietary Fiber, and 5.35 units to Essential Amino Acids.\n\n5) Fortified Maize Blend (fractional orders allowed)\n- Sourcing window: 0 up to 11.61 tons; partial tons allowed.\n- Unit cost: 6.88 per ton.\n- Per ton, this adds 4.88 units to Metabolizable Energy, 4.57 units to Crude Protein, 4.80 units to Starch/Carbohydrates, 2.74 units to Total Dry Matter, 3.32 units to Phosphorus, 2.45 units to Dietary Fiber, and 0.90 units to Fats.\n\n6) Dried Poultry Meal (fractional orders allowed)\n- Sourcing window: 0 up to 9.20 tons; partial tons allowed.\n- Unit cost: 7.73 per ton.\n- Per ton, this adds 5.47 units to Metabolizable Energy, 0.83 units to Total Dry Matter, 9.62 units to Essential Amino Acids, and 5.68 units to Fats.\n\n7) Calcium-Fortified Binder (fractional orders allowed)\n- Sourcing window: 0 up to 9.88 tons; partial tons allowed.\n- Unit cost: 4.90 per ton.\n- Per ton, this adds 6.32 units to Metabolizable Energy, 2.22 units to Crude Protein, 8.80 units to Calcium & Trace Minerals, and 9.73 units to Total Dry Matter.\n\n8) Phosphate-Enriched Grain Mix (fractional orders allowed)\n- Sourcing window: 0 up to 15.63 tons; partial tons allowed.\n- Unit cost: 3.82 per ton.\n- Per ton, this adds 9.36 units to Starch/Carbohydrates, 6.98 units to Calcium & Trace Minerals, 1.26 units to Total Dry Matter, 8.20 units to Phosphorus, and 2.09 units to Essential Amino Acids.\n\nMarket and Nutrition Minimums We Must Satisfy\n- Metabolizable Energy: at least 91.35 units.\n- Crude Protein: at least 61.93 units.\n- Starch/Carbohydrates: at least 137.51 units.\n- Calcium & Trace Minerals: at least 130.79 units.\n- Total Dry Matter: at least 164.72 units.\n- Phosphorus: at least 104.83 units.\n- Dietary Fiber: at least 58.13 units.\n- Essential Amino Acids: at least 155.53 units.\n- Fats: at least 147.14 units.\n\nAs a reminder, the goal is to assemble a mix that meets or exceeds each of the nine thresholds above at the lowest total ingredient cost, respecting the sourcing windows and whole-unit requirements noted for the Soy-Protein Pellets and Mineral-Enriched Grain Blocks.\n\nPlease let me know if you want this reframed with different ingredient names or if we should add any supplier-specific limitations before we lock the model."
+}

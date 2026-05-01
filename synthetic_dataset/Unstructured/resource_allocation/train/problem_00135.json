@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Precise: unit costs, bounds, integrality, per-unit contributions, and >= minimum requirements listed. Objective is to minimize total spend. No missing values; zeros clearly indicated.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business-email framing and repeated 'no contribution here' add verbosity, but structure is clear and not overly repetitive.",
+      "realism": 93,
+      "realism_comment": "Realistic resource mix planning with integer and continuous decisions meeting service-level minimums; numbers are synthetic but scenario is plausible."
+    },
+    "prompt_tokens_with_data": 919,
+    "prompt_tokens_without_data": 919
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 49.290983978957435,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 10.760162601626016,
+      "Var_2": 6.044117647058822,
+      "Var_3": 1.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 114.94
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 80.04
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 8.58
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 6.68
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 88.04
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.16
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.4
+      ],
+      "objective_linear_coefficient": 8.68,
+      "resource_costs": {
+        "C0": 2.05,
+        "C1": 4.13,
+        "C2": 6.38,
+        "C4": 0.61,
+        "C5": 4.16
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.88
+      ],
+      "objective_linear_coefficient": 2.47,
+      "resource_costs": {
+        "C0": 7.49,
+        "C1": 5.91,
+        "C2": 1.1,
+        "C4": 7.38,
+        "C5": 8.62
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.23
+      ],
+      "objective_linear_coefficient": 2.57,
+      "resource_costs": {
+        "C0": 8.71,
+        "C1": 2.28,
+        "C3": 0.68,
+        "C5": 4.81
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.0
+      ],
+      "objective_linear_coefficient": 7.18,
+      "resource_costs": {
+        "C1": 6.14,
+        "C3": 2.57,
+        "C4": 8.63,
+        "C5": 6.81
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.4, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.68 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.88, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.47 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.23, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.57 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.18 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.05 * vars['Var_0'] + 7.49 * vars['Var_1'] + 8.71 * vars['Var_2'] >= 114.94, name='C0')\n    m.addConstr(4.13 * vars['Var_0'] + 5.91 * vars['Var_1'] + 2.28 * vars['Var_2'] + 6.14 * vars['Var_3'] >= 80.04, name='C1')\n    m.addConstr(6.38 * vars['Var_0'] + 1.1 * vars['Var_1'] >= 8.58, name='C2')\n    m.addConstr(0.68 * vars['Var_2'] + 2.57 * vars['Var_3'] >= 6.68, name='C3')\n    m.addConstr(0.61 * vars['Var_0'] + 7.38 * vars['Var_1'] + 8.63 * vars['Var_3'] >= 88.04, name='C4')\n    m.addConstr(4.16 * vars['Var_0'] + 8.62 * vars['Var_1'] + 4.81 * vars['Var_2'] + 6.81 * vars['Var_3'] >= 121.16, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix planning for the next service cycle \u2014 minimize spend while meeting commitments\n\nTeam,\n\nWe\u2019re preparing the next cycle\u2019s service mix and want to meet all of our minimum obligations at the lowest total spend. Below are the levers we can pull, what each costs per unit, how much each contributes to our required service measures, and the practical limits on each option.\n\n- Rapid Response Crews\n  - Cost and volume: Each crew costs 8.68 to operate for the period. We can deploy anywhere from 0 up to 6.4 crews; crews must be booked in whole units.\n  - Impact on service measures (per crew):\n    - Emergency coverage hours: 2.05\n    - Customer service cases resolved: 4.13\n    - Training credits earned: 6.38\n    - Safety inspections completed: 0 (no contribution here)\n    - Community outreach sessions: 0.61\n    - Regulatory compliance score: 4.16\n\n- Multi-Channel Support Hours\n  - Cost and volume: Each bundle costs 2.47. We can allocate from 0 up to 14.88 bundles, and these can be assigned in fractional increments as needed.\n  - Impact on service measures (per bundle):\n    - Emergency coverage hours: 7.49\n    - Customer service cases resolved: 5.91\n    - Training credits earned: 1.1\n    - Safety inspections completed: 0 (no contribution here)\n    - Community outreach sessions: 7.38\n    - Regulatory compliance score: 8.62\n\n- Field Technician Shifts\n  - Cost and volume: Each shift costs 2.57. We can schedule from 0 up to 9.23 shifts, and partial shift equivalents are acceptable.\n  - Impact on service measures (per shift):\n    - Emergency coverage hours: 8.71\n    - Customer service cases resolved: 2.28\n    - Training credits earned: 0 (no contribution here)\n    - Safety inspections completed: 0.68\n    - Community outreach sessions: 0 (no contribution here)\n    - Regulatory compliance score: 4.81\n\n- Compliance & Security Patrols\n  - Cost and volume: Each patrol unit costs 7.18. We can deploy from 0 up to 6.0 patrol units; these must be committed in whole units (no partial patrols).\n  - Impact on service measures (per patrol unit):\n    - Emergency coverage hours: 0 (no contribution here)\n    - Customer service cases resolved: 6.14\n    - Training credits earned: 0 (no contribution here)\n    - Safety inspections completed: 2.57\n    - Community outreach sessions: 8.63\n    - Regulatory compliance score: 6.81\n\nService-level commitments (minimums we must meet for the period):\n- Emergency coverage hours: at least 114.94\n- Customer service cases resolved: at least 80.04\n- Training credits earned: at least 8.58\n- Safety inspections completed: at least 6.68\n- Community outreach sessions: at least 88.04\n- Regulatory compliance score: at least 121.16\n\nOur intent is to choose the mix of the above options that satisfies all six minimums at the lowest total cost. Please review and advise on the recommended allocation within these limits.\n\nThanks,\n[Client Name]"
+}

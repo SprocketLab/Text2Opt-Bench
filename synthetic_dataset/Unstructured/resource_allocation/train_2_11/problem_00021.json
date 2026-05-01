@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Two integer decision variables with explicit bounds, costs, and contributions. Four >= minimum constraints and a minimize-cost objective; all coefficients and limits are clearly specified.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business memo style adds context with some extra prose and minor repetition. Clear but longer than necessary.",
+      "realism": 90,
+      "realism_comment": "Plausible service planning with costs and minimum commitments. Slight oddity: decimal maximum counts while units must be whole."
+    },
+    "prompt_tokens_with_data": 656,
+    "prompt_tokens_without_data": 656
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 18.009999999999998,
+    "optimal_values": {
+      "Var_0": 1.0,
+      "Var_1": 2.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 4.0
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 9.09
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 3.21
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 6.43
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.9
+      ],
+      "objective_linear_coefficient": 4.99,
+      "resource_costs": {
+        "C0": 5.74,
+        "C1": 3.66,
+        "C2": 5.4
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.78
+      ],
+      "objective_linear_coefficient": 6.51,
+      "resource_costs": {
+        "C1": 3.19,
+        "C3": 3.93
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.9, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.99 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.78, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.51 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.74 * vars['Var_0'] >= 4.0, name='C0')\n    m.addConstr(3.66 * vars['Var_0'] + 3.19 * vars['Var_1'] >= 9.09, name='C1')\n    m.addConstr(5.4 * vars['Var_0'] >= 3.21, name='C2')\n    m.addConstr(3.93 * vars['Var_1'] >= 6.43, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Structuring our service mix to meet commitments at the lowest possible cost\n\nTeam,\n\nWe need to set the mix of service deployments for the upcoming period with a clear objective: meet all minimum obligations while keeping total spend as low as possible. All scheduling must be in whole units (no fractional deployments).\n\nLevers we can adjust\n\n1) Metro Maintenance Blocks\n- What it is: Standard preventive maintenance deployments focused on planned work across our metro footprint.\n- Cost profile: Each block carries a direct operating cost of 4.99 per deployment.\n- Impact on commitments:\n  - Contributes 5.74 units toward our Base Coverage requirement.\n  - Adds 3.66 units to Customer Service touchpoints.\n  - Delivers 5.4 units of Sustainability and compliance credit.\n  - Does not add to Emergency Readiness (no measurable impact on that index).\n- Practical limits: We may schedule any whole number of these between 0.0 and 12.9 blocks this period; we will not split blocks.\n\n2) Rapid Response Activations\n- What it is: On-call emergency teams positioned for short-notice incidents and escalations.\n- Cost profile: Each activation costs 6.51 to run.\n- Impact on commitments:\n  - Contributes 3.19 units to Customer Service touchpoints.\n  - Adds 3.93 units to the Emergency Readiness index.\n  - Does not contribute to Base Coverage or Sustainability.\n- Practical limits: We may schedule any whole number of activations between 0.0 and 6.78 this period; no partial activations.\n\nMinimum service commitments for the period\n- Base Coverage: at least 4.0 units across the period.\n- Customer Service touchpoints: at least 9.09 units.\n- Sustainability and compliance credit: at least 3.21 units.\n- Emergency Readiness index: at least 6.43 units.\n\nPlease use these parameters to strike the least-cost combination of Metro Maintenance Blocks and Rapid Response Activations that satisfies all minimums, observing that only whole blocks/activations can be scheduled and the maximum allowable counts for the period are 12.9 and 6.78 respectively."
+}

@@ -1,0 +1,140 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "All contributions, bounds, and resource pulls are explicit and map directly to constraints and objective. Minor gap: integrality and variable names are not explicitly specified.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Clear and structured but somewhat verbose, repeating many 'no use (0)' entries; could be trimmed without losing clarity.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning scenario with plausible capacities, equipment, materials, and co-packing details."
+    },
+    "prompt_tokens_with_data": 1197,
+    "prompt_tokens_without_data": 1197
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 173.90719173963836,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 10.722727272727273,
+      "Var_2": 3.111654447887537,
+      "Var_3": 3.2252475247524752,
+      "Var_4": 6.874654341444904,
+      "Var_5": 7.59
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 26.06
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 67.14
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.51
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 23.59
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 13.01
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 63.46
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.63
+      ],
+      "objective_linear_coefficient": 7.32,
+      "resource_costs": {
+        "C3": 4.43,
+        "C4": 1.59,
+        "C5": 5.3
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.92
+      ],
+      "objective_linear_coefficient": 5.52,
+      "resource_costs": {
+        "C3": 2.2
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.75
+      ],
+      "objective_linear_coefficient": 5.65,
+      "resource_costs": {
+        "C1": 1.45,
+        "C2": 6.55
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.1
+      ],
+      "objective_linear_coefficient": 3.41,
+      "resource_costs": {
+        "C0": 8.08,
+        "C2": 0.66
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.16
+      ],
+      "objective_linear_coefficient": 9.56,
+      "resource_costs": {
+        "C1": 9.11,
+        "C4": 1.11,
+        "C5": 7.47
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.59
+      ],
+      "objective_linear_coefficient": 2.69,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.63, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.32 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.92, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.52 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.75, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.65 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.1, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.41 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.16, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.56 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=7.59, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.69 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.08 * vars['Var_3'] <= 26.06, name='C0')\n    m.addConstr(1.45 * vars['Var_2'] + 9.11 * vars['Var_4'] <= 67.14, name='C1')\n    m.addConstr(6.55 * vars['Var_2'] + 0.66 * vars['Var_3'] <= 22.51, name='C2')\n    m.addConstr(4.43 * vars['Var_0'] + 2.2 * vars['Var_1'] <= 23.59, name='C3')\n    m.addConstr(1.59 * vars['Var_0'] + 1.11 * vars['Var_4'] <= 13.01, name='C4')\n    m.addConstr(5.3 * vars['Var_0'] + 7.47 * vars['Var_4'] <= 63.46, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan for the spring bottling window \u2014 decision inputs to maximize contribution\n\nHi team,\n\nAs discussed, we\u2019re setting up the spring production mix to maximize total gross contribution across six beverage runs. Below are the levers we can pull and how each one draws on our constrained assets (cellar, processing lines, packaging, and materials). For each item, I\u2019ve noted the per\u2011unit contribution, the practical volume limits for this window, and the exact pulls on each resource. Where a product does not touch a resource, that draw is zero.\n\nFounders\u2019 Cola (flagship cola run)\n- Financials and volume: Each batch yields a contribution of 7.32. We can schedule anywhere from zero up to 6.63 batches this window.\n- Resource touches per batch:\n  \u2022 Barrel cellar: no use (0).\n  \u2022 Pasteurizer A: no use (0).\n  \u2022 Chiller bank: no use (0).\n  \u2022 Carbonation Line B: 4.43 hours per batch.\n  \u2022 Glass bottles: 1.59 thousand units per batch.\n  \u2022 Packing line: 5.3 hours per batch.\n\nVanilla Cream (legacy cream soda)\n- Financials and volume: Each batch contributes 5.52. We can run between zero and 12.92 batches.\n- Resource touches per batch:\n  \u2022 Barrel cellar: no use (0).\n  \u2022 Pasteurizer A: no use (0).\n  \u2022 Chiller bank: no use (0).\n  \u2022 Carbonation Line B: 2.2 hours per batch.\n  \u2022 Glass bottles: no draw (0).\n  \u2022 Packing line: no draw (0).\n\nCitrus Light (sparkling citrus water)\n- Financials and volume: Each batch contributes 5.65. We can produce from zero up to 13.75 batches.\n- Resource touches per batch:\n  \u2022 Barrel cellar: no use (0).\n  \u2022 Pasteurizer A: 1.45 hours per batch.\n  \u2022 Chiller bank: 6.55 units of chilled capacity per batch.\n  \u2022 Carbonation Line B: no draw (0).\n  \u2022 Glass bottles: no draw (0).\n  \u2022 Packing line: no draw (0).\n\nBarrel Reserve Root (barrel\u2011conditioned root beverage)\n- Financials and volume: Each batch contributes 3.41. We can run between zero and 7.1 batches.\n- Resource touches per batch:\n  \u2022 Barrel cellar: 8.08 barrel\u2011days per batch.\n  \u2022 Pasteurizer A: no use (0).\n  \u2022 Chiller bank: 0.66 units of chilled capacity per batch.\n  \u2022 Carbonation Line B: no draw (0).\n  \u2022 Glass bottles: no draw (0).\n  \u2022 Packing line: no draw (0).\n\nTropical Punch Plus (fortified punch line)\n- Financials and volume: Each batch contributes 9.56. We can schedule anywhere from zero up to 13.16 batches.\n- Resource touches per batch:\n  \u2022 Barrel cellar: no use (0).\n  \u2022 Pasteurizer A: 9.11 hours per batch.\n  \u2022 Chiller bank: no draw (0).\n  \u2022 Carbonation Line B: no draw (0).\n  \u2022 Glass bottles: 1.11 thousand units per batch.\n  \u2022 Packing line: 7.47 hours per batch.\n\nClassic Seltzer (co\u2011packed seltzer)\n- Financials and volume: Each batch contributes 2.69. We can place between zero and 7.59 batches with the partner.\n- Resource touches per batch:\n  \u2022 Barrel cellar: no use (0).\n  \u2022 Pasteurizer A: no use (0).\n  \u2022 Chiller bank: no draw (0).\n  \u2022 Carbonation Line B: no draw (0).\n  \u2022 Glass bottles: no draw (0).\n  \u2022 Packing line: no draw (0).\n  (This item is co\u2011packed externally and does not pull on any of our constrained in\u2011house resources.)\n\nFacility limits for the spring window\n- Barrel cellar capacity (barrel\u2011days available): up to 26.06.\n- Pasteurizer A available hours: up to 67.14.\n- Chiller bank capacity units: up to 22.51.\n- Carbonation Line B available hours: up to 23.59.\n- Glass bottles on hand (thousand units): up to 13.01.\n- Packing line available hours: up to 63.46.\n\nPlease use the above to set the production plan that maximizes total contribution while staying within these limits and the per\u2011item volume caps. Let me know if you need any clarifications on the resource pulls or if we should revisit any of the caps."
+}

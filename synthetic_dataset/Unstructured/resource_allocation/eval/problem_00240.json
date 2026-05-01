@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All coefficients, bounds, and capacities are explicit; objective is to maximize contribution. Minor implicit assumption: variables are continuous; variable names aren\u2019t specified but math is clear.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some narrative/branding and boilerplate add length, but the numerical data is precise and not repetitive.",
+      "realism": 94,
+      "realism_comment": "Plausible marketing portfolio allocation with team-hour capacities and per-unit returns; multi-resource limits mirror real planning."
+    },
+    "prompt_tokens_with_data": 845,
+    "prompt_tokens_without_data": 845
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 216.6840957279298,
+    "optimal_values": {
+      "Var_0": 8.716346153846153,
+      "Var_1": 0.8556208053691268,
+      "Var_2": 18.64,
+      "Var_3": 6.96,
+      "Var_4": 5.27,
+      "Var_5": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 107.08
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 36.26
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 66.17
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 168.37
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.95
+      ],
+      "objective_linear_coefficient": 4.92,
+      "resource_costs": {
+        "C1": 4.16,
+        "C3": 5.59
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.95
+      ],
+      "objective_linear_coefficient": 5.03,
+      "resource_costs": {
+        "C0": 5.96,
+        "C2": 0.41,
+        "C3": 9.49
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.64
+      ],
+      "objective_linear_coefficient": 4.22,
+      "resource_costs": {
+        "C0": 4.49
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.96
+      ],
+      "objective_linear_coefficient": 7.41,
+      "resource_costs": {}
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.27
+      ],
+      "objective_linear_coefficient": 7.45,
+      "resource_costs": {
+        "C0": 3.47,
+        "C2": 9.74,
+        "C3": 8.18
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.52
+      ],
+      "objective_linear_coefficient": 1.63,
+      "resource_costs": {
+        "C0": 4.44,
+        "C2": 5.36,
+        "C3": 7.06
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.95, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.92 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.95, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.03 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.64, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.22 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.96, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.41 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=5.27, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.45 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.52, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.63 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.96 * vars['Var_1'] + 4.49 * vars['Var_2'] + 3.47 * vars['Var_4'] + 4.44 * vars['Var_5'] <= 107.08, name='C0')\n    m.addConstr(4.16 * vars['Var_0'] <= 36.26, name='C1')\n    m.addConstr(0.41 * vars['Var_1'] + 9.74 * vars['Var_4'] + 5.36 * vars['Var_5'] <= 66.17, name='C2')\n    m.addConstr(5.59 * vars['Var_0'] + 9.49 * vars['Var_1'] + 8.18 * vars['Var_4'] + 7.06 * vars['Var_5'] <= 168.37, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocating Q1 Activation Portfolio for Maximum Return Within Team Capacity\n\nTeam,\n\nWe\u2019re setting up the Q1 activation portfolio with the goal of maximizing total contribution while respecting capacity limits across our shared teams. Below are the six levers we can dial up or down, along with their per\u2011unit contribution, feasible range, and the exact draw each places on Creative Studio, Senior Strategy, Analytics Desk, and Field Activation.\n\n- Aurora Thought Leadership Series\n  - Contribution: 4.92 per unit.\n  - Feasible range: from 0 up to 14.95 units.\n  - Per\u2011unit draw on shared teams: 0.00 Creative Studio hours, 4.16 Senior Strategy hours, 0.00 Analytics Desk hours, and 5.59 Field Activation hours.\n\n- Beacon Pop\u2011Up Retail Experiences\n  - Contribution: 5.03 per unit.\n  - Feasible range: from 0 up to 8.95 units.\n  - Per\u2011unit draw on shared teams: 5.96 Creative Studio hours, 0.00 Senior Strategy hours, 0.41 Analytics Desk hours, and 9.49 Field Activation hours.\n\n- Nimbus Evergreen Content Packs\n  - Contribution: 4.22 per unit.\n  - Feasible range: from 0 up to 18.64 units.\n  - Per\u2011unit draw on shared teams: 4.49 Creative Studio hours, 0.00 Senior Strategy hours, 0.00 Analytics Desk hours, and 0.00 Field Activation hours.\n\n- Atlas Self\u2011Serve Digital Ads\n  - Contribution: 7.41 per unit.\n  - Feasible range: from 0 up to 6.96 units.\n  - Per\u2011unit draw on shared teams: 0.00 Creative Studio hours, 0.00 Senior Strategy hours, 0.00 Analytics Desk hours, and 0.00 Field Activation hours.\n\n- Orion Data\u2011Driven Roadshows\n  - Contribution: 7.45 per unit.\n  - Feasible range: from 0 up to 5.27 units.\n  - Per\u2011unit draw on shared teams: 3.47 Creative Studio hours, 0.00 Senior Strategy hours, 9.74 Analytics Desk hours, and 8.18 Field Activation hours.\n\n- Pulse Regional Demo Days\n  - Contribution: 1.63 per unit.\n  - Feasible range: from 0 up to 17.52 units.\n  - Per\u2011unit draw on shared teams: 4.44 Creative Studio hours, 0.00 Senior Strategy hours, 5.36 Analytics Desk hours, and 7.06 Field Activation hours.\n\nFacility Specs and Team Limits\n- Creative Studio availability: up to 107.08 hours this cycle.\n- Senior Strategy availability: up to 36.26 hours.\n- Analytics Desk availability: up to 66.17 hours.\n- Field Activation availability: up to 168.37 hours.\n\nPlease recommend the mix that maximizes total contribution while staying within these limits and the unit ranges above."
+}

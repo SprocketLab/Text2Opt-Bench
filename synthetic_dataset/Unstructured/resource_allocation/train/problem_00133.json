@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, costs, coefficients, and >= thresholds are explicit; variables are continuous with upper bounds; objective is clear cost minimization.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated 'does not affect' statements make it verbose, but they aid clarity.",
+      "realism": 96,
+      "realism_comment": "Plausible ops planning mix with costs and performance targets; constraints and bounds reflect real-world trade-offs."
+    },
+    "prompt_tokens_with_data": 979,
+    "prompt_tokens_without_data": 979
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 90.35355996680586,
+    "optimal_values": {
+      "Var_0": 0.42857142857142855,
+      "Var_1": 8.553804130390375,
+      "Var_2": 5.8281013040249015,
+      "Var_3": 1.1068304755287297
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 94.36
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -10.73
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 1.05
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -11.79
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 87.69
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.57
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.6
+      ],
+      "objective_linear_coefficient": 7.39,
+      "resource_costs": {
+        "C2": 2.45,
+        "C3": 2.91
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.16
+      ],
+      "objective_linear_coefficient": 7.57,
+      "resource_costs": {
+        "C0": 7.44,
+        "C1": 2.28,
+        "C3": -1.66,
+        "C4": 7.75
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.32
+      ],
+      "objective_linear_coefficient": 2.33,
+      "resource_costs": {
+        "C0": 5.1,
+        "C1": -4.31,
+        "C4": 2.42,
+        "C5": 3.98
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.32
+      ],
+      "objective_linear_coefficient": 8.0,
+      "resource_costs": {
+        "C0": 1.67,
+        "C1": -4.62,
+        "C3": 1.05,
+        "C4": 6.59
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.6, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.39 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.16, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.57 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.32, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.33 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.32, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.0 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.44 * vars['Var_1'] + 5.1 * vars['Var_2'] + 1.67 * vars['Var_3'] >= 94.36, name='C0')\n    m.addConstr(2.28 * vars['Var_1'] + -4.31 * vars['Var_2'] + -4.62 * vars['Var_3'] >= -10.73, name='C1')\n    m.addConstr(2.45 * vars['Var_0'] >= 1.05, name='C2')\n    m.addConstr(2.91 * vars['Var_0'] + -1.66 * vars['Var_1'] + 1.05 * vars['Var_3'] >= -11.79, name='C3')\n    m.addConstr(7.75 * vars['Var_1'] + 2.42 * vars['Var_2'] + 6.59 * vars['Var_3'] >= 87.69, name='C4')\n    m.addConstr(3.98 * vars['Var_2'] >= 22.57, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing mix to meet our Q1 service, coverage, and compliance targets\n\nTeam,\n\nAs discussed, we need to set our Q1 operating mix across four deployable levers with the aim of keeping total run-rate cost as low as possible while staying above all service, coverage, and compliance guardrails. Below is the proposed framing of the decision, with each lever\u2019s economic profile and how it moves our key metrics.\n\nThe levers\n\n1) Compliance Accelerator Program\n- Role and cost: This is a targeted compliance initiative we can scale up to 19.6 program units. Each unit carries a run-rate cost of 7.39.\n- Impact on our metrics: Each program unit delivers 2.45 compliance credits and improves our sustainability margin by 2.91 points. It does not move base service hours, does not change the working capital balance, does not affect the coverage index, and does not add technical certification hours.\n\n2) Regional Core Crew Days\n- Role and cost: These are our standard field crews, scalable up to 13.16 crew-days. Each crew-day costs 7.57.\n- Impact on our metrics: Each crew-day adds 7.44 base service hours and improves the working capital balance by 2.28. It does, however, reduce our sustainability margin by 1.66 points per crew-day. In addition, each crew-day lifts the coverage index by 7.75. It does not contribute to compliance credits or technical certification hours.\n\n3) Contracted Flex Hours\n- Role and cost: This is our flexible contractor pool, scalable up to 9.32 hours (fractional engagement is acceptable). Each hour costs 2.33.\n- Impact on our metrics: Each contracted hour adds 5.1 base service hours, but it draws down the working capital balance by 4.31. It does not affect the compliance credits or sustainability margin. It improves the coverage index by 2.42 per hour and contributes 3.98 technical certification hours per contracted hour.\n\n4) Specialist Rapid Response\n- Role and cost: This is the premium specialist option for surge or complex tasks, scalable up to 10.32 response units. Each unit costs 8.0.\n- Impact on our metrics: Each unit adds 1.67 base service hours and reduces the working capital balance by 4.62. It improves the sustainability margin by 1.05 points per unit and lifts the coverage index by 6.59. It does not contribute to compliance credits or technical certification hours.\n\nProgram targets and guardrails (minimums we must meet)\n\n- Base service hours: At least 94.36 total hours across the mix.\n- Working capital balance: No worse than -10.73; the combined effect of our choices must keep this balance at or above -10.73.\n- Compliance credits: At least 1.05 credits.\n- Sustainability margin: No worse than -11.79; the combined effect must keep this margin at or above -11.79.\n- Coverage index: At least 87.69 points.\n- Technical certification hours: At least 22.57 hours.\n\nAdditional notes\n\n- We can scale each lever fractionally; there is no minimum uptake on any lever beyond zero, and none are required to be whole numbers.\n- The upper limits are strictly enforced: up to 19.6 units for the Compliance Accelerator Program, up to 13.16 crew-days for Regional Core, up to 9.32 contracted hours for Flex, and up to 10.32 units for Specialist Rapid Response.\n\nPlease review this setup. Once confirmed, we will run the cost-minimizing allocation to identify the least-expensive combination that satisfies all of the above thresholds."
+}

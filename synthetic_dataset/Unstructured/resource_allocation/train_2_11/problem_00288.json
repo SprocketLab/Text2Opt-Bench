@@ -1,0 +1,176 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource caps are explicitly stated; zeros clarified via \u201cNo use of\u2026\u201d. Model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative/fluff and repeated \u201cNo use of \u2026\u201d notes, but most content directly supports model specification.",
+      "realism": 100,
+      "realism_comment": "Very plausible production-planning scenario with coherent resources, units, and integrality reflecting real operations."
+    },
+    "prompt_tokens_with_data": 1337,
+    "prompt_tokens_without_data": 1337
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 247.73025708601634,
+    "optimal_values": {
+      "Var_0": 12.014598540145984,
+      "Var_1": 0.0,
+      "Var_2": 9.609677419354838,
+      "Var_3": 0.0,
+      "Var_4": 2.0374142226495944,
+      "Var_5": 8.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 63.82
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 55.19
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.46
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 105.62
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.79
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.08
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 85.55
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 81.25
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 73.07
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.92
+      ],
+      "objective_linear_coefficient": 7.33,
+      "resource_costs": {
+        "C0": 4.28,
+        "C1": 1.36,
+        "C2": 1.37,
+        "C3": 3.38,
+        "C5": 2.57
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.28
+      ],
+      "objective_linear_coefficient": 2.23,
+      "resource_costs": {
+        "C0": 1.58,
+        "C1": 8.24,
+        "C2": 1.63,
+        "C3": 8.75,
+        "C5": 0.07,
+        "C7": 8.84
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.11
+      ],
+      "objective_linear_coefficient": 9.08,
+      "resource_costs": {
+        "C1": 0.24,
+        "C4": 3.1,
+        "C6": 2.08,
+        "C7": 0.18
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.03
+      ],
+      "objective_linear_coefficient": 7.85,
+      "resource_costs": {
+        "C0": 6.22,
+        "C2": 1.64,
+        "C3": 3.74,
+        "C5": 6.67,
+        "C8": 1.46
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.95
+      ],
+      "objective_linear_coefficient": 2.87,
+      "resource_costs": {
+        "C0": 3.5,
+        "C5": 1.67,
+        "C6": 7.12,
+        "C7": 0.29,
+        "C8": 3.32
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 8.32,
+      "resource_costs": {
+        "C1": 1.92,
+        "C3": 7.17,
+        "C5": 5.35,
+        "C6": 1.08,
+        "C7": 5.73,
+        "C8": 5.89
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.92, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.33 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.28, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.23 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.11, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.08 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.03, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.85 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.95, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.87 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.32 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.28 * vars['Var_0'] + 1.58 * vars['Var_1'] + 6.22 * vars['Var_3'] + 3.5 * vars['Var_4'] <= 63.82, name='C0')\n    m.addConstr(1.36 * vars['Var_0'] + 8.24 * vars['Var_1'] + 0.24 * vars['Var_2'] + 1.92 * vars['Var_5'] <= 55.19, name='C1')\n    m.addConstr(1.37 * vars['Var_0'] + 1.63 * vars['Var_1'] + 1.64 * vars['Var_3'] <= 16.46, name='C2')\n    m.addConstr(3.38 * vars['Var_0'] + 8.75 * vars['Var_1'] + 3.74 * vars['Var_3'] + 7.17 * vars['Var_5'] <= 105.62, name='C3')\n    m.addConstr(3.1 * vars['Var_2'] <= 29.79, name='C4')\n    m.addConstr(2.57 * vars['Var_0'] + 0.07 * vars['Var_1'] + 6.67 * vars['Var_3'] + 1.67 * vars['Var_4'] + 5.35 * vars['Var_5'] <= 77.08, name='C5')\n    m.addConstr(2.08 * vars['Var_2'] + 7.12 * vars['Var_4'] + 1.08 * vars['Var_5'] <= 85.55, name='C6')\n    m.addConstr(8.84 * vars['Var_1'] + 0.18 * vars['Var_2'] + 0.29 * vars['Var_4'] + 5.73 * vars['Var_5'] <= 81.25, name='C7')\n    m.addConstr(1.46 * vars['Var_3'] + 3.32 * vars['Var_4'] + 5.89 * vars['Var_5'] <= 73.07, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q4 Production Mix\u2014Maximize Contribution Under Facility and Labor Limits\n\nHi team,\n\nAs we plan the Q4 production mix, our goal is to maximize overall contribution while staying within equipment capacities, materials availability, permits, and labor limits. A few of the levers below are flexible (we can run partial batches), while others need whole-number commitments (e.g., campaigns or shipments). Here\u2019s the decision framing and the impact each option has on our constrained resources.\n\n- Blue Ridge Lager (Batch Runs)\n  - Contribution: 7.33 per batch run.\n  - Flexibility: Up to 15.92 batch runs; partial runs are acceptable.\n  - Resource impact per batch run: draws 4.28 tank-days on Fermentation Row Alpha, 1.36 hours on Bottling Line Juno, 1.37 hours of Quality Lab throughput, 3.38 pallet-days in Cold Storage Deck North, and 2.57 case-equivalents of Packaging Materials from Supplier Nova.\n  - No use of Specialty Hops Lot 77, Water Withdrawal Permit Q4, Union Overtime Pool, or Carbon Emissions Budget beyond the above (i.e., none).\n\n- Stadium Accounts Kegging Campaigns\n  - Contribution: 2.23 per campaign.\n  - Flexibility: Up to 11.28 campaigns; campaigns must be whole numbers.\n  - Resource impact per campaign: draws 1.58 tank-days on Fermentation Row Alpha, 8.24 hours on Bottling Line Juno, 1.63 hours of Quality Lab throughput, 8.75 pallet-days in Cold Storage Deck North, 0.07 case-equivalents of Packaging Materials from Supplier Nova, and 8.84 hours from the Union Overtime Pool.\n  - No use of Specialty Hops Lot 77, Water Withdrawal Permit Q4, or Carbon Emissions Budget.\n\n- Alpine Seasonal IPA (Limited Release)\n  - Contribution: 9.08 per brew.\n  - Flexibility: Up to 10.11 brews; partial brews are acceptable.\n  - Resource impact per brew: draws 0.24 hours on Bottling Line Juno, 3.1 units from Specialty Hops Lot 77, 2.08 kiloliters under the Water Withdrawal Permit Q4, and 0.18 hours from the Union Overtime Pool.\n  - No use of Fermentation Row Alpha, Quality Lab throughput, Cold Storage Deck North, Packaging Materials from Supplier Nova, or Carbon Emissions Budget.\n\n- Reserve Pilsner (Aging Cycles)\n  - Contribution: 7.85 per aging cycle.\n  - Flexibility: Up to 13.03 cycles; partial cycles are acceptable.\n  - Resource impact per cycle: draws 6.22 tank-days on Fermentation Row Alpha, 1.64 hours of Quality Lab throughput, 3.74 pallet-days in Cold Storage Deck North, 6.67 case-equivalents of Packaging Materials from Supplier Nova, and 1.46 credits from the Carbon Emissions Budget.\n  - No use of Bottling Line Juno, Specialty Hops Lot 77, Water Withdrawal Permit Q4, or Union Overtime Pool.\n\n- Summit Sparkling Water (Line Runs)\n  - Contribution: 2.87 per line run.\n  - Flexibility: Up to 8.95 line runs; partial runs are acceptable.\n  - Resource impact per run: draws 3.5 tank-days on Fermentation Row Alpha, 1.67 case-equivalents of Packaging Materials from Supplier Nova, 7.12 kiloliters under the Water Withdrawal Permit Q4, 0.29 hours from the Union Overtime Pool, and 3.32 credits from the Carbon Emissions Budget.\n  - No use of Bottling Line Juno, Quality Lab throughput, Cold Storage Deck North, or Specialty Hops Lot 77.\n\n- Export Stout (Outbound Shipments)\n  - Contribution: 8.32 per shipment.\n  - Flexibility: Up to 8 shipments; shipments must be whole numbers.\n  - Resource impact per shipment: draws 1.92 hours on Bottling Line Juno, 7.17 pallet-days in Cold Storage Deck North, 5.35 case-equivalents of Packaging Materials from Supplier Nova, 1.08 kiloliters under the Water Withdrawal Permit Q4, 5.73 hours from the Union Overtime Pool, and 5.89 credits from the Carbon Emissions Budget.\n  - No use of Fermentation Row Alpha, Quality Lab throughput, or Specialty Hops Lot 77.\n\nFacility specs and limits (caps we must not exceed in total):\n- Fermentation Row Alpha: 63.82 tank-days available.\n- Bottling Line Juno: 55.19 hours available.\n- Quality Lab throughput: 16.46 hours available.\n- Cold Storage Deck North: 105.62 pallet-days available.\n- Specialty Hops Lot 77: 29.79 units available.\n- Packaging Materials (Supplier Nova): 77.08 case-equivalents available.\n- Water Withdrawal Permit Q4: 85.55 kiloliters available.\n- Union Overtime Pool: 81.25 hours available.\n- Carbon Emissions Budget (Q4): 73.07 credits available.\n\nPlease use this to recommend the exact mix\u2014how many batch runs, campaigns, brews, cycles, line runs, and shipments\u2014to maximize contribution within these limits."
+}

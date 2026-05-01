@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and capacity RHS are explicit; objective is to maximize total contribution. A human can reproduce the exact linear model without guessing.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some email-style fluff (greeting, sign-off) and narrative, but the core data are concise bullets with no repetition; minimal extra verbosity.",
+      "realism": 95,
+      "realism_comment": "Plausible production planning with shared capacities and discrete vs fractional runs; numbers and terminology are realistic despite decimal upper bounds for integer items."
+    },
+    "prompt_tokens_with_data": 835,
+    "prompt_tokens_without_data": 835
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 250.37777329842933,
+    "optimal_values": {
+      "Var_0": 13.0,
+      "Var_1": 11.26,
+      "Var_2": -0.0,
+      "Var_3": 8.7548167539267,
+      "Var_4": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 140.95
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 190.01
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 164.15
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.56
+      ],
+      "objective_linear_coefficient": 8.23,
+      "resource_costs": {
+        "C0": 5.42,
+        "C1": 2.8,
+        "C2": 6.21
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.26
+      ],
+      "objective_linear_coefficient": 5.62,
+      "resource_costs": {
+        "C0": 0.32,
+        "C1": 4.07,
+        "C2": 2.2
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.37
+      ],
+      "objective_linear_coefficient": 5.06,
+      "resource_costs": {
+        "C0": 4.59,
+        "C1": 4.24,
+        "C2": 8.33
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.09
+      ],
+      "objective_linear_coefficient": 9.15,
+      "resource_costs": {
+        "C0": 7.64,
+        "C1": 7.49,
+        "C2": 4.89
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 2.45,
+      "resource_costs": {
+        "C0": 2.09,
+        "C1": 7.53,
+        "C2": 4.51
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.56, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.23 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.26, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.62 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.37, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.06 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.09, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.15 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 2.45 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.42 * vars['Var_0'] + 0.32 * vars['Var_1'] + 4.59 * vars['Var_2'] + 7.64 * vars['Var_3'] + 2.09 * vars['Var_4'] <= 140.95, name='C0')\n    m.addConstr(2.8 * vars['Var_0'] + 4.07 * vars['Var_1'] + 4.24 * vars['Var_2'] + 7.49 * vars['Var_3'] + 7.53 * vars['Var_4'] <= 190.01, name='C1')\n    m.addConstr(6.21 * vars['Var_0'] + 2.2 * vars['Var_1'] + 8.33 * vars['Var_2'] + 4.89 * vars['Var_3'] + 4.51 * vars['Var_4'] <= 164.15, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for optimal product mix to maximize contribution under current shop constraints\n\nHi Team,\n\nAs we plan this upcoming production period, our goal is to maximize total contribution across five offerings while staying within three shared capacity pools: Precision Machining hours, Assembly Labor hours, and Finishing & Dispatch throughput. Below is the mix we can pull, in the order we typically plan them, with the per-unit economics and how each one draws on our constrained resources.\n\n- Ridge Runner Frame Kits (discrete batch runs)\n  - Economics: Each batch contributes $8.23 to gross margin.\n  - Resource draw per batch: 5.42 Precision Machining hours, 2.80 Assembly Labor hours, and 6.21 Finishing & Dispatch units.\n  - Volume range this period: anywhere from 0 up to 13.56 batch runs; these must be scheduled in whole runs only.\n\n- Summit Daypacks (flexible orders)\n  - Economics: Each unit contributes $5.62 to gross margin.\n  - Resource draw per unit: 0.32 Precision Machining hours, 4.07 Assembly Labor hours, and 2.20 Finishing & Dispatch units.\n  - Volume range this period: anywhere from 0 up to 11.26 units; fractional orders are acceptable.\n\n- Terra Mounting Kits (discrete batch runs)\n  - Economics: Each batch contributes $5.06 to gross margin.\n  - Resource draw per batch: 4.59 Precision Machining hours, 4.24 Assembly Labor hours, and 8.33 Finishing & Dispatch units.\n  - Volume range this period: anywhere from 0 up to 17.37 batch runs; these must be scheduled in whole runs only.\n\n- Apex Pro Rigs (flexible runs)\n  - Economics: Each run contributes $9.15 to gross margin.\n  - Resource draw per run: 7.64 Precision Machining hours, 7.49 Assembly Labor hours, and 4.89 Finishing & Dispatch units.\n  - Volume range this period: anywhere from 0 up to 17.09 runs; partial runs are acceptable.\n\n- Cascade Accessory Bundles (discrete batch runs)\n  - Economics: Each bundle contributes $2.45 to gross margin.\n  - Resource draw per bundle: 2.09 Precision Machining hours, 7.53 Assembly Labor hours, and 4.51 Finishing & Dispatch units.\n  - Volume range this period: anywhere from 0 up to 11.00 bundles; these must be scheduled in whole bundles only.\n\nFacility Specs and Period Limits (do not exceed):\n- Precision Machining: up to 140.95 hours available this period.\n- Assembly Labor: up to 190.01 hours available this period.\n- Finishing & Dispatch: up to 164.15 throughput units available this period.\n\nPlease use this to recommend the production schedule that maximizes total contribution while respecting all per-offering volume limits and the above capacity ceilings.\n\nThanks,\n[Your Name]\nDirector of Operations"
+}

@@ -1,0 +1,177 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, integrality, costs, and per-outcome coefficients are explicit. Constraints are clearly >= with exact RHS. Objective to minimize spend is unambiguous.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business narrative adds length and repeats 'no impact' notes, but technical data is clear, structured, and non-repetitive where it matters.",
+      "realism": 92,
+      "realism_comment": "Plausible resource/budget allocation with realistic levers and KPIs; only minor oddity is a purchasable item with zero impact this quarter."
+    },
+    "prompt_tokens_with_data": 1545,
+    "prompt_tokens_without_data": 1545
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 119.58253202144243,
+    "optimal_values": {
+      "Var_0": 10.39,
+      "Var_1": 0.0,
+      "Var_2": -0.0,
+      "Var_3": 7.0,
+      "Var_4": 4.0,
+      "Var_5": 9.101367959651428,
+      "Var_6": 0.0,
+      "Var_7": 2.1301762632197407
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 127.31
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 40.08
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 115.19
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 77.11
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.64
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 53.13
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.39
+      ],
+      "objective_linear_coefficient": 2.15,
+      "resource_costs": {
+        "C0": 3.43,
+        "C3": 4.98,
+        "C4": 6.45,
+        "C5": 5.25
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.19
+      ],
+      "objective_linear_coefficient": 1.17,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.38
+      ],
+      "objective_linear_coefficient": 2.28,
+      "resource_costs": {
+        "C0": 1.64,
+        "C2": 0.44,
+        "C3": 0.43,
+        "C4": 3.92,
+        "C5": 4.39
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.11
+      ],
+      "objective_linear_coefficient": 5.26,
+      "resource_costs": {
+        "C0": 5.99,
+        "C1": 5.94,
+        "C2": 1.36,
+        "C4": 8.13
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.15
+      ],
+      "objective_linear_coefficient": 3.84,
+      "resource_costs": {
+        "C2": 8.05,
+        "C3": 1.81,
+        "C4": 5.79
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.12
+      ],
+      "objective_linear_coefficient": 2.77,
+      "resource_costs": {
+        "C0": 4.04,
+        "C2": 6.98,
+        "C4": 0.61
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.31
+      ],
+      "objective_linear_coefficient": 7.3,
+      "resource_costs": {
+        "C0": 6.95,
+        "C2": 1.04,
+        "C4": 9.28
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.38
+      ],
+      "objective_linear_coefficient": 9.32,
+      "resource_costs": {
+        "C0": 6.09,
+        "C2": 5.05,
+        "C3": 8.51,
+        "C4": 1.68
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.39, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.15 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.19, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.17 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.38, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.28 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.11, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 5.26 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.15, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.84 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.12, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.77 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.31, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 7.3 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=16.38, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 9.32 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.43 * vars['Var_0'] + 1.64 * vars['Var_2'] + 5.99 * vars['Var_3'] + 4.04 * vars['Var_5'] + 6.95 * vars['Var_6'] + 6.09 * vars['Var_7'] >= 127.31, name='C0')\n    m.addConstr(5.94 * vars['Var_3'] >= 40.08, name='C1')\n    m.addConstr(0.44 * vars['Var_2'] + 1.36 * vars['Var_3'] + 8.05 * vars['Var_4'] + 6.98 * vars['Var_5'] + 1.04 * vars['Var_6'] + 5.05 * vars['Var_7'] >= 115.19, name='C2')\n    m.addConstr(4.98 * vars['Var_0'] + 0.43 * vars['Var_2'] + 1.81 * vars['Var_4'] + 8.51 * vars['Var_7'] >= 77.11, name='C3')\n    m.addConstr(6.45 * vars['Var_0'] + 3.92 * vars['Var_2'] + 8.13 * vars['Var_3'] + 5.79 * vars['Var_4'] + 0.61 * vars['Var_5'] + 9.28 * vars['Var_6'] + 1.68 * vars['Var_7'] >= 153.64, name='C4')\n    m.addConstr(5.25 * vars['Var_0'] + 4.39 * vars['Var_2'] >= 53.13, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix to Meet Our Q1 Service Commitments\n\nTeam,\n\nAs discussed, we need a clear, cost-minimizing way to cover our Q1 service commitments across six measured outcomes while staying within practical limits on each line item. The objective is to meet or exceed the required levels at the lowest possible spend, using a mix of teams, packages, and subscriptions described below. Some items can be dialed in flexibly; others must be booked in whole packages.\n\nOur levers and how they contribute to each commitment (in order: Regional Response Coverage, Specialist Certification Coverage, Technical Backlog Reduction, Community Outreach Touchpoints, Quality & Compliance Score, After-Hours Support Window) are as follows.\n\n- Regional Flex Technicians\n  - What we can buy: 0 up to 10.39 technician-days; can be allocated in fractional technician-days.\n  - Unit cost: 2.15 per technician-day.\n  - Contribution per technician-day:\n    - Regional Response Coverage: +3.43\n    - Specialist Certification Coverage: +0.00 (no impact)\n    - Technical Backlog Reduction: +0.00 (no impact)\n    - Community Outreach Touchpoints: +4.98\n    - Quality & Compliance Score: +6.45\n    - After-Hours Support Window: +5.25\n\n- Discretionary Training Allowance\n  - What we can buy: 0 up to 8.19 days; can be allocated in fractional days.\n  - Unit cost: 1.17 per day.\n  - Contribution per day: does not move any measured commitment this quarter\n    - Regional Response Coverage: +0.00\n    - Specialist Certification Coverage: +0.00\n    - Technical Backlog Reduction: +0.00\n    - Community Outreach Touchpoints: +0.00\n    - Quality & Compliance Score: +0.00\n    - After-Hours Support Window: +0.00\n\n- Night Shift Associate Crews\n  - What we can buy: 0 up to 14.38 crew-days; must be booked in whole crew-days.\n  - Unit cost: 2.28 per crew-day.\n  - Contribution per crew-day:\n    - Regional Response Coverage: +1.64\n    - Specialist Certification Coverage: +0.00 (no impact)\n    - Technical Backlog Reduction: +0.44\n    - Community Outreach Touchpoints: +0.43\n    - Quality & Compliance Score: +3.92\n    - After-Hours Support Window: +4.39\n\n- Expert Mobile Unit\n  - What we can buy: 0 up to 18.11 unit-days; must be booked in whole unit-days.\n  - Unit cost: 5.26 per unit-day.\n  - Contribution per unit-day:\n    - Regional Response Coverage: +5.99\n    - Specialist Certification Coverage: +5.94\n    - Technical Backlog Reduction: +1.36\n    - Community Outreach Touchpoints: +0.00 (no impact)\n    - Quality & Compliance Score: +8.13\n    - After-Hours Support Window: +0.00 (no impact)\n\n- Process Improvement Sprints\n  - What we can buy: 0 up to 8.15 sprint-days; must be booked in whole sprint-days.\n  - Unit cost: 3.84 per sprint-day.\n  - Contribution per sprint-day:\n    - Regional Response Coverage: +0.00 (no impact)\n    - Specialist Certification Coverage: +0.00 (no impact)\n    - Technical Backlog Reduction: +8.05\n    - Community Outreach Touchpoints: +1.81\n    - Quality & Compliance Score: +5.79\n    - After-Hours Support Window: +0.00 (no impact)\n\n- Automation Subscriptions\n  - What we can buy: 0 up to 17.12 subscription-days; can be allocated in fractional days.\n  - Unit cost: 2.77 per day.\n  - Contribution per day:\n    - Regional Response Coverage: +4.04\n    - Specialist Certification Coverage: +0.00 (no impact)\n    - Technical Backlog Reduction: +6.98\n    - Community Outreach Touchpoints: +0.00 (no impact)\n    - Quality & Compliance Score: +0.61\n    - After-Hours Support Window: +0.00 (no impact)\n\n- Premium Vendor On-Call\n  - What we can buy: 0 up to 10.31 vendor-days; can be allocated in fractional days.\n  - Unit cost: 7.30 per vendor-day.\n  - Contribution per vendor-day:\n    - Regional Response Coverage: +6.95\n    - Specialist Certification Coverage: +0.00 (no impact)\n    - Technical Backlog Reduction: +1.04\n    - Community Outreach Touchpoints: +0.00 (no impact)\n    - Quality & Compliance Score: +9.28\n    - After-Hours Support Window: +0.00 (no impact)\n\n- Regional Partnership Packages\n  - What we can buy: 0 up to 16.38 package-days; can be allocated in fractional days.\n  - Unit cost: 9.32 per package-day.\n  - Contribution per package-day:\n    - Regional Response Coverage: +6.09\n    - Specialist Certification Coverage: +0.00 (no impact)\n    - Technical Backlog Reduction: +5.05\n    - Community Outreach Touchpoints: +8.51\n    - Quality & Compliance Score: +1.68\n    - After-Hours Support Window: +0.00 (no impact)\n\nFacility Specs and Contractual Minimums (must be met or exceeded)\n- Regional Response Coverage: at least 127.31 service-points\n- Specialist Certification Coverage: at least 40.08 service-points\n- Technical Backlog Reduction: at least 115.19 service-points\n- Community Outreach Touchpoints: at least 77.11 touchpoints\n- Quality & Compliance Score: at least 153.64 score-points\n- After-Hours Support Window: at least 53.13 service-points\n\nPlease use the above to assemble the lowest-cost mix that achieves all six minimums, observing the noted booking rules and upper limits on each line item. I\u2019m available to review the recommended allocation before we lock in the Q1 plan."
+}

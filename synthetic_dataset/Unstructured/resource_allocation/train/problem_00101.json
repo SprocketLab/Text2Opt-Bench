@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All costs, bounds, and impacts on energy/quality/output are explicit; thresholds are clear (>=). Linear model reconstructable with given coefficients. Minor ambiguity around variable type/naming.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Business narrative adds verbosity, but lever data is clear. Some fluff (greetings, context) and template requirements; overall moderately verbose yet informative.",
+      "realism": 88,
+      "realism_comment": "Plausible production scheduling: trade-offs between maintenance, overtime, quality, output, and energy. Signs/coefficients make sense; only slight oddity in fractional sprints/windows."
+    },
+    "prompt_tokens_with_data": 804,
+    "prompt_tokens_without_data": 804
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 110.82335706040786,
+    "optimal_values": {
+      "Var_0": 4.429511350519429,
+      "Var_1": 6.0,
+      "Var_2": 0.0,
+      "Var_3": 5.2713736052327835
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -20.68
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 23.21
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 57.03
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.54
+      ],
+      "objective_linear_coefficient": 2.93,
+      "resource_costs": {
+        "C1": -2.06,
+        "C2": 7.34
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.0
+      ],
+      "objective_linear_coefficient": 7.68,
+      "resource_costs": {
+        "C0": -4.76,
+        "C1": 4.37,
+        "C2": -1.15
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.17
+      ],
+      "objective_linear_coefficient": 3.74,
+      "resource_costs": {
+        "C0": -2.46,
+        "C2": 1.45
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.77
+      ],
+      "objective_linear_coefficient": 9.82,
+      "resource_costs": {
+        "C0": 1.91,
+        "C1": 1.16,
+        "C2": 5.96
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.54, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.93 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.0, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.68 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.17, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.74 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.77, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.82 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-4.76 * vars['Var_1'] + -2.46 * vars['Var_2'] + 1.91 * vars['Var_3'] >= -20.68, name='C0')\n    m.addConstr(-2.06 * vars['Var_0'] + 4.37 * vars['Var_1'] + 1.16 * vars['Var_3'] >= 23.21, name='C1')\n    m.addConstr(7.34 * vars['Var_0'] + -1.15 * vars['Var_1'] + 1.45 * vars['Var_2'] + 5.96 * vars['Var_3'] >= 57.03, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Minimizing run-rate cost while hitting energy, quality, and output thresholds\n\nTeam,\n\nWe\u2019re preparing the next scheduling cycle and need your help configuring a minimum-cost run plan across four operating levers. The objective is to keep overall spend as low as possible while meeting our minimum thresholds on energy balance, quality, and finished output. Below are the levers we can adjust and how each one moves our scorecards; please note the allowable ranges for each lever.\n\n- Line A \u201cRush Sprints\u201d\n  - Cost: 2.93 per sprint.\n  - Allowable range: between 0 and 5.54 sprints this period.\n  - Impact on Energy Balance Index: no material change.\n  - Impact on Quality Assurance Score: lowers the score by 2.06 points per sprint (these are fast-turn runs and can be rough on quality).\n  - Impact on Finished Output: adds 7.34 units per sprint.\n\n- Preventive Maintenance Windows\n  - Cost: 7.68 per window.\n  - Allowable range: between 0 and 6.00 windows this period.\n  - Impact on Energy Balance Index: pulls the index down by 4.76 points per window (equipment is offline and auxiliary systems draw power).\n  - Impact on Quality Assurance Score: improves the score by 4.37 points per window.\n  - Impact on Finished Output: trims output by 1.15 units per window.\n\n- Auxiliary Blending Hours\n  - Cost: 3.74 per hour.\n  - Allowable range: between 0 and 17.17 hours this period.\n  - Impact on Energy Balance Index: pulls the index down by 2.46 points per hour.\n  - Impact on Quality Assurance Score: no material change.\n  - Impact on Finished Output: adds 1.45 units per hour.\n\n- Main Line Overtime\n  - Cost: 9.82 per shift.\n  - Allowable range: between 0 and 7.77 shifts this period.\n  - Impact on Energy Balance Index: lifts the index by 1.91 points per shift (efficiencies from running hot offset baseline draws).\n  - Impact on Quality Assurance Score: adds 1.16 points per shift.\n  - Impact on Finished Output: contributes 5.96 units per shift.\n\nFacility and Market Limits we must respect this period\n- Energy Balance Index: the net position can be negative, but it must not dip below -20.68 points (i.e., we must keep the index at or above -20.68).\n- Quality Assurance Score: deliver at least 23.21 points.\n- Finished Output: deliver at least 57.03 units.\n\nPlease use the above levers within their stated ranges to build a plan that satisfies all three thresholds while minimizing total cost. Let us know if you need any clarifications on the effects or the limits."
+}

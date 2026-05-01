@@ -1,0 +1,204 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, per-unit contributions, and >= minimums are explicitly stated. The objective (min total spend) and constraint senses are clear and fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Well-structured lists; minor narrative intro and repeated 'no effect' entries add some verbosity but most content is necessary for specification.",
+      "realism": 92,
+      "realism_comment": "Credible program-mix budgeting to meet KPI minimums with plausible limits and contributions; slightly odd fractional caps on integer actions but still realistic."
+    },
+    "prompt_tokens_with_data": 1466,
+    "prompt_tokens_without_data": 1466
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 103.80158326117319,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 4.0,
+      "Var_2": 5.0,
+      "Var_3": 9.0,
+      "Var_4": 7.54,
+      "Var_5": 0.9617667329179199,
+      "Var_6": 0.0,
+      "Var_7": 0.5563575418994412
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 59.85
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 149.33
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 91.84
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 37.25
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.97
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 48.05
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 73.29
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 69.7
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.29
+      ],
+      "objective_linear_coefficient": 7.48,
+      "resource_costs": {
+        "C0": 3.16,
+        "C1": 9.09,
+        "C2": 0.31,
+        "C4": 7.36,
+        "C7": 1.03
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.49
+      ],
+      "objective_linear_coefficient": 5.48,
+      "resource_costs": {
+        "C0": 1.84,
+        "C3": 6.01,
+        "C4": 4.71,
+        "C5": 4.76,
+        "C6": 1.71,
+        "C7": 1.75
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.41
+      ],
+      "objective_linear_coefficient": 8.68,
+      "resource_costs": {
+        "C1": 2.24,
+        "C2": 4.63,
+        "C3": 2.26,
+        "C4": 9.67,
+        "C5": 5.92
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 2.42,
+      "resource_costs": {
+        "C0": 4.49,
+        "C1": 6.1,
+        "C2": 0.28,
+        "C4": 0.18,
+        "C6": 4.44,
+        "C7": 6.45
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.54
+      ],
+      "objective_linear_coefficient": 1.12,
+      "resource_costs": {
+        "C1": 9.87,
+        "C2": 7.99,
+        "C4": 6.39,
+        "C6": 4.62
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.02
+      ],
+      "objective_linear_coefficient": 4.42,
+      "resource_costs": {
+        "C0": 8.32,
+        "C1": 8.09,
+        "C2": 8.8,
+        "C7": 7.05
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.16
+      ],
+      "objective_linear_coefficient": 4.88,
+      "resource_costs": {
+        "C0": 8.7,
+        "C1": 7.96,
+        "C2": 9.11,
+        "C5": 4.89,
+        "C6": 8.3
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.3
+      ],
+      "objective_linear_coefficient": 7.2,
+      "resource_costs": {
+        "C0": 7.33,
+        "C1": 7.78,
+        "C2": 8.74,
+        "C3": 6.71,
+        "C4": 8.95,
+        "C6": 6.88,
+        "C7": 2.17
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.29, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.48 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.49, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.48 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.41, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.68 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.42 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.54, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.12 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.02, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.42 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=6.16, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 4.88 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=7.3, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.2 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.16 * vars['Var_0'] + 1.84 * vars['Var_1'] + 4.49 * vars['Var_3'] + 8.32 * vars['Var_5'] + 8.7 * vars['Var_6'] + 7.33 * vars['Var_7'] >= 59.85, name='C0')\n    m.addConstr(9.09 * vars['Var_0'] + 2.24 * vars['Var_2'] + 6.1 * vars['Var_3'] + 9.87 * vars['Var_4'] + 8.09 * vars['Var_5'] + 7.96 * vars['Var_6'] + 7.78 * vars['Var_7'] >= 149.33, name='C1')\n    m.addConstr(0.31 * vars['Var_0'] + 4.63 * vars['Var_2'] + 0.28 * vars['Var_3'] + 7.99 * vars['Var_4'] + 8.8 * vars['Var_5'] + 9.11 * vars['Var_6'] + 8.74 * vars['Var_7'] >= 91.84, name='C2')\n    m.addConstr(6.01 * vars['Var_1'] + 2.26 * vars['Var_2'] + 6.71 * vars['Var_7'] >= 37.25, name='C3')\n    m.addConstr(7.36 * vars['Var_0'] + 4.71 * vars['Var_1'] + 9.67 * vars['Var_2'] + 0.18 * vars['Var_3'] + 6.39 * vars['Var_4'] + 8.95 * vars['Var_7'] >= 121.97, name='C4')\n    m.addConstr(4.76 * vars['Var_1'] + 5.92 * vars['Var_2'] + 4.89 * vars['Var_6'] >= 48.05, name='C5')\n    m.addConstr(1.71 * vars['Var_1'] + 4.44 * vars['Var_3'] + 4.62 * vars['Var_4'] + 8.3 * vars['Var_6'] + 6.88 * vars['Var_7'] >= 73.29, name='C6')\n    m.addConstr(1.03 * vars['Var_0'] + 1.75 * vars['Var_1'] + 6.45 * vars['Var_3'] + 7.05 * vars['Var_5'] + 2.17 * vars['Var_7'] >= 69.7, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimized program mix to meet our Q1 impact commitments\n\nTeam,\n\nWe need to set our Q1 program mix to meet or exceed our minimum commitments across eight impact metrics while keeping total spend as low as possible. Below are the levers we can pull, their per\u2011unit budgets, practical limits, and how each option contributes across the metrics.\n\n- Neighborhood Microgrants\n  - Budget: 7.48 per grant unit. We can deploy between 0 and 11.29 units, and fractional funding is allowed.\n  - Contribution per grant unit:\n    - Community Engagement Credits: +3.16\n    - Training & Development Hours: +9.09\n    - Carbon Reduction Points: +0.31\n    - Circular Economy Adoption Points: +7.36\n    - Transparency & Reporting Index: +1.03\n    - Safety & Risk Mitigation Actions: no effect\n    - Local Procurement Impact Units: no effect\n    - Renewable Energy Certificates: no effect\n\n- Union Safety Intensives\n  - Budget: 5.48 per session. We can schedule from 0 up to 15.49 sessions, but they must be whole sessions (no partial).\n  - Contribution per session:\n    - Community Engagement Credits: +1.84\n    - Safety & Risk Mitigation Actions: +6.01\n    - Circular Economy Adoption Points: +4.71\n    - Local Procurement Impact Units: +4.76\n    - Renewable Energy Certificates: +1.71\n    - Transparency & Reporting Index: +1.75\n    - Training & Development Hours: no effect\n    - Carbon Reduction Points: no effect\n\n- Supplier Circularity Clinics\n  - Budget: 8.68 per clinic. We can run 0 to 19.41 clinics, whole clinics only.\n  - Contribution per clinic:\n    - Training & Development Hours: +2.24\n    - Carbon Reduction Points: +4.63\n    - Safety & Risk Mitigation Actions: +2.26\n    - Circular Economy Adoption Points: +9.67\n    - Local Procurement Impact Units: +5.92\n    - Community Engagement Credits: no effect\n    - Renewable Energy Certificates: no effect\n    - Transparency & Reporting Index: no effect\n\n- Field Compliance Audits\n  - Budget: 2.42 per audit. We can complete 0 to 9.00 audits, whole audits only.\n  - Contribution per audit:\n    - Community Engagement Credits: +4.49\n    - Training & Development Hours: +6.1\n    - Carbon Reduction Points: +0.28\n    - Circular Economy Adoption Points: +0.18\n    - Renewable Energy Certificates: +4.44\n    - Transparency & Reporting Index: +6.45\n    - Safety & Risk Mitigation Actions: no effect\n    - Local Procurement Impact Units: no effect\n\n- Digital Upskilling Campaign\n  - Budget: 1.12 per module unit. We can scale between 0 and 7.54 units, fractional scaling permitted.\n  - Contribution per module unit:\n    - Training & Development Hours: +9.87\n    - Carbon Reduction Points: +7.99\n    - Circular Economy Adoption Points: +6.39\n    - Renewable Energy Certificates: +4.62\n    - Community Engagement Credits: no effect\n    - Safety & Risk Mitigation Actions: no effect\n    - Local Procurement Impact Units: no effect\n    - Transparency & Reporting Index: no effect\n\n- Green Power Purchases\n  - Budget: 4.42 per purchase unit. We can acquire 0 to 12.02 units, fractional purchases permitted.\n  - Contribution per purchase unit:\n    - Community Engagement Credits: +8.32\n    - Training & Development Hours: +8.09\n    - Carbon Reduction Points: +8.8\n    - Transparency & Reporting Index: +7.05\n    - Safety & Risk Mitigation Actions: no effect\n    - Circular Economy Adoption Points: no effect\n    - Local Procurement Impact Units: no effect\n    - Renewable Energy Certificates: no effect\n\n- Onsite Efficiency Retrofits\n  - Budget: 4.88 per retrofit. We can complete 0 to 6.16 retrofits, whole retrofits only.\n  - Contribution per retrofit:\n    - Community Engagement Credits: +8.7\n    - Training & Development Hours: +7.96\n    - Carbon Reduction Points: +9.11\n    - Local Procurement Impact Units: +4.89\n    - Renewable Energy Certificates: +8.3\n    - Safety & Risk Mitigation Actions: no effect\n    - Circular Economy Adoption Points: no effect\n    - Transparency & Reporting Index: no effect\n\n- Transparency Roadshow & Annual Report\n  - Budget: 7.2 per event unit. We can deliver 0 to 7.3 units, and fractional delivery is allowed.\n  - Contribution per event unit:\n    - Community Engagement Credits: +7.33\n    - Training & Development Hours: +7.78\n    - Carbon Reduction Points: +8.74\n    - Safety & Risk Mitigation Actions: +6.71\n    - Circular Economy Adoption Points: +8.95\n    - Renewable Energy Certificates: +6.88\n    - Transparency & Reporting Index: +2.17\n    - Local Procurement Impact Units: no effect\n\nFacility Specs and Minimum Commitments (must be met or exceeded this quarter):\n- Community Engagement Credits: 59.85 minimum\n- Training & Development Hours: 149.33 minimum\n- Carbon Reduction Points: 91.84 minimum\n- Safety & Risk Mitigation Actions: 37.25 minimum\n- Circular Economy Adoption Points: 121.97 minimum\n- Local Procurement Impact Units: 48.05 minimum\n- Renewable Energy Certificates: 73.29 minimum\n- Transparency & Reporting Index: 69.7 minimum\n\nPlease use the above to recommend the lowest-cost mix that satisfies all minimums."
+}

@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, types, and RHS limits are explicit; emissions sign is clarified. A reader can reconstruct the exact MILP. Minor wording (\"ceiling\") could suggest rounding but values are clear.",
+      "ambiguity": false,
+      "redundancy": 38,
+      "redundancy_comment": "Business letter style adds flavor; repeats zero-usage statements and includes greeting/sign-off. Some verbosity, but most content is informative for modeling.",
+      "realism": 95,
+      "realism_comment": "Very plausible operations planning: staffing, docks, sustainability target, equipment hours; mix of integer/continuous decisions and limits is realistic and coherent."
+    },
+    "prompt_tokens_with_data": 862,
+    "prompt_tokens_without_data": 862
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 152.25780876494025,
+    "optimal_values": {
+      "Var_0": 7.0,
+      "Var_1": 7.0,
+      "Var_2": 5.665338645418326,
+      "Var_3": 11.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.51
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 70.91
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -3.78
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.66
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.06
+      ],
+      "objective_linear_coefficient": 9.05,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.91
+      ],
+      "objective_linear_coefficient": 6.38,
+      "resource_costs": {
+        "C0": 2.23,
+        "C1": 9.98,
+        "C2": -0.7
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.12
+      ],
+      "objective_linear_coefficient": 4.16,
+      "resource_costs": {
+        "C3": 7.53
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.87
+      ],
+      "objective_linear_coefficient": 1.88,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.06, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 9.05 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.91, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.38 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.12, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.16 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.87, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 1.88 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.23 * vars['Var_1'] <= 17.51, name='C0')\n    m.addConstr(9.98 * vars['Var_1'] <= 70.91, name='C1')\n    m.addConstr(-0.7 * vars['Var_1'] <= -3.78, name='C2')\n    m.addConstr(7.53 * vars['Var_2'] <= 42.66, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan to maximize contribution under staffing, logistics, sustainability, and equipment limits\n\nTeam,\n\nAs discussed, we want to maximize total contribution this cycle by choosing the right mix of four initiatives. Most of these decisions need to be made in whole units; one of them can be set to fractional volumes. Below is the business framing of each lever and how it draws on our limited capacities and compliance targets.\n\n- Signature Club Membership Drives\n  \u2022 Financials: Each full drive contributes 9.05 to contribution.\n  \u2022 Volume: We can run anywhere from zero drives up to a ceiling of 7.06 drives; these are whole-drive decisions only.\n  \u2022 Resource/limit impact: This activity does not require any skilled technician shifts, does not take any loading dock windows, does not move our net emissions index, and does not consume any Column Bravo operating hours.\n\n- Eco\u2011Route Conversions (green distribution upgrades)\n  \u2022 Financials: Each conversion adds 6.38 to contribution.\n  \u2022 Volume: We may complete between zero and 10.91 conversions, in whole conversions only.\n  \u2022 Resource/limit impact: Every conversion uses 2.23 skilled technician shifts and 9.98 loading dock windows. Importantly, each conversion improves our sustainability position by 0.70 units (it counts as a reduction against the baseline). These upgrades do not require any Column Bravo operating hours.\n\n- Column Bravo Contract Production (custom distillation volume)\n  \u2022 Financials: Each unit of volume scheduled on Column Bravo contributes 4.16 to contribution.\n  \u2022 Volume: We can dial this anywhere from zero up to 13.12 units, including partial units (fractional volumes are acceptable).\n  \u2022 Resource/limit impact: Each unit of this work uses 7.53 operating hours on Column Bravo. It does not require any skilled technician shifts, does not take any loading dock windows, and has no effect on our net emissions index.\n\n- Digital Gift Card Activations\n  \u2022 Financials: Each activation block contributes 1.88 to contribution.\n  \u2022 Volume: We can activate anywhere from zero up to 11.87 blocks, in whole blocks only.\n  \u2022 Resource/limit impact: These activations do not use any skilled technician shifts, do not take any loading dock windows, do not change our net emissions index, and do not require Column Bravo operating hours.\n\nFacility specs and policy limits for this planning window\n- Skilled Technician Shifts: We can allocate no more than 17.51 shifts in total.\n- Loading Dock Windows: We can assign no more than 70.91 windows in total.\n- Net Emissions Index vs Baseline: Our combined plan must land at or below \u22123.78 (negative values reflect reductions relative to the baseline; the Eco\u2011Route conversions are the only lever that moves this metric, improving it by 0.70 per conversion).\n- Column Bravo Operating Hours: We can schedule no more than 42.66 hours in total.\n\nOur goal is to maximize contribution while respecting all of the above limits and ceilings. Please use this framing to structure the optimization and bring back the recommended mix.\n\nBest regards,\n\nMaya Chen\nVP, Operations"
+}

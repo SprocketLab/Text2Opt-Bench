@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "Clear coefficients, bounds, types (one integer), and resource caps. Each activity's resource usage and contribution are explicit, enabling exact reconstruction of objective and constraints.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Memo-style narrative is verbose with repeated 'no use of X'. Adds context but could be more concise.",
+      "realism": 98,
+      "realism_comment": "Very realistic plant resource allocation with technicians, steam, lab, packaging; coherent capacities and per-activity usage."
+    },
+    "prompt_tokens_with_data": 984,
+    "prompt_tokens_without_data": 984
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 356.78745550447553,
+    "optimal_values": {
+      "Var_0": 3.0,
+      "Var_1": 6.490120336943441,
+      "Var_2": 17.1,
+      "Var_3": 0.0,
+      "Var_4": 15.904388714733543,
+      "Var_5": 16.29098623853211,
+      "Var_6": 5.33
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 101.47
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 136.42
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 171.37
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 137.58
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 79.89
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.56
+      ],
+      "objective_linear_coefficient": 6.88,
+      "resource_costs": {
+        "C1": 1.61,
+        "C2": 5.91,
+        "C3": 7.69
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.93
+      ],
+      "objective_linear_coefficient": 7.17,
+      "resource_costs": {
+        "C4": 8.31
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.1
+      ],
+      "objective_linear_coefficient": 9.84,
+      "resource_costs": {
+        "C1": 1.98,
+        "C2": 5.89,
+        "C3": 6.08
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.79
+      ],
+      "objective_linear_coefficient": 1.06,
+      "resource_costs": {
+        "C0": 9.22,
+        "C1": 9.01,
+        "C2": 6.75,
+        "C3": 1.99
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.21
+      ],
+      "objective_linear_coefficient": 2.59,
+      "resource_costs": {
+        "C0": 6.38
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.95
+      ],
+      "objective_linear_coefficient": 1.75,
+      "resource_costs": {
+        "C1": 4.36
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.33
+      ],
+      "objective_linear_coefficient": 9.69,
+      "resource_costs": {
+        "C1": 5.01,
+        "C2": 3.46,
+        "C3": 1.68,
+        "C4": 4.87
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.56, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.88 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.93, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.17 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.1, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.84 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.79, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.06 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.21, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.59 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.95, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.75 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=5.33, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 9.69 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.22 * vars['Var_3'] + 6.38 * vars['Var_4'] <= 101.47, name='C0')\n    m.addConstr(1.61 * vars['Var_0'] + 1.98 * vars['Var_2'] + 9.01 * vars['Var_3'] + 4.36 * vars['Var_5'] + 5.01 * vars['Var_6'] <= 136.42, name='C1')\n    m.addConstr(5.91 * vars['Var_0'] + 5.89 * vars['Var_2'] + 6.75 * vars['Var_3'] + 3.46 * vars['Var_6'] <= 171.37, name='C2')\n    m.addConstr(7.69 * vars['Var_0'] + 6.08 * vars['Var_2'] + 1.99 * vars['Var_3'] + 1.68 * vars['Var_6'] <= 137.58, name='C3')\n    m.addConstr(8.31 * vars['Var_1'] + 4.87 * vars['Var_6'] <= 79.89, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation plan to maximize contribution within plant limits\n\nTeam,\n\nWe\u2019re pulling together the next cycle\u2019s allocation plan with a single goal: maximize our overall net contribution while staying within the plant\u2019s operating caps. Below are the levers we can dial, what each earns, how each draws on our limited resources, and the practical ranges you can schedule. One of these is a whole-number commitment; the others can be scaled flexibly.\n\n- Blue Label Serum lots\n  Each lot contributes 6.88 in net margin. This program relies on skilled technician time, raw material Q, and quality lab throughput. Every lot consumes 1.61 technician-hours, 5.91 units of raw material Q, and 7.69 lab sample-slots. It does not call on boiler steam or Packaging Line B. You may schedule between 0 and 11.56 lots, and because of labeling rules this must be in whole lots.\n\n- Line B express pack runs\n  Each run contributes 7.17 in net margin. This lever is purely a Packaging Line B commitment: every run uses 8.31 line-hours, with no pull on boiler steam, technicians, raw material Q, or the lab. You may schedule between 0 and 16.93 runs.\n\n- Premium blend batches on Mixer A\n  Each batch contributes 9.84 in net margin. These batches draw on technicians, raw material Q, and the lab. Every batch uses 1.98 technician-hours, 5.89 units of raw material Q, and 6.08 lab sample-slots, with no demand on boiler steam or Packaging Line B. You may schedule between 0 and 17.1 batches.\n\n- R&D pilot runs\n  Each run contributes 1.06 in net margin. These pilots are heavy users of several resources: every run uses 9.22 boiler steam-hours, 9.01 technician-hours, 6.75 units of raw material Q, and 1.99 lab sample-slots. They do not use Packaging Line B. You may schedule between 0 and 11.79 runs.\n\n- Distillation Column B steam purge cycles\n  Each cycle contributes 2.59 in net margin. This activity only uses boiler steam; every cycle consumes 6.38 steam-hours. There is no draw on technicians, raw material Q, the lab, or Packaging Line B. You may schedule between 0 and 17.21 cycles.\n\n- Apprentice technician assignments\n  Each assignment contributes 1.75 in net margin. This lever is entirely a skilled technician time commitment: every assignment uses 4.36 technician-hours, with no demand on boiler steam, raw material Q, the lab, or Packaging Line B. You may schedule between 0 and 19.95 assignments.\n\n- Promotional kit assemblies\n  Each kit contributes 9.69 in net margin. These assemblies draw on multiple resources: every kit uses 5.01 technician-hours, 3.46 units of raw material Q, 1.68 lab sample-slots, and 4.87 Packaging Line B hours. They do not use boiler steam. You may schedule between 0 and 5.33 kits.\n\nFacility specs and market limits (not-to-exceed caps)\n- Boiler steam availability: 101.47 steam-hours\n- Skilled technician hours: 136.42 person-hours\n- Raw material Q allocation: 171.37 units\n- Quality lab throughput: 137.58 sample-slots\n- Packaging Line B hours: 79.89 line-hours\n\nPlease use these limits and per-activity draws to shape a plan that maximizes total net contribution while strictly respecting the caps above. I\u2019m available to discuss trade-offs among the levers if you need to adjust priorities."
+}

@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "Explicit coefficients, bounds (including decimals), integrality, and two capacity constraints are given; maximize total contribution. A model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Business-memo style with extra narrative and repeated notes on whole units and capacities; longer than needed but still clear and focused.",
+      "realism": 92,
+      "realism_comment": "Plausible allocation problem with GPU and pipeline capacities and integer commitments; numbers and context are realistic though decimal upper bounds are slightly unusual."
+    },
+    "prompt_tokens_with_data": 753,
+    "prompt_tokens_without_data": 753
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 168.86,
+    "optimal_values": {
+      "Var_0": 16.0,
+      "Var_1": 2.0,
+      "Var_2": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 53.95
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 6.67
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.3
+      ],
+      "objective_linear_coefficient": 8.46,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.25
+      ],
+      "objective_linear_coefficient": 3.16,
+      "resource_costs": {
+        "C1": 2.9
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.3
+      ],
+      "objective_linear_coefficient": 4.53,
+      "resource_costs": {
+        "C0": 8.71
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.3, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.46 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.25, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.16 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.3, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.53 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.71 * vars['Var_2'] <= 53.95, name='C0')\n    m.addConstr(2.9 * vars['Var_1'] <= 6.67, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Allocation Decision for the Upcoming Cycle\n\nTeam,\n\nAs discussed, we need to decide how many units of three revenue-generating offerings to commit for the coming cycle, with the intent to maximize total contribution while staying within two tight operational limits. All commitments must be made in whole units only\u2014no partial batches\u2014so we\u2019re working in integer increments. There is no minimum requirement on any offering; we can choose zero if that\u2019s best. Below are the levers and the guardrails.\n\nOur levers\n\n1) Self\u2011Serve API Bundles\n- Economic impact: Each thousand\u2011lot bundle contributes 8.46 to contribution margin.\n- Volume limits: We can commit anywhere from 0 up to 16.3 thousand\u2011lot bundles this cycle, and we must commit in whole thousand\u2011lot increments only.\n- Resource draw: These bundles do not use any of the two constrained resources described below. They have no impact on our GPU Compute Pool and no impact on our Real\u2011Time Pipeline capacity.\n\n2) Live Event Transcoding Packages\n- Economic impact: Each package contributes 3.16 to contribution margin.\n- Volume limits: We can commit anywhere from 0 up to 10.25 packages this cycle, in whole packages only.\n- Resource draw: Each package consumes 2.9 units from our Real\u2011Time Pipeline capacity. It does not use any of the GPU Compute Pool.\n\n3) AI Training Clusters\n- Economic impact: Each cluster contributes 4.53 to contribution margin.\n- Volume limits: We can commit anywhere from 0 up to 18.3 clusters this cycle, in whole clusters only.\n- Resource draw: Each cluster consumes 8.71 units from our GPU Compute Pool. It does not use any of the Real\u2011Time Pipeline capacity.\n\nFacility and market limits for this cycle\n\n- GPU Compute Pool availability: We have 53.95 units available in total for the period. The sum of GPU usage from all decisions must not exceed this.\n- Real\u2011Time Pipeline availability: We have 6.67 units available in total for the period. The sum of pipeline usage from all decisions must not exceed this.\n\nIf we keep these limits in view while selecting whole\u2011unit quantities within the stated ranges\u20140 to 16.3 thousand\u2011lot bundles, 0 to 10.25 packages, and 0 to 18.3 clusters\u2014we\u2019ll position ourselves to achieve the highest total contribution without overrunning either the 53.95\u2011unit GPU cap or the 6.67\u2011unit real\u2011time pipeline cap.\n\nPlease review and confirm any assumptions about unit definitions so we can finalize the allocation runs."
+}

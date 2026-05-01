@@ -1,0 +1,295 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 12,
+    "num_constraints": 10,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-product contributions, bounds (incl. integer where noted), per-resource coefficients, and 10 capacity caps. 'Not exceed' implies <=. A human can reconstruct the exact LP.",
+      "ambiguity": false,
+      "redundancy": 22,
+      "redundancy_comment": "Structured bullet data; minor greeting/subject/sign-off and repeated phrasing add some verbosity but little redundancy.",
+      "realism": 100,
+      "realism_comment": "Very realistic production planning with shared resources and capacity limits; integer constraint for limited edition is plausible; units and numbers make sense."
+    },
+    "prompt_tokens_with_data": 1748,
+    "prompt_tokens_without_data": 1748
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 426.6990705581322,
+    "optimal_values": {
+      "Var_0": 4.616835925946205,
+      "Var_1": 0.1356013571951247,
+      "Var_2": 0.0,
+      "Var_3": 11.943516199552368,
+      "Var_4": 12.0,
+      "Var_5": 4.534839420436564,
+      "Var_6": 10.570418768619355,
+      "Var_7": 0.0,
+      "Var_8": 0.35273408844836057,
+      "Var_9": 9.86,
+      "Var_10": 6.61,
+      "Var_11": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 344.21
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 319.18
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 191.19
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 218.73
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 70.15
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 108.75
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 148.33
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 359.48
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 189.22
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 144.72
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.33
+      ],
+      "objective_linear_coefficient": 6.52,
+      "resource_costs": {
+        "C0": 7.51,
+        "C1": 6.09,
+        "C2": 1.59,
+        "C3": 7.68,
+        "C4": 4.7,
+        "C7": 0.35,
+        "C8": 7.26,
+        "C9": 1.64
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.74
+      ],
+      "objective_linear_coefficient": 7.26,
+      "resource_costs": {
+        "C0": 7.16,
+        "C1": 9.55,
+        "C3": 3.92,
+        "C4": 0.88,
+        "C6": 8.41,
+        "C7": 9.04,
+        "C8": 5.26
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.13
+      ],
+      "objective_linear_coefficient": 2.23,
+      "resource_costs": {
+        "C0": 9.54,
+        "C1": 6.59,
+        "C2": 6.32,
+        "C6": 4.08,
+        "C7": 0.92,
+        "C9": 3.95
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.87
+      ],
+      "objective_linear_coefficient": 6.11,
+      "resource_costs": {
+        "C0": 8.98,
+        "C2": 0.78,
+        "C3": 8.63,
+        "C5": 3.24,
+        "C6": 1.01,
+        "C7": 7.04,
+        "C8": 4.87,
+        "C9": 1.16
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.13
+      ],
+      "objective_linear_coefficient": 8.57,
+      "resource_costs": {
+        "C0": 7.34,
+        "C1": 4.78,
+        "C5": 1.77,
+        "C6": 4.06,
+        "C7": 3.88,
+        "C9": 2.47
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.06
+      ],
+      "objective_linear_coefficient": 9.49,
+      "resource_costs": {
+        "C1": 4.24,
+        "C2": 8.62,
+        "C3": 1.89,
+        "C4": 9.08,
+        "C6": 9.94,
+        "C7": 4.26,
+        "C8": 0.17
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.08
+      ],
+      "objective_linear_coefficient": 5.91,
+      "resource_costs": {
+        "C0": 6.51,
+        "C1": 4.36,
+        "C3": 4.66,
+        "C6": 3.91,
+        "C7": 4.35,
+        "C9": 8.86
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.95
+      ],
+      "objective_linear_coefficient": 2.99,
+      "resource_costs": {
+        "C0": 2.83,
+        "C1": 7.75,
+        "C2": 4.83,
+        "C3": 7.72,
+        "C6": 0.11,
+        "C7": 8.47,
+        "C9": 4.71
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.91
+      ],
+      "objective_linear_coefficient": 4.59,
+      "resource_costs": {
+        "C1": 4.03,
+        "C4": 2.67,
+        "C5": 3.77,
+        "C7": 4.23,
+        "C8": 3.68
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.86
+      ],
+      "objective_linear_coefficient": 9.53,
+      "resource_costs": {
+        "C0": 2.53,
+        "C2": 4.96,
+        "C3": 1.92,
+        "C5": 3.18,
+        "C7": 9.79,
+        "C8": 9.61
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.61
+      ],
+      "objective_linear_coefficient": 2.83,
+      "resource_costs": {
+        "C0": 2.06,
+        "C1": 7.43,
+        "C2": 8.08,
+        "C3": 0.44,
+        "C4": 0.94,
+        "C5": 2.44,
+        "C7": 1.93
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.95
+      ],
+      "objective_linear_coefficient": 3.39,
+      "resource_costs": {
+        "C0": 5.48,
+        "C1": 5.88,
+        "C2": 4.46,
+        "C4": 3.51,
+        "C5": 8.26,
+        "C7": 7.27
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.33, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.52 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.74, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.26 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=6.61, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 2.83 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=7.95, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 3.39 * vars['Var_11']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.13, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.23 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.87, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.11 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.13, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 8.57 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.06, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.49 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=14.08, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 5.91 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=9.95, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 2.99 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=12.91, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 4.59 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=9.86, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 9.53 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.51 * vars['Var_0'] + 7.16 * vars['Var_1'] + 2.06 * vars['Var_10'] + 5.48 * vars['Var_11'] + 9.54 * vars['Var_2'] + 8.98 * vars['Var_3'] + 7.34 * vars['Var_4'] + 6.51 * vars['Var_6'] + 2.83 * vars['Var_7'] + 2.53 * vars['Var_9'] <= 344.21, name='C0')\n    m.addConstr(6.09 * vars['Var_0'] + 9.55 * vars['Var_1'] + 7.43 * vars['Var_10'] + 5.88 * vars['Var_11'] + 6.59 * vars['Var_2'] + 4.78 * vars['Var_4'] + 4.24 * vars['Var_5'] + 4.36 * vars['Var_6'] + 7.75 * vars['Var_7'] + 4.03 * vars['Var_8'] <= 319.18, name='C1')\n    m.addConstr(1.59 * vars['Var_0'] + 8.08 * vars['Var_10'] + 4.46 * vars['Var_11'] + 6.32 * vars['Var_2'] + 0.78 * vars['Var_3'] + 8.62 * vars['Var_5'] + 4.83 * vars['Var_7'] + 4.96 * vars['Var_9'] <= 191.19, name='C2')\n    m.addConstr(7.68 * vars['Var_0'] + 3.92 * vars['Var_1'] + 0.44 * vars['Var_10'] + 8.63 * vars['Var_3'] + 1.89 * vars['Var_5'] + 4.66 * vars['Var_6'] + 7.72 * vars['Var_7'] + 1.92 * vars['Var_9'] <= 218.73, name='C3')\n    m.addConstr(4.7 * vars['Var_0'] + 0.88 * vars['Var_1'] + 0.94 * vars['Var_10'] + 3.51 * vars['Var_11'] + 9.08 * vars['Var_5'] + 2.67 * vars['Var_8'] <= 70.15, name='C4')\n    m.addConstr(2.44 * vars['Var_10'] + 8.26 * vars['Var_11'] + 3.24 * vars['Var_3'] + 1.77 * vars['Var_4'] + 3.77 * vars['Var_8'] + 3.18 * vars['Var_9'] <= 108.75, name='C5')\n    m.addConstr(8.41 * vars['Var_1'] + 4.08 * vars['Var_2'] + 1.01 * vars['Var_3'] + 4.06 * vars['Var_4'] + 9.94 * vars['Var_5'] + 3.91 * vars['Var_6'] + 0.11 * vars['Var_7'] <= 148.33, name='C6')\n    m.addConstr(0.35 * vars['Var_0'] + 9.04 * vars['Var_1'] + 1.93 * vars['Var_10'] + 7.27 * vars['Var_11'] + 0.92 * vars['Var_2'] + 7.04 * vars['Var_3'] + 3.88 * vars['Var_4'] + 4.26 * vars['Var_5'] + 4.35 * vars['Var_6'] + 8.47 * vars['Var_7'] + 4.23 * vars['Var_8'] + 9.79 * vars['Var_9'] <= 359.48, name='C7')\n    m.addConstr(7.26 * vars['Var_0'] + 5.26 * vars['Var_1'] + 4.87 * vars['Var_3'] + 0.17 * vars['Var_5'] + 3.68 * vars['Var_8'] + 9.61 * vars['Var_9'] <= 189.22, name='C8')\n    m.addConstr(1.64 * vars['Var_0'] + 3.95 * vars['Var_2'] + 1.16 * vars['Var_3'] + 2.47 * vars['Var_4'] + 8.86 * vars['Var_6'] + 4.71 * vars['Var_7'] <= 144.72, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Decision for Q2 \u2013 Maximize Total Contribution Under Plant Limits\n\nHi team,\n\nWe\u2019re preparing the Q2 production mix for our wellness beverages and related packs. The goal is to maximize total contribution while staying within our plant and market limits. Below are the levers we can adjust\u2014each product\u2019s per-run contribution, feasible production window, and per-run draw on our constrained resources. Except where noted, we can schedule partial runs.\n\n- Citrus Recharge\n  - Contribution per run: 6.52.\n  - Production window: 0.00 up to 8.33 runs; partial runs permitted.\n  - Per-run resource draw: 7.51 Mixer Bay hours; 6.09 Filler Line A hours; 1.59 units of Sweetener; 7.68 Filtration Skid hours; 4.70 units of Botanical Extracts; 0.35 Outbound Truckload slots; 7.26 QA Lab throughput units; 1.64 Environmental Permit credits.\n\n- Berry Charge\n  - Contribution per run: 7.26.\n  - Production window: 0.00 up to 12.74 runs; partial runs permitted.\n  - Per-run resource draw: 7.16 Mixer Bay hours; 9.55 Filler Line A hours; 3.92 Filtration Skid hours; 0.88 units of Botanical Extracts; 8.41 Chilled Storage slots; 9.04 Outbound Truckload slots; 5.26 QA Lab throughput units.\n\n- Herbal Cleanse\n  - Contribution per run: 2.23.\n  - Production window: 0.00 up to 14.13 runs; partial runs permitted.\n  - Per-run resource draw: 9.54 Mixer Bay hours; 6.59 Filler Line A hours; 6.32 units of Sweetener; 4.08 Chilled Storage slots; 0.92 Outbound Truckload slots; 3.95 Environmental Permit credits.\n\n- Protein Recovery\n  - Contribution per run: 6.11.\n  - Production window: 0.00 up to 14.87 runs; partial runs permitted.\n  - Per-run resource draw: 8.98 Mixer Bay hours; 0.78 units of Sweetener; 8.63 Filtration Skid hours; 3.24 Packaging Kit sets; 1.01 Chilled Storage slots; 7.04 Outbound Truckload slots; 4.87 QA Lab throughput units; 1.16 Environmental Permit credits.\n\n- Limited-Edition Mango Surge\n  - Contribution per run: 8.57.\n  - Production window: 0.00 up to 12.13 runs; whole runs only (no partials).\n  - Per-run resource draw: 7.34 Mixer Bay hours; 4.78 Filler Line A hours; 1.77 Packaging Kit sets; 4.06 Chilled Storage slots; 3.88 Outbound Truckload slots; 2.47 Environmental Permit credits.\n\n- Electrolyte Max\n  - Contribution per run: 9.49.\n  - Production window: 0.00 up to 19.06 runs; partial runs permitted.\n  - Per-run resource draw: 4.24 Filler Line A hours; 8.62 units of Sweetener; 1.89 Filtration Skid hours; 9.08 units of Botanical Extracts; 9.94 Chilled Storage slots; 4.26 Outbound Truckload slots; 0.17 QA Lab throughput units.\n\n- Coconut Calm\n  - Contribution per run: 5.91.\n  - Production window: 0.00 up to 14.08 runs; partial runs permitted.\n  - Per-run resource draw: 6.51 Mixer Bay hours; 4.36 Filler Line A hours; 4.66 Filtration Skid hours; 3.91 Chilled Storage slots; 4.35 Outbound Truckload slots; 8.86 Environmental Permit credits.\n\n- Green Tea Energy\n  - Contribution per run: 2.99.\n  - Production window: 0.00 up to 9.95 runs; partial runs permitted.\n  - Per-run resource draw: 2.83 Mixer Bay hours; 7.75 Filler Line A hours; 4.83 units of Sweetener; 7.72 Filtration Skid hours; 0.11 Chilled Storage slots; 8.47 Outbound Truckload slots; 4.71 Environmental Permit credits.\n\n- Collagen Sparkle\n  - Contribution per run: 4.59.\n  - Production window: 0.00 up to 12.91 runs; partial runs permitted.\n  - Per-run resource draw: 4.03 Filler Line A hours; 2.67 units of Botanical Extracts; 3.77 Packaging Kit sets; 4.23 Outbound Truckload slots; 3.68 QA Lab throughput units.\n\n- Probiotic Boost\n  - Contribution per run: 9.53.\n  - Production window: 0.00 up to 9.86 runs; partial runs permitted.\n  - Per-run resource draw: 2.53 Mixer Bay hours; 4.96 units of Sweetener; 1.92 Filtration Skid hours; 3.18 Packaging Kit sets; 9.79 Outbound Truckload slots; 9.61 QA Lab throughput units.\n\n- Vitamin Shot Mini\n  - Contribution per run: 2.83.\n  - Production window: 0.00 up to 6.61 runs; partial runs permitted.\n  - Per-run resource draw: 2.06 Mixer Bay hours; 7.43 Filler Line A hours; 8.08 units of Sweetener; 0.44 Filtration Skid hours; 0.94 units of Botanical Extracts; 2.44 Packaging Kit sets; 1.93 Outbound Truckload slots.\n\n- Kids\u2019 Hydration\n  - Contribution per run: 3.39.\n  - Production window: 0.00 up to 7.95 runs; partial runs permitted.\n  - Per-run resource draw: 5.48 Mixer Bay hours; 5.88 Filler Line A hours; 4.46 units of Sweetener; 3.51 units of Botanical Extracts; 8.26 Packaging Kit sets; 7.27 Outbound Truckload slots.\n\nFacility & Market Limits (caps we must not exceed in total across all runs):\n- Mixer Bay hours available this quarter: 344.21.\n- Filler Line A hours available this quarter: 319.18.\n- Sweetener allotment (units): 191.19.\n- Filtration Skid capacity (hours): 218.73.\n- Botanical Extracts on hand (units): 70.15.\n- Packaging Kit inventory (sets): 108.75.\n- Chilled Storage pallet slots: 148.33.\n- Outbound Truckload slots: 359.48.\n- QA Lab testing throughput (units): 189.22.\n- Environmental Permit credits (units): 144.72.\n\nPlease use the above to recommend the production plan that yields the highest overall contribution while honoring these limits. Happy to discuss any assumptions or operational nuances behind the per-run draws and caps.\n\nThanks,\n[Operations Director]"
+}

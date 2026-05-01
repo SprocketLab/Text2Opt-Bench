@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, per-unit contributions, and minimums are explicit. The model is a clear LP with 3 vars (0\u2013UB), four >= constraints, and a linear cost-min objective. No missing data.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Corporate narrative and summaries add length; some repetition (e.g., multiple 'no contribution' notes). Technical content is clear; moderate verbosity.",
+      "realism": 95,
+      "realism_comment": "Plausible staffing/resource allocation with spend minimization, availability caps, and service metrics. Numbers and relationships make sense; aligns with real-world planning."
+    },
+    "prompt_tokens_with_data": 813,
+    "prompt_tokens_without_data": 813
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 87.80084501450604,
+    "optimal_values": {
+      "Var_0": 8.26126126126126,
+      "Var_1": 1.2501450603145525,
+      "Var_2": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 9.17
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 85.61
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 3.89
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 67.64
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.79
+      ],
+      "objective_linear_coefficient": 9.77,
+      "resource_costs": {
+        "C0": 1.11,
+        "C1": 9.47,
+        "C3": 7.22
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.63
+      ],
+      "objective_linear_coefficient": 5.67,
+      "resource_costs": {
+        "C1": 5.9,
+        "C2": 7.77,
+        "C3": 6.8
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.47
+      ],
+      "objective_linear_coefficient": 8.14,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.79, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.77 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.63, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.67 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.47, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.14 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.11 * vars['Var_0'] >= 9.17, name='C0')\n    m.addConstr(9.47 * vars['Var_0'] + 5.9 * vars['Var_1'] >= 85.61, name='C1')\n    m.addConstr(7.77 * vars['Var_1'] >= 3.89, name='C2')\n    m.addConstr(7.22 * vars['Var_0'] + 6.8 * vars['Var_1'] >= 67.64, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix for Next Period\u2019s Service Delivery\n\nTeam,\n\nWe\u2019re planning the next period\u2019s delivery plan and need to choose a mix of three resource pools to meet our minimum service commitments at the lowest possible spend. Below is a plain-language description of the levers we can pull, what each one costs per unit, how much we can buy, and how each option contributes to our tracked service metrics.\n\nThe levers\n\n- Premium Field Team Hours\n  - Commercial terms: $9.77 per unit.\n  - Availability: We can book anywhere from 0 up to 17.79 units; there is no minimum take-or-pay.\n  - What it delivers:\n    - Emergency Readiness Credits: 1.11 credits per unit.\n    - Core Throughput (work completed): 9.47 throughput units per unit.\n    - Service Coverage Points: 7.22 points per unit.\n    - Compliance Training Credits: Does not contribute to this metric.\n  - Summary: This is our high-performance field option with strong delivery in throughput and coverage, a modest lift to readiness, and no impact on compliance credits.\n\n- Standard Field Team Hours\n  - Commercial terms: $5.67 per unit.\n  - Availability: We can book anywhere from 0 up to 15.63 units.\n  - What it delivers:\n    - Core Throughput (work completed): 5.9 throughput units per unit.\n    - Compliance Training Credits: 7.77 credits per unit.\n    - Service Coverage Points: 6.8 points per unit.\n    - Emergency Readiness Credits: Does not contribute to this metric.\n  - Summary: This is a cost-effective field option that helps with throughput, is our primary source of compliance credits, and adds to coverage.\n\n- Back-Office Support Hours\n  - Commercial terms: $8.14 per unit.\n  - Availability: We can book anywhere from 0 up to 15.47 units.\n  - What it delivers:\n    - Emergency Readiness Credits: No counted contribution.\n    - Core Throughput (work completed): No counted contribution.\n    - Compliance Training Credits: No counted contribution.\n    - Service Coverage Points: No counted contribution.\n  - Summary: Useful for qualitative support but, for the purposes of our measured service commitments below, it does not move any of the tracked metrics.\n\nFacility specs and minimum service commitments\n\n- Emergency Readiness Credits: At least 9.17 credits must be delivered.\n- Core Throughput (work completed): At least 85.61 throughput units must be delivered.\n- Compliance Training Credits: At least 3.89 credits must be delivered.\n- Service Coverage Points: At least 67.64 points must be delivered.\n\nOur objective is to meet or exceed each of the above minimums while minimizing total spend across the three options. Please use this as the basis for the allocation plan and let me know if any of the availability limits change."
+}

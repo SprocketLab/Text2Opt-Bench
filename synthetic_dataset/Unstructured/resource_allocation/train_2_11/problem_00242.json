@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Costs, bounds, integrality, and per-standard impacts are explicit; five >= service minima plus nonnegativity/caps specified. One can reconstruct the exact MILP mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative/corporate phrasing and headings add length, but most content directly defines the model and data.",
+      "realism": 98,
+      "realism_comment": "A plausible staffing mix MILP with service-level minima, integer crew blocks, and caps; coefficients and units appear realistic."
+    },
+    "prompt_tokens_with_data": 1156,
+    "prompt_tokens_without_data": 1156
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 163.92401658445056,
+    "optimal_values": {
+      "Var_0": 10.0,
+      "Var_1": 0.0,
+      "Var_2": 7.115298247737794,
+      "Var_3": 0.2716763005780361,
+      "Var_4": 6.0,
+      "Var_5": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 125.56
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 46.03
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.87
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 57.16
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 69.41
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 5.0,
+      "resource_costs": {
+        "C0": 6.04,
+        "C1": 2.54,
+        "C3": 3.9
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.51
+      ],
+      "objective_linear_coefficient": 8.61,
+      "resource_costs": {
+        "C1": 2.35
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.98
+      ],
+      "objective_linear_coefficient": 6.65,
+      "resource_costs": {
+        "C0": 2.2,
+        "C2": 9.26,
+        "C4": 9.55
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.75
+      ],
+      "objective_linear_coefficient": 8.64,
+      "resource_costs": {
+        "C1": 1.73,
+        "C2": 4.94,
+        "C4": 5.37
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.92
+      ],
+      "objective_linear_coefficient": 5.1,
+      "resource_costs": {
+        "C0": 5.76,
+        "C1": 3.36
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 5.61,
+      "resource_costs": {
+        "C0": 7.38,
+        "C3": 3.36
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.0 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.51, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.61 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.98, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.65 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.75, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.64 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.92, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.1 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 5.61 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.04 * vars['Var_0'] + 2.2 * vars['Var_2'] + 5.76 * vars['Var_4'] + 7.38 * vars['Var_5'] >= 125.56, name='C0')\n    m.addConstr(2.54 * vars['Var_0'] + 2.35 * vars['Var_1'] + 1.73 * vars['Var_3'] + 3.36 * vars['Var_4'] >= 46.03, name='C1')\n    m.addConstr(9.26 * vars['Var_2'] + 4.94 * vars['Var_3'] >= 64.87, name='C2')\n    m.addConstr(3.9 * vars['Var_0'] + 3.36 * vars['Var_5'] >= 57.16, name='C3')\n    m.addConstr(9.55 * vars['Var_2'] + 5.37 * vars['Var_3'] >= 69.41, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing staffing mix to meet our service standards\n\nTeam,\n\nAs discussed, we\u2019re assembling a cost-conscious mix of six staffing and service packages to cover five minimum service standards for the coming period. The objective is to minimize total spend while ensuring we hit all minimums for baseline throughput, customer support coverage, specialist resolutions, overnight operations, and quality outcomes. All options below are constrained to be nonnegative (we can choose zero of any option), and each has a hard upper cap.\n\nLevers we can pull\n\n1) Core Day Teams\n- Nature and limits: Must be scheduled in whole team blocks only, with a cap of up to 10.0 teams; we can select any whole number from 0 up to that cap.\n- Cost: 5.00 per team block.\n- Impact per team block on our five standards (in this order): \n  \u2022 Baseline Throughput Hours: +6.04\n  \u2022 Customer Support Coverage Units: +2.54\n  \u2022 Specialist Cases Resolved: +0.00\n  \u2022 Overnight Operations Hours: +3.90\n  \u2022 Quality Assurance Score Points: +0.00\n\n2) Escalation Desk Hours\n- Nature and limits: Can be flexed in fractional increments, up to 15.51 units.\n- Cost: 8.61 per unit.\n- Impact per unit on our five standards (in this order):\n  \u2022 Baseline Throughput Hours: +0.00\n  \u2022 Customer Support Coverage Units: +2.35\n  \u2022 Specialist Cases Resolved: +0.00\n  \u2022 Overnight Operations Hours: +0.00\n  \u2022 Quality Assurance Score Points: +0.00\n\n3) Advanced Tech Specialists\n- Nature and limits: Can be flexed in fractional increments, up to 13.98 units.\n- Cost: 6.65 per unit.\n- Impact per unit on our five standards (in this order):\n  \u2022 Baseline Throughput Hours: +2.20\n  \u2022 Customer Support Coverage Units: +0.00\n  \u2022 Specialist Cases Resolved: +9.26\n  \u2022 Overnight Operations Hours: +0.00\n  \u2022 Quality Assurance Score Points: +9.55\n\n4) Senior Field Engineers\n- Nature and limits: Can be flexed in fractional increments, up to 14.75 units.\n- Cost: 8.64 per unit.\n- Impact per unit on our five standards (in this order):\n  \u2022 Baseline Throughput Hours: +0.00\n  \u2022 Customer Support Coverage Units: +1.73\n  \u2022 Specialist Cases Resolved: +4.94\n  \u2022 Overnight Operations Hours: +0.00\n  \u2022 Quality Assurance Score Points: +5.37\n\n5) Cross-Trained Day Crews\n- Nature and limits: Must be scheduled in whole crew blocks only, with a cap of up to 8.92 blocks (practically, this means up to 8 whole blocks).\n- Cost: 5.10 per crew block.\n- Impact per crew block on our five standards (in this order):\n  \u2022 Baseline Throughput Hours: +5.76\n  \u2022 Customer Support Coverage Units: +3.36\n  \u2022 Specialist Cases Resolved: +0.00\n  \u2022 Overnight Operations Hours: +0.00\n  \u2022 Quality Assurance Score Points: +0.00\n\n6) Night Operations Crews\n- Nature and limits: Must be scheduled in whole crew blocks only, with a cap of up to 8.0 blocks.\n- Cost: 5.61 per crew block.\n- Impact per crew block on our five standards (in this order):\n  \u2022 Baseline Throughput Hours: +7.38\n  \u2022 Customer Support Coverage Units: +0.00\n  \u2022 Specialist Cases Resolved: +0.00\n  \u2022 Overnight Operations Hours: +3.36\n  \u2022 Quality Assurance Score Points: +0.00\n\nFacility and service standards (minimums we must meet or exceed)\n- Baseline Throughput Hours: at least 125.56\n- Customer Support Coverage Units: at least 46.03\n- Specialist Cases Resolved: at least 64.87\n- Overnight Operations Hours: at least 57.16\n- Quality Assurance Score Points: at least 69.41\n\nPlease use this as the working specification for building the least-cost mix that achieves all five standards within the noted caps and indivisibility rules. I\u2019m available to review the recommended mix and sensitivities once you run the analysis."
+}

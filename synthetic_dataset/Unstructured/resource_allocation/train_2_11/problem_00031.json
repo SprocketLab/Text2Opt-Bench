@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and >= thresholds are explicit; partial units allowed; objective is to minimize total spend. No missing values.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business narrative adds verbosity, but each parameter is stated once and clearly; little repetition.",
+      "realism": 95,
+      "realism_comment": "Marketing budget mix to meet coverage thresholds with availability caps is a realistic LP with plausible metrics."
+    },
+    "prompt_tokens_with_data": 606,
+    "prompt_tokens_without_data": 606
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 76.35935482808046,
+    "optimal_values": {
+      "Var_0": 0.5788753974661023,
+      "Var_1": 9.762541806020065
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 70.5
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 42.27
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 87.57
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 17.47
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 10.49
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.61
+      ],
+      "objective_linear_coefficient": 1.04,
+      "resource_costs": {
+        "C0": 8.12
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.9
+      ],
+      "objective_linear_coefficient": 7.76,
+      "resource_costs": {
+        "C0": 6.74,
+        "C1": 4.53,
+        "C2": 8.97,
+        "C3": 1.87,
+        "C4": 1.29
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.61, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.04 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.9, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.76 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.12 * vars['Var_0'] + 6.74 * vars['Var_1'] >= 70.5, name='C0')\n    m.addConstr(4.53 * vars['Var_1'] >= 42.27, name='C1')\n    m.addConstr(8.97 * vars['Var_1'] >= 87.57, name='C2')\n    m.addConstr(1.87 * vars['Var_1'] >= 17.47, name='C3')\n    m.addConstr(1.29 * vars['Var_1'] >= 10.49, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 Outreach Mix \u2013 Budget-Minimizing Plan to Meet Coverage Commitments\n\nTeam,\n\nAs we finalize the Q2 outreach plan, our objective is to meet or exceed the agreed coverage thresholds at the lowest total spend. We have two levers available this quarter, both of which can be purchased in partial units.\n\nThe levers\n\n- Broad-Reach Billboard Weeks\n  - What it delivers: Each week contributes 8.12 points toward our Brand Reach Index. It does not produce any measurable lift in Lead Coverage, Regional Coverage Score, Field Activation Hours, or Sustainability Alignment (i.e., no contribution in those categories).\n  - Commercials: Priced at 1.04 budget units per week.\n  - Availability: We may book anywhere from 0 up to 11.61 weeks, and we can book fractional weeks.\n\n- Integrated Local Activation Packages\n  - What they deliver: Each package contributes 6.74 points to the Brand Reach Index, 4.53 points to Lead Coverage, 8.97 points to the Regional Coverage Score, 1.87 hours to Field Activation, and 1.29 points to Sustainability Alignment.\n  - Commercials: Priced at 7.76 budget units per package.\n  - Availability: We may procure anywhere from 0 up to 10.9 packages, and partial packages are permissible.\n\nMarket limits and minimum commitments for Q2\n\n- Brand Reach Index: at least 70.5 points for the quarter.\n- Lead Coverage: at least 42.27 points for the quarter.\n- Regional Coverage Score: at least 87.57 points for the quarter.\n- Field Activation: at least 17.47 hours for the quarter.\n- Sustainability Alignment: at least 10.49 points for the quarter.\n\nPlease use the above to assemble the most cost-effective mix of billboard weeks and activation packages that attains all five minimums without exceeding the respective availability limits."
+}

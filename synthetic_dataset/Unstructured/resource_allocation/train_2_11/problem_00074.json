@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All unit costs, bounds, and impacts are explicit, with \u2265 floors for five KPIs. Variables are continuous over ranges. Objective and constraints can be reconstructed mechanically without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some corporate narrative and repeated range phrasing add verbosity, but the numerical specs and signs are clear and necessary.",
+      "realism": 95,
+      "realism_comment": "Plausible portfolio planning with cost minimization and KPI floors; impacts and caps are realistic, including negative floors and trade-offs."
+    },
+    "prompt_tokens_with_data": 1025,
+    "prompt_tokens_without_data": 1025
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 23.728189655172415,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 4.616379310344828
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -1.37
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -29.67
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.06
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 10.71
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -28.14
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.48
+      ],
+      "objective_linear_coefficient": 3.67,
+      "resource_costs": {
+        "C1": -3.96,
+        "C4": -7.39
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.2
+      ],
+      "objective_linear_coefficient": 5.92,
+      "resource_costs": {
+        "C0": -3.21,
+        "C1": 0.55,
+        "C2": -8.02,
+        "C4": -0.67
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.81
+      ],
+      "objective_linear_coefficient": 5.14,
+      "resource_costs": {
+        "C0": 0.47,
+        "C1": -1.84,
+        "C2": 2.91,
+        "C3": 2.32,
+        "C4": 1.69
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.48, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.67 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.2, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.92 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.81, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.14 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-3.21 * vars['Var_1'] + 0.47 * vars['Var_2'] >= -1.37, name='C0')\n    m.addConstr(-3.96 * vars['Var_0'] + 0.55 * vars['Var_1'] + -1.84 * vars['Var_2'] >= -29.67, name='C1')\n    m.addConstr(-8.02 * vars['Var_1'] + 2.91 * vars['Var_2'] >= 11.06, name='C2')\n    m.addConstr(2.32 * vars['Var_2'] >= 10.71, name='C3')\n    m.addConstr(-7.39 * vars['Var_0'] + -0.67 * vars['Var_1'] + 1.69 * vars['Var_2'] >= -28.14, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix for Q2 Operations Improvements\n\nTeam,\n\nWe\u2019re preparing a small portfolio of initiative \u201cdials\u201d to pull in Q2 with the explicit goal of minimizing total program spend while still meeting our policy floors across five scorecards: Operational Stability, Operating Profit Deviation (basis points vs. plan), Regulatory Quality Compliance, Customer Service Continuity, and Net Emissions Credit Balance. Below are the three levers we can deploy, each with a unit cost and specific impacts\u2014positive, neutral, or negative\u2014on those five scorecards. Please use this as the basis for the optimization run and final recommendation.\n\n1) Pop-Up Sales Activations\n- Deployment range: between 0 and 12.48 activation-equivalents; we cannot deploy a negative amount nor exceed 12.48.\n- Unit cost to be minimized: 3.67 per activation-equivalent.\n- Impact on Operational Stability: no material effect (0 per unit).\n- Impact on Operating Profit Deviation (bps vs. plan): reduces the deviation by 3.96 bps per unit (i.e., \u22123.96 per unit; a headwind to profit vs. plan).\n- Impact on Regulatory Quality Compliance: no material effect (0 per unit).\n- Impact on Customer Service Continuity: no material effect (0 per unit).\n- Impact on Net Emissions Credit Balance (tCO2e): consumes 7.39 credits per unit (\u22127.39 per unit).\n\n2) Digital Acquisition Bursts\n- Deployment range: between 0 and 5.2 burst-equivalents; we cannot deploy a negative amount nor exceed 5.2.\n- Unit cost to be minimized: 5.92 per burst-equivalent.\n- Impact on Operational Stability: reduces stability by 3.21 points per unit (\u22123.21 per unit).\n- Impact on Operating Profit Deviation (bps vs. plan): improves the deviation by 0.55 bps per unit (+0.55 per unit).\n- Impact on Regulatory Quality Compliance: reduces quality by 8.02 points per unit (\u22128.02 per unit).\n- Impact on Customer Service Continuity: no material effect (0 per unit).\n- Impact on Net Emissions Credit Balance (tCO2e): consumes 0.67 credits per unit (\u22120.67 per unit).\n\n3) Automation Upgrade Kits\n- Deployment range: between 0 and 10.81 kit-equivalents; we cannot deploy a negative amount nor exceed 10.81.\n- Unit cost to be minimized: 5.14 per kit-equivalent.\n- Impact on Operational Stability: improves stability by 0.47 points per unit (+0.47 per unit).\n- Impact on Operating Profit Deviation (bps vs. plan): reduces the deviation by 1.84 bps per unit (\u22121.84 per unit; a headwind to profit vs. plan).\n- Impact on Regulatory Quality Compliance: improves quality by 2.91 points per unit (+2.91 per unit).\n- Impact on Customer Service Continuity: improves continuity by 2.32 points per unit (+2.32 per unit).\n- Impact on Net Emissions Credit Balance (tCO2e): adds 1.69 credits per unit (+1.69 per unit).\n\nOperating Limits (Policy Floors and Minimums)\n- Operational Stability Score must be at least \u22121.37 points.\n- Operating Profit Deviation (bps vs. plan) must be at least \u221229.67 bps.\n- Regulatory Quality Compliance Score must be at least 11.06 points.\n- Customer Service Continuity Index must be at least 10.71 points.\n- Net Emissions Credit Balance must be at least \u221228.14 tCO2e.\n\nPlease confirm that the cost-minimizing combination of the three levers satisfies all five floors simultaneously and respects the deployment caps noted above. Once validated, we\u2019ll move forward with procurement and scheduling on that mix."
+}

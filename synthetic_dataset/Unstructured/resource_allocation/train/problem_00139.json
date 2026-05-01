@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, and variable types are clearly specified; resource limits are 'do not exceed' (<=). Minor oddity: integer items have non-integer caps, but still unambiguous.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business prose adds some length, but most text conveys needed coefficients and limits; minimal repetition and fluff.",
+      "realism": 96,
+      "realism_comment": "Plausible production planning with shared resources and integer/fractional items; units and capacities are realistic and coherent."
+    },
+    "prompt_tokens_with_data": 918,
+    "prompt_tokens_without_data": 918
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 170.004625,
+    "optimal_values": {
+      "Var_0": 11.0,
+      "Var_1": 9.0,
+      "Var_2": 0.1437500000000041,
+      "Var_3": 4.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.35
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 128.56
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 74.88
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 63.53
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 88.98
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 91.31
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.2
+      ],
+      "objective_linear_coefficient": 8.19,
+      "resource_costs": {
+        "C1": 0.59,
+        "C4": 5.71,
+        "C5": 1.0
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 4.71,
+      "resource_costs": {
+        "C1": 5.92,
+        "C3": 2.9,
+        "C5": 7.45
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.51
+      ],
+      "objective_linear_coefficient": 1.98,
+      "resource_costs": {
+        "C0": 2.28,
+        "C1": 7.18,
+        "C2": 8.12,
+        "C3": 1.6,
+        "C4": 2.44,
+        "C5": 2.94
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.1
+      ],
+      "objective_linear_coefficient": 9.31,
+      "resource_costs": {
+        "C0": 8.02,
+        "C1": 7.14,
+        "C2": 4.66,
+        "C3": 9.3,
+        "C4": 6.27
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.2, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.19 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 4.71 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.51, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.98 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.1, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.31 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.28 * vars['Var_2'] + 8.02 * vars['Var_3'] <= 42.35, name='C0')\n    m.addConstr(0.59 * vars['Var_0'] + 5.92 * vars['Var_1'] + 7.18 * vars['Var_2'] + 7.14 * vars['Var_3'] <= 128.56, name='C1')\n    m.addConstr(8.12 * vars['Var_2'] + 4.66 * vars['Var_3'] <= 74.88, name='C2')\n    m.addConstr(2.9 * vars['Var_1'] + 1.6 * vars['Var_2'] + 9.3 * vars['Var_3'] <= 63.53, name='C3')\n    m.addConstr(5.71 * vars['Var_0'] + 2.44 * vars['Var_2'] + 6.27 * vars['Var_3'] <= 88.98, name='C4')\n    m.addConstr(1.0 * vars['Var_0'] + 7.45 * vars['Var_1'] + 2.94 * vars['Var_2'] <= 91.31, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Decision \u2013 Maximize Contribution Within Current Capacity\n\nTeam,\n\nWe need to finalize how we allocate this cycle\u2019s plant capacity across four offerings to maximize total contribution while staying strictly within our current operational limits. Below are the decision levers, each with its per\u2011unit contribution, capacity draw, and practical limits.\n\nBlue Ridge Starter Kits\n- Commercial impact: Each kit adds 8.19 in contribution.\n- Scheduling: Whole kits only; we may schedule anywhere from 0 up to a hard cap of 18.2 kits this cycle.\n- Capacity draw per kit:\n  - Precision Cutting Center: none.\n  - Skilled Assembly: 0.59 hours.\n  - Alloy Feedstock: none.\n  - QA Test Lab: none.\n  - Chilled Line/Cooling Allocation: 5.71 units.\n  - Outbound Dock Time: 1.0 hour.\n\nHarbor Premium Sets\n- Commercial impact: Each set adds 4.71 in contribution.\n- Scheduling: Whole sets only; we may schedule from 0 up to 9 sets.\n- Capacity draw per set:\n  - Precision Cutting Center: none.\n  - Skilled Assembly: 5.92 hours.\n  - Alloy Feedstock: none.\n  - QA Test Lab: 2.9 runs.\n  - Chilled Line/Cooling Allocation: none.\n  - Outbound Dock Time: 7.45 hours.\n\nNova Custom Panels\n- Commercial impact: Each unit adds 1.98 in contribution.\n- Scheduling: Can be planned in fractional lots; we may schedule from 0 up to 9.51 units.\n- Capacity draw per unit:\n  - Precision Cutting Center: 2.28 hours.\n  - Skilled Assembly: 7.18 hours.\n  - Alloy Feedstock: 8.12 units.\n  - QA Test Lab: 1.6 runs.\n  - Chilled Line/Cooling Allocation: 2.44 units.\n  - Outbound Dock Time: 2.94 hours.\n\nSummit Frame Assemblies\n- Commercial impact: Each assembly adds 9.31 in contribution.\n- Scheduling: Whole assemblies only; we may schedule from 0 up to 19.1 assemblies this cycle.\n- Capacity draw per assembly:\n  - Precision Cutting Center: 8.02 hours.\n  - Skilled Assembly: 7.14 hours.\n  - Alloy Feedstock: 4.66 units.\n  - QA Test Lab: 9.3 runs.\n  - Chilled Line/Cooling Allocation: 6.27 units.\n  - Outbound Dock Time: none.\n\nFacility Specs and Limits (do not exceed)\n- Precision Cutting Center throughput: up to 42.35 hours this cycle.\n- Skilled Assembly availability: up to 128.56 hours.\n- Alloy Feedstock on hand: up to 74.88 units.\n- QA Test Lab capacity: up to 63.53 runs.\n- Chilled Line/Cooling allocation: up to 88.98 units.\n- Outbound Dock availability: up to 91.31 hours.\n\nOur objective is to set the counts of Blue Ridge Starter Kits, Harbor Premium Sets, Nova Custom Panels (fractional scheduling allowed), and Summit Frame Assemblies (whole units) to maximize total contribution, without exceeding any of the above capacity limits. Please review and confirm any changes to the per\u2011unit draws or caps; otherwise, we will proceed to compute the mix that best meets these parameters."
+}

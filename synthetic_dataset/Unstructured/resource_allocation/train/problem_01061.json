@@ -1,0 +1,492 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 18,
+    "num_constraints": 15,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "Precise MILP spec: each lever has type, bounds, cost; per-segment contributions are explicit; 15 segment minimums stated; objective is minimize spend. Easy to reconstruct.",
+      "ambiguity": false,
+      "redundancy": 33,
+      "redundancy_comment": "Verbose with narrative and repeated coefficient lists, but most text is necessary numeric detail; minor fluff only.",
+      "realism": 96,
+      "realism_comment": "Highly plausible media-mix planning with reach targets, costs, caps, and mixed integer/continuous levers; typical real-world MILP."
+    },
+    "prompt_tokens_with_data": 2795,
+    "prompt_tokens_without_data": 2795
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 427.6436934478033,
+    "optimal_values": {
+      "Var_0": 11.0,
+      "Var_1": 0.0,
+      "Var_2": -0.0,
+      "Var_3": 5.730581820430775,
+      "Var_4": -0.0,
+      "Var_5": 0.0,
+      "Var_6": 3.637920171796329,
+      "Var_7": 3.746296010508728,
+      "Var_8": 15.0,
+      "Var_9": -0.0,
+      "Var_10": 6.0,
+      "Var_11": 8.502572386876603,
+      "Var_12": 11.690653452527329,
+      "Var_13": 5.589979501590957,
+      "Var_14": -0.0,
+      "Var_15": 14.16,
+      "Var_16": 9.91,
+      "Var_17": 0.016594399390343045
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 362.89
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 279.05
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 269.83
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 216.9
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 294.97
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 205.77
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 391.67
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 371.35
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 141.14
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 376.14
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 443.41
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 125.63
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 326.23
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 317.43
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 276.5
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 4.05,
+      "resource_costs": {
+        "C2": 3.44,
+        "C3": 0.24,
+        "C4": 9.52,
+        "C6": 6.91,
+        "C7": 7.59,
+        "C9": 3.82,
+        "C10": 7.2,
+        "C11": 8.4,
+        "C12": 6.17,
+        "C14": 0.8
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.21
+      ],
+      "objective_linear_coefficient": 8.54,
+      "resource_costs": {
+        "C1": 0.39,
+        "C2": 2.51,
+        "C3": 1.87,
+        "C4": 8.58,
+        "C6": 1.5,
+        "C7": 5.06,
+        "C8": 4.09,
+        "C9": 6.8,
+        "C11": 4.57,
+        "C13": 0.16,
+        "C14": 5.69
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 5.05,
+      "resource_costs": {
+        "C0": 6.82,
+        "C1": 2.35,
+        "C2": 4.14,
+        "C4": 3.25,
+        "C6": 0.09,
+        "C7": 5.43,
+        "C8": 2.76,
+        "C9": 4.41,
+        "C10": 2.07,
+        "C12": 2.29,
+        "C14": 3.14
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.75
+      ],
+      "objective_linear_coefficient": 6.0,
+      "resource_costs": {
+        "C0": 9.16,
+        "C1": 3.25,
+        "C2": 0.19,
+        "C3": 7.8,
+        "C4": 1.12,
+        "C7": 7.6,
+        "C8": 4.44,
+        "C9": 6.34,
+        "C10": 6.67,
+        "C11": 8.91,
+        "C13": 4.87,
+        "C14": 1.75
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.87
+      ],
+      "objective_linear_coefficient": 5.67,
+      "resource_costs": {
+        "C0": 5.11,
+        "C1": 8.05,
+        "C3": 1.55,
+        "C4": 1.83,
+        "C6": 2.68,
+        "C7": 5.35,
+        "C8": 1.39,
+        "C9": 8.01,
+        "C10": 0.39,
+        "C12": 0.28,
+        "C13": 1.39,
+        "C14": 3.38
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.26
+      ],
+      "objective_linear_coefficient": 7.55,
+      "resource_costs": {
+        "C0": 3.07,
+        "C1": 2.57,
+        "C3": 5.54,
+        "C4": 0.93,
+        "C5": 0.87,
+        "C6": 7.12,
+        "C7": 2.54,
+        "C8": 6.06,
+        "C10": 4.13,
+        "C12": 9.41,
+        "C13": 3.92,
+        "C14": 4.43
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.53
+      ],
+      "objective_linear_coefficient": 3.28,
+      "resource_costs": {
+        "C2": 7.69,
+        "C3": 1.48,
+        "C5": 6.72,
+        "C6": 4.26,
+        "C8": 1.53,
+        "C9": 5.4,
+        "C10": 3.26,
+        "C11": 2.88,
+        "C12": 3.82,
+        "C13": 4.56
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.13
+      ],
+      "objective_linear_coefficient": 8.34,
+      "resource_costs": {
+        "C0": 7.73,
+        "C1": 3.3,
+        "C2": 9.05,
+        "C4": 7.83,
+        "C5": 7.72,
+        "C6": 8.58,
+        "C8": 3.52,
+        "C9": 9.5,
+        "C10": 7.49,
+        "C13": 6.82,
+        "C14": 0.45
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.27
+      ],
+      "objective_linear_coefficient": 6.67,
+      "resource_costs": {
+        "C0": 0.78,
+        "C2": 1.8,
+        "C3": 4.26,
+        "C7": 8.4,
+        "C8": 3.35,
+        "C9": 5.3,
+        "C10": 6.27,
+        "C11": 0.46,
+        "C12": 7.9,
+        "C13": 7.78,
+        "C14": 3.2
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.25
+      ],
+      "objective_linear_coefficient": 5.57,
+      "resource_costs": {
+        "C2": 3.01,
+        "C4": 7.95,
+        "C5": 8.38,
+        "C7": 0.77,
+        "C9": 9.05,
+        "C10": 8.73,
+        "C13": 0.52,
+        "C14": 6.84
+      }
+    },
+    "Var_10": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 6.22,
+      "resource_costs": {
+        "C0": 4.96,
+        "C1": 9.92,
+        "C2": 2.19,
+        "C3": 5.99,
+        "C4": 6.89,
+        "C5": 1.26,
+        "C6": 4.99,
+        "C10": 6.88,
+        "C13": 9.29,
+        "C14": 3.94
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.37
+      ],
+      "objective_linear_coefficient": 3.27,
+      "resource_costs": {
+        "C1": 3.66,
+        "C2": 5.88,
+        "C3": 2.36,
+        "C6": 7.55,
+        "C9": 0.3,
+        "C10": 6.33,
+        "C11": 1.87,
+        "C14": 6.77
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.71
+      ],
+      "objective_linear_coefficient": 4.25,
+      "resource_costs": {
+        "C0": 5.03,
+        "C2": 3.52,
+        "C3": 6.27,
+        "C5": 9.56,
+        "C6": 6.52,
+        "C7": 6.27,
+        "C8": 0.31,
+        "C9": 7.24,
+        "C12": 3.93,
+        "C13": 5.61,
+        "C14": 1.78
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.29
+      ],
+      "objective_linear_coefficient": 3.56,
+      "resource_costs": {
+        "C0": 4.94,
+        "C1": 1.45,
+        "C2": 0.92,
+        "C4": 2.41,
+        "C7": 8.03,
+        "C9": 3.71,
+        "C11": 5.23,
+        "C14": 2.66
+      }
+    },
+    "Var_14": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.65
+      ],
+      "objective_linear_coefficient": 7.96,
+      "resource_costs": {
+        "C0": 5.61,
+        "C2": 6.31,
+        "C3": 2.02,
+        "C7": 7.07,
+        "C9": 0.94,
+        "C10": 6.34,
+        "C12": 5.44
+      }
+    },
+    "Var_15": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.16
+      ],
+      "objective_linear_coefficient": 4.28,
+      "resource_costs": {
+        "C0": 8.45,
+        "C1": 8.97,
+        "C3": 5.22,
+        "C4": 7.04,
+        "C5": 7.29,
+        "C8": 3.04,
+        "C9": 7.99,
+        "C10": 6.35,
+        "C12": 0.82,
+        "C14": 6.84
+      }
+    },
+    "Var_16": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.91
+      ],
+      "objective_linear_coefficient": 1.01,
+      "resource_costs": {
+        "C0": 5.78,
+        "C1": 3.45,
+        "C2": 3.48,
+        "C3": 5.09,
+        "C5": 8.9,
+        "C6": 9.84,
+        "C9": 2.62,
+        "C10": 0.69,
+        "C12": 6.89,
+        "C13": 0.93,
+        "C14": 4.84
+      }
+    },
+    "Var_17": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.11
+      ],
+      "objective_linear_coefficient": 9.69,
+      "resource_costs": {
+        "C0": 3.51,
+        "C2": 3.28,
+        "C3": 0.93,
+        "C5": 6.02,
+        "C6": 8.88,
+        "C7": 7.21,
+        "C8": 1.37,
+        "C9": 6.82,
+        "C10": 9.79,
+        "C12": 7.7,
+        "C13": 8.59,
+        "C14": 5.84
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.05 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.21, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.54 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_10')\n    lin_expr += 6.22 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=15.37, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 3.27 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=14.71, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 4.25 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=6.29, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 3.56 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=15.65, vtype=GRB.INTEGER, name='Var_14')\n    lin_expr += 7.96 * vars['Var_14']\n    vars['Var_15'] = m.addVar(lb=0.0, ub=14.16, vtype=GRB.CONTINUOUS, name='Var_15')\n    lin_expr += 4.28 * vars['Var_15']\n    vars['Var_16'] = m.addVar(lb=0.0, ub=9.91, vtype=GRB.CONTINUOUS, name='Var_16')\n    lin_expr += 1.01 * vars['Var_16']\n    vars['Var_17'] = m.addVar(lb=0.0, ub=17.11, vtype=GRB.CONTINUOUS, name='Var_17')\n    lin_expr += 9.69 * vars['Var_17']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.05 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.75, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.0 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.87, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.67 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.26, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.55 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=5.53, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.28 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=18.13, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 8.34 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=15.27, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 6.67 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=19.25, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 5.57 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.96 * vars['Var_10'] + 5.03 * vars['Var_12'] + 4.94 * vars['Var_13'] + 5.61 * vars['Var_14'] + 8.45 * vars['Var_15'] + 5.78 * vars['Var_16'] + 3.51 * vars['Var_17'] + 6.82 * vars['Var_2'] + 9.16 * vars['Var_3'] + 5.11 * vars['Var_4'] + 3.07 * vars['Var_5'] + 7.73 * vars['Var_7'] + 0.78 * vars['Var_8'] >= 362.89, name='C0')\n    m.addConstr(0.39 * vars['Var_1'] + 9.92 * vars['Var_10'] + 3.66 * vars['Var_11'] + 1.45 * vars['Var_13'] + 8.97 * vars['Var_15'] + 3.45 * vars['Var_16'] + 2.35 * vars['Var_2'] + 3.25 * vars['Var_3'] + 8.05 * vars['Var_4'] + 2.57 * vars['Var_5'] + 3.3 * vars['Var_7'] >= 279.05, name='C1')\n    m.addConstr(7.2 * vars['Var_0'] + 6.88 * vars['Var_10'] + 6.33 * vars['Var_11'] + 6.34 * vars['Var_14'] + 6.35 * vars['Var_15'] + 0.69 * vars['Var_16'] + 9.79 * vars['Var_17'] + 2.07 * vars['Var_2'] + 6.67 * vars['Var_3'] + 0.39 * vars['Var_4'] + 4.13 * vars['Var_5'] + 3.26 * vars['Var_6'] + 7.49 * vars['Var_7'] + 6.27 * vars['Var_8'] + 8.73 * vars['Var_9'] >= 443.41, name='C10')\n    m.addConstr(8.4 * vars['Var_0'] + 4.57 * vars['Var_1'] + 1.87 * vars['Var_11'] + 5.23 * vars['Var_13'] + 8.91 * vars['Var_3'] + 2.88 * vars['Var_6'] + 0.46 * vars['Var_8'] >= 125.63, name='C11')\n    m.addConstr(6.17 * vars['Var_0'] + 3.93 * vars['Var_12'] + 5.44 * vars['Var_14'] + 0.82 * vars['Var_15'] + 6.89 * vars['Var_16'] + 7.7 * vars['Var_17'] + 2.29 * vars['Var_2'] + 0.28 * vars['Var_4'] + 9.41 * vars['Var_5'] + 3.82 * vars['Var_6'] + 7.9 * vars['Var_8'] >= 326.23, name='C12')\n    m.addConstr(0.16 * vars['Var_1'] + 9.29 * vars['Var_10'] + 5.61 * vars['Var_12'] + 0.93 * vars['Var_16'] + 8.59 * vars['Var_17'] + 4.87 * vars['Var_3'] + 1.39 * vars['Var_4'] + 3.92 * vars['Var_5'] + 4.56 * vars['Var_6'] + 6.82 * vars['Var_7'] + 7.78 * vars['Var_8'] + 0.52 * vars['Var_9'] >= 317.43, name='C13')\n    m.addConstr(0.8 * vars['Var_0'] + 5.69 * vars['Var_1'] + 3.94 * vars['Var_10'] + 6.77 * vars['Var_11'] + 1.78 * vars['Var_12'] + 2.66 * vars['Var_13'] + 6.84 * vars['Var_15'] + 4.84 * vars['Var_16'] + 5.84 * vars['Var_17'] + 3.14 * vars['Var_2'] + 1.75 * vars['Var_3'] + 3.38 * vars['Var_4'] + 4.43 * vars['Var_5'] + 0.45 * vars['Var_7'] + 3.2 * vars['Var_8'] + 6.84 * vars['Var_9'] >= 276.5, name='C14')\n    m.addConstr(3.44 * vars['Var_0'] + 2.51 * vars['Var_1'] + 2.19 * vars['Var_10'] + 5.88 * vars['Var_11'] + 3.52 * vars['Var_12'] + 0.92 * vars['Var_13'] + 6.31 * vars['Var_14'] + 3.48 * vars['Var_16'] + 3.28 * vars['Var_17'] + 4.14 * vars['Var_2'] + 0.19 * vars['Var_3'] + 7.69 * vars['Var_6'] + 9.05 * vars['Var_7'] + 1.8 * vars['Var_8'] + 3.01 * vars['Var_9'] >= 269.83, name='C2')\n    m.addConstr(0.24 * vars['Var_0'] + 1.87 * vars['Var_1'] + 5.99 * vars['Var_10'] + 2.36 * vars['Var_11'] + 6.27 * vars['Var_12'] + 2.02 * vars['Var_14'] + 5.22 * vars['Var_15'] + 5.09 * vars['Var_16'] + 0.93 * vars['Var_17'] + 7.8 * vars['Var_3'] + 1.55 * vars['Var_4'] + 5.54 * vars['Var_5'] + 1.48 * vars['Var_6'] + 4.26 * vars['Var_8'] >= 216.9, name='C3')\n    m.addConstr(9.52 * vars['Var_0'] + 8.58 * vars['Var_1'] + 6.89 * vars['Var_10'] + 2.41 * vars['Var_13'] + 7.04 * vars['Var_15'] + 3.25 * vars['Var_2'] + 1.12 * vars['Var_3'] + 1.83 * vars['Var_4'] + 0.93 * vars['Var_5'] + 7.83 * vars['Var_7'] + 7.95 * vars['Var_9'] >= 294.97, name='C4')\n    m.addConstr(1.26 * vars['Var_10'] + 9.56 * vars['Var_12'] + 7.29 * vars['Var_15'] + 8.9 * vars['Var_16'] + 6.02 * vars['Var_17'] + 0.87 * vars['Var_5'] + 6.72 * vars['Var_6'] + 7.72 * vars['Var_7'] + 8.38 * vars['Var_9'] >= 205.77, name='C5')\n    m.addConstr(6.91 * vars['Var_0'] + 1.5 * vars['Var_1'] + 4.99 * vars['Var_10'] + 7.55 * vars['Var_11'] + 6.52 * vars['Var_12'] + 9.84 * vars['Var_16'] + 8.88 * vars['Var_17'] + 0.09 * vars['Var_2'] + 2.68 * vars['Var_4'] + 7.12 * vars['Var_5'] + 4.26 * vars['Var_6'] + 8.58 * vars['Var_7'] >= 391.67, name='C6')\n    m.addConstr(7.59 * vars['Var_0'] + 5.06 * vars['Var_1'] + 6.27 * vars['Var_12'] + 8.03 * vars['Var_13'] + 7.07 * vars['Var_14'] + 7.21 * vars['Var_17'] + 5.43 * vars['Var_2'] + 7.6 * vars['Var_3'] + 5.35 * vars['Var_4'] + 2.54 * vars['Var_5'] + 8.4 * vars['Var_8'] + 0.77 * vars['Var_9'] >= 371.35, name='C7')\n    m.addConstr(4.09 * vars['Var_1'] + 0.31 * vars['Var_12'] + 3.04 * vars['Var_15'] + 1.37 * vars['Var_17'] + 2.76 * vars['Var_2'] + 4.44 * vars['Var_3'] + 1.39 * vars['Var_4'] + 6.06 * vars['Var_5'] + 1.53 * vars['Var_6'] + 3.52 * vars['Var_7'] + 3.35 * vars['Var_8'] >= 141.14, name='C8')\n    m.addConstr(3.82 * vars['Var_0'] + 6.8 * vars['Var_1'] + 0.3 * vars['Var_11'] + 7.24 * vars['Var_12'] + 3.71 * vars['Var_13'] + 0.94 * vars['Var_14'] + 7.99 * vars['Var_15'] + 2.62 * vars['Var_16'] + 6.82 * vars['Var_17'] + 4.41 * vars['Var_2'] + 6.34 * vars['Var_3'] + 8.01 * vars['Var_4'] + 5.4 * vars['Var_6'] + 9.5 * vars['Var_7'] + 5.3 * vars['Var_8'] + 9.05 * vars['Var_9'] >= 376.14, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Media mix decision and minimum reach commitments\n\nHi team,\n\nWe need help finalizing the Q4 multi\u2011channel plan so that we meet a set of minimum reach commitments across fifteen audience segments while keeping total spend as low as possible. Below is the way we\u2019re thinking about each lever. For simplicity, assume the contribution figures noted are per unit and measured in thousands of qualified impressions. Where noted as \u201cwhole units,\u201d we can only deploy an integer number of units; where noted as \u201cfractional,\u201d we can dial spend to any fractional level up to the cap.\n\nLevers\n\n- Downtown Light Rail Screens (whole units; between 0 and 11 units; $4.05 per unit)\n  Each screen adds 3.44 to Small Business Owners, 0.24 to Active Lifestyles, 9.52 to Tech Early Adopters, 6.91 to Finance Decision\u2011Makers, 7.59 to Auto Shoppers, 3.82 to High\u2011Income Households, 7.20 to National Awareness, 8.40 to Community Influencers, 6.17 to Regional Engagement, and 0.80 to E\u2011commerce Loyalists.\n\n- Podcast Host Reads (fractional; between 0 and 5.21 units; $8.54 per unit)\n  Each host read contributes 0.39 to Suburban Families, 2.51 to Small Business Owners, 1.87 to Active Lifestyles, 8.58 to Tech Early Adopters, 1.50 to Finance Decision\u2011Makers, 5.06 to Auto Shoppers, 4.09 to Students, 6.80 to High\u2011Income Households, 4.57 to Community Influencers, 0.16 to Sustainability Advocates, and 5.69 to E\u2011commerce Loyalists.\n\n- Local Print Inserts (whole units; between 0 and 9 units; $5.05 per unit)\n  Each insert provides 6.82 to Metro Reach, 2.35 to Suburban Families, 4.14 to Small Business Owners, 3.25 to Tech Early Adopters, 0.09 to Finance Decision\u2011Makers, 5.43 to Auto Shoppers, 2.76 to Students, 4.41 to High\u2011Income Households, 2.07 to National Awareness, 2.29 to Regional Engagement, and 3.14 to E\u2011commerce Loyalists.\n\n- Prime\u2011Time TV Spots (fractional; between 0 and 17.75 units; $6.00 per unit)\n  Each spot adds 9.16 to Metro Reach, 3.25 to Suburban Families, 0.19 to Small Business Owners, 7.80 to Active Lifestyles, 1.12 to Tech Early Adopters, 7.60 to Auto Shoppers, 4.44 to Students, 6.34 to High\u2011Income Households, 6.67 to National Awareness, 8.91 to Community Influencers, 4.87 to Sustainability Advocates, and 1.75 to E\u2011commerce Loyalists.\n\n- Branded Transit Shelters (whole units; between 0 and 15.87 units; $5.67 per unit)\n  Each shelter delivers 5.11 to Metro Reach, 8.05 to Suburban Families, 1.55 to Active Lifestyles, 1.83 to Tech Early Adopters, 2.68 to Finance Decision\u2011Makers, 5.35 to Auto Shoppers, 1.39 to Students, 8.01 to High\u2011Income Households, 0.39 to National Awareness, 0.28 to Regional Engagement, 1.39 to Sustainability Advocates, and 3.38 to E\u2011commerce Loyalists.\n\n- Mobile App Takeovers (fractional; between 0 and 9.26 units; $7.55 per unit)\n  Each takeover contributes 3.07 to Metro Reach, 2.57 to Suburban Families, 5.54 to Active Lifestyles, 0.93 to Tech Early Adopters, 0.87 to Healthcare Professionals, 7.12 to Finance Decision\u2011Makers, 2.54 to Auto Shoppers, 6.06 to Students, 4.13 to National Awareness, 9.41 to Regional Engagement, 3.92 to Sustainability Advocates, and 4.43 to E\u2011commerce Loyalists.\n\n- Trade Webinar Series (fractional; between 0 and 5.53 units; $3.28 per unit)\n  Each webinar adds 7.69 to Small Business Owners, 1.48 to Active Lifestyles, 6.72 to Healthcare Professionals, 4.26 to Finance Decision\u2011Makers, 1.53 to Students, 5.40 to High\u2011Income Households, 3.26 to National Awareness, 2.88 to Community Influencers, 3.82 to Regional Engagement, and 4.56 to Sustainability Advocates.\n\n- Influencer Collaborations (fractional; between 0 and 18.13 units; $8.34 per unit)\n  Each collaboration provides 7.73 to Metro Reach, 3.30 to Suburban Families, 9.05 to Small Business Owners, 7.83 to Tech Early Adopters, 7.72 to Healthcare Professionals, 8.58 to Finance Decision\u2011Makers, 3.52 to Students, 9.50 to High\u2011Income Households, 7.49 to National Awareness, 6.82 to Sustainability Advocates, and 0.45 to E\u2011commerce Loyalists.\n\n- Campus Activations (whole units; between 0 and 15.27 units; $6.67 per unit)\n  Each activation delivers 0.78 to Metro Reach, 1.80 to Small Business Owners, 4.26 to Active Lifestyles, 8.40 to Auto Shoppers, 3.35 to Students, 5.30 to High\u2011Income Households, 6.27 to National Awareness, 0.46 to Community Influencers, 7.90 to Regional Engagement, 7.78 to Sustainability Advocates, and 3.20 to E\u2011commerce Loyalists.\n\n- Travel Network OOH (whole units; between 0 and 19.25 units; $5.57 per unit)\n  Each unit contributes 3.01 to Small Business Owners, 7.95 to Tech Early Adopters, 8.38 to Healthcare Professionals, 0.77 to Auto Shoppers, 9.05 to High\u2011Income Households, 8.73 to National Awareness, 0.52 to Sustainability Advocates, and 6.84 to E\u2011commerce Loyalists.\n\n- Business Journal Sponsorships (whole units; between 0 and 11 units; $6.22 per unit)\n  Each sponsorship provides 4.96 to Metro Reach, 9.92 to Suburban Families, 2.19 to Small Business Owners, 5.99 to Active Lifestyles, 6.89 to Tech Early Adopters, 1.26 to Healthcare Professionals, 4.99 to Finance Decision\u2011Makers, 6.88 to National Awareness, 9.29 to Sustainability Advocates, and 3.94 to E\u2011commerce Loyalists.\n\n- City Street Teams (fractional; between 0 and 15.37 units; $3.27 per unit)\n  Each team adds 3.66 to Suburban Families, 5.88 to Small Business Owners, 2.36 to Active Lifestyles, 7.55 to Finance Decision\u2011Makers, 0.30 to High\u2011Income Households, 6.33 to National Awareness, 1.87 to Community Influencers, and 6.77 to E\u2011commerce Loyalists.\n\n- Email Drip Campaigns (fractional; between 0 and 14.71 units; $4.25 per unit)\n  Each drip delivers 5.03 to Metro Reach, 3.52 to Small Business Owners, 6.27 to Active Lifestyles, 9.56 to Healthcare Professionals, 6.52 to Finance Decision\u2011Makers, 6.27 to Auto Shoppers, 0.31 to Students, 7.24 to High\u2011Income Households, 3.93 to Regional Engagement, 5.61 to Sustainability Advocates, and 1.78 to E\u2011commerce Loyalists.\n\n- Thought Leadership Articles (fractional; between 0 and 6.29 units; $3.56 per unit)\n  Each article contributes 4.94 to Metro Reach, 1.45 to Suburban Families, 0.92 to Small Business Owners, 2.41 to Tech Early Adopters, 8.03 to Auto Shoppers, 3.71 to High\u2011Income Households, 5.23 to Community Influencers, and 2.66 to E\u2011commerce Loyalists.\n\n- Sports Sponsorships (whole units; between 0 and 15.65 units; $7.96 per unit)\n  Each sponsorship adds 5.61 to Metro Reach, 6.31 to Small Business Owners, 2.02 to Active Lifestyles, 7.07 to Auto Shoppers, 0.94 to High\u2011Income Households, 6.34 to National Awareness, and 5.44 to Regional Engagement.\n\n- Connected TV Audience Packages (fractional; between 0 and 14.16 units; $4.28 per unit)\n  Each package delivers 8.45 to Metro Reach, 8.97 to Suburban Families, 5.22 to Active Lifestyles, 7.04 to Tech Early Adopters, 7.29 to Healthcare Professionals, 3.04 to Students, 7.99 to High\u2011Income Households, 6.35 to National Awareness, 0.82 to Regional Engagement, and 6.84 to E\u2011commerce Loyalists.\n\n- Financial Podcast Ads (fractional; between 0 and 9.91 units; $1.01 per unit)\n  Each ad adds 5.78 to Metro Reach, 3.45 to Suburban Families, 3.48 to Small Business Owners, 5.09 to Active Lifestyles, 8.90 to Healthcare Professionals, 9.84 to Finance Decision\u2011Makers, 2.62 to High\u2011Income Households, 0.69 to National Awareness, 6.89 to Regional Engagement, 0.93 to Sustainability Advocates, and 4.84 to E\u2011commerce Loyalists.\n\n- National Morning Show Integrations (fractional; between 0 and 17.11 units; $9.69 per unit)\n  Each integration contributes 3.51 to Metro Reach, 3.28 to Small Business Owners, 0.93 to Active Lifestyles, 6.02 to Healthcare Professionals, 8.88 to Finance Decision\u2011Makers, 7.21 to Auto Shoppers, 1.37 to Students, 6.82 to High\u2011Income Households, 9.79 to National Awareness, 7.70 to Regional Engagement, 8.59 to Sustainability Advocates, and 5.84 to E\u2011commerce Loyalists.\n\nMarket limits and minimum commitments\n\nWe must reach at least the following totals (in thousands of qualified impressions) across the respective audience segments:\n- Metro Reach: 362.89\n- Suburban Families: 279.05\n- Small Business Owners: 269.83\n- Active Lifestyles: 216.90\n- Tech Early Adopters: 294.97\n- Healthcare Professionals: 205.77\n- Finance Decision\u2011Makers: 391.67\n- Auto Shoppers: 371.35\n- Students: 141.14\n- High\u2011Income Households: 376.14\n- National Awareness: 443.41\n- Community Influencers: 125.63\n- Regional Engagement: 326.23\n- Sustainability Advocates: 317.43\n- E\u2011commerce Loyalists: 276.50\n\nPlease structure the plan to minimize total investment while meeting or exceeding every one of these minimum reach commitments. Let us know if you need any clarification on the unit assumptions or caps.\n\nThanks,\nMarketing & Media Planning Team"
+}

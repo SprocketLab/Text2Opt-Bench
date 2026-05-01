@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, resource uses, and capacities are explicit; fractional runs imply continuous vars. Objective and constraints are mechanically derivable without guesswork.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative email style adds context and some verbosity, but data is presented clearly once with minimal repetition.",
+      "realism": 97,
+      "realism_comment": "Highly plausible production planning with lab days and autoclave hours, partial batches/runs, and capacity limits typical of real operations."
+    },
+    "prompt_tokens_with_data": 601,
+    "prompt_tokens_without_data": 601
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 74.08202415940225,
+    "optimal_values": {
+      "Var_0": 5.41,
+      "Var_1": 3.1955168119551685
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 25.66
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 6.85
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.41
+      ],
+      "objective_linear_coefficient": 8.98,
+      "resource_costs": {
+        "C1": 1.05
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.78
+      ],
+      "objective_linear_coefficient": 7.98,
+      "resource_costs": {
+        "C0": 8.03
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.41, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.98 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.78, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.98 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.03 * vars['Var_1'] <= 25.66, name='C0')\n    m.addConstr(1.05 * vars['Var_0'] <= 6.85, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request to finalize this period\u2019s production mix to maximize contribution\n\nHi team,\n\nAs we lock the schedule for the current production window, I\u2019d like your help choosing the mix of two revenue-generating activities that will maximize total contribution, while staying within our staffing and equipment limits. We can schedule fractional runs/batches this period (no minimum commitments on either activity).\n\nThe levers we can pull\n\n- Micro\u2011Pump Kit batches (Packaging Cell K)\n  - Financials: Each batch delivers a gross contribution of 8.98 (in our standard contribution units).\n  - Capacity draw:\n    - QA Lab slots: 1.05 lab\u2011days per batch.\n    - Autoclave B: no usage (0 hours per batch).\n  - Practical limits: We have no minimum batch obligation; we can schedule anywhere from 0 up to 5.41 batches this period. Partial batches are allowed.\n\n- Precision Valve Assembly runs (Autoclave Line B)\n  - Financials: Each run delivers a gross contribution of 7.98.\n  - Capacity draw:\n    - Autoclave B: 8.03 machine\u2011hours per run.\n    - QA Lab: no usage (0 lab\u2011days per run).\n  - Practical limits: No minimum run requirement; we can schedule anywhere from 0 up to 16.78 runs this period. Partial runs are allowed.\n\nFacility specs and operating limits for this period\n\n- Autoclave B availability: up to 25.66 machine\u2011hours total across all work this period.\n- QA Lab availability: up to 6.85 lab\u2011days total across all work this period.\n\nPlease use the above to recommend the mix of Micro\u2011Pump Kit batches and Precision Valve Assembly runs that maximizes total contribution without exceeding the Autoclave B and QA Lab limits. Let me know if you need anything else.\n\nThanks,\n[Client Name]\nOperations Director"
+}

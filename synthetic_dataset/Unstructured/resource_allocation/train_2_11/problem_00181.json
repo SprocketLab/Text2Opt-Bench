@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Costs, bounds, and per-unit impacts to each index are explicit; thresholds use clear >=. Objective is minimize spend. Linear model can be reconstructed directly with no missing parameters.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some corporate narrative and extra guidance add fluff, but the quantitative specs are clear and not repetitive.",
+      "realism": 92,
+      "realism_comment": "Feels like a real planning task across reliability/resilience/sustainability. Minor quirks (negative floors, a lever with no effect) but overall plausible."
+    },
+    "prompt_tokens_with_data": 866,
+    "prompt_tokens_without_data": 866
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 40.63287207275087,
+    "optimal_values": {
+      "Var_0": 1.3919213973799127,
+      "Var_1": 0.0,
+      "Var_2": 6.243973634133732,
+      "Var_3": 0.0,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 50.12
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -1.22
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 12.75
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 5.31
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -0.58
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.33
+      ],
+      "objective_linear_coefficient": 6.0,
+      "resource_costs": {
+        "C0": 0.39,
+        "C1": 8.16,
+        "C2": 9.16,
+        "C3": 5.79,
+        "C4": 9.17
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.04
+      ],
+      "objective_linear_coefficient": 1.64,
+      "resource_costs": {
+        "C2": 1.28,
+        "C3": 3.46
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.7
+      ],
+      "objective_linear_coefficient": 5.17,
+      "resource_costs": {
+        "C0": 7.94
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.16
+      ],
+      "objective_linear_coefficient": 2.69,
+      "resource_costs": {}
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.56
+      ],
+      "objective_linear_coefficient": 5.36,
+      "resource_costs": {
+        "C2": 3.07
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.33, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.0 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.04, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.64 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.7, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.17 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.16, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.69 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.56, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.36 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.39 * vars['Var_0'] + 7.94 * vars['Var_2'] >= 50.12, name='C0')\n    m.addConstr(8.16 * vars['Var_0'] >= -1.22, name='C1')\n    m.addConstr(9.16 * vars['Var_0'] + 1.28 * vars['Var_1'] + 3.07 * vars['Var_4'] >= 12.75, name='C2')\n    m.addConstr(5.79 * vars['Var_0'] + 3.46 * vars['Var_1'] >= 5.31, name='C3')\n    m.addConstr(9.17 * vars['Var_0'] >= -0.58, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Q1 Mix to Meet Reliability, Resilience, and Sustainability Thresholds\n\nTeam,\n\nFor the upcoming quarter, we need to assemble the lowest-cost portfolio of operational and programmatic actions that will collectively hit our required performance thresholds across five system indices (reliability, resilience, sustainability, coverage, and community impact). The intent is to minimize total spend while meeting or exceeding each minimum level outlined below.\n\nLevers we can adjust\n\n- Hybrid Flex Blocks\n  - Pricing and availability: $6.0 per block; we can take anywhere from 0 up to 15.33 blocks.\n  - What it delivers per block:\n    - System Reliability Credits: +0.39\n    - Grid Resilience Index: +8.16\n    - Sustainability Ledger (clean energy credits): +9.16\n    - Operational Coverage: +5.79\n    - Community Impact Index: +9.17\n\n- Targeted Coverage Boosters\n  - Pricing and availability: $1.64 per unit; available from 0 up to 11.04 units.\n  - What it delivers per unit:\n    - Sustainability Ledger: +1.28\n    - Operational Coverage: +3.46\n    - No effect on System Reliability Credits, Grid Resilience Index, or Community Impact Index.\n\n- Base Reliability Modules\n  - Pricing and availability: $5.17 per module; available from 0 up to 16.7 modules.\n  - What it delivers per module:\n    - System Reliability Credits: +7.94\n    - No effect on Grid Resilience Index, Sustainability Ledger, Operational Coverage, or Community Impact Index.\n\n- General Support Hours\n  - Pricing and availability: $2.69 per hour; available from 0 up to 16.16 hours.\n  - What it delivers per hour:\n    - Does not move any of the five indices directly (no change to reliability, resilience, sustainability, coverage, or community impact).\n\n- Green Add\u2011on Certificates\n  - Pricing and availability: $5.36 per certificate; available from 0 up to 18.56 certificates.\n  - What it delivers per certificate:\n    - Sustainability Ledger: +3.07\n    - No effect on System Reliability Credits, Grid Resilience Index, Operational Coverage, or Community Impact Index.\n\nMarket limits and compliance thresholds\n\n- System Reliability Credits: reach at least 50.12.\n- Grid Resilience Index: keep at or above \u22121.22 (scale allows negative values; our near\u2011term floor is \u22121.22).\n- Sustainability Ledger: reach at least 12.75.\n- Operational Coverage: meet at least 5.31.\n- Community Impact Index: keep at or above \u22120.58 (scale allows negative values; our near\u2011term floor is \u22120.58).\n\nPlease develop a recommended mix within the availability limits above that minimizes total spend while ensuring each index meets its stated minimum. If you see a more cost\u2011effective way to rebalance between Hybrid Flex Blocks, Base Reliability Modules, and the sustainability levers (Targeted Coverage Boosters and Green Add\u2011on Certificates), call it out along with any sensitivities to the thresholds."
+}

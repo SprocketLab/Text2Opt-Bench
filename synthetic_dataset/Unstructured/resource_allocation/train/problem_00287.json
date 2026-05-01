@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All objective coefficients, bounds/types per product, and each resource\u2019s coefficients and capacities are explicit. The model can be constructed mechanically without guesses.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative and \u201cno draw\u201d notes add some verbosity, but content is focused and non-repetitive for modeling.",
+      "realism": 94,
+      "realism_comment": "Credible production mix planning with multiple resources and batching. Slightly odd fractional limits, but otherwise realistic and coherent."
+    },
+    "prompt_tokens_with_data": 1423,
+    "prompt_tokens_without_data": 1423
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 277.3991124299767,
+    "optimal_values": {
+      "Var_0": 4.0,
+      "Var_1": 14.0,
+      "Var_2": 1.616595152621436,
+      "Var_3": -0.0,
+      "Var_4": 8.100832369942198,
+      "Var_5": 11.27
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 285.96
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 166.65
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 147.38
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.57
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 212.5
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 156.84
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 148.79
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 206.03
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 252.29
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.56
+      ],
+      "objective_linear_coefficient": 4.4,
+      "resource_costs": {
+        "C0": 8.03,
+        "C2": 0.92,
+        "C3": 0.05,
+        "C4": 9.05,
+        "C5": 7.21,
+        "C6": 8.67,
+        "C7": 2.39,
+        "C8": 4.61
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.8
+      ],
+      "objective_linear_coefficient": 7.84,
+      "resource_costs": {
+        "C0": 5.89,
+        "C1": 7.46,
+        "C2": 3.19,
+        "C3": 1.24,
+        "C4": 8.55,
+        "C7": 9.13,
+        "C8": 4.79
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.17
+      ],
+      "objective_linear_coefficient": 2.84,
+      "resource_costs": {
+        "C0": 7.92,
+        "C1": 2.85,
+        "C2": 5.54,
+        "C3": 4.35,
+        "C4": 6.31,
+        "C6": 5.0,
+        "C7": 7.9,
+        "C8": 7.84
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.39
+      ],
+      "objective_linear_coefficient": 5.53,
+      "resource_costs": {
+        "C0": 6.43,
+        "C1": 7.26,
+        "C2": 7.81,
+        "C3": 7.12,
+        "C4": 5.02,
+        "C5": 3.37,
+        "C6": 5.06,
+        "C7": 1.6,
+        "C8": 9.78
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.15
+      ],
+      "objective_linear_coefficient": 9.83,
+      "resource_costs": {
+        "C0": 9.55,
+        "C1": 4.69,
+        "C4": 0.94,
+        "C5": 8.65,
+        "C6": 0.15,
+        "C7": 5.1,
+        "C8": 6.55
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.27
+      ],
+      "objective_linear_coefficient": 5.84,
+      "resource_costs": {
+        "C0": 3.65,
+        "C1": 1.74,
+        "C2": 7.89,
+        "C4": 3.26,
+        "C5": 5.14,
+        "C6": 8.03,
+        "C8": 4.88
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.56, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.4 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.8, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.84 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.17, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.84 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=5.39, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 5.53 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.15, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.83 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.27, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.84 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.03 * vars['Var_0'] + 5.89 * vars['Var_1'] + 7.92 * vars['Var_2'] + 6.43 * vars['Var_3'] + 9.55 * vars['Var_4'] + 3.65 * vars['Var_5'] <= 285.96, name='C0')\n    m.addConstr(7.46 * vars['Var_1'] + 2.85 * vars['Var_2'] + 7.26 * vars['Var_3'] + 4.69 * vars['Var_4'] + 1.74 * vars['Var_5'] <= 166.65, name='C1')\n    m.addConstr(0.92 * vars['Var_0'] + 3.19 * vars['Var_1'] + 5.54 * vars['Var_2'] + 7.81 * vars['Var_3'] + 7.89 * vars['Var_5'] <= 147.38, name='C2')\n    m.addConstr(0.05 * vars['Var_0'] + 1.24 * vars['Var_1'] + 4.35 * vars['Var_2'] + 7.12 * vars['Var_3'] <= 77.57, name='C3')\n    m.addConstr(9.05 * vars['Var_0'] + 8.55 * vars['Var_1'] + 6.31 * vars['Var_2'] + 5.02 * vars['Var_3'] + 0.94 * vars['Var_4'] + 3.26 * vars['Var_5'] <= 212.5, name='C4')\n    m.addConstr(7.21 * vars['Var_0'] + 3.37 * vars['Var_3'] + 8.65 * vars['Var_4'] + 5.14 * vars['Var_5'] <= 156.84, name='C5')\n    m.addConstr(8.67 * vars['Var_0'] + 5.0 * vars['Var_2'] + 5.06 * vars['Var_3'] + 0.15 * vars['Var_4'] + 8.03 * vars['Var_5'] <= 148.79, name='C6')\n    m.addConstr(2.39 * vars['Var_0'] + 9.13 * vars['Var_1'] + 7.9 * vars['Var_2'] + 1.6 * vars['Var_3'] + 5.1 * vars['Var_4'] <= 206.03, name='C7')\n    m.addConstr(4.61 * vars['Var_0'] + 4.79 * vars['Var_1'] + 7.84 * vars['Var_2'] + 9.78 * vars['Var_3'] + 6.55 * vars['Var_4'] + 4.88 * vars['Var_5'] <= 252.29, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix planning for the upcoming cycle \u2014 maximize total contribution while staying within site limits\n\nTeam,\n\nWe\u2019re tuning the production mix across six product lines for the next cycle with the simple goal of maximizing total contribution. Below is a practical description of each line, what it earns per unit, how much resource it draws per unit, and any scheduling limits. Some lines must be scheduled in whole batches, others can be run in partial quantities.\n\n- Aurora Bracket Lots\n  - Commercial intent: Each lot contributes 4.40 in margin. We may schedule anywhere from 0 up to 7.56 lots, and because of how this line is configured, lots must be whole numbers.\n  - Resource use per lot:\n    - Core Production Hours: 8.03\n    - Senior Technician Hours: 0.00 (no senior support needed)\n    - Precision Machining Time: 0.92\n    - Quality Inspection Time: 0.05\n    - Packaging Line Throughput: 9.05\n    - Process Chemical L: 7.21\n    - Electrical Energy Budget: 8.67\n    - Outbound Dock Slots: 2.39\n    - Premium Material Allocation: 4.61\n\n- Summit Fastener Runs\n  - Commercial intent: Each run contributes 7.84 in margin. We may schedule anywhere from 0 up to 16.80 runs, and runs must be whole numbers.\n  - Resource use per run:\n    - Core Production Hours: 5.89\n    - Senior Technician Hours: 7.46\n    - Precision Machining Time: 3.19\n    - Quality Inspection Time: 1.24\n    - Packaging Line Throughput: 8.55\n    - Process Chemical L: 0.00 (no draw)\n    - Electrical Energy Budget: 0.00 (no material impact recorded)\n    - Outbound Dock Slots: 9.13\n    - Premium Material Allocation: 4.79\n\n- Riverlight Panel Production\n  - Commercial intent: Each production unit contributes 2.84 in margin. We may schedule anywhere from 0 up to 14.17 units, and partial units are allowed (continuous flow).\n  - Resource use per unit:\n    - Core Production Hours: 7.92\n    - Senior Technician Hours: 2.85\n    - Precision Machining Time: 5.54\n    - Quality Inspection Time: 4.35\n    - Packaging Line Throughput: 6.31\n    - Process Chemical L: 0.00 (no draw)\n    - Electrical Energy Budget: 5.00\n    - Outbound Dock Slots: 7.90\n    - Premium Material Allocation: 7.84\n\n- Keystone Assembly Kits\n  - Commercial intent: Each kit contributes 5.53 in margin. We may schedule anywhere from 0 up to 5.39 kits, and kits must be whole numbers.\n  - Resource use per kit:\n    - Core Production Hours: 6.43\n    - Senior Technician Hours: 7.26\n    - Precision Machining Time: 7.81\n    - Quality Inspection Time: 7.12\n    - Packaging Line Throughput: 5.02\n    - Process Chemical L: 3.37\n    - Electrical Energy Budget: 5.06\n    - Outbound Dock Slots: 1.60\n    - Premium Material Allocation: 9.78\n\n- Lumen Deluxe Housing\n  - Commercial intent: Each housing unit contributes 9.83 in margin. We may schedule anywhere from 0 up to 10.15 units, and partial units are allowed.\n  - Resource use per unit:\n    - Core Production Hours: 9.55\n    - Senior Technician Hours: 4.69\n    - Precision Machining Time: 0.00 (no draw)\n    - Quality Inspection Time: 0.00 (no draw)\n    - Packaging Line Throughput: 0.94\n    - Process Chemical L: 8.65\n    - Electrical Energy Budget: 0.15\n    - Outbound Dock Slots: 5.10\n    - Premium Material Allocation: 6.55\n\n- Terracotta Base Units\n  - Commercial intent: Each base unit contributes 5.84 in margin. We may schedule anywhere from 0 up to 11.27 units, and partial units are allowed.\n  - Resource use per unit:\n    - Core Production Hours: 3.65\n    - Senior Technician Hours: 1.74\n    - Precision Machining Time: 7.89\n    - Quality Inspection Time: 0.00 (no draw)\n    - Packaging Line Throughput: 3.26\n    - Process Chemical L: 5.14\n    - Electrical Energy Budget: 8.03\n    - Outbound Dock Slots: 0.00 (no draw)\n    - Premium Material Allocation: 4.88\n\nFacility specs for this cycle (do not exceed):\n- Core Production Hours: 285.96 hours available\n- Senior Technician Hours: 166.65 hours available\n- Precision Machining Time: 147.38 hours available\n- Quality Inspection Time: 77.57 hours available\n- Packaging Line Throughput: 212.50 hours of capacity\n- Process Chemical L: 156.84 units available\n- Electrical Energy Budget: 148.79 kWh allocated to the shop floor\n- Outbound Dock Slots: 206.03 slots available for dispatch\n- Premium Material Allocation: 252.29 units available\n\nPlease use the above to finalize the mix that maximizes total contribution while staying within each limit. If any assumption needs clarification (batching rules, fractional scheduling, or unit definitions), let me know before we lock the plan."
+}

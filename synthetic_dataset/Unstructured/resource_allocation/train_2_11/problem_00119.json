@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "Coefficients, bounds, and constraints are explicit. 'Gives back'/credits imply negative coefficients; emissions target stated as <= -31.71. Objective clear; bounds 0..UB imply continuous variables.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business narrative and headings add length, but each bullet maps directly to model coefficients, bounds, or constraints with minimal repetition.",
+      "realism": 93,
+      "realism_comment": "Feels like a real quarterly planning problem with capacity limits, oversight days, channel slots, and emissions credits; resource savings per unit are plausible."
+    },
+    "prompt_tokens_with_data": 843,
+    "prompt_tokens_without_data": 843
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 118.44649546529726,
+    "optimal_values": {
+      "Var_0": 3.9418344519015664,
+      "Var_1": 0.0,
+      "Var_2": 15.25,
+      "Var_3": 2.2039691289966923
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 38.98
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.62
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -31.71
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 19.99
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.55
+      ],
+      "objective_linear_coefficient": 5.87,
+      "resource_costs": {
+        "C0": 9.26,
+        "C1": 4.47
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.82
+      ],
+      "objective_linear_coefficient": 6.21,
+      "resource_costs": {
+        "C0": 5.62,
+        "C2": -3.07,
+        "C3": 8.04
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.25
+      ],
+      "objective_linear_coefficient": 5.16,
+      "resource_costs": {
+        "C0": -0.53,
+        "C2": -6.03
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.49
+      ],
+      "objective_linear_coefficient": 7.54,
+      "resource_costs": {
+        "C0": -7.01,
+        "C3": 9.07
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.55, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.87 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.82, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.21 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.25, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.16 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.49, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.54 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.26 * vars['Var_0'] + 5.62 * vars['Var_1'] + -0.53 * vars['Var_2'] + -7.01 * vars['Var_3'] <= 38.98, name='C0')\n    m.addConstr(4.47 * vars['Var_0'] <= 17.62, name='C1')\n    m.addConstr(-3.07 * vars['Var_1'] + -6.03 * vars['Var_2'] <= -31.71, name='C2')\n    m.addConstr(8.04 * vars['Var_1'] + 9.07 * vars['Var_3'] <= 19.99, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q4 Allocation Brief \u2014 Maximizing Contribution Within Our Operating and Sustainability Limits\n\nTeam,\n\nFor the upcoming quarter, please build the allocation plan to maximize total contribution while staying within our operational bandwidth, regulatory commitments, and channel capacity. Below are the four levers we can scale, along with how each one affects our resources and commitments.\n\n- Signature Care Upgrade\n  - Economic impact: Each unit delivers 5.87 in incremental contribution.\n  - Operations impact: Uses 9.26 hours from our Core Processing pool per unit.\n  - Oversight impact: Requires 4.47 days of Specialist Oversight per unit.\n  - Channel and sustainability impact: No draw on premium distribution slots and no effect on the emissions ledger.\n  - Scale limits: We can schedule anywhere from 0 up to 19.55 units this quarter.\n\n- Connected Essentials Bundle\n  - Economic impact: Each unit delivers 6.21 in incremental contribution.\n  - Operations impact: Uses 5.62 Core Processing hours per unit.\n  - Oversight impact: No Specialist Oversight required.\n  - Channel impact: Consumes 8.04 premium distribution slots per unit.\n  - Sustainability impact: Improves our emissions balance by 3.07 tons CO2e per unit (counts as a credit on the ledger).\n  - Scale limits: We can schedule anywhere from 0 up to 10.82 units this quarter.\n\n- Automation Retrofit Credit Program\n  - Economic impact: Each unit delivers 5.16 in incremental contribution.\n  - Operations impact: Gives back 0.53 Core Processing hours per unit (operational time saved).\n  - Oversight impact: No Specialist Oversight required.\n  - Channel impact: No draw on premium distribution slots.\n  - Sustainability impact: Improves our emissions balance by 6.03 tons CO2e per unit (a larger credit per unit).\n  - Scale limits: We can schedule anywhere from 0 up to 15.25 units this quarter.\n\n- Eco Premiere Launch\n  - Economic impact: Each unit delivers 7.54 in incremental contribution.\n  - Operations impact: Gives back 7.01 Core Processing hours per unit (significant operational time saved).\n  - Oversight impact: No Specialist Oversight required.\n  - Channel impact: Consumes 9.07 premium distribution slots per unit.\n  - Sustainability impact: No effect on the emissions ledger.\n  - Scale limits: We can schedule anywhere from 0 up to 6.49 units this quarter.\n\nFacility Specs and Market Limits (do not exceed):\n- Core Processing hours available across all activities: 38.98.\n- Specialist Oversight days available across all activities: 17.62.\n- Net emissions balance for the quarter must be at or below \u221231.71 tons CO2e (i.e., we must achieve at least 31.71 tons of net removal/credits when accounting for all activities).\n- Premium distribution slots available across all activities: 19.99.\n\nPlease use the above as the basis for the quarterly allocation plan to maximize contribution while remaining within these limits."
+}

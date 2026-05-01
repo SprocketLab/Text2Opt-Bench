@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and which levers contribute to each constraint are explicit; objective is clear (minimize spend). Minor oddity with fractional caps on integer items.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Email-style narrative adds some fluff but isn\u2019t repetitive; technical details (coefficients, bounds, integrality, constraints) are clearly stated.",
+      "realism": 92,
+      "realism_comment": "Scenario fits real field ops planning with coverage/compliance targets. Fractional maxima for integer decisions are unusual but acknowledged, keeping it plausible."
+    },
+    "prompt_tokens_with_data": 817,
+    "prompt_tokens_without_data": 817
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 58.47925925925926,
+    "optimal_values": {
+      "Var_0": 7.0,
+      "Var_1": 0.6172839506172839,
+      "Var_2": 2.0,
+      "Var_3": -0.0,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.15
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.02
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 6.5,
+      "resource_costs": {
+        "C1": 6.36
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.55
+      ],
+      "objective_linear_coefficient": 2.85,
+      "resource_costs": {
+        "C1": 0.81
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.94
+      ],
+      "objective_linear_coefficient": 5.61,
+      "resource_costs": {
+        "C0": 6.67
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.07
+      ],
+      "objective_linear_coefficient": 7.37,
+      "resource_costs": {}
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.81
+      ],
+      "objective_linear_coefficient": 4.41,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.5 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.55, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.85 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.94, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.61 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.07, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.37 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.81, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.41 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.67 * vars['Var_2'] >= 11.15, name='C0')\n    m.addConstr(6.36 * vars['Var_0'] + 0.81 * vars['Var_1'] >= 45.02, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing plan to meet service coverage and compliance commitments\n\nHi team,\n\nWe need your help building a spend-efficient plan for our field operations. The objective is to minimize total operating outlay while still meeting two non-negotiable obligations: a minimum level of service coverage and a minimum level of compliance training. We have five levers we can pull, each with its own cost, availability limits, and impact on our obligations.\n\nLevers we can use (in the order we consider them):\n\n- Core Response Crews\n  - What they do: Each crew advances our service coverage commitment by 6.36 coverage units. This lever has no effect on the compliance requirement.\n  - Cost: 6.50 per crew deployed.\n  - Availability and unitization: We may deploy anywhere from zero up to eight crews, and these must be whole crews (no partial crews).\n\n- Overflow On-Call Hours\n  - What they do: Each hour contributes 0.81 coverage units toward the service coverage obligation. This lever does not move the compliance metric.\n  - Cost: 2.85 per hour.\n  - Availability and unitization: We may schedule from zero up to 16.55 hours, and these hours can be fractional as needed.\n\n- Safety Compliance Workshops\n  - What they do: Each workshop adds 6.67 compliance credits toward our training/certification requirement. This lever does not contribute to service coverage.\n  - Cost: 5.61 per workshop.\n  - Availability and unitization: We may book from zero up to 16.94 workshops. Workshops must be scheduled in whole sessions (no partial workshops), even though the cap is stated as 16.94.\n\n- Innovation Pilot Grants\n  - What they do: These grants are valuable for future capability but do not directly count toward either the service coverage or compliance targets in this planning window.\n  - Cost: 7.37 per grant.\n  - Availability and unitization: We may approve anywhere from zero up to 10.07 grants, and they must be whole grants (no partial approvals).\n\n- Ancillary Support Budget\n  - What it does: Supports operations but, for this plan, it does not add to the measured service coverage or compliance totals.\n  - Cost: 4.41 per unit of support funded.\n  - Availability and unitization: We may allocate from zero up to 19.81 units of support, and this can be done in fractional amounts.\n\nMarket limits and obligations (minimums we must reach):\n- Compliance training and certification: at least 11.15 compliance credits across the period.\n- Service coverage: at least 45.02 coverage units across the period.\n\nPlease set up the allocation accordingly: we want the lowest possible total spend while ensuring we meet or exceed both the 11.15 compliance credit threshold and the 45.02 service coverage threshold, observing the unitization and availability limits noted above.\n\nThanks,\n[Your Name]"
+}

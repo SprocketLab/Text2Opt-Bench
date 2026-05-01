@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and capacities are explicitly stated. Objective (maximize contribution) and resource limits are clear. Minor oddity: fractional upper bounds for integer batches.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Includes business narrative and template/instructions, but the quantitative details are clear and not repetitive. Some fluff (subject/salutation) adds modest verbosity.",
+      "realism": 94,
+      "realism_comment": "Plausible production mix planning with shared resource hours and integer batches. Slightly unusual fractional max batches, but overall highly realistic manufacturing scenario."
+    },
+    "prompt_tokens_with_data": 617,
+    "prompt_tokens_without_data": 617
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 174.12,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": 1.0,
+      "Var_2": 11.0,
+      "Var_3": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 96.39
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.78
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.64
+      ],
+      "objective_linear_coefficient": 8.48,
+      "resource_costs": {
+        "C0": 6.5
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.95
+      ],
+      "objective_linear_coefficient": 2.32,
+      "resource_costs": {
+        "C0": 4.37,
+        "C1": 4.18
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.71
+      ],
+      "objective_linear_coefficient": 8.68,
+      "resource_costs": {
+        "C0": 3.0,
+        "C1": 2.62
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.96
+      ],
+      "objective_linear_coefficient": 1.93,
+      "resource_costs": {
+        "C0": 6.58,
+        "C1": 0.6
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.64, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.48 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.95, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.32 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.71, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.68 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.96, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 1.93 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.5 * vars['Var_0'] + 4.37 * vars['Var_1'] + 3.0 * vars['Var_2'] + 6.58 * vars['Var_3'] <= 96.39, name='C0')\n    m.addConstr(4.18 * vars['Var_1'] + 2.62 * vars['Var_2'] + 0.6 * vars['Var_3'] <= 52.78, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Planning for the Upcoming Run \u2013 Maximize Contribution Within Shared Capacity\n\nTeam,\n\nFor the upcoming production window, we need to set the mix across four product families to maximize total contribution while staying within two shared resources: Core Processing Hours and Permit\u2011Limited Finishing Hours. All commitments must be in whole batches only (no partial batches), and we are not obligated to run any minimum quantities.\n\nSummit Series Brackets\n- This premium line generates a contribution of $8.48 per batch.\n- Each batch draws 6.5 hours from the Core Processing center and does not require any Permit\u2011Limited Finishing time.\n- We can schedule anywhere from 0 up to 12.64 batches this period, in whole batches only.\n\nHarborline Coated Fasteners\n- This coated line yields $2.32 per batch in contribution.\n- Each batch uses 4.37 Core Processing hours and 4.18 Permit\u2011Limited Finishing hours.\n- We may run from 0 up to 11.95 batches, in whole batches only.\n\nPioneer Precision Housings\n- This high\u2011precision family contributes $8.68 per batch.\n- Each batch consumes 3.0 Core Processing hours and 2.62 Permit\u2011Limited Finishing hours.\n- We can commit from 0 up to 11.71 batches, in whole batches only.\n\nUtility Clips\n- This value line adds $1.93 per batch to contribution.\n- Each batch requires 6.58 Core Processing hours and 0.60 Permit\u2011Limited Finishing hours.\n- We may run from 0 up to 19.96 batches, in whole batches only.\n\nFacility & Permit Limits for the Period\n- Core Processing: no more than 96.39 total hours across all four families combined.\n- Permit\u2011Limited Finishing: no more than 52.78 total hours across all four families combined.\n\nPlease use the above to determine the highest\u2011value mix that fits within the stated capacities."
+}

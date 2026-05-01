@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and <= capacity constraints are explicit; objective is clear. Minor variable naming not specified (Var_0/Var_1).",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style prose adds some fluff, but technical data is crisp and non-repetitive.",
+      "realism": 98,
+      "realism_comment": "Very realistic production mix planning with plausible resources, units, integrality, and hard capacity caps."
+    },
+    "prompt_tokens_with_data": 746,
+    "prompt_tokens_without_data": 746
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 50.58775032509753,
+    "optimal_values": {
+      "Var_0": 3.7204161248374508,
+      "Var_1": 3.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 25.64
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 34.52
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 35.36
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 45.35
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.91
+      ],
+      "objective_linear_coefficient": 7.09,
+      "resource_costs": {
+        "C0": 2.12,
+        "C1": 5.13,
+        "C2": 7.69,
+        "C3": 4.25
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.06
+      ],
+      "objective_linear_coefficient": 8.07,
+      "resource_costs": {
+        "C0": 5.65,
+        "C1": 4.99,
+        "C2": 2.25,
+        "C3": 9.47
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.91, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.09 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.06, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.07 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.12 * vars['Var_0'] + 5.65 * vars['Var_1'] <= 25.64, name='C0')\n    m.addConstr(5.13 * vars['Var_0'] + 4.99 * vars['Var_1'] <= 34.52, name='C1')\n    m.addConstr(7.69 * vars['Var_0'] + 2.25 * vars['Var_1'] <= 35.36, name='C2')\n    m.addConstr(4.25 * vars['Var_0'] + 9.47 * vars['Var_1'] <= 45.35, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Planning for the Upcoming Cycle \u2013 Request to Maximize Contribution Under Current Capacity Limits\n\nTeam,\n\nAs we finalize the production plan for the upcoming cycle, our goal is to maximize total contribution while staying within available labor, material, and utilities capacities. We have two levers we can adjust this period. Please review the details below so we can align on a mix that gets us the most value without exceeding any limits.\n\nAurora Starter Kits (Line A)\n- Financial impact: Each run-equivalent of Aurora delivers a $7.09 contribution margin.\n- Resource draw per run-equivalent:\n  - 2.12 hours from CNC Machining Cell A.\n  - 5.13 hours from Packout & Labeling (East line).\n  - 7.69 drum-equivalents of Specialty Resin R\u20117.\n  - 4.25 utility units from the Boiler/Steam allocation.\n- Planning bounds: We can throttle this line anywhere from 0.0 up to 8.91 run-equivalents this cycle. Partial run-equivalents are acceptable for Aurora, so we can flex in fractional increments as needed.\n\nOrion Pro Batches (Line B)\n- Financial impact: Each full batch of Orion delivers an $8.07 contribution margin.\n- Resource draw per full batch:\n  - 5.65 hours from CNC Machining Cell A.\n  - 4.99 hours from Packout & Labeling (East line).\n  - 2.25 drum-equivalents of Specialty Resin R\u20117.\n  - 9.47 utility units from the Boiler/Steam allocation.\n- Planning bounds: We can schedule between 0.0 and 7.06 batches this cycle. Orion runs must be planned in whole batches only; partial batches are not permitted even though the cycle\u2019s throughput cap is 7.06.\n\nFacility Specs and Available Caps for This Cycle\n- CNC Machining Cell A hours: do not exceed 25.64 total hours.\n- Packout & Labeling (East line) hours: do not exceed 34.52 total hours.\n- Specialty Resin R\u20117 availability: do not exceed 35.36 drum-equivalents.\n- Boiler/Steam allocation: do not exceed 45.35 utility units.\n\nThese caps are hard limits for the period. Both lines may be set to zero if necessary (minimum of 0.0 for each), but we should aim for the mix that maximizes overall contribution within the above availability. Please confirm these numbers and advise if any last-minute changes to labor, resin supply, or utility allocations are expected before we lock the plan."
+}

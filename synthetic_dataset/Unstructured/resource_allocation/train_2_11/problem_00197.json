@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and RHS budgets are explicitly listed per sleeve; negatives are clarified as offsets; constraints are 'do not exceed'. Continuous fractional allocations implied. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Letter-style narrative and repeated 'no measurable effect' add length, but each number appears once and is needed to build the LP.",
+      "realism": 96,
+      "realism_comment": "Highly plausible portfolio allocation with risk, liquidity, duration, operational, carbon, and FX budgets; negative offsets make sense; scales are reasonable."
+    },
+    "prompt_tokens_with_data": 1161,
+    "prompt_tokens_without_data": 1161
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 151.80528479940486,
+    "optimal_values": {
+      "Var_0": 7.686839894625121,
+      "Var_1": 16.3542063884686,
+      "Var_2": 0.0,
+      "Var_3": 11.27,
+      "Var_4": 4.845624012638231
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 223.41
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 113.63
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 137.75
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 122.36
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 5.65
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 0.92
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.78
+      ],
+      "objective_linear_coefficient": 2.48,
+      "resource_costs": {
+        "C0": 8.34,
+        "C1": 8.89,
+        "C2": -2.07,
+        "C3": 0.58,
+        "C4": -3.13
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.02
+      ],
+      "objective_linear_coefficient": 4.78,
+      "resource_costs": {
+        "C0": 8.28,
+        "C2": 8.39,
+        "C3": -1.01
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.7
+      ],
+      "objective_linear_coefficient": 2.21,
+      "resource_costs": {
+        "C0": 5.9,
+        "C1": -3.43,
+        "C2": 7.52,
+        "C3": 1.55,
+        "C4": 5.36,
+        "C5": -3.59
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.27
+      ],
+      "objective_linear_coefficient": 3.35,
+      "resource_costs": {
+        "C1": -0.91,
+        "C2": 0.69,
+        "C3": 8.12,
+        "C4": -2.28,
+        "C5": -2.64
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.93
+      ],
+      "objective_linear_coefficient": 3.47,
+      "resource_costs": {
+        "C0": 4.93,
+        "C1": 9.81,
+        "C2": 1.79,
+        "C3": 5.8,
+        "C5": 6.33
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.78, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.48 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.02, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.78 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.7, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.21 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.27, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.35 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.93, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.47 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.34 * vars['Var_0'] + 8.28 * vars['Var_1'] + 5.9 * vars['Var_2'] + 4.93 * vars['Var_4'] <= 223.41, name='C0')\n    m.addConstr(8.89 * vars['Var_0'] + -3.43 * vars['Var_2'] + -0.91 * vars['Var_3'] + 9.81 * vars['Var_4'] <= 113.63, name='C1')\n    m.addConstr(-2.07 * vars['Var_0'] + 8.39 * vars['Var_1'] + 7.52 * vars['Var_2'] + 0.69 * vars['Var_3'] + 1.79 * vars['Var_4'] <= 137.75, name='C2')\n    m.addConstr(0.58 * vars['Var_0'] + -1.01 * vars['Var_1'] + 1.55 * vars['Var_2'] + 8.12 * vars['Var_3'] + 5.8 * vars['Var_4'] <= 122.36, name='C3')\n    m.addConstr(-3.13 * vars['Var_0'] + 5.36 * vars['Var_2'] + -2.28 * vars['Var_3'] <= 5.65, name='C4')\n    m.addConstr(-3.59 * vars['Var_2'] + -2.64 * vars['Var_3'] + 6.33 * vars['Var_4'] <= 0.92, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation brief to maximize portfolio return within risk and sustainability budgets\n\nTeam,\n\nWe\u2019re planning the next deployment across five investment sleeves with the goal of maximizing expected net return while staying within our risk, liquidity, rate sensitivity, operational, carbon, and FX exposure budgets. Below are the levers available to us, their expected contribution, deployment limits, and how each sleeve affects our internal budgets per $1 million allocated. Negative numbers below indicate a helpful offset that frees up headroom in that budget.\n\n1) Floating-Rate Green Loans\n- Expected contribution: adds 2.48 units of return per $1M allocated.\n- Deployment range: can be scaled from $0 up to $8.78M.\n- Market risk budget draw: +8.34 units per $1M.\n- Liquidity drain: +8.89 units per $1M.\n- Rate sensitivity (duration): \u22122.07 units per $1M (short-duration exposure; reduces our overall duration).\n- Collateral/operational load: +0.58 units per $1M.\n- Carbon footprint: \u22123.13 units per $1M (portfolio-level carbon credit/offset).\n- Residual FX exposure: no measurable effect.\n\n2) Long-Duration Infrastructure Debt\n- Expected contribution: adds 4.78 units of return per $1M allocated.\n- Deployment range: $0 up to $18.02M.\n- Market risk budget draw: +8.28 units per $1M.\n- Liquidity drain: no measurable effect.\n- Rate sensitivity (duration): +8.39 units per $1M.\n- Collateral/operational load: \u22121.01 units per $1M (frees capacity in this budget).\n- Carbon footprint: no measurable effect.\n- Residual FX exposure: no measurable effect.\n\n3) Convertible Bonds with Built-In FX Hedge\n- Expected contribution: adds 2.21 units of return per $1M allocated.\n- Deployment range: $0 up to $18.70M.\n- Market risk budget draw: +5.90 units per $1M.\n- Liquidity drain: \u22123.43 units per $1M (net liquidity provider).\n- Rate sensitivity (duration): +7.52 units per $1M.\n- Collateral/operational load: +1.55 units per $1M.\n- Carbon footprint: +5.36 units per $1M.\n- Residual FX exposure: \u22123.59 units per $1M (reduces our net unhedged FX).\n\n4) Collateral-Intensive Carbon Capture Financing\n- Expected contribution: adds 3.35 units of return per $1M allocated.\n- Deployment range: $0 up to $11.27M.\n- Market risk budget draw: no measurable effect.\n- Liquidity drain: \u22120.91 units per $1M (slight liquidity relief).\n- Rate sensitivity (duration): +0.69 units per $1M.\n- Collateral/operational load: +8.12 units per $1M.\n- Carbon footprint: \u22122.28 units per $1M (portfolio-level carbon credit/offset).\n- Residual FX exposure: \u22122.64 units per $1M (reduces our net unhedged FX).\n\n5) Emerging Markets Equity Sleeve\n- Expected contribution: adds 3.47 units of return per $1M allocated.\n- Deployment range: $0 up to $8.93M.\n- Market risk budget draw: +4.93 units per $1M.\n- Liquidity drain: +9.81 units per $1M.\n- Rate sensitivity (duration): +1.79 units per $1M.\n- Collateral/operational load: +5.80 units per $1M.\n- Carbon footprint: no measurable effect.\n- Residual FX exposure: +6.33 units per $1M.\n\nMarket limits and risk budgets (do not exceed):\n- Aggregate market risk: 223.41 units across all sleeves.\n- Liquidity drain: 113.63 units total.\n- Rate sensitivity (duration): 137.75 units total.\n- Collateral and operational load: 122.36 units total.\n- Net carbon footprint: 5.65 units total.\n- Residual unhedged FX exposure: 0.92 units total.\n\nPlease use the above to recommend an allocation that maximizes expected contribution while observing each budget and the deployment caps noted for the five sleeves. We\u2019re comfortable with fractional allocations as needed, provided no minimum commitment is required for any sleeve.\n\nThanks,\nAri\nChief Investment Officer"
+}

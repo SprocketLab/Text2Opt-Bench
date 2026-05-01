@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, resource usages, and integrality are explicit; maximize contribution stated. A human can reconstruct the exact MILP without guesswork.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style prose adds context; some narrative fluff, but numerical specs are concise and precise.",
+      "realism": 95,
+      "realism_comment": "Highly plausible production planning with kettles, freezers, power, QA credits, and cold-room slots; coherent units and constraints."
+    },
+    "prompt_tokens_with_data": 871,
+    "prompt_tokens_without_data": 871
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 71.51214600150604,
+    "optimal_values": {
+      "Var_0": 5.192853613744629,
+      "Var_1": 3.6641123882503193,
+      "Var_2": 8.761609907120745,
+      "Var_3": 0.0,
+      "Var_4": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.2
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 3.83
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 5.12
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 28.69
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 84.9
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.26
+      ],
+      "objective_linear_coefficient": 2.13,
+      "resource_costs": {
+        "C0": 6.85
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.16
+      ],
+      "objective_linear_coefficient": 6.24,
+      "resource_costs": {
+        "C0": 5.63,
+        "C3": 7.83
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.02
+      ],
+      "objective_linear_coefficient": 4.29,
+      "resource_costs": {
+        "C4": 9.69
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.18
+      ],
+      "objective_linear_coefficient": 2.26,
+      "resource_costs": {
+        "C2": 3.01,
+        "C3": 7.19
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.97
+      ],
+      "objective_linear_coefficient": 1.45,
+      "resource_costs": {
+        "C1": 1.7,
+        "C4": 3.42
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.26, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.13 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.16, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.24 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.02, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.29 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.18, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.26 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.97, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.45 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.85 * vars['Var_0'] + 5.63 * vars['Var_1'] <= 56.2, name='C0')\n    m.addConstr(1.7 * vars['Var_4'] <= 3.83, name='C1')\n    m.addConstr(3.01 * vars['Var_3'] <= 5.12, name='C2')\n    m.addConstr(7.83 * vars['Var_1'] + 7.19 * vars['Var_3'] <= 28.69, name='C3')\n    m.addConstr(9.69 * vars['Var_2'] + 3.42 * vars['Var_4'] <= 84.9, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Guidance to Maximize Contribution This Planning Period\n\nTeam,\n\nPlease use the following guidance to set our mix so that total contribution is maximized while staying within the facility and policy limits noted at the end of this memo. All items below can be scheduled anywhere from zero units up to their stated caps, with the exception of the final item, which must be authorized in whole units.\n\nThe levers we can pull\n\n- Heritage Marinara (Kettle A batches)\n  \u2022 Financials: Each batch contributes 2.13 in margin.  \n  \u2022 How it uses the plant: Every batch requires 6.85 hours on Kettle A and does not draw on any other constrained asset.  \n  \u2022 Scheduling window: We may run from 0 up to 17.26 batches this period. Partial batches are acceptable if we time-slice the kettle.\n\n- Reserve Premium Entr\u00e9es (combined cook-and-freeze runs)\n  \u2022 Financials: Each run contributes 6.24 in margin.  \n  \u2022 How it uses the plant: Each run needs 5.63 hours on Kettle A and 7.83 blast-freezer hours.  \n  \u2022 Scheduling window: We may schedule from 0 up to 6.16 runs. Runs can be split across shifts if needed.\n\n- Bulk Frozen Sides (palletized stock)\n  \u2022 Financials: Each production unit contributes 4.29 in margin.  \n  \u2022 How it uses the plant: Each unit reserves 9.69 slot-days in the cold rooms; it does not require kettle, power quota, or blast-freezer time.  \n  \u2022 Scheduling window: We may produce from 0 up to 16.02 units. Fractional lots are permitted if staged across days.\n\n- Chef\u2019s Specials (high-power, freeze-intensive runs)\n  \u2022 Financials: Each run contributes 2.26 in margin.  \n  \u2022 How it uses the plant: Every run draws 3.01 MWh from our substation power quota and consumes 7.19 hours of blast-freezer time.  \n  \u2022 Scheduling window: We may run from 0 up to 12.18 runs. Runs can be fractionally scheduled.\n\n- Overtime QA Lots (union-authorized, cold-staged releases)\n  \u2022 Financials: Each lot contributes 1.45 in margin.  \n  \u2022 How it uses the plant: Each approved lot uses 1.7 overtime/inspection credits and 3.42 cold-room slot-days.  \n  \u2022 Scheduling window: We may approve from 0 up to 17.97 lots; these must be whole lots (no partial authorizations).\n\nFacility specs and policy limits\n\n- Kettle A availability: no more than 56.2 hours this period.\n- Overtime/inspection credit budget: up to 3.83 credits in total.\n- Substation power quota: up to 5.12 MWh this period.\n- Blast-freezer capacity: up to 28.69 operating hours.\n- Cold-room capacity: up to 84.9 slot-days available.\n\nPlease build the schedule within these limits to capture the contributions above. Let me know if any of the caps shift so we can revisit the mix promptly."
+}

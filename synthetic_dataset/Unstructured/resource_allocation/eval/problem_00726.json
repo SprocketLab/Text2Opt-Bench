@@ -1,0 +1,304 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 13,
+    "num_constraints": 11,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All bounds, objective coefficients, and per-unit impacts are explicit; constraints clearly state not-to-exceed or deliver-at-least targets. Fractional deployment implies continuous vars.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some business-letter fluff, but most text is necessary per-lever data and limits; minimal repetition.",
+      "realism": 95,
+      "realism_comment": "Plausible multi-metric plant planning with emissions, budget, water, maintenance, and logistics trade-offs; feels like a real OR application."
+    },
+    "prompt_tokens_with_data": 1592,
+    "prompt_tokens_without_data": 1592
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 616.7739346756698,
+    "optimal_values": {
+      "Var_0": 10.96,
+      "Var_1": 9.42,
+      "Var_2": 8.318602724367958,
+      "Var_3": 0.0,
+      "Var_4": 3.2888104539966907,
+      "Var_5": 0.0,
+      "Var_6": 12.47,
+      "Var_7": 11.01,
+      "Var_8": 8.977121988839537,
+      "Var_9": 14.67,
+      "Var_10": 5.2279448960143515,
+      "Var_11": 16.75,
+      "Var_12": 14.95
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -0.49
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -74.58
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 21.91
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 31.08
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.96
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -42.1
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 70.66
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 112.97
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -11.99
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 75.75
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -45.88
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.96
+      ],
+      "objective_linear_coefficient": 1.08,
+      "resource_costs": {
+        "C4": -0.9,
+        "C6": 2.04,
+        "C9": 0.99,
+        "C10": -2.63
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.42
+      ],
+      "objective_linear_coefficient": 9.37,
+      "resource_costs": {
+        "C0": -8.88,
+        "C2": 9.18,
+        "C5": -8.01,
+        "C6": -4.96,
+        "C7": 8.38,
+        "C8": 3.86
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.3
+      ],
+      "objective_linear_coefficient": 6.04,
+      "resource_costs": {
+        "C0": 2.54,
+        "C1": -9.64,
+        "C3": 2.55,
+        "C4": -6.63,
+        "C6": -9.54,
+        "C7": 4.34,
+        "C10": -2.32
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.19
+      ],
+      "objective_linear_coefficient": 6.69,
+      "resource_costs": {
+        "C3": 6.21,
+        "C4": 3.99,
+        "C6": 1.03,
+        "C8": 4.96,
+        "C10": 7.49
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.87
+      ],
+      "objective_linear_coefficient": 3.48,
+      "resource_costs": {
+        "C5": -0.78,
+        "C7": 8.57,
+        "C9": 9.78,
+        "C10": 0.39
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.85
+      ],
+      "objective_linear_coefficient": 3.07,
+      "resource_costs": {
+        "C1": -8.21,
+        "C2": 2.48,
+        "C3": 6.13,
+        "C4": 8.82,
+        "C6": -0.12,
+        "C7": -1.74,
+        "C9": -4.12
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.47
+      ],
+      "objective_linear_coefficient": 7.15,
+      "resource_costs": {
+        "C1": 6.01,
+        "C3": -4.68,
+        "C5": 2.63,
+        "C6": 8.36,
+        "C7": 2.74,
+        "C9": 6.38,
+        "C10": -4.82
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.01
+      ],
+      "objective_linear_coefficient": 3.93,
+      "resource_costs": {
+        "C1": 1.44,
+        "C2": -2.98,
+        "C5": 8.69,
+        "C6": 1.69,
+        "C9": 7.81
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.85
+      ],
+      "objective_linear_coefficient": 1.02,
+      "resource_costs": {
+        "C4": 8.93,
+        "C5": -8.2,
+        "C6": 6.23,
+        "C7": 1.3,
+        "C9": 4.05
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.67
+      ],
+      "objective_linear_coefficient": 1.26,
+      "resource_costs": {
+        "C2": 6.59,
+        "C4": 0.2,
+        "C5": 9.65,
+        "C6": -2.24,
+        "C8": -8.27
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.92
+      ],
+      "objective_linear_coefficient": 8.54,
+      "resource_costs": {
+        "C1": -9.26,
+        "C3": 4.3,
+        "C9": -8.03
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.75
+      ],
+      "objective_linear_coefficient": 7.31,
+      "resource_costs": {
+        "C2": -7.34,
+        "C5": -4.91,
+        "C6": 2.44,
+        "C8": 3.31,
+        "C9": -5.07,
+        "C10": 1.86
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.95
+      ],
+      "objective_linear_coefficient": 8.55,
+      "resource_costs": {
+        "C1": -2.46,
+        "C2": -6.92,
+        "C3": 3.06,
+        "C5": -9.52,
+        "C6": -0.83,
+        "C7": -5.09,
+        "C8": -9.26,
+        "C9": -4.44
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.96, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.08 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.42, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.37 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=13.92, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 8.54 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=16.75, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 7.31 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=14.95, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 8.55 * vars['Var_12']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.3, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.04 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.19, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.69 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.87, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.48 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.85, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.07 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.47, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 7.15 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=11.01, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.93 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=9.85, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 1.02 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=14.67, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 1.26 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-8.88 * vars['Var_1'] + 2.54 * vars['Var_2'] <= -0.49, name='C0')\n    m.addConstr(-9.26 * vars['Var_10'] + -2.46 * vars['Var_12'] + -9.64 * vars['Var_2'] + -8.21 * vars['Var_5'] + 6.01 * vars['Var_6'] + 1.44 * vars['Var_7'] <= -74.58, name='C1')\n    m.addConstr(-2.63 * vars['Var_0'] + 1.86 * vars['Var_11'] + -2.32 * vars['Var_2'] + 7.49 * vars['Var_3'] + 0.39 * vars['Var_4'] + -4.82 * vars['Var_6'] <= -45.88, name='C10')\n    m.addConstr(9.18 * vars['Var_1'] + -7.34 * vars['Var_11'] + -6.92 * vars['Var_12'] + 2.48 * vars['Var_5'] + -2.98 * vars['Var_7'] + 6.59 * vars['Var_9'] <= 21.91, name='C2')\n    m.addConstr(4.3 * vars['Var_10'] + 3.06 * vars['Var_12'] + 2.55 * vars['Var_2'] + 6.21 * vars['Var_3'] + 6.13 * vars['Var_5'] + -4.68 * vars['Var_6'] <= 31.08, name='C3')\n    m.addConstr(-0.9 * vars['Var_0'] + -6.63 * vars['Var_2'] + 3.99 * vars['Var_3'] + 8.82 * vars['Var_5'] + 8.93 * vars['Var_8'] + 0.2 * vars['Var_9'] <= 56.96, name='C4')\n    m.addConstr(-8.01 * vars['Var_1'] + -4.91 * vars['Var_11'] + -9.52 * vars['Var_12'] + -0.78 * vars['Var_4'] + 2.63 * vars['Var_6'] + 8.69 * vars['Var_7'] + -8.2 * vars['Var_8'] + 9.65 * vars['Var_9'] <= -42.1, name='C5')\n    m.addConstr(2.04 * vars['Var_0'] + -4.96 * vars['Var_1'] + 2.44 * vars['Var_11'] + -0.83 * vars['Var_12'] + -9.54 * vars['Var_2'] + 1.03 * vars['Var_3'] + -0.12 * vars['Var_5'] + 8.36 * vars['Var_6'] + 1.69 * vars['Var_7'] + 6.23 * vars['Var_8'] + -2.24 * vars['Var_9'] <= 70.66, name='C6')\n    m.addConstr(8.38 * vars['Var_1'] + -5.09 * vars['Var_12'] + 4.34 * vars['Var_2'] + 8.57 * vars['Var_4'] + -1.74 * vars['Var_5'] + 2.74 * vars['Var_6'] + 1.3 * vars['Var_8'] <= 112.97, name='C7')\n    m.addConstr(3.86 * vars['Var_1'] + 3.31 * vars['Var_11'] + -9.26 * vars['Var_12'] + 4.96 * vars['Var_3'] + -8.27 * vars['Var_9'] <= -11.99, name='C8')\n    m.addConstr(0.99 * vars['Var_0'] + -8.03 * vars['Var_10'] + -5.07 * vars['Var_11'] + -4.44 * vars['Var_12'] + 9.78 * vars['Var_4'] + -4.12 * vars['Var_5'] + 6.38 * vars['Var_6'] + 7.81 * vars['Var_7'] + 4.05 * vars['Var_8'] <= 75.75, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio Mix for FY Resource Plan \u2014 Maximize Value While Meeting Facility Specs\n\nDear Steering Committee,\n\nAs discussed, we\u2019re making a coordinated resource allocation decision across production, logistics, and sustainability levers with one goal: maximize overall portfolio value while staying within our operating caps and hitting the mandated reductions. Each lever below can be deployed fractionally up to its stated ceiling, and each has a defined per-unit value contribution and impacts on our compliance metrics.\n\n- East Reactor Jacket Insulation (max 10.96 units; value contribution 1.08 per unit)\n  Per unit, this delivers a net capital credit of 0.90 (reducing budget draw), adds 2.04 to our electricity use, adds 0.99 to truck miles, and reduces SO\u2082 emissions by 2.63.\n\n- Short-Run Specialty Batch Program (max 9.42 units; value contribution 9.37 per unit)\n  Per unit, this reduces refrigerant losses by 8.88, increases water use by 9.18, reduces landfill waste by 8.01, reduces electricity draw by 4.96, increases packaging material usage by 8.38, and increases NOx emissions by 3.86.\n\n- Carbon Capture Retrofit on Distillation Column B (max 11.30 units; value contribution 6.04 per unit)\n  Per unit, this slightly raises refrigerant exposure by 2.54, abates CO\u2082e by 9.64, requires 2.55 maintenance hours, yields a capital offset of 6.63 (lowering net spend), reduces electricity draw by 9.54, increases packaging use by 4.34, and reduces SO\u2082 emissions by 2.32.\n\n- Continuous Run on Reactor C (max 11.19 units; value contribution 6.69 per unit)\n  Per unit, this requires 6.21 maintenance hours, draws 3.99 from the capital budget, adds 1.03 to electricity use, increases NOx emissions by 4.96, and increases SO\u2082 emissions by 7.49.\n\n- Export Pack-Out Expansion (max 12.87 units; value contribution 3.48 per unit)\n  Per unit, this reduces landfill waste by 0.78, increases packaging material usage by 8.57, adds 9.78 to truck miles, and increases SO\u2082 emissions by 0.39.\n\n- Line D Debottlenecking (max 15.85 units; value contribution 3.07 per unit)\n  Per unit, this abates CO\u2082e by 8.21, increases water use by 2.48, requires 6.13 maintenance hours, draws 8.82 from the capital budget, slightly reduces electricity draw by 0.12, reduces packaging material usage by 1.74, and reduces truck miles by 4.12.\n\n- Auxiliary Boiler Installation (max 12.47 units; value contribution 7.15 per unit)\n  Per unit, this increases CO\u2082e by 6.01, frees 4.68 maintenance hours, increases landfill waste by 2.63, adds 8.36 to electricity use, increases packaging material usage by 2.74, adds 6.38 to truck miles, and reduces SO\u2082 emissions by 4.82.\n\n- Third-Party Tolling Contract (max 11.01 units; value contribution 3.93 per unit)\n  Per unit, this increases CO\u2082e by 1.44, reduces water use by 2.98, increases landfill waste by 8.69, adds 1.69 to electricity use, and adds 7.81 to truck miles.\n\n- Solvent Recovery Unit E (max 9.85 units; value contribution 1.02 per unit)\n  Per unit, this draws 8.93 from the capital budget, reduces landfill waste by 8.20, adds 6.23 to electricity use, increases packaging material usage by 1.30, and adds 4.05 to truck miles.\n\n- Lightweight Can Substitution (max 14.67 units; value contribution 1.26 per unit)\n  Per unit, this increases water use by 6.59, draws 0.20 from the capital budget, increases landfill waste by 9.65, reduces electricity draw by 2.24, and reduces NOx emissions by 8.27.\n\n- Digital Plant Monitoring (max 13.92 units; value contribution 8.54 per unit)\n  Per unit, this abates CO\u2082e by 9.26, requires 4.30 maintenance hours, and reduces truck miles by 8.03.\n\n- Order Consolidation & Routing (max 16.75 units; value contribution 7.31 per unit)\n  Per unit, this reduces water use by 7.34, reduces landfill waste by 4.91, adds 2.44 to electricity use, increases NOx emissions by 3.31, reduces truck miles by 5.07, and increases SO\u2082 emissions by 1.86.\n\n- Zero-Loss Packaging Initiative (max 14.95 units; value contribution 8.55 per unit)\n  Per unit, this abates CO\u2082e by 2.46, reduces water use by 6.92, requires 3.06 maintenance hours, reduces landfill waste by 9.52, reduces electricity draw by 0.83, reduces packaging material usage by 5.09, reduces NOx emissions by 9.26, and reduces truck miles by 4.44.\n\nFacility Specs & Compliance Limits (to be respected across the annual plan):\n- Refrigerant leakage: deliver at least 0.49 units of net reduction.\n- CO\u2082e emissions: deliver at least 74.58 units of net abatement.\n- Freshwater draw: not to exceed 21.91 units.\n- Maintenance window hours: not to exceed 31.08 units.\n- Net capital budget: not to exceed 56.96 units.\n- Landfill waste: deliver at least 42.10 units of net reduction.\n- Electricity consumption: not to exceed 70.66 units.\n- Packaging materials: not to exceed 112.97 units.\n- NOx emissions: deliver at least 11.99 units of net reduction.\n- Truck miles: not to exceed 75.75 units.\n- SO\u2082 emissions: deliver at least 45.88 units of net reduction.\n\nPlease proceed to develop the optimized mix that maximizes total value within these bounds, using fractional deployments where helpful. I will review the proposed allocation once you\u2019ve run the scenarios and summarized the trade-offs."
+}

@@ -1,0 +1,275 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 11,
+    "num_constraints": 14,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All levers list per-unit costs, bounds, and exact KPI effects (incl. signs); KPI floors are clear >= thresholds; variables are continuous. Model is reconstructible without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some narrative/corporate phrasing and adjectives add length, but each lever is specified once with needed numbers; minimal repetition.",
+      "realism": 92,
+      "realism_comment": "Plausible KPI-driven resource allocation with bounded initiatives and mixed positive/negative impacts; mirrors real budgeting/planning constraints."
+    },
+    "prompt_tokens_with_data": 1621,
+    "prompt_tokens_without_data": 1621
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 263.3030574127602,
+    "optimal_values": {
+      "Var_0": 3.2127647219752453,
+      "Var_1": 1.5669990327043823,
+      "Var_2": 1.663826084948908,
+      "Var_3": 6.926960451977401,
+      "Var_4": 7.184714058739457,
+      "Var_5": 0.0,
+      "Var_6": 3.4499088835458824,
+      "Var_7": 0.0,
+      "Var_8": 6.014048713197187,
+      "Var_9": 6.556422853074856,
+      "Var_10": 12.34
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 42.3
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 42.48
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 55.37
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 60.74
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.06
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 46.1
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 58.77
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 48.03
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 149.02
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 113.15
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 31.12
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 18.25
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 35.59
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 57.91
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.66
+      ],
+      "objective_linear_coefficient": 4.72,
+      "resource_costs": {
+        "C2": 5.75,
+        "C9": 1.42,
+        "C10": 8.43
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.18
+      ],
+      "objective_linear_coefficient": 7.99,
+      "resource_costs": {
+        "C2": -3.7,
+        "C3": 2.05,
+        "C4": -3.72,
+        "C5": 9.33,
+        "C6": 0.39,
+        "C8": 0.02,
+        "C9": 5.88,
+        "C12": 5.82
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.06
+      ],
+      "objective_linear_coefficient": 8.09,
+      "resource_costs": {
+        "C5": -0.79,
+        "C6": 7.35
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.56
+      ],
+      "objective_linear_coefficient": 2.39,
+      "resource_costs": {
+        "C0": 8.85,
+        "C3": 9.51,
+        "C4": 4.29,
+        "C6": -0.26,
+        "C8": 6.09,
+        "C11": 2.81
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.95
+      ],
+      "objective_linear_coefficient": 9.56,
+      "resource_costs": {
+        "C1": 5.49,
+        "C12": -4.48
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.94
+      ],
+      "objective_linear_coefficient": 3.88,
+      "resource_costs": {
+        "C0": -1.95,
+        "C2": -1.82,
+        "C5": 2.66,
+        "C9": -0.58,
+        "C11": -0.09,
+        "C12": 0.82,
+        "C13": 2.79
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.83
+      ],
+      "objective_linear_coefficient": 1.72,
+      "resource_costs": {
+        "C1": 0.88,
+        "C3": -1.43,
+        "C5": -3.83,
+        "C8": 5.32,
+        "C10": 1.17,
+        "C13": -2.86
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.54
+      ],
+      "objective_linear_coefficient": 9.52,
+      "resource_costs": {
+        "C2": -0.08,
+        "C13": 1.92
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.73
+      ],
+      "objective_linear_coefficient": 6.08,
+      "resource_costs": {
+        "C2": 9.89,
+        "C5": 7.65,
+        "C8": 7.3,
+        "C9": 0.42,
+        "C12": 8.09
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.76
+      ],
+      "objective_linear_coefficient": 6.27,
+      "resource_costs": {
+        "C2": -2.56,
+        "C6": 7.28,
+        "C9": -2.13,
+        "C12": 2.1
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.34
+      ],
+      "objective_linear_coefficient": 4.32,
+      "resource_costs": {
+        "C0": -1.54,
+        "C7": 5.26,
+        "C8": 3.61,
+        "C9": 8.98,
+        "C13": 6.22
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.66, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.72 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.18, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.99 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=12.34, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 4.32 * vars['Var_10']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.06, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.09 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.56, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.39 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.95, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.56 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.94, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.88 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=15.83, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.72 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=11.54, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 9.52 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=10.73, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 6.08 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=14.76, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 6.27 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-1.54 * vars['Var_10'] + 8.85 * vars['Var_3'] + -1.95 * vars['Var_5'] >= 42.3, name='C0')\n    m.addConstr(5.49 * vars['Var_4'] + 0.88 * vars['Var_6'] >= 42.48, name='C1')\n    m.addConstr(8.43 * vars['Var_0'] + 1.17 * vars['Var_6'] >= 31.12, name='C10')\n    m.addConstr(2.81 * vars['Var_3'] + -0.09 * vars['Var_5'] >= 18.25, name='C11')\n    m.addConstr(5.82 * vars['Var_1'] + -4.48 * vars['Var_4'] + 0.82 * vars['Var_5'] + 8.09 * vars['Var_8'] + 2.1 * vars['Var_9'] >= 35.59, name='C12')\n    m.addConstr(6.22 * vars['Var_10'] + 2.79 * vars['Var_5'] + -2.86 * vars['Var_6'] + 1.92 * vars['Var_7'] >= 57.91, name='C13')\n    m.addConstr(5.75 * vars['Var_0'] + -3.7 * vars['Var_1'] + -1.82 * vars['Var_5'] + -0.08 * vars['Var_7'] + 9.89 * vars['Var_8'] + -2.56 * vars['Var_9'] >= 55.37, name='C2')\n    m.addConstr(2.05 * vars['Var_1'] + 9.51 * vars['Var_3'] + -1.43 * vars['Var_6'] >= 60.74, name='C3')\n    m.addConstr(-3.72 * vars['Var_1'] + 4.29 * vars['Var_3'] >= 11.06, name='C4')\n    m.addConstr(9.33 * vars['Var_1'] + -0.79 * vars['Var_2'] + 2.66 * vars['Var_5'] + -3.83 * vars['Var_6'] + 7.65 * vars['Var_8'] >= 46.1, name='C5')\n    m.addConstr(0.39 * vars['Var_1'] + 7.35 * vars['Var_2'] + -0.26 * vars['Var_3'] + 7.28 * vars['Var_9'] >= 58.77, name='C6')\n    m.addConstr(5.26 * vars['Var_10'] >= 48.03, name='C7')\n    m.addConstr(0.02 * vars['Var_1'] + 3.61 * vars['Var_10'] + 6.09 * vars['Var_3'] + 5.32 * vars['Var_6'] + 7.3 * vars['Var_8'] >= 149.02, name='C8')\n    m.addConstr(1.42 * vars['Var_0'] + 5.88 * vars['Var_1'] + 8.98 * vars['Var_10'] + -0.58 * vars['Var_5'] + 0.42 * vars['Var_8'] + -2.13 * vars['Var_9'] >= 113.15, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 Allocation Brief \u2014 Minimize Run-Rate While Meeting Mandatory KPI Floors\n\nTeam,\n\nAs discussed, we need to set the mix across eleven initiatives so that we meet or exceed our mandatory floors on fourteen operating KPIs while minimizing total run-rate. Each initiative can be dialed up or down (fractionally as needed) within its allowable limit, and each exerts specific positive or negative effects on our KPIs. Below is the decision context and the lever-by-lever detail you will need.\n\nThe levers\n\n- Rapid Response Crew A\n  - Per\u2011unit run\u2011rate: 4.72.\n  - Allowable scale: any level from 0 up to 6.66 units.\n  - KPI effects per unit: boosts Network Throughput Capacity by 5.75, strengthens Cash Flow Stabilization by 1.42, and improves Incident Resolution Speed by 8.43.\n\n- Route Consolidation Initiative\n  - Per\u2011unit run\u2011rate: 7.99.\n  - Allowable scale: any level from 0 up to 10.18 units.\n  - KPI effects per unit: trims Network Throughput Capacity by 3.7; lifts On\u2011Time Delivery Reliability by 2.05; reduces Workplace Safety Score by 3.72; enhances Supplier Partnership Index by 9.33; adds 0.39 to the Energy Efficiency Rating; slightly grows Sustainability Engagement Footprint by 0.02; strengthens Cash Flow Stabilization by 5.88; and raises Process Compliance Level by 5.82.\n\n- Efficiency Training Program\n  - Per\u2011unit run\u2011rate: 8.09.\n  - Allowable scale: any level from 0 up to 12.06 units.\n  - KPI effects per unit: modestly reduces Supplier Partnership Index by 0.79, while materially increasing the Energy Efficiency Rating by 7.35.\n\n- Neighborhood Service Hubs\n  - Per\u2011unit run\u2011rate: 2.39.\n  - Allowable scale: any level from 0 up to 9.56 units.\n  - KPI effects per unit: strengthens Emergency Response Readiness Score by 8.85; raises On\u2011Time Delivery Reliability by 9.51; improves Workplace Safety Score by 4.29; slightly detracts from the Energy Efficiency Rating by 0.26; expands Sustainability Engagement Footprint by 6.09; and increases the Community Engagement Quotient by 2.81.\n\n- Premium Care Upgrade\n  - Per\u2011unit run\u2011rate: 9.56.\n  - Allowable scale: any level from 0 up to 7.95 units.\n  - KPI effects per unit: improves Customer Satisfaction Pulse by 5.49, but reduces Process Compliance Level by 4.48.\n\n- Temporary Contracting Pool\n  - Per\u2011unit run\u2011rate: 3.88.\n  - Allowable scale: any level from 0 up to 9.94 units.\n  - KPI effects per unit: lowers Emergency Response Readiness Score by 1.95; reduces Network Throughput Capacity by 1.82; increases Supplier Partnership Index by 2.66; slightly detracts from Cash Flow Stabilization by 0.58; marginally reduces the Community Engagement Quotient by 0.09; improves Process Compliance Level by 0.82; and adds 2.79 to Risk Mitigation Coverage.\n\n- Green Fleet Add\u2011Ons\n  - Per\u2011unit run\u2011rate: 1.72.\n  - Allowable scale: any level from 0 up to 15.83 units.\n  - KPI effects per unit: raises Customer Satisfaction Pulse by 0.88; slightly reduces On\u2011Time Delivery Reliability by 1.43; lowers Supplier Partnership Index by 3.83; expands Sustainability Engagement Footprint by 5.32; increases Incident Resolution Speed by 1.17; and reduces Risk Mitigation Coverage by 2.86.\n\n- Express Delivery Windows\n  - Per\u2011unit run\u2011rate: 9.52.\n  - Allowable scale: any level from 0 up to 11.54 units.\n  - KPI effects per unit: slightly reduces Network Throughput Capacity by 0.08, while adding 1.92 to Risk Mitigation Coverage.\n\n- Digital Self\u2011Service Portal\n  - Per\u2011unit run\u2011rate: 6.08.\n  - Allowable scale: any level from 0 up to 10.73 units.\n  - KPI effects per unit: increases Network Throughput Capacity by 9.89; lifts Supplier Partnership Index by 7.65; grows Sustainability Engagement Footprint by 7.3; adds 0.42 to Cash Flow Stabilization; and enhances Process Compliance Level by 8.09.\n\n- Regional Hub Consolidation\n  - Per\u2011unit run\u2011rate: 6.27.\n  - Allowable scale: any level from 0 up to 14.76 units.\n  - KPI effects per unit: reduces Network Throughput Capacity by 2.56; improves the Energy Efficiency Rating by 7.28; slightly detracts from Cash Flow Stabilization by 2.13; and raises Process Compliance Level by 2.1.\n\n- Media & Advocacy Campaign\n  - Per\u2011unit run\u2011rate: 4.32.\n  - Allowable scale: any level from 0 up to 12.34 units.\n  - KPI effects per unit: slightly reduces Emergency Response Readiness Score by 1.54; boosts Brand Visibility Impact by 5.26; expands Sustainability Engagement Footprint by 3.61; strengthens Cash Flow Stabilization by 8.98; and adds 6.22 to Risk Mitigation Coverage.\n\nCommitment floors (KPI minimums we must meet or exceed)\n\n- Emergency Response Readiness Score: at least 42.3.\n- Customer Satisfaction Pulse: at least 42.48.\n- Network Throughput Capacity: at least 55.37.\n- On\u2011Time Delivery Reliability: at least 60.74.\n- Workplace Safety Score: at least 11.06.\n- Supplier Partnership Index: at least 46.1.\n- Energy Efficiency Rating: at least 58.77.\n- Brand Visibility Impact: at least 48.03.\n- Sustainability Engagement Footprint: at least 149.02.\n- Cash Flow Stabilization Metric: at least 113.15.\n- Incident Resolution Speed: at least 31.12.\n- Community Engagement Quotient: at least 18.25.\n- Process Compliance Level: at least 35.59.\n- Risk Mitigation Coverage: at least 57.91.\n\nPlease configure the allocation to minimize the total run\u2011rate while honoring all the floors above. Let me know if you need any clarifications on the lever definitions or the KPI measurement methodology."
+}

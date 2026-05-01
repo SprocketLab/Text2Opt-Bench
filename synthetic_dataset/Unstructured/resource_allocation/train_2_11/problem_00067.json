@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, coefficients, and resource limits are explicit, including credits (negative coefficients). Continuous scaling is stated. Objective is clearly maximize contribution.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some business narrative, but key data is in clear bullets with zeros stated; minimal repetition and no irrelevant sections.",
+      "realism": 98,
+      "realism_comment": "Very plausible plant planning scenario with power, water, labor, and packaging limits and energy-saving credits; coherent and realistic."
+    },
+    "prompt_tokens_with_data": 761,
+    "prompt_tokens_without_data": 761
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 85.5431084305047,
+    "optimal_values": {
+      "Var_0": 0.8142419893765716,
+      "Var_1": 9.42856182929952,
+      "Var_2": 2.6963262548648204
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 37.79
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 26.05
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 81.82
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 26.26
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.98
+      ],
+      "objective_linear_coefficient": 3.18,
+      "resource_costs": {
+        "C1": 3.68
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.51
+      ],
+      "objective_linear_coefficient": 7.7,
+      "resource_costs": {
+        "C0": 6.17,
+        "C2": 9.43,
+        "C3": 2.76
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.54
+      ],
+      "objective_linear_coefficient": 3.84,
+      "resource_costs": {
+        "C0": -7.56,
+        "C1": 8.55,
+        "C2": -2.63
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.98, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.18 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.51, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.7 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.54, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.84 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.17 * vars['Var_1'] + -7.56 * vars['Var_2'] <= 37.79, name='C0')\n    m.addConstr(3.68 * vars['Var_0'] + 8.55 * vars['Var_2'] <= 26.05, name='C1')\n    m.addConstr(9.43 * vars['Var_1'] + -2.63 * vars['Var_2'] <= 81.82, name='C2')\n    m.addConstr(2.76 * vars['Var_1'] <= 26.26, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan to maximize contribution under power, water, and labor limits\n\nTeam,\n\nAs we set up the next planning window, our goal is to maximize total contribution while staying within plant-wide limits on power, operator hours, water/effluent, and the B-line packing schedule. We can scale three levers from zero up to their individual caps (partial deployment is fine); details follow in the order we\u2019ll evaluate them.\n\n- Pilot Line A \u2013 Custom Coating Lots\n  This is a flexible, small-batch offering that contributes 3.18 in margin for each lot we schedule. We may run anywhere from 0 up to 12.98 lots this period; there is no minimum commitment.\n  Resource impacts per lot:\n  \u2022 Skilled Operator Hours: draws 3.68 hours.\n  \u2022 Grid Power Draw: no material draw (0).\n  \u2022 Process Water & Effluent: no material draw (0).\n  \u2022 Packaging Line B: no packaging time required (0).\n\n- Series B \u2013 Core Production Runs\n  This is our mainline run that delivers 7.7 in margin for each run executed. We may run anywhere from 0 up to 16.51 runs this period.\n  Resource impacts per run:\n  \u2022 Grid Power Draw: uses 6.17 MWh.\n  \u2022 Process Water & Effluent: uses 9.43 kL.\n  \u2022 Packaging Line B: occupies 2.76 hours.\n  \u2022 Skilled Operator Hours: fully automated for the relevant pool (0).\n\n- Heat-Recovery Campaigns\n  This operational improvement campaign yields 3.84 in contribution per campaign from energy savings and credits. We may deploy anywhere from 0 up to 19.54 campaigns this period.\n  Resource impacts per campaign:\n  \u2022 Skilled Operator Hours: requires 8.55 hours to implement and monitor.\n  \u2022 Grid Power Draw: provides a 7.56 MWh reduction that counts against our plant-wide cap (credit of 7.56).\n  \u2022 Process Water & Effluent: reduces net draw by 2.63 kL (credit of 2.63).\n  \u2022 Packaging Line B: no impact (0).\n\nFacility limits for this planning window (do not exceed):\n- Grid Power Draw: 37.79 MWh across all activities.\n- Skilled Operator Hours: 26.05 hours total.\n- Process Water & Effluent: 81.82 kL total.\n- Packaging Line B: 26.26 hours total.\n\nPlease use the above to determine the mix that delivers the highest total contribution while staying within these ceilings. If you need further context on any of the resource definitions or assumptions behind credits, let me know."
+}

@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Coefficients, bounds, and constraint senses are explicit; negative effects/benefits are clarified. Objective and variable bounds are given; continuous range implied by 'anywhere from zero up to'.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative business tone adds some verbosity; minor repetition (e.g., 'no negative volumes'), but the technical details are focused and clear.",
+      "realism": 95,
+      "realism_comment": "Realistic production planning with capacity and environmental/compliance indices; parameters and limits are plausible and coherent."
+    },
+    "prompt_tokens_with_data": 915,
+    "prompt_tokens_without_data": 915
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 226.34468686868684,
+    "optimal_values": {
+      "Var_0": 19.23,
+      "Var_1": 4.130050505050505
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -79.29
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 32.71
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 0.85
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -21.53
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.23
+      ],
+      "objective_linear_coefficient": 9.7,
+      "resource_costs": {
+        "C0": -5.71,
+        "C2": -0.04,
+        "C3": -5.83
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.64
+      ],
+      "objective_linear_coefficient": 9.64,
+      "resource_costs": {
+        "C0": -7.2,
+        "C1": 7.92,
+        "C3": 8.64
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.23, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.7 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.64, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.64 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-5.71 * vars['Var_0'] + -7.2 * vars['Var_1'] <= -79.29, name='C0')\n    m.addConstr(7.92 * vars['Var_1'] <= 32.71, name='C1')\n    m.addConstr(-0.04 * vars['Var_0'] <= 0.85, name='C2')\n    m.addConstr(-5.83 * vars['Var_0'] + 8.64 * vars['Var_1'] <= -21.53, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix decision to maximize contribution under compliance and capacity limits\n\nHi team,\n\nWe\u2019re preparing the next planning cycle and need guidance on how to allocate production between two lines to maximize total contribution while staying within our compliance and capacity thresholds.\n\nThe levers we can adjust\n\n\u2022 Seabreeze Premium (our first line)\n- Commercial impact: Every unit of Seabreeze Premium adds 9.70 to contribution margin.\n- Volume flexibility: We can scale it anywhere from zero up to 19.23 units in the planning window; we won\u2019t plan negative volumes.\n- Enterprise Climate Score (ECS): Each unit improves our ECS by 5.71 points (it reduces the score by 5.71), helping us reach a very low target.\n- Line B Packaging Hours: This item does not draw on Packaging Line B at all; no hours are consumed.\n- Quality Deviation Index (QDI): Each unit lowers the QDI by 0.04 points, slightly improving quality risk.\n- Wastewater Variance Index (WVI): Each unit reduces the WVI by 5.83 points, improving our wastewater profile.\n\n\u2022 Harbor Light (our second line)\n- Commercial impact: Every unit of Harbor Light adds 9.64 to contribution margin.\n- Volume flexibility: We can scale it anywhere from zero up to 15.64 units in the planning window; again, no negative volumes.\n- Enterprise Climate Score (ECS): Each unit improves our ECS by 7.20 points (it reduces the score by 7.20), helping us toward the low target.\n- Line B Packaging Hours: Harbor Light is the only product that uses this resource. Each unit consumes 7.92 hours on Packaging Line B.\n- Quality Deviation Index (QDI): Harbor Light does not affect the QDI; there is no draw or benefit on this metric from this product.\n- Wastewater Variance Index (WVI): Each unit increases the WVI by 8.64 points, putting upward pressure on that index that we must manage with the overall mix.\n\nFacility specs and compliance limits\n\n- Enterprise Climate Score (ECS): The combined score across both lines must be at or below \u221279.29 points. Seabreeze Premium lowers this score by 5.71 points per unit; Harbor Light lowers it by 7.20 points per unit.\n- Line B Packaging Hours: Total available is capped at 32.71 hours. Only Harbor Light consumes these hours at 7.92 hours per unit.\n- Quality Deviation Index (QDI): The portfolio QDI must not exceed 0.85 points. Seabreeze Premium reduces this by 0.04 points per unit; Harbor Light has no impact.\n- Wastewater Variance Index (WVI): The combined WVI must be at or below \u221221.53 points. Seabreeze Premium reduces the index by 5.83 points per unit, while Harbor Light increases it by 8.64 points per unit.\n\nOur objective is to choose quantities of Seabreeze Premium (between 0 and 19.23 units) and Harbor Light (between 0 and 15.64 units) that maximize total contribution (9.70 per unit and 9.64 per unit, respectively) without breaching any of the above limits. Please come back with the recommended production plan and the resulting margins and index positions.\n\nThanks,\n[Client Name]\nVP, Operations Planning"
+}

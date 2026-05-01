@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and >= target coefficients are explicit; objective is minimize spend. Slight oddity of non-integer caps on integer decisions but still unambiguous.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Email-style narrative adds length but conveys needed details without repetition.",
+      "realism": 95,
+      "realism_comment": "Feels like a real planning problem with costs and dual targets; integer days vs fractional workshops is plausible and consistent."
+    },
+    "prompt_tokens_with_data": 690,
+    "prompt_tokens_without_data": 690
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 81.09881700554529,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 6.0,
+      "Var_2": 9.118299445471349
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.15
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 71.76
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.51
+      ],
+      "objective_linear_coefficient": 8.86,
+      "resource_costs": {
+        "C0": 0.57,
+        "C1": 1.09
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.61
+      ],
+      "objective_linear_coefficient": 5.31,
+      "resource_costs": {
+        "C0": 2.47
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.26
+      ],
+      "objective_linear_coefficient": 5.4,
+      "resource_costs": {
+        "C0": 5.41,
+        "C1": 8.25
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.51, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.86 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.61, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.31 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.26, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.4 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.57 * vars['Var_0'] + 2.47 * vars['Var_1'] + 5.41 * vars['Var_2'] >= 64.15, name='C0')\n    m.addConstr(1.09 * vars['Var_0'] + 8.25 * vars['Var_2'] >= 71.76, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for least-cost mix to hit engagement and compliance targets\n\nTeam,\n\nWe\u2019re planning the next period\u2019s program mix and need your help selecting the lowest-cost combination of activities that still satisfies two minimum targets. One target covers our community-facing effort, and the other is our environmental compliance standing. Please design the mix to minimize total spend while meeting both required minimums.\n\nProgram options and how they move our targets (in the order we\u2019re considering them):\n\n- Neighborhood Energy Audit Teams\n  - Budget impact: Each crew-day costs $8.86.\n  - What it delivers:\n    - It adds 0.57 units toward our Community Impact Score for each crew-day scheduled.\n    - It adds 1.09 credits toward our Environmental Compliance ledger for each crew-day scheduled.\n  - Availability and granularity:\n    - We can book anywhere from 0 up to 9.51 crew-days in the period.\n    - These are whole-day deployments only (no partial days).\n\n- LED Retrofit Blitz Crews\n  - Budget impact: Each crew-day costs $5.31.\n  - What it delivers:\n    - It adds 2.47 units toward our Community Impact Score for each crew-day scheduled.\n    - It does not contribute to Environmental Compliance credits.\n  - Availability and granularity:\n    - We can schedule anywhere from 0 up to 12.61 crew-days.\n    - These must also be scheduled as whole days only.\n\n- Solar Readiness Workshops\n  - Budget impact: Each workshop unit costs $5.40.\n  - What it delivers:\n    - It adds 5.41 units toward our Community Impact Score per workshop unit delivered.\n    - It adds 8.25 credits toward our Environmental Compliance ledger per workshop unit delivered.\n  - Availability and granularity:\n    - We can deliver anywhere from 0 up to 9.26 workshop units.\n    - These can be scaled in partial units as needed.\n\nFacility specs and minimums we must meet:\n- Community Impact Score must come in at least at 64.15 units across the period.\n- Environmental Compliance credits must total at least 71.76.\n\nPlease come back with the least-cost schedule across these three options that satisfies both minimums, observing the whole-day requirements on the first two activities and allowing fractional delivery only on the workshops.\n\nThanks,\n[Client Name]"
+}

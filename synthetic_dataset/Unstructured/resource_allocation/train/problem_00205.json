@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, variable domains, and >= floors are explicitly specified; per-metric impacts (including zero via 'no material effect') and negative-floor clarifications are clear.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some business-narrative fluff (salutation, context, glossary note), but numerical specs are direct and non-repetitive.",
+      "realism": 92,
+      "realism_comment": "A plausible portfolio/resource mix LP with costs and compliance floors across multiple metrics; signs and thresholds are realistic."
+    },
+    "prompt_tokens_with_data": 1157,
+    "prompt_tokens_without_data": 1157
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 41.660264269029895,
+    "optimal_values": {
+      "Var_0": 4.054587344531228,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 1.8146866405998552,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 3.15
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 7.57
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -24.11
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.43
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 33.81
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -7.39
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -43.19
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.92
+      ],
+      "objective_linear_coefficient": 9.42,
+      "resource_costs": {
+        "C3": 4.92,
+        "C4": 7.09,
+        "C5": -3.34,
+        "C6": -6.95
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.46
+      ],
+      "objective_linear_coefficient": 9.92,
+      "resource_costs": {
+        "C1": -4.57,
+        "C2": 4.93,
+        "C3": 3.65,
+        "C4": 3.97,
+        "C5": -9.54,
+        "C6": -6.85
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.25
+      ],
+      "objective_linear_coefficient": 1.92,
+      "resource_costs": {
+        "C0": -4.05,
+        "C2": -0.19,
+        "C4": -4.7
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.69
+      ],
+      "objective_linear_coefficient": 1.91,
+      "resource_costs": {
+        "C0": 4.39,
+        "C1": 4.96,
+        "C2": -9.96,
+        "C3": -2.49,
+        "C4": 2.79,
+        "C5": 7.7
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.09
+      ],
+      "objective_linear_coefficient": 1.92,
+      "resource_costs": {
+        "C2": 5.35,
+        "C3": -4.17,
+        "C4": -0.24
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.92, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.42 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.46, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.92 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.25, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.92 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.69, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.91 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.09, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.92 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-4.05 * vars['Var_2'] + 4.39 * vars['Var_3'] >= 3.15, name='C0')\n    m.addConstr(-4.57 * vars['Var_1'] + 4.96 * vars['Var_3'] >= 7.57, name='C1')\n    m.addConstr(4.93 * vars['Var_1'] + -0.19 * vars['Var_2'] + -9.96 * vars['Var_3'] + 5.35 * vars['Var_4'] >= -24.11, name='C2')\n    m.addConstr(4.92 * vars['Var_0'] + 3.65 * vars['Var_1'] + -2.49 * vars['Var_3'] + -4.17 * vars['Var_4'] >= 15.43, name='C3')\n    m.addConstr(7.09 * vars['Var_0'] + 3.97 * vars['Var_1'] + -4.7 * vars['Var_2'] + 2.79 * vars['Var_3'] + -0.24 * vars['Var_4'] >= 33.81, name='C4')\n    m.addConstr(-3.34 * vars['Var_0'] + -9.54 * vars['Var_1'] + 7.7 * vars['Var_3'] >= -7.39, name='C5')\n    m.addConstr(-6.95 * vars['Var_0'] + -6.85 * vars['Var_1'] >= -43.19, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix to minimize spend while meeting our operating floors\n\nTeam,\n\nWe\u2019re looking to assemble a cost-efficient mix of five deployable options for the upcoming planning window. The objective is to minimize total spend while staying above the minimum thresholds we\u2019ve set on seven operating and compliance metrics. Each option comes with a per\u2011unit expense and a specific pattern of positive or negative impacts across those metrics. All five options can be deployed in fractional amounts anywhere from zero up to their stated caps.\n\nLevers we can pull\n\n1) Blue Ridge Service Blocks\n- Commercials and availability: These blocks cost 9.42 per unit. We can utilize anywhere from 0 up to 16.92 units.\n- Impact profile per unit:\n  - Customer Experience Index: increases by 4.92 points.\n  - Assured Capacity Units: increases by 7.09 units.\n  - Retention Buffer: decreases by 3.34 points.\n  - Cyber Exposure Index: decreases by 6.95 points.\n  - No material effect on Field Readiness Score, Supplier Diversity Credits, or Net Emissions Balance.\n\n2) Orchid Offshore Package\n- Commercials and availability: This package costs 9.92 per unit. We can utilize anywhere from 0 up to 13.46 units.\n- Impact profile per unit:\n  - Supplier Diversity Credits: decreases by 4.57 credits.\n  - Net Emissions Balance: improves by 4.93 points.\n  - Customer Experience Index: increases by 3.65 points.\n  - Assured Capacity Units: increases by 3.97 units.\n  - Retention Buffer: decreases by 9.54 points.\n  - Cyber Exposure Index: decreases by 6.85 points.\n  - No material effect on Field Readiness Score.\n\n3) Sable Backfill Pool\n- Commercials and availability: This pool costs 1.92 per unit. We can utilize anywhere from 0 up to 17.25 units.\n- Impact profile per unit:\n  - Field Readiness Score: decreases by 4.05 points.\n  - Net Emissions Balance: decreases by 0.19 points.\n  - Assured Capacity Units: decreases by 4.70 units.\n  - No material effect on Supplier Diversity Credits, Customer Experience Index, Retention Buffer, or Cyber Exposure Index.\n\n4) Amber Rapid Response Teams\n- Commercials and availability: These teams cost 1.91 per unit. We can utilize anywhere from 0 up to 8.69 units.\n- Impact profile per unit:\n  - Field Readiness Score: increases by 4.39 points.\n  - Supplier Diversity Credits: increases by 4.96 credits.\n  - Net Emissions Balance: decreases by 9.96 points.\n  - Customer Experience Index: decreases by 2.49 points.\n  - Assured Capacity Units: increases by 2.79 units.\n  - Retention Buffer: increases by 7.70 points.\n  - No material effect on Cyber Exposure Index.\n\n5) Verdant Sustainability Credits\n- Commercials and availability: These credits cost 1.92 per unit. We can utilize anywhere from 0 up to 18.09 units.\n- Impact profile per unit:\n  - Net Emissions Balance: improves by 5.35 points.\n  - Customer Experience Index: decreases by 4.17 points.\n  - Assured Capacity Units: decreases by 0.24 units.\n  - No material effect on Field Readiness Score, Supplier Diversity Credits, Retention Buffer, or Cyber Exposure Index.\n\nMarket limits and compliance floors\n\nWe need the combined impact of our chosen mix to meet or exceed the following thresholds:\n- Field Readiness Score: at least 3.15 points.\n- Supplier Diversity Credits: at least 7.57 credits.\n- Net Emissions Balance: not worse than \u221224.11 points (i.e., at least \u221224.11).\n- Customer Experience Index: at least 15.43 points.\n- Assured Capacity Units: at least 33.81 units.\n- Retention Buffer: not worse than \u22127.39 points (i.e., at least \u22127.39).\n- Cyber Exposure Index: not worse than \u221243.19 points (i.e., at least \u221243.19).\n\nPlease use the above economics and impact rates as-is in the optimization. Our intent is to arrive at the least-cost combination of the five options that respects the caps and keeps us at or above each floor. If you need any clarifications on definitions of the seven metrics, let me know and I\u2019ll circulate the glossary."
+}

@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and constraint directions are explicit; negative-ledger semantics clarified; variables are continuous with given ranges; objective margins given. Model fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style with some contextual fluff and repeated \u2018no impact\u2019 notes, but numbers and linkages are clear and non-repetitive enough.",
+      "realism": 95,
+      "realism_comment": "Plausible capacity planning with machine hours, inspection time, material quota, and policy commitments; negative-ledger targets as minimums are coherent and realistic."
+    },
+    "prompt_tokens_with_data": 926,
+    "prompt_tokens_without_data": 926
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 64.86273831336257,
+    "optimal_values": {
+      "Var_0": 6.0852713178294575,
+      "Var_1": 6.305936073059361,
+      "Var_2": 4.761124162993076
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -25.63
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 4.68
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -23.55
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 97.93
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 13.81
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.61
+      ],
+      "objective_linear_coefficient": 1.76,
+      "resource_costs": {
+        "C1": 0.5,
+        "C2": -3.87,
+        "C3": 9.2
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.88
+      ],
+      "objective_linear_coefficient": 2.94,
+      "resource_costs": {
+        "C0": -2.07,
+        "C4": 2.19
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.74
+      ],
+      "objective_linear_coefficient": 7.48,
+      "resource_costs": {
+        "C0": -3.93,
+        "C3": 8.81
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.61, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.76 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.88, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.94 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.74, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.48 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-2.07 * vars['Var_1'] + -3.93 * vars['Var_2'] <= -25.63, name='C0')\n    m.addConstr(0.5 * vars['Var_0'] <= 4.68, name='C1')\n    m.addConstr(-3.87 * vars['Var_0'] <= -23.55, name='C2')\n    m.addConstr(9.2 * vars['Var_0'] + 8.81 * vars['Var_2'] <= 97.93, name='C3')\n    m.addConstr(2.19 * vars['Var_1'] <= 13.81, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocating Q1 capacity across Overhauls, Beta Builds, and Gamma Projects to maximize contribution\n\nTeam,\n\nWe need to apportion Q1 capacity across three workstreams to maximize total contribution while staying within our facility limits and board-mandated policy thresholds. Two of those policies are tracked as negative ledgers (we record reductions as negative numbers), so you\u2019ll see caps expressed as negative values below.\n\nThe levers we can pull\n\n- Heritage Unit Overhauls\n  - Economic impact: Each overhaul contributes 1.76 in margin. We can schedule anywhere from zero up to 7.61 overhauls this quarter.\n  - How it touches our limits:\n    - Quality Inspection Bay Hours: draws 0.50 hours per overhaul against a small pool of inspection time.\n    - Warranty Accrual Drawdown Commitment: reduces the warranty accrual ledger by 3.87 per overhaul (we track accrual reductions as negative values).\n    - CNC Machining Center Hours: uses 9.20 machine-hours per overhaul.\n    - Corporate Cost-Savings Commitment: no direct effect from overhauls on the cost-savings ledger.\n    - Blue Alloy Quota: no blue alloy required for overhauls.\n\n- Beta Series Custom Builds\n  - Economic impact: Each Beta build contributes 2.94 in margin. We can schedule anywhere from zero up to 19.88 builds this quarter.\n  - How it touches our limits:\n    - Corporate Cost-Savings Commitment: each build reduces the cost variance ledger by 2.07 (recorded as a negative savings entry).\n    - Blue Alloy Quota: consumes 2.19 units of blue alloy per build.\n    - Quality Inspection Bay Hours: no inspection time needed for Beta builds beyond routine floor checks.\n    - Warranty Accrual Drawdown Commitment: does not move the warranty accrual ledger.\n    - CNC Machining Center Hours: no material machining center time required for Beta builds.\n\n- Gamma Series High-Margin Projects\n  - Economic impact: Each Gamma project contributes 7.48 in margin. We can schedule anywhere from zero up to 8.74 projects this quarter.\n  - How it touches our limits:\n    - Corporate Cost-Savings Commitment: each project reduces the cost variance ledger by 3.93 (again recorded as a negative savings entry).\n    - CNC Machining Center Hours: uses 8.81 machine-hours per project.\n    - Quality Inspection Bay Hours: no inspection bay demand beyond line checks.\n    - Warranty Accrual Drawdown Commitment: does not affect the warranty accrual ledger.\n    - Blue Alloy Quota: no blue alloy used on Gamma.\n\nFacility specs and policy limits for Q1\n\n- Corporate Cost-Savings Commitment (recorded as a negative variance): the net ledger must be at or below -25.63 for the quarter.\n- Quality Inspection Bay Hours: available inspection time is capped at 4.68 hours.\n- Warranty Accrual Drawdown Commitment (negative accrual target): the accrual ledger must be at or below -23.55.\n- CNC Machining Center Hours: available capacity is 97.93 machine-hours.\n- Blue Alloy Quota: available blue alloy is limited to 13.81 units.\n\nPlease use the above as the basis for the production plan that maximizes total contribution while respecting the capacity and policy thresholds. If you need clarifications on how the negative ledgers are recorded or how partial batches can be scheduled within these ranges, let me know."
+}

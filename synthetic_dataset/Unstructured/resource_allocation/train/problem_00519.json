@@ -1,0 +1,227 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 10,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit bounds, objective per-unit values, and linear effects per ledger are given. Constraints with <= and RHS (including negative targets) are clear, allowing exact reconstruction without guessing.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Email-style narrative and repeated 'no effect' notes add verbosity. While clear and complete, the specification could be more concise.",
+      "realism": 92,
+      "realism_comment": "Feels like a genuine operations portfolio planning case with environmental, capacity, and service limits; effects and constraints are plausible and well-aligned with real OR work."
+    },
+    "prompt_tokens_with_data": 1794,
+    "prompt_tokens_without_data": 1794
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 456.73086650429076,
+    "optimal_values": {
+      "Var_0": 6.453412698412699,
+      "Var_1": 14.546978902787094,
+      "Var_2": 0.0,
+      "Var_3": 7.57,
+      "Var_4": 5.375742111562694,
+      "Var_5": 8.87550910418318,
+      "Var_6": 10.39,
+      "Var_7": 8.57,
+      "Var_8": 15.35,
+      "Var_9": 12.85
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -101.93
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -56.44
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 40.16
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 64.4
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.3
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 19.41
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -138.48
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 8.44
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.08
+      ],
+      "objective_linear_coefficient": 7.49,
+      "resource_costs": {
+        "C0": -7.97,
+        "C1": -4.7,
+        "C3": 7.56,
+        "C7": -9.52
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.45
+      ],
+      "objective_linear_coefficient": 3.16,
+      "resource_costs": {
+        "C0": 5.89,
+        "C2": -5.11,
+        "C4": -7.33,
+        "C5": 1.3,
+        "C6": -7.67,
+        "C7": 7.28
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.21
+      ],
+      "objective_linear_coefficient": 3.97,
+      "resource_costs": {
+        "C0": -4.77,
+        "C3": 3.58,
+        "C7": 1.56
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.57
+      ],
+      "objective_linear_coefficient": 5.59,
+      "resource_costs": {
+        "C0": -4.75,
+        "C1": -0.22,
+        "C2": 5.09,
+        "C3": -1.76,
+        "C4": 1.85,
+        "C6": 2.28
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.45
+      ],
+      "objective_linear_coefficient": 7.69,
+      "resource_costs": {
+        "C0": 0.35,
+        "C1": -3.57,
+        "C2": -4.16,
+        "C4": 6.61,
+        "C5": 9.2,
+        "C6": -9.6
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.37
+      ],
+      "objective_linear_coefficient": 9.91,
+      "resource_costs": {
+        "C0": -8.44,
+        "C1": 3.06,
+        "C2": 8.85,
+        "C7": 8.51
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.39
+      ],
+      "objective_linear_coefficient": 3.57,
+      "resource_costs": {
+        "C0": 6.43,
+        "C1": -7.97,
+        "C3": 3.76,
+        "C5": 0.94,
+        "C7": -6.94
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.57
+      ],
+      "objective_linear_coefficient": 4.65,
+      "resource_costs": {
+        "C0": 3.64,
+        "C1": 0.02,
+        "C4": 3.11,
+        "C6": -9.73
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.35
+      ],
+      "objective_linear_coefficient": 1.91,
+      "resource_costs": {
+        "C0": -9.57,
+        "C3": -0.66,
+        "C4": 3.11
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.85
+      ],
+      "objective_linear_coefficient": 6.58,
+      "resource_costs": {
+        "C5": -4.57,
+        "C7": -3.07
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.08, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.49 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.45, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.16 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.21, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.97 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.57, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.59 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.45, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.69 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.37, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.91 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.39, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.57 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=8.57, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 4.65 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=15.35, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 1.91 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=12.85, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 6.58 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-7.97 * vars['Var_0'] + 5.89 * vars['Var_1'] + -4.77 * vars['Var_2'] + -4.75 * vars['Var_3'] + 0.35 * vars['Var_4'] + -8.44 * vars['Var_5'] + 6.43 * vars['Var_6'] + 3.64 * vars['Var_7'] + -9.57 * vars['Var_8'] <= -101.93, name='C0')\n    m.addConstr(-4.7 * vars['Var_0'] + -0.22 * vars['Var_3'] + -3.57 * vars['Var_4'] + 3.06 * vars['Var_5'] + -7.97 * vars['Var_6'] + 0.02 * vars['Var_7'] <= -56.44, name='C1')\n    m.addConstr(-5.11 * vars['Var_1'] + 5.09 * vars['Var_3'] + -4.16 * vars['Var_4'] + 8.85 * vars['Var_5'] <= 40.16, name='C2')\n    m.addConstr(7.56 * vars['Var_0'] + 3.58 * vars['Var_2'] + -1.76 * vars['Var_3'] + 3.76 * vars['Var_6'] + -0.66 * vars['Var_8'] <= 64.4, name='C3')\n    m.addConstr(-7.33 * vars['Var_1'] + 1.85 * vars['Var_3'] + 6.61 * vars['Var_4'] + 3.11 * vars['Var_7'] + 3.11 * vars['Var_8'] <= 17.3, name='C4')\n    m.addConstr(1.3 * vars['Var_1'] + 9.2 * vars['Var_4'] + 0.94 * vars['Var_6'] + -4.57 * vars['Var_9'] <= 19.41, name='C5')\n    m.addConstr(-7.67 * vars['Var_1'] + 2.28 * vars['Var_3'] + -9.6 * vars['Var_4'] + -9.73 * vars['Var_7'] <= -138.48, name='C6')\n    m.addConstr(-9.52 * vars['Var_0'] + 7.28 * vars['Var_1'] + 1.56 * vars['Var_2'] + 8.51 * vars['Var_5'] + -6.94 * vars['Var_6'] + -3.07 * vars['Var_9'] <= 8.44, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix for Q1\u2014maximize net value under our operating commitments\n\nTeam,\n\nAs discussed, we need to decide how far to scale ten operational initiatives this coming quarter to maximize total net contribution while honoring our environmental, capacity, and service commitments. Each initiative below can be dialed anywhere from zero up to its stated maximum this quarter, and each one affects a different mix of our internal \u201cledgers\u201d (carbon abatement, water, materials, hours, landfill, grid balance, and dock congestion).\n\n- Dock Scheduler Overhaul (scalable 0 to 17.08 units; delivers 7.49 of net contribution per unit)\n  - Net carbon abatement ledger: reduces the ledger by 7.97 per unit (greater net abatement).\n  - Watershed return balance: reduces the ledger by 4.70 per unit (greater net return).\n  - Resin A consumption: no effect.\n  - Line B runtime: adds 7.56 hours-equivalent per unit.\n  - Landfill allowance: no effect.\n  - Maintenance overtime: no effect.\n  - Grid electricity balance: no effect.\n  - Dock congestion index: reduces by 9.52 points per unit.\n\n- Regional Co-Pack with Energy Recovery (scalable 0 to 17.45 units; delivers 3.16 per unit)\n  - Net carbon abatement ledger: adds 5.89 per unit.\n  - Watershed return balance: no effect.\n  - Resin A consumption: reduces by 5.11 per unit.\n  - Line B runtime: no effect.\n  - Landfill allowance: reduces by 7.33 per unit.\n  - Maintenance overtime: adds 1.30 per unit.\n  - Grid electricity balance: improves by 7.67 per unit (net export/offset).\n  - Dock congestion index: adds 7.28 per unit.\n\n- Autonomous Palletizers (scalable 0 to 8.21 units; delivers 3.97 per unit)\n  - Net carbon abatement ledger: reduces by 4.77 per unit.\n  - Watershed return balance: no effect.\n  - Resin A consumption: no effect.\n  - Line B runtime: adds 3.58 per unit.\n  - Landfill allowance: no effect.\n  - Maintenance overtime: no effect.\n  - Grid electricity balance: no effect.\n  - Dock congestion index: adds 1.56 per unit.\n\n- Line C Throughput Upgrade (scalable 0 to 7.57 units; delivers 5.59 per unit)\n  - Net carbon abatement ledger: reduces by 4.75 per unit.\n  - Watershed return balance: reduces by 0.22 per unit.\n  - Resin A consumption: adds 5.09 per unit.\n  - Line B runtime: reduces by 1.76 per unit.\n  - Landfill allowance: adds 1.85 per unit.\n  - Maintenance overtime: no effect.\n  - Grid electricity balance: adds 2.28 per unit.\n  - Dock congestion index: no effect.\n\n- Closed\u2011Loop Resin & Biomass CHP (scalable 0 to 17.45 units; delivers 7.69 per unit)\n  - Net carbon abatement ledger: adds 0.35 per unit.\n  - Watershed return balance: reduces by 3.57 per unit.\n  - Resin A consumption: reduces by 4.16 per unit.\n  - Line B runtime: no effect.\n  - Landfill allowance: adds 6.61 per unit.\n  - Maintenance overtime: adds 9.20 per unit.\n  - Grid electricity balance: improves by 9.60 per unit (net export/offset).\n  - Dock congestion index: no effect.\n\n- Premium Lightweighting Push (scalable 0 to 13.37 units; delivers 9.91 per unit)\n  - Net carbon abatement ledger: reduces by 8.44 per unit.\n  - Watershed return balance: adds 3.06 per unit.\n  - Resin A consumption: adds 8.85 per unit.\n  - Line B runtime: no effect.\n  - Landfill allowance: no effect.\n  - Maintenance overtime: no effect.\n  - Grid electricity balance: no effect.\n  - Dock congestion index: adds 8.51 per unit.\n\n- Night\u2011Shift Automation & EVs (scalable 0 to 10.39 units; delivers 3.57 per unit)\n  - Net carbon abatement ledger: adds 6.43 per unit.\n  - Watershed return balance: reduces by 7.97 per unit.\n  - Resin A consumption: no effect.\n  - Line B runtime: adds 3.76 per unit.\n  - Landfill allowance: no effect.\n  - Maintenance overtime: adds 0.94 per unit.\n  - Grid electricity balance: no effect.\n  - Dock congestion index: reduces by 6.94 per unit.\n\n- Solar Carport & Corrugated Expansion (scalable 0 to 8.57 units; delivers 4.65 per unit)\n  - Net carbon abatement ledger: adds 3.64 per unit.\n  - Watershed return balance: adds 0.02 per unit.\n  - Resin A consumption: no effect.\n  - Line B runtime: no effect.\n  - Landfill allowance: adds 3.11 per unit.\n  - Maintenance overtime: no effect.\n  - Grid electricity balance: improves by 9.73 per unit (net export/offset).\n  - Dock congestion index: no effect.\n\n- Returnable Crates Program (scalable 0 to 15.35 units; delivers 1.91 per unit)\n  - Net carbon abatement ledger: reduces by 9.57 per unit.\n  - Watershed return balance: no effect.\n  - Resin A consumption: no effect.\n  - Line B runtime: reduces by 0.66 per unit.\n  - Landfill allowance: adds 3.11 per unit.\n  - Maintenance overtime: no effect.\n  - Grid electricity balance: no effect.\n  - Dock congestion index: no effect.\n\n- Maintenance Outsourcing (scalable 0 to 12.85 units; delivers 6.58 per unit)\n  - Net carbon abatement ledger: no effect.\n  - Watershed return balance: no effect.\n  - Resin A consumption: no effect.\n  - Line B runtime: no effect.\n  - Landfill allowance: no effect.\n  - Maintenance overtime: reduces by 4.57 per unit.\n  - Grid electricity balance: no effect.\n  - Dock congestion index: reduces by 3.07 per unit.\n\nOperating commitments and limits we must respect this quarter:\n- Net carbon abatement ledger must be at or below \u2212101.93 (i.e., at least 101.93 units of net abatement).\n- Watershed return balance must be at or below \u221256.44 (i.e., at least 56.44 units of net return to the watershed).\n- Resin A consumption cannot exceed 40.16.\n- Line B runtime cannot exceed 64.40.\n- Landfill allowance cannot exceed 17.30.\n- Maintenance overtime cannot exceed 19.41.\n- Grid electricity balance must be at or below \u2212138.48 (i.e., net export of at least 138.48).\n- Dock congestion index cannot exceed 8.44.\n\nOur goal is to select the mix and scale of the above initiatives, within their individual ranges and these facility and policy limits, to maximize total net contribution for the quarter. Please review and confirm any assumptions on units or measurement so we can proceed with scenario runs."
+}

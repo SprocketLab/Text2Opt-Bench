@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, coefficients, resource usages, and capacities are explicit; whole-run vs fractional clearly implies integer vs continuous. Zero usages are stated. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated 'does not use' statements add length, but they clarify zero coefficients and remain largely purposeful.",
+      "realism": 98,
+      "realism_comment": "Highly realistic plant mix problem with plausible resources and margins; whole-run vs fractional choices mirror real operations and constraints."
+    },
+    "prompt_tokens_with_data": 1172,
+    "prompt_tokens_without_data": 1172
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 422.44076602015195,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": 7.0,
+      "Var_2": 14.51,
+      "Var_3": 3.708097928436912,
+      "Var_4": 10.0,
+      "Var_5": 0.1612057667103544,
+      "Var_6": 3.0,
+      "Var_7": 9.0,
+      "Var_8": 6.698191900169305
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 39.21
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 50.79
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 186.83
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 146.97
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 62.12
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 53.12
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.11
+      ],
+      "objective_linear_coefficient": 6.93,
+      "resource_costs": {
+        "C0": 4.22
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 6.71,
+      "resource_costs": {
+        "C3": 9.65,
+        "C4": 5.47,
+        "C5": 4.99
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.51
+      ],
+      "objective_linear_coefficient": 8.47,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.71
+      ],
+      "objective_linear_coefficient": 8.53,
+      "resource_costs": {
+        "C1": 5.31,
+        "C2": 5.72
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.3
+      ],
+      "objective_linear_coefficient": 7.76,
+      "resource_costs": {
+        "C1": 3.11,
+        "C2": 7.54
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.02
+      ],
+      "objective_linear_coefficient": 6.96,
+      "resource_costs": {
+        "C0": 7.63,
+        "C5": 4.21
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.78
+      ],
+      "objective_linear_coefficient": 2.6,
+      "resource_costs": {
+        "C4": 4.23,
+        "C5": 5.32
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.48
+      ],
+      "objective_linear_coefficient": 6.77,
+      "resource_costs": {
+        "C2": 4.13,
+        "C3": 8.37,
+        "C4": 1.06
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.35
+      ],
+      "objective_linear_coefficient": 1.66,
+      "resource_costs": {
+        "C2": 7.92
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.11, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.93 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.71 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.51, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.47 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.71, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.53 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.3, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 7.76 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.02, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.96 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=13.78, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 2.6 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=9.48, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 6.77 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=9.35, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 1.66 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.22 * vars['Var_0'] + 7.63 * vars['Var_5'] <= 39.21, name='C0')\n    m.addConstr(5.31 * vars['Var_3'] + 3.11 * vars['Var_4'] <= 50.79, name='C1')\n    m.addConstr(5.72 * vars['Var_3'] + 7.54 * vars['Var_4'] + 4.13 * vars['Var_7'] + 7.92 * vars['Var_8'] <= 186.83, name='C2')\n    m.addConstr(9.65 * vars['Var_1'] + 8.37 * vars['Var_7'] <= 146.97, name='C3')\n    m.addConstr(5.47 * vars['Var_1'] + 4.23 * vars['Var_6'] + 1.06 * vars['Var_7'] <= 62.12, name='C4')\n    m.addConstr(4.99 * vars['Var_1'] + 4.21 * vars['Var_5'] + 5.32 * vars['Var_6'] <= 53.12, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix recommendation to maximize margin under plant limits\n\nTeam,\n\nFor the upcoming cycle, we need to decide how to allocate production and commercial effort across nine offerings to maximize contribution margin while staying within the plant\u2019s finite capacities. Some lines have to be scheduled in whole runs; others can be dialed up or down fractionally. In every case, we can choose anywhere from zero up to the maximum volumes noted below.\n\n- Carbonated Tonic A9 (whole-run scheduling): We can commit between 0 and 14.11 runs. Each run adds 6.93 in contribution. It draws 4.22 units per run from the Carbonation Gas pool and does not require blend-kettle time, flavor base, pasteurization, cold-room slots, or any packaging overtime.\n\n- Aurora Pasteurized Tea (whole-run scheduling): We can commit between 0 and 10.00 runs. Each run adds 6.71 in contribution. This line uses 9.65 pasteurizer hours per run, 5.47 cold-room slots per run, and 4.99 labeling/packing overtime hours per run. It does not use the Carbonation Gas pool, blend-kettle time, or flavor base.\n\n- Lumen Formula Licensing (fractional, scalable): We can commit between 0 and 14.51 units. Each unit adds 8.47 in contribution. This is a purely commercial offering that does not draw on any of the six plant pools\u2014no gas, no kettle time, no flavor base, no pasteurization, no cold-room slots, and no packaging overtime.\n\n- Nova Juice Blend (fractional, scalable): We can commit between 0 and 8.71 runs. Each run adds 8.53 in contribution. It requires 5.31 blend-kettle hours per run and 5.72 units of flavor base per run, with no demand on the Carbonation Gas pool, pasteurizer hours, cold-room slots, or packaging overtime.\n\n- Volt Energy Drink (whole-run scheduling): We can commit between 0 and 10.30 runs. Each run adds 7.76 in contribution. It uses 3.11 blend-kettle hours per run and 7.54 units of flavor base per run, and does not touch the Carbonation Gas pool, pasteurizer hours, cold-room slots, or packaging overtime.\n\n- Orbit Sparkling Water (fractional, scalable): We can commit between 0 and 11.02 runs. Each run adds 6.96 in contribution. It draws 7.63 units per run from the Carbonation Gas pool and 4.21 labeling/packing overtime hours per run, with no use of blend-kettle time, flavor base, pasteurizer hours, or cold-room slots.\n\n- Glacier Chilled Cups (whole-run scheduling): We can commit between 0 and 13.78 runs. Each run adds 2.60 in contribution. It uses 4.23 cold-room slots per run and 5.32 labeling/packing overtime hours per run. There is no draw on the Carbonation Gas pool, blend-kettle time, flavor base, or pasteurizer hours.\n\n- Horizon Protein Shake (whole-run scheduling): We can commit between 0 and 9.48 runs. Each run adds 6.77 in contribution. It consumes 4.13 units of flavor base per run, 8.37 pasteurizer hours per run, and 1.06 cold-room slots per run. It does not use the Carbonation Gas pool, blend-kettle time, or packaging overtime.\n\n- Infuse Flavor Concentrate (fractional, scalable): We can commit between 0 and 9.35 units. Each unit adds 1.66 in contribution. It uses 7.92 units of flavor base per unit and does not require Carbonation Gas, blend-kettle time, pasteurizer hours, cold-room slots, or packaging overtime.\n\nFacility specs and market limits to observe\n- Carbonation Gas pool: up to 39.21 units available.\n- Blend-kettle hours pool: up to 50.79 hours available.\n- Flavor base inventory: up to 186.83 units available.\n- Pasteurizer hours pool: up to 146.97 hours available.\n- Cold-room slots: up to 62.12 slots available.\n- Labeling & packing overtime hours: up to 53.12 hours available.\n\nIf we align the mix to the above limits and steer volume toward the higher-contribution lines while respecting whole-run requirements versus fractional flexibility, we\u2019ll maximize margin for the period. Happy to walk through sensitivity if any of the caps or run maxima change."
+}

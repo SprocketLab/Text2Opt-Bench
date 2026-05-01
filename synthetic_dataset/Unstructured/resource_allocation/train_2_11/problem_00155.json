@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Costs, bounds, and score impacts are numeric; objective is minimize spend; floors are >=; fractional adoption allowed. The LP can be reconstructed exactly from the text.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative (greetings, context) and template add fluff, but technical details are clear and non-repetitive. Some verbosity without affecting precision.",
+      "realism": 90,
+      "realism_comment": "A plausible corporate planning LP with certification thresholds and initiative costs; continuous levers are slightly idealized but overall realistic."
+    },
+    "prompt_tokens_with_data": 711,
+    "prompt_tokens_without_data": 711
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 28.932250330283306,
+    "optimal_values": {
+      "Var_0": 3.6317626527050604,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 1.0055672445944992,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.81
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 3.7
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.36
+      ],
+      "objective_linear_coefficient": 5.84,
+      "resource_costs": {
+        "C0": 5.73,
+        "C1": 0.13
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.81
+      ],
+      "objective_linear_coefficient": 8.77,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.49
+      ],
+      "objective_linear_coefficient": 1.82,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.31
+      ],
+      "objective_linear_coefficient": 7.68,
+      "resource_costs": {
+        "C1": 3.21
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.76
+      ],
+      "objective_linear_coefficient": 4.04,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.36, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.84 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.81, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.77 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.49, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.82 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.31, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.68 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.76, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.04 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.73 * vars['Var_0'] >= 20.81, name='C0')\n    m.addConstr(0.13 * vars['Var_0'] + 3.21 * vars['Var_3'] >= 3.7, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for a lowest\u2011cost plan to meet our Q1 certification thresholds\n\nTeam,\n\nWe need to assemble the least\u2011expensive mix of initiatives to satisfy two internal Q1 requirements\u2014our Sustainable Operations Score and our Workforce Development Score\u2014without compromising on the minimums. Please use the following levers exactly as described, and assume we can dial each lever anywhere between zero and its stated maximum.\n\nThe levers we can pull (in order):\n- Emerald Efficiency Kits (plantwide energy management upgrade)\n  - Spend profile: 5.84 per kit.\n  - Availability: up to 14.36 kits this quarter (zero is acceptable if needed).\n  - Impact: each kit contributes 5.73 points toward the Sustainable Operations Score and 0.13 points toward the Workforce Development Score.\n\n- Platinum Uptime Package (enhanced preventative maintenance blocks)\n  - Spend profile: 8.77 per package.\n  - Availability: up to 15.81 packages (zero is acceptable).\n  - Impact: this package does not move either the Sustainable Operations Score or the Workforce Development Score; its value is strictly operational.\n\n- Operations Essentials Lot (consumables and general supplies tranche)\n  - Spend profile: 1.82 per lot.\n  - Availability: up to 19.49 lots (zero is acceptable).\n  - Impact: no direct contribution to either the Sustainable Operations Score or the Workforce Development Score.\n\n- Frontline Safety Immersion (intensive training cohorts)\n  - Spend profile: 7.68 per cohort.\n  - Availability: up to 11.31 cohorts (zero is acceptable).\n  - Impact: each cohort adds 3.21 points to the Workforce Development Score; it does not affect the Sustainable Operations Score.\n\n- Community Reputation Sprint (communications and outreach burst)\n  - Spend profile: 4.04 per sprint.\n  - Availability: up to 9.76 sprints (zero is acceptable).\n  - Impact: no direct change to either the Sustainable Operations Score or the Workforce Development Score.\n\nCertification floors for the quarter (must be met or exceeded):\n- Sustainable Operations Score: at least 20.81 points.\n- Workforce Development Score: at least 3.7 points.\n\nKindly propose the lowest\u2011cost combination of the above that meets both floors. We are comfortable with partial adoption of any lever (e.g., fractional kits or cohorts) so long as we stay within the stated maxima.\n\nThanks in advance."
+}

@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Costs, bounds, integrality (whole vs fractional), and full coverage matrix are explicit; 8 clear >= constraints with RHS. Objective (minimize spend) and variable domains are unambiguous.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Narrative/context and repeated \u201cno impact\u201d entries add length, but most content defines coefficients and bounds. Minor business fluff present.",
+      "realism": 95,
+      "realism_comment": "Plausible training portfolio planning with costs, capacities, and competency minimums. Slight oddity of fractional availability with integer booking, but still realistic."
+    },
+    "prompt_tokens_with_data": 1593,
+    "prompt_tokens_without_data": 1593
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 89.93692082111438,
+    "optimal_values": {
+      "Var_0": 11.0,
+      "Var_1": 1.0,
+      "Var_2": 14.0,
+      "Var_3": 1.0615835777126112,
+      "Var_4": 0.0,
+      "Var_5": 2.0,
+      "Var_6": 2.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 51.88
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 86.54
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.87
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 107.24
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 42.2
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 103.99
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 93.02
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 114.33
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.4
+      ],
+      "objective_linear_coefficient": 2.21,
+      "resource_costs": {
+        "C0": 3.4,
+        "C1": 7.91,
+        "C2": 2.67,
+        "C4": 3.18,
+        "C5": 7.21,
+        "C6": 5.57,
+        "C7": 7.23
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.72
+      ],
+      "objective_linear_coefficient": 4.9,
+      "resource_costs": {
+        "C2": 2.48,
+        "C4": 5.54,
+        "C5": 3.16,
+        "C6": 9.09
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.88
+      ],
+      "objective_linear_coefficient": 2.19,
+      "resource_costs": {
+        "C2": 9.17,
+        "C3": 6.18,
+        "C5": 2.01,
+        "C6": 2.81,
+        "C7": 0.75
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.43
+      ],
+      "objective_linear_coefficient": 6.77,
+      "resource_costs": {
+        "C0": 3.41,
+        "C1": 4.58,
+        "C2": 9.36,
+        "C4": 0.07,
+        "C5": 7.8,
+        "C7": 6.32
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.34
+      ],
+      "objective_linear_coefficient": 4.87,
+      "resource_costs": {
+        "C2": 2.97,
+        "C3": 8.7,
+        "C4": 0.81,
+        "C7": 5.04
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.44
+      ],
+      "objective_linear_coefficient": 9.33,
+      "resource_costs": {
+        "C0": 5.43,
+        "C1": 8.97,
+        "C2": 0.09,
+        "C3": 7.6,
+        "C4": 2.33,
+        "C6": 7.87
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.33
+      ],
+      "objective_linear_coefficient": 2.11,
+      "resource_costs": {
+        "C1": 2.71,
+        "C3": 2.86,
+        "C6": 3.71,
+        "C7": 9.66
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.4, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.21 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.72, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 4.9 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.88, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.19 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.43, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.77 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.34, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 4.87 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.44, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.33 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=18.33, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 2.11 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.4 * vars['Var_0'] + 3.41 * vars['Var_3'] + 5.43 * vars['Var_5'] >= 51.88, name='C0')\n    m.addConstr(7.91 * vars['Var_0'] + 4.58 * vars['Var_3'] + 8.97 * vars['Var_5'] + 2.71 * vars['Var_6'] >= 86.54, name='C1')\n    m.addConstr(2.67 * vars['Var_0'] + 2.48 * vars['Var_1'] + 9.17 * vars['Var_2'] + 9.36 * vars['Var_3'] + 2.97 * vars['Var_4'] + 0.09 * vars['Var_5'] >= 153.87, name='C2')\n    m.addConstr(6.18 * vars['Var_2'] + 8.7 * vars['Var_4'] + 7.6 * vars['Var_5'] + 2.86 * vars['Var_6'] >= 107.24, name='C3')\n    m.addConstr(3.18 * vars['Var_0'] + 5.54 * vars['Var_1'] + 0.07 * vars['Var_3'] + 0.81 * vars['Var_4'] + 2.33 * vars['Var_5'] >= 42.2, name='C4')\n    m.addConstr(7.21 * vars['Var_0'] + 3.16 * vars['Var_1'] + 2.01 * vars['Var_2'] + 7.8 * vars['Var_3'] >= 103.99, name='C5')\n    m.addConstr(5.57 * vars['Var_0'] + 9.09 * vars['Var_1'] + 2.81 * vars['Var_2'] + 7.87 * vars['Var_5'] + 3.71 * vars['Var_6'] >= 93.02, name='C6')\n    m.addConstr(7.23 * vars['Var_0'] + 0.75 * vars['Var_2'] + 6.32 * vars['Var_3'] + 5.04 * vars['Var_4'] + 9.66 * vars['Var_6'] >= 114.33, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Training portfolio mix to meet competency commitments at lowest cost\n\nTeam,\n\nWe\u2019re finalizing the FY learning portfolio and need your help selecting the most cost-effective mix of offerings that still meets our minimum hour commitments across eight competency areas. The objective is to minimize total program spend while ensuring we hit every floor detailed below. Except where noted, offerings must be scheduled in whole cohorts; we\u2019ve also indicated the maximum volume available for each lever.\n\nOur levers (in the order we\u2019d like you to consider them):\n\n1) Foundational Compliance Workshops\n- Cost profile: 2.21 per workshop.\n- Volume limits: anywhere from 0 up to 11.4 workshop equivalents; bookable only as whole cohorts.\n- Coverage per workshop:\n  \u2022 Regulatory & Ethics Foundations: +3.4 hours.\n  \u2022 Customer Experience Excellence: +7.91 hours.\n  \u2022 Core Operations Mastery: +2.67 hours.\n  \u2022 Technology & Digital Fluency: +0 hours (no impact).\n  \u2022 Risk & Safety Readiness: +3.18 hours.\n  \u2022 Quality & Compliance Auditing: +7.21 hours.\n  \u2022 People Leadership & Coaching: +5.57 hours.\n  \u2022 Strategic & Cross-Functional Thinking: +7.23 hours.\n\n2) Advanced Client Care Clinics\n- Cost profile: 4.9 per clinic.\n- Volume limits: anywhere from 0 up to 6.72 clinic equivalents; bookable only as whole clinics.\n- Coverage per clinic:\n  \u2022 Regulatory & Ethics Foundations: +0 hours (no impact).\n  \u2022 Customer Experience Excellence: +0 hours (no impact).\n  \u2022 Core Operations Mastery: +2.48 hours.\n  \u2022 Technology & Digital Fluency: +0 hours (no impact).\n  \u2022 Risk & Safety Readiness: +5.54 hours.\n  \u2022 Quality & Compliance Auditing: +3.16 hours.\n  \u2022 People Leadership & Coaching: +9.09 hours.\n  \u2022 Strategic & Cross-Functional Thinking: +0 hours (no impact).\n\n3) Data Literacy Bootcamps\n- Cost profile: 2.19 per bootcamp.\n- Volume limits: anywhere from 0 up to 18.88 bootcamp equivalents; bookable only as whole bootcamps.\n- Coverage per bootcamp:\n  \u2022 Regulatory & Ethics Foundations: +0 hours (no impact).\n  \u2022 Customer Experience Excellence: +0 hours (no impact).\n  \u2022 Core Operations Mastery: +9.17 hours.\n  \u2022 Technology & Digital Fluency: +6.18 hours.\n  \u2022 Risk & Safety Readiness: +0 hours (no impact).\n  \u2022 Quality & Compliance Auditing: +2.01 hours.\n  \u2022 People Leadership & Coaching: +2.81 hours.\n  \u2022 Strategic & Cross-Functional Thinking: +0.75 hours.\n\n4) On\u2011Demand E\u2011Learning Subscriptions\n- Cost profile: 6.77 per subscription unit.\n- Volume limits: anywhere from 0 up to 16.43 units; can be scaled in fractional increments.\n- Coverage per unit:\n  \u2022 Regulatory & Ethics Foundations: +3.41 hours.\n  \u2022 Customer Experience Excellence: +4.58 hours.\n  \u2022 Core Operations Mastery: +9.36 hours.\n  \u2022 Technology & Digital Fluency: +0 hours (no impact).\n  \u2022 Risk & Safety Readiness: +0.07 hours.\n  \u2022 Quality & Compliance Auditing: +7.8 hours.\n  \u2022 People Leadership & Coaching: +0 hours (no impact).\n  \u2022 Strategic & Cross-Functional Thinking: +6.32 hours.\n\n5) Leadership Labs\n- Cost profile: 4.87 per lab.\n- Volume limits: anywhere from 0 up to 12.34 lab equivalents; bookable only as whole labs.\n- Coverage per lab:\n  \u2022 Regulatory & Ethics Foundations: +0 hours (no impact).\n  \u2022 Customer Experience Excellence: +0 hours (no impact).\n  \u2022 Core Operations Mastery: +2.97 hours.\n  \u2022 Technology & Digital Fluency: +8.7 hours.\n  \u2022 Risk & Safety Readiness: +0.81 hours.\n  \u2022 Quality & Compliance Auditing: +0 hours (no impact).\n  \u2022 People Leadership & Coaching: +0 hours (no impact).\n  \u2022 Strategic & Cross-Functional Thinking: +5.04 hours.\n\n6) Field Coaching Rotations\n- Cost profile: 9.33 per rotation.\n- Volume limits: anywhere from 0 up to 19.44 rotation equivalents; bookable only as whole rotations.\n- Coverage per rotation:\n  \u2022 Regulatory & Ethics Foundations: +5.43 hours.\n  \u2022 Customer Experience Excellence: +8.97 hours.\n  \u2022 Core Operations Mastery: +0.09 hours.\n  \u2022 Technology & Digital Fluency: +7.6 hours.\n  \u2022 Risk & Safety Readiness: +2.33 hours.\n  \u2022 Quality & Compliance Auditing: +0 hours (no impact).\n  \u2022 People Leadership & Coaching: +7.87 hours.\n  \u2022 Strategic & Cross-Functional Thinking: +0 hours (no impact).\n\n7) Vendor\u2011Led Masterclasses\n- Cost profile: 2.11 per class.\n- Volume limits: anywhere from 0 up to 18.33 class equivalents; bookable only as whole classes.\n- Coverage per class:\n  \u2022 Regulatory & Ethics Foundations: +0 hours (no impact).\n  \u2022 Customer Experience Excellence: +2.71 hours.\n  \u2022 Core Operations Mastery: +0 hours (no impact).\n  \u2022 Technology & Digital Fluency: +2.86 hours.\n  \u2022 Risk & Safety Readiness: +0 hours (no impact).\n  \u2022 Quality & Compliance Auditing: +0 hours (no impact).\n  \u2022 People Leadership & Coaching: +3.71 hours.\n  \u2022 Strategic & Cross-Functional Thinking: +9.66 hours.\n\nProgram commitments and floors (minimum hours we must achieve across the portfolio):\n- Regulatory & Ethics Foundations: at least 51.88 hours.\n- Customer Experience Excellence: at least 86.54 hours.\n- Core Operations Mastery: at least 153.87 hours.\n- Technology & Digital Fluency: at least 107.24 hours.\n- Risk & Safety Readiness: at least 42.2 hours.\n- Quality & Compliance Auditing: at least 103.99 hours.\n- People Leadership & Coaching: at least 93.02 hours.\n- Strategic & Cross-Functional Thinking: at least 114.33 hours.\n\nPlease use the above to determine the least\u2011cost mix that satisfies all minimums without exceeding the stated availability on any offering. Let us know if any further detail is needed."
+}

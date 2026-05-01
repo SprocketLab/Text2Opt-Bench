@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, coefficients, and >= commitments are explicit; zero contributions listed. A human can reproduce the exact MILP without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business prose and repeated 'does not move the needle' sections add length, but they clarify zero coefficients and context.",
+      "realism": 88,
+      "realism_comment": "Plausible channel mix planning with minimum commitments. Slightly odd decimal caps and naming (export cartons not for export), but overall realistic."
+    },
+    "prompt_tokens_with_data": 1260,
+    "prompt_tokens_without_data": 1260
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 174.56,
+    "optimal_values": {
+      "Var_0": 7.0,
+      "Var_1": 4.0,
+      "Var_2": -0.0,
+      "Var_3": 6.0,
+      "Var_4": 3.0,
+      "Var_5": 12.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 109.58
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 88.35
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 136.11
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.3
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 76.38
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 112.67
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 54.74
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.73
+      ],
+      "objective_linear_coefficient": 9.33,
+      "resource_costs": {
+        "C1": 9.97,
+        "C3": 7.01,
+        "C5": 8.24
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.13
+      ],
+      "objective_linear_coefficient": 5.87,
+      "resource_costs": {
+        "C0": 8.42,
+        "C2": 5.57,
+        "C3": 7.87,
+        "C4": 8.82
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.31
+      ],
+      "objective_linear_coefficient": 7.25,
+      "resource_costs": {
+        "C2": 5.91,
+        "C3": 2.81,
+        "C5": 2.39
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.83
+      ],
+      "objective_linear_coefficient": 8.9,
+      "resource_costs": {
+        "C0": 8.72,
+        "C4": 8.75,
+        "C5": 0.79,
+        "C6": 9.15
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.57
+      ],
+      "objective_linear_coefficient": 2.15,
+      "resource_costs": {
+        "C0": 8.22,
+        "C1": 6.67,
+        "C2": 5.7,
+        "C6": 0.25
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.08
+      ],
+      "objective_linear_coefficient": 2.16,
+      "resource_costs": {
+        "C0": 1.01,
+        "C2": 8.7,
+        "C5": 4.38
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.73, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 9.33 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.13, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.87 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.31, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.25 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.83, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.9 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.57, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 2.15 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.08, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 2.16 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.42 * vars['Var_1'] + 8.72 * vars['Var_3'] + 8.22 * vars['Var_4'] + 1.01 * vars['Var_5'] >= 109.58, name='C0')\n    m.addConstr(9.97 * vars['Var_0'] + 6.67 * vars['Var_4'] >= 88.35, name='C1')\n    m.addConstr(5.57 * vars['Var_1'] + 5.91 * vars['Var_2'] + 5.7 * vars['Var_4'] + 8.7 * vars['Var_5'] >= 136.11, name='C2')\n    m.addConstr(7.01 * vars['Var_0'] + 7.87 * vars['Var_1'] + 2.81 * vars['Var_2'] >= 79.3, name='C3')\n    m.addConstr(8.82 * vars['Var_1'] + 8.75 * vars['Var_3'] >= 76.38, name='C4')\n    m.addConstr(8.24 * vars['Var_0'] + 2.39 * vars['Var_2'] + 0.79 * vars['Var_3'] + 4.38 * vars['Var_5'] >= 112.67, name='C5')\n    m.addConstr(9.15 * vars['Var_3'] + 0.25 * vars['Var_4'] >= 54.74, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix to Meet Channel Commitments\n\nTeam,\n\nFor the upcoming cycle, we need to assemble a cost-effective mix of shipment formats to satisfy our minimum commitments across seven demand segments. The goal is to meet or exceed each segment\u2019s required volume at the lowest total spend. Selections are made in whole units only (no partial bundles), and each option has a defined ceiling for how many we can deploy this period.\n\nLevers we can use\n\n- Compact SKU Bundles\n  - Unit economics and availability: Each bundle carries a spend of 9.33. We may choose anywhere from 0 up to 8.73 bundles, and they must be committed in whole bundles only.\n  - Where this helps:\n    - Institutional Contracts: +9.97 units per bundle.\n    - Rural Dealer Support: +7.01 units per bundle.\n    - Subscription Program Shipments: +8.24 units per bundle.\n  - Where this does not move the needle:\n    - No contribution to Regional Retail Replenishment, Direct-to-Consumer Sales, Strategic Accounts, or Export Commitments.\n\n- Standard SKU Pallets\n  - Unit economics and availability: Each pallet carries a spend of 5.87. We may allocate from 0 up to 13.13 pallets, in whole pallets only.\n  - Where this helps:\n    - Regional Retail Replenishment: +8.42 units per pallet.\n    - Direct-to-Consumer Sales: +5.57 units per pallet.\n    - Rural Dealer Support: +7.87 units per pallet.\n    - Strategic Accounts: +8.82 units per pallet.\n  - Where this does not move the needle:\n    - No contribution to Institutional Contracts, Subscription Program Shipments, or Export Commitments.\n\n- Promo Packs\n  - Unit economics and availability: Each pack carries a spend of 7.25. We may deploy from 0 up to 13.31 packs, in whole packs only.\n  - Where this helps:\n    - Direct-to-Consumer Sales: +5.91 units per pack.\n    - Rural Dealer Support: +2.81 units per pack.\n    - Subscription Program Shipments: +2.39 units per pack.\n  - Where this does not move the needle:\n    - No contribution to Regional Retail Replenishment, Institutional Contracts, Strategic Accounts, or Export Commitments.\n\n- Premium Kits\n  - Unit economics and availability: Each kit carries a spend of 8.9. We may release from 0 up to 12.83 kits, in whole kits only.\n  - Where this helps:\n    - Regional Retail Replenishment: +8.72 units per kit.\n    - Strategic Accounts: +8.75 units per kit.\n    - Subscription Program Shipments: +0.79 units per kit.\n    - Export Commitments: +9.15 units per kit.\n  - Where this does not move the needle:\n    - No contribution to Institutional Contracts, Direct-to-Consumer Sales, or Rural Dealer Support.\n\n- Institutional Cases\n  - Unit economics and availability: Each case carries a spend of 2.15. We may ship from 0 up to 6.57 cases, in whole cases only.\n  - Where this helps:\n    - Regional Retail Replenishment: +8.22 units per case.\n    - Institutional Contracts: +6.67 units per case.\n    - Direct-to-Consumer Sales: +5.7 units per case.\n    - Export Commitments: +0.25 units per case.\n  - Where this does not move the needle:\n    - No contribution to Rural Dealer Support, Strategic Accounts, or Subscription Program Shipments.\n\n- Export Cartons\n  - Unit economics and availability: Each carton carries a spend of 2.16. We may send from 0 up to 19.08 cartons, in whole cartons only.\n  - Where this helps:\n    - Regional Retail Replenishment: +1.01 units per carton.\n    - Direct-to-Consumer Sales: +8.7 units per carton.\n    - Subscription Program Shipments: +4.38 units per carton.\n  - Where this does not move the needle:\n    - No contribution to Institutional Contracts, Rural Dealer Support, Strategic Accounts, or Export Commitments.\n\nMarket limits and minimum commitments\n\n- Regional Retail Replenishment: at least 109.58 units this period.\n- Institutional Contracts: at least 88.35 units this period.\n- Direct-to-Consumer Sales: at least 136.11 units this period.\n- Rural Dealer Support: at least 79.3 units this period.\n- Strategic Accounts: at least 76.38 units this period.\n- Subscription Program Shipments: at least 112.67 units this period.\n- Export Commitments: at least 54.74 units this period.\n\nPlease review the above mix levers and their per-unit impacts. The task is to determine the whole-number combination, within the noted ceilings, that meets or exceeds each segment\u2019s floor while minimizing total spend. I\u2019m happy to discuss any channel-specific nuances before we finalize the plan."
+}

@@ -1,0 +1,169 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "All variables, bounds, objective weights, and resource coefficients are explicit; crews are integer. Minor nuance: env credit implies a negative coeff, and UB 7.45 vs 'capped at seven' could slightly confuse.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative style and context add length, but most text maps directly to model data. Some verbosity, little repetition.",
+      "realism": 96,
+      "realism_comment": "Highly plausible capacity allocation across manufacturing/logistics resources with coherent units and limits; aligns with real OR applications."
+    },
+    "prompt_tokens_with_data": 1103,
+    "prompt_tokens_without_data": 1103
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 227.7598326815575,
+    "optimal_values": {
+      "Var_0": 5.726625766871166,
+      "Var_1": 0.24277695716395856,
+      "Var_2": 0.0,
+      "Var_3": 4.0,
+      "Var_4": 9.68,
+      "Var_5": 8.201505641283509
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.99
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 100.83
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 40.2
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.45
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 57.11
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 0.73
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 97.19
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 108.24
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 68.81
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.96
+      ],
+      "objective_linear_coefficient": 9.76,
+      "resource_costs": {
+        "C1": 6.58,
+        "C6": 9.54,
+        "C7": 8.15
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.59
+      ],
+      "objective_linear_coefficient": 6.46,
+      "resource_costs": {
+        "C0": 3.69,
+        "C2": 2.26,
+        "C3": 0.6,
+        "C4": 6.77,
+        "C5": -0.01,
+        "C6": 4.74,
+        "C8": 5.18
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.36
+      ],
+      "objective_linear_coefficient": 4.28,
+      "resource_costs": {
+        "C0": 4.71,
+        "C1": 6.47
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.45
+      ],
+      "objective_linear_coefficient": 2.36,
+      "resource_costs": {
+        "C1": 1.82,
+        "C2": 1.2,
+        "C3": 8.88,
+        "C6": 7.01,
+        "C7": 4.26,
+        "C8": 4.43
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.68
+      ],
+      "objective_linear_coefficient": 8.95,
+      "resource_costs": {
+        "C2": 3.33,
+        "C4": 5.73,
+        "C7": 4.6,
+        "C8": 4.36
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.46
+      ],
+      "objective_linear_coefficient": 9.05,
+      "resource_costs": {
+        "C0": 9.4,
+        "C6": 0.45
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.96, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.76 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.59, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.46 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.36, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.28 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.45, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.36 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.68, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.95 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=11.46, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.05 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.69 * vars['Var_1'] + 4.71 * vars['Var_2'] + 9.4 * vars['Var_5'] <= 77.99, name='C0')\n    m.addConstr(6.58 * vars['Var_0'] + 6.47 * vars['Var_2'] + 1.82 * vars['Var_3'] <= 100.83, name='C1')\n    m.addConstr(2.26 * vars['Var_1'] + 1.2 * vars['Var_3'] + 3.33 * vars['Var_4'] <= 40.2, name='C2')\n    m.addConstr(0.6 * vars['Var_1'] + 8.88 * vars['Var_3'] <= 56.45, name='C3')\n    m.addConstr(6.77 * vars['Var_1'] + 5.73 * vars['Var_4'] <= 57.11, name='C4')\n    m.addConstr(-0.01 * vars['Var_1'] <= 0.73, name='C5')\n    m.addConstr(9.54 * vars['Var_0'] + 4.74 * vars['Var_1'] + 7.01 * vars['Var_3'] + 0.45 * vars['Var_5'] <= 97.19, name='C6')\n    m.addConstr(8.15 * vars['Var_0'] + 4.26 * vars['Var_3'] + 4.6 * vars['Var_4'] <= 108.24, name='C7')\n    m.addConstr(5.18 * vars['Var_1'] + 4.43 * vars['Var_3'] + 4.36 * vars['Var_4'] <= 68.81, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Capacity Allocation to Maximize Net Contribution\n\nTeam,\n\nWe\u2019d like your help determining the best portfolio mix across six offerings to maximize our total net contribution, given the practical limits of our facilities and market operations. We can scale most items in fractional runs, but one decision (our field crews) must be whole units. Below is the context you\u2019ll need.\n\nThe levers we can adjust\n\n- Aurora Control Modules\n  - Financial impact: Each module contributes 9.76 in net margin.\n  - Operating limits: We can commit anywhere from zero up to 5.96 modules this cycle.\n  - Resource implications per module:\n    - Skilled assembly labor: 6.58 hours.\n    - Packaging line throughput: 9.54 hours.\n    - Loading dock scheduling windows: 8.15 time units.\n\n- Summit Alloy Panels\n  - Financial impact: Each panel contributes 6.46 in net margin.\n  - Operating limits: We can commit anywhere from zero up to 9.59 panels.\n  - Resource implications per panel:\n    - Machining center hours: 3.69 hours.\n    - Engineering planning blocks: 2.26 blocks.\n    - Systems test & burn-in lab time: 0.6 hours.\n    - Quality assurance bench time: 6.77 hours.\n    - Environmental footprint: each panel improves our position by 0.01 (a small offset credit against the compliance cap).\n    - Packaging line throughput: 4.74 hours.\n    - Warehouse staging space: 5.18 space units.\n\n- Eco\u2011Gel Battery Packs\n  - Financial impact: Each pack contributes 4.28 in net margin.\n  - Operating limits: We can commit anywhere from zero up to 13.36 packs.\n  - Resource implications per pack:\n    - Machining center hours: 4.71 hours.\n    - Skilled assembly labor: 6.47 hours.\n\n- Contracted Field Install Crews\n  - Financial impact: Each crew contributes 2.36 in net margin.\n  - Operating limits: We can commit anywhere from zero up to 7.45 crews; crews must be whole teams, so practically this caps us at seven.\n  - Resource implications per crew:\n    - Skilled assembly labor (coordination/support): 1.82 hours.\n    - Engineering planning blocks: 1.2 blocks.\n    - Systems test & burn-in lab time (certification/training usage): 8.88 hours.\n    - Packaging line throughput (kitting and site prep): 7.01 hours.\n    - Loading dock scheduling windows: 4.26 time units.\n    - Warehouse staging space: 4.43 space units.\n\n- Graphene Surface Coatings\n  - Financial impact: Each coating batch contributes 8.95 in net margin.\n  - Operating limits: We can commit anywhere from zero up to 9.68 batches.\n  - Resource implications per batch:\n    - Engineering planning blocks: 3.33 blocks.\n    - Quality assurance bench time: 5.73 hours.\n    - Loading dock scheduling windows: 4.6 time units.\n    - Warehouse staging space: 4.36 space units.\n\n- Solar Micro\u2011Inverters\n  - Financial impact: Each unit contributes 9.05 in net margin.\n  - Operating limits: We can commit anywhere from zero up to 11.46 units.\n  - Resource implications per unit:\n    - Machining center hours: 9.4 hours.\n    - Packaging line throughput: 0.45 hours.\n\nFacility and market limits we must respect\n\n- Machining center hours: up to 77.99.\n- Skilled assembly labor: up to 100.83 hours.\n- Engineering planning blocks: up to 40.2.\n- Systems test & burn-in lab time: up to 56.45 hours.\n- Quality assurance bench time: up to 57.11 hours.\n- Environmental footprint cap (net index): up to 0.73.\n- Packaging line throughput: up to 97.19 hours.\n- Loading dock scheduling windows: up to 108.24 time units.\n- Warehouse staging space: up to 68.81 space units.\n\nOur intent is to maximize total net contribution while staying within these limits. Please model the mix accordingly and recommend the allocation across the six offerings."
+}

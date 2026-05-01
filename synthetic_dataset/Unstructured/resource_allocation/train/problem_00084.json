@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, nonnegativity, and fractional allowance are explicit; each segment maps to a >= constraint with given coefficients. Objective is minimize spend. No guesswork.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative and summaries add verbosity; figures are clear and non-redundant. Some fluff but acceptable.",
+      "realism": 96,
+      "realism_comment": "Realistic media-mix allocation with costs, caps, per-segment deliveries, and minimum commitments; matches real campaign planning."
+    },
+    "prompt_tokens_with_data": 989,
+    "prompt_tokens_without_data": 989
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 59.35000509873812,
+    "optimal_values": {
+      "Var_0": 2.430769230769231,
+      "Var_1": 1.8996800294841931,
+      "Var_2": 3.8210700305451795
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 19.3
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 30.07
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 6.32
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.14
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.78
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 0.92
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.23
+      ],
+      "objective_linear_coefficient": 4.77,
+      "resource_costs": {
+        "C1": 1.56,
+        "C2": 2.6,
+        "C3": 3.01,
+        "C5": 0.41
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.27
+      ],
+      "objective_linear_coefficient": 6.03,
+      "resource_costs": {
+        "C0": 8.19,
+        "C1": 6.29,
+        "C3": 5.91,
+        "C4": 2.37,
+        "C5": 1.11
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.74
+      ],
+      "objective_linear_coefficient": 9.5,
+      "resource_costs": {
+        "C0": 1.96,
+        "C1": 3.75,
+        "C4": 4.26
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.23, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.77 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.27, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.03 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.74, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.5 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.19 * vars['Var_1'] + 1.96 * vars['Var_2'] >= 19.3, name='C0')\n    m.addConstr(1.56 * vars['Var_0'] + 6.29 * vars['Var_1'] + 3.75 * vars['Var_2'] >= 30.07, name='C1')\n    m.addConstr(2.6 * vars['Var_0'] >= 6.32, name='C2')\n    m.addConstr(3.01 * vars['Var_0'] + 5.91 * vars['Var_1'] >= 15.14, name='C3')\n    m.addConstr(2.37 * vars['Var_1'] + 4.26 * vars['Var_2'] >= 20.78, name='C4')\n    m.addConstr(0.41 * vars['Var_0'] + 1.11 * vars['Var_1'] >= 0.92, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q3 Audience Delivery Plan \u2014 Least-Cost Mix to Meet Minimum Commitments\n\nTeam,\n\nWe\u2019re at the point where we need to lock the Q3 media mix that meets our minimum audience delivery commitments at the lowest possible spend. We have three buyable packages this quarter, each with a defined unit cost and availability cap, and each delivering different amounts of reach across our six target segments. We can buy fractional portions of any package, but we can\u2019t go negative and we\u2019re limited by each package\u2019s availability.\n\nThe levers\n\n1) Campus Micro\u2011Influencer Packs\n- Unit economics and availability: Each pack costs 4.77. We can place anywhere from zero up to 5.23 packs this quarter.\n- Segment delivery per pack:\n  - Broad Awareness: 1.56 units of delivery\n  - Tech Enthusiasts: 2.60 units\n  - Late\u2011Night Viewers: 3.01 units\n  - Premium Subscribers: 0.41 units\n  - Urban Professionals: no impact\n  - In\u2011Store Shoppers: no impact\n- In short: this option is our most efficient way to move Tech Enthusiasts and Late\u2011Night Viewers, contributes modestly to Broad Awareness and Premium Subscribers, and does nothing for Urban Professionals or In\u2011Store Shoppers.\n\n2) Prime\u2011Time Broadcast Flights\n- Unit economics and availability: Each flight costs 6.03. We can place anywhere from zero up to 7.27 flights this quarter.\n- Segment delivery per flight:\n  - Urban Professionals: 8.19 units of delivery\n  - Broad Awareness: 6.29 units\n  - Late\u2011Night Viewers: 5.91 units\n  - In\u2011Store Shoppers: 2.37 units\n  - Premium Subscribers: 1.11 units\n  - Tech Enthusiasts: no impact\n- In short: this is our broadest performer\u2014strong lift for Urban Professionals, Broad Awareness, and Late\u2011Night Viewers; meaningful support for In\u2011Store Shoppers and Premium Subscribers; and no effect on Tech Enthusiasts.\n\n3) Retail Network Takeovers\n- Unit economics and availability: Each takeover costs 9.50. We can place anywhere from zero up to 6.74 takeovers this quarter.\n- Segment delivery per takeover:\n  - Urban Professionals: 1.96 units of delivery\n  - Broad Awareness: 3.75 units\n  - In\u2011Store Shoppers: 4.26 units\n  - Tech Enthusiasts: no impact\n  - Late\u2011Night Viewers: no impact\n  - Premium Subscribers: no impact\n- In short: this option is purpose\u2011built to drive In\u2011Store Shoppers and also supports Broad Awareness and, to a lesser extent, Urban Professionals, but it does nothing for Tech Enthusiasts, Late\u2011Night Viewers, or Premium Subscribers.\n\nAudience commitments (minimums for the quarter)\n\n- Urban Professionals: at least 19.30 units of delivery\n- Broad Awareness: at least 30.07 units\n- Tech Enthusiasts: at least 6.32 units\n- Late\u2011Night Viewers: at least 15.14 units\n- In\u2011Store Shoppers: at least 20.78 units\n- Premium Subscribers: at least 0.92 units\n\nOur remit is to choose the combination of the three packages (within their respective availability caps of 5.23 packs, 7.27 flights, and 6.74 takeovers, with the option to use fractional quantities) that meets or exceeds all six audience commitments above at the lowest total spend. If this framing aligns with your expectations, we\u2019ll proceed to produce the recommended least\u2011cost plan and the sensitivity around the availability caps."
+}

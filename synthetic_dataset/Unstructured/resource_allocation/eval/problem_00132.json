@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit costs, bounds, integrality, and contributions for each lever; constraints are >= thresholds; objective is minimize total run-rate. No missing info.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business memo style is verbose but mostly relevant; minor fluff and repetition of context without technical necessity.",
+      "realism": 96,
+      "realism_comment": "A credible staffing/resource allocation scenario with clear service commitments and costs; coefficients and integrality make practical sense."
+    },
+    "prompt_tokens_with_data": 975,
+    "prompt_tokens_without_data": 975
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 150.51396637047,
+    "optimal_values": {
+      "Var_0": 13.0,
+      "Var_1": 5.794985250737464,
+      "Var_2": 9.0,
+      "Var_3": 0.23184053836322494
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 39.54
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.14
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 114.86
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 110.12
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 87.44
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 29.53
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.28
+      ],
+      "objective_linear_coefficient": 2.52,
+      "resource_costs": {
+        "C1": 8.55,
+        "C2": 6.55,
+        "C4": 4.23
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.87
+      ],
+      "objective_linear_coefficient": 5.57,
+      "resource_costs": {
+        "C2": 6.77,
+        "C3": 6.78,
+        "C4": 5.21
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 9.3,
+      "resource_costs": {
+        "C0": 4.59,
+        "C2": 7.3,
+        "C3": 7.87,
+        "C5": 3.57
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.0
+      ],
+      "objective_linear_coefficient": 7.66,
+      "resource_costs": {
+        "C1": 6.64,
+        "C2": 0.62,
+        "C4": 9.74
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.28, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.52 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.87, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.57 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.3 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.0, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.66 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.59 * vars['Var_2'] >= 39.54, name='C0')\n    m.addConstr(8.55 * vars['Var_0'] + 6.64 * vars['Var_3'] >= 43.14, name='C1')\n    m.addConstr(6.55 * vars['Var_0'] + 6.77 * vars['Var_1'] + 7.3 * vars['Var_2'] + 0.62 * vars['Var_3'] >= 114.86, name='C2')\n    m.addConstr(6.78 * vars['Var_1'] + 7.87 * vars['Var_2'] >= 110.12, name='C3')\n    m.addConstr(4.23 * vars['Var_0'] + 5.21 * vars['Var_1'] + 9.74 * vars['Var_3'] >= 87.44, name='C4')\n    m.addConstr(3.57 * vars['Var_2'] >= 29.53, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposal to Meet Service Commitments at the Lowest Possible Run-Rate\n\nTeam,\n\nWe need to set the Q2 staffing and service mix so that we meet or exceed our minimum service obligations while keeping total monthly run-rate as low as possible. Below are the four levers we can pull, what each costs, and exactly how each one contributes to the six commitments we must hit.\n\n- Junior Field Technician Cohort\n  - Commercial terms and limits: Fully loaded cost of 2.52 per FTE-month. We may deploy anywhere from 0 up to 18.28 FTEs in this cohort, and these hires must be in whole people (no partial hires).\n  - What they deliver:\n    - On-site Interventions: 8.55 interventions per FTE-month.\n    - Ticket Resolutions: 6.55 resolutions per FTE-month.\n    - Customer Enablement Training: 4.23 training units per FTE-month.\n    - No impact on Emergency Standby Coverage, Preventive Maintenance Readiness, or Compliance Audits (these remain unchanged by this cohort).\n\n- Contract Support Analysts\n  - Commercial terms and limits: Run-rate of 5.57 per FTE-month. We can flex this between 0 and 8.87 FTE-months, and fractional allocations are allowed.\n  - What they deliver:\n    - Ticket Resolutions: 6.77 resolutions per FTE-month.\n    - Preventive Maintenance Readiness: 6.78 readiness units per FTE-month.\n    - Customer Enablement Training: 5.21 training units per FTE-month.\n    - No impact on Emergency Standby Coverage, On-site Interventions, or Compliance Audits.\n\n- Senior Response Leads\n  - Commercial terms and limits: Run-rate of 9.3 per FTE-month. We may deploy 0 to 10.0 FTEs, and these appointments must be whole people.\n  - What they deliver:\n    - Emergency Standby Coverage: 4.59 coverage units per FTE-month.\n    - Ticket Resolutions: 7.3 resolutions per FTE-month.\n    - Preventive Maintenance Readiness: 7.87 readiness units per FTE-month.\n    - Compliance Audits: 3.57 audit units per FTE-month.\n    - No impact on On-site Interventions or Customer Enablement Training.\n\n- Cross-Functional Specialists\n  - Commercial terms and limits: Run-rate of 7.66 per FTE-month. We can allocate between 0 and 14.0 FTE-months, with fractional allocations permitted.\n  - What they deliver:\n    - On-site Interventions: 6.64 interventions per FTE-month.\n    - Ticket Resolutions: 0.62 resolutions per FTE-month.\n    - Customer Enablement Training: 9.74 training units per FTE-month.\n    - No impact on Emergency Standby Coverage, Preventive Maintenance Readiness, or Compliance Audits.\n\nService commitments that must be met or exceeded this cycle:\n- Emergency Standby Coverage: at least 39.54 coverage units.\n- On-site Interventions: at least 43.14 interventions.\n- Ticket Resolutions: at least 114.86 resolutions.\n- Preventive Maintenance Readiness: at least 110.12 readiness units.\n- Customer Enablement Training: at least 87.44 training units.\n- Compliance Audits: at least 29.53 audit units.\n\nOur aim is to choose the mix of the four levers above that satisfies all of these minimums at the lowest total run-rate. Please review and confirm that the unit economics, delivery contributions, and allowable ranges reflect current operating guidance so we can proceed with finalizing the plan."
+}

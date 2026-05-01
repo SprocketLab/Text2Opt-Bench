@@ -1,0 +1,176 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, costs, and contributions are fully specified. Constraints and objective are explicit with exact coefficients and thresholds.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Email-style narrative and repeated 'no impact' lines add verbosity, though they clarify zero coefficients.",
+      "realism": 92,
+      "realism_comment": "Scenario is a plausible cost-minimization of initiatives meeting production/ESG targets with realistic cross-impacts and caps."
+    },
+    "prompt_tokens_with_data": 1370,
+    "prompt_tokens_without_data": 1370
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 166.13863509891132,
+    "optimal_values": {
+      "Var_0": 0.763963963963964,
+      "Var_1": 0.0,
+      "Var_2": 2.203473945409429,
+      "Var_3": 5.71830985915493,
+      "Var_4": 0.0,
+      "Var_5": 1.094838127352305,
+      "Var_6": 0.0,
+      "Var_7": 0.0,
+      "Var_8": 15.471658421943562
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 8.88
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 162.92
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.17
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 4.24
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 151.92
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 12.18
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.38
+      ],
+      "objective_linear_coefficient": 6.66,
+      "resource_costs": {
+        "C1": 7.37,
+        "C2": 7.04,
+        "C3": 5.55
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.7
+      ],
+      "objective_linear_coefficient": 7.37,
+      "resource_costs": {
+        "C4": 7.38
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.88
+      ],
+      "objective_linear_coefficient": 3.76,
+      "resource_costs": {
+        "C0": 4.03,
+        "C1": 4.61
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.75
+      ],
+      "objective_linear_coefficient": 5.44,
+      "resource_costs": {
+        "C1": 7.49,
+        "C4": 3.38,
+        "C5": 2.13
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.7
+      ],
+      "objective_linear_coefficient": 2.44,
+      "resource_costs": {
+        "C4": 2.26
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.99
+      ],
+      "objective_linear_coefficient": 2.59,
+      "resource_costs": {
+        "C2": 5.29
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.33
+      ],
+      "objective_linear_coefficient": 4.63,
+      "resource_costs": {
+        "C4": 0.95
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.98
+      ],
+      "objective_linear_coefficient": 2.85,
+      "resource_costs": {}
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.17
+      ],
+      "objective_linear_coefficient": 7.68,
+      "resource_costs": {
+        "C1": 9.96,
+        "C4": 8.57
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.38, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.66 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.7, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.37 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=5.88, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.76 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.75, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.44 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.7, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.44 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=6.99, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.59 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.33, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.63 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.98, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 2.85 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=18.17, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 7.68 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.03 * vars['Var_2'] >= 8.88, name='C0')\n    m.addConstr(7.37 * vars['Var_0'] + 4.61 * vars['Var_2'] + 7.49 * vars['Var_3'] + 9.96 * vars['Var_8'] >= 162.92, name='C1')\n    m.addConstr(7.04 * vars['Var_0'] + 5.29 * vars['Var_5'] >= 11.17, name='C2')\n    m.addConstr(5.55 * vars['Var_0'] >= 4.24, name='C3')\n    m.addConstr(7.38 * vars['Var_1'] + 3.38 * vars['Var_3'] + 2.26 * vars['Var_4'] + 0.95 * vars['Var_6'] + 8.57 * vars['Var_8'] >= 151.92, name='C4')\n    m.addConstr(2.13 * vars['Var_3'] >= 12.18, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix of initiatives to meet our quarterly commitments at the lowest total cost\n\nTeam,\n\nWe\u2019re planning the upcoming quarter\u2019s program mix and need your help selecting the least\u2011cost blend of initiatives that still meets all of our minimum operating and ESG commitments. Below are the nine levers we can pull, what each one costs per unit of effort, how much of each we can practically run this quarter, and exactly how each one contributes to our six commitments (production, safety, quality, emergency readiness, carbon, and community). All levers are optional (we can set them to zero), but none can exceed their stated maximums.\n\n- Advanced Technician Overtime\n  - Cost per unit: 6.66\n  - Capacity: between 0 and 6.38 units this quarter\n  - Contribution profile:\n    - Core Production Units: +7.37 per unit\n    - Quality Inspection Passes: +7.04 per unit\n    - Emergency Readiness Drills: +5.55 per unit\n    - Safety Certifications: no impact\n    - Carbon Abatement Credits: no impact\n    - Community Volunteer Hours: no impact\n\n- Grid-Scale REC Blocks\n  - Cost per unit: 7.37\n  - Capacity: between 0 and 8.70 units\n  - Contribution profile:\n    - Carbon Abatement Credits: +7.38 per unit\n    - Safety Certifications: no impact\n    - Core Production Units: no impact\n    - Quality Inspection Passes: no impact\n    - Emergency Readiness Drills: no impact\n    - Community Volunteer Hours: no impact\n\n- Safety Training Workshops\n  - Cost per unit: 3.76\n  - Capacity: between 0 and 5.88 units\n  - Contribution profile:\n    - Safety Certifications: +4.03 per unit\n    - Core Production Units: +4.61 per unit\n    - Quality Inspection Passes: no impact\n    - Emergency Readiness Drills: no impact\n    - Carbon Abatement Credits: no impact\n    - Community Volunteer Hours: no impact\n\n- Lean Process Upgrade Shifts\n  - Cost per unit: 5.44\n  - Capacity: between 0 and 12.75 units\n  - Contribution profile:\n    - Core Production Units: +7.49 per unit\n    - Carbon Abatement Credits: +3.38 per unit\n    - Community Volunteer Hours: +2.13 per unit\n    - Safety Certifications: no impact\n    - Quality Inspection Passes: no impact\n    - Emergency Readiness Drills: no impact\n\n- Lighting Retrofit Kits\n  - Cost per unit: 2.44\n  - Capacity: between 0 and 11.70 units\n  - Contribution profile:\n    - Carbon Abatement Credits: +2.26 per unit\n    - Safety Certifications: no impact\n    - Core Production Units: no impact\n    - Quality Inspection Passes: no impact\n    - Emergency Readiness Drills: no impact\n    - Community Volunteer Hours: no impact\n\n- Enhanced QA Runs\n  - Cost per unit: 2.59\n  - Capacity: between 0 and 6.99 units\n  - Contribution profile:\n    - Quality Inspection Passes: +5.29 per unit\n    - Safety Certifications: no impact\n    - Core Production Units: no impact\n    - Emergency Readiness Drills: no impact\n    - Carbon Abatement Credits: no impact\n    - Community Volunteer Hours: no impact\n\n- Boiler Insulation Upgrades\n  - Cost per unit: 4.63\n  - Capacity: between 0 and 8.33 units\n  - Contribution profile:\n    - Carbon Abatement Credits: +0.95 per unit\n    - Safety Certifications: no impact\n    - Core Production Units: no impact\n    - Quality Inspection Passes: no impact\n    - Emergency Readiness Drills: no impact\n    - Community Volunteer Hours: no impact\n\n- Contingency Labor Pool\n  - Cost per unit: 2.85\n  - Capacity: between 0 and 15.98 units\n  - Contribution profile:\n    - Safety Certifications: no impact\n    - Core Production Units: no impact\n    - Quality Inspection Passes: no impact\n    - Emergency Readiness Drills: no impact\n    - Carbon Abatement Credits: no impact\n    - Community Volunteer Hours: no impact\n\n- High\u2011Efficiency Turbine Hours\n  - Cost per unit: 7.68\n  - Capacity: between 0 and 18.17 units\n  - Contribution profile:\n    - Core Production Units: +9.96 per unit\n    - Carbon Abatement Credits: +8.57 per unit\n    - Safety Certifications: no impact\n    - Quality Inspection Passes: no impact\n    - Emergency Readiness Drills: no impact\n    - Community Volunteer Hours: no impact\n\nFacility specs and minimum commitments for the quarter (must be met or exceeded):\n- Safety Certifications: at least 8.88 units\n- Core Production Units: at least 162.92 units\n- Quality Inspection Passes: at least 11.17 units\n- Emergency Readiness Drills: at least 4.24 units\n- Carbon Abatement Credits: at least 151.92 units\n- Community Volunteer Hours: at least 12.18 units\n\nOur objective is to meet or surpass each of the above commitments while minimizing total spend across the nine levers. Please use the profiles and capacities above to recommend the most economical mix."
+}

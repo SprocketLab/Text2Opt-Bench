@@ -1,0 +1,217 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 10,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, contributions per segment, \u2265 targets, and one integrality are explicit; 'no material effect' = 0. Objective to minimize spend is clear and fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business narrative adds verbosity and repeated 'no material effect' notes, but most text enumerates needed coefficients and limits.",
+      "realism": 98,
+      "realism_comment": "Highly plausible media mix LP with GRP targets, costs, availability limits, and integer flights; mirrors real planning constraints."
+    },
+    "prompt_tokens_with_data": 1793,
+    "prompt_tokens_without_data": 1793
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 127.5011887326722,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.01021924206561252,
+      "Var_2": 6.792331519720625,
+      "Var_3": 2.4506136438044983,
+      "Var_4": 0.0,
+      "Var_5": 12.0,
+      "Var_6": 11.229160571409762
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 118.17
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 141.61
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 117.21
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.19
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 148.27
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 111.08
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 98.63
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 137.04
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 72.41
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 152.34
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.22
+      ],
+      "objective_linear_coefficient": 8.68,
+      "resource_costs": {
+        "C0": 2.28,
+        "C3": 8.36,
+        "C4": 3.08,
+        "C5": 9.64,
+        "C6": 9.45,
+        "C7": 4.93,
+        "C9": 5.32
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.48
+      ],
+      "objective_linear_coefficient": 3.4,
+      "resource_costs": {
+        "C0": 0.16,
+        "C1": 1.08,
+        "C2": 1.71,
+        "C3": 8.97,
+        "C4": 2.01,
+        "C5": 3.77,
+        "C6": 1.04,
+        "C7": 8.76,
+        "C8": 2.72,
+        "C9": 3.57
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.64
+      ],
+      "objective_linear_coefficient": 8.56,
+      "resource_costs": {
+        "C0": 9.41,
+        "C1": 8.74,
+        "C3": 4.39,
+        "C5": 6.59,
+        "C6": 7.18,
+        "C7": 8.13
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.75
+      ],
+      "objective_linear_coefficient": 5.46,
+      "resource_costs": {
+        "C0": 8.56,
+        "C1": 7.31,
+        "C2": 5.39,
+        "C3": 4.48,
+        "C4": 5.78,
+        "C5": 0.33,
+        "C6": 1.83,
+        "C7": 4.9,
+        "C9": 9.36
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.47
+      ],
+      "objective_linear_coefficient": 8.08,
+      "resource_costs": {
+        "C0": 5.85,
+        "C1": 9.42,
+        "C2": 6.09,
+        "C4": 4.8,
+        "C5": 6.54,
+        "C6": 4.48,
+        "C8": 6.44,
+        "C9": 3.58
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.83
+      ],
+      "objective_linear_coefficient": 2.36,
+      "resource_costs": {
+        "C0": 0.14,
+        "C1": 5.36,
+        "C2": 5.5,
+        "C3": 9.19,
+        "C4": 8.62,
+        "C7": 8.63,
+        "C8": 4.3,
+        "C9": 1.61
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.55
+      ],
+      "objective_linear_coefficient": 2.46,
+      "resource_costs": {
+        "C0": 3.67,
+        "C2": 7.14,
+        "C3": 0.18,
+        "C4": 9.33,
+        "C5": 6.66,
+        "C6": 4.04,
+        "C8": 5.97,
+        "C9": 9.8
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.22, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.68 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.48, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.4 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.64, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.56 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.75, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.46 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.47, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.08 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.83, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 2.36 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.55, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.46 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.28 * vars['Var_0'] + 0.16 * vars['Var_1'] + 9.41 * vars['Var_2'] + 8.56 * vars['Var_3'] + 5.85 * vars['Var_4'] + 0.14 * vars['Var_5'] + 3.67 * vars['Var_6'] >= 118.17, name='C0')\n    m.addConstr(1.08 * vars['Var_1'] + 8.74 * vars['Var_2'] + 7.31 * vars['Var_3'] + 9.42 * vars['Var_4'] + 5.36 * vars['Var_5'] >= 141.61, name='C1')\n    m.addConstr(1.71 * vars['Var_1'] + 5.39 * vars['Var_3'] + 6.09 * vars['Var_4'] + 5.5 * vars['Var_5'] + 7.14 * vars['Var_6'] >= 117.21, name='C2')\n    m.addConstr(8.36 * vars['Var_0'] + 8.97 * vars['Var_1'] + 4.39 * vars['Var_2'] + 4.48 * vars['Var_3'] + 9.19 * vars['Var_5'] + 0.18 * vars['Var_6'] >= 153.19, name='C3')\n    m.addConstr(3.08 * vars['Var_0'] + 2.01 * vars['Var_1'] + 5.78 * vars['Var_3'] + 4.8 * vars['Var_4'] + 8.62 * vars['Var_5'] + 9.33 * vars['Var_6'] >= 148.27, name='C4')\n    m.addConstr(9.64 * vars['Var_0'] + 3.77 * vars['Var_1'] + 6.59 * vars['Var_2'] + 0.33 * vars['Var_3'] + 6.54 * vars['Var_4'] + 6.66 * vars['Var_6'] >= 111.08, name='C5')\n    m.addConstr(9.45 * vars['Var_0'] + 1.04 * vars['Var_1'] + 7.18 * vars['Var_2'] + 1.83 * vars['Var_3'] + 4.48 * vars['Var_4'] + 4.04 * vars['Var_6'] >= 98.63, name='C6')\n    m.addConstr(4.93 * vars['Var_0'] + 8.76 * vars['Var_1'] + 8.13 * vars['Var_2'] + 4.9 * vars['Var_3'] + 8.63 * vars['Var_5'] >= 137.04, name='C7')\n    m.addConstr(2.72 * vars['Var_1'] + 6.44 * vars['Var_4'] + 4.3 * vars['Var_5'] + 5.97 * vars['Var_6'] >= 72.41, name='C8')\n    m.addConstr(5.32 * vars['Var_0'] + 3.57 * vars['Var_1'] + 9.36 * vars['Var_3'] + 3.58 * vars['Var_4'] + 1.61 * vars['Var_5'] + 9.8 * vars['Var_6'] >= 152.34, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 Media Mix Plan \u2013 Minimize Spend While Meeting Exposure Targets\n\nTeam,\n\nFor Q2, we need to assemble a cost-efficient media mix that meets or exceeds our minimum exposure benchmarks across ten priority audience segments. The objective is straightforward: minimize total outlay while satisfying each segment\u2019s required GRP-equivalent level. Below are the levers we can pull this quarter and how each one contributes to our audience targets.\n\nLevers we can use\n\n1) Premium Sports TV Sponsorships\n- Budget profile: Each sponsorship unit is budgeted at 8.68. We may deploy anywhere from 0 up to 10.22 units this quarter.\n- Audience contribution per unit:\n  \u2022 Emerging Professionals Reach: 2.28\n  \u2022 Seasoned Households Reach: 0 (no material effect)\n  \u2022 Value Seekers Reach: 0 (no material effect)\n  \u2022 Sports & Live Events Enthusiasts: 8.36\n  \u2022 Prime News & Business Viewers: 3.08\n  \u2022 Daytime & Lifestyle Audience: 9.64\n  \u2022 Late-Night & Commuter Audience: 9.45\n  \u2022 Subscription Streaming Viewers: 4.93\n  \u2022 Social & Community Engagement: 0 (no material effect)\n  \u2022 National Top-of-Funnel Awareness: 5.32\n\n2) Open-Web Display Network (Broad Reach)\n- Budget profile: Each unit is budgeted at 3.40. We may deploy 0 to 18.48 units this quarter.\n- Audience contribution per unit:\n  \u2022 Emerging Professionals Reach: 0.16\n  \u2022 Seasoned Households Reach: 1.08\n  \u2022 Value Seekers Reach: 1.71\n  \u2022 Sports & Live Events Enthusiasts: 8.97\n  \u2022 Prime News & Business Viewers: 2.01\n  \u2022 Daytime & Lifestyle Audience: 3.77\n  \u2022 Late-Night & Commuter Audience: 1.04\n  \u2022 Subscription Streaming Viewers: 8.76\n  \u2022 Social & Community Engagement: 2.72\n  \u2022 National Top-of-Funnel Awareness: 3.57\n\n3) Connected TV \u2013 Targeted Households\n- Budget profile: Each unit is budgeted at 8.56. We may deploy 0 to 9.64 units this quarter.\n- Audience contribution per unit:\n  \u2022 Emerging Professionals Reach: 9.41\n  \u2022 Seasoned Households Reach: 8.74\n  \u2022 Value Seekers Reach: 0 (no material effect)\n  \u2022 Sports & Live Events Enthusiasts: 4.39\n  \u2022 Prime News & Business Viewers: 0 (no material effect)\n  \u2022 Daytime & Lifestyle Audience: 6.59\n  \u2022 Late-Night & Commuter Audience: 7.18\n  \u2022 Subscription Streaming Viewers: 8.13\n  \u2022 Social & Community Engagement: 0 (no material effect)\n  \u2022 National Top-of-Funnel Awareness: 0 (no material effect)\n\n4) Regional Drive-Time Radio\n- Budget profile: Each unit is budgeted at 5.46. We may deploy 0 to 8.75 units this quarter.\n- Audience contribution per unit:\n  \u2022 Emerging Professionals Reach: 8.56\n  \u2022 Seasoned Households Reach: 7.31\n  \u2022 Value Seekers Reach: 5.39\n  \u2022 Sports & Live Events Enthusiasts: 4.48\n  \u2022 Prime News & Business Viewers: 5.78\n  \u2022 Daytime & Lifestyle Audience: 0.33\n  \u2022 Late-Night & Commuter Audience: 1.83\n  \u2022 Subscription Streaming Viewers: 4.90\n  \u2022 Social & Community Engagement: 0 (no material effect)\n  \u2022 National Top-of-Funnel Awareness: 9.36\n\n5) Sunday Print Inserts\n- Budget profile: Each insert package is budgeted at 8.08. We may deploy 0 to 12.47 packages this quarter.\n- Audience contribution per unit:\n  \u2022 Emerging Professionals Reach: 5.85\n  \u2022 Seasoned Households Reach: 9.42\n  \u2022 Value Seekers Reach: 6.09\n  \u2022 Sports & Live Events Enthusiasts: 0 (no material effect)\n  \u2022 Prime News & Business Viewers: 4.80\n  \u2022 Daytime & Lifestyle Audience: 6.54\n  \u2022 Late-Night & Commuter Audience: 4.48\n  \u2022 Subscription Streaming Viewers: 0 (no material effect)\n  \u2022 Social & Community Engagement: 6.44\n  \u2022 National Top-of-Funnel Awareness: 3.58\n\n6) Prime-Time Network Flights\n- Budget profile: Each flight is budgeted at 2.36 and must be planned in whole flights only. We may deploy from 0 up to the equivalent of 12.83 flights this quarter; partial flights are not permitted in the plan.\n- Audience contribution per flight:\n  \u2022 Emerging Professionals Reach: 0.14\n  \u2022 Seasoned Households Reach: 5.36\n  \u2022 Value Seekers Reach: 5.50\n  \u2022 Sports & Live Events Enthusiasts: 9.19\n  \u2022 Prime News & Business Viewers: 8.62\n  \u2022 Daytime & Lifestyle Audience: 0 (no material effect)\n  \u2022 Late-Night & Commuter Audience: 0 (no material effect)\n  \u2022 Subscription Streaming Viewers: 8.63\n  \u2022 Social & Community Engagement: 4.30\n  \u2022 National Top-of-Funnel Awareness: 1.61\n\n7) Paid Social Blitz\n- Budget profile: Each package is budgeted at 2.46. We may deploy 0 to 19.55 packages this quarter.\n- Audience contribution per unit:\n  \u2022 Emerging Professionals Reach: 3.67\n  \u2022 Seasoned Households Reach: 0 (no material effect)\n  \u2022 Value Seekers Reach: 7.14\n  \u2022 Sports & Live Events Enthusiasts: 0.18\n  \u2022 Prime News & Business Viewers: 9.33\n  \u2022 Daytime & Lifestyle Audience: 6.66\n  \u2022 Late-Night & Commuter Audience: 4.04\n  \u2022 Subscription Streaming Viewers: 0 (no material effect)\n  \u2022 Social & Community Engagement: 5.97\n  \u2022 National Top-of-Funnel Awareness: 9.80\n\nCampaign targets and operating limits\n\nTo be successful, the plan must deliver at least the following GRP-equivalent levels across each audience this quarter:\n- Emerging Professionals Reach: minimum 118.17\n- Seasoned Households Reach: minimum 141.61\n- Value Seekers Reach: minimum 117.21\n- Sports & Live Events Enthusiasts: minimum 153.19\n- Prime News & Business Viewers: minimum 148.27\n- Daytime & Lifestyle Audience: minimum 111.08\n- Late-Night & Commuter Audience: minimum 98.63\n- Subscription Streaming Viewers: minimum 137.04\n- Social & Community Engagement: minimum 72.41\n- National Top-of-Funnel Awareness: minimum 152.34\n\nPlease assemble a media mix that stays within each lever\u2019s availability range and meets every audience minimum at the lowest possible total cost. If any assumptions need to shift (e.g., unit definitions, availability ceilings), flag them before you finalize the draft plan."
+}

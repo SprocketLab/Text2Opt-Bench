@@ -1,0 +1,154 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All coefficients, bounds, and capacities are explicit; zeros marked as 'none'. Model can be reconstructed precisely. Minor ambiguity on variable integrality only.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Email-style prose adds fluff; repeating 'none' is verbose but clarifies zeros. Overall structured and necessary details are present.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production mix with plausible resources and caps; coherent and typical of real OR applications."
+    },
+    "prompt_tokens_with_data": 1163,
+    "prompt_tokens_without_data": 1163
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 71.08577937603941,
+    "optimal_values": {
+      "Var_0": 2.2645787907945714,
+      "Var_1": 0.0,
+      "Var_2": 5.054701383758311,
+      "Var_3": 10.434202089813382,
+      "Var_4": 1.27969189912342
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 120.77
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 58.94
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 75.75
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.35
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 145.58
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 37.11
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 83.65
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 26.4
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.59
+      ],
+      "objective_linear_coefficient": 1.51,
+      "resource_costs": {
+        "C0": 8.34,
+        "C2": 9.02,
+        "C4": 8.18
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.97
+      ],
+      "objective_linear_coefficient": 1.57,
+      "resource_costs": {
+        "C1": 9.78,
+        "C3": 7.52,
+        "C4": 8.22,
+        "C5": 5.78,
+        "C6": 5.1,
+        "C7": 5.5
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.34
+      ],
+      "objective_linear_coefficient": 9.26,
+      "resource_costs": {
+        "C1": 9.25,
+        "C2": 7.64,
+        "C3": 8.31,
+        "C5": 5.21,
+        "C7": 2.6
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.11
+      ],
+      "objective_linear_coefficient": 1.11,
+      "resource_costs": {
+        "C0": 9.09,
+        "C2": 1.46,
+        "C4": 9.37,
+        "C6": 7.14
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.41
+      ],
+      "objective_linear_coefficient": 7.25,
+      "resource_costs": {
+        "C0": 3.34,
+        "C1": 2.68,
+        "C2": 1.15,
+        "C3": 5.74,
+        "C4": 2.3,
+        "C5": 8.42,
+        "C6": 7.15
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.59, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.51 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.97, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.57 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.34, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.26 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.11, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.11 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.41, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.25 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.34 * vars['Var_0'] + 9.09 * vars['Var_3'] + 3.34 * vars['Var_4'] <= 120.77, name='C0')\n    m.addConstr(9.78 * vars['Var_1'] + 9.25 * vars['Var_2'] + 2.68 * vars['Var_4'] <= 58.94, name='C1')\n    m.addConstr(9.02 * vars['Var_0'] + 7.64 * vars['Var_2'] + 1.46 * vars['Var_3'] + 1.15 * vars['Var_4'] <= 75.75, name='C2')\n    m.addConstr(7.52 * vars['Var_1'] + 8.31 * vars['Var_2'] + 5.74 * vars['Var_4'] <= 49.35, name='C3')\n    m.addConstr(8.18 * vars['Var_0'] + 8.22 * vars['Var_1'] + 9.37 * vars['Var_3'] + 2.3 * vars['Var_4'] <= 145.58, name='C4')\n    m.addConstr(5.78 * vars['Var_1'] + 5.21 * vars['Var_2'] + 8.42 * vars['Var_4'] <= 37.11, name='C5')\n    m.addConstr(5.1 * vars['Var_1'] + 7.14 * vars['Var_3'] + 7.15 * vars['Var_4'] <= 83.65, name='C6')\n    m.addConstr(5.5 * vars['Var_1'] + 2.6 * vars['Var_2'] <= 26.4, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix recommendation request \u2013 maximize contribution within plant limits\n\nTeam,\n\nAs we firm up the plan for the next production period, I\u2019d like your help selecting the best mix of five offerings to maximize total contribution while respecting our plant and market limits. Below are the levers available to us, with the expected contribution per unit, the allowable range for each commitment this period, and how each offering draws on our constrained resources.\n\n- Atlas Standard Kit\n  - Commercial impact: Each kit contributes 1.51 in margin.\n  - Volume flexibility: We are free to commit anywhere from 0 up to 11.59 units.\n  - Resource footprint per unit:\n    - Assembly Line A hours: 8.34 hours\n    - Assembly Line B hours: none\n    - Composite Resin R7: 9.02 units\n    - Quality inspection hours: none\n    - Warehouse pallet-days: 8.18 pallet-days\n    - Licensed technician hours: none\n    - Emissions credits: none\n    - Outbound dock slots: none\n\n- Borealis Custom Assembly\n  - Commercial impact: Each assembly contributes 1.57 in margin.\n  - Volume flexibility: We are free to commit anywhere from 0 up to 15.97 units.\n  - Resource footprint per unit:\n    - Assembly Line A hours: none\n    - Assembly Line B hours: 9.78 hours\n    - Composite Resin R7: none\n    - Quality inspection hours: 7.52 hours\n    - Warehouse pallet-days: 8.22 pallet-days\n    - Licensed technician hours: 5.78 hours\n    - Emissions credits: 5.10 credits\n    - Outbound dock slots: 5.50 slots\n\n- Cobalt Premium Module\n  - Commercial impact: Each module contributes 9.26 in margin.\n  - Volume flexibility: We are free to commit anywhere from 0 up to 13.34 units.\n  - Resource footprint per unit:\n    - Assembly Line A hours: none\n    - Assembly Line B hours: 9.25 hours\n    - Composite Resin R7: 7.64 units\n    - Quality inspection hours: 8.31 hours\n    - Warehouse pallet-days: none\n    - Licensed technician hours: 5.21 hours\n    - Emissions credits: none\n    - Outbound dock slots: 2.60 slots\n\n- Driftwood Bulk Run\n  - Commercial impact: Each bulk run contributes 1.11 in margin.\n  - Volume flexibility: We are free to commit anywhere from 0 up to 17.11 units.\n  - Resource footprint per unit:\n    - Assembly Line A hours: 9.09 hours\n    - Assembly Line B hours: none\n    - Composite Resin R7: 1.46 units\n    - Quality inspection hours: none\n    - Warehouse pallet-days: 9.37 pallet-days\n    - Licensed technician hours: none\n    - Emissions credits: 7.14 credits\n    - Outbound dock slots: none\n\n- Eclipse Express Order\n  - Commercial impact: Each express order contributes 7.25 in margin.\n  - Volume flexibility: We are free to commit anywhere from 0 up to 6.41 units.\n  - Resource footprint per unit:\n    - Assembly Line A hours: 3.34 hours\n    - Assembly Line B hours: 2.68 hours\n    - Composite Resin R7: 1.15 units\n    - Quality inspection hours: 5.74 hours\n    - Warehouse pallet-days: 2.30 pallet-days\n    - Licensed technician hours: 8.42 hours\n    - Emissions credits: 7.15 credits\n    - Outbound dock slots: none\n\nFacility and market limits for the period (do not exceed):\n- Assembly Line A hours: up to 120.77 hours total\n- Assembly Line B hours: up to 58.94 hours total\n- Composite Resin R7: up to 75.75 units total\n- Quality inspection hours: up to 49.35 hours total\n- Warehouse pallet-days: up to 145.58 pallet-days total\n- Licensed technician hours: up to 37.11 hours total\n- Emissions credits: up to 83.65 credits total\n- Outbound dock slots: up to 26.40 slots total\n\nPlease use this to recommend the mix that maximizes total contribution without breaching any of the above capacities. Happy to clarify any of the footprints or limits if needed.\n\nBest regards,\n[Client Name]\nOperations Director"
+}

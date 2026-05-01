@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and capacities are explicit; fractional production allowed; objective is maximize gross contribution. No missing data or guessing needed.",
+      "ambiguity": false,
+      "redundancy": 22,
+      "redundancy_comment": "Some narrative/context, but most text directly provides needed coefficients and limits; lists present data cleanly.",
+      "realism": 98,
+      "realism_comment": "Very plausible production planning scenario with clear resources, capacities, and margins; units and constraints are realistic."
+    },
+    "prompt_tokens_with_data": 623,
+    "prompt_tokens_without_data": 623
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 20.52549238849096,
+    "optimal_values": {
+      "Var_0": 4.1769958135252665,
+      "Var_1": 1.5961123110151187
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 38.71
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 5.58
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.78
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 39.57
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 24.33
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.79
+      ],
+      "objective_linear_coefficient": 2.69,
+      "resource_costs": {
+        "C0": 7.46,
+        "C3": 8.68,
+        "C4": 2.59
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.62
+      ],
+      "objective_linear_coefficient": 5.82,
+      "resource_costs": {
+        "C0": 4.73,
+        "C1": 2.75,
+        "C2": 9.26,
+        "C3": 2.02,
+        "C4": 8.04
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.79, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.69 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.62, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.82 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.46 * vars['Var_0'] + 4.73 * vars['Var_1'] <= 38.71, name='C0')\n    m.addConstr(2.75 * vars['Var_1'] <= 5.58, name='C1')\n    m.addConstr(9.26 * vars['Var_1'] <= 14.78, name='C2')\n    m.addConstr(8.68 * vars['Var_0'] + 2.02 * vars['Var_1'] <= 39.57, name='C3')\n    m.addConstr(2.59 * vars['Var_0'] + 8.04 * vars['Var_1'] <= 24.33, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Capacity Plan Request \u2014 Two Salad Lines, Next Planning Window\n\nTeam,\n\nWe\u2019re preparing the next production window and need to decide how to allocate capacity between two salad lines to maximize total gross contribution while staying within our operational and supply limits. We can schedule fractional production blocks, and we\u2019re not obligated to run either line if that\u2019s what the economics dictate.\n\nLevers we can pull:\n\n1) Classic Greens (base line)\n- Financials: Each production block of Classic Greens contributes 2.69 in gross margin.\n- Volume range: We may run anywhere from 0 up to 7.79 production blocks this period.\n- Resource footprint per block:\n  \u2022 General prep: 7.46 hours.\n  \u2022 Specialist quality review: 0 hours (no draw).\n  \u2022 Premium protein supply: 0 tons (no draw).\n  \u2022 Packaging line time: 8.68 hours.\n  \u2022 Chilled storage: 2.59 pallet\u2011days.\n\n2) Protein Power (premium line)\n- Financials: Each production block of Protein Power contributes 5.82 in gross margin.\n- Volume range: We may run anywhere from 0 up to 5.62 production blocks this period.\n- Resource footprint per block:\n  \u2022 General prep: 4.73 hours.\n  \u2022 Specialist quality review: 2.75 hours.\n  \u2022 Premium protein supply: 9.26 tons.\n  \u2022 Packaging line time: 2.02 hours.\n  \u2022 Chilled storage: 8.04 pallet\u2011days.\n\nFacility specs and market limits for the period:\n- General prep capacity: up to 38.71 hours available.\n- Specialist quality review capacity: up to 5.58 hours available.\n- Premium protein supply: up to 14.78 tons available.\n- Packaging line capacity: up to 39.57 hours available.\n- Chilled storage: up to 24.33 pallet\u2011days available.\n\nPlease develop the plan that yields the highest total contribution using the above economics and limits."
+}

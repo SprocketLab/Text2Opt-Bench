@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, variable types, and five capacity limits are explicit; objective is maximize contribution. A practitioner can reconstruct the exact MILP without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Clear but somewhat verbose; repeated phrasing per item and added template/instructions increase length without adding math content.",
+      "realism": 92,
+      "realism_comment": "Realistic plant mix scenario with plausible resources and limits; slight oddity with non-integer upper bounds on integer items, but overall very plausible."
+    },
+    "prompt_tokens_with_data": 1049,
+    "prompt_tokens_without_data": 1049
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 415.9620284745763,
+    "optimal_values": {
+      "Var_0": 13.0,
+      "Var_1": 16.0,
+      "Var_2": 10.0,
+      "Var_3": 0.07633898305085891,
+      "Var_4": 9.0,
+      "Var_5": 2.0,
+      "Var_6": 6.0,
+      "Var_7": 8.44
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 112.13
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 222.77
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 147.34
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 171.68
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 189.83
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.87
+      ],
+      "objective_linear_coefficient": 6.39,
+      "resource_costs": {
+        "C2": 0.91,
+        "C3": 8.06,
+        "C4": 4.63
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.61
+      ],
+      "objective_linear_coefficient": 1.64,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 7.6,
+      "resource_costs": {
+        "C1": 6.83,
+        "C2": 4.13,
+        "C4": 0.72
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.11
+      ],
+      "objective_linear_coefficient": 3.27,
+      "resource_costs": {
+        "C0": 9.95,
+        "C1": 9.92,
+        "C2": 1.16,
+        "C3": 2.95,
+        "C4": 5.88
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.36
+      ],
+      "objective_linear_coefficient": 9.48,
+      "resource_costs": {
+        "C0": 9.46,
+        "C1": 8.34,
+        "C2": 6.02,
+        "C3": 5.32,
+        "C4": 9.17
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.96
+      ],
+      "objective_linear_coefficient": 7.11,
+      "resource_costs": {
+        "C0": 1.56,
+        "C1": 2.29,
+        "C2": 5.42,
+        "C3": 4.46,
+        "C4": 6.75
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.92
+      ],
+      "objective_linear_coefficient": 7.8,
+      "resource_costs": {
+        "C1": 1.91,
+        "C2": 4.82
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.44
+      ],
+      "objective_linear_coefficient": 9.96,
+      "resource_costs": {
+        "C1": 5.54,
+        "C3": 1.17
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.87, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.39 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.61, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 1.64 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.6 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.11, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.27 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.36, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 9.48 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.96, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 7.11 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=6.92, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 7.8 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=8.44, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 9.96 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.95 * vars['Var_3'] + 9.46 * vars['Var_4'] + 1.56 * vars['Var_5'] <= 112.13, name='C0')\n    m.addConstr(6.83 * vars['Var_2'] + 9.92 * vars['Var_3'] + 8.34 * vars['Var_4'] + 2.29 * vars['Var_5'] + 1.91 * vars['Var_6'] + 5.54 * vars['Var_7'] <= 222.77, name='C1')\n    m.addConstr(0.91 * vars['Var_0'] + 4.13 * vars['Var_2'] + 1.16 * vars['Var_3'] + 6.02 * vars['Var_4'] + 5.42 * vars['Var_5'] + 4.82 * vars['Var_6'] <= 147.34, name='C2')\n    m.addConstr(8.06 * vars['Var_0'] + 2.95 * vars['Var_3'] + 5.32 * vars['Var_4'] + 4.46 * vars['Var_5'] + 1.17 * vars['Var_7'] <= 171.68, name='C3')\n    m.addConstr(4.63 * vars['Var_0'] + 0.72 * vars['Var_2'] + 5.88 * vars['Var_3'] + 9.17 * vars['Var_4'] + 6.75 * vars['Var_5'] <= 189.83, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio Mix Plan \u2014 Maximize Contribution within Plant Limits\n\nHi team,\n\nWe\u2019re preparing the upcoming cycle\u2019s allocation across our eight offerings to maximize overall contribution while staying within the combined limits of our machining center, fabrication bay, raw material allotment, quality lab time, and packaging line capacity. Below are the levers we can pull, each with its per-unit economics, allowable range, and draw on shared resources.\n\n- Sapphire Sensor Kits (discrete count): Each kit delivers a margin of 6.39. We can commit any whole number from 0 up to 16.87 kits. Per kit, there is no draw on the machining center or fabrication bay (0 on both), but it does consume 0.91 units of our material allotment, 8.06 hours of quality lab time, and 4.63 hours on the packaging line.\n\n- Digital Calibration Licenses (discrete count): Each license contributes 1.64. We can issue any whole number from 0 up to 16.61 licenses. These licenses do not use the machining center, fabrication bay, material allotment, quality lab, or packaging line at all (0 across all five shared resources).\n\n- Cobalt Control Frames (discrete count): Each frame generates 7.6 in margin. We can schedule any whole number from 0 up to 10 frames. Per frame, there is no machining draw (0) and no quality lab time (0), but it does use 6.83 fabrication hours, 4.13 units of material, and 0.72 packaging hours.\n\n- FluxFlow Coating Runs (continuous flow): Each run-hour adds 3.27 in contribution. We can schedule from 0.00 to 9.11 run-hours, including fractional amounts. For each run-hour, we occupy 9.95 hours on the machining center, 9.92 on the fabrication bay, consume 1.16 units of material, use 2.95 hours in the quality lab, and take 5.88 hours on the packaging line.\n\n- Aurora Pump Assemblies (discrete count): Each assembly returns 9.48. We can produce any whole number from 0 up to 13.36 assemblies. Per assembly, we require 9.46 machining hours, 8.34 fabrication hours, 6.02 units of material, 5.32 quality lab hours, and 9.17 packaging hours.\n\n- Titan Frame Builds (discrete count): Each build contributes 7.11. We can plan any whole number from 0 up to 16.96 builds. Per build, we use 1.56 machining hours, 2.29 fabrication hours, 5.42 units of material, 4.46 quality lab hours, and 6.75 packaging hours.\n\n- Helio Starter Kits (discrete count): Each kit carries a margin of 7.8. We can schedule any whole number from 0 up to 6.92 kits. Per kit, there is no machining draw (0), no quality lab time (0), and no packaging requirement (0); it does use 1.91 fabrication hours and 4.82 units of material.\n\n- Nebula Service Hours (continuous flow): Each service-hour delivers 9.96. We can allocate from 0.00 up to 8.44 hours, including fractional amounts. Per service-hour, there is no machining draw (0), no material use (0), and no packaging use (0); it does occupy 5.54 fabrication hours and 1.17 quality lab hours.\n\nFacility Specs and Market Limits (do not exceed):\n- Machining Center capacity: 112.13 hours total.\n- Fabrication Bay capacity: 222.77 hours total.\n- Material allotment: 147.34 units total.\n- Quality Lab availability: 171.68 hours total.\n- Packaging Line capacity: 189.83 hours total.\n\nPlease use the above to develop the mix that maximizes contribution while respecting these five facility limits. Happy to clarify any assumptions."
+}

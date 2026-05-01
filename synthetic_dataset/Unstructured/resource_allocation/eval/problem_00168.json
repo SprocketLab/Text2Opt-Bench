@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "Explicit per-product profits, resource usage, and capacity limits; 'whole lots' implies integer vars; bounds given. Minor nuance: decimal lot caps with integrality, otherwise fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business email style adds some verbosity, but core data is clearly enumerated with minimal repetition.",
+      "realism": 98,
+      "realism_comment": "A very realistic production mix problem with plausible resources, capacities, and per-lot contributions and usages."
+    },
+    "prompt_tokens_with_data": 862,
+    "prompt_tokens_without_data": 862
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 220.95,
+    "optimal_values": {
+      "Var_0": 11.0,
+      "Var_1": 0.0,
+      "Var_2": 15.0,
+      "Var_3": 9.0,
+      "Var_4": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 156.14
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 116.27
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 159.04
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.4
+      ],
+      "objective_linear_coefficient": 9.36,
+      "resource_costs": {
+        "C1": 7.98,
+        "C2": 4.32
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.27
+      ],
+      "objective_linear_coefficient": 5.66,
+      "resource_costs": {
+        "C0": 9.19,
+        "C1": 1.59,
+        "C2": 7.01
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.74
+      ],
+      "objective_linear_coefficient": 5.55,
+      "resource_costs": {
+        "C0": 9.96
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.34
+      ],
+      "objective_linear_coefficient": 3.86,
+      "resource_costs": {
+        "C1": 3.01
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.4
+      ],
+      "objective_linear_coefficient": 3.02,
+      "resource_costs": {
+        "C1": 9.18,
+        "C2": 9.69
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.4, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 9.36 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.27, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.66 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.74, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.55 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.34, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.86 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.4, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.02 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.19 * vars['Var_1'] + 9.96 * vars['Var_2'] <= 156.14, name='C0')\n    m.addConstr(7.98 * vars['Var_0'] + 1.59 * vars['Var_1'] + 3.01 * vars['Var_3'] + 9.18 * vars['Var_4'] <= 116.27, name='C1')\n    m.addConstr(4.32 * vars['Var_0'] + 7.01 * vars['Var_1'] + 9.69 * vars['Var_4'] <= 159.04, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan to maximize contribution under current shop capacities\n\nTeam,\n\nFor the upcoming cycle, please help us set the production mix across five offerings so we maximize total contribution while staying within three constrained workcenters. All volumes need to be scheduled in whole lots only, and there are line\u2010specific ceilings this period. Below are the levers and how each one draws on our limited resources.\n\n- Precision Retrofit Kits (from purchased stock)\n  - Financials: Each whole lot contributes 9.36 to margin.\n  - Resource draw: Per lot, this line uses 7.98 hours on Precision Machining and 4.32 hours on the Surface Finishing Line. It does not require any Smelting Furnace time.\n  - Volume rules: No minimum commitment; we can schedule up to 17.4 lots this period, in whole lots only.\n\n- Alloy Housings (cast, machined, and finished)\n  - Financials: Each whole lot contributes 5.66 to margin.\n  - Resource draw: Per lot, this line uses 9.19 hours on the Smelting Furnace, 1.59 hours on Precision Machining, and 7.01 hours on the Surface Finishing Line.\n  - Volume rules: No minimum commitment; we can schedule up to 10.27 lots this period, in whole lots only.\n\n- As\u2011Cast Billet Ingots (sold without downstream processing)\n  - Financials: Each whole melt/lot contributes 5.55 to margin.\n  - Resource draw: Per lot, this line uses 9.96 hours on the Smelting Furnace and does not use Precision Machining or the Surface Finishing Line.\n  - Volume rules: No minimum commitment; we can schedule up to 17.74 lots this period, in whole lots only.\n\n- Precision Rework Services (machine\u2011only jobs)\n  - Financials: Each whole job lot contributes 3.86 to margin.\n  - Resource draw: Per lot, this line uses 3.01 hours on Precision Machining and does not use the Smelting Furnace or the Surface Finishing Line.\n  - Volume rules: No minimum commitment; we can schedule up to 10.34 lots this period, in whole lots only.\n\n- Premium Assemblies (from purchased components with heavy finishing)\n  - Financials: Each whole lot contributes 3.02 to margin.\n  - Resource draw: Per lot, this line uses 9.18 hours on Precision Machining and 9.69 hours on the Surface Finishing Line. It does not require Smelting Furnace time.\n  - Volume rules: No minimum commitment; we can schedule up to 11.4 lots this period, in whole lots only.\n\nFacility limits this cycle\n- Smelting Furnace availability: up to 156.14 hours\n- Precision Machining availability: up to 116.27 hours\n- Surface Finishing Line availability: up to 159.04 hours\n\nPlease use the above to recommend the combination of whole lots across these five offerings that delivers the highest total contribution without exceeding any of the three capacity limits or the line\u2011specific ceilings.\n\nThanks,\n[Client Name]\nChief Operations Officer"
+}

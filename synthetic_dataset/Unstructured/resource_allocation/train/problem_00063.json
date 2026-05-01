@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Costs, bounds, integrality, and contributions are explicit. Four >= threshold constraints and a linear cost objective can be reconstructed without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style narrative adds some fluff, but parameters are clear and non-repetitive. Minor verbosity without harming clarity.",
+      "realism": 90,
+      "realism_comment": "Plausible compliance planning with costs, caps, and credits. Slightly odd fractional caps on integer activities, but otherwise realistic."
+    },
+    "prompt_tokens_with_data": 680,
+    "prompt_tokens_without_data": 680
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 40.716243441762856,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 4.0,
+      "Var_2": 4.560335781741868
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 3.85
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 10.17
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 32.08
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.46
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.04
+      ],
+      "objective_linear_coefficient": 4.8,
+      "resource_costs": {
+        "C3": 1.34
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.45
+      ],
+      "objective_linear_coefficient": 3.92,
+      "resource_costs": {
+        "C0": 1.14
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.07
+      ],
+      "objective_linear_coefficient": 5.49,
+      "resource_costs": {
+        "C1": 2.89,
+        "C2": 7.78,
+        "C3": 9.53
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.04, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.8 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.45, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.92 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.07, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.49 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.14 * vars['Var_1'] >= 3.85, name='C0')\n    m.addConstr(2.89 * vars['Var_2'] >= 10.17, name='C1')\n    m.addConstr(7.78 * vars['Var_2'] >= 32.08, name='C2')\n    m.addConstr(1.34 * vars['Var_0'] + 9.53 * vars['Var_2'] >= 43.46, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimized plan to satisfy our upcoming compliance and impact targets\n\nTeam,\n\nWe\u2019re looking for the least-cost mix of a small set of delivery options to cover our regulatory and community obligations this period. The objective is to minimize total spend while hitting four minimum thresholds across safety readiness, watershed restoration, carbon offsets, and community impact.\n\nThe levers we can pull\n\n- Community Volunteer Days (internal program)\n  - Budget impact: 4.80 per day scheduled.\n  - What it delivers:\n    - Adds 1.34 recognized hours toward our Community Impact requirement.\n    - Does not contribute to Safety Readiness, Watershed Restoration, or Carbon Offsets.\n  - Practical limits: we can book anywhere from 0 up to 13.04 days this period, and these must be scheduled in whole days.\n\n- Third-Party Safety Audit Visits\n  - Budget impact: 3.92 per visit.\n  - What it delivers:\n    - Adds 1.14 points toward our Safety Readiness threshold.\n    - Does not contribute to Watershed Restoration, Carbon Offsets, or Community Impact.\n  - Practical limits: we can commission anywhere from 0 up to 14.45 visits, and these are whole-visit engagements.\n\n- Environmental Impact Packages (metered external service)\n  - Budget impact: 5.49 per package.\n  - What it delivers:\n    - Adds 2.89 credits toward Watershed Restoration.\n    - Adds 7.78 credits toward Carbon Offsets.\n    - Adds 9.53 recognized hours toward Community Impact.\n    - Does not contribute to Safety Readiness.\n  - Practical limits: we can procure anywhere from 0 up to 13.07 packages, and this service can be purchased in fractional increments.\n\nProgram thresholds to meet\n\n- Safety Readiness: at least 3.85 points over the period.\n- Watershed Restoration: at least 10.17 credits over the period.\n- Carbon Offsets: at least 32.08 credits over the period.\n- Community Impact: at least 43.46 recognized hours over the period.\n\nPlease use the above parameters to identify the least-cost combination that satisfies all four minimums. Let me know if any of the availability caps or recognition rates need to be adjusted before you run scenarios."
+}

@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, costs, and per-unit impacts are explicit with >= targets; zero effects stated. Linear objective is clear. A human can reconstruct the exact LP without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style framing and narrative add some fluff, but repetition per lever clarifies impacts. Overall verbose yet purposeful.",
+      "realism": 97,
+      "realism_comment": "Highly plausible service operations capacity mix with clear metrics, limits, costs, and risk guardrails. Negative effects are sensible."
+    },
+    "prompt_tokens_with_data": 1116,
+    "prompt_tokens_without_data": 1116
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 87.04712336174131,
+    "optimal_values": {
+      "Var_0": 7.969040247678019,
+      "Var_1": 6.707881180127748,
+      "Var_2": 14.672839506172838,
+      "Var_3": 0.0,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 81.57
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 36.91
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 77.22
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 53.36
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 47.54
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -50.61
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.72
+      ],
+      "objective_linear_coefficient": 3.96,
+      "resource_costs": {
+        "C2": 9.69,
+        "C3": -1.57
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.27
+      ],
+      "objective_linear_coefficient": 4.16,
+      "resource_costs": {
+        "C0": 6.86,
+        "C1": 5.57,
+        "C3": 9.82
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.08
+      ],
+      "objective_linear_coefficient": 1.88,
+      "resource_costs": {
+        "C0": 6.03,
+        "C4": 3.24
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.75
+      ],
+      "objective_linear_coefficient": 7.46,
+      "resource_costs": {
+        "C1": 2.91,
+        "C2": 7.29,
+        "C4": 5.54,
+        "C5": -4.49
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.93
+      ],
+      "objective_linear_coefficient": 9.88,
+      "resource_costs": {
+        "C1": -1.71,
+        "C5": -4.7
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.72, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.96 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.27, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.16 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.08, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.88 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.75, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.46 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.93, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.88 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.86 * vars['Var_1'] + 6.03 * vars['Var_2'] >= 81.57, name='C0')\n    m.addConstr(5.57 * vars['Var_1'] + 2.91 * vars['Var_3'] + -1.71 * vars['Var_4'] >= 36.91, name='C1')\n    m.addConstr(9.69 * vars['Var_0'] + 7.29 * vars['Var_3'] >= 77.22, name='C2')\n    m.addConstr(-1.57 * vars['Var_0'] + 9.82 * vars['Var_1'] >= 53.36, name='C3')\n    m.addConstr(3.24 * vars['Var_2'] + 5.54 * vars['Var_3'] >= 47.54, name='C4')\n    m.addConstr(-4.49 * vars['Var_3'] + -4.7 * vars['Var_4'] >= -50.61, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Setting our support mix to minimize spend while holding the line on service and risk\n\nTeam,\n\nFor the upcoming planning cycle, we need to set the mix of five capacity levers to minimize our total weekly operating spend while still meeting our service commitments and risk guardrails. Partial allocations are fine. Below are the options, their unit costs, practical limits, and exactly how each one moves our service and risk metrics.\n\n1) Express Assist Automation\n- Purpose and cost: Fast-turn digital triage focused on priority work. Each unit carries a cost of 3.96.\n- How much we can use: We can deploy anywhere from 0 up to 14.72 units.\n- What it moves:\n  - Priority Ticket Resolution increases by 9.69 units for each unit deployed.\n  - On\u2011Time Reliability drops by 1.57 points for each unit (the speed focus introduces some consistency drag).\n  - It does not change Core Service Throughput, Quality & Compliance, Regional Coverage, or the Operational Risk Buffer.\n\n2) Union Day Shift Agents\n- Purpose and cost: Mainline phone/chat capacity with strong process discipline. Each shift-equivalent costs 4.16.\n- How much we can use: We can schedule from 0 up to 7.27 shift\u2011equivalents.\n- What it moves:\n  - Core Service Throughput rises by 6.86 units per shift.\n  - Quality & Compliance improves by 5.57 points per shift.\n  - On\u2011Time Reliability improves by 9.82 points per shift.\n  - It does not affect Priority Ticket Resolution, Regional Coverage, or the Operational Risk Buffer.\n\n3) Outsourced Support Blocks\n- Purpose and cost: Flexible burst capacity with regional language strengths. Each block costs 1.88.\n- How much we can use: We can engage between 0 and 18.08 blocks.\n- What it moves:\n  - Core Service Throughput increases by 6.03 units per block.\n  - Regional Coverage improves by 3.24 points per block.\n  - It does not change Quality & Compliance, Priority Ticket Resolution, On\u2011Time Reliability, or the Operational Risk Buffer.\n\n4) Night Overtime Crews\n- Purpose and cost: Skilled after\u2011hours surge handling for premium and regionally nuanced work. Each crew costs 7.46.\n- How much we can use: We can assign from 0 up to 9.75 crews.\n- What it moves:\n  - Quality & Compliance gains 2.91 points per crew.\n  - Priority Ticket Resolution increases by 7.29 units per crew.\n  - Regional Coverage improves by 5.54 points per crew.\n  - Operational Risk Buffer decreases by 4.49 points per crew (fatigue and incident exposure); we must stay within our risk guardrail noted below.\n  - It does not affect Core Service Throughput or On\u2011Time Reliability.\n\n5) Flash Promotions\n- Purpose and cost: Short, high\u2011intensity offers that create inbound surges. Each campaign costs 9.88.\n- How much we can use: We may run from 0 up to 6.93 campaigns.\n- What it moves:\n  - Quality & Compliance drops by 1.71 points per campaign (experience variability during spikes).\n  - Operational Risk Buffer decreases by 4.7 points per campaign (operational strain); must respect the risk guardrail below.\n  - It does not impact Core Service Throughput, Priority Ticket Resolution, On\u2011Time Reliability, or Regional Coverage.\n\nService targets and risk guardrails for this plan\n- Core Service Throughput (minimum handled volume): at least 81.57 units.\n- Quality & Compliance Index (minimum experience threshold): at least 36.91 points.\n- Priority Ticket Resolution (minimum premium coverage): at least 77.22 units.\n- On\u2011Time Reliability Score (minimum SLA performance): at least 53.36 points.\n- Regional Coverage Score (minimum reach in key markets): at least 47.54 points.\n- Operational Risk Buffer (higher is safer; negative values indicate drawdown): must be at or above \u221250.61 points in aggregate.\n\nPlease review these levers and limits. Our goal is to choose the mix that meets all of the above thresholds at the lowest possible total cost given the unit economics and maximum deployable amounts for each option.\n\nRegards,\n[Your Name]\nOperations Planning Office"
+}

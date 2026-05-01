@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Precise coefficients, bounds, integrality, and resource caps given; zero draws explicitly noted. Objective is clear. A human can reconstruct the exact MILP without guessing.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Some business narrative and context make it wordy, but each offering\u2019s specs and resource impacts are needed; minimal repetition.",
+      "realism": 97,
+      "realism_comment": "Credible production planning scenario with plausible resources (labor, QA, materials, distribution, env). Constraints and contributions are realistic."
+    },
+    "prompt_tokens_with_data": 1209,
+    "prompt_tokens_without_data": 1209
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 259.6517211328976,
+    "optimal_values": {
+      "Var_0": 5.30283224400872,
+      "Var_1": 2.0,
+      "Var_2": 16.0,
+      "Var_3": 14.0,
+      "Var_4": 5.0,
+      "Var_5": 4.0,
+      "Var_6": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 109.44
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 80.59
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 113.54
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.26
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 132.44
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.21
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.25
+      ],
+      "objective_linear_coefficient": 2.02,
+      "resource_costs": {
+        "C1": 0.85,
+        "C3": 6.01,
+        "C4": 6.32,
+        "C5": 4.59
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.33
+      ],
+      "objective_linear_coefficient": 8.0,
+      "resource_costs": {
+        "C0": 9.45,
+        "C2": 0.97
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.81
+      ],
+      "objective_linear_coefficient": 1.23,
+      "resource_costs": {
+        "C3": 2.33
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.52
+      ],
+      "objective_linear_coefficient": 9.75,
+      "resource_costs": {
+        "C2": 6.16,
+        "C4": 0.83,
+        "C5": 1.08
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.79
+      ],
+      "objective_linear_coefficient": 8.8,
+      "resource_costs": {
+        "C0": 9.98,
+        "C1": 3.17,
+        "C4": 6.4,
+        "C5": 1.95
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.13
+      ],
+      "objective_linear_coefficient": 8.19,
+      "resource_costs": {
+        "C0": 8.92,
+        "C1": 7.92,
+        "C2": 6.07,
+        "C3": 4.18,
+        "C4": 9.43
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.45
+      ],
+      "objective_linear_coefficient": 2.64,
+      "resource_costs": {
+        "C0": 4.21,
+        "C3": 1.96,
+        "C5": 6.19
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.25, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.02 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.33, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.0 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.81, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.23 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.52, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.75 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.79, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 8.8 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.13, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.19 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.45, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 2.64 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.45 * vars['Var_1'] + 9.98 * vars['Var_4'] + 8.92 * vars['Var_5'] + 4.21 * vars['Var_6'] <= 109.44, name='C0')\n    m.addConstr(0.85 * vars['Var_0'] + 3.17 * vars['Var_4'] + 7.92 * vars['Var_5'] <= 80.59, name='C1')\n    m.addConstr(0.97 * vars['Var_1'] + 6.16 * vars['Var_3'] + 6.07 * vars['Var_5'] <= 113.54, name='C2')\n    m.addConstr(6.01 * vars['Var_0'] + 2.33 * vars['Var_2'] + 4.18 * vars['Var_5'] + 1.96 * vars['Var_6'] <= 87.26, name='C3')\n    m.addConstr(6.32 * vars['Var_0'] + 0.83 * vars['Var_3'] + 6.4 * vars['Var_4'] + 9.43 * vars['Var_5'] <= 132.44, name='C4')\n    m.addConstr(4.59 * vars['Var_0'] + 1.08 * vars['Var_3'] + 1.95 * vars['Var_4'] + 6.19 * vars['Var_6'] <= 49.21, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix decision for the next build cycle \u2014 maximize contribution within plant and market limits\n\nTeam,\n\nFor the upcoming cycle, we need to decide the mix of seven offerings to maximize overall contribution while staying within our six constrained resource pools. Below are the levers we can pull and how each one draws on the plant and market capacities. Please use this as the basis for the recommended allocation plan.\n\n- Flexible Pilot Line BX (custom prototype kits)\n  - Expected contribution: 2.02 per kit.\n  - Scale: can be scheduled anywhere from 0 up to 18.25 kit-equivalents; partial runs are allowed.\n  - Resource impact per kit:\n    - Skilled Assembly Labor: 0.85 hours.\n    - QA & Certification Capacity: 6.01 test-equivalents.\n    - Distribution Network Credits: 6.32 credits.\n    - Environmental Compliance Quota: 4.59 units.\n    - No draw on Core Plant Runtime or Specialty Material M.\n\n- Premium Industrial Module\n  - Expected contribution: 8.00 per module.\n  - Scale: can be scheduled anywhere from 0 up to 6.33 modules; deploy in whole modules.\n  - Resource impact per module:\n    - Core Plant Runtime (Line A hours): 9.45 hours.\n    - Specialty Material M: 0.97 units.\n    - No draw on Skilled Assembly Labor, QA & Certification Capacity, Distribution Network Credits, or Environmental Compliance Quota.\n\n- Budget Accessory Pack\n  - Expected contribution: 1.23 per pack.\n  - Scale: can be scheduled anywhere from 0 up to 16.81 packs; deploy in whole packs.\n  - Resource impact per pack:\n    - QA & Certification Capacity: 2.33 test-equivalents.\n    - No draw on Core Plant Runtime, Skilled Assembly Labor, Specialty Material M, Distribution Network Credits, or Environmental Compliance Quota.\n\n- Advanced Automation Unit\n  - Expected contribution: 9.75 per unit.\n  - Scale: can be scheduled anywhere from 0 up to 14.52 units; deploy in whole units.\n  - Resource impact per unit:\n    - Specialty Material M: 6.16 units.\n    - Distribution Network Credits: 0.83 credits.\n    - Environmental Compliance Quota: 1.08 units.\n    - No draw on Core Plant Runtime, Skilled Assembly Labor, or QA & Certification Capacity.\n\n- Standard Components Set\n  - Expected contribution: 8.80 per set.\n  - Scale: can be scheduled anywhere from 0 up to 11.79 sets; deploy in whole sets.\n  - Resource impact per set:\n    - Core Plant Runtime (Line A hours): 9.98 hours.\n    - Skilled Assembly Labor: 3.17 hours.\n    - Distribution Network Credits: 6.40 credits.\n    - Environmental Compliance Quota: 1.95 units.\n    - No draw on Specialty Material M or QA & Certification Capacity.\n\n- Enterprise Bundle\n  - Expected contribution: 8.19 per bundle.\n  - Scale: can be scheduled anywhere from 0 up to 18.13 bundles; deploy in whole bundles.\n  - Resource impact per bundle:\n    - Core Plant Runtime (Line A hours): 8.92 hours.\n    - Skilled Assembly Labor: 7.92 hours.\n    - Specialty Material M: 6.07 units.\n    - QA & Certification Capacity: 4.18 test-equivalents.\n    - Distribution Network Credits: 9.43 credits.\n    - No draw on Environmental Compliance Quota.\n\n- Aftermarket Service Job\n  - Expected contribution: 2.64 per job.\n  - Scale: can be scheduled anywhere from 0 up to 11.45 jobs; deploy in whole jobs.\n  - Resource impact per job:\n    - Core Plant Runtime (Line A hours): 4.21 hours.\n    - QA & Certification Capacity: 1.96 test-equivalents.\n    - Environmental Compliance Quota: 6.19 units.\n    - No draw on Skilled Assembly Labor, Specialty Material M, or Distribution Network Credits.\n\nFacility & Market Limits (do not exceed)\n- Core Plant Runtime (Line A hours): up to 109.44 hours total across all items.\n- Skilled Assembly Labor: up to 80.59 hours total.\n- Specialty Material M: up to 113.54 units total.\n- QA & Certification Capacity: up to 87.26 test-equivalents total.\n- Distribution Network Credits: up to 132.44 credits total.\n- Environmental Compliance Quota: up to 49.21 units total.\n\nOur objective is to assemble the most profitable mix while honoring the above caps. Please run this scenario and revert with the recommended build/service plan and the expected total contribution, along with any sensitivity observations around the tightest constraints."
+}

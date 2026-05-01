@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and coverage constraints are clearly specified; objective is cost minimization; a modeler can implement exactly without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style framing and repeated 'whole units' notes add fluff, but technical specs are clear and non-repetitive.",
+      "realism": 90,
+      "realism_comment": "Plausible community health resource allocation problem; only minor realism quibble is fractional availability caps (e.g., 15.08 vans)."
+    },
+    "prompt_tokens_with_data": 676,
+    "prompt_tokens_without_data": 676
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 68.47,
+    "optimal_values": {
+      "Var_0": 5.0,
+      "Var_1": -0.0,
+      "Var_2": 16.0,
+      "Var_3": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.47
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 78.24
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.08
+      ],
+      "objective_linear_coefficient": 5.31,
+      "resource_costs": {
+        "C0": 6.11,
+        "C1": 3.31
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 3.93,
+      "resource_costs": {
+        "C0": 1.13
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.6
+      ],
+      "objective_linear_coefficient": 2.62,
+      "resource_costs": {
+        "C0": 2.92,
+        "C1": 4.93
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.91
+      ],
+      "objective_linear_coefficient": 1.9,
+      "resource_costs": {
+        "C1": 4.8
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.08, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.31 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.93 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.6, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.62 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.91, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 1.9 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.11 * vars['Var_0'] + 1.13 * vars['Var_1'] + 2.92 * vars['Var_2'] >= 75.47, name='C0')\n    m.addConstr(3.31 * vars['Var_0'] + 4.93 * vars['Var_2'] + 4.8 * vars['Var_3'] >= 78.24, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for a cost-minimizing coverage plan for our community health operations\n\nTeam,\n\nWe need your help designing a weekly deployment plan that meets our service obligations at the lowest possible operating cost. All commitments must be scheduled in whole units (no partial teams), and we cannot assign negative amounts to any category.\n\nOur decision levers are as follows, in the order we\u2019d like you to consider them:\n\n- Community Nurse Vans\n  - Weekly cost: 5.31 per van deployed.\n  - Service impact: each van delivers 6.11 units of Primary Care Coverage and 3.31 units of Specialist Care Coverage.\n  - Availability: we can deploy from 0.0 up to 15.08 vans, in whole units only.\n\n- Neighborhood Health Aide Shifts\n  - Weekly cost: 3.93 per shift.\n  - Service impact: each shift contributes 1.13 units to Primary Care Coverage and does not affect Specialist Care Coverage.\n  - Availability: we can schedule from 0.0 up to 10.0 shifts, in whole units only.\n\n- Specialist Outreach Teams\n  - Weekly cost: 2.62 per team.\n  - Service impact: each team contributes 2.92 units to Primary Care Coverage and 4.93 units to Specialist Care Coverage.\n  - Availability: we can staff from 0.0 up to 16.6 teams, in whole units only.\n\n- Night Triage Units\n  - Weekly cost: 1.9 per unit.\n  - Service impact: each unit contributes 4.8 units to Specialist Care Coverage and does not affect Primary Care Coverage.\n  - Availability: we can field from 0.0 up to 6.91 units, in whole units only.\n\nService obligations and operating limits:\n- Primary Care Coverage: across all deployed resources above, we must deliver at least 75.47 coverage units.\n- Specialist Care Coverage: across all deployed resources above, we must deliver at least 78.24 coverage units.\n- All counts must be whole numbers and respect the availability limits listed for each option.\n\nPlease propose the most cost-effective mix that satisfies these minimum coverage levels while adhering to the caps and whole-unit requirements.\n\nThanks,\n[Your Name]\nDirector, Community Health Operations"
+}

@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit per-run contributions, resource usages, bounds, and capacities map directly to a linear objective and five constraints. Zero-usage resources are stated. Minor ambiguity on integrality; decimals imply continuous.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business narrative and salutations add verbosity; some flavor text is nonessential. Still, each SKU\u2019s numeric data is clearly presented without repetition.",
+      "realism": 96,
+      "realism_comment": "Plausible production mix with lab, filtration, mixing, bottling, and dock capacities. Resource demands per SKU are realistic; fractional 'runs' are slightly odd but acceptable."
+    },
+    "prompt_tokens_with_data": 1063,
+    "prompt_tokens_without_data": 1063
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 133.77682579133273,
+    "optimal_values": {
+      "Var_0": 3.8767707068162767,
+      "Var_1": 1.3725430203160605,
+      "Var_2": 1.0954072292631618,
+      "Var_3": 0.0,
+      "Var_4": 12.27,
+      "Var_5": 2.417417417417417,
+      "Var_6": 3.0497028628409986
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 24.15
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 23.88
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 37.5
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 115.68
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 57.81
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.0
+      ],
+      "objective_linear_coefficient": 6.28,
+      "resource_costs": {
+        "C1": 3.71,
+        "C3": 5.53,
+        "C4": 4.69
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.06
+      ],
+      "objective_linear_coefficient": 7.31,
+      "resource_costs": {
+        "C3": 6.61,
+        "C4": 9.23
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.8
+      ],
+      "objective_linear_coefficient": 6.62,
+      "resource_costs": {
+        "C1": 8.67,
+        "C2": 7.08,
+        "C3": 1.47
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.46
+      ],
+      "objective_linear_coefficient": 3.15,
+      "resource_costs": {
+        "C0": 2.0,
+        "C2": 6.91,
+        "C3": 9.27,
+        "C4": 7.69
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.27
+      ],
+      "objective_linear_coefficient": 4.53,
+      "resource_costs": {
+        "C2": 1.51,
+        "C3": 6.81
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.91
+      ],
+      "objective_linear_coefficient": 8.06,
+      "resource_costs": {
+        "C0": 9.99,
+        "C2": 4.64
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.03
+      ],
+      "objective_linear_coefficient": 5.6,
+      "resource_costs": {
+        "C4": 8.84
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.0, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.06, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.31 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.8, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.62 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=5.46, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.15 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.27, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.53 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.91, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.06 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.03, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 5.6 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.0 * vars['Var_3'] + 9.99 * vars['Var_5'] <= 24.15, name='C0')\n    m.addConstr(3.71 * vars['Var_0'] + 8.67 * vars['Var_2'] <= 23.88, name='C1')\n    m.addConstr(7.08 * vars['Var_2'] + 6.91 * vars['Var_3'] + 1.51 * vars['Var_4'] + 4.64 * vars['Var_5'] <= 37.5, name='C2')\n    m.addConstr(5.53 * vars['Var_0'] + 6.61 * vars['Var_1'] + 1.47 * vars['Var_2'] + 9.27 * vars['Var_3'] + 6.81 * vars['Var_4'] <= 115.68, name='C3')\n    m.addConstr(4.69 * vars['Var_0'] + 9.23 * vars['Var_1'] + 7.69 * vars['Var_3'] + 8.84 * vars['Var_6'] <= 57.81, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Decision for Next Cycle \u2014 Maximize Contribution within Plant Limits\n\nTeam,\n\nWe need to finalize how many runs to schedule for each of our seven offerings in the upcoming cycle. The objective is straightforward: maximize total contribution while staying within the practical limits of our lab, filtration, mixing, bottling, and loading dock capacities. Below is the business view of each option and how it draws on our shared resources.\n\n- Glacier Citrus Vodka (Cold-Filtration Line)\n  This SKU is a solid earner at 6.28 contribution units per run. We can flex it anywhere from zero up to 15 runs this cycle. Each run draws 3.71 hours from cold filtration, 5.53 hours of bottling line time, and 4.69 hours of loading dock staging. It does not require any compliance lab time or mixing vessel hours.\n\n- Sierra Spritz 250 ml Pack (High-Throughput Canning)\n  This pack delivers 7.31 contribution units per run and can be scheduled between zero and 12.06 runs. Each run needs 6.61 hours of bottling line time and 9.23 hours of loading dock staging. It does not use the compliance lab, cold filtration, or mixing vessels.\n\n- Oak & Citrus Gin Infusion (Barrel Blend)\n  This blend brings in 6.62 contribution units per run with capacity for zero to 7.8 runs. It is filtration- and blending-intensive: 8.67 hours per run from cold filtration, 7.08 hours from the mixing vessels, and a light 1.47 hours on the bottling line. It does not require compliance lab time or any loading dock staging beyond what\u2019s captured in bottling.\n\n- Nitro Cold Brew RTD (Regulated Labeling)\n  This line is lower-margin at 3.15 contribution units per run, with room for zero to 5.46 runs. It touches nearly every asset: 2.0 hours of compliance lab time, 6.91 hours from mixing vessels, 9.27 hours of bottling line time, and 7.69 hours of loading dock staging per run. It does not consume cold filtration capacity.\n\n- Classic Tonic Mixer (Glass Bottle Line)\n  The mixer contributes 4.53 units per run, and we can book anywhere from zero up to 12.27 runs. Resource demands per run are modest on blending and steady on packaging: 1.51 hours from the mixing vessels and 6.81 hours on the bottling line. It does not require compliance lab time, cold filtration, or loading dock staging beyond bottling operations.\n\n- Export Reserve Batch (Bulk Compliance Release)\n  This is one of our strongest earners at 8.06 contribution units per run, with room for zero to 10.91 runs. Each run draws heavily on regulatory work: 9.99 hours from the compliance lab, plus 4.64 hours from the mixing vessels. It does not use cold filtration, the bottling line, or the loading docks (bulk is held on site post-release).\n\n- Third-Party Repack Through Dock (Cross-Dock Program)\n  This program yields 5.6 contribution units per run and can be scheduled from zero up to 11.03 runs. It relies solely on our dock capacity, consuming 8.84 hours of loading dock staging per run. It does not require the compliance lab, cold filtration, mixing vessels, or the bottling line.\n\nFacility Specs for This Cycle (hard limits across all scheduled runs):\n- Compliance Lab Time: up to 24.15 hours total\n- Cold Filtration Hours: up to 23.88 hours total\n- Mixing Vessel Hours: up to 37.5 hours total\n- Bottling Line Hours: up to 115.68 hours total\n- Loading Dock Staging: up to 57.81 hours total\n\nPlease use these figures to recommend the mix that maximizes total contribution without breaching any of the above limits. If you need clarifications on any resource definitions or run-time assumptions, let me know.\n\nBest,\n[Client Name]\nVP Operations"
+}

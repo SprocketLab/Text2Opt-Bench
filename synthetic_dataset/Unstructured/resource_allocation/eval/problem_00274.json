@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and linear contributions are explicitly quantified; eight minimum thresholds stated; objective is minimize total cost. No missing info.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Memo style with greetings/sign-off and repeated notes per lever. Some fluff, but data is structured and clear for modeling.",
+      "realism": 94,
+      "realism_comment": "Plausible deployment planning with service metrics, capacities, costs, and integer crew choice; additive contributions are reasonable despite precise decimals."
+    },
+    "prompt_tokens_with_data": 1120,
+    "prompt_tokens_without_data": 1120
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 137.09427185928604,
+    "optimal_values": {
+      "Var_0": 0.7309562398703403,
+      "Var_1": 0.0,
+      "Var_2": 9.13701923076923,
+      "Var_3": 0.0,
+      "Var_4": 10.868055555555554,
+      "Var_5": 7.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 0.26
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 25.69
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 46.54
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.52
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 76.02
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 4.51
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 129.56
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 24.42
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.57
+      ],
+      "objective_linear_coefficient": 5.19,
+      "resource_costs": {
+        "C0": 1.41,
+        "C3": 5.59,
+        "C5": 6.17
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.42
+      ],
+      "objective_linear_coefficient": 7.06,
+      "resource_costs": {
+        "C2": 0.74,
+        "C6": 1.17
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.84
+      ],
+      "objective_linear_coefficient": 7.14,
+      "resource_costs": {
+        "C1": 3.09,
+        "C2": 2.96,
+        "C4": 8.32
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.36
+      ],
+      "objective_linear_coefficient": 6.85,
+      "resource_costs": {
+        "C3": 4.89,
+        "C4": 3.62,
+        "C6": 3.0
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.04
+      ],
+      "objective_linear_coefficient": 4.53,
+      "resource_costs": {
+        "C2": 7.19,
+        "C3": 5.86,
+        "C6": 7.2,
+        "C7": 7.9
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.16
+      ],
+      "objective_linear_coefficient": 2.69,
+      "resource_costs": {
+        "C1": 1.02,
+        "C6": 7.33
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.57, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.19 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.42, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.06 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.84, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.14 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.36, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.85 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.04, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.53 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.16, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 2.69 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.41 * vars['Var_0'] >= 0.26, name='C0')\n    m.addConstr(3.09 * vars['Var_2'] + 1.02 * vars['Var_5'] >= 25.69, name='C1')\n    m.addConstr(0.74 * vars['Var_1'] + 2.96 * vars['Var_2'] + 7.19 * vars['Var_4'] >= 46.54, name='C2')\n    m.addConstr(5.59 * vars['Var_0'] + 4.89 * vars['Var_3'] + 5.86 * vars['Var_4'] >= 64.52, name='C3')\n    m.addConstr(8.32 * vars['Var_2'] + 3.62 * vars['Var_3'] >= 76.02, name='C4')\n    m.addConstr(6.17 * vars['Var_0'] >= 4.51, name='C5')\n    m.addConstr(1.17 * vars['Var_1'] + 3.0 * vars['Var_3'] + 7.2 * vars['Var_4'] + 7.33 * vars['Var_5'] >= 129.56, name='C6')\n    m.addConstr(7.9 * vars['Var_4'] >= 24.42, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Field Deployment Plan to Meet Q1 Service Commitments\n\nTeam,\n\nWe need your help assembling the lowest-cost mix of deployment options to satisfy our Q1 service and compliance commitments. The intent is to minimize total outlay while meeting or exceeding eight non-negotiable minimums across safety, coverage, reliability, and community metrics. Below are the levers we can pull and how each one contributes to those commitments. Unless otherwise noted, volumes can be set anywhere from zero up to the stated availability cap.\n\nThe levers we can deploy\n\n- Harbor Express Day Runs\n  - Unit cost: 5.19 per run-equivalent.\n  - Availability: up to 8.57 run-equivalents; we can also choose to use none.\n  - Contribution to our commitments:\n    - Safety audit coverage: +1.41 per run-equivalent.\n    - Downtown response capacity: +5.59 per run-equivalent.\n    - Critical-response readiness: +6.17 per run-equivalent.\n  - Runs can be scheduled in fractional increments.\n\n- Northern Line Night Runs\n  - Unit cost: 7.06 per run-equivalent.\n  - Availability: up to 10.42 run-equivalents; minimum flexible down to zero.\n  - Contribution to our commitments:\n    - Regional/interstate coverage: +0.74 per run-equivalent.\n    - Linehaul deliverability: +1.17 per run-equivalent.\n  - Runs can be scheduled in fractional increments.\n\n- Ridgeway Regional Routes\n  - Unit cost: 7.14 per route-equivalent.\n  - Availability: up to 16.84 route-equivalents; optional starting at zero.\n  - Contribution to our commitments:\n    - Priority urban stops: +3.09 per route-equivalent.\n    - Regional/interstate coverage: +2.96 per route-equivalent.\n    - Cold-chain reliability: +8.32 per route-equivalent.\n  - Routes can be scheduled in fractional increments.\n\n- Metro Flex Dispatch Vans\n  - Unit cost: 6.85 per dispatch-equivalent.\n  - Availability: up to 9.36 dispatch-equivalents; zero if not needed.\n  - Contribution to our commitments:\n    - Downtown response capacity: +4.89 per dispatch-equivalent.\n    - Cold-chain reliability: +3.62 per dispatch-equivalent.\n    - Linehaul deliverability: +3.00 per dispatch-equivalent.\n  - Dispatches can be scheduled in fractional increments.\n\n- Cross-State Surge Capacity\n  - Unit cost: 4.53 per surge block.\n  - Availability: up to 12.04 surge blocks; optional from zero.\n  - Contribution to our commitments:\n    - Regional/interstate coverage: +7.19 per surge block.\n    - Downtown response capacity: +5.86 per surge block.\n    - Linehaul deliverability: +7.20 per surge block.\n    - Community outreach touchpoints: +7.90 per surge block.\n  - Blocks can be scheduled in fractional increments.\n\n- Contracted Charter Crews\n  - Unit cost: 2.69 per crew.\n  - Availability: up to the equivalent of 18.16 crews; we may choose zero. Note that the supplier books whole crews only, so in practice this must be in whole-unit increments.\n  - Contribution to our commitments:\n    - Priority urban stops: +1.02 per crew.\n    - Linehaul deliverability: +7.33 per crew.\n\nMarket limits and compliance minimums for this cycle\n\n- Safety audit coverage: at least 0.26 units.\n- Priority urban stops: at least 25.69 units.\n- Regional/interstate coverage: at least 46.54 units.\n- Downtown response capacity: at least 64.52 units.\n- Cold-chain reliability: at least 76.02 units.\n- Critical-response readiness: at least 4.51 units.\n- Linehaul deliverability: at least 129.56 units.\n- Community outreach touchpoints: at least 24.42 units.\n\nPlease use the above cost and contribution data to recommend the least expensive mix that meets or exceeds all of the listed minimums while respecting each lever\u2019s availability caps and the whole-crew requirement for the charter crews. Once we have your recommended allocation, we\u2019ll proceed to lock the contracts and finalize the deployment schedule.\n\nThanks,\n[Client Name]\nDirector of Operations"
+}

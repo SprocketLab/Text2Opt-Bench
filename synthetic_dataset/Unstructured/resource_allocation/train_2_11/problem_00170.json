@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and resource consumptions are explicit; partial batches => continuous vars with LB 0. Model is a clear LP. Only minor meta note on variable names.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some business narrative and repeated phrasing, but the core data is structured and concise.",
+      "realism": 96,
+      "realism_comment": "Plausible product-mix with line hours, permits, and cold-chain limits; values and context fit real operations planning."
+    },
+    "prompt_tokens_with_data": 731,
+    "prompt_tokens_without_data": 731
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 133.3073107089921,
+    "optimal_values": {
+      "Var_0": 17.9,
+      "Var_1": 2.3645454545454547,
+      "Var_2": 4.989131669960474,
+      "Var_3": 6.94,
+      "Var_4": 6.38
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 73.98
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 5.4
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.82
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.9
+      ],
+      "objective_linear_coefficient": 3.32,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.99
+      ],
+      "objective_linear_coefficient": 7.96,
+      "resource_costs": {
+        "C0": 1.01,
+        "C1": 1.3,
+        "C2": 9.24
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.52
+      ],
+      "objective_linear_coefficient": 2.27,
+      "resource_costs": {
+        "C0": 7.36
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.94
+      ],
+      "objective_linear_coefficient": 3.47,
+      "resource_costs": {
+        "C0": 0.18,
+        "C2": 0.14
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.38
+      ],
+      "objective_linear_coefficient": 3.08,
+      "resource_costs": {
+        "C0": 5.27
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.9, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.32 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.99, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.96 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.52, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.27 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.94, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.47 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.38, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.08 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.01 * vars['Var_1'] + 7.36 * vars['Var_2'] + 0.18 * vars['Var_3'] + 5.27 * vars['Var_4'] <= 73.98, name='C0')\n    m.addConstr(1.3 * vars['Var_1'] <= 5.4, name='C1')\n    m.addConstr(9.24 * vars['Var_1'] + 0.14 * vars['Var_3'] <= 22.82, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix guidance to maximize contribution within our Q1 bottlenecks\n\nTeam,\n\nAs we lock the build-and-fulfillment plan for the coming period, please allocate across the five offerings below to maximize total contribution while staying within our plant time, regulatory, and cold-chain limits. All items can be planned in partial batches; there are no minimum commitments on any item (each can be set at zero if needed).\n\n- NovaCare Digital Advisory (no physical capacity draw)\n  \u2022 Incremental contribution: 3.32 per planning unit.\n  \u2022 Capacity window: up to 17.9 units; no minimum.\n  \u2022 Resource impact: does not consume Atlas line hours, does not require compliance permits, and does not use refrigerated logistics capacity.\n\n- Chef\u2019s Palette Premium Fresh Kits\n  \u2022 Incremental contribution: 7.96 per kit.\n  \u2022 Capacity window: up to 15.99 kits; no minimum.\n  \u2022 Resource impact per kit: 1.01 hours on the Atlas fabrication line; 1.3 regulatory compliance permits; 9.24 units of refrigerated logistics capacity.\n\n- Atlas Machined Housings\n  \u2022 Incremental contribution: 2.27 per batch.\n  \u2022 Capacity window: up to 12.52 batches; no minimum.\n  \u2022 Resource impact per batch: 7.36 hours on the Atlas fabrication line; no compliance permits required; no refrigerated logistics required.\n\n- Glacier Sparkling Drinks\n  \u2022 Incremental contribution: 3.47 per batch.\n  \u2022 Capacity window: up to 6.94 batches; no minimum.\n  \u2022 Resource impact per batch: 0.18 hours on the Atlas fabrication line and 0.14 units of refrigerated logistics capacity; no compliance permits required.\n\n- Forge Standard Assemblies\n  \u2022 Incremental contribution: 3.08 per batch.\n  \u2022 Capacity window: up to 6.38 batches; no minimum.\n  \u2022 Resource impact per batch: 5.27 hours on the Atlas fabrication line; no compliance permits required; no refrigerated logistics required.\n\nFacility and market limits to observe\n- Atlas fabrication line time available: up to 73.98 hours in total across all relevant items.\n- Regulatory compliance permits available: up to 5.4 in total across items that require them.\n- Refrigerated logistics capacity available: up to 22.82 units in total across items that require cold-chain.\n\nOur objective is to maximize total contribution subject to the limits above. Please run the mix and come back with the recommended allocation within these caps."
+}

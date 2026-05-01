@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All products have explicit contribution, resource usage, and 0\u2013max bounds; capacities for three resources given. Objective is linear sum. 'No load' implies zero coefficients. Fractional maxes imply continuous variables.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business email style adds fluff (greeting, sign-off, 'order' note) and repeats 'no load' per item, but structure is clear and relevant.",
+      "realism": 100,
+      "realism_comment": "Realistic production planning with bottleneck resources (distillation, labeling, racking), plausible capacities and margins; fits a genuine OR resource allocation scenario."
+    },
+    "prompt_tokens_with_data": 914,
+    "prompt_tokens_without_data": 914
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 126.30186095641871,
+    "optimal_values": {
+      "Var_0": 19.12,
+      "Var_1": 2.797788309636651,
+      "Var_2": 0.0,
+      "Var_3": 7.056603773584905,
+      "Var_4": 0.7681792717086835
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.96
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 7.48
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.71
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.12
+      ],
+      "objective_linear_coefficient": 5.41,
+      "resource_costs": {
+        "C0": 1.96
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.94
+      ],
+      "objective_linear_coefficient": 2.17,
+      "resource_costs": {
+        "C2": 6.33
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.44
+      ],
+      "objective_linear_coefficient": 2.5,
+      "resource_costs": {
+        "C0": 4.62
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.57
+      ],
+      "objective_linear_coefficient": 1.82,
+      "resource_costs": {
+        "C1": 1.06
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.61
+      ],
+      "objective_linear_coefficient": 5.14,
+      "resource_costs": {
+        "C0": 7.14
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.12, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.41 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.94, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.17 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.44, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.5 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.57, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.82 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.61, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.14 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.96 * vars['Var_0'] + 4.62 * vars['Var_2'] + 7.14 * vars['Var_4'] <= 42.96, name='C0')\n    m.addConstr(1.06 * vars['Var_3'] <= 7.48, name='C1')\n    m.addConstr(6.33 * vars['Var_1'] <= 17.71, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan request to maximize contribution under our current bottlenecks\n\nHi team,\n\nWe\u2019d like your help setting production and program levels for the coming period to maximize total contribution within our real-world limits. We\u2019re working across three shared bottlenecks this cycle\u2014Distillation Column A run\u2011hours, Premium Labeling Station B hours, and temperature\u2011controlled racking bays\u2014and we want the mix that delivers the highest overall contribution.\n\nHere are the levers we can pull, in the order we\u2019d like you to consider them:\n\n- Northern Dry Gin (batch-level)\n  - Financials: each batch contributes 5.41 in margin.\n  - How it loads our bottlenecks:\n    - Distillation Column A: 1.96 run\u2011hours per batch.\n    - Premium Labeling Station B: no material load.\n    - Temperature\u2011controlled racking: no material load.\n  - Feasible range: no minimum commitment; we can run anywhere from 0 up to 19.12 batches this period.\n\n- Cellar Reserve Finish Program (barrel lots in storage)\n  - Financials: each lot contributes 2.17 in margin.\n  - How it loads our bottlenecks:\n    - Distillation Column A: no load in this period (liquid already produced).\n    - Premium Labeling Station B: no load.\n    - Temperature\u2011controlled racking: 6.33 bay\u2011units per lot.\n  - Feasible range: no minimum commitment; between 0 and 6.94 lots this period.\n\n- White Oak Vodka (batch-level)\n  - Financials: each batch contributes 2.50 in margin.\n  - How it loads our bottlenecks:\n    - Distillation Column A: 4.62 run\u2011hours per batch.\n    - Premium Labeling Station B: no material load.\n    - Temperature\u2011controlled racking: no material load.\n  - Feasible range: no minimum commitment; between 0 and 19.44 batches this period.\n\n- Holiday Gift Set Assembly (packaging lots)\n  - Financials: each lot contributes 1.82 in margin.\n  - How it loads our bottlenecks:\n    - Distillation Column A: no load.\n    - Premium Labeling Station B: 1.06 hours per lot.\n    - Temperature\u2011controlled racking: no material load.\n  - Feasible range: no minimum commitment; between 0 and 7.57 lots this period.\n\n- Single Barrel Whiskey (batch-level)\n  - Financials: each batch contributes 5.14 in margin.\n  - How it loads our bottlenecks:\n    - Distillation Column A: 7.14 run\u2011hours per batch.\n    - Premium Labeling Station B: no material load.\n    - Temperature\u2011controlled racking: no material load.\n  - Feasible range: no minimum commitment; between 0 and 9.61 batches this period.\n\nFacility specs and period limits\n- Distillation Column A: up to 42.96 run\u2011hours available this period.\n- Premium Labeling Station B: up to 7.48 hours available this period.\n- Temperature\u2011controlled racking: up to 17.71 bay\u2011units available this period.\n\nPlease use this information to recommend the production and program levels that maximize total contribution while staying within the above capacities and per\u2011item limits.\n\nThanks,\nAva\nDirector of Operations"
+}

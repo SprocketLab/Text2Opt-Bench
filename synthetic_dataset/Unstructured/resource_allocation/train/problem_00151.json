@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Costs, bounds, and impacts (positive/negative) are clearly stated; two >= floor constraints and minimization objective are explicit; variables are continuous up to caps; no guessing required.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Slightly verbose executive memo style with extra context, but non-repetitive; all technical details are concise and clear.",
+      "realism": 95,
+      "realism_comment": "Very plausible planning problem balancing reliability and compliance; fractional levers and caps make sense; linear effects are coherent."
+    },
+    "prompt_tokens_with_data": 784,
+    "prompt_tokens_without_data": 784
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 34.68855235643548,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 1.1751866754912033,
+      "Var_3": 0.0,
+      "Var_4": 9.100396698107462
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.93
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 15.43
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.17
+      ],
+      "objective_linear_coefficient": 2.1,
+      "resource_costs": {
+        "C0": -6.13
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.84
+      ],
+      "objective_linear_coefficient": 8.57,
+      "resource_costs": {
+        "C0": 9.34
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.25
+      ],
+      "objective_linear_coefficient": 7.68,
+      "resource_costs": {
+        "C0": -2.42,
+        "C1": 9.8
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.23
+      ],
+      "objective_linear_coefficient": 7.51,
+      "resource_costs": {
+        "C0": -0.65,
+        "C1": -4.26
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.69
+      ],
+      "objective_linear_coefficient": 2.82,
+      "resource_costs": {
+        "C0": 4.92,
+        "C1": 0.43
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.17, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.1 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.84, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.57 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.25, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.68 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.23, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.51 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.69, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.82 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-6.13 * vars['Var_0'] + 9.34 * vars['Var_1'] + -2.42 * vars['Var_2'] + -0.65 * vars['Var_3'] + 4.92 * vars['Var_4'] >= 41.93, name='C0')\n    m.addConstr(9.8 * vars['Var_2'] + -4.26 * vars['Var_3'] + 0.43 * vars['Var_4'] >= 15.43, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimized mix to meet Reliability and Compliance floors\n\nTeam,\n\nWe need your help to set the least-cost mix of five levers for the upcoming operating window. The aim is to minimize total spend while ensuring we do not dip below two enterprise floors: our system reliability index and our sustainability/compliance credits. Each lever can be dialed anywhere from zero up to its practical cap, and they can be applied fractionally.\n\nThe levers\n\n- Lean Run Hours (deferred preventive work)\n  - Cost: 2.1 per unit deployed.\n  - Impact on System Reliability: decreases the index by 6.13 points for every unit used.\n  - Impact on Sustainability/Compliance: no direct effect.\n  - Availability: up to 10.17 units; we do not have to use any, but we cannot exceed this cap.\n\n- Reliability Surge Crews (proactive stabilization)\n  - Cost: 8.57 per unit deployed.\n  - Impact on System Reliability: increases the index by 9.34 points per unit.\n  - Impact on Sustainability/Compliance: no direct effect.\n  - Availability: up to 8.84 units; optional use up to this limit.\n\n- Green Retrofit Program (facility upgrades and certification)\n  - Cost: 7.68 per unit deployed.\n  - Impact on System Reliability: while upgrades are installed, the index decreases by 2.42 points per unit.\n  - Impact on Sustainability/Compliance: adds 9.8 credits per unit.\n  - Availability: up to 16.25 units; optional use up to this limit.\n\n- Contracted Overflow Work (third-party coverage)\n  - Cost: 7.51 per unit deployed.\n  - Impact on System Reliability: decreases the index by 0.65 points per unit.\n  - Impact on Sustainability/Compliance: consumes 4.26 credits per unit.\n  - Availability: up to 18.23 units; optional use up to this limit.\n\n- Digital Care Platform (automation and self-service)\n  - Cost: 2.82 per unit deployed.\n  - Impact on System Reliability: increases the index by 4.92 points per unit.\n  - Impact on Sustainability/Compliance: adds 0.43 credits per unit.\n  - Availability: up to 18.69 units; optional use up to this limit.\n\nPolicy floors and operating limits\n\n- System Reliability Index: the combined effect of the chosen levers must reach at least 41.93 points.\n- Sustainability/Compliance Credits: the combined effect of the chosen levers must reach at least 15.43 credits.\n\nPlease configure the mix that meets or exceeds both floors at the lowest possible total cost, observing each lever\u2019s cap and allowing for partial deployment where that\u2019s economical.\n\nThanks,\n[Client Operations Lead]"
+}

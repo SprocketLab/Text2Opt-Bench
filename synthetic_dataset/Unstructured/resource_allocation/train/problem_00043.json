@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Clear linear model: three integer vars with 0\u2013cap bounds, costs, and two \u2265 constraints with stated coefficients. All data present; slight oddity: fractional caps with integer units.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business narrative adds context; a bit verbose but not repetitive. Numeric specs and constraints are clear and focused.",
+      "realism": 88,
+      "realism_comment": "Plausible resource allocation with costs, caps, and targets; whole-unit decisions make sense. Fractional availability caps are slightly unrealistic."
+    },
+    "prompt_tokens_with_data": 620,
+    "prompt_tokens_without_data": 620
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 25.8,
+    "optimal_values": {
+      "Var_0": 3.0,
+      "Var_1": 9.0,
+      "Var_2": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 33.89
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 8.79
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.66
+      ],
+      "objective_linear_coefficient": 4.19,
+      "resource_costs": {
+        "C0": 5.26,
+        "C1": 0.8
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.58
+      ],
+      "objective_linear_coefficient": 1.47,
+      "resource_costs": {
+        "C0": 2.04,
+        "C1": 2.65
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.78
+      ],
+      "objective_linear_coefficient": 1.13,
+      "resource_costs": {
+        "C1": 0.01
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.66, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.19 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.58, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 1.47 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.78, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.13 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.26 * vars['Var_0'] + 2.04 * vars['Var_1'] >= 33.89, name='C0')\n    m.addConstr(0.8 * vars['Var_0'] + 2.65 * vars['Var_1'] + 0.01 * vars['Var_2'] >= 8.79, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Lowest-Cost Mix to Meet Resilience and Community Commitments\n\nHi team,\n\nWe need your help identifying the least expensive mix of three initiatives to satisfy two year-end commitments\u2014our Infrastructure Resilience target and our Community Impact target. Procurement policy requires we make selections in whole units only, and each initiative has a hard cap on how many units we can commit this period. The goal is to meet or exceed the thresholds below at the lowest total spend.\n\nHere are the levers we can pull, in priority order for your review:\n\n- Coastal Reinforcement Projects\n  - Unit cost: 4.19 per project.\n  - Performance contribution: each project adds 5.26 points toward Infrastructure Resilience and 0.8 points toward Community Impact.\n  - Availability and ordering rules: we may commit anywhere from 0 up to 18.66 projects this period; commitments must be whole projects only (no partials).\n\n- Neighborhood Cohort Campaigns\n  - Unit cost: 1.47 per campaign.\n  - Performance contribution: each campaign adds 2.04 points toward Infrastructure Resilience and 2.65 points toward Community Impact.\n  - Availability and ordering rules: we may commit anywhere from 0 up to 12.58 campaigns this period; commitments must be whole campaigns only.\n\n- Micro-Grant Actions\n  - Unit cost: 1.13 per action.\n  - Performance contribution: each action adds 0.01 points toward Community Impact and does not contribute to Infrastructure Resilience.\n  - Availability and ordering rules: we may commit anywhere from 0 up to 19.78 actions this period; commitments must be whole actions only.\n\nFacility Specs and Minimum Commitments\n- Infrastructure Resilience must reach at least 33.89 points in total.\n- Community Impact must reach at least 8.79 points in total.\n\nPlease structure the recommendation to minimize total spend while adhering to the whole-unit requirement and the availability limits noted above. Let me know if you need any additional context."
+}

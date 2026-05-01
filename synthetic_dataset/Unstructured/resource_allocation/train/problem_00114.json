@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All bounds, costs, integrality, and >= service thresholds are explicit per lever/dimension. Objective is clear (min cost). Math is fully reconstructable; only variable naming is unspecified.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative/context around a clear bulleted spec. Slightly verbose but not repetitive; most text directly supports the model.",
+      "realism": 92,
+      "realism_comment": "Plausible service capacity planning with costs and SLAs. Minor oddity: integer crews with a non-integer upper bound; otherwise realistic."
+    },
+    "prompt_tokens_with_data": 786,
+    "prompt_tokens_without_data": 786
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 82.72674752673166,
+    "optimal_values": {
+      "Var_0": 7.1,
+      "Var_1": -0.0,
+      "Var_2": 0.5015868169890472,
+      "Var_3": 15.985502758575572
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 110.66
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 59.34
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 149.54
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 83.79
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.1
+      ],
+      "objective_linear_coefficient": 2.48,
+      "resource_costs": {
+        "C0": 7.0,
+        "C1": 7.71,
+        "C2": 5.1,
+        "C3": 6.78
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.28
+      ],
+      "objective_linear_coefficient": 5.7,
+      "resource_costs": {
+        "C0": 6.04,
+        "C1": 2.58,
+        "C2": 8.1,
+        "C3": 0.11
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.91
+      ],
+      "objective_linear_coefficient": 8.72,
+      "resource_costs": {
+        "C0": 1.78,
+        "C2": 3.81,
+        "C3": 7.02
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.83
+      ],
+      "objective_linear_coefficient": 3.8,
+      "resource_costs": {
+        "C0": 3.84,
+        "C1": 1.25,
+        "C2": 6.97,
+        "C3": 2.01
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.1, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.48 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.28, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.7 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.91, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.72 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.83, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.8 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.0 * vars['Var_0'] + 6.04 * vars['Var_1'] + 1.78 * vars['Var_2'] + 3.84 * vars['Var_3'] >= 110.66, name='C0')\n    m.addConstr(7.71 * vars['Var_0'] + 2.58 * vars['Var_1'] + 1.25 * vars['Var_3'] >= 59.34, name='C1')\n    m.addConstr(5.1 * vars['Var_0'] + 8.1 * vars['Var_1'] + 3.81 * vars['Var_2'] + 6.97 * vars['Var_3'] >= 149.54, name='C2')\n    m.addConstr(6.78 * vars['Var_0'] + 0.11 * vars['Var_1'] + 7.02 * vars['Var_2'] + 2.01 * vars['Var_3'] >= 83.79, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Service Capacity Mix \u2014 Minimize Cost While Meeting Our Coverage Commitments\n\nTeam,\n\nWe need to settle on the least\u2011cost mix of four capacity levers to meet or exceed our required service levels across four dimensions this period. The goal is to minimize total spend while satisfying minimum commitments for Response Readiness, Client Engagement, Compliance Throughput, and Training & Mentorship.\n\nHere are the levers, in the order we expect to evaluate them:\n\n- Core Field Technicians\n  - Deployment window: anywhere from 0.0 up to 7.1 technician\u2011units (we can schedule partial units).\n  - Budget impact: 2.48 per unit.\n  - What each unit delivers:\n    - 7.0 Response Readiness points,\n    - 7.71 Client Engagement points,\n    - 5.1 Compliance Throughput units,\n    - 6.78 Training & Mentorship credits.\n\n- Contracted Response Crews\n  - Deployment window: anywhere from 0.0 up to 10.28 crews; crews must be booked in whole units (no partial teams).\n  - Budget impact: 5.7 per crew.\n  - What each crew delivers:\n    - 6.04 Response Readiness points,\n    - 2.58 Client Engagement points,\n    - 8.1 Compliance Throughput units,\n    - 0.11 Training & Mentorship credits.\n\n- Specialist Compliance Auditors\n  - Deployment window: anywhere from 0.0 up to 12.91 auditor\u2011units (fractional staffing allowed).\n  - Budget impact: 8.72 per unit.\n  - What each unit delivers:\n    - 1.78 Response Readiness points,\n    - 0.0 Client Engagement points (no contribution on this dimension),\n    - 3.81 Compliance Throughput units,\n    - 7.02 Training & Mentorship credits.\n\n- Remote Support Desk Capacity\n  - Deployment window: anywhere from 0.0 up to 19.83 support\u2011units (fractional scheduling allowed).\n  - Budget impact: 3.8 per unit.\n  - What each unit delivers:\n    - 3.84 Response Readiness points,\n    - 1.25 Client Engagement points,\n    - 6.97 Compliance Throughput units,\n    - 2.01 Training & Mentorship credits.\n\nService-Level Commitments (minimum thresholds we must meet or exceed):\n- Response Readiness: at least 110.66 points.\n- Client Engagement: at least 59.34 points.\n- Compliance Throughput: at least 149.54 units.\n- Training & Mentorship: at least 83.79 credits.\n\nPlease come back with the lowest\u2011cost combination of the above levers that satisfies all four minimums within the stated deployment windows."
+}

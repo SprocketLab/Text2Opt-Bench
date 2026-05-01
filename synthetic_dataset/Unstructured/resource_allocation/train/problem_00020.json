@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource limits are explicit; objective is clear. A human can reconstruct the exact model without guessing.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative/context and meta instructions; minor verbosity but technical data is concise and non-repetitive.",
+      "realism": 95,
+      "realism_comment": "Realistic production planning mix with resource capacities and contributions; plausible units. Fractional max batch counts are slightly odd."
+    },
+    "prompt_tokens_with_data": 583,
+    "prompt_tokens_without_data": 583
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 31.67,
+    "optimal_values": {
+      "Var_0": 2.0,
+      "Var_1": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.97
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.57
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.11
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.49
+      ],
+      "objective_linear_coefficient": 9.06,
+      "resource_costs": {
+        "C0": 5.1,
+        "C1": 0.5,
+        "C2": 7.08
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.92
+      ],
+      "objective_linear_coefficient": 2.71,
+      "resource_costs": {
+        "C1": 5.53
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.49, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 9.06 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.92, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.71 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.1 * vars['Var_0'] <= 12.97, name='C0')\n    m.addConstr(0.5 * vars['Var_0'] + 5.53 * vars['Var_1'] <= 30.57, name='C1')\n    m.addConstr(7.08 * vars['Var_0'] <= 16.11, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix decision to maximize contribution this cycle\n\nTeam,\n\nFor the upcoming planning window, we want to set the mix of two offerings to maximize total contribution while staying within our operational limits. All scheduling decisions must be made in whole batches only (no partial batches), and neither product is mandatory\u2014each can be set to zero if needed.\n\nThe levers we can pull\n\n1) Heritage Reserve Batches\n- Financial impact: Each batch of Heritage Reserve adds $9.06 in contribution.\n- Resource footprint per batch:\n  - Distillation Column B: 5.1 run-hours.\n  - Packaging Line 3: 0.5 line-hours.\n  - Refrigerated Warehouse: 7.08 pallet-equivalents of chilled space.\n- Practical boundaries: We cannot schedule more than 13.49 batches in the period, and the count must be a whole number at or above zero.\n\n2) Everyday Line Runs\n- Financial impact: Each run of the Everyday Line adds $2.71 in contribution.\n- Resource footprint per run:\n  - Packaging Line 3: 5.53 line-hours.\n  - No draw on Distillation Column B.\n  - No use of Refrigerated Warehouse space.\n- Practical boundaries: We cannot schedule more than 16.92 runs in the period, and the count must be a whole number at or above zero.\n\nFacility specs and limits for this window\n\n- Distillation Column B availability: up to 12.97 run-hours total.\n- Packaging Line 3 availability: up to 30.57 line-hours total.\n- Refrigerated Warehouse capacity: up to 16.11 pallet-equivalents of chilled space total.\n\nPlease use the above contribution values, per-batch resource requirements, and facility limits to recommend the batch counts for each offering that yield the highest total contribution."
+}

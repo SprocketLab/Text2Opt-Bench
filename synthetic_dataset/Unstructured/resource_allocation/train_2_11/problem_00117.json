@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource capacities are explicit; objective is maximize gross margin; constraint mapping is direct and unique.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business narrative adds length (greeting, subject), but data is concise and non-repetitive; most extra text provides context.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning with multiple shared resources and integer run decisions; parameters and capacities are plausible."
+    },
+    "prompt_tokens_with_data": 827,
+    "prompt_tokens_without_data": 827
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 80.58320657183428,
+    "optimal_values": {
+      "Var_0": 0.47046660521661154,
+      "Var_1": 2.886936050422262,
+      "Var_2": -0.0,
+      "Var_3": 7.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 68.3
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 10.88
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 34.61
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.12
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.64
+      ],
+      "objective_linear_coefficient": 3.18,
+      "resource_costs": {
+        "C0": 7.34,
+        "C1": 0.93,
+        "C2": 3.82,
+        "C3": 7.17
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.06
+      ],
+      "objective_linear_coefficient": 8.87,
+      "resource_costs": {
+        "C0": 0.09,
+        "C1": 2.72,
+        "C2": 2.54
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.49
+      ],
+      "objective_linear_coefficient": 1.32,
+      "resource_costs": {
+        "C0": 8.65,
+        "C1": 0.37,
+        "C2": 2.81,
+        "C3": 6.13
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.28
+      ],
+      "objective_linear_coefficient": 7.64,
+      "resource_costs": {
+        "C0": 8.3,
+        "C1": 0.37,
+        "C2": 3.64,
+        "C3": 3.16
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.64, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.18 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.06, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.87 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.49, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.32 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.28, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.64 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.34 * vars['Var_0'] + 0.09 * vars['Var_1'] + 8.65 * vars['Var_2'] + 8.3 * vars['Var_3'] <= 68.3, name='C0')\n    m.addConstr(0.93 * vars['Var_0'] + 2.72 * vars['Var_1'] + 0.37 * vars['Var_2'] + 0.37 * vars['Var_3'] <= 10.88, name='C1')\n    m.addConstr(3.82 * vars['Var_0'] + 2.54 * vars['Var_1'] + 2.81 * vars['Var_2'] + 3.64 * vars['Var_3'] <= 34.61, name='C2')\n    m.addConstr(7.17 * vars['Var_0'] + 6.13 * vars['Var_2'] + 3.16 * vars['Var_3'] <= 52.12, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Decision for the Upcoming Cycle \u2014 Goal: Maximize Total Contribution\n\nTeam,\n\nFor the next planning window, we need to settle the optimal mix across four product families to maximize overall contribution while staying within our plant limits. Below are the levers we can pull and how each one draws on our shared resources. Where noted, some items can be scheduled in fractional lots; others must be planned in whole runs.\n\nThe levers\n\n- Azure Smoothie Base\n  - Financials: Each production lot contributes 3.18 in gross margin.\n  - Resource draw per lot: 7.34 hours on Line A; 0.93 hours of QA lab time; 3.82 units of steam energy; and 7.17 pallet-slots of cold storage.\n  - Practical limits: We can plan anywhere from 0 up to 14.64 lots this cycle. Partial lots are permitted.\n\n- Golden Protein Mix\n  - Financials: Each production lot contributes 8.87 in gross margin.\n  - Resource draw per lot: 0.09 hours on Line A; 2.72 hours of QA lab time; and 2.54 units of steam energy. This item is shelf-stable and uses no cold storage at all.\n  - Practical limits: We can plan anywhere from 0 up to 15.06 lots. Partial lots are permitted.\n\n- Rustic Granola Bakes\n  - Financials: Each oven run contributes 1.32 in gross margin.\n  - Resource draw per run: 8.65 hours on Line A; 0.37 hours of QA lab time; 2.81 units of steam energy; and 6.13 pallet-slots of cold storage.\n  - Practical limits: We can plan anywhere from 0 up to 6.49 runs. These must be scheduled in whole runs (no partial run planning).\n\n- Emerald Snack Bars\n  - Financials: Each bar line run contributes 7.64 in gross margin.\n  - Resource draw per run: 8.30 hours on Line A; 0.37 hours of QA lab time; 3.64 units of steam energy; and 3.16 pallet-slots of cold storage.\n  - Practical limits: We can plan anywhere from 0 up to 14.28 runs. These must be scheduled in whole runs (no partial run planning).\n\nFacility specs and period limits\n\n- Line A availability: Up to 68.3 hours total across all items.\n- QA lab availability: Up to 10.88 hours total across all items.\n- Steam energy availability: Up to 34.61 units total across all items.\n- Cold storage capacity: Up to 52.12 pallet-slots total across all items.\n\nPlease use these figures to propose a production plan that maximizes total gross margin without exceeding the limits above. If any assumptions need to be revisited (e.g., market caps embedded in the per-item maximums), call them out in your proposal."
+}

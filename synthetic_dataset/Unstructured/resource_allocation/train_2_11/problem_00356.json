@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 10,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All seven products have clear integer bounds, objective contributions, and per-resource consumptions; all resource capacities given. A human can reconstruct objective and 10 constraints exactly.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Email-style framing adds verbosity, but most content is necessary enumeration of coefficients and capacities with little repetition or fluff.",
+      "realism": 95,
+      "realism_comment": "Highly plausible capacity planning with machines, QA, logistics, and environmental credits; integer batches fit. Slightly odd fractional unit caps but acceptable."
+    },
+    "prompt_tokens_with_data": 1061,
+    "prompt_tokens_without_data": 1061
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 298.81,
+    "optimal_values": {
+      "Var_0": 12.0,
+      "Var_1": 14.0,
+      "Var_2": 0.0,
+      "Var_3": 6.0,
+      "Var_4": 3.0,
+      "Var_5": 3.0,
+      "Var_6": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 145.13
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 54.85
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.0
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 168.69
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 86.45
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 143.18
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 79.79
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 112.91
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 120.74
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.6
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.38
+      ],
+      "objective_linear_coefficient": 5.83,
+      "resource_costs": {
+        "C0": 4.25,
+        "C3": 3.5,
+        "C4": 5.53,
+        "C5": 6.41,
+        "C7": 7.23,
+        "C8": 8.7,
+        "C9": 1.24
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.67
+      ],
+      "objective_linear_coefficient": 9.05,
+      "resource_costs": {
+        "C0": 0.94,
+        "C2": 4.02,
+        "C3": 3.74,
+        "C5": 0.54,
+        "C6": 0.26
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.42
+      ],
+      "objective_linear_coefficient": 5.52,
+      "resource_costs": {
+        "C0": 9.15,
+        "C1": 2.32,
+        "C2": 4.59,
+        "C3": 9.11,
+        "C5": 7.39,
+        "C6": 2.12,
+        "C8": 7.19,
+        "C9": 1.9
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.38
+      ],
+      "objective_linear_coefficient": 9.3,
+      "resource_costs": {
+        "C1": 6.26,
+        "C2": 0.29,
+        "C4": 2.41,
+        "C5": 5.18,
+        "C6": 5.38,
+        "C9": 2.25
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.41
+      ],
+      "objective_linear_coefficient": 6.67,
+      "resource_costs": {
+        "C1": 3.02,
+        "C2": 2.7,
+        "C3": 7.4,
+        "C4": 0.71,
+        "C5": 2.17,
+        "C7": 4.04,
+        "C9": 3.22
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.81
+      ],
+      "objective_linear_coefficient": 8.78,
+      "resource_costs": {
+        "C0": 9.39,
+        "C1": 2.74,
+        "C2": 4.74,
+        "C5": 4.73,
+        "C6": 1.13,
+        "C7": 3.8,
+        "C9": 3.84
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.69
+      ],
+      "objective_linear_coefficient": 3.12,
+      "resource_costs": {
+        "C0": 7.59,
+        "C1": 0.23,
+        "C2": 5.44,
+        "C3": 4.87,
+        "C4": 7.13,
+        "C5": 2.13,
+        "C6": 9.05,
+        "C7": 8.2
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.38, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.83 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.67, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.05 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.42, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.52 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.38, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.3 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.41, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.67 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.81, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.78 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=13.69, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 3.12 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.25 * vars['Var_0'] + 0.94 * vars['Var_1'] + 9.15 * vars['Var_2'] + 9.39 * vars['Var_5'] + 7.59 * vars['Var_6'] <= 145.13, name='C0')\n    m.addConstr(2.32 * vars['Var_2'] + 6.26 * vars['Var_3'] + 3.02 * vars['Var_4'] + 2.74 * vars['Var_5'] + 0.23 * vars['Var_6'] <= 54.85, name='C1')\n    m.addConstr(4.02 * vars['Var_1'] + 4.59 * vars['Var_2'] + 0.29 * vars['Var_3'] + 2.7 * vars['Var_4'] + 4.74 * vars['Var_5'] + 5.44 * vars['Var_6'] <= 87.0, name='C2')\n    m.addConstr(3.5 * vars['Var_0'] + 3.74 * vars['Var_1'] + 9.11 * vars['Var_2'] + 7.4 * vars['Var_4'] + 4.87 * vars['Var_6'] <= 168.69, name='C3')\n    m.addConstr(5.53 * vars['Var_0'] + 2.41 * vars['Var_3'] + 0.71 * vars['Var_4'] + 7.13 * vars['Var_6'] <= 86.45, name='C4')\n    m.addConstr(6.41 * vars['Var_0'] + 0.54 * vars['Var_1'] + 7.39 * vars['Var_2'] + 5.18 * vars['Var_3'] + 2.17 * vars['Var_4'] + 4.73 * vars['Var_5'] + 2.13 * vars['Var_6'] <= 143.18, name='C5')\n    m.addConstr(0.26 * vars['Var_1'] + 2.12 * vars['Var_2'] + 5.38 * vars['Var_3'] + 1.13 * vars['Var_5'] + 9.05 * vars['Var_6'] <= 79.79, name='C6')\n    m.addConstr(7.23 * vars['Var_0'] + 4.04 * vars['Var_4'] + 3.8 * vars['Var_5'] + 8.2 * vars['Var_6'] <= 112.91, name='C7')\n    m.addConstr(8.7 * vars['Var_0'] + 7.19 * vars['Var_2'] <= 120.74, name='C8')\n    m.addConstr(1.24 * vars['Var_0'] + 1.9 * vars['Var_2'] + 2.25 * vars['Var_3'] + 3.22 * vars['Var_4'] + 3.84 * vars['Var_5'] <= 49.6, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Capacity mix decision for the next build cycle\n\nTeam,\n\nAs we finalize the production plan for the upcoming run, our objective is to maximize total contribution by choosing the right mix across seven product lines, while staying within the facility and market limits noted below. Quantities must be scheduled in whole-unit batches only, and there is no minimum requirement on any item (each can be set to zero).\n\n- Aurora Home Hub (0 to 18.38 units). Each unit adds 5.83 to contribution. It draws 4.25 Line A machine hours, 3.5 Line B machine hours, 5.53 QA inspection slots, 6.41 maintenance technician hours, 7.23 outbound trucking slots, 8.7 environmental impact credits, and 1.24 project management hours per unit.\n\n- Nimbus Outdoor Camera (0 to 14.67 units). Each unit adds 9.05 to contribution. It requires 0.94 Line A machine hours, 4.02 test bench hours, 3.74 Line B machine hours, 0.54 maintenance technician hours, and 0.26 cold storage pallets per unit.\n\n- Orion Energy Monitor (0 to 17.42 units). Each unit adds 5.52 to contribution. It uses 9.15 Line A machine hours, 2.32 skilled assembly labor shifts, 4.59 test bench hours, 9.11 Line B machine hours, 7.39 maintenance technician hours, 2.12 cold storage pallets, 7.19 environmental impact credits, and 1.9 project management hours per unit.\n\n- Vega Door Lock (0 to 16.38 units). Each unit adds 9.3 to contribution. It consumes 6.26 skilled assembly labor shifts, 0.29 test bench hours, 2.41 QA inspection slots, 5.18 maintenance technician hours, 5.38 cold storage pallets, and 2.25 project management hours per unit.\n\n- Atlas Smoke Detector (0 to 9.41 units). Each unit adds 6.67 to contribution. It needs 3.02 skilled assembly labor shifts, 2.7 test bench hours, 7.4 Line B machine hours, 0.71 QA inspection slots, 2.17 maintenance technician hours, 4.04 outbound trucking slots, and 3.22 project management hours per unit.\n\n- Lumen Light Strip (0 to 13.81 units). Each unit adds 8.78 to contribution. It draws 9.39 Line A machine hours, 2.74 skilled assembly labor shifts, 4.74 test bench hours, 4.73 maintenance technician hours, 1.13 cold storage pallets, 3.8 outbound trucking slots, and 3.84 project management hours per unit.\n\n- Zephyr Air Purifier (0 to 13.69 units). Each unit adds 3.12 to contribution. It uses 7.59 Line A machine hours, 0.23 skilled assembly labor shifts, 5.44 test bench hours, 4.87 Line B machine hours, 7.13 QA inspection slots, 2.13 maintenance technician hours, 9.05 cold storage pallets, and 8.2 outbound trucking slots per unit.\n\nFacility and market limits for the cycle:\n- Line A machine hours: up to 145.13\n- Skilled assembly labor shifts: up to 54.85\n- Test bench hours: up to 87.0\n- Line B machine hours: up to 168.69\n- QA inspection slots: up to 86.45\n- Maintenance technician hours: up to 143.18\n- Cold storage pallets: up to 79.79\n- Outbound trucking slots: up to 112.91\n- Environmental impact credits: up to 120.74\n- Project management hours: up to 49.6\n\nPlease use the above per-unit draws and caps to shape the production schedule. The intent is to push the mix toward the highest total contribution while staying within these constraints and honoring the whole-unit batching requirement."
+}

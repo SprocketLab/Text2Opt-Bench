@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All variables, bounds, signs, and metric floors are specified. Effects per unit are clear, enabling exact reconstruction of objective and constraints.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business email style adds context but extra fluff; some repeated 'no effect' notes. Still largely concise for an OR spec.",
+      "realism": 92,
+      "realism_comment": "Plausible ops planning levers and KPI floors; additive impacts match real-world LPs. Slightly odd negative floors but believable."
+    },
+    "prompt_tokens_with_data": 1050,
+    "prompt_tokens_without_data": 1050
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 39.369296459441486,
+    "optimal_values": {
+      "Var_0": 4.085106382978723,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 0.0,
+      "Var_5": 0.0,
+      "Var_6": 1.130859375
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 9.6
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -2.53
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -1.68
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -114.76
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 5.79
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.43
+      ],
+      "objective_linear_coefficient": 9.33,
+      "resource_costs": {
+        "C0": 2.35,
+        "C3": -5.1
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.13
+      ],
+      "objective_linear_coefficient": 5.27,
+      "resource_costs": {
+        "C0": -3.74,
+        "C2": 3.42,
+        "C3": 7.33
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.77
+      ],
+      "objective_linear_coefficient": 1.71,
+      "resource_costs": {
+        "C1": 0.02
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.69
+      ],
+      "objective_linear_coefficient": 4.04,
+      "resource_costs": {
+        "C4": -5.1
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.48
+      ],
+      "objective_linear_coefficient": 8.25,
+      "resource_costs": {
+        "C3": -3.05,
+        "C4": 3.9
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.9
+      ],
+      "objective_linear_coefficient": 3.0,
+      "resource_costs": {
+        "C0": -3.07
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.57
+      ],
+      "objective_linear_coefficient": 1.11,
+      "resource_costs": {
+        "C3": -9.66,
+        "C4": 5.12
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.43, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.33 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.13, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.27 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.77, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.71 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.69, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.04 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.48, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.25 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.9, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.0 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.57, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.11 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.35 * vars['Var_0'] + -3.74 * vars['Var_1'] + -3.07 * vars['Var_5'] >= 9.6, name='C0')\n    m.addConstr(0.02 * vars['Var_2'] >= -2.53, name='C1')\n    m.addConstr(3.42 * vars['Var_1'] >= -1.68, name='C2')\n    m.addConstr(-5.1 * vars['Var_0'] + 7.33 * vars['Var_1'] + -3.05 * vars['Var_4'] + -9.66 * vars['Var_6'] >= -114.76, name='C3')\n    m.addConstr(-5.1 * vars['Var_3'] + 3.9 * vars['Var_4'] + 5.12 * vars['Var_6'] >= 5.79, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 cost containment mix \u2014 request to set levers while meeting minimum standards\n\nTeam,\n\nAs we finalize the Q1 operating plan, I need us to pick the most cost-effective mix of seven levers while holding our minimum standards on service coverage, liquidity buffer, regulatory compliance, energy offset ledger, and customer experience. The objective is to minimize total run\u2011rate spend. Each lever can be dialed fractionally anywhere from zero up to its maximum, and each one moves one or more of the required metrics as described below.\n\nLevers under consideration (in order):\n\n1) Delta Line Overtime Blocks\n- Per\u2011unit operating spend: 9.33\n- Adjustable range: 0 to 17.43 units\n- Impact on Service Coverage Index: adds 2.35 per unit\n- Impact on Energy Offset Ledger: draws down 5.1 per unit\n- No material effect on the liquidity buffer, compliance score, or customer experience\n\n2) Kestrel Kitting Outsource Batches\n- Per\u2011unit operating spend: 5.27\n- Adjustable range: 0 to 7.13 units\n- Impact on Service Coverage Index: reduces by 3.74 per unit\n- Impact on Regulatory Compliance Score: adds 3.42 per unit\n- Impact on Energy Offset Ledger: adds 7.33 per unit\n- No material effect on the liquidity buffer or customer experience\n\n3) Citrine Cross\u2011Training Cohorts\n- Per\u2011unit operating spend: 1.71\n- Adjustable range: 0 to 12.77 units\n- Impact on Liquidity Buffer: adds 0.02 per unit\n- No material effect on service coverage, compliance score, energy ledger, or customer experience\n\n4) Dusk Maintenance Windows\n- Per\u2011unit operating spend: 4.04\n- Adjustable range: 0 to 8.69 units\n- Impact on Customer Experience Standing: reduces by 5.1 per unit\n- No material effect on service coverage, liquidity buffer, compliance score, or energy ledger\n\n5) Emerald Storefront Upgrades\n- Per\u2011unit operating spend: 8.25\n- Adjustable range: 0 to 6.48 units\n- Impact on Energy Offset Ledger: draws down 3.05 per unit\n- Impact on Customer Experience Standing: adds 3.9 per unit\n- No material effect on service coverage, liquidity buffer, or compliance score\n\n6) Fjord Freight Consolidation Blocks\n- Per\u2011unit operating spend: 3.0\n- Adjustable range: 0 to 14.9 units\n- Impact on Service Coverage Index: reduces by 3.07 per unit\n- No material effect on liquidity buffer, compliance score, energy ledger, or customer experience\n\n7) Grove Digital Signage Rollout\n- Per\u2011unit operating spend: 1.11\n- Adjustable range: 0 to 19.57 units\n- Impact on Energy Offset Ledger: draws down 9.66 per unit\n- Impact on Customer Experience Standing: adds 5.12 per unit\n- No material effect on service coverage, liquidity buffer, or compliance score\n\nFacility specs and minimum standards we must meet:\n- Service Coverage Index: at least 9.6 (we cannot let net coverage fall below 9.6)\n- Liquidity Buffer (net headroom): at least -2.53 (we cannot allow the position to drop below -2.53)\n- Regulatory Compliance Score: at least -1.68 (we cannot allow the score to fall below -1.68)\n- Energy Offset Ledger: at least -114.76 (we cannot allow the ledger to fall below -114.76)\n- Customer Experience Standing: at least 5.79 (we cannot let the standing fall below 5.79)\n\nPlease use the per\u2011unit spend rates, ranges, and metric movements above to recommend a mix that minimizes total cost while meeting all five floors simultaneously. I\u2019m comfortable with fractional deployment of any lever within its stated range.\n\nThanks,\nAlex\nCOO"
+}

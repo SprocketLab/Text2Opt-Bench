@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-product contributions, integer bounds, resource consumptions, and capacity limits; zeros stated. Objective is clear. Enables exact reconstruction without guesswork.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style context and repeated 'no consumption' add some verbosity, but core data is structured and focused on the model.",
+      "realism": 98,
+      "realism_comment": "A realistic chemical production planning MIP with batch integrality and multi-resource capacities; data and terminology are plausible."
+    },
+    "prompt_tokens_with_data": 1178,
+    "prompt_tokens_without_data": 1178
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 111.13999999999999,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": -0.0,
+      "Var_2": 5.0,
+      "Var_3": 11.0,
+      "Var_4": 5.0,
+      "Var_5": 7.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 88.48
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 175.57
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 89.75
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 53.2
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 55.36
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.7
+      ],
+      "objective_linear_coefficient": 1.47,
+      "resource_costs": {
+        "C0": 6.71,
+        "C1": 8.44,
+        "C3": 5.18,
+        "C4": 1.48
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.29
+      ],
+      "objective_linear_coefficient": 1.72,
+      "resource_costs": {
+        "C0": 8.14,
+        "C1": 4.96
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.6
+      ],
+      "objective_linear_coefficient": 3.53,
+      "resource_costs": {
+        "C1": 7.42,
+        "C2": 5.14,
+        "C3": 7.27,
+        "C4": 2.62
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.93
+      ],
+      "objective_linear_coefficient": 4.68,
+      "resource_costs": {
+        "C0": 4.95,
+        "C1": 8.47
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.32
+      ],
+      "objective_linear_coefficient": 3.46,
+      "resource_costs": {
+        "C0": 1.42,
+        "C1": 8.56,
+        "C2": 5.27,
+        "C4": 1.16
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.14
+      ],
+      "objective_linear_coefficient": 3.53,
+      "resource_costs": {
+        "C2": 3.3,
+        "C3": 1.41,
+        "C4": 5.06
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.7, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.47 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.29, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 1.72 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.6, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.53 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.93, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.68 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.32, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.46 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=7.14, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 3.53 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.71 * vars['Var_0'] + 8.14 * vars['Var_1'] + 4.95 * vars['Var_3'] + 1.42 * vars['Var_4'] <= 88.48, name='C0')\n    m.addConstr(8.44 * vars['Var_0'] + 4.96 * vars['Var_1'] + 7.42 * vars['Var_2'] + 8.47 * vars['Var_3'] + 8.56 * vars['Var_4'] <= 175.57, name='C1')\n    m.addConstr(5.14 * vars['Var_2'] + 5.27 * vars['Var_4'] + 3.3 * vars['Var_5'] <= 89.75, name='C2')\n    m.addConstr(5.18 * vars['Var_0'] + 7.27 * vars['Var_2'] + 1.41 * vars['Var_5'] <= 53.2, name='C3')\n    m.addConstr(1.48 * vars['Var_0'] + 2.62 * vars['Var_2'] + 1.16 * vars['Var_4'] + 5.06 * vars['Var_5'] <= 55.36, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation brief for Q1 specialty chemicals run \u2014 maximize total contribution under facility limits\n\nTeam,\n\nAs discussed, we need to set our Q1 production mix to maximize total contribution across six specialty product families. Each product is made in discrete, whole batches and draws on five constrained resources in the plant. Below are the per\u2011batch contribution figures, the exact pull each batch makes on our resource pools, and the practical caps we face on each product line. We can choose to produce zero units of any product if needed, but we cannot exceed the noted ceilings.\n\nDecision levers (batches are whole units only)\n\n- Aurora Solvent A\n  - Financials: each batch yields a contribution of 1.47.\n  - Practical range: anywhere from 0 up to 16.7 batches this quarter; schedule in whole batches only.\n  - Resource use per batch:\n    - Crude A feedstock: 6.71 units per batch.\n    - Reactor Bay R1 time: 8.44 hours per batch.\n    - Catalyst Omega: no consumption.\n    - Distillation Column B: 5.18 hours per batch.\n    - Cooling & Utilities: 1.48 capacity units per batch.\n\n- Boreal Blend B\n  - Financials: each batch yields a contribution of 1.72.\n  - Practical range: anywhere from 0 up to 12.29 batches; whole batches only.\n  - Resource use per batch:\n    - Crude A feedstock: 8.14 units per batch.\n    - Reactor Bay R1 time: 4.96 hours per batch.\n    - Catalyst Omega: no consumption.\n    - Distillation Column B: no time required.\n    - Cooling & Utilities: no draw.\n\n- Citrine Resin C\n  - Financials: each batch yields a contribution of 3.53.\n  - Practical range: anywhere from 0 up to 12.6 batches; whole batches only.\n  - Resource use per batch:\n    - Crude A feedstock: no consumption.\n    - Reactor Bay R1 time: 7.42 hours per batch.\n    - Catalyst Omega: 5.14 units per batch.\n    - Distillation Column B: 7.27 hours per batch.\n    - Cooling & Utilities: 2.62 capacity units per batch.\n\n- Dusk Polymer D\n  - Financials: each batch yields a contribution of 4.68.\n  - Practical range: anywhere from 0 up to 11.93 batches; whole batches only.\n  - Resource use per batch:\n    - Crude A feedstock: 4.95 units per batch.\n    - Reactor Bay R1 time: 8.47 hours per batch.\n    - Catalyst Omega: no consumption.\n    - Distillation Column B: no time required.\n    - Cooling & Utilities: no draw.\n\n- Eclipse Plasticizer E\n  - Financials: each batch yields a contribution of 3.46.\n  - Practical range: anywhere from 0 up to 18.32 batches; whole batches only.\n  - Resource use per batch:\n    - Crude A feedstock: 1.42 units per batch.\n    - Reactor Bay R1 time: 8.56 hours per batch.\n    - Catalyst Omega: 5.27 units per batch.\n    - Distillation Column B: no time required.\n    - Cooling & Utilities: 1.16 capacity units per batch.\n\n- Flux Wax F\n  - Financials: each batch yields a contribution of 3.53.\n  - Practical range: anywhere from 0 up to 7.14 batches; whole batches only.\n  - Resource use per batch:\n    - Crude A feedstock: no consumption.\n    - Reactor Bay R1 time: no time required.\n    - Catalyst Omega: 3.3 units per batch.\n    - Distillation Column B: 1.41 hours per batch.\n    - Cooling & Utilities: 5.06 capacity units per batch.\n\nFacility specs and operating limits (do not exceed)\n\n- Crude A feedstock available this quarter: up to 88.48 units in total.\n- Reactor Bay R1 operating capacity: up to 175.57 hours in total.\n- Catalyst Omega on hand: up to 89.75 units in total.\n- Distillation Column B availability: up to 53.2 hours in total.\n- Cooling & Utilities allocation: up to 55.36 capacity units in total.\n\nPlease use the above to set the mix that achieves the highest total contribution while respecting the whole\u2011batch requirement and these plant limits. If you need clarification on any of the per\u2011batch pulls or caps, let me know."
+}

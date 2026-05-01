@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and constraint targets are explicit. The linear min-cost model can be reconstructed exactly without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business-memo style with some narrative fluff, but technical details are clear and non-repetitive.",
+      "realism": 88,
+      "realism_comment": "Realistic staffing mix with cost and compliance thresholds; slight oddity that a contingency option adds cost without benefits."
+    },
+    "prompt_tokens_with_data": 665,
+    "prompt_tokens_without_data": 665
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 20.146922060766176,
+    "optimal_values": {
+      "Var_0": 1.0,
+      "Var_1": 6.734478203434607,
+      "Var_2": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 59.59
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 2.66
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 3.77
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.03
+      ],
+      "objective_linear_coefficient": 6.88,
+      "resource_costs": {
+        "C0": 8.61,
+        "C1": 4.23,
+        "C2": 4.64
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.38
+      ],
+      "objective_linear_coefficient": 1.97,
+      "resource_costs": {
+        "C0": 7.57
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.57
+      ],
+      "objective_linear_coefficient": 7.56,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.03, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.88 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.38, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.97 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.57, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.56 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.61 * vars['Var_0'] + 7.57 * vars['Var_1'] >= 59.59, name='C0')\n    m.addConstr(4.23 * vars['Var_0'] >= 2.66, name='C1')\n    m.addConstr(4.64 * vars['Var_0'] >= 3.77, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix to meet service commitments at the lowest total outlay\n\nTeam,\n\nWe need to finalize the staffing and support mix for the upcoming cycle with a clear mandate: meet or exceed our minimum service coverage, compliance sign-offs, and quality certifications while keeping total spend as low as possible. Below are the levers available to us and how each one contributes to those targets.\n\n- Master Technician Days\n  - Cost profile: 6.88 per day.\n  - Delivery to commitments: each day provides 8.61 units of service coverage, 4.23 units of regulatory sign-off credit, and 4.64 units of quality certification credit.\n  - Practical limits: we can book anywhere from 0.0 up to 19.03 days, and these must be scheduled as whole days (no partial-day commitments).\n\n- Remote Diagnostics Blocks\n  - Cost profile: 1.97 per block.\n  - Delivery to commitments: each block delivers 7.57 units of service coverage; it does not contribute to regulatory sign-offs or quality certifications.\n  - Practical limits: we can secure anywhere from 0.0 up to 19.38 blocks, and these are flexible enough to be taken in fractional increments.\n\n- Emergency Retainer Packs\n  - Cost profile: 7.56 per pack.\n  - Delivery to commitments: these packs do not generate service coverage, regulatory sign-off credit, or quality certification credit; they are a pure contingency expense.\n  - Practical limits: we can hold anywhere from 0.0 up to 8.57 packs, and these must be purchased in whole packs.\n\nProgram commitments and limits\n- Minimum service coverage to be achieved: at least 59.59 units in total.\n- Minimum regulatory sign-off credit to be achieved: at least 2.66 units in total.\n- Minimum quality certification credit to be achieved: at least 3.77 units in total.\n\nAll three options above are discretionary\u2014there is no obligation to take any minimum quantity of any single option. However, the overall mix must collectively meet or exceed the minimums stated. Please review and advise on the preferred combination within the ranges noted so we can lock in the lowest-cost plan that honors these commitments."
+}

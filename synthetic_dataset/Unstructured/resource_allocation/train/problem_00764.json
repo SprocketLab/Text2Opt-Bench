@@ -1,0 +1,403 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 13,
+    "num_constraints": 15,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Precise LP spec: 13 vars (types, bounds), unit costs, per-category contributions, and baseline RHS. Objective is clear (min spend). Ordering maps items to variables unambiguously.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative style and repeated zero entries add length, but most details are needed to specify coefficients. Minor fluff (Subject/Team, flag caps) increases verbosity.",
+      "realism": 95,
+      "realism_comment": "A realistic diet/resource allocation scenario with nutrition baselines and order caps. Data and integrality choices are plausible for weekly meal-kit sourcing."
+    },
+    "prompt_tokens_with_data": 3030,
+    "prompt_tokens_without_data": 3030
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 125.75611839636244,
+    "optimal_values": {
+      "Var_0": 0.200080998031149,
+      "Var_1": 0.0,
+      "Var_2": 4.0,
+      "Var_3": 3.0,
+      "Var_4": 0.01148239437162708,
+      "Var_5": 0.0,
+      "Var_6": 13.0,
+      "Var_7": 17.0,
+      "Var_8": 6.0,
+      "Var_9": 8.0,
+      "Var_10": 2.0,
+      "Var_11": 3.0,
+      "Var_12": 1.7327480261320563
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 118.39
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 180.74
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 259.25
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 226.73
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 202.75
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 235.05
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 143.04
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 111.52
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 294.44
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 191.94
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 166.15
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 206.69
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 263.02
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 138.93
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 194.72
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.78
+      ],
+      "objective_linear_coefficient": 7.91,
+      "resource_costs": {
+        "C0": 6.07,
+        "C1": 0.69,
+        "C3": 5.85,
+        "C4": 3.52,
+        "C5": 3.2,
+        "C8": 7.68,
+        "C11": 7.31,
+        "C12": 3.53,
+        "C13": 1.03
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.35
+      ],
+      "objective_linear_coefficient": 7.4,
+      "resource_costs": {
+        "C0": 5.02,
+        "C1": 0.61,
+        "C3": 8.82,
+        "C5": 3.24,
+        "C7": 8.79,
+        "C8": 6.35,
+        "C9": 5.14,
+        "C10": 1.87,
+        "C11": 8.29,
+        "C12": 1.03,
+        "C13": 4.02,
+        "C14": 0.01
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.19
+      ],
+      "objective_linear_coefficient": 5.07,
+      "resource_costs": {
+        "C0": 0.58,
+        "C1": 4.07,
+        "C2": 5.93,
+        "C3": 6.91,
+        "C6": 8.31,
+        "C7": 5.31,
+        "C9": 8.48,
+        "C10": 0.16,
+        "C11": 4.62,
+        "C12": 9.61,
+        "C13": 2.42,
+        "C14": 5.46
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 4.73,
+      "resource_costs": {
+        "C0": 1.01,
+        "C1": 5.2,
+        "C2": 8.96,
+        "C3": 1.08,
+        "C4": 2.58,
+        "C5": 4.33,
+        "C7": 5.56,
+        "C9": 4.84,
+        "C10": 3.78,
+        "C11": 6.01,
+        "C12": 4.01,
+        "C14": 7.04
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.3
+      ],
+      "objective_linear_coefficient": 4.96,
+      "resource_costs": {
+        "C2": 6.03,
+        "C3": 8.01,
+        "C4": 2.54,
+        "C5": 0.81,
+        "C6": 5.1,
+        "C8": 7.96,
+        "C9": 6.43,
+        "C11": 0.16,
+        "C12": 2.63,
+        "C13": 8.85
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.35
+      ],
+      "objective_linear_coefficient": 9.41,
+      "resource_costs": {
+        "C0": 0.2,
+        "C1": 3.1,
+        "C2": 9.49,
+        "C3": 6.08,
+        "C4": 8.45,
+        "C5": 9.37,
+        "C7": 1.69,
+        "C8": 8.02,
+        "C12": 3.59,
+        "C14": 7.28
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.26
+      ],
+      "objective_linear_coefficient": 1.26,
+      "resource_costs": {
+        "C1": 5.56,
+        "C3": 2.26,
+        "C4": 9.65,
+        "C5": 7.34,
+        "C8": 3.57,
+        "C9": 4.05,
+        "C10": 2.93,
+        "C11": 2.92,
+        "C12": 5.4,
+        "C13": 1.74,
+        "C14": 1.68
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.91
+      ],
+      "objective_linear_coefficient": 1.47,
+      "resource_costs": {
+        "C0": 1.87,
+        "C2": 6.46,
+        "C3": 3.53,
+        "C5": 4.32,
+        "C6": 4.67,
+        "C8": 9.61,
+        "C9": 8.73,
+        "C10": 3.01,
+        "C11": 1.53,
+        "C12": 5.21,
+        "C13": 8.32,
+        "C14": 7.32
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.36
+      ],
+      "objective_linear_coefficient": 2.35,
+      "resource_costs": {
+        "C0": 7.3,
+        "C1": 9.77,
+        "C3": 8.59,
+        "C4": 4.29,
+        "C5": 4.86,
+        "C6": 6.15,
+        "C7": 0.8,
+        "C8": 7.84,
+        "C9": 0.01,
+        "C10": 8.29,
+        "C11": 9.48,
+        "C12": 5.97,
+        "C13": 6.34,
+        "C14": 1.55
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.51
+      ],
+      "objective_linear_coefficient": 1.17,
+      "resource_costs": {
+        "C0": 3.14,
+        "C1": 0.2,
+        "C2": 8.93,
+        "C3": 3.58,
+        "C4": 4.32,
+        "C5": 8.68,
+        "C6": 5.74,
+        "C7": 4.8,
+        "C9": 3.24,
+        "C10": 9.22,
+        "C11": 4.47,
+        "C13": 5.08,
+        "C14": 2.73
+      }
+    },
+    "Var_10": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.76
+      ],
+      "objective_linear_coefficient": 3.97,
+      "resource_costs": {
+        "C0": 4.83,
+        "C1": 1.72,
+        "C3": 6.78,
+        "C4": 2.98,
+        "C6": 0.16,
+        "C7": 9.2,
+        "C8": 9.3,
+        "C9": 7.57,
+        "C10": 9.02,
+        "C11": 5.77,
+        "C13": 2.59,
+        "C14": 1.97
+      }
+    },
+    "Var_11": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.57
+      ],
+      "objective_linear_coefficient": 4.17,
+      "resource_costs": {
+        "C1": 5.79,
+        "C2": 6.82,
+        "C3": 5.17,
+        "C4": 0.74,
+        "C5": 0.62,
+        "C6": 6.9,
+        "C7": 4.08,
+        "C8": 5.18,
+        "C9": 3.14,
+        "C10": 9.89,
+        "C11": 7.39,
+        "C13": 6.73,
+        "C14": 8.18
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.07
+      ],
+      "objective_linear_coefficient": 2.52,
+      "resource_costs": {
+        "C0": 0.84,
+        "C1": 5.15,
+        "C2": 4.06,
+        "C4": 0.2,
+        "C5": 1.13,
+        "C6": 5.54,
+        "C8": 1.76,
+        "C9": 2.37,
+        "C10": 1.82,
+        "C12": 9.94,
+        "C14": 0.98
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.78, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.91 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.35, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.4 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=18.76, vtype=GRB.INTEGER, name='Var_10')\n    lin_expr += 3.97 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=10.57, vtype=GRB.INTEGER, name='Var_11')\n    lin_expr += 4.17 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=18.07, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 2.52 * vars['Var_12']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.19, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.07 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.73 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.3, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.96 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.35, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.41 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=15.26, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 1.26 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=17.91, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 1.47 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=6.36, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 2.35 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=8.51, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 1.17 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.07 * vars['Var_0'] + 5.02 * vars['Var_1'] + 4.83 * vars['Var_10'] + 0.84 * vars['Var_12'] + 0.58 * vars['Var_2'] + 1.01 * vars['Var_3'] + 0.2 * vars['Var_5'] + 1.87 * vars['Var_7'] + 7.3 * vars['Var_8'] + 3.14 * vars['Var_9'] >= 118.39, name='C0')\n    m.addConstr(0.69 * vars['Var_0'] + 0.61 * vars['Var_1'] + 1.72 * vars['Var_10'] + 5.79 * vars['Var_11'] + 5.15 * vars['Var_12'] + 4.07 * vars['Var_2'] + 5.2 * vars['Var_3'] + 3.1 * vars['Var_5'] + 5.56 * vars['Var_6'] + 9.77 * vars['Var_8'] + 0.2 * vars['Var_9'] >= 180.74, name='C1')\n    m.addConstr(1.87 * vars['Var_1'] + 9.02 * vars['Var_10'] + 9.89 * vars['Var_11'] + 1.82 * vars['Var_12'] + 0.16 * vars['Var_2'] + 3.78 * vars['Var_3'] + 2.93 * vars['Var_6'] + 3.01 * vars['Var_7'] + 8.29 * vars['Var_8'] + 9.22 * vars['Var_9'] >= 166.15, name='C10')\n    m.addConstr(7.31 * vars['Var_0'] + 8.29 * vars['Var_1'] + 5.77 * vars['Var_10'] + 7.39 * vars['Var_11'] + 4.62 * vars['Var_2'] + 6.01 * vars['Var_3'] + 0.16 * vars['Var_4'] + 2.92 * vars['Var_6'] + 1.53 * vars['Var_7'] + 9.48 * vars['Var_8'] + 4.47 * vars['Var_9'] >= 206.69, name='C11')\n    m.addConstr(3.53 * vars['Var_0'] + 1.03 * vars['Var_1'] + 9.94 * vars['Var_12'] + 9.61 * vars['Var_2'] + 4.01 * vars['Var_3'] + 2.63 * vars['Var_4'] + 3.59 * vars['Var_5'] + 5.4 * vars['Var_6'] + 5.21 * vars['Var_7'] + 5.97 * vars['Var_8'] >= 263.02, name='C12')\n    m.addConstr(1.03 * vars['Var_0'] + 4.02 * vars['Var_1'] + 2.59 * vars['Var_10'] + 6.73 * vars['Var_11'] + 2.42 * vars['Var_2'] + 8.85 * vars['Var_4'] + 1.74 * vars['Var_6'] + 8.32 * vars['Var_7'] + 6.34 * vars['Var_8'] + 5.08 * vars['Var_9'] >= 138.93, name='C13')\n    m.addConstr(0.01 * vars['Var_1'] + 1.97 * vars['Var_10'] + 8.18 * vars['Var_11'] + 0.98 * vars['Var_12'] + 5.46 * vars['Var_2'] + 7.04 * vars['Var_3'] + 7.28 * vars['Var_5'] + 1.68 * vars['Var_6'] + 7.32 * vars['Var_7'] + 1.55 * vars['Var_8'] + 2.73 * vars['Var_9'] >= 194.72, name='C14')\n    m.addConstr(6.82 * vars['Var_11'] + 4.06 * vars['Var_12'] + 5.93 * vars['Var_2'] + 8.96 * vars['Var_3'] + 6.03 * vars['Var_4'] + 9.49 * vars['Var_5'] + 6.46 * vars['Var_7'] + 8.93 * vars['Var_9'] >= 259.25, name='C2')\n    m.addConstr(5.85 * vars['Var_0'] + 8.82 * vars['Var_1'] + 6.78 * vars['Var_10'] + 5.17 * vars['Var_11'] + 6.91 * vars['Var_2'] + 1.08 * vars['Var_3'] + 8.01 * vars['Var_4'] + 6.08 * vars['Var_5'] + 2.26 * vars['Var_6'] + 3.53 * vars['Var_7'] + 8.59 * vars['Var_8'] + 3.58 * vars['Var_9'] >= 226.73, name='C3')\n    m.addConstr(3.52 * vars['Var_0'] + 2.98 * vars['Var_10'] + 0.74 * vars['Var_11'] + 0.2 * vars['Var_12'] + 2.58 * vars['Var_3'] + 2.54 * vars['Var_4'] + 8.45 * vars['Var_5'] + 9.65 * vars['Var_6'] + 4.29 * vars['Var_8'] + 4.32 * vars['Var_9'] >= 202.75, name='C4')\n    m.addConstr(3.2 * vars['Var_0'] + 3.24 * vars['Var_1'] + 0.62 * vars['Var_11'] + 1.13 * vars['Var_12'] + 4.33 * vars['Var_3'] + 0.81 * vars['Var_4'] + 9.37 * vars['Var_5'] + 7.34 * vars['Var_6'] + 4.32 * vars['Var_7'] + 4.86 * vars['Var_8'] + 8.68 * vars['Var_9'] >= 235.05, name='C5')\n    m.addConstr(0.16 * vars['Var_10'] + 6.9 * vars['Var_11'] + 5.54 * vars['Var_12'] + 8.31 * vars['Var_2'] + 5.1 * vars['Var_4'] + 4.67 * vars['Var_7'] + 6.15 * vars['Var_8'] + 5.74 * vars['Var_9'] >= 143.04, name='C6')\n    m.addConstr(8.79 * vars['Var_1'] + 9.2 * vars['Var_10'] + 4.08 * vars['Var_11'] + 5.31 * vars['Var_2'] + 5.56 * vars['Var_3'] + 1.69 * vars['Var_5'] + 0.8 * vars['Var_8'] + 4.8 * vars['Var_9'] >= 111.52, name='C7')\n    m.addConstr(7.68 * vars['Var_0'] + 6.35 * vars['Var_1'] + 9.3 * vars['Var_10'] + 5.18 * vars['Var_11'] + 1.76 * vars['Var_12'] + 7.96 * vars['Var_4'] + 8.02 * vars['Var_5'] + 3.57 * vars['Var_6'] + 9.61 * vars['Var_7'] + 7.84 * vars['Var_8'] >= 294.44, name='C8')\n    m.addConstr(5.14 * vars['Var_1'] + 7.57 * vars['Var_10'] + 3.14 * vars['Var_11'] + 2.37 * vars['Var_12'] + 8.48 * vars['Var_2'] + 4.84 * vars['Var_3'] + 6.43 * vars['Var_4'] + 4.05 * vars['Var_6'] + 8.73 * vars['Var_7'] + 0.01 * vars['Var_8'] + 3.24 * vars['Var_9'] >= 191.94, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Weekly Meal Kit Sourcing \u2013 Minimize Spend While Meeting Baseline Nutrition Targets\n\nTeam,\n\nWe\u2019re building the weekly sourcing plan for our wellness meal kits. The brief is straightforward: meet or exceed all of our baseline nutrition commitments at the lowest possible weekly procurement cost. Below are the levers we can pull\u2014each item\u2019s per\u2011unit cost, orderability (whole units vs. partials), weekly cap, and the contribution each unit makes toward our nutrition baselines. Please use this as the setup for your optimization.\n\nDecision levers and per\u2011unit details (in order):\n\n1) Harvest Grain Base Blend\n- Procurement notes: Can be portioned; order between 0 and 14.78 units.\n- Unit cost: 7.91 per unit.\n- Per\u2011unit contribution to baselines:\n  \u2022 Caloric Energy: 6.07\n  \u2022 Protein: 0.69\n  \u2022 Complex Carbohydrates: 0\n  \u2022 Dietary Fiber: 5.85\n  \u2022 Healthy Fats: 3.52\n  \u2022 Calcium: 3.2\n  \u2022 Iron: 0\n  \u2022 Vitamin C: 0\n  \u2022 Potassium: 7.68\n  \u2022 Vitamin A: 0\n  \u2022 Vitamin D: 0\n  \u2022 Magnesium: 7.31\n  \u2022 Whole Grains: 3.53\n  \u2022 Folate: 1.03\n  \u2022 Zinc: 0\n\n2) Protein & Fruit Packs\n- Procurement notes: Whole packs only; order between 0 and 6.35 packs.\n- Unit cost: 7.40 per pack.\n- Per\u2011pack contribution to baselines:\n  \u2022 Caloric Energy: 5.02\n  \u2022 Protein: 0.61\n  \u2022 Complex Carbohydrates: 0\n  \u2022 Dietary Fiber: 8.82\n  \u2022 Healthy Fats: 0\n  \u2022 Calcium: 3.24\n  \u2022 Iron: 0\n  \u2022 Vitamin C: 8.79\n  \u2022 Potassium: 6.35\n  \u2022 Vitamin A: 5.14\n  \u2022 Vitamin D: 1.87\n  \u2022 Magnesium: 8.29\n  \u2022 Whole Grains: 1.03\n  \u2022 Folate: 4.02\n  \u2022 Zinc: 0.01\n\n3) Lentil & Grain Stew Kits\n- Procurement notes: Whole kits only; order between 0 and 6.19 kits.\n- Unit cost: 5.07 per kit.\n- Per\u2011kit contribution to baselines:\n  \u2022 Caloric Energy: 0.58\n  \u2022 Protein: 4.07\n  \u2022 Complex Carbohydrates: 5.93\n  \u2022 Dietary Fiber: 6.91\n  \u2022 Healthy Fats: 0\n  \u2022 Calcium: 0\n  \u2022 Iron: 8.31\n  \u2022 Vitamin C: 5.31\n  \u2022 Potassium: 0\n  \u2022 Vitamin A: 8.48\n  \u2022 Vitamin D: 0.16\n  \u2022 Magnesium: 4.62\n  \u2022 Whole Grains: 9.61\n  \u2022 Folate: 2.42\n  \u2022 Zinc: 5.46\n\n4) Brown Rice Pilaf Kits\n- Procurement notes: Whole kits only; order between 0 and 7.00 kits.\n- Unit cost: 4.73 per kit.\n- Per\u2011kit contribution to baselines:\n  \u2022 Caloric Energy: 1.01\n  \u2022 Protein: 5.20\n  \u2022 Complex Carbohydrates: 8.96\n  \u2022 Dietary Fiber: 1.08\n  \u2022 Healthy Fats: 2.58\n  \u2022 Calcium: 4.33\n  \u2022 Iron: 0\n  \u2022 Vitamin C: 5.56\n  \u2022 Potassium: 0\n  \u2022 Vitamin A: 4.84\n  \u2022 Vitamin D: 3.78\n  \u2022 Magnesium: 6.01\n  \u2022 Whole Grains: 4.01\n  \u2022 Folate: 0\n  \u2022 Zinc: 7.04\n\n5) Leafy Greens Produce\n- Procurement notes: Can be portioned; order between 0 and 17.30 units.\n- Unit cost: 4.96 per unit.\n- Per\u2011unit contribution to baselines:\n  \u2022 Caloric Energy: 0\n  \u2022 Protein: 0\n  \u2022 Complex Carbohydrates: 6.03\n  \u2022 Dietary Fiber: 8.01\n  \u2022 Healthy Fats: 2.54\n  \u2022 Calcium: 0.81\n  \u2022 Iron: 5.10\n  \u2022 Vitamin C: 0\n  \u2022 Potassium: 7.96\n  \u2022 Vitamin A: 6.43\n  \u2022 Vitamin D: 0\n  \u2022 Magnesium: 0.16\n  \u2022 Whole Grains: 2.63\n  \u2022 Folate: 8.85\n  \u2022 Zinc: 0\n\n6) Dairy & Nut Fortification Packs\n- Procurement notes: Whole packs only; order between 0 and 15.35 packs.\n- Unit cost: 9.41 per pack.\n- Per\u2011pack contribution to baselines:\n  \u2022 Caloric Energy: 0.20\n  \u2022 Protein: 3.10\n  \u2022 Complex Carbohydrates: 9.49\n  \u2022 Dietary Fiber: 6.08\n  \u2022 Healthy Fats: 8.45\n  \u2022 Calcium: 9.37\n  \u2022 Iron: 0\n  \u2022 Vitamin C: 1.69\n  \u2022 Potassium: 8.02\n  \u2022 Vitamin A: 0\n  \u2022 Vitamin D: 0\n  \u2022 Magnesium: 0\n  \u2022 Whole Grains: 3.59\n  \u2022 Folate: 0\n  \u2022 Zinc: 7.28\n\n7) Plant Oil & Enrichment Drums\n- Procurement notes: Whole drums only; order between 0 and 15.26 drums.\n- Unit cost: 1.26 per drum.\n- Per\u2011drum contribution to baselines:\n  \u2022 Caloric Energy: 0\n  \u2022 Protein: 5.56\n  \u2022 Complex Carbohydrates: 0\n  \u2022 Dietary Fiber: 2.26\n  \u2022 Healthy Fats: 9.65\n  \u2022 Calcium: 7.34\n  \u2022 Iron: 0\n  \u2022 Vitamin C: 0\n  \u2022 Potassium: 3.57\n  \u2022 Vitamin A: 4.05\n  \u2022 Vitamin D: 2.93\n  \u2022 Magnesium: 2.92\n  \u2022 Whole Grains: 5.40\n  \u2022 Folate: 1.74\n  \u2022 Zinc: 1.68\n\n8) Root Vegetable Cases\n- Procurement notes: Whole cases only; order between 0 and 17.91 cases.\n- Unit cost: 1.47 per case.\n- Per\u2011case contribution to baselines:\n  \u2022 Caloric Energy: 1.87\n  \u2022 Protein: 0\n  \u2022 Complex Carbohydrates: 6.46\n  \u2022 Dietary Fiber: 3.53\n  \u2022 Healthy Fats: 0\n  \u2022 Calcium: 4.32\n  \u2022 Iron: 4.67\n  \u2022 Vitamin C: 0\n  \u2022 Potassium: 9.61\n  \u2022 Vitamin A: 8.73\n  \u2022 Vitamin D: 3.01\n  \u2022 Magnesium: 1.53\n  \u2022 Whole Grains: 5.21\n  \u2022 Folate: 8.32\n  \u2022 Zinc: 7.32\n\n9) Superfood Trail Mix Cases\n- Procurement notes: Whole cases only; order between 0 and 6.36 cases.\n- Unit cost: 2.35 per case.\n- Per\u2011case contribution to baselines:\n  \u2022 Caloric Energy: 7.30\n  \u2022 Protein: 9.77\n  \u2022 Complex Carbohydrates: 0\n  \u2022 Dietary Fiber: 8.59\n  \u2022 Healthy Fats: 4.29\n  \u2022 Calcium: 4.86\n  \u2022 Iron: 6.15\n  \u2022 Vitamin C: 0.80\n  \u2022 Potassium: 7.84\n  \u2022 Vitamin A: 0.01\n  \u2022 Vitamin D: 8.29\n  \u2022 Magnesium: 9.48\n  \u2022 Whole Grains: 5.97\n  \u2022 Folate: 6.34\n  \u2022 Zinc: 1.55\n\n10) Fortified Bread Loaves\n- Procurement notes: Whole loaves only; order between 0 and 8.51 loaves.\n- Unit cost: 1.17 per loaf.\n- Per\u2011loaf contribution to baselines:\n  \u2022 Caloric Energy: 3.14\n  \u2022 Protein: 0.20\n  \u2022 Complex Carbohydrates: 8.93\n  \u2022 Dietary Fiber: 3.58\n  \u2022 Healthy Fats: 4.32\n  \u2022 Calcium: 8.68\n  \u2022 Iron: 5.74\n  \u2022 Vitamin C: 4.80\n  \u2022 Potassium: 0\n  \u2022 Vitamin A: 3.24\n  \u2022 Vitamin D: 9.22\n  \u2022 Magnesium: 4.47\n  \u2022 Whole Grains: 0\n  \u2022 Folate: 5.08\n  \u2022 Zinc: 2.73\n\n11) Citrus Fruit Crates\n- Procurement notes: Whole crates only; order between 0 and 18.76 crates.\n- Unit cost: 3.97 per crate.\n- Per\u2011crate contribution to baselines:\n  \u2022 Caloric Energy: 4.83\n  \u2022 Protein: 1.72\n  \u2022 Complex Carbohydrates: 0\n  \u2022 Dietary Fiber: 6.78\n  \u2022 Healthy Fats: 2.98\n  \u2022 Calcium: 0\n  \u2022 Iron: 0.16\n  \u2022 Vitamin C: 9.20\n  \u2022 Potassium: 9.30\n  \u2022 Vitamin A: 7.57\n  \u2022 Vitamin D: 9.02\n  \u2022 Magnesium: 5.77\n  \u2022 Whole Grains: 0\n  \u2022 Folate: 2.59\n  \u2022 Zinc: 1.97\n\n12) Milk & Eggs Combos\n- Procurement notes: Whole combos only; order between 0 and 10.57 combos.\n- Unit cost: 4.17 per combo.\n- Per\u2011combo contribution to baselines:\n  \u2022 Caloric Energy: 0\n  \u2022 Protein: 5.79\n  \u2022 Complex Carbohydrates: 6.82\n  \u2022 Dietary Fiber: 5.17\n  \u2022 Healthy Fats: 0.74\n  \u2022 Calcium: 0.62\n  \u2022 Iron: 6.90\n  \u2022 Vitamin C: 4.08\n  \u2022 Potassium: 5.18\n  \u2022 Vitamin A: 3.14\n  \u2022 Vitamin D: 9.89\n  \u2022 Magnesium: 7.39\n  \u2022 Whole Grains: 0\n  \u2022 Folate: 6.73\n  \u2022 Zinc: 8.18\n\n13) Whole Grain Pasta Batches\n- Procurement notes: Can be portioned; order between 0 and 18.07 batches.\n- Unit cost: 2.52 per batch.\n- Per\u2011batch contribution to baselines:\n  \u2022 Caloric Energy: 0.84\n  \u2022 Protein: 5.15\n  \u2022 Complex Carbohydrates: 4.06\n  \u2022 Dietary Fiber: 0\n  \u2022 Healthy Fats: 0.20\n  \u2022 Calcium: 1.13\n  \u2022 Iron: 5.54\n  \u2022 Vitamin C: 0\n  \u2022 Potassium: 1.76\n  \u2022 Vitamin A: 2.37\n  \u2022 Vitamin D: 1.82\n  \u2022 Magnesium: 0\n  \u2022 Whole Grains: 9.94\n  \u2022 Folate: 0\n  \u2022 Zinc: 0.98\n\nMinimum weekly nutrition baselines (must be met or exceeded):\n- Caloric Energy: 118.39 total units\n- Protein: 180.74 total units\n- Complex Carbohydrates: 259.25 total units\n- Dietary Fiber: 226.73 total units\n- Healthy Fats: 202.75 total units\n- Calcium: 235.05 total units\n- Iron: 143.04 total units\n- Vitamin C: 111.52 total units\n- Potassium: 294.44 total units\n- Vitamin A: 191.94 total units\n- Vitamin D: 166.15 total units\n- Magnesium: 206.69 total units\n- Whole Grains: 263.02 total units\n- Folate: 138.93 total units\n- Zinc: 194.72 total units\n\nPlease proceed to build the weekly mix that minimizes total spend while satisfying the above baselines. Flag any binding caps where a single item\u2019s limit (e.g., max allowable units) is likely to drive selection of substitutes."
+}

@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 10,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit bounds, costs, and per-unit impacts; floors map to >= constraints; 'no measurable effect' => zero coeffs. Non-integer upper bounds imply continuous vars. Exact LP is derivable.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some business narrative and intro/closing fluff; repeated 'no measurable effect' phrases are needed to denote zeros. Most content maps directly to coefficients.",
+      "realism": 94,
+      "realism_comment": "Sourcing plan minimizing spend with supplier impacts and scorecard floors is realistic. Negative floors are unusual but coherent, overall very plausible supply chain LP."
+    },
+    "prompt_tokens_with_data": 1809,
+    "prompt_tokens_without_data": 1809
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 128.53536795648313,
+    "optimal_values": {
+      "Var_0": 14.190222038469127,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 3.8500042284092713,
+      "Var_5": 0.8571540573601011,
+      "Var_6": 4.319733375973733,
+      "Var_7": 0.0,
+      "Var_8": 9.85013302638648
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 114.93
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -55.21
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -3.1
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -128.78
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 111.13
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -51.35
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -121.89
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -101.57
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -46.83
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -1.53
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.41
+      ],
+      "objective_linear_coefficient": 1.08,
+      "resource_costs": {
+        "C1": -4.55,
+        "C3": -1.59,
+        "C4": 6.19,
+        "C5": 4.26,
+        "C6": -4.55,
+        "C7": 0.38,
+        "C8": -3.92,
+        "C9": 7.48
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.66
+      ],
+      "objective_linear_coefficient": 3.56,
+      "resource_costs": {
+        "C1": -8.01,
+        "C2": 7.85,
+        "C4": -6.45,
+        "C6": -0.55,
+        "C7": -6.52,
+        "C8": 9.22,
+        "C9": -2.82
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.03
+      ],
+      "objective_linear_coefficient": 3.81,
+      "resource_costs": {
+        "C2": -7.77,
+        "C3": -9.08,
+        "C4": 4.06,
+        "C5": -8.97,
+        "C8": -2.32,
+        "C9": -5.64
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.61
+      ],
+      "objective_linear_coefficient": 8.91,
+      "resource_costs": {
+        "C0": -5.83,
+        "C1": 1.8,
+        "C4": 5.22,
+        "C5": 3.57,
+        "C8": 8.71,
+        "C9": 6.93
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.76
+      ],
+      "objective_linear_coefficient": 6.33,
+      "resource_costs": {
+        "C0": 4.19,
+        "C1": 2.43,
+        "C2": 4.8,
+        "C3": -2.29,
+        "C4": 6.05,
+        "C6": -1.74,
+        "C8": -3.91,
+        "C9": 0.42
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.35
+      ],
+      "objective_linear_coefficient": 4.65,
+      "resource_costs": {
+        "C2": 7.43,
+        "C5": -3.14,
+        "C6": -9.55,
+        "C7": -1.59,
+        "C8": 8.35
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.52
+      ],
+      "objective_linear_coefficient": 1.88,
+      "resource_costs": {
+        "C0": 0.16,
+        "C2": -6.47,
+        "C3": 7.46,
+        "C8": 9.77
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.59
+      ],
+      "objective_linear_coefficient": 7.43,
+      "resource_costs": {
+        "C1": -4.65,
+        "C5": 2.11,
+        "C6": -2.98,
+        "C8": 0.47
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.15
+      ],
+      "objective_linear_coefficient": 7.79,
+      "resource_costs": {
+        "C0": 9.96,
+        "C3": -2.36,
+        "C6": -2.45,
+        "C7": -9.59,
+        "C8": -2.59
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.41, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.08 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.66, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.56 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.03, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.81 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.61, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.91 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.76, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.33 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=5.35, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.65 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.52, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.88 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=7.59, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.43 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=10.15, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 7.79 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-5.83 * vars['Var_3'] + 4.19 * vars['Var_4'] + 0.16 * vars['Var_6'] + 9.96 * vars['Var_8'] >= 114.93, name='C0')\n    m.addConstr(-4.55 * vars['Var_0'] + -8.01 * vars['Var_1'] + 1.8 * vars['Var_3'] + 2.43 * vars['Var_4'] + -4.65 * vars['Var_7'] >= -55.21, name='C1')\n    m.addConstr(7.85 * vars['Var_1'] + -7.77 * vars['Var_2'] + 4.8 * vars['Var_4'] + 7.43 * vars['Var_5'] + -6.47 * vars['Var_6'] >= -3.1, name='C2')\n    m.addConstr(-1.59 * vars['Var_0'] + -9.08 * vars['Var_2'] + -2.29 * vars['Var_4'] + 7.46 * vars['Var_6'] + -2.36 * vars['Var_8'] >= -128.78, name='C3')\n    m.addConstr(6.19 * vars['Var_0'] + -6.45 * vars['Var_1'] + 4.06 * vars['Var_2'] + 5.22 * vars['Var_3'] + 6.05 * vars['Var_4'] >= 111.13, name='C4')\n    m.addConstr(4.26 * vars['Var_0'] + -8.97 * vars['Var_2'] + 3.57 * vars['Var_3'] + -3.14 * vars['Var_5'] + 2.11 * vars['Var_7'] >= -51.35, name='C5')\n    m.addConstr(-4.55 * vars['Var_0'] + -0.55 * vars['Var_1'] + -1.74 * vars['Var_4'] + -9.55 * vars['Var_5'] + -2.98 * vars['Var_7'] + -2.45 * vars['Var_8'] >= -121.89, name='C6')\n    m.addConstr(0.38 * vars['Var_0'] + -6.52 * vars['Var_1'] + -1.59 * vars['Var_5'] + -9.59 * vars['Var_8'] >= -101.57, name='C7')\n    m.addConstr(-3.92 * vars['Var_0'] + 9.22 * vars['Var_1'] + -2.32 * vars['Var_2'] + 8.71 * vars['Var_3'] + -3.91 * vars['Var_4'] + 8.35 * vars['Var_5'] + 9.77 * vars['Var_6'] + 0.47 * vars['Var_7'] + -2.59 * vars['Var_8'] >= -46.83, name='C8')\n    m.addConstr(7.48 * vars['Var_0'] + -2.82 * vars['Var_1'] + -5.64 * vars['Var_2'] + 6.93 * vars['Var_3'] + 0.42 * vars['Var_4'] >= -1.53, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Team,\n\nAs we finalize our Q2 sourcing plan for Advanced Materials, our objective is to minimize total spend while meeting the company\u2019s balanced scorecard floors across ten operating and risk indices. Below is a plain-language briefing on each of the nine sourcing levers, how much we can draw on them, their unit costs, and how they move each of the indices we track.\n\n- Blue Ridge Components (Base Contract)\n  - Cost and scale: 1.08 per unit; can be scheduled anywhere from 0 up to 15.41 units.\n  - Impact summary: no measurable effect on the Operations Continuity Index or the Regulatory Readiness Score; reduces the Stakeholder Sentiment Score by 4.55 points per unit; reduces the Supply Volatility Counterbalance by 1.59; improves the ESG Composite Index by 6.19; improves the Safety & Quality Margin by 4.26; reduces the Liquidity Buffer Exposure by 4.55; slightly improves the Brand Dilution Risk Offset by 0.38; reduces the Logistics Impact Index by 3.92; and improves the Cash Flow Timing Index by 7.48.\n\n- Silver Lake Plastics\n  - Cost and scale: 3.56 per unit; can be scheduled from 0 to 11.66 units.\n  - Impact summary: no measurable effect on the Operations Continuity Index, the Supply Volatility Counterbalance, or the Safety & Quality Margin; reduces the Stakeholder Sentiment Score by 8.01 points per unit; improves the Regulatory Readiness Score by 7.85; reduces the ESG Composite Index by 6.45; slightly reduces the Liquidity Buffer Exposure by 0.55; reduces the Brand Dilution Risk Offset by 6.52; increases the Logistics Impact Index by 9.22; and reduces the Cash Flow Timing Index by 2.82.\n\n- Northgate Electronics\n  - Cost and scale: 3.81 per unit; can be scheduled from 0 to 10.03 units.\n  - Impact summary: no measurable effect on the Operations Continuity Index, the Stakeholder Sentiment Score, the Liquidity Buffer Exposure, or the Brand Dilution Risk Offset; reduces the Regulatory Readiness Score by 7.77 points per unit; reduces the Supply Volatility Counterbalance by 9.08; improves the ESG Composite Index by 4.06; reduces the Safety & Quality Margin by 8.97; reduces the Logistics Impact Index by 2.32; and reduces the Cash Flow Timing Index by 5.64.\n\n- Harborview Metals\n  - Cost and scale: 8.91 per unit; can be scheduled from 0 to 10.61 units.\n  - Impact summary: reduces the Operations Continuity Index by 5.83 points per unit; improves the Stakeholder Sentiment Score by 1.8; no measurable effect on the Regulatory Readiness Score or the Supply Volatility Counterbalance; improves the ESG Composite Index by 5.22; improves the Safety & Quality Margin by 3.57; no measurable effect on the Liquidity Buffer Exposure or the Brand Dilution Risk Offset; increases the Logistics Impact Index by 8.71; and improves the Cash Flow Timing Index by 6.93.\n\n- Cedar Grove Composites\n  - Cost and scale: 6.33 per unit; can be scheduled from 0 to 7.76 units.\n  - Impact summary: improves the Operations Continuity Index by 4.19 points per unit; improves the Stakeholder Sentiment Score by 2.43; improves the Regulatory Readiness Score by 4.8; reduces the Supply Volatility Counterbalance by 2.29; improves the ESG Composite Index by 6.05; no measurable effect on the Safety & Quality Margin; reduces the Liquidity Buffer Exposure by 1.74; no measurable effect on the Brand Dilution Risk Offset; reduces the Logistics Impact Index by 3.91; and improves the Cash Flow Timing Index by 0.42.\n\n- Prairie Glassworks\n  - Cost and scale: 4.65 per unit; can be scheduled from 0 to 5.35 units.\n  - Impact summary: no measurable effect on the Operations Continuity Index or the Stakeholder Sentiment Score; improves the Regulatory Readiness Score by 7.43 points per unit; no measurable effect on the Supply Volatility Counterbalance or the ESG Composite Index; reduces the Safety & Quality Margin by 3.14; reduces the Liquidity Buffer Exposure by 9.55; reduces the Brand Dilution Risk Offset by 1.59; increases the Logistics Impact Index by 8.35; and no measurable effect on the Cash Flow Timing Index.\n\n- Sierra Advanced Coatings\n  - Cost and scale: 1.88 per unit; can be scheduled from 0 to 10.52 units.\n  - Impact summary: improves the Operations Continuity Index by 0.16 points per unit; reduces the Regulatory Readiness Score by 6.47; improves the Supply Volatility Counterbalance by 7.46; no measurable effect on the Stakeholder Sentiment Score, the ESG Composite Index, the Safety & Quality Margin, the Liquidity Buffer Exposure, or the Brand Dilution Risk Offset; increases the Logistics Impact Index by 9.77; and no measurable effect on the Cash Flow Timing Index.\n\n- Union Hills Fabrication\n  - Cost and scale: 7.43 per unit; can be scheduled from 0 to 7.59 units.\n  - Impact summary: reduces the Stakeholder Sentiment Score by 4.65 points per unit; no measurable effect on the Operations Continuity Index or the Regulatory Readiness Score; no measurable effect on the Supply Volatility Counterbalance or the ESG Composite Index; improves the Safety & Quality Margin by 2.11; reduces the Liquidity Buffer Exposure by 2.98; no measurable effect on the Brand Dilution Risk Offset; increases the Logistics Impact Index by 0.47; and no measurable effect on the Cash Flow Timing Index.\n\n- Red Mesa Alloys\n  - Cost and scale: 7.79 per unit; can be scheduled from 0 to 10.15 units.\n  - Impact summary: improves the Operations Continuity Index by 9.96 points per unit; no measurable effect on the Stakeholder Sentiment Score or the Regulatory Readiness Score; reduces the Supply Volatility Counterbalance by 2.36; no measurable effect on the ESG Composite Index or the Safety & Quality Margin; reduces the Liquidity Buffer Exposure by 2.45; reduces the Brand Dilution Risk Offset by 9.59; reduces the Logistics Impact Index by 2.59; and no measurable effect on the Cash Flow Timing Index.\n\nFacility and Market Limits (minimum floors we must stay above):\n- Operations Continuity Index must be at least 114.93.\n- Stakeholder Sentiment Score must be at least -55.21.\n- Regulatory Readiness Score must be at least -3.1.\n- Supply Volatility Counterbalance must be at least -128.78.\n- ESG Composite Index must be at least 111.13.\n- Safety & Quality Margin must be at least -51.35.\n- Liquidity Buffer Exposure must be at least -121.89.\n- Brand Dilution Risk Offset must be at least -101.57.\n- Logistics Impact Index must be at least -46.83.\n- Cash Flow Timing Index must be at least -1.53.\n\nPlease use the above as the basis for the cost-minimizing mix. If you need any refinements on naming conventions or want these mapped to our dashboard taxonomy, I\u2019m happy to align, but the numbers and directional impacts should remain exactly as stated."
+}

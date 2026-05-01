@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, and objective are explicit; partial batches imply continuous vars. Zero draws are clear. Variable names aren\u2019t given, but the math model is reconstructible.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Email-style narrative adds some verbosity, but most text conveys needed coefficients, bounds, and capacities; minimal fluff.",
+      "realism": 100,
+      "realism_comment": "Very realistic production planning with resource capacities, per-unit usage, and contribution margins; coherent and plausible."
+    },
+    "prompt_tokens_with_data": 696,
+    "prompt_tokens_without_data": 696
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 92.37623559594729,
+    "optimal_values": {
+      "Var_0": 4.749216300940439,
+      "Var_1": 8.799495586380832
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 69.78
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.3
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 60.49
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 40.79
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.63
+      ],
+      "objective_linear_coefficient": 3.85,
+      "resource_costs": {
+        "C1": 6.38,
+        "C3": 3.72
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.35
+      ],
+      "objective_linear_coefficient": 8.42,
+      "resource_costs": {
+        "C0": 7.93,
+        "C2": 6.81,
+        "C3": 2.56
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.63, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.85 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.35, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.42 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.93 * vars['Var_1'] <= 69.78, name='C0')\n    m.addConstr(6.38 * vars['Var_0'] <= 30.3, name='C1')\n    m.addConstr(6.81 * vars['Var_1'] <= 60.49, name='C2')\n    m.addConstr(3.72 * vars['Var_0'] + 2.56 * vars['Var_1'] <= 40.79, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Setting our Q1 mix to maximize contribution within plant and market limits\n\nTeam,\n\nAs discussed, we need to set the production plan for the upcoming period to maximize total contribution while staying within our staffing, equipment, storage, and distribution limits. We can run partial batches if needed. Below are the two levers we control this cycle and the way each one draws on our constrained resources.\n\n- Citrus Reserve small-batch run\n  - Financial return: Each unit of Citrus Reserve contributes 3.85 in gross margin.\n  - Volume flexibility: We can schedule anywhere from zero up to 17.63 units this cycle; we should not exceed that cap.\n  - Resource impacts per unit:\n    - Skilled Cellar Team time: draws 6.38 units of crew time for every unit of Citrus Reserve produced.\n    - Carbonation Line A: requires 3.72 units of line capacity per unit produced.\n    - Outbound Dock & Loading windows: no draw from this pool.\n    - Chilled Warehouse positions: no draw from this pool.\n\n- Berry Burst premium run\n  - Financial return: Each unit of Berry Burst contributes 8.42 in gross margin.\n  - Volume flexibility: We can schedule anywhere from zero up to 19.35 units this cycle; we should not exceed that cap.\n  - Resource impacts per unit:\n    - Outbound Dock & Loading windows: requires 7.93 units of loading and dispatch capacity per unit produced.\n    - Chilled Warehouse positions: draws 6.81 storage units per unit produced.\n    - Carbonation Line A: requires 2.56 units of line capacity per unit produced.\n    - Skilled Cellar Team time: no draw from this pool.\n\nFacility Specs & Market Limits for the period\n- Outbound Dock & Loading windows: no more than 69.78 units available.\n- Skilled Cellar Team time: no more than 30.3 units available.\n- Chilled Warehouse positions: no more than 60.49 units available.\n- Carbonation Line A capacity: no more than 40.79 units available.\n\nOur objective is to choose the mix of Citrus Reserve and Berry Burst within the above limits so that total contribution is as high as possible. Please use these parameters in the planning model and share the recommended production plan and the resulting resource utilizations.\n\nThanks,\nMarisa\nVP, Operations Planning"
+}

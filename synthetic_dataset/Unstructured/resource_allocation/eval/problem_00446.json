@@ -1,0 +1,199 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, objective coefficients, and per-lever impacts are quantified with clear signs; each cap is a <= limit. A modeler can mechanically reconstruct the exact LP.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business narrative and parentheticals add verbosity, but nearly all content maps to coefficients or bounds; some flavor text remains.",
+      "realism": 95,
+      "realism_comment": "Reads like a genuine plant portfolio optimization with plausible resource and compliance trade-offs; metrics and interactions are coherent."
+    },
+    "prompt_tokens_with_data": 1366,
+    "prompt_tokens_without_data": 1366
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 273.6038121201782,
+    "optimal_values": {
+      "Var_0": 6.430327117439996,
+      "Var_1": 15.32,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 0.0,
+      "Var_5": 3.173202614379085,
+      "Var_6": 4.482456961244105,
+      "Var_7": 14.95,
+      "Var_8": 6.019303907722316
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -7.95
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 1.34
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -8.61
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.36
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -10.21
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 44.31
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.13
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.07
+      ],
+      "objective_linear_coefficient": 6.4,
+      "resource_costs": {
+        "C1": -0.69,
+        "C2": 3.11,
+        "C5": 6.98
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.32
+      ],
+      "objective_linear_coefficient": 1.17,
+      "resource_costs": {
+        "C0": -5.32,
+        "C4": -7.85
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.11
+      ],
+      "objective_linear_coefficient": 7.51,
+      "resource_costs": {
+        "C0": 9.1,
+        "C2": 3.35,
+        "C4": -8.27,
+        "C5": 2.45,
+        "C6": 8.76
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.32
+      ],
+      "objective_linear_coefficient": 2.4,
+      "resource_costs": {
+        "C2": -1.59,
+        "C3": 4.04
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.86
+      ],
+      "objective_linear_coefficient": 8.32,
+      "resource_costs": {
+        "C1": 7.34,
+        "C4": -5.11,
+        "C6": 6.44
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.57
+      ],
+      "objective_linear_coefficient": 8.28,
+      "resource_costs": {
+        "C0": -9.3,
+        "C1": 6.43,
+        "C3": -2.0,
+        "C5": -5.07,
+        "C6": 9.18
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.57
+      ],
+      "objective_linear_coefficient": 5.57,
+      "resource_costs": {
+        "C1": -8.43,
+        "C2": -7.47,
+        "C3": -0.34,
+        "C5": 9.9
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.95
+      ],
+      "objective_linear_coefficient": 6.94,
+      "resource_costs": {
+        "C3": -0.08,
+        "C4": -3.47,
+        "C5": -3.07
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.32
+      ],
+      "objective_linear_coefficient": 9.89,
+      "resource_costs": {
+        "C2": 0.81,
+        "C3": 6.55,
+        "C4": 3.1,
+        "C5": 2.83
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.07, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.4 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.32, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.17 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.11, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.51 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.32, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.4 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.86, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.32 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.57, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.28 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=18.57, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 5.57 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=14.95, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 6.94 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=16.32, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 9.89 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-5.32 * vars['Var_1'] + 9.1 * vars['Var_2'] + -9.3 * vars['Var_5'] <= -7.95, name='C0')\n    m.addConstr(-0.69 * vars['Var_0'] + 7.34 * vars['Var_4'] + 6.43 * vars['Var_5'] + -8.43 * vars['Var_6'] <= 1.34, name='C1')\n    m.addConstr(3.11 * vars['Var_0'] + 3.35 * vars['Var_2'] + -1.59 * vars['Var_3'] + -7.47 * vars['Var_6'] + 0.81 * vars['Var_8'] <= -8.61, name='C2')\n    m.addConstr(4.04 * vars['Var_3'] + -2.0 * vars['Var_5'] + -0.34 * vars['Var_6'] + -0.08 * vars['Var_7'] + 6.55 * vars['Var_8'] <= 30.36, name='C3')\n    m.addConstr(-7.85 * vars['Var_1'] + -8.27 * vars['Var_2'] + -5.11 * vars['Var_4'] + -3.47 * vars['Var_7'] + 3.1 * vars['Var_8'] <= -10.21, name='C4')\n    m.addConstr(6.98 * vars['Var_0'] + 2.45 * vars['Var_2'] + -5.07 * vars['Var_5'] + 9.9 * vars['Var_6'] + -3.07 * vars['Var_7'] + 2.83 * vars['Var_8'] <= 44.31, name='C5')\n    m.addConstr(8.76 * vars['Var_2'] + 6.44 * vars['Var_4'] + 9.18 * vars['Var_5'] <= 29.13, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio Allocation Brief \u2014 Maximizing Plant Contribution Within Limits\n\nTeam,\n\nWe\u2019re preparing the FY plan for a set of scalable operational levers. The aim is to maximize total contribution margin while respecting our compliance thresholds and physical capacities. Each lever can be dialed anywhere from zero up to its practical ceiling (partial rollout is fine), and each one has a clear, quantifiable impact on our regulatory ledgers and bottleneck resources. Below is the business brief, in the exact order we\u2019d like you to consider the levers.\n\n- Bottle Rinse Recirculation Program\n  We can retrofit this on up to 16.07 lines (minimum commitment is zero). Each implementation is worth 6.4 units of net benefit. It lightens our Freshwater Withdrawal Permit by 0.69 units per line, adds 3.11 units into the Landfill Waste Ledger due to filter cake handling, and occupies 6.98 pallet-equivalents in the Warehouse Pallet Occupancy Cap.\n\n- Biochar Offset Agreement\n  This contract can be scaled up to 15.32 units (zero is a permissible choice). Each unit contributes 1.17 units to overall benefit. Operationally, it moves our Net Greenhouse Gas Position down by 5.32 units and similarly lowers the NOx Emissions (post\u2011abatement) Target by 7.85 units through certified offsets.\n\n- High-Temp Pasteurizer Upgrade\n  We can deploy up to 16.11 units (optional). Each upgrade delivers 7.51 units of benefit. It raises the Net Greenhouse Gas Position by 9.1 units, increases the Landfill Waste Ledger by 3.35 units (spent media and packaging), reduces NOx by 8.27 units thanks to cleaner burners, consumes 2.45 pallet-equivalents of Warehouse Pallet Occupancy, and draws 8.76 units from the High\u2011Pressure Steam resource.\n\n- Automated Carton Accumulator\n  Up to 14.32 units are feasible (no minimum). Each unit adds 2.4 units of benefit. It cuts the Landfill Waste Ledger by 1.59 units through reduced corrugate loss, but it does consume 4.04 hours of the Packaging Line Hour Budget per unit due to setup and integration time.\n\n- Sparkling Beverage Line Expansion\n  We can expand up to 18.86 units (zero is acceptable). Each unit is worth 8.32 units of benefit. It draws 7.34 units from our Freshwater Withdrawal Permit, reduces NOx by 5.11 units via cleaner combustion profiles, and requires 6.44 units of High\u2011Pressure Steam for carbonation and thermal processing.\n\n- Lightweight Bottle Conversion\n  This conversion is scalable up to 19.57 units (no minimum). Each unit contributes 8.28 units of benefit. It improves our Net Greenhouse Gas Position by 9.3 units (lighter transport footprint), draws 6.43 units against Freshwater Withdrawal (rinse requirements), frees 2.0 hours in the Packaging Line Hour Budget by simplifying changeovers, frees 5.07 pallet-equivalents under Warehouse Pallet Occupancy via denser stacking, and draws 9.18 units of High\u2011Pressure Steam during reforming.\n\n- Returnable Crate Program\n  We can roll out up to 18.57 units (minimum zero). Each unit yields 5.57 units of benefit. It slashes our Freshwater Withdrawal Permit by 8.43 units (less rinsing of primary packs), reduces the Landfill Waste Ledger by 7.47 units (less corrugate), relieves 0.34 hours of the Packaging Line Hour Budget per unit by speeding outfeed, but uses 9.9 pallet-equivalents under Warehouse Pallet Occupancy for crate staging.\n\n- Co\u2011packing Outsource Lots\n  We can outsource up to 14.95 lots (zero is allowed). Each lot adds 6.94 units of benefit. It relieves 0.08 hours per lot of our Packaging Line Hour Budget by shifting work offsite, reduces NOx by 3.47 units through the partner\u2019s cleaner equipment, and frees 3.07 pallet-equivalents in Warehouse Pallet Occupancy as shipments bypass our DC.\n\n- Premium Energy Drinks Launch\n  This launch can scale to 16.32 units (optional). Each unit delivers 9.89 units of benefit. It adds 0.81 units to the Landfill Waste Ledger (film and caps), consumes 6.55 hours of the Packaging Line Hour Budget, increases NOx by 3.1 units due to higher thermal demand, and uses 2.83 pallet-equivalents in Warehouse Pallet Occupancy.\n\nFacility Specs & Compliance Limits (total portfolio must fit within these caps):\n- Net Greenhouse Gas Position (after credits): target at or below \u22127.95 units.\n- Freshwater Withdrawal Permit: no more than 1.34 units.\n- Landfill Waste Ledger: target at or below \u22128.61 units.\n- Packaging Line Hour Budget: no more than 30.36 hours.\n- NOx Emissions (post\u2011abatement) Target: at or below \u221210.21 units.\n- Warehouse Pallet Occupancy Cap: no more than 44.31 pallet\u2011equivalents.\n- High\u2011Pressure Steam Draw: no more than 29.13 units.\n\nPlease use this brief to recommend the mix that maximizes total benefit while meeting all the above limits. Partial adoption of each lever is acceptable; there are no minimum lot sizes or indivisibilities to worry about."
+}

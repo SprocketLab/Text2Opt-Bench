@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and capacities are clearly specified; objective is maximize contribution. Each resource map is explicit and matches constraints.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business memo style adds some extra wording, but the structure is clear and not repetitive; most details are necessary for the model.",
+      "realism": 98,
+      "realism_comment": "Highly plausible production planning scenario with realistic resources and limits; matches standard OR resource allocation models."
+    },
+    "prompt_tokens_with_data": 1047,
+    "prompt_tokens_without_data": 1047
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 136.3585104052574,
+    "optimal_values": {
+      "Var_0": 5.764512595837896,
+      "Var_1": 9.0,
+      "Var_2": -0.0,
+      "Var_3": 6.0,
+      "Var_4": 8.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 113.44
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 47.73
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 117.7
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 39.23
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.69
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 132.21
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.51
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 168.43
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.48
+      ],
+      "objective_linear_coefficient": 1.62,
+      "resource_costs": {
+        "C2": 4.21,
+        "C5": 8.96,
+        "C7": 9.13
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.53
+      ],
+      "objective_linear_coefficient": 2.66,
+      "resource_costs": {
+        "C0": 9.01,
+        "C1": 1.09,
+        "C3": 4.2,
+        "C5": 7.68,
+        "C7": 5.3
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 5.47,
+      "resource_costs": {
+        "C0": 6.38,
+        "C1": 8.0,
+        "C2": 8.25,
+        "C5": 7.2,
+        "C6": 3.75,
+        "C7": 3.12
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.49
+      ],
+      "objective_linear_coefficient": 7.66,
+      "resource_costs": {
+        "C2": 4.71,
+        "C3": 0.08,
+        "C4": 8.98,
+        "C7": 0.39
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.18
+      ],
+      "objective_linear_coefficient": 7.14,
+      "resource_costs": {
+        "C0": 3.44,
+        "C1": 3.87,
+        "C2": 7.5,
+        "C6": 6.54,
+        "C7": 8.22
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.48, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.62 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.53, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.66 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.47 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.49, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.66 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.18, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 7.14 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.01 * vars['Var_1'] + 6.38 * vars['Var_2'] + 3.44 * vars['Var_4'] <= 113.44, name='C0')\n    m.addConstr(1.09 * vars['Var_1'] + 8.0 * vars['Var_2'] + 3.87 * vars['Var_4'] <= 47.73, name='C1')\n    m.addConstr(4.21 * vars['Var_0'] + 8.25 * vars['Var_2'] + 4.71 * vars['Var_3'] + 7.5 * vars['Var_4'] <= 117.7, name='C2')\n    m.addConstr(4.2 * vars['Var_1'] + 0.08 * vars['Var_3'] <= 39.23, name='C3')\n    m.addConstr(8.98 * vars['Var_3'] <= 56.69, name='C4')\n    m.addConstr(8.96 * vars['Var_0'] + 7.68 * vars['Var_1'] + 7.2 * vars['Var_2'] <= 132.21, name='C5')\n    m.addConstr(3.75 * vars['Var_2'] + 6.54 * vars['Var_4'] <= 52.51, name='C6')\n    m.addConstr(9.13 * vars['Var_0'] + 5.3 * vars['Var_1'] + 3.12 * vars['Var_2'] + 0.39 * vars['Var_3'] + 8.22 * vars['Var_4'] <= 168.43, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Next Cycle Allocation to Maximize Contribution\n\nTeam,\n\nFor the upcoming period, we want to allocate production across five product lines to maximize total contribution while staying within our shared plant and logistics limits. Below are the levers we can pull and how each one draws on our constrained resources. Wherever noted, certain items can only be scheduled in whole units; one can be adjusted fractionally. Each lever can be set anywhere from zero up to the stated ceiling.\n\n- Herbal Infusion Pilot Run\n  - Contribution: Each unit adds 1.62 in contribution.\n  - Feasible range: From 0 up to 10.48 units; this pilot can be dialed fractionally.\n  - Per-unit resource draw:\n    - Line A processing time: 4.21 units\n    - Flavor & sweetener allotment: 8.96 units\n    - Outbound distribution credits: 9.13 units\n\n- Classic Cola Lots\n  - Contribution: Each lot adds 2.66 in contribution.\n  - Feasible range: From 0 up to 10.53 lots, scheduled in whole lots only.\n  - Per-lot resource draw:\n    - Blending & filling crew hours: 9.01 hours\n    - Quality lab time: 1.09 hours\n    - Packaging bay throughput: 4.20 units\n    - Flavor & sweetener allotment: 7.68 units\n    - Outbound distribution credits: 5.30 units\n\n- Sparkling Water Runs\n  - Contribution: Each run adds 5.47 in contribution.\n  - Feasible range: From 0 up to 11 runs, in whole runs only.\n  - Per-run resource draw:\n    - Blending & filling crew hours: 6.38 hours\n    - Quality lab time: 8.00 hours\n    - Line A processing time: 8.25 units\n    - Flavor & sweetener allotment: 7.20 units\n    - Maintenance crew availability: 3.75 hours\n    - Outbound distribution credits: 3.12 units\n\n- Cold Brew Coffee Batches\n  - Contribution: Each batch adds 7.66 in contribution.\n  - Feasible range: From 0 up to 18.49 batches, in whole batches only.\n  - Per-batch resource draw:\n    - Line A processing time: 4.71 units\n    - Packaging bay throughput: 0.08 units\n    - Refrigerated storage pallet-days: 8.98 pallet-days\n    - Outbound distribution credits: 0.39 units\n\n- Energy Drink Campaign\n  - Contribution: Each campaign unit adds 7.14 in contribution.\n  - Feasible range: From 0 up to 13.18 units, in whole units only.\n  - Per-unit resource draw:\n    - Blending & filling crew hours: 3.44 hours\n    - Quality lab time: 3.87 hours\n    - Line A processing time: 7.50 units\n    - Maintenance crew availability: 6.54 hours\n    - Outbound distribution credits: 8.22 units\n\nPlant and Market Limits (do not exceed):\n- Blending & filling crew hours: up to 113.44 hours\n- Quality lab time: up to 47.73 hours\n- Line A processing time: up to 117.70 units\n- Packaging bay throughput: up to 39.23 units\n- Refrigerated storage pallet-days: up to 56.69 pallet-days\n- Flavor & sweetener allotment: up to 132.21 units\n- Maintenance crew availability: up to 52.51 hours\n- Outbound distribution credits: up to 168.43 units\n\nPlease use this as the basis for your recommendation on how many units of each product line to plan so that total contribution is maximized without breaching any of the above limits. Note that only the pilot can be fractional; all other items must be scheduled in whole units.\n\nThanks,\n[Client Name]"
+}

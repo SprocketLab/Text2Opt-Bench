@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Objective coeffs, integer domains, bounds, per-run resource usages, and capacities are all explicitly given with <= sense. Mapping to variables/constraints is mechanical; no guessing needed.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some verbosity and repeated 0.00 resource lines plus narrative intro; helpful for clarity but longer than necessary.",
+      "realism": 95,
+      "realism_comment": "Very plausible production planning scenario with realistic resources and limits; slight oddity with non-integer caps for integer runs."
+    },
+    "prompt_tokens_with_data": 1008,
+    "prompt_tokens_without_data": 1008
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 21.490000000000002,
+    "optimal_values": {
+      "Var_0": 1.0,
+      "Var_1": 4.0,
+      "Var_2": 2.0,
+      "Var_3": 2.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 35.27
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 10.38
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 34.75
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 1.74
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 41.34
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.51
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 15.06
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.89
+      ],
+      "objective_linear_coefficient": 4.69,
+      "resource_costs": {
+        "C1": 8.72
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.16
+      ],
+      "objective_linear_coefficient": 2.29,
+      "resource_costs": {
+        "C0": 7.15,
+        "C3": 0.13,
+        "C4": 9.94
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.57
+      ],
+      "objective_linear_coefficient": 2.76,
+      "resource_costs": {
+        "C2": 6.88,
+        "C6": 7.03
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.99
+      ],
+      "objective_linear_coefficient": 1.06,
+      "resource_costs": {
+        "C0": 2.65,
+        "C2": 9.63,
+        "C5": 6.59
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.89, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.69 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.16, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.29 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.57, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.76 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.99, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 1.06 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.15 * vars['Var_1'] + 2.65 * vars['Var_3'] <= 35.27, name='C0')\n    m.addConstr(8.72 * vars['Var_0'] <= 10.38, name='C1')\n    m.addConstr(6.88 * vars['Var_2'] + 9.63 * vars['Var_3'] <= 34.75, name='C2')\n    m.addConstr(0.13 * vars['Var_1'] <= 1.74, name='C3')\n    m.addConstr(9.94 * vars['Var_1'] <= 41.34, name='C4')\n    m.addConstr(6.59 * vars['Var_3'] <= 14.51, name='C5')\n    m.addConstr(7.03 * vars['Var_2'] <= 15.06, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Weekly Mix Plan to Maximize Contribution Under Plant Limits\n\nTeam,\n\nFor the upcoming planning window, we need to decide how many runs of four offerings to schedule so that we maximize total contribution while staying within our available capacity and market limits. All run counts will be set in whole numbers only, and for each offering we can choose anywhere from zero up to its cap as noted below.\n\nDecision levers and their impacts:\n\n1) Heritage Reserve Barrel Program\n- Commercial impact: each run contributes 4.69 to gross margin.\n- Permissible volume: anywhere from 0 up to 17.89 runs, counted in whole runs only.\n- Resource usage per run:\n  \u2022 Filling Line A hours: 0.00 hours\n  \u2022 Master Brewer oversight: 8.72 hours\n  \u2022 Blending Tank B hours: 0.00 hours\n  \u2022 QA Lab time: 0.00 days\n  \u2022 Cold Room space: 0.00 pallet-days\n  \u2022 Shipping Dock access: 0.00 slots\n  \u2022 Outbound Truck time: 0.00 hours\n\n2) Glacier Citrus Pressed Juice\n- Commercial impact: each run contributes 2.29 to gross margin.\n- Permissible volume: anywhere from 0 up to 15.16 runs, counted in whole runs only.\n- Resource usage per run:\n  \u2022 Filling Line A hours: 7.15 hours\n  \u2022 Master Brewer oversight: 0.00 hours\n  \u2022 Blending Tank B hours: 0.00 hours\n  \u2022 QA Lab time: 0.13 days\n  \u2022 Cold Room space: 9.94 pallet-days\n  \u2022 Shipping Dock access: 0.00 slots\n  \u2022 Outbound Truck time: 0.00 hours\n\n3) Harvest Protein Smoothies\n- Commercial impact: each run contributes 2.76 to gross margin.\n- Permissible volume: anywhere from 0 up to 12.57 runs, counted in whole runs only.\n- Resource usage per run:\n  \u2022 Filling Line A hours: 0.00 hours\n  \u2022 Master Brewer oversight: 0.00 hours\n  \u2022 Blending Tank B hours: 6.88 hours\n  \u2022 QA Lab time: 0.00 days\n  \u2022 Cold Room space: 0.00 pallet-days\n  \u2022 Shipping Dock access: 0.00 slots\n  \u2022 Outbound Truck time: 7.03 hours\n\n4) Sunrise Iced Tea\n- Commercial impact: each run contributes 1.06 to gross margin.\n- Permissible volume: anywhere from 0 up to 7.99 runs, counted in whole runs only.\n- Resource usage per run:\n  \u2022 Filling Line A hours: 2.65 hours\n  \u2022 Master Brewer oversight: 0.00 hours\n  \u2022 Blending Tank B hours: 9.63 hours\n  \u2022 QA Lab time: 0.00 days\n  \u2022 Cold Room space: 0.00 pallet-days\n  \u2022 Shipping Dock access: 6.59 slots\n  \u2022 Outbound Truck time: 0.00 hours\n\nFacility specs and market limits (do not exceed):\n- Filling Line A hours available: 35.27 hours\n- Master Brewer oversight available: 10.38 hours\n- Blending Tank B hours available: 34.75 hours\n- QA Lab time available: 1.74 days\n- Cold Room space available: 41.34 pallet-days\n- Shipping Dock access available: 14.51 slots\n- Outbound Truck time available: 15.06 hours\n\nOur aim is to select the whole-number mix of runs across these four offerings that delivers the highest total contribution while staying within each of the limits above. Please use this as the basis for the optimization run and come back with the recommended schedule."
+}

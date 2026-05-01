@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 11,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-product bounds (with integrality), objective contributions, and per-unit resource usages with precise capacities; each maps 1-to-1 to a linear constraint\u2014no guessing needed.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative and planning fluff (greetings, alignment notes), but core numerical specs are crisp; lists of coefficients are necessary, not repetitive.",
+      "realism": 95,
+      "realism_comment": "Feels like a real production planning problem with QA, packaging, warehouse, marketing, emissions, electricity, and risk budgets; coherent and plausible."
+    },
+    "prompt_tokens_with_data": 1213,
+    "prompt_tokens_without_data": 1213
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 259.696056471344,
+    "optimal_values": {
+      "Var_0": 1.6935015835807798,
+      "Var_1": 2.0,
+      "Var_2": 7.0,
+      "Var_3": 2.4866504854368916,
+      "Var_4": 7.792784318845397,
+      "Var_5": 8.560874553997307,
+      "Var_6": 11.0,
+      "Var_7": 2.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.94
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 141.0
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 96.18
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 75.88
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.58
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 138.17
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 97.0
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 45.14
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 135.91
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.33
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 149.01
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.86
+      ],
+      "objective_linear_coefficient": 2.05,
+      "resource_costs": {
+        "C3": 3.86,
+        "C6": 9.53,
+        "C10": 0.85
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.23
+      ],
+      "objective_linear_coefficient": 9.55,
+      "resource_costs": {
+        "C0": 7.16,
+        "C1": 3.73,
+        "C2": 3.31,
+        "C6": 8.37,
+        "C8": 8.36,
+        "C9": 0.91,
+        "C10": 4.96
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 2.05,
+      "resource_costs": {
+        "C1": 3.67,
+        "C4": 0.58,
+        "C5": 6.95,
+        "C8": 0.61,
+        "C10": 2.26
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.32
+      ],
+      "objective_linear_coefficient": 7.52,
+      "resource_costs": {
+        "C1": 4.68,
+        "C2": 2.62,
+        "C4": 7.48,
+        "C5": 9.57,
+        "C6": 3.47,
+        "C7": 7.89,
+        "C8": 8.24,
+        "C10": 6.68
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.46
+      ],
+      "objective_linear_coefficient": 5.08,
+      "resource_costs": {
+        "C2": 8.18,
+        "C5": 0.34
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.08
+      ],
+      "objective_linear_coefficient": 6.2,
+      "resource_costs": {
+        "C3": 8.1,
+        "C5": 6.87
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 8.49,
+      "resource_costs": {
+        "C1": 7.61,
+        "C8": 7.57,
+        "C10": 8.28
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.76
+      ],
+      "objective_linear_coefficient": 9.01,
+      "resource_costs": {
+        "C1": 4.07,
+        "C2": 9.65,
+        "C5": 2.13,
+        "C7": 9.96,
+        "C8": 5.58,
+        "C9": 9.76,
+        "C10": 3.77
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.86, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.05 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.23, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.55 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.05 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.32, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.52 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.46, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.08 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.08, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.2 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 8.49 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=7.76, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 9.01 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.16 * vars['Var_1'] <= 16.94, name='C0')\n    m.addConstr(3.73 * vars['Var_1'] + 3.67 * vars['Var_2'] + 4.68 * vars['Var_3'] + 7.61 * vars['Var_6'] + 4.07 * vars['Var_7'] <= 141.0, name='C1')\n    m.addConstr(0.85 * vars['Var_0'] + 4.96 * vars['Var_1'] + 2.26 * vars['Var_2'] + 6.68 * vars['Var_3'] + 8.28 * vars['Var_6'] + 3.77 * vars['Var_7'] <= 149.01, name='C10')\n    m.addConstr(3.31 * vars['Var_1'] + 2.62 * vars['Var_3'] + 8.18 * vars['Var_4'] + 9.65 * vars['Var_7'] <= 96.18, name='C2')\n    m.addConstr(3.86 * vars['Var_0'] + 8.1 * vars['Var_5'] <= 75.88, name='C3')\n    m.addConstr(0.58 * vars['Var_2'] + 7.48 * vars['Var_3'] <= 29.58, name='C4')\n    m.addConstr(6.95 * vars['Var_2'] + 9.57 * vars['Var_3'] + 0.34 * vars['Var_4'] + 6.87 * vars['Var_5'] + 2.13 * vars['Var_7'] <= 138.17, name='C5')\n    m.addConstr(9.53 * vars['Var_0'] + 8.37 * vars['Var_1'] + 3.47 * vars['Var_3'] <= 97.0, name='C6')\n    m.addConstr(7.89 * vars['Var_3'] + 9.96 * vars['Var_7'] <= 45.14, name='C7')\n    m.addConstr(8.36 * vars['Var_1'] + 0.61 * vars['Var_2'] + 8.24 * vars['Var_3'] + 7.57 * vars['Var_6'] + 5.58 * vars['Var_7'] <= 135.91, name='C8')\n    m.addConstr(0.91 * vars['Var_1'] + 9.76 * vars['Var_7'] <= 22.33, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix plan to maximize contribution under spring operating limits\n\nTeam,\n\nFor the spring production window, our goal is to maximize total gross margin across a set of eight offerings, while staying within plant, logistics, marketing, compliance, and risk limits. Below is a plain-English description of the levers and the relevant capacities so everyone can align on the planning assumptions.\n\nLevers (what we can produce or schedule):\n\n- Aurora Starter Bundles\n  We can scale these anywhere from zero up to 16.86 bundles, including partial lots if helpful. Each bundle adds 2.05 to gross margin. Operationally, every bundle needs 3.86 hours on Packaging Line Beta, draws 9.53 units from our electricity budget, and consumes 0.85 points from the capital-at-risk envelope.\n\n- Midnight Cold Brew Cases\n  These must be scheduled in whole cases only, with volume anywhere from zero up to 5.23 cases authorized. Each case contributes 9.55 to gross margin. Per case, plan for 7.16 Quality Assurance lab hours; 3.73 warehouse pallet slots in the Central Warehouse; 3.31 units of Botanical A supply; 8.37 units from our electricity budget; 8.36 of marketing and channel spend; 0.91 VOC emission permit points; and 4.96 points from the capital-at-risk envelope.\n\n- Heritage Herbal Care Packs\n  Whole packs only, with a workable range from zero to 10. Each pack adds 2.05 to gross margin. Each one requires 3.67 warehouse pallet slots; 0.58 rolls of labels and film; 6.95 units of clean-room bay occupancy; 0.61 of marketing and channel spend; and 2.26 points from the capital-at-risk envelope.\n\n- Zen Spark Energy Shots\n  These can be scaled in partial batches, anywhere from zero up to 19.32. Each batch contributes 7.52 to gross margin. For each batch, plan on 4.68 warehouse pallet slots; 2.62 units of Botanical A supply; 7.48 rolls of labels and film; 9.57 units of clean-room bay occupancy; 3.47 units from the electricity budget; 7.89 outbound dock truck slots; 8.24 of marketing and channel spend; and 6.68 points from the capital-at-risk envelope.\n\n- Quasar Probiotic Tablets\n  Flexible in partial lots, from zero up to 14.46. Each lot contributes 5.08 to gross margin. Every lot consumes 8.18 units of Botanical A supply and 0.34 units of clean-room bay occupancy.\n\n- Nebula Protein Bars\n  Flexible in partial lots, from zero up to 16.08. Each lot contributes 6.2 to gross margin. Each lot needs 8.1 hours on Packaging Line Beta and 6.87 units of clean-room bay occupancy.\n\n- Atlas Premium Gift Sets\n  Whole sets only, anywhere from zero up to 11. Each set adds 8.49 to gross margin. Resource-wise, every set takes 7.61 warehouse pallet slots; 7.57 of marketing and channel spend; and 8.28 points from the capital-at-risk envelope.\n\n- Lunar Wellness Kits\n  Whole kits only, anywhere from zero up to 7.76. Each kit contributes 9.01 to gross margin. Each kit uses 4.07 warehouse pallet slots; 9.65 units of Botanical A supply; 2.13 units of clean-room bay occupancy; 9.96 outbound dock truck slots; 5.58 of marketing and channel spend; 9.76 VOC emission permit points; and 3.77 points from the capital-at-risk envelope.\n\nFacility and market limits (caps we must respect):\n\n- Quality Assurance Lab Hours: no more than 16.94 hours total.\n- Central Warehouse Pallet Slots: no more than 141.0 slots.\n- Botanical A Supply: no more than 96.18 units.\n- Packaging Line Beta Hours: no more than 75.88 hours.\n- Labels and Film Rolls: no more than 29.58 rolls.\n- Clean-Room Bay Occupancy: no more than 138.17 units.\n- Electricity Budget: no more than 97.0 units.\n- Outbound Dock Truck Slots: no more than 45.14 slots.\n- Marketing and Channel Spend: no more than 135.91 units.\n- VOC Emission Permit Points: no more than 22.33 points.\n- Capital-at-Risk Envelope: no more than 149.01 points.\n\nPlease review these levers and limits. If the naming, units, or caps need any adjustment to reflect reality on the floor or in the market, let me know so we can lock the assumptions and proceed with the production plan."
+}

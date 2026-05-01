@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Variables, bounds, integrality, objective coefficients, resource consumptions, and capacities are explicit; zeros stated. A precise LP/MIP can be reconstructed without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business-email style with repeated 'does not use' lists. Some verbosity, but it clarifies zero coefficients.",
+      "realism": 95,
+      "realism_comment": "A realistic product mix/capacity planning scenario with plausible resources (machining, QA, permits, trucking) and item caps."
+    },
+    "prompt_tokens_with_data": 1038,
+    "prompt_tokens_without_data": 1038
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 190.82473056057867,
+    "optimal_values": {
+      "Var_0": 1.6220614828209774,
+      "Var_1": 7.0,
+      "Var_2": 5.0,
+      "Var_3": 7.0,
+      "Var_4": 3.0,
+      "Var_5": 7.0,
+      "Var_6": 11.2
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 63.85
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 89.35
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 7.15
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 73.65
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 11.2
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 50.83
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 66.47
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.92
+      ],
+      "objective_linear_coefficient": 9.28,
+      "resource_costs": {
+        "C0": 5.53,
+        "C2": 3.85,
+        "C3": 6.56
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.62
+      ],
+      "objective_linear_coefficient": 2.25,
+      "resource_costs": {
+        "C5": 3.31
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.01
+      ],
+      "objective_linear_coefficient": 1.89,
+      "resource_costs": {
+        "C1": 4.31,
+        "C3": 3.6
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.1
+      ],
+      "objective_linear_coefficient": 8.45,
+      "resource_costs": {
+        "C0": 7.84,
+        "C1": 8.9,
+        "C3": 4.12,
+        "C5": 3.58,
+        "C6": 9.26
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.5
+      ],
+      "objective_linear_coefficient": 5.82,
+      "resource_costs": {
+        "C3": 4.85,
+        "C4": 3.42
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.63
+      ],
+      "objective_linear_coefficient": 8.39,
+      "resource_costs": {}
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.2
+      ],
+      "objective_linear_coefficient": 1.36,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.92, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.62, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.25 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.01, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.89 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.1, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.45 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=5.5, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.82 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=7.63, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.39 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.2, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.36 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.53 * vars['Var_0'] + 7.84 * vars['Var_3'] <= 63.85, name='C0')\n    m.addConstr(4.31 * vars['Var_2'] + 8.9 * vars['Var_3'] <= 89.35, name='C1')\n    m.addConstr(3.85 * vars['Var_0'] <= 7.15, name='C2')\n    m.addConstr(6.56 * vars['Var_0'] + 3.6 * vars['Var_2'] + 4.12 * vars['Var_3'] + 4.85 * vars['Var_4'] <= 73.65, name='C3')\n    m.addConstr(3.42 * vars['Var_4'] <= 11.2, name='C4')\n    m.addConstr(3.31 * vars['Var_1'] + 3.58 * vars['Var_3'] <= 50.83, name='C5')\n    m.addConstr(9.26 * vars['Var_3'] <= 66.47, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix and Capacity Allocation for the Upcoming Cycle\n\nTeam,\n\nWe need to set the product and service mix for the upcoming cycle with the clear goal of maximizing total contribution. The selections below can be set to zero if we choose not to run an item; for some items we can use fractional quantities, while others must be scheduled in whole units. Please use the following levers and limits.\n\nPrecision Housing Alpha\n- Expected contribution is 9.28 per batch. We can run up to 7.92 batches, and partial batches are acceptable.\n- Each batch draws 5.53 units from Machining Center A, 3.85 units of Catalyst Q, and 6.56 slots in the Quality Assurance Lab.\n- It does not draw any time from Assembly Bay B, does not use the Solvent Permit allocation, does not spend the Outsourced Packaging budget, and does not require Fleet Trucking mileage.\n\nStandard Pack Delta\n- Expected contribution is 2.25 per kit. We can produce up to 15.62 kits, but kits must be scheduled in whole units.\n- Each kit uses 3.31 units of the Outsourced Packaging budget.\n- It does not consume Machining Center A time, Assembly Bay B time, Catalyst Q, Quality Assurance Lab slots, Solvent Permit allocation, or Fleet Trucking mileage.\n\nControl Module Beta\n- Expected contribution is 1.89 per module. We can produce up to 16.01 modules, in whole units only.\n- Each module requires 4.31 units of Assembly Bay B time and 3.6 slots in the Quality Assurance Lab.\n- It does not draw from Machining Center A, Catalyst Q, the Solvent Permit allocation, the Outsourced Packaging budget, or Fleet Trucking mileage.\n\nCustom System Orion\n- Expected contribution is 8.45 per system. We can deliver up to 9.1 systems, in whole units only.\n- Each system consumes 7.84 units of Machining Center A time, 8.9 units of Assembly Bay B time, 4.12 Quality Assurance slots, 3.58 units of the Outsourced Packaging budget, and 9.26 units of Fleet Trucking mileage.\n- It does not use Catalyst Q or the Solvent Permit allocation.\n\nCoating Batch Gamma\n- Expected contribution is 5.82 per batch. We can run up to 5.5 batches, in whole units only.\n- Every batch requires 4.85 Quality Assurance Lab slots and 3.42 units of the Solvent Permit allocation.\n- It does not consume Machining Center A time, Assembly Bay B time, Catalyst Q, the Outsourced Packaging budget, or Fleet Trucking mileage.\n\nNova Digital Licenses\n- Expected contribution is 8.39 per license. We can sell up to 7.63 licenses, in whole units only.\n- Licenses do not draw on Machining Center A, Assembly Bay B, Catalyst Q, Quality Assurance Lab slots, Solvent Permit allocation, Outsourced Packaging budget, or Fleet Trucking mileage.\n\nFlex Support Add\u2011ons\n- Expected contribution is 1.36 per add\u2011on. We can sell up to 11.2 add\u2011ons, and fractional quantities are acceptable.\n- Add\u2011ons do not use Machining Center A time, Assembly Bay B time, Catalyst Q, Quality Assurance Lab slots, Solvent Permit allocation, the Outsourced Packaging budget, or Fleet Trucking mileage.\n\nFacility Specs and Market Limits (do not exceed)\n- Machining Center A capacity: 63.85\n- Assembly Bay B capacity: 89.35\n- Catalyst Q availability: 7.15\n- Quality Assurance Lab slots: 73.65\n- Solvent Permit cap: 11.2\n- Outsourced Packaging budget: 50.83\n- Fleet Trucking mileage: 66.47\n\nPlease come back with the mix that maximizes total contribution while respecting the item\u2011level caps above and keeping within these facility and compliance limits.\n\nThanks,\n[Client Name]"
+}

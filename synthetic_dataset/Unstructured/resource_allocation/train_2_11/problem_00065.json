@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All costs, bounds (incl. integrality and upper limits), contributions, and targets are explicit; minimize total cost. Only minor oddity: an integer variable is capped by a fractional upper bound.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some business narrative adds minor fluff, but parameters and constraints are clear and non-repetitive.",
+      "realism": 92,
+      "realism_comment": "Plausible training mix optimization with realistic thresholds and trade-offs; fractional cap for whole sessions is slightly artificial."
+    },
+    "prompt_tokens_with_data": 657,
+    "prompt_tokens_without_data": 657
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 15.79520224186068,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 3.130949757745282,
+      "Var_2": 5.8647028782815855
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 5.12
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 48.18
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 51.15
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 2.36
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.09
+      ],
+      "objective_linear_coefficient": 3.51,
+      "resource_costs": {
+        "C1": 9.38,
+        "C2": 2.95,
+        "C3": 2.34
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.02
+      ],
+      "objective_linear_coefficient": 1.13,
+      "resource_costs": {
+        "C0": 1.94,
+        "C1": 7.39,
+        "C2": 3.15
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.23
+      ],
+      "objective_linear_coefficient": 2.09,
+      "resource_costs": {
+        "C1": 4.27,
+        "C2": 7.04,
+        "C3": 0.72
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.09, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 3.51 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.02, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.13 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.23, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.09 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.94 * vars['Var_1'] >= 5.12, name='C0')\n    m.addConstr(9.38 * vars['Var_0'] + 7.39 * vars['Var_1'] + 4.27 * vars['Var_2'] >= 48.18, name='C1')\n    m.addConstr(2.95 * vars['Var_0'] + 3.15 * vars['Var_1'] + 7.04 * vars['Var_2'] >= 51.15, name='C2')\n    m.addConstr(2.34 * vars['Var_0'] + 0.72 * vars['Var_2'] >= 2.36, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized Plan for Q1 Capability Development Mix\n\nHi team,\n\nWe\u2019re looking to assemble the least\u2011cost mix of training formats for the upcoming cycle while meeting our minimum program standards across compliance, general learning, advanced skills, and hands\u2011on practice. Below are the levers we can pull and how each one contributes to those metrics.\n\n- On\u2011Site Workshop Sessions (whole sessions only): Each workshop session carries a delivery cost of 3.51 per session. One session yields 9.38 units toward our general learning target, 2.95 units toward advanced skill development, and 2.34 hours of hands\u2011on lab time. Workshops do not contribute to our compliance coverage. We can schedule anywhere from 0 up to 12.09 session\u2011equivalents this period, with the practical constraint that the count must be whole sessions (no partial sessions).\n\n- Compliance e\u2011Learning Packs (scalable): Each e\u2011learning pack costs 1.13. One pack provides 1.94 hours of compliance coverage, 7.39 units toward general learning, and 3.15 units toward advanced skill development. E\u2011learning does not add any hands\u2011on lab time. We can flex this channel between 0 and 10.02 packs, and we may purchase fractional pack equivalents as needed.\n\n- Mentorship Blocks (scalable): Each mentorship block costs 2.09. One block contributes 4.27 units toward general learning, 7.04 units toward advanced skill development, and 0.72 hours of hands\u2011on lab time. Mentorship does not contribute to compliance coverage. We can schedule between 0 and 7.23 blocks and can use fractional block equivalents.\n\nProgram requirements for the period are as follows:\n- Compliance coverage: at least 5.12 hours.\n- General learning: at least 48.18 units.\n- Advanced skill development: at least 51.15 units.\n- Hands\u2011on lab time: at least 2.36 hours.\n\nPlease use this as the basis to identify the lowest\u2011cost mix of workshops, e\u2011learning, and mentorship that satisfies all of the above thresholds within the stated limits."
+}

@@ -1,0 +1,233 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 11,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "Per-SKU contributions, integer bounds, resource usages, and capacities are fully specified. Minor nuance: fractional UBs vs integer cap (floor) could be implemented either way.",
+      "ambiguity": false,
+      "redundancy": 38,
+      "redundancy_comment": "Narrative is verbose and repeats 'does not use' lists, but most content directly defines coefficients and zero-usage clarifications.",
+      "realism": 98,
+      "realism_comment": "Very realistic production planning with named resources, capacities, and whole-batch integrality; all numbers and constraints are plausible."
+    },
+    "prompt_tokens_with_data": 1559,
+    "prompt_tokens_without_data": 1559
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 166.39999999999998,
+    "optimal_values": {
+      "Var_0": 11.0,
+      "Var_1": -0.0,
+      "Var_2": 6.0,
+      "Var_3": 4.0,
+      "Var_4": 0.0,
+      "Var_5": 8.0,
+      "Var_6": -0.0,
+      "Var_7": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 110.02
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.27
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 92.03
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 100.29
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 159.21
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 70.24
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.44
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 79.78
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.46
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.83
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 96.66
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.02
+      ],
+      "objective_linear_coefficient": 6.16,
+      "resource_costs": {
+        "C3": 7.43,
+        "C4": 9.01,
+        "C7": 0.62,
+        "C8": 2.61,
+        "C9": 2.07
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.22
+      ],
+      "objective_linear_coefficient": 5.02,
+      "resource_costs": {
+        "C0": 9.64,
+        "C2": 5.61,
+        "C3": 9.78,
+        "C4": 9.24,
+        "C5": 1.98,
+        "C7": 7.6,
+        "C8": 2.75,
+        "C9": 6.12,
+        "C10": 5.25
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.24
+      ],
+      "objective_linear_coefficient": 2.98,
+      "resource_costs": {
+        "C1": 0.31,
+        "C2": 5.84,
+        "C3": 2.87,
+        "C4": 9.21,
+        "C5": 1.09,
+        "C8": 4.02,
+        "C10": 5.95
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.14
+      ],
+      "objective_linear_coefficient": 6.25,
+      "resource_costs": {
+        "C0": 9.12,
+        "C2": 6.15,
+        "C5": 6.85,
+        "C6": 0.39,
+        "C7": 7.51,
+        "C9": 1.43,
+        "C10": 8.13
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.9
+      ],
+      "objective_linear_coefficient": 3.69,
+      "resource_costs": {
+        "C0": 4.39,
+        "C1": 8.9,
+        "C2": 1.94,
+        "C3": 0.96,
+        "C4": 4.7,
+        "C6": 8.73,
+        "C8": 1.95,
+        "C9": 4.4,
+        "C10": 1.59
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.51
+      ],
+      "objective_linear_coefficient": 6.97,
+      "resource_costs": {
+        "C0": 9.14,
+        "C6": 1.12,
+        "C10": 1.29
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.12
+      ],
+      "objective_linear_coefficient": 2.69,
+      "resource_costs": {
+        "C0": 8.93,
+        "C2": 4.23,
+        "C4": 6.04,
+        "C5": 3.75,
+        "C7": 5.93,
+        "C8": 2.94,
+        "C9": 2.63
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.28
+      ],
+      "objective_linear_coefficient": 3.58,
+      "resource_costs": {
+        "C0": 2.54,
+        "C1": 4.25,
+        "C2": 1.45,
+        "C3": 7.28,
+        "C4": 4.81,
+        "C5": 5.01,
+        "C6": 2.43,
+        "C7": 0.33,
+        "C9": 9.69
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.02, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.16 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.22, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.02 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.24, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.98 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.14, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.25 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.9, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.69 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.51, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 6.97 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.12, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 2.69 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=10.28, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 3.58 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.64 * vars['Var_1'] + 9.12 * vars['Var_3'] + 4.39 * vars['Var_4'] + 9.14 * vars['Var_5'] + 8.93 * vars['Var_6'] + 2.54 * vars['Var_7'] <= 110.02, name='C0')\n    m.addConstr(0.31 * vars['Var_2'] + 8.9 * vars['Var_4'] + 4.25 * vars['Var_7'] <= 16.27, name='C1')\n    m.addConstr(5.25 * vars['Var_1'] + 5.95 * vars['Var_2'] + 8.13 * vars['Var_3'] + 1.59 * vars['Var_4'] + 1.29 * vars['Var_5'] <= 96.66, name='C10')\n    m.addConstr(5.61 * vars['Var_1'] + 5.84 * vars['Var_2'] + 6.15 * vars['Var_3'] + 1.94 * vars['Var_4'] + 4.23 * vars['Var_6'] + 1.45 * vars['Var_7'] <= 92.03, name='C2')\n    m.addConstr(7.43 * vars['Var_0'] + 9.78 * vars['Var_1'] + 2.87 * vars['Var_2'] + 0.96 * vars['Var_4'] + 7.28 * vars['Var_7'] <= 100.29, name='C3')\n    m.addConstr(9.01 * vars['Var_0'] + 9.24 * vars['Var_1'] + 9.21 * vars['Var_2'] + 4.7 * vars['Var_4'] + 6.04 * vars['Var_6'] + 4.81 * vars['Var_7'] <= 159.21, name='C4')\n    m.addConstr(1.98 * vars['Var_1'] + 1.09 * vars['Var_2'] + 6.85 * vars['Var_3'] + 3.75 * vars['Var_6'] + 5.01 * vars['Var_7'] <= 70.24, name='C5')\n    m.addConstr(0.39 * vars['Var_3'] + 8.73 * vars['Var_4'] + 1.12 * vars['Var_5'] + 2.43 * vars['Var_7'] <= 17.44, name='C6')\n    m.addConstr(0.62 * vars['Var_0'] + 7.6 * vars['Var_1'] + 7.51 * vars['Var_3'] + 5.93 * vars['Var_6'] + 0.33 * vars['Var_7'] <= 79.78, name='C7')\n    m.addConstr(2.61 * vars['Var_0'] + 2.75 * vars['Var_1'] + 4.02 * vars['Var_2'] + 1.95 * vars['Var_4'] + 2.94 * vars['Var_6'] <= 56.46, name='C8')\n    m.addConstr(2.07 * vars['Var_0'] + 6.12 * vars['Var_1'] + 1.43 * vars['Var_3'] + 4.4 * vars['Var_4'] + 2.63 * vars['Var_6'] + 9.69 * vars['Var_7'] <= 56.83, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Decision \u2014 Request for Planning Input\n\nTeam,\n\nWe\u2019re planning the next run and need to decide how many whole batches to schedule across eight SKUs to maximize overall contribution, while staying within our plant limits. There is no minimum commitment on any item (we can choose zero), but each SKU has a ceiling based on demand, quality protocols, or equipment availability. All allocations must be in whole units (no partial batches).\n\n- Alpine Tonic\n  Each batch of Alpine Tonic adds 6.16 in contribution. We can schedule anywhere from 0 up to an authorized 17.02 batch equivalents; since we only count whole batches, this effectively caps at 17. Per batch, it uses 7.43 hours on Distillation Column B, 9.01 units of Chilled Warehouse capacity, 0.62 outbound Truck Dock slots, 2.61 Wastewater Treatment credits, and 2.07 hours of Export Documentation. It does not draw on Mash & Blend Line A, the Allergen-Control Room, the Base Ingredient quota, Quality Lab sampling, Union Overtime shifts, or Energy allocation.\n\n- Heritage Lager\n  Each batch contributes 5.02. We can schedule from 0 up to 19.22 batch equivalents (whole batches only). Per batch, it draws 9.64 hours on Mash & Blend Line A, 5.61 units from our Base Ingredient quota, 9.78 hours on Distillation Column B, 9.24 units of Chilled Warehouse capacity, 1.98 Quality Lab sampling hours, 7.6 outbound Truck Dock slots, 2.75 Wastewater Treatment credits, 6.12 hours of Export Documentation, and 5.25 units of Energy allocation. It does not use the Allergen-Control Room or Union Overtime shifts.\n\n- Citrus Seltzer\n  Each batch contributes 2.98. We can schedule from 0 up to 12.24 batch equivalents (whole batches only). Per batch, it requires 0.31 hours in the Allergen-Control Room, 5.84 units from the Base Ingredient quota, 2.87 hours on Distillation Column B, 9.21 units of Chilled Warehouse capacity, 1.09 Quality Lab sampling hours, 4.02 Wastewater Treatment credits, and 5.95 units of Energy allocation. It does not draw on Mash & Blend Line A, Union Overtime shifts, outbound Truck Dock slots, or Export Documentation.\n\n- Copper IPA\n  Each batch contributes 6.25. We can schedule from 0 up to 8.14 batch equivalents (whole batches only). Per batch, it uses 9.12 hours on Mash & Blend Line A, 6.15 units from the Base Ingredient quota, 6.85 Quality Lab sampling hours, 0.39 Union Overtime shifts, 7.51 outbound Truck Dock slots, 1.43 hours of Export Documentation, and 8.13 units of Energy allocation. It does not use Distillation Column B, the Allergen-Control Room, Chilled Warehouse capacity, or Wastewater Treatment credits.\n\n- Allergen-Safe Cider\n  Each batch contributes 3.69. We can schedule from 0 up to 15.9 batch equivalents (whole batches only). Per batch, it draws 4.39 hours on Mash & Blend Line A, 8.9 hours in the Allergen-Control Room, 1.94 units from the Base Ingredient quota, 0.96 hours on Distillation Column B, 4.7 units of Chilled Warehouse capacity, 8.73 Union Overtime shifts, 1.95 Wastewater Treatment credits, 4.4 hours of Export Documentation, and 1.59 units of Energy allocation. It does not impact Quality Lab sampling or outbound Truck Dock slots.\n\n- Limited Reserve Batch\n  Each batch contributes 6.97 (our highest per-batch contribution). We can schedule from 0 up to 8.51 batch equivalents (whole batches only). Per batch, it requires 9.14 hours on Mash & Blend Line A, 1.12 Union Overtime shifts, and 1.29 units of Energy allocation. It does not draw on the Allergen-Control Room, the Base Ingredient quota, Distillation Column B, Chilled Warehouse capacity, Quality Lab sampling, outbound Truck Dock slots, Wastewater Treatment credits, or Export Documentation.\n\n- Economy Soda\n  Each batch contributes 2.69. We can schedule from 0 up to 11.12 batch equivalents (whole batches only). Per batch, it draws 8.93 hours on Mash & Blend Line A, 4.23 units from the Base Ingredient quota, 6.04 units of Chilled Warehouse capacity, 3.75 Quality Lab sampling hours, 5.93 outbound Truck Dock slots, 2.94 Wastewater Treatment credits, and 2.63 hours of Export Documentation. It does not use Distillation Column B, Union Overtime shifts, or Energy allocation.\n\n- Export Bitter\n  Each batch contributes 3.58. We can schedule from 0 up to 10.28 batch equivalents (whole batches only). Per batch, it uses 2.54 hours on Mash & Blend Line A, 4.25 Allergen-Control Room hours, 1.45 units from the Base Ingredient quota, 7.28 hours on Distillation Column B, 4.81 units of Chilled Warehouse capacity, 5.01 Quality Lab sampling hours, 2.43 Union Overtime shifts, 0.33 outbound Truck Dock slots, and 9.69 hours of Export Documentation. It does not draw on Wastewater Treatment credits or Energy allocation.\n\nFacility specs and limits we must observe:\n- Mash & Blend Line A time available: 110.02 hours\n- Allergen-Control Room time available: 16.27 hours\n- Base Ingredient quota: 92.03 units\n- Distillation Column B time available: 100.29 hours\n- Chilled Warehouse capacity: 159.21 units\n- Quality Lab sampling capacity: 70.24 hours\n- Union Overtime allowance: 17.44 shifts\n- Outbound Truck Dock throughput: 79.78 slots\n- Wastewater Treatment credits: 56.46 credits\n- Export Documentation capacity: 56.83 hours\n- Energy allocation: 96.66 units\n\nPlease review these inputs and let us know your recommended batch counts for each SKU to maximize total contribution while staying within the above limits."
+}

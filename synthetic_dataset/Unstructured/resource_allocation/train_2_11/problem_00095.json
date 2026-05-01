@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All costs, bounds, and coverage coefficients are explicit; minimize total spend; two >= constraints with given RHS. Variables continuous (0 to caps). No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative/context and phrasing like \u201corder we\u2019d like you to consider\u201d add length but data is clear and non-repetitive.",
+      "realism": 90,
+      "realism_comment": "Feels like a real blend formulation with coverage targets and availability limits; neutral component is plausible though unused in cost minimization."
+    },
+    "prompt_tokens_with_data": 692,
+    "prompt_tokens_without_data": 692
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 41.92966376089664,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 6.4906600249066
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 52.12
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 16.97
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.11
+      ],
+      "objective_linear_coefficient": 9.49,
+      "resource_costs": {
+        "C0": 5.47,
+        "C1": 1.18
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.74
+      ],
+      "objective_linear_coefficient": 7.7,
+      "resource_costs": {
+        "C0": 1.33,
+        "C1": 2.17
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.94
+      ],
+      "objective_linear_coefficient": 9.57,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.46
+      ],
+      "objective_linear_coefficient": 6.46,
+      "resource_costs": {
+        "C0": 8.03,
+        "C1": 5.51
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.11, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.49 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.74, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.7 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.94, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.57 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.46, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.46 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.47 * vars['Var_0'] + 1.33 * vars['Var_1'] + 8.03 * vars['Var_3'] >= 52.12, name='C0')\n    m.addConstr(1.18 * vars['Var_0'] + 2.17 * vars['Var_1'] + 5.51 * vars['Var_3'] >= 16.97, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for a cost-minimized mix that meets our coverage targets\n\nHello team,\n\nWe\u2019re preparing the next production run and need your help designing a lowest-cost blend that still satisfies two non-negotiable coverage standards. Across the entire batch, please make sure we achieve at least 52.12 points on our Protein Coverage index and at least 16.97 points on our Fiber Coverage index. You may meter each component in fractional amounts as needed, with no minimum order, but please respect the availability limits below.\n\nHere are the levers you can use, in the order we\u2019d like you to consider them:\n\n- Soy Protein Concentrate\n  - Unit economics: 9.49 per unit added.\n  - Availability: up to 10.11 units; no minimum purchase (0 to 10.11).\n  - Impact: each unit contributes 5.47 points to Protein Coverage and 1.18 points to Fiber Coverage.\n\n- Oat Fiber Blend\n  - Unit economics: 7.70 per unit added.\n  - Availability: up to 12.74 units; no minimum purchase (0 to 12.74).\n  - Impact: each unit contributes 1.33 points to Protein Coverage and 2.17 points to Fiber Coverage.\n\n- Neutral Stabilizer Base\n  - Unit economics: 9.57 per unit added.\n  - Availability: up to 17.94 units; no minimum purchase (0 to 17.94).\n  - Impact: this component does not contribute to the measured coverage indices (0 Protein Coverage, 0 Fiber Coverage). It\u2019s available if you need it for formulation reasons, but it does not help with the two targets.\n\n- Pea Protein Isolate\n  - Unit economics: 6.46 per unit added.\n  - Availability: up to 11.46 units; no minimum purchase (0 to 11.46).\n  - Impact: each unit contributes 8.03 points to Protein Coverage and 5.51 points to Fiber Coverage.\n\nGoal\n- Meet or exceed both coverage targets at the lowest total ingredient spend.\n\nFacility specs and coverage standards\n- Protein Coverage: at least 52.12 points.\n- Fiber Coverage: at least 16.97 points.\n\nPlease use the above to assemble the most economical mix that satisfies both indices without exceeding the individual availability limits."
+}

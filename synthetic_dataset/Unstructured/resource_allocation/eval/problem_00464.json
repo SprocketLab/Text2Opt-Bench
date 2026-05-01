@@ -1,0 +1,210 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit costs, bounds, and contribution coefficients for each program; nine >= minima are listed; fractional (continuous) use is stated; objective is to minimize total cost.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some narrative and repeated \u201cno impact\u201d notes add length, but most content is structured and relevant to define the LP precisely.",
+      "realism": 95,
+      "realism_comment": "A plausible service-operations portfolio LP with costs, caps, and service-level minima; aligns well with real-world planning contexts."
+    },
+    "prompt_tokens_with_data": 1630,
+    "prompt_tokens_without_data": 1630
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 264.197392796606,
+    "optimal_values": {
+      "Var_0": 6.38,
+      "Var_1": 7.016751675720825,
+      "Var_2": 8.251467387801505,
+      "Var_3": 6.954190297688591,
+      "Var_4": 9.043666323377959,
+      "Var_5": 2.335133233440342,
+      "Var_6": 10.9,
+      "Var_7": 3.2972183637503996,
+      "Var_8": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 14.83
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 88.01
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 76.56
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 70.11
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 179.88
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 151.97
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 128.75
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 120.95
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 55.37
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.38
+      ],
+      "objective_linear_coefficient": 2.2,
+      "resource_costs": {
+        "C2": 6.37,
+        "C4": 6.63,
+        "C5": 7.37,
+        "C8": 7.22
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.37
+      ],
+      "objective_linear_coefficient": 8.92,
+      "resource_costs": {
+        "C2": 2.06,
+        "C4": 9.28,
+        "C5": 6.84,
+        "C8": 0.73
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.65
+      ],
+      "objective_linear_coefficient": 2.82,
+      "resource_costs": {
+        "C0": 0.4,
+        "C1": 7.51,
+        "C6": 4.35
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.48
+      ],
+      "objective_linear_coefficient": 9.69,
+      "resource_costs": {
+        "C0": 0.12,
+        "C3": 6.08,
+        "C4": 6.53,
+        "C5": 8.19
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.86
+      ],
+      "objective_linear_coefficient": 7.22,
+      "resource_costs": {
+        "C1": 0.24,
+        "C7": 9.71
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.25
+      ],
+      "objective_linear_coefficient": 1.91,
+      "resource_costs": {
+        "C0": 4.58,
+        "C6": 9.61,
+        "C8": 2.1
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.9
+      ],
+      "objective_linear_coefficient": 1.66,
+      "resource_costs": {
+        "C1": 2.19,
+        "C4": 3.13,
+        "C6": 6.6,
+        "C7": 3.04,
+        "C8": 1.23
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.59
+      ],
+      "objective_linear_coefficient": 2.75,
+      "resource_costs": {
+        "C2": 6.51,
+        "C3": 8.44,
+        "C4": 0.23,
+        "C6": 2.24,
+        "C8": 6.37
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.18
+      ],
+      "objective_linear_coefficient": 6.44,
+      "resource_costs": {
+        "C2": 7.55,
+        "C3": 2.35
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.38, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.2 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.37, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.92 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.65, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.82 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.48, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.69 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.86, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.22 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.25, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.91 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.9, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.66 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=16.59, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 2.75 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=8.18, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 6.44 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.4 * vars['Var_2'] + 0.12 * vars['Var_3'] + 4.58 * vars['Var_5'] >= 14.83, name='C0')\n    m.addConstr(7.51 * vars['Var_2'] + 0.24 * vars['Var_4'] + 2.19 * vars['Var_6'] >= 88.01, name='C1')\n    m.addConstr(6.37 * vars['Var_0'] + 2.06 * vars['Var_1'] + 6.51 * vars['Var_7'] + 7.55 * vars['Var_8'] >= 76.56, name='C2')\n    m.addConstr(6.08 * vars['Var_3'] + 8.44 * vars['Var_7'] + 2.35 * vars['Var_8'] >= 70.11, name='C3')\n    m.addConstr(6.63 * vars['Var_0'] + 9.28 * vars['Var_1'] + 6.53 * vars['Var_3'] + 3.13 * vars['Var_6'] + 0.23 * vars['Var_7'] >= 179.88, name='C4')\n    m.addConstr(7.37 * vars['Var_0'] + 6.84 * vars['Var_1'] + 8.19 * vars['Var_3'] >= 151.97, name='C5')\n    m.addConstr(4.35 * vars['Var_2'] + 9.61 * vars['Var_5'] + 6.6 * vars['Var_6'] + 2.24 * vars['Var_7'] >= 128.75, name='C6')\n    m.addConstr(9.71 * vars['Var_4'] + 3.04 * vars['Var_6'] >= 120.95, name='C7')\n    m.addConstr(7.22 * vars['Var_0'] + 0.73 * vars['Var_1'] + 2.1 * vars['Var_5'] + 1.23 * vars['Var_6'] + 6.37 * vars['Var_7'] >= 55.37, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix of service programs to meet our minimum commitments at lowest total cost\n\nTeam,\n\nWe\u2019re evaluating how best to assemble a portfolio of nine scalable service programs to meet our minimum contractual and regulatory commitments while keeping total run\u2011rate costs as low as possible. Each program can be deployed in fractional units from zero up to its operational cap, carries a distinct per\u2011unit cost, and contributes in specific amounts to our required outcomes (emergency coverage, preventive work, network assurance, installations, customer care, warranty, training, safety audits, and sustainability impact).\n\nBelow is an overview of the nine levers, in the order we will evaluate them. For each, I\u2019ve noted the per\u2011unit cost, deployment range, and exactly how each unit helps us hit the various minimums.\n\n- Blue Support Desk Teams\n  - Deployment range: 0 to 6.38 units; we are not required to deploy any minimum amount.\n  - Cost: 2.20 per unit.\n  - Contribution profile: Strong for network and post\u2011sale commitments. Every unit contributes 6.37 toward Network Assurance Credits, 6.63 toward Customer Care Resolutions, 7.37 toward Warranty Service Resolutions, and 7.22 toward Sustainability Impact Points. No material impact on Emergency Dispatch Coverage, Preventive Maintenance Coverage, New Installations Completed, Training Completions, or Safety Audits Conducted.\n\n- Premium Concierge Care\n  - Deployment range: 0 to 15.37 units.\n  - Cost: 8.92 per unit.\n  - Contribution profile: High\u2011touch customer work with a sustainability component. Each unit provides 2.06 toward Network Assurance Credits, 9.28 toward Customer Care Resolutions, 6.84 toward Warranty Service Resolutions, and 0.73 toward Sustainability Impact Points. It does not move Emergency Dispatch Coverage, Preventive Maintenance Coverage, New Installations Completed, Training Completions, or Safety Audits Conducted.\n\n- Maintenance & Training Vans\n  - Deployment range: 0 to 18.65 units.\n  - Cost: 2.82 per unit.\n  - Contribution profile: Bread\u2011and\u2011butter support for maintenance and training with limited emergency support. Each unit adds 0.40 to Emergency Dispatch Coverage, 7.51 to Preventive Maintenance Coverage, and 4.35 to Training Completions. No impact on Network Assurance Credits, New Installations Completed, Customer Care Resolutions, Warranty Service Resolutions, Safety Audits Conducted, or Sustainability Impact Points.\n\n- Field Installation Crews\n  - Deployment range: 0 to 15.48 units.\n  - Cost: 9.69 per unit.\n  - Contribution profile: Core installation capacity with customer and warranty support, plus a small emergency component. Each unit contributes 0.12 to Emergency Dispatch Coverage, 6.08 to New Installations Completed, 6.53 to Customer Care Resolutions, and 8.19 to Warranty Service Resolutions. No impact on Preventive Maintenance Coverage, Network Assurance Credits, Training Completions, Safety Audits Conducted, or Sustainability Impact Points.\n\n- Safety Compliance Auditors\n  - Deployment range: 0 to 10.86 units.\n  - Cost: 7.22 per unit.\n  - Contribution profile: Primarily audits with a small maintenance benefit. Each unit provides 0.24 toward Preventive Maintenance Coverage and 9.71 toward Safety Audits Conducted. No effect on Emergency Dispatch Coverage, Network Assurance Credits, New Installations Completed, Customer Care Resolutions, Warranty Service Resolutions, Training Completions, or Sustainability Impact Points.\n\n- Resilience Bootcamps\n  - Deployment range: 0 to 18.25 units.\n  - Cost: 1.91 per unit.\n  - Contribution profile: Strong on training with meaningful emergency readiness and some sustainability. Each unit adds 4.58 to Emergency Dispatch Coverage, 9.61 to Training Completions, and 2.10 to Sustainability Impact Points. No impact on Preventive Maintenance Coverage, Network Assurance Credits, New Installations Completed, Customer Care Resolutions, Warranty Service Resolutions, or Safety Audits Conducted.\n\n- Cross\u2011Functional Support Shifts\n  - Deployment range: 0 to 10.90 units.\n  - Cost: 1.66 per unit.\n  - Contribution profile: Balanced support across maintenance, customer care, training, audits, and sustainability. Each unit contributes 2.19 to Preventive Maintenance Coverage, 3.13 to Customer Care Resolutions, 6.60 to Training Completions, 3.04 to Safety Audits Conducted, and 1.23 to Sustainability Impact Points. No contribution to Emergency Dispatch Coverage, Network Assurance Credits, or New Installations Completed.\n\n- Network Build\u2011Out Sprints\n  - Deployment range: 0 to 16.59 units.\n  - Cost: 2.75 per unit.\n  - Contribution profile: Focused on network assurance and installations, with secondary training and sustainability, and a minor customer care effect. Each unit provides 6.51 to Network Assurance Credits, 8.44 to New Installations Completed, 0.23 to Customer Care Resolutions, 2.24 to Training Completions, and 6.37 to Sustainability Impact Points. No effect on Emergency Dispatch Coverage, Preventive Maintenance Coverage, Warranty Service Resolutions, or Safety Audits Conducted.\n\n- Advanced Network Optimization\n  - Deployment range: 0 to 8.18 units.\n  - Cost: 6.44 per unit.\n  - Contribution profile: High\u2011impact network work with some installation throughput. Each unit adds 7.55 to Network Assurance Credits and 2.35 to New Installations Completed. No contribution to Emergency Dispatch Coverage, Preventive Maintenance Coverage, Customer Care Resolutions, Warranty Service Resolutions, Training Completions, Safety Audits Conducted, or Sustainability Impact Points.\n\nMarket limits and minimum service requirements\n- Emergency Dispatch Coverage: at least 14.83 units\n- Preventive Maintenance Coverage: at least 88.01 units\n- Network Assurance Credits: at least 76.56 units\n- New Installations Completed: at least 70.11 units\n- Customer Care Resolutions: at least 179.88 units\n- Warranty Service Resolutions: at least 151.97 units\n- Training Completions: at least 128.75 units\n- Safety Audits Conducted: at least 120.95 units\n- Sustainability Impact Points: at least 55.37 units\n\nOur target is to select the mix of programs above, within their respective caps, that meets or exceeds all nine minimums at the lowest total cost. Please review and confirm if these unit costs, caps, and contribution rates reflect the latest operational assumptions; once validated, we\u2019ll proceed to finalize the deployment plan."
+}

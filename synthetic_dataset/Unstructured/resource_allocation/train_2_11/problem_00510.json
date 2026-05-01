@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 10,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact types, bounds, contributions, and resource usage per product are specified. Facility limits map to seven <= constraints. The model can be reconstructed mechanically without guessing.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Narrative adds context but most text conveys coefficients and bounds. Slight verbosity and template instructions, yet not repetitive or fluff-heavy.",
+      "realism": 99,
+      "realism_comment": "Highly realistic production planning with reactor, labor, feedstock, finishing, emissions, storage, and trucking capacities; coherent and plausible details."
+    },
+    "prompt_tokens_with_data": 1358,
+    "prompt_tokens_without_data": 1358
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 365.51410040160647,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": 2.0,
+      "Var_2": 5.7,
+      "Var_3": 10.0,
+      "Var_4": 7.624497991967872,
+      "Var_5": 0.0,
+      "Var_6": 1.0,
+      "Var_7": 0.0,
+      "Var_8": 14.0,
+      "Var_9": 3.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 92.74
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 97.76
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 147.62
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 241.75
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 54.51
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 190.17
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 164.06
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.02
+      ],
+      "objective_linear_coefficient": 6.6,
+      "resource_costs": {
+        "C1": 6.83,
+        "C2": 8.02,
+        "C5": 0.63,
+        "C6": 3.92
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.29
+      ],
+      "objective_linear_coefficient": 3.25,
+      "resource_costs": {
+        "C0": 6.37,
+        "C3": 8.53,
+        "C5": 7.91,
+        "C6": 2.33
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.7
+      ],
+      "objective_linear_coefficient": 9.37,
+      "resource_costs": {
+        "C0": 0.13,
+        "C1": 3.45,
+        "C2": 2.88,
+        "C3": 2.52,
+        "C6": 1.03
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.38
+      ],
+      "objective_linear_coefficient": 7.15,
+      "resource_costs": {
+        "C2": 5.0,
+        "C3": 8.6,
+        "C4": 2.57
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.03
+      ],
+      "objective_linear_coefficient": 4.78,
+      "resource_costs": {
+        "C2": 0.64,
+        "C3": 4.67,
+        "C5": 9.96,
+        "C6": 9.0
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.63
+      ],
+      "objective_linear_coefficient": 1.47,
+      "resource_costs": {
+        "C1": 6.96,
+        "C2": 7.13,
+        "C3": 6.98
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.05
+      ],
+      "objective_linear_coefficient": 6.48,
+      "resource_costs": {
+        "C0": 0.89,
+        "C1": 2.2,
+        "C2": 2.39,
+        "C3": 2.62,
+        "C4": 6.96,
+        "C5": 9.35,
+        "C6": 5.15
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.03
+      ],
+      "objective_linear_coefficient": 4.37,
+      "resource_costs": {
+        "C0": 3.37,
+        "C2": 3.94,
+        "C4": 5.08,
+        "C6": 9.41
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.76
+      ],
+      "objective_linear_coefficient": 8.44,
+      "resource_costs": {
+        "C0": 3.68,
+        "C1": 0.97,
+        "C3": 5.6,
+        "C5": 4.51,
+        "C6": 1.88
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.71
+      ],
+      "objective_linear_coefficient": 4.54,
+      "resource_costs": {
+        "C0": 6.68,
+        "C4": 6.5,
+        "C5": 6.75,
+        "C6": 3.01
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.02, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.6 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.29, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.25 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=5.7, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.37 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.38, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.15 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.03, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.78 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.63, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 1.47 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.05, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 6.48 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=9.03, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 4.37 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=14.76, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 8.44 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=16.71, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 4.54 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.37 * vars['Var_1'] + 0.13 * vars['Var_2'] + 0.89 * vars['Var_6'] + 3.37 * vars['Var_7'] + 3.68 * vars['Var_8'] + 6.68 * vars['Var_9'] <= 92.74, name='C0')\n    m.addConstr(6.83 * vars['Var_0'] + 3.45 * vars['Var_2'] + 6.96 * vars['Var_5'] + 2.2 * vars['Var_6'] + 0.97 * vars['Var_8'] <= 97.76, name='C1')\n    m.addConstr(8.02 * vars['Var_0'] + 2.88 * vars['Var_2'] + 5.0 * vars['Var_3'] + 0.64 * vars['Var_4'] + 7.13 * vars['Var_5'] + 2.39 * vars['Var_6'] + 3.94 * vars['Var_7'] <= 147.62, name='C2')\n    m.addConstr(8.53 * vars['Var_1'] + 2.52 * vars['Var_2'] + 8.6 * vars['Var_3'] + 4.67 * vars['Var_4'] + 6.98 * vars['Var_5'] + 2.62 * vars['Var_6'] + 5.6 * vars['Var_8'] <= 241.75, name='C3')\n    m.addConstr(2.57 * vars['Var_3'] + 6.96 * vars['Var_6'] + 5.08 * vars['Var_7'] + 6.5 * vars['Var_9'] <= 54.51, name='C4')\n    m.addConstr(0.63 * vars['Var_0'] + 7.91 * vars['Var_1'] + 9.96 * vars['Var_4'] + 9.35 * vars['Var_6'] + 4.51 * vars['Var_8'] + 6.75 * vars['Var_9'] <= 190.17, name='C5')\n    m.addConstr(3.92 * vars['Var_0'] + 2.33 * vars['Var_1'] + 1.03 * vars['Var_2'] + 9.0 * vars['Var_4'] + 5.15 * vars['Var_6'] + 9.41 * vars['Var_7'] + 1.88 * vars['Var_8'] + 3.01 * vars['Var_9'] <= 164.06, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed Q3 Production Mix to Maximize Total Contribution\n\nTeam,\n\nAs discussed, our objective this quarter is to maximize overall contribution by choosing the right mix of ten product families while staying within our plant and logistics capacities. Each family has a per\u2011unit contribution and draws on shared resources (reactor time, skilled labor, feedstock, finishing line time, emissions credits, storage, and outbound trucking). Unless noted, runs must be scheduled in whole units; minimum for each is zero, and each has an upper availability cap.\n\nBelow are the levers we can pull, listed in the order we track them internally:\n\n- Artemis Resin (whole lots; up to 10.02 lots). Each lot adds 6.6 in contribution. Per lot, it requires 6.83 skilled technician hours, 8.02 units of Base Feedstock A, 0.63 pallet positions in finished\u2011goods storage, and 3.92 units of outbound truck capacity. It does not draw on reactor bay time, finishing line time, or emissions credits.\n\n- Boreal Solvent (whole orders; up to 17.29 orders). Each order adds 3.25 in contribution. Per order, it uses 6.37 hours in the reactor bay, 8.53 hours on the finishing line, 7.91 pallet positions, and 2.33 units of outbound truck capacity. It has no material pull on the skilled technician hour pool, Base Feedstock A, or emissions credits.\n\n- Cobalt Catalyst Blend (fractional blends allowed; up to 5.7 blend units). Each blend unit adds 9.37 in contribution. Per unit, it draws 0.13 reactor bay hours, 3.45 skilled technician hours, 2.88 units of Base Feedstock A, 2.52 finishing line hours, and 1.03 units of outbound truck capacity. It has no incremental demand on emissions credits or pallet positions.\n\n- Draco Polymer (whole batches; up to 10.38 batches). Each batch adds 7.15 in contribution. Per batch, it consumes 5.0 units of Base Feedstock A, 8.6 hours on the finishing line, and 2.57 units of emissions credits. It does not use reactor bay time, skilled technician hours, pallet positions, or truck capacity.\n\n- Eos Emulsion (fractional runs allowed; up to 8.03 run units). Each run unit adds 4.78 in contribution. Per unit, it requires 0.64 units of Base Feedstock A, 4.67 finishing line hours, 9.96 pallet positions, and 9.0 units of outbound truck capacity. It does not require reactor bay time, skilled technician hours, or emissions credits.\n\n- Fenix Additive (whole campaigns; up to 17.63 campaigns). Each campaign adds 1.47 in contribution. Per campaign, it uses 6.96 skilled technician hours, 7.13 units of Base Feedstock A, and 6.98 finishing line hours. It has no draw on reactor bay time, emissions credits, pallet positions, or truck capacity.\n\n- Gaia Coating (whole lots; up to 11.05 lots). Each lot adds 6.48 in contribution. Per lot, it requires 0.89 reactor bay hours, 2.2 skilled technician hours, 2.39 units of Base Feedstock A, 2.62 finishing line hours, 6.96 units of emissions credits, 9.35 pallet positions, and 5.15 units of outbound truck capacity.\n\n- Helios Sealant (whole packs; up to 9.03 packs). Each pack adds 4.37 in contribution. Per pack, it draws 3.37 reactor bay hours, 3.94 units of Base Feedstock A, 5.08 units of emissions credits, and 9.41 units of outbound truck capacity. It does not use skilled technician hours, finishing line time, or pallet positions.\n\n- Iris Primer (whole kits; up to 14.76 kits). Each kit adds 8.44 in contribution. Per kit, it requires 3.68 reactor bay hours, 0.97 skilled technician hours, 5.6 finishing line hours, 4.51 pallet positions, and 1.88 units of outbound truck capacity. It does not use Base Feedstock A or emissions credits.\n\n- Juno Hardener (whole cases; up to 16.71 cases). Each case adds 4.54 in contribution. Per case, it consumes 6.68 reactor bay hours, 6.5 units of emissions credits, 6.75 pallet positions, and 3.01 units of outbound truck capacity. It does not require skilled technician hours, Base Feedstock A, or finishing line time.\n\nFacility and market limits we must respect this quarter:\n\n- Reactor bay time: up to 92.74 hours available.\n- Skilled technician hours: up to 97.76 hours available.\n- Base Feedstock A: up to 147.62 units available.\n- Finishing line time: up to 241.75 hours available.\n- Emissions credits: up to 54.51 units available.\n- Finished\u2011goods pallet positions: up to 190.17 positions available.\n- Outbound truck capacity: up to 164.06 load units available.\n\nPlease use this as the basis to recommend the optimal production mix that maximizes total contribution within the above limits. Happy to discuss assumptions behind each product\u2019s contribution and usage rates if helpful."
+}

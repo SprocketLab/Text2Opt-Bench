@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "All variables, bounds, types, costs, and constraint coefficients are explicit; objective is to minimize spend. Integer PDG and caps are clear. Only variable names are implicit (natural names vs Var_i).",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some narrative and repeated 'no contribution' notes add verbosity, but they clarify zeros and context without causing confusion.",
+      "realism": 94,
+      "realism_comment": "A credible power operations planning scenario with DR, gas turbines, renewables, and reliability/compliance targets; contributions and thresholds are plausible."
+    },
+    "prompt_tokens_with_data": 1046,
+    "prompt_tokens_without_data": 1046
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 90.07404609048746,
+    "optimal_values": {
+      "Var_0": 4.075346988734673,
+      "Var_1": 3.611316220367392,
+      "Var_2": 5.716601814843636,
+      "Var_3": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 92.92
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.98
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 70.47
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 16.56
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 14.43
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 82.9
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.93
+      ],
+      "objective_linear_coefficient": 8.09,
+      "resource_costs": {
+        "C1": 2.81,
+        "C2": 8.89,
+        "C5": 5.95
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.87
+      ],
+      "objective_linear_coefficient": 6.53,
+      "resource_costs": {
+        "C0": 7.65,
+        "C2": 8.12,
+        "C3": 5.36,
+        "C5": 2.8
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.05
+      ],
+      "objective_linear_coefficient": 1.12,
+      "resource_costs": {
+        "C0": 8.01,
+        "C1": 6.04,
+        "C2": 0.86,
+        "C4": 2.85
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.16
+      ],
+      "objective_linear_coefficient": 4.52,
+      "resource_costs": {
+        "C0": 3.64,
+        "C5": 8.09
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.93, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.09 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.87, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.53 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.05, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.12 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.16, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.52 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.65 * vars['Var_1'] + 8.01 * vars['Var_2'] + 3.64 * vars['Var_3'] >= 92.92, name='C0')\n    m.addConstr(2.81 * vars['Var_0'] + 6.04 * vars['Var_2'] >= 45.98, name='C1')\n    m.addConstr(8.89 * vars['Var_0'] + 8.12 * vars['Var_1'] + 0.86 * vars['Var_2'] >= 70.47, name='C2')\n    m.addConstr(5.36 * vars['Var_1'] >= 16.56, name='C3')\n    m.addConstr(2.85 * vars['Var_2'] >= 14.43, name='C4')\n    m.addConstr(5.95 * vars['Var_0'] + 2.8 * vars['Var_1'] + 8.09 * vars['Var_3'] >= 82.9, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized Plan to Meet Reliability and Compliance Targets\n\nTeam,\n\nWe need to settle on a cost-minimized mix of supply options for the upcoming period while meeting or exceeding six operational obligations: baseload delivery, regional coverage, portfolio balance, rapid-start capability, environmental compliance, and nighttime reliability. The objective is to keep total spend as low as possible while hitting all minimum thresholds described below.\n\nHere are the four levers we can pull, in the order I\u2019d like you to evaluate them:\n\n1) Demand Response Blocks (DR Blocks)\n- Commercial terms: We can take anywhere from 0 up to 9.93 blocks. Partial blocks are allowed. Each block costs 8.09 in operating spend.\n- Performance contributions:\n  \u2022 Baseload Delivery Commitment: No contribution (0 per block).\n  \u2022 Regional Coverage Requirement: Adds 2.81 coverage credits per block.\n  \u2022 Portfolio Balance Index: Adds 8.89 balance points per block.\n  \u2022 Rapid-Start Capability: No contribution (0 per block).\n  \u2022 Environmental Compliance Credits: No contribution (0 per block).\n  \u2022 Nighttime Reliability Reserve: Adds 5.95 reserve hours per block.\n\n2) Gas Turbine Runs (GT Runs)\n- Commercial terms: We can schedule anywhere from 0 up to 19.87 runs. Partial runs are allowed. Each run costs 6.53 in operating spend.\n- Performance contributions:\n  \u2022 Baseload Delivery Commitment: Adds 7.65 delivery units per run.\n  \u2022 Regional Coverage Requirement: No contribution (0 per run).\n  \u2022 Portfolio Balance Index: Adds 8.12 balance points per run.\n  \u2022 Rapid-Start Capability: Adds 5.36 response credits per run.\n  \u2022 Environmental Compliance Credits: No contribution (0 per run).\n  \u2022 Nighttime Reliability Reserve: Adds 2.8 reserve hours per run.\n\n3) Off-Peak Renewable Imports (OP Renewables)\n- Commercial terms: We can source anywhere from 0 up to 14.05 import units. Partial units are allowed. Each unit costs 1.12 in operating spend.\n- Performance contributions:\n  \u2022 Baseload Delivery Commitment: Adds 8.01 delivery units per import unit.\n  \u2022 Regional Coverage Requirement: Adds 6.04 coverage credits per import unit.\n  \u2022 Portfolio Balance Index: Adds 0.86 balance points per import unit.\n  \u2022 Rapid-Start Capability: No contribution (0 per import unit).\n  \u2022 Environmental Compliance Credits: Adds 2.85 compliance credits per import unit.\n  \u2022 Nighttime Reliability Reserve: No contribution (0 per import unit).\n\n4) Portable Diesel Generators (PDG Units)\n- Commercial terms: We can deploy anywhere from 0 up to 18.16 units, but these must be in whole units only. Each unit costs 4.52 in operating spend.\n- Performance contributions:\n  \u2022 Baseload Delivery Commitment: Adds 3.64 delivery units per generator.\n  \u2022 Regional Coverage Requirement: No contribution (0 per generator).\n  \u2022 Portfolio Balance Index: No contribution (0 per generator).\n  \u2022 Rapid-Start Capability: No contribution (0 per generator).\n  \u2022 Environmental Compliance Credits: No contribution (0 per generator).\n  \u2022 Nighttime Reliability Reserve: Adds 8.09 reserve hours per generator.\n\nFacility Specs and Minimum Obligations (must be met or exceeded):\n- Baseload Delivery Commitment: at least 92.92 units.\n- Regional Coverage Requirement: at least 45.98 credits.\n- Portfolio Balance Index: at least 70.47 points.\n- Rapid-Start Capability: at least 16.56 credits.\n- Environmental Compliance Credits: at least 14.43 credits.\n- Nighttime Reliability Reserve: at least 82.9 hours.\n\nPlease optimize the mix under these bounds and minimums to minimize total spend, honoring the availability caps for each lever (9.93 DR Blocks, 19.87 GT Runs, 14.05 OP Renewables, and 18.16 PDG Units) and the requirement that PDG Units be procured in whole numbers."
+}

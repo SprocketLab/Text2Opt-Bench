@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All caps, costs, per-unit impacts, and thresholds are explicit. 'No material lift' implies zero coefficients. Variables are 0 to cap, objective is total cost minimization.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Business narrative and repeated 'No material lift' statements add length; the core numeric data is clear but could be presented more concisely.",
+      "realism": 90,
+      "realism_comment": "Feels like a genuine budgeting/planning LP with service/compliance metrics; fractional deployment is stylized but plausible as adjustable lever settings."
+    },
+    "prompt_tokens_with_data": 1511,
+    "prompt_tokens_without_data": 1511
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 282.3676788882891,
+    "optimal_values": {
+      "Var_0": 8.13,
+      "Var_1": 11.090580897120141,
+      "Var_2": 6.33,
+      "Var_3": 0.0,
+      "Var_4": 8.705653188404607,
+      "Var_5": 10.23,
+      "Var_6": 0.0,
+      "Var_7": 8.828029148496134
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 164.27
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 155.79
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 1.93
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 146.45
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 68.93
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 350.59
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 219.35
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 94.49
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 48.09
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.13
+      ],
+      "objective_linear_coefficient": 2.84,
+      "resource_costs": {
+        "C1": 1.75,
+        "C3": 6.8,
+        "C4": 1.88,
+        "C5": 6.56
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.72
+      ],
+      "objective_linear_coefficient": 8.31,
+      "resource_costs": {
+        "C1": 5.26,
+        "C5": 8.96,
+        "C6": 8.47
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.33
+      ],
+      "objective_linear_coefficient": 7.32,
+      "resource_costs": {
+        "C0": 1.03,
+        "C3": 8.37,
+        "C5": 9.45,
+        "C7": 9.4,
+        "C8": 9.15
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.43
+      ],
+      "objective_linear_coefficient": 6.91,
+      "resource_costs": {
+        "C0": 3.1,
+        "C1": 1.7,
+        "C3": 1.52,
+        "C5": 7.47,
+        "C6": 2.77,
+        "C7": 1.16
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.26
+      ],
+      "objective_linear_coefficient": 1.79,
+      "resource_costs": {
+        "C0": 7.57,
+        "C1": 9.56,
+        "C4": 1.88,
+        "C6": 8.07
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.23
+      ],
+      "objective_linear_coefficient": 2.81,
+      "resource_costs": {
+        "C0": 0.53,
+        "C2": 0.51,
+        "C4": 2.47,
+        "C5": 5.35,
+        "C7": 6.2
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.75
+      ],
+      "objective_linear_coefficient": 3.32,
+      "resource_costs": {
+        "C0": 1.45,
+        "C1": 5.1,
+        "C6": 4.76,
+        "C8": 9.12
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.55
+      ],
+      "objective_linear_coefficient": 8.66,
+      "resource_costs": {
+        "C0": 9.79,
+        "C3": 5.78,
+        "C4": 4.22,
+        "C5": 9.44,
+        "C6": 6.89
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.13, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.84 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.72, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.31 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.33, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.32 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.43, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.91 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.26, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.79 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.23, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.81 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.75, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.32 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=11.55, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 8.66 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.03 * vars['Var_2'] + 3.1 * vars['Var_3'] + 7.57 * vars['Var_4'] + 0.53 * vars['Var_5'] + 1.45 * vars['Var_6'] + 9.79 * vars['Var_7'] >= 164.27, name='C0')\n    m.addConstr(1.75 * vars['Var_0'] + 5.26 * vars['Var_1'] + 1.7 * vars['Var_3'] + 9.56 * vars['Var_4'] + 5.1 * vars['Var_6'] >= 155.79, name='C1')\n    m.addConstr(0.51 * vars['Var_5'] >= 1.93, name='C2')\n    m.addConstr(6.8 * vars['Var_0'] + 8.37 * vars['Var_2'] + 1.52 * vars['Var_3'] + 5.78 * vars['Var_7'] >= 146.45, name='C3')\n    m.addConstr(1.88 * vars['Var_0'] + 1.88 * vars['Var_4'] + 2.47 * vars['Var_5'] + 4.22 * vars['Var_7'] >= 68.93, name='C4')\n    m.addConstr(6.56 * vars['Var_0'] + 8.96 * vars['Var_1'] + 9.45 * vars['Var_2'] + 7.47 * vars['Var_3'] + 5.35 * vars['Var_5'] + 9.44 * vars['Var_7'] >= 350.59, name='C5')\n    m.addConstr(8.47 * vars['Var_1'] + 2.77 * vars['Var_3'] + 8.07 * vars['Var_4'] + 4.76 * vars['Var_6'] + 6.89 * vars['Var_7'] >= 219.35, name='C6')\n    m.addConstr(9.4 * vars['Var_2'] + 1.16 * vars['Var_3'] + 6.2 * vars['Var_5'] >= 94.49, name='C7')\n    m.addConstr(9.15 * vars['Var_2'] + 9.12 * vars['Var_6'] >= 48.09, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Draft plan to meet 2025 service and compliance commitments at the lowest total delivery cost\n\nTeam,\n\nWe\u2019re preparing our annual operating plan to satisfy nine non\u2011negotiable service and compliance commitments while keeping spend to a minimum. Below is a proposed slate of eight deployable program levers. Each lever has a per\u2011unit delivery cost, a cap (we can deploy anywhere from zero up to the stated maximum), and clear, measurable lift across our commitment categories. The intention is to dial these levers so that, in aggregate, we hit all minimum thresholds at the lowest total cost.\n\nProgram levers and their impacts\n\n- Frontline Coaching Sprint\n  - We can schedule up to 8.13 sprints. Each sprint carries a delivery cost of 2.84.\n  - Impact per sprint:\n    - Evening Service Level: +1.75 credits\n    - Weekend Preparedness: +6.8 credits\n    - Rural Coverage Footprint: +1.88 credits\n    - Continuity & DR Readiness: +6.56 credits\n  - No material lift in Compliance Readiness, Accessibility & Inclusion Mandate, Advanced Technical Capacity, Emergency Response Coverage, or Data Privacy & Security Maturity.\n\n- Evening Support Practicum\n  - We can run up to 18.72 sessions. Each session costs 8.31.\n  - Impact per session:\n    - Evening Service Level: +5.26 credits\n    - Continuity & DR Readiness: +8.96 credits\n    - Advanced Technical Capacity: +8.47 credits\n  - No material lift in Compliance Readiness, Accessibility & Inclusion Mandate, Weekend Preparedness, Rural Coverage Footprint, Emergency Response Coverage, or Data Privacy & Security Maturity.\n\n- Incident Command Workshop\n  - We can host up to 6.33 cohorts. Each cohort costs 7.32.\n  - Impact per cohort:\n    - Compliance Readiness: +1.03 credits\n    - Weekend Preparedness: +8.37 credits\n    - Continuity & DR Readiness: +9.45 credits\n    - Emergency Response Coverage: +9.4 credits\n    - Data Privacy & Security Maturity: +9.15 credits\n  - No material lift in Evening Service Level, Accessibility & Inclusion Mandate, Rural Coverage Footprint, or Advanced Technical Capacity.\n\n- Cross\u2011Functional Readiness Lab\n  - We can run up to 10.43 labs. Each lab costs 6.91.\n  - Impact per lab:\n    - Compliance Readiness: +3.1 credits\n    - Evening Service Level: +1.7 credits\n    - Weekend Preparedness: +1.52 credits\n    - Continuity & DR Readiness: +7.47 credits\n    - Advanced Technical Capacity: +2.77 credits\n    - Emergency Response Coverage: +1.16 credits\n  - No material lift in Accessibility & Inclusion Mandate, Rural Coverage Footprint, or Data Privacy & Security Maturity.\n\n- Advanced Field Technician Bootcamp\n  - We can deliver up to 14.26 bootcamps. Each bootcamp costs 1.79.\n  - Impact per bootcamp:\n    - Compliance Readiness: +7.57 credits\n    - Evening Service Level: +9.56 credits\n    - Rural Coverage Footprint: +1.88 credits\n    - Advanced Technical Capacity: +8.07 credits\n  - No material lift in Accessibility & Inclusion Mandate, Weekend Preparedness, Continuity & DR Readiness, Emergency Response Coverage, or Data Privacy & Security Maturity.\n\n- Safety & Accessibility Clinic\n  - We can schedule up to 10.23 clinics. Each clinic costs 2.81.\n  - Impact per clinic:\n    - Compliance Readiness: +0.53 credits\n    - Accessibility & Inclusion Mandate: +0.51 credits\n    - Rural Coverage Footprint: +2.47 credits\n    - Continuity & DR Readiness: +5.35 credits\n    - Emergency Response Coverage: +6.2 credits\n  - No material lift in Evening Service Level, Weekend Preparedness, Advanced Technical Capacity, or Data Privacy & Security Maturity.\n\n- Data Privacy Intensive\n  - We can offer up to 12.75 intensives. Each intensive costs 3.32.\n  - Impact per intensive:\n    - Compliance Readiness: +1.45 credits\n    - Evening Service Level: +5.1 credits\n    - Advanced Technical Capacity: +4.76 credits\n    - Data Privacy & Security Maturity: +9.12 credits\n  - No material lift in Accessibility & Inclusion Mandate, Weekend Preparedness, Rural Coverage Footprint, Continuity & DR Readiness, or Emergency Response Coverage.\n\n- Continuity Full\u2011Scale Exercise\n  - We can conduct up to 11.55 exercises. Each exercise costs 8.66.\n  - Impact per exercise:\n    - Compliance Readiness: +9.79 credits\n    - Weekend Preparedness: +5.78 credits\n    - Rural Coverage Footprint: +4.22 credits\n    - Continuity & DR Readiness: +9.44 credits\n    - Advanced Technical Capacity: +6.89 credits\n  - No material lift in Evening Service Level, Accessibility & Inclusion Mandate, Emergency Response Coverage, or Data Privacy & Security Maturity.\n\nFacility specs and minimum commitment thresholds\n\n- Compliance Readiness: at least 164.27 credits across the plan.\n- Evening Service Level: at least 155.79 credits.\n- Accessibility & Inclusion Mandate: at least 1.93 credits.\n- Weekend Preparedness: at least 146.45 credits.\n- Rural Coverage Footprint: at least 68.93 credits.\n- Continuity & DR Readiness: at least 350.59 credits.\n- Advanced Technical Capacity: at least 219.35 credits.\n- Emergency Response Coverage: at least 94.49 credits.\n- Data Privacy & Security Maturity: at least 48.09 credits.\n\nOur objective is to meet or exceed each of the above thresholds while minimizing the total cost of the selected mix. Please review and confirm that these program levers, caps, and thresholds align with your expectations. Once approved, we\u2019ll finalize the dial settings and submit the budget."
+}

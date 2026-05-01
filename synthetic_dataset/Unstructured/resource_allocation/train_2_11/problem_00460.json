@@ -1,0 +1,207 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All variables, bounds, types, per-unit margins, and resource consumptions are explicitly listed; capacities are clear, enabling exact LP/MILP reconstruction.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative and contextual flavor add verbosity; the technical data are clear and non-repetitive but wrapped in extra prose.",
+      "realism": 95,
+      "realism_comment": "Highly plausible production planning with shared capacities and batch/continuous runs; resource types and limits feel realistic."
+    },
+    "prompt_tokens_with_data": 1279,
+    "prompt_tokens_without_data": 1279
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 408.607863638166,
+    "optimal_values": {
+      "Var_0": 19.0,
+      "Var_1": 8.103817045832301,
+      "Var_2": 9.0,
+      "Var_3": 15.306872068386037,
+      "Var_4": -0.0,
+      "Var_5": 0.0,
+      "Var_6": 0.0,
+      "Var_7": 7.516189750211454,
+      "Var_8": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 1.7
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 171.64
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 168.77
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 81.65
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 96.16
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 97.35
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 157.03
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 155.11
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.43
+      ],
+      "objective_linear_coefficient": 5.92,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.41
+      ],
+      "objective_linear_coefficient": 5.29,
+      "resource_costs": {
+        "C1": 5.55,
+        "C2": 9.61,
+        "C3": 4.39,
+        "C4": 0.08,
+        "C5": 1.34,
+        "C7": 4.38
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.26
+      ],
+      "objective_linear_coefficient": 6.54,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.97
+      ],
+      "objective_linear_coefficient": 9.03,
+      "resource_costs": {
+        "C1": 7.54,
+        "C6": 8.81,
+        "C7": 3.14
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.72
+      ],
+      "objective_linear_coefficient": 7.65,
+      "resource_costs": {
+        "C1": 9.51,
+        "C2": 9.75,
+        "C5": 1.45,
+        "C6": 4.91,
+        "C7": 5.46
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.26
+      ],
+      "objective_linear_coefficient": 3.47,
+      "resource_costs": {
+        "C0": 3.67,
+        "C1": 1.55,
+        "C3": 3.15,
+        "C4": 2.03,
+        "C6": 1.48
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.23
+      ],
+      "objective_linear_coefficient": 4.17,
+      "resource_costs": {
+        "C1": 4.89,
+        "C3": 2.84,
+        "C4": 6.38,
+        "C5": 7.95,
+        "C6": 7.55,
+        "C7": 9.39
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.23
+      ],
+      "objective_linear_coefficient": 3.25,
+      "resource_costs": {
+        "C2": 6.25,
+        "C3": 6.13,
+        "C4": 5.27,
+        "C5": 0.33,
+        "C6": 0.09
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.69
+      ],
+      "objective_linear_coefficient": 6.35,
+      "resource_costs": {
+        "C1": 2.25,
+        "C2": 8.59,
+        "C4": 5.02,
+        "C5": 8.08,
+        "C6": 4.3,
+        "C7": 6.07
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.43, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.92 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.41, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.29 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.26, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.54 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.97, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.03 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.72, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 7.65 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.26, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 3.47 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.23, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.17 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=17.23, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.25 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=18.69, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 6.35 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.67 * vars['Var_5'] <= 1.7, name='C0')\n    m.addConstr(5.55 * vars['Var_1'] + 7.54 * vars['Var_3'] + 9.51 * vars['Var_4'] + 1.55 * vars['Var_5'] + 4.89 * vars['Var_6'] + 2.25 * vars['Var_8'] <= 171.64, name='C1')\n    m.addConstr(9.61 * vars['Var_1'] + 9.75 * vars['Var_4'] + 6.25 * vars['Var_7'] + 8.59 * vars['Var_8'] <= 168.77, name='C2')\n    m.addConstr(4.39 * vars['Var_1'] + 3.15 * vars['Var_5'] + 2.84 * vars['Var_6'] + 6.13 * vars['Var_7'] <= 81.65, name='C3')\n    m.addConstr(0.08 * vars['Var_1'] + 2.03 * vars['Var_5'] + 6.38 * vars['Var_6'] + 5.27 * vars['Var_7'] + 5.02 * vars['Var_8'] <= 96.16, name='C4')\n    m.addConstr(1.34 * vars['Var_1'] + 1.45 * vars['Var_4'] + 7.95 * vars['Var_6'] + 0.33 * vars['Var_7'] + 8.08 * vars['Var_8'] <= 97.35, name='C5')\n    m.addConstr(8.81 * vars['Var_3'] + 4.91 * vars['Var_4'] + 1.48 * vars['Var_5'] + 7.55 * vars['Var_6'] + 0.09 * vars['Var_7'] + 4.3 * vars['Var_8'] <= 157.03, name='C6')\n    m.addConstr(4.38 * vars['Var_1'] + 3.14 * vars['Var_3'] + 5.46 * vars['Var_4'] + 9.39 * vars['Var_6'] + 6.07 * vars['Var_8'] <= 155.11, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio Allocation Plan \u2014 Maximizing Contribution Within Facility Limits\n\nTeam,\n\nAs we finalize the production plan for the upcoming period, our goal is to maximize overall contribution from our nine offerings while staying within the plant\u2019s shared capacities and market caps. Below is a summary of each lever we can pull, how much value each creates, and the specific demands they place on our constrained resources. All volumes are in our standard planning units and can be set anywhere from zero up to the stated cap; some items require whole-batch commitments, while others can be scheduled in fractional runs.\n\n- Blue Reserve Drop\u2011Ship Bottled Water\n  This is a vendor-fulfilled line that doesn\u2019t draw on our plant\u2019s shared capacities. Each planning unit contributes 5.92 in margin. We can book between 0 and 19.43 units, and because this is a case\u2011lot arrangement, we place orders in whole batches only.\n\n- Citrus Sparkling, Line Alpha\n  Each planning unit contributes 5.29 in margin. We can schedule between 0 and 12.41 units, and this run can be fractional. Per unit, this draws 5.55 hours on Line Alpha, 9.61 units of Specialty Resin A, 4.39 hours from the Skilled Assembly Team, 0.08 hours on Packaging & QA, 1.34 cold\u2011storage slots, and 4.38 environmental compliance credits.\n\n- Heritage Still Water, Boutique Run\n  This boutique offering is fully outsourced and does not consume our shared plant capacities. Each planning unit contributes 6.54 in margin. We can book between 0 and 9.26 units, in whole batches only.\n\n- Ginger Kombucha, Fermentation Program\n  This provides our highest per\u2011unit contribution among the flexible runs at 9.03. We can schedule between 0 and 17.97 units, and it can be fractional. Per unit, it uses 7.54 hours on Line Alpha, 8.81 hours on Thermal Processing Unit B, and 3.14 environmental compliance credits.\n\n- Botanical Energy, Round\u2011Canned\n  Each planning unit contributes 7.65 in margin. We can commit between 0 and 13.72 units, in whole batches only. Per unit, it consumes 9.51 hours on Line Alpha, 9.75 units of Specialty Resin A, 1.45 cold\u2011storage slots, 4.91 hours on Thermal Processing Unit B, and 5.46 environmental compliance credits.\n\n- Specialty Sports Gel, Trial Packs\n  Each planning unit contributes 3.47 in margin. We can schedule between 0 and 16.26 units, in whole batches only. Per unit, this requires 3.67 overtime shift credits, 1.55 hours on Line Alpha, 3.15 Skilled Assembly hours, 2.03 Packaging & QA hours, and 1.48 hours on Thermal Processing Unit B.\n\n- Cold Brew Nitro\n  Each planning unit contributes 4.17 in margin. We can schedule between 0 and 10.23 units, and it can be fractional. Per unit, this uses 4.89 hours on Line Alpha, 2.84 Skilled Assembly hours, 6.38 Packaging & QA hours, 7.95 cold\u2011storage slots, 7.55 hours on Thermal Processing Unit B, and 9.39 environmental compliance credits.\n\n- Protein Smoothie, Blender Line\n  Each planning unit contributes 3.25 in margin. We can schedule between 0 and 17.23 units, and it can be fractional. Per unit, this consumes 6.25 units of Specialty Resin A, 6.13 Skilled Assembly hours, 5.27 Packaging & QA hours, 0.33 cold\u2011storage slots, and 0.09 hours on Thermal Processing Unit B.\n\n- Premium Tonic, Glass Bottled\n  Each planning unit contributes 6.35 in margin. We can commit between 0 and 18.69 units, in whole batches only. Per unit, it uses 2.25 hours on Line Alpha, 8.59 units of Specialty Resin A, 5.02 Packaging & QA hours, 8.08 cold\u2011storage slots, 4.3 hours on Thermal Processing Unit B, and 6.07 environmental compliance credits.\n\nFacility Specs & Market Limits\n- Overtime shift credits available: up to 1.7\n- Line Alpha machine hours available: up to 171.64\n- Specialty Resin A supply available: up to 168.77\n- Skilled Assembly Team hours available: up to 81.65\n- Packaging & QA line hours available: up to 96.16\n- Cold\u2011storage capacity (slots): up to 97.35\n- Thermal Processing Unit B runtime available: up to 157.03\n- Environmental compliance credits available: up to 155.11\n\nPlease review these levers and limits. With these numbers, we can finalize a schedule that maximizes contribution while staying fully compliant and within our operational capacities. If you need any clarifications or prefer alternative naming for the resources, let me know and I\u2019ll update the brief."
+}

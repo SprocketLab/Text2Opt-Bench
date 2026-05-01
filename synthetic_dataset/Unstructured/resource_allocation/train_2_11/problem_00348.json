@@ -1,0 +1,194 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All caps, objective coefficients, per-unit impacts, and <= thresholds are given with clear sign conventions; zero-impacts stated. A human can reconstruct the exact LP mechanically.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Some verbose business prose and repeated 'no impact' notes add length, but most content is relevant and clarifying.",
+      "realism": 95,
+      "realism_comment": "A credible portfolio planning scenario with sustainability/compliance ledgers and capacity limits; negative credit targets are plausible and well explained."
+    },
+    "prompt_tokens_with_data": 1569,
+    "prompt_tokens_without_data": 1569
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 327.94601930037953,
+    "optimal_values": {
+      "Var_0": 5.080238095238094,
+      "Var_1": 0.0,
+      "Var_2": 8.01,
+      "Var_3": 7.91,
+      "Var_4": 14.691400966183576,
+      "Var_5": 10.45,
+      "Var_6": 5.682062499999999
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 2.32
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -32.45
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 91.11
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -81.74
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 78.26
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -50.21
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -14.75
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -16.41
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -49.25
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.19
+      ],
+      "objective_linear_coefficient": 1.02,
+      "resource_costs": {
+        "C0": 6.3,
+        "C6": -4.31,
+        "C7": -4.81
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.49
+      ],
+      "objective_linear_coefficient": 2.01,
+      "resource_costs": {
+        "C0": 1.53,
+        "C2": 2.4,
+        "C4": 8.38,
+        "C8": -5.7
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.01
+      ],
+      "objective_linear_coefficient": 8.78,
+      "resource_costs": {
+        "C0": 4.5,
+        "C1": 0.45,
+        "C2": -6.33,
+        "C3": -4.65,
+        "C4": 1.05,
+        "C5": -6.54,
+        "C7": -6.86,
+        "C8": -7.75
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.91
+      ],
+      "objective_linear_coefficient": 6.05,
+      "resource_costs": {
+        "C1": -8.31,
+        "C3": -5.4,
+        "C4": 1.59,
+        "C5": -4.91,
+        "C7": 7.68,
+        "C8": 8.63
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.17
+      ],
+      "objective_linear_coefficient": 8.48,
+      "resource_costs": {
+        "C2": 8.28,
+        "C3": -7.14,
+        "C4": -0.49,
+        "C5": 5.74,
+        "C6": -0.96,
+        "C7": -8.25
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.45
+      ],
+      "objective_linear_coefficient": 3.86,
+      "resource_costs": {
+        "C0": -6.29,
+        "C1": 1.1,
+        "C2": 1.93,
+        "C3": 0.22,
+        "C5": -4.8,
+        "C6": 6.4,
+        "C7": 2.44,
+        "C8": -6.57
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.48
+      ],
+      "objective_linear_coefficient": 6.98,
+      "resource_costs": {
+        "C1": 3.2,
+        "C5": -1.8,
+        "C6": -9.13
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.19, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.02 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.49, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.01 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.01, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.78 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.91, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.05 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.17, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.48 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.45, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.86 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.48, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.98 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.3 * vars['Var_0'] + 1.53 * vars['Var_1'] + 4.5 * vars['Var_2'] + -6.29 * vars['Var_5'] <= 2.32, name='C0')\n    m.addConstr(0.45 * vars['Var_2'] + -8.31 * vars['Var_3'] + 1.1 * vars['Var_5'] + 3.2 * vars['Var_6'] <= -32.45, name='C1')\n    m.addConstr(2.4 * vars['Var_1'] + -6.33 * vars['Var_2'] + 8.28 * vars['Var_4'] + 1.93 * vars['Var_5'] <= 91.11, name='C2')\n    m.addConstr(-4.65 * vars['Var_2'] + -5.4 * vars['Var_3'] + -7.14 * vars['Var_4'] + 0.22 * vars['Var_5'] <= -81.74, name='C3')\n    m.addConstr(8.38 * vars['Var_1'] + 1.05 * vars['Var_2'] + 1.59 * vars['Var_3'] + -0.49 * vars['Var_4'] <= 78.26, name='C4')\n    m.addConstr(-6.54 * vars['Var_2'] + -4.91 * vars['Var_3'] + 5.74 * vars['Var_4'] + -4.8 * vars['Var_5'] + -1.8 * vars['Var_6'] <= -50.21, name='C5')\n    m.addConstr(-4.31 * vars['Var_0'] + -0.96 * vars['Var_4'] + 6.4 * vars['Var_5'] + -9.13 * vars['Var_6'] <= -14.75, name='C6')\n    m.addConstr(-4.81 * vars['Var_0'] + -6.86 * vars['Var_2'] + 7.68 * vars['Var_3'] + -8.25 * vars['Var_4'] + 2.44 * vars['Var_5'] <= -16.41, name='C7')\n    m.addConstr(-5.7 * vars['Var_1'] + -7.75 * vars['Var_2'] + 8.63 * vars['Var_3'] + -6.57 * vars['Var_5'] <= -49.25, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio Mix Recommendation \u2014 Maximizing Q4 Strategic Value Under Resource and Compliance Limits\n\nThank you for taking this on. We need guidance on how to allocate our Q4 portfolio across seven initiatives to maximize overall strategic value while staying within a set of operational capacities and compliance-ledger targets. Each initiative can be scaled continuously (no minimum commitments), up to the stated cap. Below, I\u2019ve outlined the per-unit value and the way each initiative loads or relieves the relevant ledgers and resources.\n\nBlue Harbor Cold Storage Upgrade (cap 10.19 units)\n- Value: Each unit contributes 1.02 points of strategic value.\n- Operational effects: It draws 6.3 units of refrigeration capacity.\n- Compliance ledger effects: It delivers 4.31 units of energy-efficiency savings (treated as a reduction in our energy-savings ledger) and removes 4.81 hours from our community-outreach ledger (a reduction of net obligation).\n- No direct impact on water footprint, emissions, GHG co-contaminants, land use, waste, or renewable certificate positions beyond what\u2019s noted above.\n\nHarbor Merchandising Campaign (cap 17.49 units)\n- Value: Each unit contributes 2.01 points of strategic value.\n- Operational effects: It draws 1.53 units of refrigeration capacity.\n- Compliance ledger effects: It adds 2.4 units to our water footprint and 8.38 units to our land-use & permitting index, while providing 5.7 units of renewable certificates (a reduction in the renewable-certificates ledger).\n- No direct impact on emissions, GHG co-contaminants, waste, energy-savings ledger, or community-outreach ledger beyond what\u2019s noted above.\n\nAurora Closed-Loop Packaging Program (cap 8.01 units)\n- Value: Each unit contributes 8.78 points of strategic value.\n- Operational effects: It draws 4.5 units of refrigeration capacity.\n- Compliance ledger effects: It adds 0.45 units to our emissions ledger, but reduces our water footprint by 6.33 units and our GHG co-contaminant ledger by 4.65 units. It adds 1.05 units to the land-use & permitting index, while reducing landfill waste by 6.54 units, community-outreach obligations by 6.86 hours, and our renewable-certificates ledger by 7.75 units (i.e., securing certificates).\n- No direct impact on the energy-savings ledger beyond what\u2019s noted above.\n\nSummit Fleet Electrification (cap 7.91 units)\n- Value: Each unit contributes 6.05 points of strategic value.\n- Compliance ledger effects: It reduces our emissions ledger by 8.31 units and our GHG co-contaminant ledger by 5.4 units. It adds 1.59 units to the land-use & permitting index, reduces landfill waste by 4.91 units, and increases our community-outreach ledger by 7.68 hours (additional engagement commitments). It also adds 8.63 units to our renewable-certificates ledger (consumes certificates).\n- No direct impact on refrigeration capacity, water footprint, or energy-savings ledger beyond what\u2019s noted above.\n\nEvergreen Building Retrofit (cap 15.17 units)\n- Value: Each unit contributes 8.48 points of strategic value.\n- Compliance ledger effects: It adds 8.28 units to our water footprint, reduces our GHG co-contaminant ledger by 7.14 units, and slightly reduces our land-use & permitting index by 0.49 units. It adds 5.74 units to our landfill waste ledger, reduces our energy-savings ledger by 0.96 units (i.e., provides savings), and removes 8.25 hours from our community-outreach ledger.\n- No direct impact on refrigeration capacity, emissions ledger, or renewable-certificates ledger beyond what\u2019s noted above.\n\nCatalyst Process Optimization (cap 10.45 units)\n- Value: Each unit contributes 3.86 points of strategic value.\n- Operational effects: It frees 6.29 units of refrigeration capacity (a reduction of cold-storage load).\n- Compliance ledger effects: It adds 1.1 units to our emissions ledger, 1.93 units to our water footprint, and 0.22 units to our GHG co-contaminant ledger. It reduces landfill waste by 4.8 units, but consumes 6.4 units of the energy-savings ledger (draws against our savings balance) and adds 2.44 hours to our community-outreach ledger. It reduces our renewable-certificates ledger by 6.57 units (secures certificates).\n- No other ledgers are affected beyond what\u2019s noted above.\n\nCoastal Wind Power Purchase Agreements (cap 19.48 units)\n- Value: Each unit contributes 6.98 points of strategic value.\n- Compliance ledger effects: It adds 3.2 units to our emissions ledger, reduces landfill waste by 1.8 units, and reduces our energy-savings ledger by 9.13 units (provides substantial savings credits).\n- No direct impact on refrigeration capacity, water footprint, GHG co-contaminants, land use, community outreach, or renewable certificates beyond what\u2019s noted above.\n\nFacility Specs and Compliance Targets\n- Refrigeration peak capacity: Keep total draw at or below 2.32 units.\n- Emissions (NOx) offset ledger: Close the quarter at or below -32.45 units. Practically, this means we\u2019re obliged to achieve a net reduction/credit position of at least 32.45 units.\n- Water footprint: Keep total consumption at or below 91.11 units.\n- GHG co-contaminant ledger: Close the quarter at or below -81.74 units (net reductions required at this magnitude).\n- Land-use & permitting index: Keep the cumulative index at or below 78.26 units.\n- Landfill waste ledger: Close the quarter at or below -50.21 units (net diversion/credit position required).\n- Energy-efficiency savings ledger: Close the quarter at or below -14.75 units (maintain net savings at this level or better).\n- Community-outreach net hours: Keep the ledger at or below -16.41 hours (reflects net reduction commitment).\n- Renewable energy certificates: Keep the net position at or below -49.25 units (secure certificates to exceed this net credit threshold).\n\nOur intent is to push overall strategic value as high as possible, within these operating limits and ledger requirements. Please use the caps and per-unit effects exactly as described when recommending the allocation across the seven initiatives."
+}

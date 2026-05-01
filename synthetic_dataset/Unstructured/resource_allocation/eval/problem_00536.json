@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 10,
+    "num_constraints": 10,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Each product lists max lots, per-lot contribution, and resource usage; capacities given. Linear maximize contribution model reconstructed without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style context and meta requirements add verbosity, but coefficients and limits are clear. Some wording is extra yet not excessive.",
+      "realism": 97,
+      "realism_comment": "Very realistic production planning: equipment hours, handling, pallets, and budget limits; per-product contributions and caps mirror real OR settings."
+    },
+    "prompt_tokens_with_data": 1069,
+    "prompt_tokens_without_data": 1069
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 199.49496785847867,
+    "optimal_values": {
+      "Var_0": 0.2999999999999964,
+      "Var_1": 5.068525896414345,
+      "Var_2": 10.68,
+      "Var_3": 4.733713123092574,
+      "Var_4": 2.6253211009174313,
+      "Var_5": 0.0,
+      "Var_6": 1.3607856743760025,
+      "Var_7": 8.97,
+      "Var_8": 7.890955334453201,
+      "Var_9": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.47
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.37
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 63.12
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 13.07
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 67.23
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.38
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.95
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 23.46
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 130.67
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 113.67
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.26
+      ],
+      "objective_linear_coefficient": 2.59,
+      "resource_costs": {
+        "C0": 3.76,
+        "C3": 1.16,
+        "C4": 2.84,
+        "C5": 0.24,
+        "C8": 6.38,
+        "C9": 2.91
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.27
+      ],
+      "objective_linear_coefficient": 1.03,
+      "resource_costs": {
+        "C3": 2.51,
+        "C8": 3.72
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.1
+      ],
+      "objective_linear_coefficient": 6.67,
+      "resource_costs": {
+        "C1": 2.75,
+        "C6": 0.32,
+        "C8": 3.71
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.04
+      ],
+      "objective_linear_coefficient": 5.82,
+      "resource_costs": {
+        "C6": 9.83
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.15
+      ],
+      "objective_linear_coefficient": 6.74,
+      "resource_costs": {
+        "C2": 4.61,
+        "C5": 5.45,
+        "C9": 3.71
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.99
+      ],
+      "objective_linear_coefficient": 1.27,
+      "resource_costs": {
+        "C2": 5.68,
+        "C4": 0.63,
+        "C7": 3.48,
+        "C9": 8.29
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.85
+      ],
+      "objective_linear_coefficient": 1.15,
+      "resource_costs": {
+        "C0": 3.35,
+        "C8": 9.14,
+        "C9": 2.66
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.97
+      ],
+      "objective_linear_coefficient": 6.01,
+      "resource_costs": {
+        "C2": 1.94,
+        "C4": 7.4,
+        "C7": 0.35,
+        "C9": 4.69
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.04
+      ],
+      "objective_linear_coefficient": 2.73,
+      "resource_costs": {
+        "C2": 4.26,
+        "C8": 7.33
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.62
+      ],
+      "objective_linear_coefficient": 4.43,
+      "resource_costs": {
+        "C0": 3.54,
+        "C1": 2.24,
+        "C4": 0.95,
+        "C6": 0.78,
+        "C8": 4.55,
+        "C9": 2.15
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.26, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.59 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.27, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.03 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.1, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.67 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.04, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.82 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.15, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.74 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.99, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.27 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=7.85, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.15 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=8.97, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 6.01 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=10.04, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 2.73 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=12.62, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 4.43 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.76 * vars['Var_0'] + 3.35 * vars['Var_6'] + 3.54 * vars['Var_9'] <= 30.47, name='C0')\n    m.addConstr(2.75 * vars['Var_2'] + 2.24 * vars['Var_9'] <= 29.37, name='C1')\n    m.addConstr(4.61 * vars['Var_4'] + 5.68 * vars['Var_5'] + 1.94 * vars['Var_7'] + 4.26 * vars['Var_8'] <= 63.12, name='C2')\n    m.addConstr(1.16 * vars['Var_0'] + 2.51 * vars['Var_1'] <= 13.07, name='C3')\n    m.addConstr(2.84 * vars['Var_0'] + 0.63 * vars['Var_5'] + 7.4 * vars['Var_7'] + 0.95 * vars['Var_9'] <= 67.23, name='C4')\n    m.addConstr(0.24 * vars['Var_0'] + 5.45 * vars['Var_4'] <= 14.38, name='C5')\n    m.addConstr(0.32 * vars['Var_2'] + 9.83 * vars['Var_3'] + 0.78 * vars['Var_9'] <= 49.95, name='C6')\n    m.addConstr(3.48 * vars['Var_5'] + 0.35 * vars['Var_7'] <= 23.46, name='C7')\n    m.addConstr(6.38 * vars['Var_0'] + 3.72 * vars['Var_1'] + 3.71 * vars['Var_2'] + 9.14 * vars['Var_6'] + 7.33 * vars['Var_8'] + 4.55 * vars['Var_9'] <= 130.67, name='C8')\n    m.addConstr(2.91 * vars['Var_0'] + 3.71 * vars['Var_4'] + 8.29 * vars['Var_5'] + 2.66 * vars['Var_6'] + 4.69 * vars['Var_7'] + 2.15 * vars['Var_9'] <= 113.67, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 Production Mix \u2013 Maximizing Contribution Within Plant Limits\n\nTeam,\n\nWe\u2019re setting our Q1 production plan for the Specialty Coatings portfolio with the clear goal of maximizing total contribution while staying within plant, handling, storage, and budget limits. Each product below can be scheduled anywhere from zero up to its technical cap (in standard lots). Per-lot contribution and per-lot draws on our constrained resources are noted; if a resource isn\u2019t called out for a given product, its draw is negligible.\n\nAurora Primer (up to 18.26 lots)\n- Adds 2.59 in contribution per lot.\n- Per lot requires 3.76 hours on Reactor Line A, 1.16 hours of senior operators, 2.84 hours on the primary packaging line, 0.24 units of regulated solvent handling, 6.38 finished-goods pallet positions, and 2.91 in operating spend.\n\nBeacon Sealant (up to 17.27 lots)\n- Adds 1.03 in contribution per lot.\n- Per lot requires 2.51 hours of senior operators and 3.72 finished-goods pallet positions.\n\nCascade Adhesive (up to 14.10 lots)\n- Adds 6.67 in contribution per lot.\n- Per lot requires 2.75 hours in the QC lab, 0.32 units of chilled water capacity, and 3.71 finished-goods pallet positions.\n\nDelta Coating B (up to 7.04 lots)\n- Adds 5.82 in contribution per lot.\n- Per lot requires 9.83 units of chilled water capacity.\n\nEclipse Topcoat (up to 15.15 lots)\n- Adds 6.74 in contribution per lot.\n- Per lot requires 4.61 mixer-hours, 5.45 units of regulated solvent handling, and 3.71 in operating spend.\n\nForge Underlayment (up to 19.99 lots)\n- Adds 1.27 in contribution per lot.\n- Per lot requires 5.68 mixer-hours, 0.63 hours on the primary packaging line, 3.48 materials-handling crew shifts, and 8.29 in operating spend.\n\nGlacier Primer Lite (up to 7.85 lots)\n- Adds 1.15 in contribution per lot.\n- Per lot requires 3.35 hours on Reactor Line A, 9.14 finished-goods pallet positions, and 2.66 in operating spend.\n\nHelios Varnish (up to 8.97 lots)\n- Adds 6.01 in contribution per lot.\n- Per lot requires 1.94 mixer-hours, 7.40 hours on the primary packaging line, 0.35 materials-handling crew shifts, and 4.69 in operating spend.\n\nIon Seal (up to 10.04 lots)\n- Adds 2.73 in contribution per lot.\n- Per lot requires 4.26 mixer-hours and 7.33 finished-goods pallet positions.\n\nJade Resin (up to 12.62 lots)\n- Adds 4.43 in contribution per lot.\n- Per lot requires 3.54 hours on Reactor Line A, 2.24 hours in the QC lab, 0.95 hours on the primary packaging line, 0.78 units of chilled water capacity, 4.55 finished-goods pallet positions, and 2.15 in operating spend.\n\nFacility and Market Limits (do not exceed)\n- Reactor Line A hours: 30.47\n- QC lab hours: 29.37\n- Mixer-hours: 63.12\n- Senior operator hours: 13.07\n- Primary packaging line hours: 67.23\n- Regulated solvent handling allowance (units): 14.38\n- Chilled water capacity (units): 49.95\n- Materials-handling crew shifts: 23.46\n- Finished-goods pallet positions: 130.67\n- Available operating spend: 113.67\n\nPlease use the above as the basis for the optimization run so we lock in the mix that delivers the highest total contribution without breaching any of our plant or budget ceilings."
+}

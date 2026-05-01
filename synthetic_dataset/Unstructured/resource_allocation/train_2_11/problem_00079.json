@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and signs are explicitly stated; 'no other resource effects' implies zeros. Objective (margins) and caps map directly to the LP with no guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Memo-style narrative adds context and some verbosity, but the bullet points give precise parameters with little repetition.",
+      "realism": 94,
+      "realism_comment": "Feels like a real Q4 operations plan with capacity, compliance, and working capital limits; credits/draws are plausible though fractional maxima are slightly odd."
+    },
+    "prompt_tokens_with_data": 978,
+    "prompt_tokens_without_data": 978
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 106.72776747333658,
+    "optimal_values": {
+      "Var_0": 9.290076335877862,
+      "Var_1": 6.639950914045443,
+      "Var_2": 1.1246954685723554
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 75.48
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 86.02
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 8.47
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -12.17
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 2.91
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.81
+      ],
+      "objective_linear_coefficient": 4.3,
+      "resource_costs": {
+        "C0": 8.58,
+        "C1": 9.64,
+        "C2": -0.83,
+        "C3": -1.31,
+        "C4": -1.6
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.15
+      ],
+      "objective_linear_coefficient": 9.39,
+      "resource_costs": {
+        "C2": -0.15,
+        "C4": 2.25
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.78
+      ],
+      "objective_linear_coefficient": 3.94,
+      "resource_costs": {
+        "C0": -3.76,
+        "C1": -3.45,
+        "C2": 5.57,
+        "C4": 2.52
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.81, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.3 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.15, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.39 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.78, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.94 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.58 * vars['Var_0'] + -3.76 * vars['Var_2'] <= 75.48, name='C0')\n    m.addConstr(9.64 * vars['Var_0'] + -3.45 * vars['Var_2'] <= 86.02, name='C1')\n    m.addConstr(-0.83 * vars['Var_0'] + -0.15 * vars['Var_1'] + 5.57 * vars['Var_2'] <= 8.47, name='C2')\n    m.addConstr(-1.31 * vars['Var_0'] <= -12.17, name='C3')\n    m.addConstr(-1.6 * vars['Var_0'] + 2.25 * vars['Var_1'] + 2.52 * vars['Var_2'] <= 2.91, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed allocation across three initiatives to maximize contribution under our Q4 operating limits\n\nTeam,\n\nWe\u2019re evaluating how best to allocate effort and budget across three initiatives this quarter with the goal of maximizing overall contribution while staying within our operational and compliance limits. Below is the business framing of each lever and its impact on our constrained resources.\n\n- Green Retrofit Bundles (energy-efficiency upgrades)\n  - Economic impact: Each bundle contributes 4.3 in margin.\n  - Volume flexibility: We can deploy anywhere from 0 up to 10.81 bundles this quarter.\n  - Skilled technician hours: Consumes 8.58 hours per bundle.\n  - Line availability: Uses 9.64 hours of scheduled line time per bundle.\n  - Wastewater/residuals: Provides a 0.83-unit reduction per bundle (i.e., subtracts 0.83 from our discharge load).\n  - Emissions reduction ledger: Provides a 1.31-unit reduction per bundle (the ledger becomes more negative by 1.31).\n  - Net working capital: Generates 1.6 units of upfront benefit per bundle (reduces the net draw by 1.6).\n  - No other resource effects beyond the above.\n\n- Premium Analytics Subscriptions (digital performance package)\n  - Economic impact: Each subscription contributes 9.39 in margin.\n  - Volume flexibility: We can commit anywhere from 0 up to 7.15 subscriptions this quarter.\n  - Skilled technician hours: No material draw.\n  - Line availability: No material draw.\n  - Wastewater/residuals: Provides a modest 0.15-unit reduction per subscription (i.e., subtracts 0.15 from our discharge load).\n  - Emissions reduction ledger: No impact.\n  - Net working capital: Requires 2.25 units of draw per subscription (onboarding and setup).\n  - No other resource effects beyond the above.\n\n- Automation Cell Installations (capacity unlocking deployments)\n  - Economic impact: Each installation contributes 3.94 in margin.\n  - Volume flexibility: We can deploy anywhere from 0 up to 7.78 installations this quarter.\n  - Skilled technician hours: Returns 3.76 hours to the pool per installation (capacity credit; reduces net hours used by 3.76).\n  - Line availability: Returns 3.45 hours per installation (capacity credit; reduces net line time used by 3.45).\n  - Wastewater/residuals: Adds 5.57 units per installation (commissioning-related load).\n  - Emissions reduction ledger: No impact.\n  - Net working capital: Requires 2.52 units of draw per installation.\n  - No other resource effects beyond the above.\n\nFacility specs and compliance limits\n- Skilled technician hours: Available capacity across all work is capped at 75.48 hours.\n- Line availability (scheduled line time): Available capacity is capped at 86.02 hours.\n- Wastewater/residuals discharge: Net discharge (after reductions and additions from the above initiatives) must not exceed 8.47 units.\n- Emissions reduction ledger vs. baseline: We must be at or below \u221212.17 for the quarter (i.e., achieve at least 12.17 units of net reduction; only the Green Retrofit Bundles contribute 1.31 units of reduction each).\n- Net working capital draw: The combined draw from all initiatives must not exceed 2.91 units (credits from Green Retrofit Bundles reduce this draw; Premium Analytics Subscriptions and Automation Cell Installations increase it by 2.25 and 2.52 per unit, respectively).\n\nPlease review and confirm that we should proceed with these parameters to determine the optimal mix that maximizes contribution while adhering to the above limits."
+}

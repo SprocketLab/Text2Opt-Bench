@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and per-lever contributions are explicit; RHS minima are clear; objective is minimize total cost; zeros clarified via 'No direct impact'.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Memo style with repeated 'No direct impact' adds length, but most content is relevant and clarifying.",
+      "realism": 94,
+      "realism_comment": "Plausible staffing mix problem with multi-metric SLAs and integrality; slight oddity: fractional caps on integer-scheduled roles."
+    },
+    "prompt_tokens_with_data": 1301,
+    "prompt_tokens_without_data": 1301
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 224.59524878048776,
+    "optimal_values": {
+      "Var_0": 5.44,
+      "Var_1": 0.749626972740311,
+      "Var_2": 2.0,
+      "Var_3": 2.0,
+      "Var_4": 18.15,
+      "Var_5": 9.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 7.03
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 62.07
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.06
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 108.28
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 173.42
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 65.43
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 282.64
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 88.67
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.44
+      ],
+      "objective_linear_coefficient": 7.07,
+      "resource_costs": {
+        "C3": 3.37,
+        "C4": 8.04,
+        "C5": 3.08,
+        "C6": 7.91
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.84
+      ],
+      "objective_linear_coefficient": 9.52,
+      "resource_costs": {
+        "C2": 1.28,
+        "C4": 6.97,
+        "C5": 3.23,
+        "C6": 9.27
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.14
+      ],
+      "objective_linear_coefficient": 6.95,
+      "resource_costs": {
+        "C2": 3.1,
+        "C3": 7.43,
+        "C4": 3.93,
+        "C6": 7.96
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.37
+      ],
+      "objective_linear_coefficient": 9.82,
+      "resource_costs": {
+        "C0": 3.95,
+        "C1": 2.97,
+        "C4": 6.71,
+        "C6": 4.52
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.15
+      ],
+      "objective_linear_coefficient": 3.72,
+      "resource_costs": {
+        "C1": 6.02,
+        "C3": 2.62,
+        "C4": 3.25,
+        "C6": 8.98,
+        "C7": 9.14
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.76
+      ],
+      "objective_linear_coefficient": 8.66,
+      "resource_costs": {
+        "C2": 4.27,
+        "C3": 4.07,
+        "C4": 4.91,
+        "C5": 9.9,
+        "C6": 8.19,
+        "C7": 1.02
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.44, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.07 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.84, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.52 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.14, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.95 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=5.37, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.82 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.15, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.72 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.76, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.66 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.95 * vars['Var_3'] >= 7.03, name='C0')\n    m.addConstr(2.97 * vars['Var_3'] + 6.02 * vars['Var_4'] >= 62.07, name='C1')\n    m.addConstr(1.28 * vars['Var_1'] + 3.1 * vars['Var_2'] + 4.27 * vars['Var_5'] >= 45.06, name='C2')\n    m.addConstr(3.37 * vars['Var_0'] + 7.43 * vars['Var_2'] + 2.62 * vars['Var_4'] + 4.07 * vars['Var_5'] >= 108.28, name='C3')\n    m.addConstr(8.04 * vars['Var_0'] + 6.97 * vars['Var_1'] + 3.93 * vars['Var_2'] + 6.71 * vars['Var_3'] + 3.25 * vars['Var_4'] + 4.91 * vars['Var_5'] >= 173.42, name='C4')\n    m.addConstr(3.08 * vars['Var_0'] + 3.23 * vars['Var_1'] + 9.9 * vars['Var_5'] >= 65.43, name='C5')\n    m.addConstr(7.91 * vars['Var_0'] + 9.27 * vars['Var_1'] + 7.96 * vars['Var_2'] + 4.52 * vars['Var_3'] + 8.98 * vars['Var_4'] + 8.19 * vars['Var_5'] >= 282.64, name='C6')\n    m.addConstr(9.14 * vars['Var_4'] + 1.02 * vars['Var_5'] >= 88.67, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Staffing Mix to Meet Our Q1 Service Commitments\n\nTeam,\n\nFor the upcoming period, we need to assemble the lowest-cost mix of six staffing/service packages to meet a defined set of minimum service and community commitments. The objective is straightforward: minimize total spend while fully satisfying every commitment listed at the end of this memo.\n\nBelow are the levers available to us, in the order we will consider them, with their unit costs, deployable limits, whether they can be scheduled fractionally or only in whole blocks, and exactly how each one contributes toward our commitments.\n\n- Blue Team Field Engineers\n  - Unit cost of 7.07 per engineer-day. We may deploy anywhere from 0 up to 5.44 engineer-days, including partial-day assignments.\n  - Impact per engineer-day:\n    - Quality Assurance Audits: contributes 3.37 audits.\n    - Customer Touchpoint Target: contributes 8.04 touchpoints.\n    - Training & Certification Credits: contributes 3.08 credits.\n    - Core Capacity Units: contributes 7.91 units.\n  - No direct impact on Rapid Response, Urban Service Calls, Rural Maintenance, or Community Outreach.\n\n- Orange Team Contractors\n  - Unit cost of 9.52 per contractor-day. We may deploy anywhere from 0 up to 13.84 contractor-days, including partial-day assignments.\n  - Impact per contractor-day:\n    - Rural Maintenance Commitment: contributes 1.28 hours/units.\n    - Customer Touchpoint Target: contributes 6.97 touchpoints.\n    - Training & Certification Credits: contributes 3.23 credits.\n    - Core Capacity Units: contributes 9.27 units.\n  - No direct impact on Rapid Response, Urban Service Calls, Quality Assurance, or Community Outreach.\n\n- Green Cohort Junior Technicians\n  - Unit cost of 6.95 per block-day. We may deploy anywhere from 0 up to 14.14 block-days. These must be scheduled in whole blocks.\n  - Impact per block-day:\n    - Rural Maintenance Commitment: contributes 3.1 hours/units.\n    - Quality Assurance Audits: contributes 7.43 audits.\n    - Customer Touchpoint Target: contributes 3.93 touchpoints.\n    - Core Capacity Units: contributes 7.96 units.\n  - No direct impact on Rapid Response, Urban Service Calls, Training & Certification, or Community Outreach.\n\n- Rapid Response Crews\n  - Unit cost of 9.82 per crew-shift. We may deploy anywhere from 0 up to 5.37 crew-shifts. These must be scheduled in whole crews.\n  - Impact per crew-shift:\n    - Rapid Response Commitment: contributes 3.95 incident-hours.\n    - Urban Service Calls Commitment: contributes 2.97 calls/units.\n    - Customer Touchpoint Target: contributes 6.71 touchpoints.\n    - Core Capacity Units: contributes 4.52 units.\n  - No direct impact on Rural Maintenance, Quality Assurance, Training & Certification, or Community Outreach.\n\n- Customer Success Ambassadors\n  - Unit cost of 3.72 per ambassador-day. We may deploy anywhere from 0 up to 18.15 ambassador-days, including partial-day assignments.\n  - Impact per ambassador-day:\n    - Urban Service Calls Commitment: contributes 6.02 calls/units.\n    - Quality Assurance Audits: contributes 2.62 audits.\n    - Customer Touchpoint Target: contributes 3.25 touchpoints.\n    - Core Capacity Units: contributes 8.98 units.\n    - Community Outreach Engagements: contributes 9.14 engagements.\n  - No direct impact on Rapid Response, Rural Maintenance, or Training & Certification.\n\n- Senior Specialists\n  - Unit cost of 8.66 per specialist-day. We may deploy anywhere from 0 up to 9.76 specialist-days. These must be scheduled in whole specialist-days.\n  - Impact per specialist-day:\n    - Rural Maintenance Commitment: contributes 4.27 hours/units.\n    - Quality Assurance Audits: contributes 4.07 audits.\n    - Customer Touchpoint Target: contributes 4.91 touchpoints.\n    - Training & Certification Credits: contributes 9.9 credits.\n    - Core Capacity Units: contributes 8.19 units.\n    - Community Outreach Engagements: contributes 1.02 engagements.\n  - No direct impact on Rapid Response or Urban Service Calls.\n\nService-Level Minimums (must be met or exceeded)\n- Rapid Response Commitment: at least 7.03 incident-hours.\n- Urban Service Calls Commitment: at least 62.07 calls/units.\n- Rural Maintenance Commitment: at least 45.06 hours/units.\n- Quality Assurance Audits: at least 108.28 audits.\n- Customer Touchpoint Target: at least 173.42 touchpoints.\n- Training & Certification Credits: at least 65.43 credits.\n- Core Capacity Units: at least 282.64 units.\n- Community Outreach Engagements: at least 88.67 engagements.\n\nPlease use this as the basis to compute the least-cost deployment plan that satisfies every minimum above. There are no mandatory minimums on any individual lever (each can be set anywhere from 0 up to its stated maximum), subject to the fractional or whole-unit scheduling rules noted."
+}

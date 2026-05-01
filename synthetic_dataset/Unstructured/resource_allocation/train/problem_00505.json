@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 10,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, integrality, costs, and measure coefficients are explicit; thresholds and objective (min cost) are clear. A human can reconstruct the exact MILP without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business context and repeated 'no direct impact' lines add length, but structure is clear and most details are relevant to modeling.",
+      "realism": 93,
+      "realism_comment": "Plausible last-mile planning scenario with credible resources and service metrics; linear additive contributions and thresholds fit real OR practice."
+    },
+    "prompt_tokens_with_data": 1292,
+    "prompt_tokens_without_data": 1292
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 198.71146129396536,
+    "optimal_values": {
+      "Var_0": 2.660010902876766,
+      "Var_1": 13.0,
+      "Var_2": 1.0,
+      "Var_3": 1.3254464379286914,
+      "Var_4": 0.38161559888579394,
+      "Var_5": 10.0,
+      "Var_6": 0.22483439051147486,
+      "Var_7": 14.298832920017789,
+      "Var_8": 0.0,
+      "Var_9": 2.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 146.55
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 1.37
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 0.33
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 18.24
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 61.03
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 193.3
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 50.46
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.82
+      ],
+      "objective_linear_coefficient": 8.85,
+      "resource_costs": {
+        "C0": 8.35,
+        "C4": 6.69,
+        "C6": 6.66
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.31
+      ],
+      "objective_linear_coefficient": 3.86,
+      "resource_costs": {
+        "C5": 9.8
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 6.82,
+      "resource_costs": {
+        "C0": 2.41,
+        "C2": 0.44
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.95
+      ],
+      "objective_linear_coefficient": 4.23,
+      "resource_costs": {
+        "C3": 6.78,
+        "C4": 5.12
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.75
+      ],
+      "objective_linear_coefficient": 5.76,
+      "resource_costs": {
+        "C1": 3.59,
+        "C5": 2.58
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.6
+      ],
+      "objective_linear_coefficient": 5.45,
+      "resource_costs": {
+        "C0": 4.81,
+        "C4": 3.44,
+        "C5": 5.17
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.32
+      ],
+      "objective_linear_coefficient": 8.07,
+      "resource_costs": {
+        "C0": 3.91,
+        "C3": 7.71,
+        "C4": 9.11
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.47
+      ],
+      "objective_linear_coefficient": 3.25,
+      "resource_costs": {
+        "C0": 4.45,
+        "C5": 1.13,
+        "C6": 2.29
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.3
+      ],
+      "objective_linear_coefficient": 9.87,
+      "resource_costs": {
+        "C0": 2.57,
+        "C5": 8.14
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.81
+      ],
+      "objective_linear_coefficient": 3.79,
+      "resource_costs": {
+        "C0": 4.66,
+        "C3": 3.76
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.82, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.85 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.31, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.86 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.82 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=5.95, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.23 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.75, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.76 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.6, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 5.45 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.32, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.07 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.47, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.25 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=11.3, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 9.87 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=6.81, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 3.79 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.35 * vars['Var_0'] + 2.41 * vars['Var_2'] + 4.81 * vars['Var_5'] + 3.91 * vars['Var_6'] + 4.45 * vars['Var_7'] + 2.57 * vars['Var_8'] + 4.66 * vars['Var_9'] >= 146.55, name='C0')\n    m.addConstr(3.59 * vars['Var_4'] >= 1.37, name='C1')\n    m.addConstr(0.44 * vars['Var_2'] >= 0.33, name='C2')\n    m.addConstr(6.78 * vars['Var_3'] + 7.71 * vars['Var_6'] + 3.76 * vars['Var_9'] >= 18.24, name='C3')\n    m.addConstr(6.69 * vars['Var_0'] + 5.12 * vars['Var_3'] + 3.44 * vars['Var_5'] + 9.11 * vars['Var_6'] >= 61.03, name='C4')\n    m.addConstr(9.8 * vars['Var_1'] + 2.58 * vars['Var_4'] + 5.17 * vars['Var_5'] + 1.13 * vars['Var_7'] + 8.14 * vars['Var_8'] >= 193.3, name='C5')\n    m.addConstr(6.66 * vars['Var_0'] + 2.29 * vars['Var_7'] >= 50.46, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix to meet our Q4 service and compliance obligations\n\nTeam,\n\nAs we finalize the Q4 last\u2011mile and fulfillment plan, we need to assemble a cost\u2011effective mix of ten deployable options to meet or exceed our required service levels and regulatory commitments. The objective is straightforward: minimize total spend while achieving the minimum thresholds listed below across network coverage, safety/compliance, response readiness, reliability, parcel volume, and rural access.\n\nLevers we can adjust (in the order we will evaluate them):\n\n1) Blue Route Day\u2011Charters\n- Availability: anywhere from 0 up to 16.82 charter\u2011days; partial days are allowed.\n- Unit cost: 8.85 per charter\u2011day.\n- Per charter\u2011day contribution to our measures:\n  \u2022 Network Coverage Hours: +8.35\n  \u2022 On\u2011Time Reliability Index: +6.69\n  \u2022 Rural Access Score: +6.66\n- No direct impact on the other measures.\n\n2) Union Parcel Pods\n- Availability: anywhere from 0 up to 13.31 pods; pods must be booked in whole units only.\n- Unit cost: 3.86 per pod.\n- Per pod contribution:\n  \u2022 Parcel Volume Commitments: +9.8\n- No direct impact on the other measures.\n\n3) Certified Fragile Crews\n- Availability: anywhere from 0 up to 7 crews; whole crews only.\n- Unit cost: 6.82 per crew.\n- Per crew contribution:\n  \u2022 Network Coverage Hours: +2.41\n  \u2022 Advanced Handling Certifications: +0.44\n- No direct impact on the other measures.\n\n4) Rapid Response Vans\n- Availability: anywhere from 0 up to 5.95 van\u2011days; partial days are allowed.\n- Unit cost: 4.23 per van\u2011day.\n- Per van\u2011day contribution:\n  \u2022 Rapid Response Readiness: +6.78\n  \u2022 On\u2011Time Reliability Index: +5.12\n- No direct impact on the other measures.\n\n5) Safety Training Workshops\n- Availability: anywhere from 0 up to 7.75 sessions; partial sessions are allowed.\n- Unit cost: 5.76 per session.\n- Per session contribution:\n  \u2022 Safety Audit Credits: +3.59\n  \u2022 Parcel Volume Commitments: +2.58\n- No direct impact on the other measures.\n\n6) Warehouse Overtime Shifts\n- Availability: anywhere from 0 up to 16.6 shifts; whole shifts only.\n- Unit cost: 5.45 per shift.\n- Per shift contribution:\n  \u2022 Network Coverage Hours: +4.81\n  \u2022 On\u2011Time Reliability Index: +3.44\n  \u2022 Parcel Volume Commitments: +5.17\n- No direct impact on the other measures.\n\n7) Premium Courier Flights\n- Availability: anywhere from 0 up to 19.32 flight\u2011blocks; partial blocks are allowed.\n- Unit cost: 8.07 per block.\n- Per block contribution:\n  \u2022 Network Coverage Hours: +3.91\n  \u2022 Rapid Response Readiness: +7.71\n  \u2022 On\u2011Time Reliability Index: +9.11\n- No direct impact on the other measures.\n\n8) Neighborhood Runner Hours\n- Availability: anywhere from 0 up to 15.47 hours; partial hours are allowed.\n- Unit cost: 3.25 per hour.\n- Per hour contribution:\n  \u2022 Network Coverage Hours: +4.45\n  \u2022 Parcel Volume Commitments: +1.13\n  \u2022 Rural Access Score: +2.29\n- No direct impact on the other measures.\n\n9) Third\u2011Party Parcel Surge Blocks\n- Availability: anywhere from 0 up to 11.3 blocks; partial blocks are allowed.\n- Unit cost: 9.87 per block.\n- Per block contribution:\n  \u2022 Network Coverage Hours: +2.57\n  \u2022 Parcel Volume Commitments: +8.14\n- No direct impact on the other measures.\n\n10) Reserve Driver Call\u2011Ups\n- Availability: anywhere from 0 up to 6.81 call\u2011ups; whole call\u2011ups only.\n- Unit cost: 3.79 per call\u2011up.\n- Per call\u2011up contribution:\n  \u2022 Network Coverage Hours: +4.66\n  \u2022 Rapid Response Readiness: +3.76\n- No direct impact on the other measures.\n\nService level and compliance thresholds (must be met or exceeded):\n- Network Coverage Hours: at least 146.55\n- Safety Audit Credits: at least 1.37\n- Advanced Handling Certifications: at least 0.33\n- Rapid Response Readiness: at least 18.24\n- On\u2011Time Reliability Index: at least 61.03\n- Parcel Volume Commitments: at least 193.3\n- Rural Access Score: at least 50.46\n\nAll decisions can range from zero up to their stated caps, subject to the whole\u2011unit requirements noted above where applicable. Please proceed to identify the least\u2011cost combination that satisfies all of the above thresholds. If any cap or unit definition needs adjustment, let us know before you run the model."
+}

@@ -1,0 +1,267 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 10,
+    "num_constraints": 12,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact costs, caps, and KPI contributions per lever plus clear >= thresholds and minimize-cost objective; variables are continuous 0-to-cap. No missing numbers.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some narrative fluff (greeting, context, sensitivity note) makes it verbose, but the numeric specifications are precise and non-repetitive.",
+      "realism": 92,
+      "realism_comment": "A plausible KPI-driven resource allocation with capacities, costs, and service-level minimums; feels like a real planning problem."
+    },
+    "prompt_tokens_with_data": 1448,
+    "prompt_tokens_without_data": 1448
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 161.3726485286919,
+    "optimal_values": {
+      "Var_0": 5.679203507136244,
+      "Var_1": 3.020941025478314,
+      "Var_2": 0.0,
+      "Var_3": 6.875090048425455,
+      "Var_4": 3.881331823107124,
+      "Var_5": 0.0,
+      "Var_6": 4.312231597460927,
+      "Var_7": 1.4454876847755542,
+      "Var_8": 0.0,
+      "Var_9": 2.63646044407176
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 30.22
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 155.41
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 55.25
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 47.67
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.93
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 53.83
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 122.29
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 135.77
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.98
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.09
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 100.86
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 54.77
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.91
+      ],
+      "objective_linear_coefficient": 5.36,
+      "resource_costs": {
+        "C0": 0.18,
+        "C1": 3.96,
+        "C6": 8.88,
+        "C7": 4.07,
+        "C9": 9.47,
+        "C10": 1.75,
+        "C11": 2.67
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.61
+      ],
+      "objective_linear_coefficient": 8.99,
+      "resource_costs": {
+        "C1": 9.8,
+        "C5": 5.57,
+        "C7": 8.86,
+        "C10": 2.59,
+        "C11": 5.99
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.23
+      ],
+      "objective_linear_coefficient": 6.68,
+      "resource_costs": {
+        "C3": 5.39,
+        "C8": 1.5,
+        "C9": 0.74,
+        "C10": 7.77
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.54
+      ],
+      "objective_linear_coefficient": 7.29,
+      "resource_costs": {
+        "C0": 9.18,
+        "C1": 9.05,
+        "C2": 7.89,
+        "C3": 6.24,
+        "C4": 5.1,
+        "C6": 5.09,
+        "C9": 7.97,
+        "C10": 8.05
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.24
+      ],
+      "objective_linear_coefficient": 2.03,
+      "resource_costs": {
+        "C2": 4.86,
+        "C3": 0.34,
+        "C4": 5.12,
+        "C5": 8.38,
+        "C6": 7.93,
+        "C7": 9.93,
+        "C9": 9.33
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.77
+      ],
+      "objective_linear_coefficient": 7.7,
+      "resource_costs": {
+        "C1": 3.44,
+        "C3": 4.7,
+        "C6": 6.28,
+        "C7": 3.6,
+        "C8": 3.58,
+        "C10": 0.56,
+        "C11": 1.83
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.71
+      ],
+      "objective_linear_coefficient": 5.7,
+      "resource_costs": {
+        "C1": 9.53,
+        "C2": 8.47,
+        "C3": 0.8,
+        "C4": 7.92,
+        "C5": 1.04,
+        "C7": 6.04,
+        "C8": 9.8,
+        "C9": 7.12
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.74
+      ],
+      "objective_linear_coefficient": 7.55,
+      "resource_costs": {
+        "C0": 9.85,
+        "C5": 4.68,
+        "C6": 4.21,
+        "C8": 1.19,
+        "C10": 7.8,
+        "C11": 7.75
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.6
+      ],
+      "objective_linear_coefficient": 5.18,
+      "resource_costs": {
+        "C1": 9.43,
+        "C2": 1.79,
+        "C7": 1.7,
+        "C8": 0.9
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.17
+      ],
+      "objective_linear_coefficient": 3.9,
+      "resource_costs": {
+        "C0": 7.34,
+        "C2": 0.26,
+        "C4": 0.82,
+        "C7": 8.08,
+        "C9": 3.79,
+        "C10": 6.25,
+        "C11": 3.91
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.91, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.36 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.61, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.99 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.23, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.68 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.54, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.29 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.24, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.03 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=5.77, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.7 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=18.71, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 5.7 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=12.74, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.55 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=12.6, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 5.18 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=18.17, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 3.9 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.18 * vars['Var_0'] + 9.18 * vars['Var_3'] + 9.85 * vars['Var_7'] + 7.34 * vars['Var_9'] >= 30.22, name='C0')\n    m.addConstr(3.96 * vars['Var_0'] + 9.8 * vars['Var_1'] + 9.05 * vars['Var_3'] + 3.44 * vars['Var_5'] + 9.53 * vars['Var_6'] + 9.43 * vars['Var_8'] >= 155.41, name='C1')\n    m.addConstr(1.75 * vars['Var_0'] + 2.59 * vars['Var_1'] + 7.77 * vars['Var_2'] + 8.05 * vars['Var_3'] + 0.56 * vars['Var_5'] + 7.8 * vars['Var_7'] + 6.25 * vars['Var_9'] >= 100.86, name='C10')\n    m.addConstr(2.67 * vars['Var_0'] + 5.99 * vars['Var_1'] + 1.83 * vars['Var_5'] + 7.75 * vars['Var_7'] + 3.91 * vars['Var_9'] >= 54.77, name='C11')\n    m.addConstr(7.89 * vars['Var_3'] + 4.86 * vars['Var_4'] + 8.47 * vars['Var_6'] + 1.79 * vars['Var_8'] + 0.26 * vars['Var_9'] >= 55.25, name='C2')\n    m.addConstr(5.39 * vars['Var_2'] + 6.24 * vars['Var_3'] + 0.34 * vars['Var_4'] + 4.7 * vars['Var_5'] + 0.8 * vars['Var_6'] >= 47.67, name='C3')\n    m.addConstr(5.1 * vars['Var_3'] + 5.12 * vars['Var_4'] + 7.92 * vars['Var_6'] + 0.82 * vars['Var_9'] >= 41.93, name='C4')\n    m.addConstr(5.57 * vars['Var_1'] + 8.38 * vars['Var_4'] + 1.04 * vars['Var_6'] + 4.68 * vars['Var_7'] >= 53.83, name='C5')\n    m.addConstr(8.88 * vars['Var_0'] + 5.09 * vars['Var_3'] + 7.93 * vars['Var_4'] + 6.28 * vars['Var_5'] + 4.21 * vars['Var_7'] >= 122.29, name='C6')\n    m.addConstr(4.07 * vars['Var_0'] + 8.86 * vars['Var_1'] + 9.93 * vars['Var_4'] + 3.6 * vars['Var_5'] + 6.04 * vars['Var_6'] + 1.7 * vars['Var_8'] + 8.08 * vars['Var_9'] >= 135.77, name='C7')\n    m.addConstr(1.5 * vars['Var_2'] + 3.58 * vars['Var_5'] + 9.8 * vars['Var_6'] + 1.19 * vars['Var_7'] + 0.9 * vars['Var_8'] >= 43.98, name='C8')\n    m.addConstr(9.47 * vars['Var_0'] + 0.74 * vars['Var_2'] + 7.97 * vars['Var_3'] + 9.33 * vars['Var_4'] + 7.12 * vars['Var_6'] + 3.79 * vars['Var_9'] >= 153.09, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation Plan to Meet Service and Compliance Commitments at Minimum Cost\n\nTeam,\n\nFor the upcoming cycle, our aim is to meet or exceed our service-level and compliance commitments across twelve measurable categories while minimizing total program spend. To do that, we\u2019ll dial up or down ten deployable levers (each available in limited quantities) based on what they contribute to our targets and their per-unit cost.\n\nBelow are the levers we can use, in the order we\u2019d like you to consider them. For each, I\u2019ve noted the per-unit internal cost, the maximum we can feasibly deploy this period (we can deploy anywhere from zero up to the stated cap), and the impact per unit on each of our tracked commitments.\n\n- Blue Line Field Team Blocks\n  - Cost per block: 5.36\n  - Availability: up to 9.91 blocks\n  - Each block adds 0.18 to our Baseline Coverage Index, 3.96 Priority Client Hours, 8.88 Technical Certification Modules Completed, 4.07 Regional Service Visits, 9.47 Quality Assurance Checks, 1.75 Response Time Targets Achieved, and 2.67 Customer Satisfaction Interviews.\n\n- Union Overtime Shifts\n  - Cost per shift: 8.99\n  - Availability: up to 11.61 shifts\n  - Each shift adds 9.8 Priority Client Hours, 5.57 Community Engagement Score, 8.86 Regional Service Visits, 2.59 Response Time Targets Achieved, and 5.99 Customer Satisfaction Interviews.\n\n- Rapid Readiness Workshops\n  - Cost per workshop: 6.68\n  - Availability: up to 11.23 workshops\n  - Each workshop adds 5.39 Incident Readiness Drills, 1.5 Digital Outreach Touchpoints, 0.74 Quality Assurance Checks, and 7.77 Response Time Targets Achieved.\n\n- Integrated Deployment Packages\n  - Cost per package: 7.29\n  - Availability: up to 17.54 packages\n  - Each package adds 9.18 to Baseline Coverage Index, 9.05 Priority Client Hours, 7.89 Compliance Training Credits, 6.24 Incident Readiness Drills, 5.1 Facilities Audit Points, 5.09 Technical Certification Modules Completed, 7.97 Quality Assurance Checks, and 8.05 Response Time Targets Achieved.\n\n- Community Connect Placements\n  - Cost per placement: 2.03\n  - Availability: up to 19.24 placements\n  - Each placement adds 4.86 Compliance Training Credits, 0.34 Incident Readiness Drills, 5.12 Facilities Audit Points, 8.38 Community Engagement Score, 7.93 Technical Certification Modules Completed, 9.93 Regional Service Visits, and 9.33 Quality Assurance Checks.\n\n- Targeted Support Sprints\n  - Cost per sprint: 7.7\n  - Availability: up to 5.77 sprints\n  - Each sprint adds 3.44 Priority Client Hours, 4.7 Incident Readiness Drills, 6.28 Technical Certification Modules Completed, 3.6 Regional Service Visits, 3.58 Digital Outreach Touchpoints, 0.56 Response Time Targets Achieved, and 1.83 Customer Satisfaction Interviews.\n\n- Regional Expansion Kits\n  - Cost per kit: 5.7\n  - Availability: up to 18.71 kits\n  - Each kit adds 9.53 Priority Client Hours, 8.47 Compliance Training Credits, 0.8 Incident Readiness Drills, 7.92 Facilities Audit Points, 1.04 Community Engagement Score, 6.04 Regional Service Visits, 9.8 Digital Outreach Touchpoints, and 7.12 Quality Assurance Checks.\n\n- Digital Fast-Response Pods\n  - Cost per pod: 7.55\n  - Availability: up to 12.74 pods\n  - Each pod adds 9.85 to Baseline Coverage Index, 4.68 Community Engagement Score, 4.21 Technical Certification Modules Completed, 1.19 Digital Outreach Touchpoints, 7.8 Response Time Targets Achieved, and 7.75 Customer Satisfaction Interviews.\n\n- Client Success Boosters\n  - Cost per booster: 5.18\n  - Availability: up to 12.6 boosters\n  - Each booster adds 9.43 Priority Client Hours, 1.79 Compliance Training Credits, 1.7 Regional Service Visits, and 0.9 Digital Outreach Touchpoints.\n\n- On-Site Assurance Tours\n  - Cost per tour: 3.9\n  - Availability: up to 18.17 tours\n  - Each tour adds 7.34 to Baseline Coverage Index, 0.26 Compliance Training Credits, 0.82 Facilities Audit Points, 8.08 Regional Service Visits, 3.79 Quality Assurance Checks, 6.25 Response Time Targets Achieved, and 3.91 Customer Satisfaction Interviews.\n\nFacility Specs & Service-Level Commitments (minimums to be met or exceeded):\n- Baseline Coverage Index: 30.22\n- Priority Client Hours: 155.41\n- Compliance Training Credits: 55.25\n- Incident Readiness Drills: 47.67\n- Facilities Audit Points: 41.93\n- Community Engagement Score: 53.83\n- Technical Certification Modules Completed: 122.29\n- Regional Service Visits: 135.77\n- Digital Outreach Touchpoints: 43.98\n- Quality Assurance Checks: 153.09\n- Response Time Targets Achieved: 100.86\n- Customer Satisfaction Interviews: 54.77\n\nPlease use this as the basis for constructing the lowest-cost mix that still clears all the above thresholds. Let me know if you need sensitivity runs on any lever caps or if we should price alternative vendor packages for the higher-cost items."
+}

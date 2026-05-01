@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, and metric contributions are explicit; fractional nonnegativity and caps stated; two >= thresholds and a linear cost-min objective are clear and reconstructable.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative and notes on preference/strategy add verbosity; some guidance is extraneous to the LP but does not impede clarity.",
+      "realism": 92,
+      "realism_comment": "Plausible cost-minimizing plan to meet audited thresholds with availability caps; scenario fits real operations planning, though fractional \u2018packs\u2019 is slightly stylized."
+    },
+    "prompt_tokens_with_data": 801,
+    "prompt_tokens_without_data": 801
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 30.136804733727814,
+    "optimal_values": {
+      "Var_0": 9.417751479289942,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.58
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 46.9
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.61
+      ],
+      "objective_linear_coefficient": 3.2,
+      "resource_costs": {
+        "C0": 8.45,
+        "C1": 6.48
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.86
+      ],
+      "objective_linear_coefficient": 4.98,
+      "resource_costs": {
+        "C0": 2.32
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.87
+      ],
+      "objective_linear_coefficient": 2.34,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.56
+      ],
+      "objective_linear_coefficient": 9.89,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.61, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.2 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.86, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.98 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.87, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.34 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.56, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.89 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.45 * vars['Var_0'] + 2.32 * vars['Var_1'] >= 79.58, name='C0')\n    m.addConstr(6.48 * vars['Var_0'] >= 46.9, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for a least\u2011cost plan to meet our two minimum program thresholds\n\nTeam,\n\nAs discussed, we need a simple, least\u2011cost way to assemble this quarter\u2019s mix while still hitting two audited thresholds. The objective is to minimize total spend while ensuring we reach both minimums for our program metrics.\n\nHere are the levers we can use, in the order we want you to consider them:\n\n- Dual\u2011Impact Core Packs\n  \u2022 Cost profile: 3.2 per pack.  \n  \u2022 Impact: Each pack contributes 8.45 units toward our Core Coverage metric and 6.48 units toward our Specialized Coverage metric.  \n  \u2022 Availability: We can take any non\u2011negative amount up to 11.61 packs (partial packs allowed).  \n  \u2022 Note: This is our only option that supports both metrics directly, so any plan that meets the Specialized Coverage floor will likely lean on these.\n\n- Core\u2011Only Boosters\n  \u2022 Cost profile: 4.98 per booster.  \n  \u2022 Impact: Each booster adds 2.32 units to Core Coverage and does not add to Specialized Coverage.  \n  \u2022 Availability: We can take any non\u2011negative amount up to 11.86 boosters (partial boosters allowed).  \n  \u2022 Note: Use these when we need to top up Core Coverage after placing Dual\u2011Impact Core Packs.\n\n- Engagement Add\u2011Ons\n  \u2022 Cost profile: 2.34 per add\u2011on.  \n  \u2022 Impact: These are nice\u2011to\u2011have enhancements that do not count toward either Core Coverage or Specialized Coverage for audit purposes.  \n  \u2022 Availability: We can take any non\u2011negative amount up to 19.87 add\u2011ons (partial add\u2011ons allowed).  \n  \u2022 Note: Since they don\u2019t move either minimum, they should only be included if there\u2019s a specific qualitative reason outside this cost\u2011minimizing exercise.\n\n- Premium Experience Enhancers\n  \u2022 Cost profile: 9.89 per enhancer.  \n  \u2022 Impact: Like the Engagement Add\u2011Ons, these do not contribute to Core Coverage or Specialized Coverage.  \n  \u2022 Availability: We can take any non\u2011negative amount up to 16.56 enhancers (partial enhancers allowed).  \n  \u2022 Note: Include only if there\u2019s a strategic rationale beyond the compliance thresholds; otherwise, they increase cost without helping our minimums.\n\nFacility Specs \u2014 Minimum Requirements\n- Core Coverage must reach at least 79.58 units this period.  \n- Specialized Coverage must reach at least 46.9 units this period.\n\nPlease use the above to produce a mix that meets both minimums at the lowest total cost, respecting the availability caps and allowing for fractional quantities where helpful. We\u2019re happy to review any sensitivity observations you find (e.g., how quickly costs rise if one lever hits its cap).\n\nThanks,  \n[Client Name]  \nOperations Lead"
+}

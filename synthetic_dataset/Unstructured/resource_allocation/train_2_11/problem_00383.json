@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, integer caps, and per-unit contributions are explicit; constraints are \u2265 with exact RHS and objective is minimize total cost. Zero contributions are clear. Only minor variable naming detail.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Long, email-style narrative with some repeated phrasing and context, but most text conveys needed coefficients and caps; 'no contribution' lines are informative.",
+      "realism": 94,
+      "realism_comment": "Feels like a plausible service operations planning problem with realistic resources and service targets; fractional caps are unusual but acceptable."
+    },
+    "prompt_tokens_with_data": 1269,
+    "prompt_tokens_without_data": 1269
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 112.79999999999998,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": -0.0,
+      "Var_2": 15.0,
+      "Var_3": -0.0,
+      "Var_4": 16.0,
+      "Var_5": -0.0,
+      "Var_6": 10.0,
+      "Var_7": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 168.59
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 147.13
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 78.64
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 88.17
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.99
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 73.94
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 168.7
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 7.86,
+      "resource_costs": {
+        "C1": 3.04,
+        "C2": 6.59,
+        "C4": 1.66,
+        "C6": 3.29
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.29
+      ],
+      "objective_linear_coefficient": 5.11,
+      "resource_costs": {
+        "C0": 2.4,
+        "C1": 5.09,
+        "C3": 3.34,
+        "C6": 7.25
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.71
+      ],
+      "objective_linear_coefficient": 2.94,
+      "resource_costs": {
+        "C0": 7.47,
+        "C1": 5.64,
+        "C2": 0.91,
+        "C4": 9.65,
+        "C5": 2.37,
+        "C6": 8.59
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.87
+      ],
+      "objective_linear_coefficient": 8.13,
+      "resource_costs": {
+        "C0": 4.63,
+        "C1": 9.38,
+        "C3": 9.91,
+        "C4": 2.08,
+        "C5": 5.06
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.98
+      ],
+      "objective_linear_coefficient": 1.0,
+      "resource_costs": {
+        "C0": 9.18,
+        "C3": 5.59,
+        "C4": 8.98,
+        "C5": 3.92
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.32
+      ],
+      "objective_linear_coefficient": 7.98,
+      "resource_costs": {
+        "C0": 3.77,
+        "C2": 0.96,
+        "C3": 2.98,
+        "C5": 5.27,
+        "C6": 2.27
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.87
+      ],
+      "objective_linear_coefficient": 5.27,
+      "resource_costs": {
+        "C0": 9.09,
+        "C1": 6.49,
+        "C2": 6.7,
+        "C4": 2.67,
+        "C5": 8.4,
+        "C6": 7.28
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.87
+      ],
+      "objective_linear_coefficient": 5.89,
+      "resource_costs": {
+        "C0": 7.58,
+        "C2": 1.04,
+        "C3": 3.63,
+        "C4": 4.27
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.86 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.29, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.11 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.71, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.94 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.87, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.13 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=16.98, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.0 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=5.32, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 7.98 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.87, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 5.27 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=12.87, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 5.89 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.4 * vars['Var_1'] + 7.47 * vars['Var_2'] + 4.63 * vars['Var_3'] + 9.18 * vars['Var_4'] + 3.77 * vars['Var_5'] + 9.09 * vars['Var_6'] + 7.58 * vars['Var_7'] >= 168.59, name='C0')\n    m.addConstr(3.04 * vars['Var_0'] + 5.09 * vars['Var_1'] + 5.64 * vars['Var_2'] + 9.38 * vars['Var_3'] + 6.49 * vars['Var_6'] >= 147.13, name='C1')\n    m.addConstr(6.59 * vars['Var_0'] + 0.91 * vars['Var_2'] + 0.96 * vars['Var_5'] + 6.7 * vars['Var_6'] + 1.04 * vars['Var_7'] >= 78.64, name='C2')\n    m.addConstr(3.34 * vars['Var_1'] + 9.91 * vars['Var_3'] + 5.59 * vars['Var_4'] + 2.98 * vars['Var_5'] + 3.63 * vars['Var_7'] >= 88.17, name='C3')\n    m.addConstr(1.66 * vars['Var_0'] + 9.65 * vars['Var_2'] + 2.08 * vars['Var_3'] + 8.98 * vars['Var_4'] + 2.67 * vars['Var_6'] + 4.27 * vars['Var_7'] >= 121.99, name='C4')\n    m.addConstr(2.37 * vars['Var_2'] + 5.06 * vars['Var_3'] + 3.92 * vars['Var_4'] + 5.27 * vars['Var_5'] + 8.4 * vars['Var_6'] >= 73.94, name='C5')\n    m.addConstr(3.29 * vars['Var_0'] + 7.25 * vars['Var_1'] + 8.59 * vars['Var_2'] + 2.27 * vars['Var_5'] + 7.28 * vars['Var_6'] >= 168.7, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed weekly mix to meet service commitments at the lowest possible cost\n\nTeam,\n\nAs discussed, our aim this week is to meet all mandated service commitments across our portfolio at the lowest possible operating spend. We will choose from a set of deployable bundles, each representing complete, whole units (no partial deployments), and each capped by availability. Below is the overview of each lever, what it costs, how much it contributes toward our obligations, and where it does not help. This should guide the mix we select.\n\nRapid Response Kits\n- Unit cost: 7.86 per kit for the week. We can deploy up to 8 complete kits; deploying none is also an option if it\u2019s more cost-effective.\n- Contribution per kit: adds 3.04 preventive maintenance visits, 6.59 quality audits completed, 1.66 customer onboarding sessions, and 3.29 service tickets closed.\n- No contribution: does not add to emergency coverage hours, critical incidents resolved, or community outreach events.\n\nField Technician Teams\n- Unit cost: 5.11 per team-day. Capacity this week is up to 14.29 team-days; scheduling must be in whole team-day increments.\n- Contribution per team-day: adds 2.4 emergency coverage hours, 5.09 preventive maintenance visits, 3.34 critical incidents resolved, and 7.25 service tickets closed.\n- No contribution: does not add to quality audits completed, customer onboarding sessions, or community outreach events.\n\nMobile Diagnostic Vans\n- Unit cost: 2.94 per van-day. We can use up to 16.71 van-days, always in whole van-day increments.\n- Contribution per van-day: adds 7.47 emergency coverage hours, 5.64 preventive maintenance visits, 0.91 quality audits completed, 9.65 customer onboarding sessions, 2.37 community outreach events, and 8.59 service tickets closed.\n- No contribution: does not add to critical incidents resolved.\n\nSenior Specialist Crews\n- Unit cost: 8.13 per crew-day. Up to 18.87 crew-days are available this week; crews are assigned in whole-day blocks.\n- Contribution per crew-day: adds 4.63 emergency coverage hours, 9.38 preventive maintenance visits, 9.91 critical incidents resolved, 2.08 customer onboarding sessions, and 5.06 community outreach events.\n- No contribution: does not add to quality audits completed or service tickets closed.\n\nCommunity Liaison Units\n- Unit cost: 1.00 per unit-day. We can deploy up to 16.98 unit-days; only whole unit-days are permitted.\n- Contribution per unit-day: adds 9.18 emergency coverage hours, 5.59 critical incidents resolved, 8.98 customer onboarding sessions, and 3.92 community outreach events.\n- No contribution: does not add to preventive maintenance visits, quality audits completed, or service tickets closed.\n\nOvertime Response Crews\n- Unit cost: 7.98 per crew-day. Overtime availability is capped at 5.32 crew-days this week; assignments are whole-day only.\n- Contribution per crew-day: adds 3.77 emergency coverage hours, 0.96 quality audits completed, 2.98 critical incidents resolved, 5.27 community outreach events, and 2.27 service tickets closed.\n- No contribution: does not add to preventive maintenance visits or customer onboarding sessions.\n\nIntegrated Service Pods\n- Unit cost: 5.27 per pod-day. We have up to 19.87 pod-days available; deployments are whole units only.\n- Contribution per pod-day: adds 9.09 emergency coverage hours, 6.49 preventive maintenance visits, 6.7 quality audits completed, 2.67 customer onboarding sessions, 8.4 community outreach events, and 7.28 service tickets closed.\n- No contribution: does not add to critical incidents resolved.\n\nOnboarding Specialists\n- Unit cost: 5.89 per specialist-day. We can allocate up to 12.87 specialist-days this week; scheduling is in whole-day increments.\n- Contribution per specialist-day: adds 7.58 emergency coverage hours, 1.04 quality audits completed, 3.63 critical incidents resolved, and 4.27 customer onboarding sessions.\n- No contribution: does not add to preventive maintenance visits, community outreach events, or service tickets closed.\n\nFacility Specs and Market Limits (minimum weekly commitments)\n- Emergency coverage hours: at least 168.59.\n- Preventive maintenance visits: at least 147.13.\n- Quality audits completed: at least 78.64.\n- Critical incidents resolved: at least 88.17.\n- Customer onboarding sessions: at least 121.99.\n- Community outreach events: at least 73.94.\n- Service tickets closed: at least 168.70.\n\nPlease review these parameters and advise on the preferred deployment mix, keeping in mind that we only deploy complete units and our objective is to meet all minimums at the lowest total cost. I\u2019m happy to model a few candidate mixes and share the spend and service coverage impacts."
+}

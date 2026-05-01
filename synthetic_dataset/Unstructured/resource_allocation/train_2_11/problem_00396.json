@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-unit contributions, 0\u2013upper bounds, resource usage, and capacity caps; 'do not exceed' => <=. No missing coefficients; model is a clear LP with nonnegativity.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Business prose adds flavor; each datum appears once; minimal fluff (greeting/closing).",
+      "realism": 96,
+      "realism_comment": "Realistic multi-resource production planning with machine-hours, storage, and compliance windows; numbers plausible, only slight oddity with fractional 'slots'."
+    },
+    "prompt_tokens_with_data": 930,
+    "prompt_tokens_without_data": 930
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 344.9056200090995,
+    "optimal_values": {
+      "Var_0": 15.62,
+      "Var_1": 0.0,
+      "Var_2": 7.222222222222223,
+      "Var_3": 3.4161723700887197,
+      "Var_4": 18.78,
+      "Var_5": 0.0,
+      "Var_6": 9.77,
+      "Var_7": 2.2406593406593407
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 63.87
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 4.24
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.65
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.87
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.2
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 83.85
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 20.39
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 85.08
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.62
+      ],
+      "objective_linear_coefficient": 2.76,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.74
+      ],
+      "objective_linear_coefficient": 5.2,
+      "resource_costs": {
+        "C3": 8.96
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.44
+      ],
+      "objective_linear_coefficient": 9.58,
+      "resource_costs": {
+        "C0": 8.78,
+        "C1": 0.5,
+        "C2": 9.09,
+        "C4": 2.9,
+        "C5": 6.41
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.21
+      ],
+      "objective_linear_coefficient": 9.57,
+      "resource_costs": {
+        "C3": 7.89,
+        "C7": 0.14
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.78
+      ],
+      "objective_linear_coefficient": 5.41,
+      "resource_costs": {
+        "C3": 1.38
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.27
+      ],
+      "objective_linear_coefficient": 5.71,
+      "resource_costs": {
+        "C3": 4.88,
+        "C5": 8.0,
+        "C7": 7.34
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.77
+      ],
+      "objective_linear_coefficient": 8.65,
+      "resource_costs": {
+        "C7": 6.91
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.3
+      ],
+      "objective_linear_coefficient": 6.16,
+      "resource_costs": {
+        "C6": 9.1
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.62, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.76 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.74, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.2 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.44, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.58 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.21, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.57 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.78, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.41 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.27, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.71 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.77, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.65 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=11.3, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 6.16 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.78 * vars['Var_2'] <= 63.87, name='C0')\n    m.addConstr(0.5 * vars['Var_2'] <= 4.24, name='C1')\n    m.addConstr(9.09 * vars['Var_2'] <= 65.65, name='C2')\n    m.addConstr(8.96 * vars['Var_1'] + 7.89 * vars['Var_3'] + 1.38 * vars['Var_4'] + 4.88 * vars['Var_5'] <= 52.87, name='C3')\n    m.addConstr(2.9 * vars['Var_2'] <= 22.2, name='C4')\n    m.addConstr(6.41 * vars['Var_2'] + 8.0 * vars['Var_5'] <= 83.85, name='C5')\n    m.addConstr(9.1 * vars['Var_7'] <= 20.39, name='C6')\n    m.addConstr(0.14 * vars['Var_3'] + 7.34 * vars['Var_5'] + 6.91 * vars['Var_6'] <= 85.08, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Guidance for the Upcoming Cycle \u2014 Maximize Contribution Within Plant and Compliance Limits\n\nTeam,\n\nFor the upcoming cycle, our goal is to maximize total contribution across our eight offerings while staying within the practical limits of our equipment, storage, and compliance windows. Below are the levers we can pull and how each one affects the plant and our caps. Please use this as the basis for your recommended mix.\n\n- Outsourced Hygiene Kits\n  Each unit contributes 2.76 to gross margin. We can schedule anywhere from 0 up to 15.62 units this cycle. These kits do not draw on any of the constrained in-house resources listed below.\n\n- Catalyst Blue Enzyme Blend\n  Each unit contributes 5.2 to gross margin. We may allocate between 0 and 16.74 units. Every unit requires 8.96 machine-hours on Fabrication Cell Bravo.\n\n- NovaPrime Vaccine Lots\n  Each unit contributes 9.58 to gross margin. We may allocate between 0 and 8.44 units. Each unit consumes 8.78 hours on Distillation Tank A, 0.5 Validation Lab slots, 9.09 hours on Reactor Vessel V-12, 2.9 hours in Special Coating Stage P, and 6.41 pallet-days in Cold Storage Zone C.\n\n- Zenith Rapid Diagnostic Kits\n  Each unit contributes 9.57 to gross margin. We may allocate between 0 and 6.21 units. Each unit draws 7.89 machine-hours on Fabrication Cell Bravo and 0.14 line-hours on Fill-Finish Line Omega.\n\n- Herbal Core Nutraceutical Batches\n  Each unit contributes 5.41 to gross margin. We may allocate between 0 and 18.78 units. Each unit requires 1.38 machine-hours on Fabrication Cell Bravo.\n\n- Silver Shield Antibody Runs\n  Each unit contributes 5.71 to gross margin. We may allocate between 0 and 12.27 units. Each unit uses 4.88 machine-hours on Fabrication Cell Bravo, 8.0 pallet-days in Cold Storage Zone C, and 7.34 line-hours on Fill-Finish Line Omega.\n\n- Vita Forte Tablet Runs\n  Each unit contributes 8.65 to gross margin. We may allocate between 0 and 9.77 units. Each unit requires 6.91 line-hours on Fill-Finish Line Omega.\n\n- Steriguard Filter Devices\n  Each unit contributes 6.16 to gross margin. We may allocate between 0 and 11.3 units. Each unit requires 9.1 staff-days in the Regulatory Audit Window.\n\nFacility specs and compliance caps for this cycle (do not exceed):\n\n- Distillation Tank A: up to 63.87 hours available.\n- Validation Lab Slots: up to 4.24 slots available.\n- Reactor Vessel V-12: up to 65.65 hours available.\n- Fabrication Cell Bravo: up to 52.87 machine-hours available.\n- Special Coating Stage P: up to 22.2 hours available.\n- Cold Storage Zone C: up to 83.85 pallet-days available.\n- Regulatory Audit Window: up to 20.39 staff-days available.\n- Fill-Finish Line Omega: up to 85.08 line-hours available.\n\nPlease propose the production plan that maximizes our overall contribution while adhering to the limits above. If you need clarification on any of the resource definitions or unit conventions, let me know."
+}

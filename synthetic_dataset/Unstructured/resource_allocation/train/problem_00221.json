@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, coverage coefficients, bounds, integrality, and >= thresholds are explicit, enabling exact reconstruction. Minor mismatch on variable naming, but math is fully specified.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business memo style adds context but is wordy; core technical details are clear and non-repetitive.",
+      "realism": 94,
+      "realism_comment": "Scenario resembles real service deployment planning with whole-unit packages, availability caps, and coverage targets; highly plausible resource allocation model."
+    },
+    "prompt_tokens_with_data": 887,
+    "prompt_tokens_without_data": 887
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 95.87,
+    "optimal_values": {
+      "Var_0": 7.0,
+      "Var_1": -0.0,
+      "Var_2": -0.0,
+      "Var_3": 10.0,
+      "Var_4": 4.0,
+      "Var_5": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 96.16
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 110.41
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 73.2
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.98
+      ],
+      "objective_linear_coefficient": 6.75,
+      "resource_costs": {
+        "C0": 1.63,
+        "C1": 6.76,
+        "C2": 3.93
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.64
+      ],
+      "objective_linear_coefficient": 9.94,
+      "resource_costs": {
+        "C0": 0.84,
+        "C1": 6.59,
+        "C2": 0.36
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.72
+      ],
+      "objective_linear_coefficient": 9.32,
+      "resource_costs": {
+        "C0": 7.59,
+        "C1": 0.16,
+        "C2": 9.75
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.81
+      ],
+      "objective_linear_coefficient": 3.27,
+      "resource_costs": {
+        "C0": 4.86,
+        "C1": 5.99,
+        "C2": 6.12
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.94
+      ],
+      "objective_linear_coefficient": 3.98,
+      "resource_costs": {
+        "C0": 9.43,
+        "C1": 1.76,
+        "C2": 6.96
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.12
+      ],
+      "objective_linear_coefficient": 9.7,
+      "resource_costs": {
+        "C0": 5.68,
+        "C1": 3.74,
+        "C2": 0.39
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.98, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.75 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.64, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.94 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.72, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.32 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.81, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.27 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.94, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.98 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.12, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.7 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.63 * vars['Var_0'] + 0.84 * vars['Var_1'] + 7.59 * vars['Var_2'] + 4.86 * vars['Var_3'] + 9.43 * vars['Var_4'] + 5.68 * vars['Var_5'] >= 96.16, name='C0')\n    m.addConstr(6.76 * vars['Var_0'] + 6.59 * vars['Var_1'] + 0.16 * vars['Var_2'] + 5.99 * vars['Var_3'] + 1.76 * vars['Var_4'] + 3.74 * vars['Var_5'] >= 110.41, name='C1')\n    m.addConstr(3.93 * vars['Var_0'] + 0.36 * vars['Var_1'] + 9.75 * vars['Var_2'] + 6.12 * vars['Var_3'] + 6.96 * vars['Var_4'] + 0.39 * vars['Var_5'] >= 73.2, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposal to Minimize Program Spend While Meeting Coverage Commitments\n\nTeam,\n\nWe\u2019re preparing the Q1 service plan and need your help choosing the most cost-effective mix of deployment packages that still meets our network-wide coverage commitments. The objective is to minimize total spend while assembling an all-integer mix of packages (whole units only\u2014no partial packages) that collectively reach or exceed our required levels of Baseline Coverage, Surge Capacity, and Critical Support.\n\nBelow are the six deployment options available this quarter. For each, I\u2019ve summarized the per-unit spend, the contribution each unit makes to our three coverage categories, and the practical availability cap for Q1. We can deploy as few as zero units of any option, but not more than the stated availability. Please assume all commitments must be placed in whole package increments.\n\n- North Star Shift Blocks\n  - Spend per block: 6.75.\n  - Coverage per block: 1.63 Baseline Coverage units, 6.76 Surge Capacity units, and 3.93 Critical Support units.\n  - Availability window: between 0 and 15.98 blocks (integer count only).\n\n- Harbor Surge Blocks\n  - Spend per block: 9.94.\n  - Coverage per block: 0.84 Baseline Coverage units, 6.59 Surge Capacity units, and 0.36 Critical Support units.\n  - Availability window: between 0 and 14.64 blocks (integer count only).\n\n- Frontier Specialist Crews\n  - Spend per crew: 9.32.\n  - Coverage per crew: 7.59 Baseline Coverage units, 0.16 Surge Capacity units, and 9.75 Critical Support units.\n  - Availability window: between 0 and 18.72 crews (integer count only).\n\n- Prairie Generalist Crews\n  - Spend per crew: 3.27.\n  - Coverage per crew: 4.86 Baseline Coverage units, 5.99 Surge Capacity units, and 6.12 Critical Support units.\n  - Availability window: between 0 and 10.81 crews (integer count only).\n\n- Canyon Multi\u2011Role Crews\n  - Spend per crew: 3.98.\n  - Coverage per crew: 9.43 Baseline Coverage units, 1.76 Surge Capacity units, and 6.96 Critical Support units.\n  - Availability window: between 0 and 17.94 crews (integer count only).\n\n- Aurora Auxiliary Blocks\n  - Spend per block: 9.70.\n  - Coverage per block: 5.68 Baseline Coverage units, 3.74 Surge Capacity units, and 0.39 Critical Support units.\n  - Availability window: between 0 and 19.12 blocks (integer count only).\n\nMarket Limits and Required Service Levels (Q1)\n- Baseline Coverage: at least 96.16 units across the plan.\n- Surge Capacity: at least 110.41 units across the plan.\n- Critical Support: at least 73.2 units across the plan.\n\nPlease configure the deployment plan to meet or exceed all three service levels above while keeping total spend as low as possible, honoring the whole\u2011unit requirement and the availability caps for each option.\n\nThanks,\n[Your Name]\nDirector of Operations"
+}

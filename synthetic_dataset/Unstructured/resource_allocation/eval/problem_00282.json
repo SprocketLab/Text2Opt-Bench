@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, bounds, and impacts are explicit; 'adds/reduces' clarifies signs; zero-impact noted. Fractional bounds imply continuous. Constraints and objective are directly reconstructable.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo style with greetings/closing and repeated 'no effect' add mild fluff; core data (6x9 impacts, costs, bounds) is necessary.",
+      "realism": 88,
+      "realism_comment": "Plausible planning LP balancing service, reliability, and community metrics with costs. Slightly synthetic due to fractional 'runs/slots' and precise decimals."
+    },
+    "prompt_tokens_with_data": 1547,
+    "prompt_tokens_without_data": 1547
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 45.82385722420125,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 8.16792200505761,
+      "Var_2": 0.0,
+      "Var_3": 5.836746697794777,
+      "Var_4": 0.9707359447184449,
+      "Var_5": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 46.44
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -24.88
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 40.15
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 33.03
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -24.5
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 74.22
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 54.47
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 70.26
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 67.69
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.65
+      ],
+      "objective_linear_coefficient": 5.4,
+      "resource_costs": {
+        "C0": 7.77,
+        "C1": -3.32,
+        "C2": 8.73,
+        "C3": 3.73,
+        "C4": -2.15,
+        "C7": 3.18,
+        "C8": 7.46
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.72
+      ],
+      "objective_linear_coefficient": 4.01,
+      "resource_costs": {
+        "C0": 8.48,
+        "C1": 5.41,
+        "C2": 6.26,
+        "C3": 4.11,
+        "C4": 0.63,
+        "C5": 3.52,
+        "C6": -0.42,
+        "C7": 5.85,
+        "C8": 7.39
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.95
+      ],
+      "objective_linear_coefficient": 7.57,
+      "resource_costs": {
+        "C0": 9.5,
+        "C1": -4.89,
+        "C2": -0.14,
+        "C3": 1.43,
+        "C4": -0.44,
+        "C5": -4.25,
+        "C6": -4.84,
+        "C7": 1.07,
+        "C8": 4.13
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.92
+      ],
+      "objective_linear_coefficient": 1.93,
+      "resource_costs": {
+        "C0": 0.97,
+        "C1": 0.2,
+        "C2": 3.15,
+        "C3": 0.28,
+        "C4": -1.69,
+        "C5": 9.97,
+        "C6": 9.92,
+        "C7": 4.22
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.87
+      ],
+      "objective_linear_coefficient": 1.86,
+      "resource_costs": {
+        "C0": -2.3,
+        "C2": 0.67,
+        "C3": -2.24,
+        "C4": -3.2,
+        "C5": 3.63,
+        "C8": 7.55
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.72
+      ],
+      "objective_linear_coefficient": 8.95,
+      "resource_costs": {
+        "C1": -4.54,
+        "C3": 7.93,
+        "C6": -1.91,
+        "C7": 9.12,
+        "C8": 9.17
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.65, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.4 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.72, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.01 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.95, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.57 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.92, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.93 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.87, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.86 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.72, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.95 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.77 * vars['Var_0'] + 8.48 * vars['Var_1'] + 9.5 * vars['Var_2'] + 0.97 * vars['Var_3'] + -2.3 * vars['Var_4'] >= 46.44, name='C0')\n    m.addConstr(-3.32 * vars['Var_0'] + 5.41 * vars['Var_1'] + -4.89 * vars['Var_2'] + 0.2 * vars['Var_3'] + -4.54 * vars['Var_5'] >= -24.88, name='C1')\n    m.addConstr(8.73 * vars['Var_0'] + 6.26 * vars['Var_1'] + -0.14 * vars['Var_2'] + 3.15 * vars['Var_3'] + 0.67 * vars['Var_4'] >= 40.15, name='C2')\n    m.addConstr(3.73 * vars['Var_0'] + 4.11 * vars['Var_1'] + 1.43 * vars['Var_2'] + 0.28 * vars['Var_3'] + -2.24 * vars['Var_4'] + 7.93 * vars['Var_5'] >= 33.03, name='C3')\n    m.addConstr(-2.15 * vars['Var_0'] + 0.63 * vars['Var_1'] + -0.44 * vars['Var_2'] + -1.69 * vars['Var_3'] + -3.2 * vars['Var_4'] >= -24.5, name='C4')\n    m.addConstr(3.52 * vars['Var_1'] + -4.25 * vars['Var_2'] + 9.97 * vars['Var_3'] + 3.63 * vars['Var_4'] >= 74.22, name='C5')\n    m.addConstr(-0.42 * vars['Var_1'] + -4.84 * vars['Var_2'] + 9.92 * vars['Var_3'] + -1.91 * vars['Var_5'] >= 54.47, name='C6')\n    m.addConstr(3.18 * vars['Var_0'] + 5.85 * vars['Var_1'] + 1.07 * vars['Var_2'] + 4.22 * vars['Var_3'] + 9.12 * vars['Var_5'] >= 70.26, name='C7')\n    m.addConstr(7.46 * vars['Var_0'] + 7.39 * vars['Var_1'] + 4.13 * vars['Var_2'] + 7.55 * vars['Var_4'] + 9.17 * vars['Var_5'] >= 67.69, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix of programs to meet service, compliance, and community commitments\n\nTeam,\n\nAs discussed, we want the least-cost combination of initiatives that still satisfies our service, reliability, training, and community commitments for the period. Below are the levers we can pull, what each one costs per unit, the allowable range for each, and how each influences our commitments. Where a lever has no effect on a commitment, assume zero impact.\n\nThe levers\n\n1) Metro Express Runs\n- Operating expense: $5.40 per run\n- Allowable range: from 0 up to 8.65 runs\n- Impact on commitments:\n  - North Service Coverage: adds 7.77 points per run\n  - Risk Absorption Balance: reduces the balance by 3.32 points per run\n  - Regional Access Score: adds 8.73 points per run\n  - Workforce Training Hours: adds 3.73 hours per run\n  - Net Waste Position: moves the net position downward by 2.15 points per run\n  - Throughput Commitment: no effect\n  - System Reliability Score: no effect\n  - Customer Reach Index: adds 3.18 points per run\n  - Community Benefit Points: adds 7.46 points per run\n\n2) Coastal Freight Slots\n- Operating expense: $4.01 per slot\n- Allowable range: from 0 up to 9.72 slots\n- Impact on commitments:\n  - North Service Coverage: adds 8.48 points per slot\n  - Risk Absorption Balance: adds 5.41 points per slot\n  - Regional Access Score: adds 6.26 points per slot\n  - Workforce Training Hours: adds 4.11 hours per slot\n  - Net Waste Position: improves the net position by 0.63 points per slot\n  - Throughput Commitment: adds 3.52 units per slot\n  - System Reliability Score: reduces reliability by 0.42 points per slot\n  - Customer Reach Index: adds 5.85 points per slot\n  - Community Benefit Points: adds 7.39 points per slot\n\n3) R&D Pilot Deployments\n- Operating expense: $7.57 per deployment\n- Allowable range: from 0 up to 7.95 deployments\n- Impact on commitments:\n  - North Service Coverage: adds 9.50 points per deployment\n  - Risk Absorption Balance: reduces the balance by 4.89 points per deployment\n  - Regional Access Score: reduces access by 0.14 points per deployment\n  - Workforce Training Hours: adds 1.43 hours per deployment\n  - Net Waste Position: moves the net position downward by 0.44 points per deployment\n  - Throughput Commitment: reduces throughput by 4.25 units per deployment\n  - System Reliability Score: reduces reliability by 4.84 points per deployment\n  - Customer Reach Index: adds 1.07 points per deployment\n  - Community Benefit Points: adds 4.13 points per deployment\n\n4) Standard Route Packages\n- Operating expense: $1.93 per package\n- Allowable range: from 0 up to 17.92 packages\n- Impact on commitments:\n  - North Service Coverage: adds 0.97 points per package\n  - Risk Absorption Balance: adds 0.20 points per package\n  - Regional Access Score: adds 3.15 points per package\n  - Workforce Training Hours: adds 0.28 hours per package\n  - Net Waste Position: moves the net position downward by 1.69 points per package\n  - Throughput Commitment: adds 9.97 units per package\n  - System Reliability Score: adds 9.92 points per package\n  - Customer Reach Index: adds 4.22 points per package\n  - Community Benefit Points: no effect\n\n5) Sustainability Outreach Events\n- Operating expense: $1.86 per event\n- Allowable range: from 0 up to 11.87 events\n- Impact on commitments:\n  - North Service Coverage: reduces coverage by 2.30 points per event\n  - Risk Absorption Balance: no effect\n  - Regional Access Score: adds 0.67 points per event\n  - Workforce Training Hours: reduces training by 2.24 hours per event\n  - Net Waste Position: moves the net position downward by 3.20 points per event\n  - Throughput Commitment: adds 3.63 units per event\n  - System Reliability Score: no effect\n  - Customer Reach Index: no effect\n  - Community Benefit Points: adds 7.55 points per event\n\n6) Premium White-Glove Services\n- Operating expense: $8.95 per service day\n- Allowable range: from 0 up to 17.72 service days\n- Impact on commitments:\n  - North Service Coverage: no effect\n  - Risk Absorption Balance: reduces the balance by 4.54 points per day\n  - Regional Access Score: no effect\n  - Workforce Training Hours: adds 7.93 hours per day\n  - Net Waste Position: no effect\n  - Throughput Commitment: no effect\n  - System Reliability Score: reduces reliability by 1.91 points per day\n  - Customer Reach Index: adds 9.12 points per day\n  - Community Benefit Points: adds 9.17 points per day\n\nFacility specs and minimum commitments\n\nPlease ensure the mix you propose meets or exceeds the following minimum thresholds:\n- North Service Coverage: at least 46.44 points\n- Risk Absorption Balance: at least -24.88 points\n- Regional Access Score: at least 40.15 points\n- Workforce Training Hours: at least 33.03 hours\n- Net Waste Position: at least -24.50 points\n- Throughput Commitment: at least 74.22 units\n- System Reliability Score: at least 54.47 points\n- Customer Reach Index: at least 70.26 points\n- Community Benefit Points: at least 67.69 points\n\nOur aim is to satisfy all of the above while minimizing total operating expense across the six levers. Please come back with the least-cost mix within the allowable ranges noted. If any interpretation is unclear, call it out before running the numbers so we can avoid rework.\n\nThank you,\n[Client Name]\n[Title]"
+}

@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit costs, bounds (0 to given caps), integrality, and per-unit contributions for all four commitments; thresholds are 'at least'. Directly yields a cost-min MIP with four >= constraints.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business-style prose and repeated 'no minimum beyond zero' add length, but most text conveys necessary data (costs, bounds, contributions).",
+      "realism": 90,
+      "realism_comment": "Feels like a real planning problem with budgets, availability, and service targets. Fractional availability with integer units is slightly odd but plausible."
+    },
+    "prompt_tokens_with_data": 1016,
+    "prompt_tokens_without_data": 1016
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 57.5,
+    "optimal_values": {
+      "Var_0": 6.0,
+      "Var_1": 0.0,
+      "Var_2": 7.0,
+      "Var_3": 2.0,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 1.48
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 27.66
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 56.49
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 49.45
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.51
+      ],
+      "objective_linear_coefficient": 6.15,
+      "resource_costs": {
+        "C1": 4.74,
+        "C2": 1.03,
+        "C3": 2.69
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.98
+      ],
+      "objective_linear_coefficient": 8.25,
+      "resource_costs": {
+        "C2": 3.94
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.44
+      ],
+      "objective_linear_coefficient": 2.3,
+      "resource_costs": {
+        "C0": 1.26,
+        "C2": 5.78,
+        "C3": 4.96
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.6
+      ],
+      "objective_linear_coefficient": 2.25,
+      "resource_costs": {
+        "C2": 5.17
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.79
+      ],
+      "objective_linear_coefficient": 6.05,
+      "resource_costs": {
+        "C2": 7.59,
+        "C3": 7.83
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.51, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.15 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.98, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.25 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.44, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.3 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.6, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.25 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.79, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.05 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.26 * vars['Var_2'] >= 1.48, name='C0')\n    m.addConstr(4.74 * vars['Var_0'] >= 27.66, name='C1')\n    m.addConstr(1.03 * vars['Var_0'] + 3.94 * vars['Var_1'] + 5.78 * vars['Var_2'] + 5.17 * vars['Var_3'] + 7.59 * vars['Var_4'] >= 56.49, name='C2')\n    m.addConstr(2.69 * vars['Var_0'] + 4.96 * vars['Var_2'] + 7.83 * vars['Var_4'] >= 49.45, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Minimizing Program Spend While Meeting Service and Compliance Commitments\n\nTeam,\n\nWe are planning the upcoming period with the objective of meeting all mandated service and compliance commitments at the lowest possible total outlay. Below is the decision set we can pull from and the specific minimum thresholds we must hit. Each option has its own cost, availability limits, and impact on our four commitments: Accreditation Audit Credits, Community Workshop Contact Hours, Coverage Footprint Points, and Response Readiness Units.\n\nDelivery levers under consideration\n\n- Neighborhood Outreach Crews\n  - Budget impact: 6.15 per crew\u2011day deployed.\n  - Availability: we can allocate anywhere from zero up to 18.51 crew\u2011day equivalents this period, and crews must be scheduled in whole crew\u2011days (no partial crews).\n  - What this delivers:\n    - Community Workshop Contact Hours: +4.74 per crew\u2011day.\n    - Coverage Footprint Points: +1.03 per crew\u2011day.\n    - Response Readiness Units: +2.69 per crew\u2011day.\n    - Accreditation Audit Credits: no contribution.\n  - Notes: No minimum booking requirement beyond zero.\n\n- Digital Media Buys\n  - Budget impact: 8.25 per media block.\n  - Availability: we can purchase anywhere from zero up to 8.98 blocks, and we may purchase partial blocks if needed.\n  - What this delivers:\n    - Coverage Footprint Points: +3.94 per block.\n    - Accreditation Audit Credits, Community Workshop Contact Hours, Response Readiness Units: no contribution.\n  - Notes: No minimum booking requirement beyond zero.\n\n- Specialist Inspection Teams\n  - Budget impact: 2.30 per team\u2011day.\n  - Availability: we can allocate anywhere from zero up to 13.44 team\u2011day equivalents this period, and these teams must be booked in whole team\u2011days (no partial days).\n  - What this delivers:\n    - Accreditation Audit Credits: +1.26 per team\u2011day.\n    - Coverage Footprint Points: +5.78 per team\u2011day.\n    - Response Readiness Units: +4.96 per team\u2011day.\n    - Community Workshop Contact Hours: no contribution.\n  - Notes: No minimum booking requirement beyond zero.\n\n- Volunteer Ambassador Shifts\n  - Budget impact: 2.25 per shift.\n  - Availability: we can fund anywhere from zero up to 16.6 shifts, and shifts must be whole (no partial shifts).\n  - What this delivers:\n    - Coverage Footprint Points: +5.17 per shift.\n    - Accreditation Audit Credits, Community Workshop Contact Hours, Response Readiness Units: no contribution.\n  - Notes: No minimum booking requirement beyond zero.\n\n- Emergency Support Consultants\n  - Budget impact: 6.05 per consultant\u2011day.\n  - Availability: we can schedule anywhere from zero up to 7.79 consultant\u2011days, and partial days are allowed.\n  - What this delivers:\n    - Coverage Footprint Points: +7.59 per consultant\u2011day.\n    - Response Readiness Units: +7.83 per consultant\u2011day.\n    - Accreditation Audit Credits, Community Workshop Contact Hours: no contribution.\n  - Notes: No minimum booking requirement beyond zero.\n\nFacility specs and minimum commitments (must be met or exceeded)\n\n- Accreditation Audit Credits: at least 1.48 in total.\n- Community Workshop Contact Hours: at least 27.66 in total.\n- Coverage Footprint Points: at least 56.49 in total.\n- Response Readiness Units: at least 49.45 in total.\n\nOur task is to choose quantities of the above options\u2014respecting each option\u2019s availability and whether it must be purchased in whole units or can be acquired fractionally\u2014so that these four totals are achieved at the lowest overall cost. Please review and confirm that these caps and service definitions reflect current operational realities so we can finalize the allocation."
+}

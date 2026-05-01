@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds (0..max), objective and impact coefficients (with signs) are specified; six \u2264 limits are clear. 'Scaled between zero and max' implies continuous. Model reconstructable 1\u20131.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative/context adds some verbosity, but nearly all content encodes coefficients or limits; little repetition.",
+      "realism": 98,
+      "realism_comment": "Very realistic sustainability/operations portfolio optimization with plausible trade-offs and compliance constraints."
+    },
+    "prompt_tokens_with_data": 1722,
+    "prompt_tokens_without_data": 1722
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 693.5627368806137,
+    "optimal_values": {
+      "Var_0": 11.43,
+      "Var_1": 6.14,
+      "Var_2": 8.643981481481484,
+      "Var_3": 14.17,
+      "Var_4": 16.388269754768395,
+      "Var_5": 5.02,
+      "Var_6": 12.64,
+      "Var_7": 16.1,
+      "Var_8": 11.49
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 9.02
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -45.74
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -12.95
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -239.48
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -5.79
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -10.2
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.43
+      ],
+      "objective_linear_coefficient": 6.94,
+      "resource_costs": {
+        "C0": -4.99,
+        "C2": -2.62,
+        "C3": -0.03,
+        "C4": -1.38,
+        "C5": -1.07
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.14
+      ],
+      "objective_linear_coefficient": 8.11,
+      "resource_costs": {
+        "C0": -0.17,
+        "C1": 2.03,
+        "C2": 2.93,
+        "C3": -9.79,
+        "C4": -8.32
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.55
+      ],
+      "objective_linear_coefficient": 4.1,
+      "resource_costs": {
+        "C0": 2.16,
+        "C2": 6.92,
+        "C3": -8.94
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.17
+      ],
+      "objective_linear_coefficient": 1.58,
+      "resource_costs": {
+        "C0": -0.39,
+        "C1": 0.7,
+        "C3": -9.19,
+        "C4": -3.16,
+        "C5": -6.65
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.69
+      ],
+      "objective_linear_coefficient": 9.76,
+      "resource_costs": {
+        "C1": -7.04,
+        "C2": -7.32,
+        "C3": -3.55,
+        "C4": 7.34,
+        "C5": 1.37
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.02
+      ],
+      "objective_linear_coefficient": 3.18,
+      "resource_costs": {
+        "C0": -1.76,
+        "C1": 9.8,
+        "C2": -0.61,
+        "C3": -8.73,
+        "C4": -2.45
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.64
+      ],
+      "objective_linear_coefficient": 8.65,
+      "resource_costs": {
+        "C1": -8.58,
+        "C2": -0.64,
+        "C4": 3.13,
+        "C5": -3.43
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.1
+      ],
+      "objective_linear_coefficient": 9.76,
+      "resource_costs": {
+        "C0": 3.9,
+        "C2": 3.02,
+        "C5": 2.31
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.49
+      ],
+      "objective_linear_coefficient": 5.59,
+      "resource_costs": {
+        "C2": -4.39,
+        "C3": -7.0,
+        "C4": -3.63,
+        "C5": 3.04
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.43, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.94 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.14, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.11 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.55, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.1 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.17, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.58 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.69, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.76 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=5.02, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.18 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.64, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.65 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=16.1, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 9.76 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=11.49, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 5.59 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-4.99 * vars['Var_0'] + -0.17 * vars['Var_1'] + 2.16 * vars['Var_2'] + -0.39 * vars['Var_3'] + -1.76 * vars['Var_5'] + 3.9 * vars['Var_7'] <= 9.02, name='C0')\n    m.addConstr(2.03 * vars['Var_1'] + 0.7 * vars['Var_3'] + -7.04 * vars['Var_4'] + 9.8 * vars['Var_5'] + -8.58 * vars['Var_6'] <= -45.74, name='C1')\n    m.addConstr(-2.62 * vars['Var_0'] + 2.93 * vars['Var_1'] + 6.92 * vars['Var_2'] + -7.32 * vars['Var_4'] + -0.61 * vars['Var_5'] + -0.64 * vars['Var_6'] + 3.02 * vars['Var_7'] + -4.39 * vars['Var_8'] <= -12.95, name='C2')\n    m.addConstr(-0.03 * vars['Var_0'] + -9.79 * vars['Var_1'] + -8.94 * vars['Var_2'] + -9.19 * vars['Var_3'] + -3.55 * vars['Var_4'] + -8.73 * vars['Var_5'] + -7.0 * vars['Var_8'] <= -239.48, name='C3')\n    m.addConstr(-1.38 * vars['Var_0'] + -8.32 * vars['Var_1'] + -3.16 * vars['Var_3'] + 7.34 * vars['Var_4'] + -2.45 * vars['Var_5'] + 3.13 * vars['Var_6'] + -3.63 * vars['Var_8'] <= -5.79, name='C4')\n    m.addConstr(-1.07 * vars['Var_0'] + -6.65 * vars['Var_3'] + 1.37 * vars['Var_4'] + -3.43 * vars['Var_6'] + 2.31 * vars['Var_7'] + 3.04 * vars['Var_8'] <= -10.2, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix decision to maximize contribution while meeting site limits\n\nTeam,\n\nAs discussed, we\u2019re preparing the FY plan to allocate effort and capital across a set of operational initiatives. The goal is to maximize our overall business contribution while staying within facility limits and compliance targets. All figures below are expressed as \u201cdeltas\u201d against our current baseline; negative deltas indicate reductions/improvements, positive deltas indicate increases. Each initiative can be scaled between zero and its listed maximum.\n\nLevers to consider (in order):\n\n1) Eco\u2011Pump Retrofits (Wellfield A)\n- Value: Each retrofit unit contributes 6.94 points to annual net value.\n- Scale: We can deploy up to 11.43 units.\n- Impacts:\n  - Net Fresh Water Draw: reduces draw by 4.99 units per retrofit.\n  - Landfill Waste Delta: reduces waste by 2.62 units per retrofit.\n  - Grid Electricity Demand Delta: reduces demand by 0.03 units per retrofit.\n  - Wastewater Quality Impact Delta (COD/solids proxy): reduces impact by 1.38 units per retrofit.\n  - Safety Risk Score Delta: reduces risk by 1.07 units per retrofit.\n\n2) Heat\u2011Recovery Loop on Line A\n- Value: Each loop contributes 8.11 points to annual net value.\n- Scale: Up to 6.14 loops.\n- Impacts:\n  - Net Fresh Water Draw: reduces draw by 0.17 units per loop.\n  - Scope 1 Emissions Delta (CO2e): increases emissions by 2.03 units per loop (natural\u2011gas burner trade\u2011off).\n  - Landfill Waste Delta: increases waste by 2.93 units per loop (filter media change\u2011outs).\n  - Grid Electricity Demand Delta: reduces demand by 9.79 units per loop.\n  - Wastewater Quality Impact Delta: reduces impact by 8.32 units per loop.\n\n3) Evaporative Cooling Towers (Bay 3)\n- Value: Each module contributes 4.10 points to annual net value.\n- Scale: Up to 16.55 modules.\n- Impacts:\n  - Net Fresh Water Draw: increases draw by 2.16 units per module.\n  - Landfill Waste Delta: increases waste by 6.92 units per module (blowdown solids and cartridges).\n  - Grid Electricity Demand Delta: reduces demand by 8.94 units per module.\n\n4) Cogeneration Unit (Turbine B)\n- Value: Each unit contributes 1.58 points to annual net value.\n- Scale: Up to 14.17 units (incremental capacity blocks).\n- Impacts:\n  - Net Fresh Water Draw: reduces draw by 0.39 units per capacity block.\n  - Scope 1 Emissions Delta: increases emissions by 0.70 units per block (on\u2011site combustion).\n  - Grid Electricity Demand Delta: reduces demand by 9.19 units per block.\n  - Wastewater Quality Impact Delta: reduces impact by 3.16 units per block.\n  - Safety Risk Score Delta: reduces risk by 6.65 units per block.\n\n5) Kiln Upgrade Program (Ceramics Line)\n- Value: Each upgrade contributes 9.76 points to annual net value.\n- Scale: Up to 19.69 upgrades (sections).\n- Impacts:\n  - Scope 1 Emissions Delta: reduces emissions by 7.04 units per upgrade (higher efficiency burners).\n  - Landfill Waste Delta: reduces waste by 7.32 units per upgrade (lower scrap).\n  - Grid Electricity Demand Delta: reduces demand by 3.55 units per upgrade.\n  - Wastewater Quality Impact Delta: increases impact by 7.34 units per upgrade (slurry load).\n  - Safety Risk Score Delta: increases risk by 1.37 units per upgrade (heat exposure).\n\n6) Peak\u2011Shaving Generators (Diesel Standby)\n- Value: Each generator dispatch contributes 3.18 points to annual net value.\n- Scale: Up to 5.02 dispatch units.\n- Impacts:\n  - Net Fresh Water Draw: reduces draw by 1.76 units per dispatch (less cooling demand on grid\u2011tied chillers).\n  - Scope 1 Emissions Delta: increases emissions by 9.80 units per dispatch (diesel usage).\n  - Landfill Waste Delta: reduces waste by 0.61 units per dispatch.\n  - Grid Electricity Demand Delta: reduces demand by 8.73 units per dispatch.\n  - Wastewater Quality Impact Delta: reduces impact by 2.45 units per dispatch.\n\n7) Fleet Electrification & Routing Optimization\n- Value: Each program tranche contributes 8.65 points to annual net value.\n- Scale: Up to 12.64 tranches.\n- Impacts:\n  - Scope 1 Emissions Delta: reduces emissions by 8.58 units per tranche.\n  - Landfill Waste Delta: reduces waste by 0.64 units per tranche.\n  - Wastewater Quality Impact Delta: increases impact by 3.13 units per tranche (stormwater load from on\u2011site charging footprint).\n  - Safety Risk Score Delta: reduces risk by 3.43 units per tranche.\n\n8) Premium Product Mix Expansion\n- Value: Each mix increment contributes 9.76 points to annual net value.\n- Scale: Up to 16.10 increments.\n- Impacts:\n  - Net Fresh Water Draw: increases draw by 3.90 units per increment.\n  - Landfill Waste Delta: increases waste by 3.02 units per increment.\n  - Safety Risk Score Delta: increases risk by 2.31 units per increment (more hazardous handling steps).\n\n9) High\u2011Speed Optical Sorters (Final Inspection)\n- Value: Each sorter contributes 5.59 points to annual net value.\n- Scale: Up to 11.49 sorters.\n- Impacts:\n  - Landfill Waste Delta: reduces waste by 4.39 units per sorter (fewer defects).\n  - Grid Electricity Demand Delta: reduces demand by 7.00 units per sorter (less rework).\n  - Wastewater Quality Impact Delta: reduces impact by 3.63 units per sorter.\n  - Safety Risk Score Delta: increases risk by 3.04 units per sorter (moving machinery exposure).\n\nFacility specs & compliance targets (net deltas vs baseline must be at or below these limits):\n- Net Fresh Water Draw: \u2264 9.02 units.\n- Scope 1 Emissions Delta: \u2264 \u221245.74 units (i.e., deliver at least 45.74 units of emissions reduction overall).\n- Landfill Waste Delta: \u2264 \u221212.95 units (deliver at least 12.95 units of waste reduction overall).\n- Grid Electricity Demand Delta: \u2264 \u2212239.48 units (deliver at least 239.48 units of grid demand reduction overall).\n- Wastewater Quality Impact Delta: \u2264 \u22125.79 units (deliver at least 5.79 units of impact reduction overall).\n- Safety Risk Score Delta: \u2264 \u221210.20 units (deliver at least 10.20 units of risk reduction overall).\n\nPlease use this as the basis for the portfolio optimization and come back with the recommended mix and scale for each initiative that maximizes the stated value while respecting these limits."
+}

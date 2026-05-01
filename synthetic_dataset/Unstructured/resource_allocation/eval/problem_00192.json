@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, costs, and metric coefficients are explicit; six >= thresholds map directly to metrics; objective is minimize total spend. No guessing or missing data.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some business narrative (subject, greeting, context) adds fluff, but parameters and effects are precise and non-repetitive. Only mildly verbose overall.",
+      "realism": 95,
+      "realism_comment": "Plausible planning mix with cost/KPI trade-offs (production, compliance, coverage, sustainability, cash) and sensible signs/bounds. Feels like a real OR use case."
+    },
+    "prompt_tokens_with_data": 969,
+    "prompt_tokens_without_data": 969
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 57.246898526536086,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.28398033917562016,
+      "Var_2": 3.3643787094003015,
+      "Var_3": 3.975402011981941,
+      "Var_4": 3.1306088874366207
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.05
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 58.32
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 1.65
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 30.8
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -21.48
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -27.03
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.54
+      ],
+      "objective_linear_coefficient": 4.19,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.8
+      ],
+      "objective_linear_coefficient": 2.55,
+      "resource_costs": {
+        "C0": 5.99,
+        "C1": -1.02,
+        "C2": 9.03,
+        "C3": -8.0
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.5
+      ],
+      "objective_linear_coefficient": 2.42,
+      "resource_costs": {
+        "C3": 9.83,
+        "C4": -3.59
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.76
+      ],
+      "objective_linear_coefficient": 4.87,
+      "resource_costs": {
+        "C1": 7.38,
+        "C2": -0.23,
+        "C4": -4.43,
+        "C5": -5.93
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.93
+      ],
+      "objective_linear_coefficient": 9.27,
+      "resource_costs": {
+        "C0": 6.5,
+        "C1": 9.35,
+        "C4": 4.86,
+        "C5": 0.5
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.54, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.19 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.8, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.55 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.5, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.42 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.76, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.87 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.93, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.27 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.99 * vars['Var_1'] + 6.5 * vars['Var_4'] >= 22.05, name='C0')\n    m.addConstr(-1.02 * vars['Var_1'] + 7.38 * vars['Var_3'] + 9.35 * vars['Var_4'] >= 58.32, name='C1')\n    m.addConstr(9.03 * vars['Var_1'] + -0.23 * vars['Var_3'] >= 1.65, name='C2')\n    m.addConstr(-8.0 * vars['Var_1'] + 9.83 * vars['Var_2'] >= 30.8, name='C3')\n    m.addConstr(-3.59 * vars['Var_2'] + -4.43 * vars['Var_3'] + 4.86 * vars['Var_4'] >= -21.48, name='C4')\n    m.addConstr(-5.93 * vars['Var_3'] + 0.5 * vars['Var_4'] >= -27.03, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimized deployment mix to meet our Q1 operating thresholds\n\nTeam,\n\nWe\u2019re looking to assemble the lowest-cost mix of deployment elements that still hits our minimum operating thresholds across production, compliance, service, coverage, sustainability, and cash posture. Below are the levers we can dial and how each one affects these metrics. Our aim is to minimize total spend while meeting or exceeding each minimum requirement.\n\nLevers we can adjust (in the order we will evaluate them):\n- Contingency Retainer Units\n  - These are insurance-like standby provisions that we can hold anywhere from 0 up to 8.54 units. They cost 4.19 per unit. By design they do not move our operating KPIs: per unit they add 0 to Production Hours, 0 to Compliance Readiness Points, 0 to Service-Level Points, 0 to Market Coverage Units, 0 to the Sustainability Ledger, and 0 to the Cash Reserve Delta.\n\n- Rapid Response Modules\n  - These are flexible crews we can schedule from 0 up to 12.8 units. They carry a cost of 2.55 per unit. Each module substantially boosts Service-Level Points (+9.03 per unit) and contributes to Production Hours (+5.99 per unit), but they slightly detract from Compliance Readiness (\u22121.02 points per unit) and reduce our Market Coverage Units (\u22128.00 per unit, due to concentration effects). They do not affect the Sustainability Ledger (0 per unit) or the Cash Reserve Delta (0 per unit).\n\n- Extended-Reach Diesel Fleet\n  - These are coverage vehicles we can field from 0 up to 15.5 units at a cost of 2.42 per unit. They expand our Market Coverage Units by +9.83 per unit, but they weigh on the Sustainability Ledger by \u22123.59 per unit. They do not change Production Hours (0 per unit), Compliance Readiness Points (0 per unit), Service-Level Points (0 per unit), or the Cash Reserve Delta (0 per unit).\n\n- Compliance Retrofit Packages\n  - These are audit and certification upgrades we can execute from 0 up to 7.76 units. They cost 4.87 per unit. Each package improves Compliance Readiness Points by +7.38 per unit, but it slightly suppresses Service-Level Points (\u22120.23 per unit), carries a sustainability penalty (\u22124.43 per unit on the Sustainability Ledger), and draws down our Cash Reserve Delta by \u22125.93 per unit. They do not affect Production Hours (0 per unit) or Market Coverage Units (0 per unit).\n\n- Green Regional Hubs\n  - These are premium, sustainability-first hubs we can commission from 0 up to 11.93 units. They are the most expensive at 9.27 per unit, but they are broadly beneficial: +6.50 Production Hours per unit, +9.35 Compliance Readiness Points per unit, +4.86 to the Sustainability Ledger per unit, and a modest +0.50 to the Cash Reserve Delta per unit. They do not affect Service-Level Points (0 per unit) or Market Coverage Units (0 per unit).\n\nFacility and market limits we must honor (minimums):\n- Production Hours: at least 22.05\n- Compliance Readiness Points: at least 58.32\n- Service-Level Points: at least 1.65\n- Market Coverage Units: at least 30.8\n- Sustainability Ledger: at least \u221221.48\n- Cash Reserve Delta: at least \u221227.03\n\nPlease review these parameters so we can lock the mix that achieves all six thresholds at the lowest total cost."
+}

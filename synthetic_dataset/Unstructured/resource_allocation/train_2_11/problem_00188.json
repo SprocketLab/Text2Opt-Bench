@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-unit profits, integer decisions with 0 lower bounds, precise resource-use coefficients, and five capacity limits. Objective is maximize total contribution. No values missing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business narrative adds context but repeats 'does not use' statements and includes extra prose; slightly verbose yet precise.",
+      "realism": 95,
+      "realism_comment": "Highly realistic Q3 production mix with machining, assembly, blending, distribution, and material caps; contributions and limits are plausible."
+    },
+    "prompt_tokens_with_data": 906,
+    "prompt_tokens_without_data": 906
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 288.51,
+    "optimal_values": {
+      "Var_0": 1.0,
+      "Var_1": 19.0,
+      "Var_2": 8.0,
+      "Var_3": 3.0,
+      "Var_4": 8.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 59.22
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 41.45
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.17
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 105.75
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 9.21
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.23
+      ],
+      "objective_linear_coefficient": 2.1,
+      "resource_costs": {
+        "C2": 5.71,
+        "C3": 9.53,
+        "C4": 0.62
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.4
+      ],
+      "objective_linear_coefficient": 8.08,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.44
+      ],
+      "objective_linear_coefficient": 7.64,
+      "resource_costs": {
+        "C2": 4.06,
+        "C4": 1.03
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.81
+      ],
+      "objective_linear_coefficient": 9.31,
+      "resource_costs": {
+        "C0": 2.88,
+        "C1": 8.09,
+        "C3": 5.77
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.65
+      ],
+      "objective_linear_coefficient": 5.48,
+      "resource_costs": {
+        "C0": 6.21,
+        "C1": 1.95
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.23, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.1 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.4, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.08 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.44, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.64 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.81, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.31 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.65, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.48 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.88 * vars['Var_3'] + 6.21 * vars['Var_4'] <= 59.22, name='C0')\n    m.addConstr(8.09 * vars['Var_3'] + 1.95 * vars['Var_4'] <= 41.45, name='C1')\n    m.addConstr(5.71 * vars['Var_0'] + 4.06 * vars['Var_2'] <= 65.17, name='C2')\n    m.addConstr(9.53 * vars['Var_0'] + 5.77 * vars['Var_3'] <= 105.75, name='C3')\n    m.addConstr(0.62 * vars['Var_0'] + 1.03 * vars['Var_2'] <= 9.21, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Q3 Mix Decision to Maximize Total Contribution\n\nTeam,\n\nAs we set the Q3 operating plan, our shared objective is to maximize total contribution across a small set of offerings while staying within specific facility and market caps. All five levers below are optional (each can be set as low as 0.00 units) and must be scheduled in whole units only\u2014no partial lots or seats may be committed. The figures below reflect per\u2011unit contribution and how each unit draws on our constrained resources. Upper limits reflect current demand caps or program limits.\n\nLevers we can pull (in decision order):\n\n1) Batch Blend S \u2013 \u201cGreenline Degreaser\u201d\n- Per\u2011unit contribution: 2.10.\n- Market limit: up to 10.23 whole batches; minimum commitment is 0.00.\n- Each batch pulls 5.71 hours from Blend Room 2, occupies 9.53 pallet slots in Distribution A, and consumes 0.62 kg of Additive Z. It does not require Machining Center A hours or Assembly Bay labor.\n\n2) Cloud Analytics License Seats\n- Per\u2011unit contribution: 8.08.\n- Program limit: up to 19.40 whole seats; minimum commitment is 0.00.\n- These seats do not draw on any of the constrained physical resources\u2014no Machining Center A hours, no Assembly Bay labor, no Blend Room 2 time, no Distribution A pallet slots, and no Additive Z usage.\n\n3) Alpha Premium Solvent (Direct\u2011Ship Batches)\n- Per\u2011unit contribution: 7.64.\n- Market limit: up to 16.44 whole batches; minimum commitment is 0.00.\n- Each batch requires 4.06 hours in Blend Room 2 and 1.03 kg of Additive Z. No Machining Center A hours, Assembly Bay labor, or Distribution A pallet slots are needed.\n\n4) CNC Valve Blocks (Machined Assemblies)\n- Per\u2011unit contribution: 9.31.\n- Market limit: up to 10.81 whole assemblies; minimum commitment is 0.00.\n- Each assembly consumes 2.88 hours on Machining Center A, 8.09 hours of Assembly Bay labor, and 5.77 pallet slots in Distribution A. It does not use Blend Room 2 or Additive Z.\n\n5) Stamped Covers (Press Line Components)\n- Per\u2011unit contribution: 5.48.\n- Market limit: up to 11.65 whole components; minimum commitment is 0.00.\n- Each component requires 6.21 hours on Machining Center A and 1.95 hours of Assembly Bay labor. No Blend Room 2 time, Distribution A pallet slots, or Additive Z are used.\n\nFacility specs and market limits (do not exceed):\n- Machining Center A hours available: 59.22 in total.\n- Assembly Bay labor hours available: 41.45 in total.\n- Blend Room 2 processing hours available: 65.17 in total.\n- Distribution A pallet slots available: 105.75 in total.\n- Additive Z available: 9.21 kg in total.\n\nPlease use the above to shape the production and sales mix so that overall contribution is maximized while honoring the caps. I\u2019m happy to review any proposed allocations before we lock the schedule."
+}

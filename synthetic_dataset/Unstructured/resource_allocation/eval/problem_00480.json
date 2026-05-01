@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 10,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All bounds, objective rates, and constraint coefficients are given with clear sign rules and RHS; 'must not exceed/at or below' means <=. A human can mechanically reconstruct the exact LP.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Email-style narrative adds flavor but is verbose; still it conveys coefficients and signs without repetition. Some fluff present, yet most text serves specification.",
+      "realism": 95,
+      "realism_comment": "Plausible portfolio/resource allocation with cash, exposure, hours, capacity limits; clear trade-offs and sign conventions. Feels like a real business planning model."
+    },
+    "prompt_tokens_with_data": 1247,
+    "prompt_tokens_without_data": 1247
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 417.49154625830727,
+    "optimal_values": {
+      "Var_0": 1.6031447849025977,
+      "Var_1": 7.54,
+      "Var_2": 4.3203125,
+      "Var_3": 10.811114158825651,
+      "Var_4": 6.996261334454946,
+      "Var_5": 12.29,
+      "Var_6": 3.6103494579500652,
+      "Var_7": 11.59,
+      "Var_8": 19.22
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 13.41
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.2
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -22.73
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 81.11
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 33.18
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -27.5
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 33.95
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 80.97
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -67.66
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -72.78
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.72
+      ],
+      "objective_linear_coefficient": 5.38,
+      "resource_costs": {
+        "C0": 6.16,
+        "C2": 7.2,
+        "C5": -4.24,
+        "C6": 4.82,
+        "C8": 6.3
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.54
+      ],
+      "objective_linear_coefficient": 3.39,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.42
+      ],
+      "objective_linear_coefficient": 8.44,
+      "resource_costs": {
+        "C0": -7.59,
+        "C3": 4.93,
+        "C4": 7.68
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.95
+      ],
+      "objective_linear_coefficient": 4.66,
+      "resource_costs": {
+        "C1": -5.04,
+        "C5": 9.29,
+        "C8": -6.91
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.99
+      ],
+      "objective_linear_coefficient": 4.07,
+      "resource_costs": {
+        "C7": 8.41,
+        "C8": -7.65,
+        "C9": -2.23
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.29
+      ],
+      "objective_linear_coefficient": 6.69,
+      "resource_costs": {
+        "C1": 5.71,
+        "C6": 6.37
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.34
+      ],
+      "objective_linear_coefficient": 9.77,
+      "resource_costs": {
+        "C1": 5.48,
+        "C2": -9.07,
+        "C3": 7.61,
+        "C5": -4.34,
+        "C7": 6.13
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.59
+      ],
+      "objective_linear_coefficient": 5.34,
+      "resource_costs": {
+        "C2": -1.1,
+        "C3": 2.79,
+        "C5": -9.1,
+        "C9": -5.55
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.22
+      ],
+      "objective_linear_coefficient": 4.61,
+      "resource_costs": {
+        "C0": 1.89,
+        "C1": -3.32,
+        "C6": -5.52,
+        "C9": -3.21
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.72, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.38 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.54, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.39 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.42, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.44 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.95, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.66 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.99, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.07 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.29, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.69 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=18.34, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 9.77 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=11.59, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 5.34 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=19.22, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 4.61 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.16 * vars['Var_0'] + -7.59 * vars['Var_2'] + 1.89 * vars['Var_8'] <= 13.41, name='C0')\n    m.addConstr(-5.04 * vars['Var_3'] + 5.71 * vars['Var_5'] + 5.48 * vars['Var_6'] + -3.32 * vars['Var_8'] <= 16.2, name='C1')\n    m.addConstr(7.2 * vars['Var_0'] + -9.07 * vars['Var_6'] + -1.1 * vars['Var_7'] <= -22.73, name='C2')\n    m.addConstr(4.93 * vars['Var_2'] + 7.61 * vars['Var_6'] + 2.79 * vars['Var_7'] <= 81.11, name='C3')\n    m.addConstr(7.68 * vars['Var_2'] <= 33.18, name='C4')\n    m.addConstr(-4.24 * vars['Var_0'] + 9.29 * vars['Var_3'] + -4.34 * vars['Var_6'] + -9.1 * vars['Var_7'] <= -27.5, name='C5')\n    m.addConstr(4.82 * vars['Var_0'] + 6.37 * vars['Var_5'] + -5.52 * vars['Var_8'] <= 33.95, name='C6')\n    m.addConstr(8.41 * vars['Var_4'] + 6.13 * vars['Var_6'] <= 80.97, name='C7')\n    m.addConstr(6.3 * vars['Var_0'] + -6.91 * vars['Var_3'] + -7.65 * vars['Var_4'] <= -67.66, name='C8')\n    m.addConstr(-2.23 * vars['Var_4'] + -5.55 * vars['Var_7'] + -3.21 * vars['Var_8'] <= -72.78, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio Allocation Proposal \u2013 Maximize Contribution Within Our Q4 Limits\n\nTeam,\n\nWe\u2019re planning the Q4 mix of nine initiatives to maximize our overall contribution while staying inside our operating, risk, and capacity limits. Each lever below can be dialed anywhere from zero up to its stated cap, and I\u2019ve noted the direct benefit per unit along with how it touches our budgets and policy limits.\n\n- Accelerated Storefront Upgrade Program\n  We can deploy between 0 and 6.72 units. Each unit adds 5.38 to our contribution. It draws 6.16 from cash-on-hand, increases our sustainability footprint metric by 7.2 points, and delivers 4.24 units of operating expense savings toward our savings target. It also requires 4.82 IT engineering hours and raises the legacy risk index by 6.3 points.\n\n- Micro Loyalty Upsell Packs\n  We can deploy between 0 and 7.54 units. Each unit adds 3.39 to our contribution. This pack is intentionally light-touch: it has no measurable draw on our cash, exposure, hours, materials, or other tracked limits.\n\n- Signature Refurbishment Runs\n  We can deploy between 0 and 12.42 runs. Each run adds 8.44 to our contribution. These runs return 7.59 to cash-on-hand (reducing our net cash draw), require 4.93 machine hours at Plant A, and consume 7.68 units of premium alloy feedstock.\n\n- Rate Shielding Securitization\n  We can deploy between 0 and 14.95 deals. Each deal adds 4.66 to our contribution. It cuts treasury duration exposure by 5.04 units, increases ongoing operating expense by 9.29 units (counting against the savings requirement), and improves the legacy risk index by 6.91 points.\n\n- Cross-Border Launch Series\n  We can deploy between 0 and 13.99 launches. Each launch adds 4.07 to our contribution. It uses 8.41 units of distribution capacity, reduces the legacy risk index by 7.65 points, and contributes a 2.23 unit release of provisions/warranty reserves.\n\n- Premium Advisory Bundle\n  We can deploy between 0 and 12.29 bundles. Each bundle adds 6.69 to our contribution. It increases treasury duration exposure by 5.71 units and absorbs 6.37 IT engineering hours.\n\n- Flagship Expansion Wave\n  We can deploy between 0 and 18.34 expansions. Each expansion adds 9.77 to our contribution. It increases treasury duration exposure by 5.48 units, reduces the sustainability footprint by 9.07 points, requires 7.61 machine hours at Plant A, delivers 4.34 units of operating expense savings, and uses 6.13 units of distribution capacity.\n\n- Inventory Rationalization Drive\n  We can deploy between 0 and 11.59 cohorts. Each cohort adds 5.34 to our contribution. It reduces the sustainability footprint by 1.1 points, uses 2.79 machine hours at Plant A, delivers 9.1 units of operating expense savings, and supports a 5.55 unit release of provisions/warranty reserves.\n\n- Automation & De-duplication Toolkit\n  We can deploy between 0 and 19.22 deployments. Each deployment adds 4.61 to our contribution. It consumes 1.89 from cash-on-hand, reduces treasury duration exposure by 3.32 units, frees up 5.52 IT engineering hours (hours we can redeploy elsewhere), and supports a 3.21 unit release of provisions/warranty reserves.\n\nFacility specs and policy limits (please keep the combined impact of all initiatives within these):\n\n- Cash-on-hand draw must not exceed 13.41 in net terms.\n- Treasury duration exposure must not exceed 16.2 units.\n- Net sustainability footprint change must be no greater than -22.73 points (we\u2019re obligated to deliver a reduction of at least 22.73 points; we record reductions as negative).\n- Plant A machine hours are capped at 81.11.\n- Premium alloy feedstock is capped at 33.18.\n- Operating expense savings target: net ongoing expense impact must be at or below -27.5 (we must achieve at least 27.5 units of savings; costs add back against this).\n- IT engineering hours are capped at 33.95.\n- Distribution network capacity is capped at 80.97.\n- Legacy risk index must be brought down to -67.66 or lower (we record reductions as negative; the combined initiatives must drive the index down accordingly).\n- Warranty and provisions release requirement: net impact must be at or below -72.78 (we\u2019re required to release at least 72.78 units; releases are recorded as negative).\n\nOur goal is to maximize total contribution across these levers while satisfying the limits above. Please come back with the recommended sizing for each initiative within its bounds."
+}

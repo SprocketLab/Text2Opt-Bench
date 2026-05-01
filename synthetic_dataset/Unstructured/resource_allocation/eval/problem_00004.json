@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "Coefficients, bounds, integrality, and directions are explicit; objective and constraints reconstructable exactly. Slight mismatch on variable naming could confuse implementers.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative adds some fluff and repeats caps/metrics. Still focused enough for implementation.",
+      "realism": 88,
+      "realism_comment": "Scenario feels like real planning. Minor oddities (negative credit threshold, 18.2 cap for integer audits) but overall plausible."
+    },
+    "prompt_tokens_with_data": 603,
+    "prompt_tokens_without_data": 603
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 31.766771463119717,
+    "optimal_values": {
+      "Var_0": 3.8645707376058045,
+      "Var_1": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -0.24
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 31.96
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.94
+      ],
+      "objective_linear_coefficient": 8.22,
+      "resource_costs": {
+        "C1": 8.27
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.2
+      ],
+      "objective_linear_coefficient": 3.22,
+      "resource_costs": {
+        "C0": 0.96
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.94, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.22 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.2, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.22 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.96 * vars['Var_1'] >= -0.24, name='C0')\n    m.addConstr(8.27 * vars['Var_0'] >= 31.96, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix for Service Assurance and Compliance\n\nTeam,\n\nWe need to settle on the most economical mix of service and compliance activities for the upcoming period while meeting our minimum service levels and regulatory posture. The objective is to minimize total spend without violating the operating limits described below.\n\nLevers under consideration\n\n1) Rapid Response Technician Hours (RRT)\n- Unit economics: Each hour of RRT carries a cost of 8.22.\n- Availability: We may schedule anywhere from 0 up to 7.94 hours in total, and partial hours are allowed.\n- Impact on our metrics: Every hour contributes 8.27 points toward our Service-Level Assurance Index. RRT has no material effect on the Compliance Credit position.\n\n2) Regulatory Field Audits\n- Unit economics: Each audit costs 3.22.\n- Availability: We may book between 0 and 18.2 audits in total; these must be scheduled in whole units (no fractional audits).\n- Impact on our metrics: Each completed audit contributes 0.96 Compliance Credits. Audits do not affect the Service-Level Assurance Index.\n\nFacility specs and market limits\n\n- Service-Level Assurance Index: We must achieve at least 31.96 points across the plan. Only Rapid Response Technician Hours contribute to this index, at 8.27 points per hour.\n- Compliance Credits: Our Compliance Credit position must not fall below \u22120.24. Regulatory Field Audits contribute 0.96 credits each toward this requirement.\n\nPlease develop a proposed allocation that minimizes total cost using the above levers, staying within the stated availability caps (RRT hours capped at 7.94; audits capped at 18.2; neither activity can be negative) and achieving the minimums of 31.96 Service-Level points and a Compliance Credit position no worse than \u22120.24. Audits must be planned in whole numbers; RRT hours may be fractional."
+}

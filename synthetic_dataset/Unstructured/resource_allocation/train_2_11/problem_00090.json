@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and capacities are clearly specified. Minor quirk: non-integer upper bounds for integer vars, but still unambiguous.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Email-style narrative adds fluff, but bullet points give exact data; repeated 'no draw' notes add some verbosity.",
+      "realism": 98,
+      "realism_comment": "Very plausible production planning with capacities, labor, emissions, inventory, and logistics; reads like a real operations memo."
+    },
+    "prompt_tokens_with_data": 875,
+    "prompt_tokens_without_data": 875
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 100.7059670781893,
+    "optimal_values": {
+      "Var_0": 9.352880658436215,
+      "Var_1": 6.0,
+      "Var_2": 1.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 136.93
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.56
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 2.29
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 34.76
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.0
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.58
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.26
+      ],
+      "objective_linear_coefficient": 8.32,
+      "resource_costs": {
+        "C0": 9.72,
+        "C1": 4.51,
+        "C3": 3.61,
+        "C4": 2.41,
+        "C5": 4.05
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.85
+      ],
+      "objective_linear_coefficient": 3.08,
+      "resource_costs": {
+        "C0": 7.67,
+        "C5": 1.72
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.36
+      ],
+      "objective_linear_coefficient": 4.41,
+      "resource_costs": {
+        "C2": 0.02,
+        "C4": 4.77,
+        "C5": 6.42
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.26, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.32 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.85, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.08 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.36, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.41 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.72 * vars['Var_0'] + 7.67 * vars['Var_1'] <= 136.93, name='C0')\n    m.addConstr(4.51 * vars['Var_0'] <= 42.56, name='C1')\n    m.addConstr(0.02 * vars['Var_2'] <= 2.29, name='C2')\n    m.addConstr(3.61 * vars['Var_0'] <= 34.76, name='C3')\n    m.addConstr(2.41 * vars['Var_0'] + 4.77 * vars['Var_2'] <= 29.0, name='C4')\n    m.addConstr(4.05 * vars['Var_0'] + 1.72 * vars['Var_1'] + 6.42 * vars['Var_2'] <= 56.58, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance requested on maximizing contribution across three Q1 production programs\n\nHi team,\n\nAs we finalize the Q1 schedule for the specialty manufacturing cell, I\u2019m asking for your recommendation on the best production mix to maximize total contribution while staying within our staffing, equipment, inventory, emissions, and logistics limits. Below are the levers and the relevant operating details.\n\nProduction levers we can pull\n\n- Aurora Resin (Program Alpha)\n  - Commercial impact: Each lot contributes $8.32 in gross margin.\n  - Scheduling flexibility: We can run partial lots. The plan should keep this between 0 and 18.26 lots.\n  - How it draws on our limited resources per lot:\n    - Core Reactor 4A: 9.72 hours\n    - Senior Process Technicians: 4.51 hours\n    - SOx emissions allowance: no draw\n    - High-Temperature Kiln: 3.61 hours\n    - Additive Delta inventory: 2.41 tons\n    - Outbound loading dock: 4.05 slots\n\n- Borealis Kits (Program Beta)\n  - Commercial impact: Each full run contributes $3.08 in gross margin.\n  - Scheduling flexibility: Only whole runs are allowed. The plan should keep this between 0 and 7.85 runs.\n  - How it draws on our limited resources per run:\n    - Core Reactor 4A: 7.67 hours\n    - Senior Process Technicians: no draw\n    - SOx emissions allowance: no draw\n    - High-Temperature Kiln: no draw\n    - Additive Delta inventory: no draw\n    - Outbound loading dock: 1.72 slots\n\n- Cobalt Field Units (Program Gamma)\n  - Commercial impact: Each shipment contributes $4.41 in gross margin.\n  - Scheduling flexibility: Only whole shipments are allowed. The plan should keep this between 0 and 12.36 shipments.\n  - How it draws on our limited resources per shipment:\n    - Core Reactor 4A: no draw\n    - Senior Process Technicians: no draw\n    - SOx emissions allowance: 0.02 tons\n    - High-Temperature Kiln: no draw\n    - Additive Delta inventory: 4.77 tons\n    - Outbound loading dock: 6.42 slots\n\nFacility specs and market limits for the period (do not exceed)\n- Core Reactor 4A capacity: 136.93 hours\n- Senior Process Technician availability: 42.56 hours\n- SOx emissions allowance: 2.29 tons\n- High-Temperature Kiln capacity: 34.76 hours\n- Additive Delta on-hand: 29.00 tons\n- Outbound loading dock availability: 56.58 slots\n\nPlease use the above to identify the mix that delivers the highest overall contribution without breaching any of the above limits. Note that the Aurora Resin program can be scheduled fractionally up to 18.26 lots, while Borealis Kits and Cobalt Field Units must be scheduled in whole runs/shipments, capped at 7.85 and 12.36 respectively. Minimum production for each is zero.\n\nThank you,\n[Client Name]\nOperations Director"
+}

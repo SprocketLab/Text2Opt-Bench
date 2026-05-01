@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource limits are explicitly stated. Objective and constraints are unambiguous, including zero packaging for C.",
+      "ambiguity": false,
+      "redundancy": 20,
+      "redundancy_comment": "Some email-style context and generic preface (LP/QP) add minor fluff, but most text directly provides necessary parameters.",
+      "realism": 100,
+      "realism_comment": "Highly plausible plant capacity planning with reactor and packaging constraints; batch/integer vs fractional production is realistic."
+    },
+    "prompt_tokens_with_data": 527,
+    "prompt_tokens_without_data": 527
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 67.48341296928328,
+    "optimal_values": {
+      "Var_0": 3.0,
+      "Var_1": 0.45051194539249156,
+      "Var_2": 9.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 69.83
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 20.61
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.0
+      ],
+      "objective_linear_coefficient": 7.12,
+      "resource_costs": {
+        "C0": 1.85,
+        "C1": 5.99
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.76
+      ],
+      "objective_linear_coefficient": 5.69,
+      "resource_costs": {
+        "C0": 1.1,
+        "C1": 5.86
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 4.84,
+      "resource_costs": {
+        "C0": 6.91
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.12 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.76, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.69 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.84 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.85 * vars['Var_0'] + 1.1 * vars['Var_1'] + 6.91 * vars['Var_2'] <= 69.83, name='C0')\n    m.addConstr(5.99 * vars['Var_0'] + 5.86 * vars['Var_1'] <= 20.61, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Capacity plan to maximize contribution from three product streams\n\nTeam,\n\nFor the upcoming planning period, we need to allocate limited plant capacity across three offerings to maximize total contribution. Our two tight spots are reactor time and the packaging line. Below are the levers we can pull, along with their economics and how they draw on those two resources.\n\n- Catalyst Grade A (whole-batch only): Each full batch contributes 7.12 in margin. Every batch requires 1.85 hours of reactor time and 5.99 hours on the packaging line. We may run anywhere from 0 to 6 full batches; partial batches are not possible.\n\n- Solvent Blend B (flexible run-size): Each unit produced contributes 5.69 in margin. Each unit requires 1.10 reactor hours and 5.86 packaging hours. We may run anywhere from 0.00 up to 8.76 units, and we can produce fractional quantities if needed.\n\n- Bulk Intermediate C (whole-load only): Each full load contributes 4.84 in margin. Each load uses 6.91 hours of reactor time and does not require any packaging line time (0.00). We may run anywhere from 0 to 10 full loads; partial loads are not possible.\n\nFacility limits for this period:\n- Reactor availability: up to 69.83 hours total across all three offerings.\n- Packaging line availability: up to 20.61 hours total across all three offerings.\n\nPlease develop a production mix that respects the above operating limits while maximizing total contribution."
+}

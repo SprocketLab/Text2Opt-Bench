@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "Explicit coefficients, bounds, integrality, and capacities; zero-usage noted. Direct 1\u20131 mapping to constraints and objective; minimal room for interpretation.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Verbose narrative with repeated 'no draw on' lists; adds clarity on zero coefficients but could be more concise.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning with resource and market constraints; plausible parameters and structure."
+    },
+    "prompt_tokens_with_data": 1460,
+    "prompt_tokens_without_data": 1460
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 272.3397188130846,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": 7.748557641876774e-16,
+      "Var_2": 0.0,
+      "Var_3": 8.175292153589314,
+      "Var_4": 2.0,
+      "Var_5": 14.75,
+      "Var_6": 1.6953919014256684,
+      "Var_7": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 41.18
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 62.02
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 55.83
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.79
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 95.21
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 93.15
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 61.51
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 41.26
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.3
+      ],
+      "objective_linear_coefficient": 7.79,
+      "resource_costs": {
+        "C1": 2.63,
+        "C3": 8.49,
+        "C5": 9.89
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.99
+      ],
+      "objective_linear_coefficient": 6.39,
+      "resource_costs": {
+        "C1": 5.75,
+        "C3": 9.79,
+        "C6": 9.17,
+        "C7": 0.52
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.23
+      ],
+      "objective_linear_coefficient": 5.24,
+      "resource_costs": {
+        "C1": 6.31,
+        "C5": 9.04,
+        "C6": 5.03
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.88
+      ],
+      "objective_linear_coefficient": 8.46,
+      "resource_costs": {
+        "C0": 4.94,
+        "C4": 3.8,
+        "C6": 5.99,
+        "C7": 3.56
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.29
+      ],
+      "objective_linear_coefficient": 6.94,
+      "resource_costs": {
+        "C1": 3.62,
+        "C2": 8.17,
+        "C4": 8.93,
+        "C6": 6.27
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.75
+      ],
+      "objective_linear_coefficient": 7.7,
+      "resource_costs": {}
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.59
+      ],
+      "objective_linear_coefficient": 3.31,
+      "resource_costs": {
+        "C1": 1.29,
+        "C2": 1.19,
+        "C4": 7.46,
+        "C7": 7.17
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 1.01,
+      "resource_costs": {
+        "C0": 4.71,
+        "C1": 0.75,
+        "C3": 7.11,
+        "C5": 6.54
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.3, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.79 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.99, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.39 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.23, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.24 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.88, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.46 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.29, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.94 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.75, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.7 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.59, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 3.31 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 1.01 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.94 * vars['Var_3'] + 4.71 * vars['Var_7'] <= 41.18, name='C0')\n    m.addConstr(2.63 * vars['Var_0'] + 5.75 * vars['Var_1'] + 6.31 * vars['Var_2'] + 3.62 * vars['Var_4'] + 1.29 * vars['Var_6'] + 0.75 * vars['Var_7'] <= 62.02, name='C1')\n    m.addConstr(8.17 * vars['Var_4'] + 1.19 * vars['Var_6'] <= 55.83, name='C2')\n    m.addConstr(8.49 * vars['Var_0'] + 9.79 * vars['Var_1'] + 7.11 * vars['Var_7'] <= 87.79, name='C3')\n    m.addConstr(3.8 * vars['Var_3'] + 8.93 * vars['Var_4'] + 7.46 * vars['Var_6'] <= 95.21, name='C4')\n    m.addConstr(9.89 * vars['Var_0'] + 9.04 * vars['Var_2'] + 6.54 * vars['Var_7'] <= 93.15, name='C5')\n    m.addConstr(9.17 * vars['Var_1'] + 5.03 * vars['Var_2'] + 5.99 * vars['Var_3'] + 6.27 * vars['Var_4'] <= 61.51, name='C6')\n    m.addConstr(0.52 * vars['Var_1'] + 3.56 * vars['Var_3'] + 7.17 * vars['Var_6'] <= 41.26, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production Mix Plan to Maximize Margin Within Current Capacity Limits\n\nTeam,\n\nFor the upcoming cycle, we\u2019d like to set the product mix to maximize total gross margin while staying within our operational limits across the stillhouse, bottling, storage, packaging, quality, compliance, regulatory approvals, and retail launch windows. Volumes noted below are standardized production lots; some lines must be planned in whole batches only, while others can be scheduled in partial lots.\n\nLevers we can pull\n\n- High\u2011Proof Rye Release (whole batches only)\n  - Commercial impact: each batch contributes 7.79 in gross margin. We can make up to 18.3 batches; zero is the floor.\n  - Resource footprint per batch:\n    - Bottling Line A: 2.63 hours\n    - Labeling & Packaging Crew: 8.49 hours\n    - Compliance & Bonded Warehouse Administration: 9.89 hours\n  - No draw on Stillhouse hours, Cold Storage slots, Quality Lab bench time, Regulatory approvals & paperwork hours, or Retail launch window allocations.\n\n- Botanical Vodka Run (fractional runs allowed)\n  - Commercial impact: each run contributes 6.39 in gross margin. We can schedule up to 9.99 runs; zero is the floor.\n  - Resource footprint per run:\n    - Bottling Line A: 5.75 hours\n    - Labeling & Packaging Crew: 9.79 hours\n    - Regulatory approvals & paperwork: 9.17 hours\n    - Retail launch window allocations: 0.52 allocation units\n  - No draw on Stillhouse hours, Cold Storage slots, Quality Lab bench time, or Compliance & Bonded Warehouse Administration.\n\n- Cask\u2011Finished Rum Lot (fractional runs allowed)\n  - Commercial impact: each lot contributes 5.24 in gross margin. We can schedule up to 14.23 lots; zero is the floor.\n  - Resource footprint per lot:\n    - Bottling Line A: 6.31 hours\n    - Compliance & Bonded Warehouse Administration: 9.04 hours\n    - Regulatory approvals & paperwork: 5.03 hours\n  - No draw on Stillhouse hours, Cold Storage slots, Labeling & Packaging Crew, Quality Lab bench time, or Retail launch window allocations.\n\n- Single Malt Mash Run (fractional runs allowed)\n  - Commercial impact: each run contributes 8.46 in gross margin. We can schedule up to 10.88 runs; zero is the floor.\n  - Resource footprint per run:\n    - Stillhouse: 4.94 hours\n    - Quality Lab bench: 3.8 hours\n    - Regulatory approvals & paperwork: 5.99 hours\n    - Retail launch window allocations: 3.56 allocation units\n  - No draw on Bottling Line A hours, Cold Storage slots, Labeling & Packaging Crew, or Compliance & Bonded Warehouse Administration.\n\n- Barrel\u2011Aged Gin Batch (whole batches only)\n  - Commercial impact: each batch contributes 6.94 in gross margin. We can make up to 7.29 batches; zero is the floor.\n  - Resource footprint per batch:\n    - Bottling Line A: 3.62 hours\n    - Cold Storage: 8.17 slots\n    - Quality Lab bench: 8.93 hours\n    - Regulatory approvals & paperwork: 6.27 hours\n  - No draw on Stillhouse hours, Labeling & Packaging Crew, Compliance & Bonded Warehouse Administration, or Retail launch window allocations.\n\n- Partner Bottles Program (outsourced; fractional runs allowed)\n  - Commercial impact: each unit contributes 7.7 in gross margin. We can book up to 14.75 units; zero is the floor.\n  - Resource footprint: does not draw on any in\u2011house constrained resources (Stillhouse, Bottling Line A, Cold Storage, Labeling & Packaging Crew, Quality Lab bench, Compliance administration, Regulatory approvals, or Retail launch windows).\n\n- Ready\u2011to\u2011Drink Spritz Line (fractional runs allowed)\n  - Commercial impact: each run contributes 3.31 in gross margin. We can schedule up to 9.59 runs; zero is the floor.\n  - Resource footprint per run:\n    - Bottling Line A: 1.29 hours\n    - Cold Storage: 1.19 slots\n    - Quality Lab bench: 7.46 hours\n    - Retail launch window allocations: 7.17 allocation units\n  - No draw on Stillhouse hours, Labeling & Packaging Crew, Compliance & Bonded Warehouse Administration, or Regulatory approvals & paperwork hours.\n\n- Limited\u2011Edition Barrel Pick (whole batches only)\n  - Commercial impact: each batch contributes 1.01 in gross margin. We can make up to 9 batches; zero is the floor.\n  - Resource footprint per batch:\n    - Stillhouse: 4.71 hours\n    - Bottling Line A: 0.75 hours\n    - Labeling & Packaging Crew: 7.11 hours\n    - Compliance & Bonded Warehouse Administration: 6.54 hours\n  - No draw on Cold Storage slots, Quality Lab bench time, Regulatory approvals & paperwork hours, or Retail launch window allocations.\n\nFacility specs and market limits (do not exceed)\n\n- Stillhouse hours available: up to 41.18\n- Bottling Line A hours available: up to 62.02\n- Cold Storage slots available: up to 55.83\n- Labeling & Packaging Crew hours available: up to 87.79\n- Quality Lab bench hours available: up to 95.21\n- Compliance & Bonded Warehouse Administration hours available: up to 93.15\n- Regulatory approvals & paperwork hours available: up to 61.51\n- Retail launch window allocation units available: up to 41.26\n\nPlease use these parameters to set the optimal mix so that total gross margin is maximized without breaching any of the above caps. Happy to walk through any assumptions or unit definitions if needed."
+}

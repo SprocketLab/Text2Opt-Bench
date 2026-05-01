@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Costs, caps, integrality, per-unit contributions, and all six minimums are explicit; objective is minimize total spend. A human can rebuild variables, constraints, and objective exactly.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business-memo style adds context; somewhat verbose but most text conveys needed coefficients, bounds, and types without repetition.",
+      "realism": 95,
+      "realism_comment": "Highly plausible resource planning scenario with clear metrics and costs; only slight oddity is non-integer caps for integer purchases."
+    },
+    "prompt_tokens_with_data": 1044,
+    "prompt_tokens_without_data": 1044
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 108.01026845637584,
+    "optimal_values": {
+      "Var_0": 7.0,
+      "Var_1": -0.0,
+      "Var_2": 7.0,
+      "Var_3": 10.0,
+      "Var_4": 5.583892617449664
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 148.58
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 16.64
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 62.54
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 7.38
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 120.23
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 141.8
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.18
+      ],
+      "objective_linear_coefficient": 3.8,
+      "resource_costs": {
+        "C0": 8.97,
+        "C2": 4.81,
+        "C4": 3.87
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.66
+      ],
+      "objective_linear_coefficient": 8.26,
+      "resource_costs": {
+        "C0": 3.8
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 1.89,
+      "resource_costs": {
+        "C3": 1.24,
+        "C4": 9.45,
+        "C5": 7.96
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.68
+      ],
+      "objective_linear_coefficient": 2.39,
+      "resource_costs": {
+        "C0": 4.55,
+        "C2": 4.45,
+        "C4": 2.79,
+        "C5": 6.97
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.93
+      ],
+      "objective_linear_coefficient": 7.93,
+      "resource_costs": {
+        "C0": 7.27,
+        "C1": 2.98,
+        "C5": 5.02
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.18, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 3.8 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.66, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.26 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.89 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.68, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.39 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.93, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.93 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.97 * vars['Var_0'] + 3.8 * vars['Var_1'] + 4.55 * vars['Var_3'] + 7.27 * vars['Var_4'] >= 148.58, name='C0')\n    m.addConstr(2.98 * vars['Var_4'] >= 16.64, name='C1')\n    m.addConstr(4.81 * vars['Var_0'] + 4.45 * vars['Var_3'] >= 62.54, name='C2')\n    m.addConstr(1.24 * vars['Var_2'] >= 7.38, name='C3')\n    m.addConstr(3.87 * vars['Var_0'] + 9.45 * vars['Var_2'] + 2.79 * vars['Var_3'] >= 120.23, name='C4')\n    m.addConstr(7.96 * vars['Var_2'] + 6.97 * vars['Var_3'] + 5.02 * vars['Var_4'] >= 141.8, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing resource mix to meet our Q1 service obligations\n\nHi team,\n\nWe need a cost-minimizing plan for the upcoming period to satisfy a set of service obligations across six metrics: Core Field Service Hours, Certification & Training Hours, Preventive Maintenance Completions, Emergency Drill Days, Quality Improvement Credits, and Network Reliability Points. Below are the levers we can pull and how each one contributes. The intention is to meet or exceed the minimums at the lowest total spend.\n\nResource levers\n\n1) Neighborhood Service Crews (Program A)\n- Commercial terms: $3.80 per crew package. There is no minimum commitment (we can choose zero). Supplier indicates a hard ceiling of 16.18 packages this period; bookings must be in whole packages, so in practice we cannot exceed that 16.18 cap.\n- Contributions:\n  - Core Field Service Hours: +8.97 hours per package.\n  - Preventive Maintenance Completions: +4.81 completions per package.\n  - Quality Improvement Credits: +3.87 credits per package.\n  - No measurable impact on Certification & Training Hours, Emergency Drill Days, or Network Reliability Points.\n\n2) Rapid Response Units (Program B)\n- Commercial terms: $8.26 per unit. No minimum purchase; the theoretical cap is 6.66 units this period, with bookings in whole units.\n- Contributions:\n  - Core Field Service Hours: +3.80 hours per unit.\n  - No impact on Certification & Training Hours, Preventive Maintenance Completions, Emergency Drill Days, Quality Improvement Credits, or Network Reliability Points.\n\n3) Specialist Overhaul Teams (Program C)\n- Commercial terms: $1.89 per team. No minimum; up to 9.0 teams available this period, contracted in whole teams.\n- Contributions:\n  - Emergency Drill Days: +1.24 days per team.\n  - Quality Improvement Credits: +9.45 credits per team.\n  - Network Reliability Points: +7.96 points per team.\n  - No impact on Core Field Service Hours, Certification & Training Hours, or Preventive Maintenance Completions.\n\n4) Regional Maintenance Squads (Program D)\n- Commercial terms: $2.39 per squad. No minimum; supplier\u2019s stated ceiling is 17.68 squads this period, contracted in whole squads.\n- Contributions:\n  - Core Field Service Hours: +4.55 hours per squad.\n  - Preventive Maintenance Completions: +4.45 completions per squad.\n  - Quality Improvement Credits: +2.79 credits per squad.\n  - Network Reliability Points: +6.97 points per squad.\n  - No impact on Certification & Training Hours or Emergency Drill Days.\n\n5) Flexible Overtime Pool\n- Commercial terms: $7.93 per overtime unit. No minimum commitment. This lever can be dialed in fractional increments up to a maximum of 7.93 units.\n- Contributions:\n  - Core Field Service Hours: +7.27 hours per overtime unit.\n  - Certification & Training Hours: +2.98 hours per overtime unit.\n  - Network Reliability Points: +5.02 points per overtime unit.\n  - No impact on Preventive Maintenance Completions, Emergency Drill Days, or Quality Improvement Credits.\n\nService commitments (minimums to be met or exceeded)\n- Core Field Service Hours: at least 148.58 hours.\n- Certification & Training Hours: at least 16.64 hours.\n- Preventive Maintenance Completions: at least 62.54 completions.\n- Emergency Drill Days: at least 7.38 days.\n- Quality Improvement Credits: at least 120.23 credits.\n- Network Reliability Points: at least 141.8 points.\n\nPlease configure the least-cost mix of the above programs to satisfy all six commitments. We\u2019re comfortable using fractional allocations only in the Flexible Overtime Pool; the other programs should be planned in whole packages/units/teams as noted. If you need any clarifications on the program definitions or caps, let me know."
+}

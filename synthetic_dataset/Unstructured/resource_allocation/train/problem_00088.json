@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "All bounds, coefficients, and constraint directions (incl. negative-ledger semantics) are explicit. The LP can be reconstructed mechanically; integrality not stated but implied continuous.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Managerial prose and repeated 'No other impacts' add verbosity but clarify zero coefficients; otherwise concise and targeted.",
+      "realism": 95,
+      "realism_comment": "Realistic sustainability portfolio with capital, labor, and compliance (NOx, SOx, water, carbon) limits; coherent and plausible figures."
+    },
+    "prompt_tokens_with_data": 903,
+    "prompt_tokens_without_data": 903
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 107.46724834403639,
+    "optimal_values": {
+      "Var_0": 8.746652935118435,
+      "Var_1": 1.8097731239092494,
+      "Var_2": 8.01
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -3.74
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -32.62
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 84.93
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -2.95
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -96.73
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 10.37
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.91
+      ],
+      "objective_linear_coefficient": 8.96,
+      "resource_costs": {
+        "C2": 9.71,
+        "C4": -8.68
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.38
+      ],
+      "objective_linear_coefficient": 9.97,
+      "resource_costs": {
+        "C0": -4.32,
+        "C3": -3.18,
+        "C5": 5.73
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.01
+      ],
+      "objective_linear_coefficient": 1.38,
+      "resource_costs": {
+        "C1": -6.67,
+        "C4": -4.79
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.91, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.96 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.38, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.97 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.01, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.38 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-4.32 * vars['Var_1'] <= -3.74, name='C0')\n    m.addConstr(-6.67 * vars['Var_2'] <= -32.62, name='C1')\n    m.addConstr(9.71 * vars['Var_0'] <= 84.93, name='C2')\n    m.addConstr(-3.18 * vars['Var_1'] <= -2.95, name='C3')\n    m.addConstr(-8.68 * vars['Var_0'] + -4.79 * vars['Var_2'] <= -96.73, name='C4')\n    m.addConstr(5.73 * vars['Var_1'] <= 10.37, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio allocation brief \u2014 maximize net contribution while meeting compliance and capacity limits\n\nTeam,\n\nWe\u2019re planning the next allocation of our sustainability-and-operations portfolio with a clear goal: maximize total net contribution while staying within our compliance thresholds and internal capacity limits. Below are the three levers we can pull and exactly how each one affects our budgets and environmental ledgers. Please note that, per our accounting conventions, environmental removals and offsets post to the ledgers as negative numbers; several of the limits below are net-negative targets, meaning we must hit those negative thresholds or lower (i.e., achieve at least the stated amount of net removal/offset).\n\nThe levers\n\n- High\u2011Efficiency Boiler Retrofits (HEBR)\n  - Scale: We can deploy between 0 and 11.91 units.\n  - Financial impact: Each unit contributes 8.96 to net results.\n  - Capital: Each unit draws 9.71 from the capital envelope.\n  - Carbon: Each unit generates a 8.68\u2011ton reduction, recorded as \u22128.68 on our net carbon ledger.\n  - No other impacts: This retrofit does not move the NOx ledger, the water balance, the SOx ledger, or operations labor bandwidth.\n\n- Advanced Air Quality Controls (AAQC)\n  - Scale: We can deploy between 0 and 18.38 units.\n  - Financial impact: Each unit contributes 9.97 to net results.\n  - NOx: Each unit delivers a \u22124.32 movement on the NOx compliance ledger (a reduction).\n  - SOx: Each unit delivers a \u22123.18 movement on the SOx ledger (a reduction).\n  - Operations labor: Each unit consumes 5.73 of the available operations hours.\n  - No other impacts: This program does not draw on the capital envelope and does not affect the water balance or the net carbon ledger.\n\n- Watershed & Reforestation Program (WRP)\n  - Scale: We can deploy between 0 and 8.01 units.\n  - Financial impact: Each unit contributes 1.38 to net results.\n  - Water: Each unit improves our water balance by \u22126.67 (net recharge/offset).\n  - Carbon: Each unit provides a \u22124.79 movement on the net carbon ledger (additional carbon removal).\n  - No other impacts: This program does not move the NOx or SOx ledgers, does not draw capital, and does not consume operations labor hours.\n\nFacility specs and compliance limits\n\n- NOx compliance ledger: must be at or below \u22123.74 (i.e., at least 3.74 of net NOx reduction).\n- Water balance commitment: must be at or below \u221232.62 (i.e., at least 32.62 of net water recharge/offset).\n- Capital envelope for this cycle: must not exceed 84.93.\n- SOx compliance ledger: must be at or below \u22122.95 (i.e., at least 2.95 of net SOx reduction).\n- Net carbon ledger: must be at or below \u221296.73 (i.e., at least 96.73 tons of net carbon removal).\n- Operations labor bandwidth: must not exceed 10.37.\n\nPlease use the above to recommend an allocation across the three levers that maximizes total net contribution while strictly honoring all limits."
+}

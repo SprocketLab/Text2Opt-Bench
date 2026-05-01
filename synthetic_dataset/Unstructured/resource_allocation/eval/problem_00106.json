@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, resource use, and integrality are clearly specified; objective and <= capacity constraints are unambiguous; one can reconstruct the exact linear model.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Narrative business framing adds mild verbosity, but the quantitative specs are direct and non-repetitive.",
+      "realism": 95,
+      "realism_comment": "Very plausible production mix planning with brewhouse, lab, and cold storage limits plus demand-capped memberships; coherent and realistic."
+    },
+    "prompt_tokens_with_data": 774,
+    "prompt_tokens_without_data": 774
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 317.86402824207494,
+    "optimal_values": {
+      "Var_0": 11.0,
+      "Var_1": 18.19,
+      "Var_2": 5.048991354466858,
+      "Var_3": 15.43
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 80.67
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 11.26
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 51.18
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 9.49,
+      "resource_costs": {
+        "C0": 3.68,
+        "C1": 0.92,
+        "C2": 3.06
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.19
+      ],
+      "objective_linear_coefficient": 5.25,
+      "resource_costs": {
+        "C0": 0.12
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.42
+      ],
+      "objective_linear_coefficient": 8.3,
+      "resource_costs": {
+        "C0": 7.34,
+        "C2": 3.47
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.43
+      ],
+      "objective_linear_coefficient": 4.93,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 9.49 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.19, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.25 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.42, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.3 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.43, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.93 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.68 * vars['Var_0'] + 0.12 * vars['Var_1'] + 7.34 * vars['Var_2'] <= 80.67, name='C0')\n    m.addConstr(0.92 * vars['Var_0'] <= 11.26, name='C1')\n    m.addConstr(3.06 * vars['Var_0'] + 3.47 * vars['Var_2'] <= 51.18, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan to maximize contribution for the upcoming period\n\nTeam,\n\nWe need to set the product and offering mix for the coming cycle with the explicit goal of maximizing total contribution while staying within our physical and regulatory operating limits. Below are the four levers we can pull, described in business terms. For each, I\u2019ve noted the per\u2011unit contribution, how much of our constrained resources they consume per unit, and the practical lower and upper bounds we can commit to this period.\n\n- Heritage Reserve batches (whole tank turns only)\n  Each tank turn of Heritage Reserve yields 9.49 in contribution. It draws materially on all three constrained resources: 3.68 hours of brewhouse time per turn, 0.92 hours of quality lab testing per turn, and 3.06 pallet\u2011equivalents of cold storage per turn. We can choose to run none of it or up to 11 tank turns in total, but these must be scheduled in whole numbers (no partial turns).\n\n- Citrus Pilot runs (flexible, fractional scheduling allowed)\n  Each run of the Citrus Pilot line contributes 5.25. It places a very light load on the brewhouse\u20140.12 hours per run\u2014and does not draw on lab testing or cold storage. We may schedule anywhere from zero up to 18.19 runs this period, and we can scale in fractional run equivalents as needed.\n\n- Winter Lager lots (flexible, fractional scheduling allowed)\n  Each lot of Winter Lager adds 8.3 in contribution. It is brewhouse\u2011intensive at 7.34 hours per lot and also requires 3.47 pallet\u2011equivalents of cold storage per lot; it does not require lab testing time. We may allocate anywhere from zero up to 13.42 lot\u2011equivalents this period.\n\n- Founders Club memberships (demand\u2011capped, no plant load)\n  Each membership (or membership\u2011equivalent sold within the period) contributes 4.93. This offering does not consume brewhouse time, lab testing, or cold storage. We may choose to sell none or up to 15.43 membership\u2011equivalents this period, and we can prorate within that cap.\n\nFacility and market limits for the period\n- Brewhouse time available: not to exceed 80.67 hours in total across all items above.\n- Quality lab testing capacity: not to exceed 11.26 hours in total.\n- Cold storage capacity: not to exceed 51.18 pallet\u2011equivalents in total.\n\nPlease use the above to determine the mix that delivers the highest total contribution without breaching any of the listed limits. If any of the caps change, let me know so we can refresh the plan."
+}

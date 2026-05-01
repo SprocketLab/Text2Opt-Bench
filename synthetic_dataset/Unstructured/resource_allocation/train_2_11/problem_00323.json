@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and metric coefficients are explicit; \u2265 thresholds and min-cost objective are clear. Mapping from initiatives to metrics is exact; only minor oddity is fractional UBs on integer items.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style adds context but includes fluff (greetings, risk note). Technical details are concise and non-repetitive.",
+      "realism": 93,
+      "realism_comment": "Feels like a real sustainability planning/budget model with plausible metrics. Slightly odd fractional upper bounds for whole units, but otherwise realistic."
+    },
+    "prompt_tokens_with_data": 1032,
+    "prompt_tokens_without_data": 1032
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 91.56,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 4.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 0.0,
+      "Var_5": 1.0,
+      "Var_6": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 29.75
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.04
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 0.11
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 6.35
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 5.41
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 7.07
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 39.13
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.87
+      ],
+      "objective_linear_coefficient": 2.09,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.56
+      ],
+      "objective_linear_coefficient": 9.52,
+      "resource_costs": {
+        "C4": 1.68,
+        "C6": 0.27
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.28
+      ],
+      "objective_linear_coefficient": 3.85,
+      "resource_costs": {
+        "C1": 0.64,
+        "C6": 5.71
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.07
+      ],
+      "objective_linear_coefficient": 8.7,
+      "resource_costs": {
+        "C3": 9.17
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 7.62,
+      "resource_costs": {
+        "C0": 2.55,
+        "C1": 3.51
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.9
+      ],
+      "objective_linear_coefficient": 2.06,
+      "resource_costs": {
+        "C2": 0.63
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.04
+      ],
+      "objective_linear_coefficient": 8.57,
+      "resource_costs": {
+        "C0": 8.95,
+        "C1": 7.33,
+        "C3": 6.24,
+        "C5": 8.18,
+        "C6": 7.37
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.87, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.09 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.56, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.52 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.28, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.85 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.07, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.7 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 7.62 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.9, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 2.06 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.04, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 8.57 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.55 * vars['Var_4'] + 8.95 * vars['Var_6'] >= 29.75, name='C0')\n    m.addConstr(0.64 * vars['Var_2'] + 3.51 * vars['Var_4'] + 7.33 * vars['Var_6'] >= 41.04, name='C1')\n    m.addConstr(0.63 * vars['Var_5'] >= 0.11, name='C2')\n    m.addConstr(9.17 * vars['Var_3'] + 6.24 * vars['Var_6'] >= 6.35, name='C3')\n    m.addConstr(1.68 * vars['Var_1'] >= 5.41, name='C4')\n    m.addConstr(8.18 * vars['Var_6'] >= 7.07, name='C5')\n    m.addConstr(0.27 * vars['Var_1'] + 5.71 * vars['Var_2'] + 7.37 * vars['Var_6'] >= 39.13, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized FY Plan to Meet Sustainability and Community Commitments\n\nTeam,\n\nAs discussed, our mandate this cycle is to meet or exceed our sustainability and community performance minimums at the lowest possible total program cost. Below are the levers we can pull, with each initiative\u2019s unit cost, ordering limits, whether we must take whole units or can fractionally scale, and exactly how each option moves our target metrics.\n\n- Contingency Support Packages (discretionary buffer)\n  \u2022 Budget impact: 2.09 per package.\n  \u2022 Ordering limits: we may activate anywhere from 0 up to 10.87 packages, in whole packages.\n  \u2022 Program impact: these packages do not move any of our seven scored metrics; they are purely optional coverage and do not count toward our minimum thresholds.\n\n- Field Training Cohorts (workforce and community engagement)\n  \u2022 Budget impact: 9.52 per cohort.\n  \u2022 Ordering limits: between 0 and 18.56 cohorts, committed in whole cohorts.\n  \u2022 Program impact: each cohort adds 1.68 credits toward Community Engagement Milestones and 0.27 credits to the Renewable Certificate Pool.\n\n- Solar PPA Blocks (offsite renewable procurement)\n  \u2022 Budget impact: 3.85 per block.\n  \u2022 Ordering limits: between 0 and 16.28 blocks; this can be scaled fractionally.\n  \u2022 Program impact: each block contributes 0.64 points to the Energy Efficiency Score and 5.71 credits to the Renewable Certificate Pool.\n\n- Process Heat Recapture Units (industrial efficiency upgrade)\n  \u2022 Budget impact: 8.70 per unit.\n  \u2022 Ordering limits: between 0 and 17.07 units; this can be scaled fractionally.\n  \u2022 Program impact: each unit delivers 9.17 units of Direct Emissions Abatement.\n\n- Cooling Tower Optimization Kits (water and energy retrofit)\n  \u2022 Budget impact: 7.62 per kit.\n  \u2022 Ordering limits: between 0 and 10.00 kits, in whole kits.\n  \u2022 Program impact: each kit contributes 2.55 points to the Water Savings Index and 3.51 points to the Energy Efficiency Score.\n\n- Recycling Compactor Leases (waste program enhancement)\n  \u2022 Budget impact: 2.06 per lease.\n  \u2022 Ordering limits: between 0 and 17.90 leases, in whole leases.\n  \u2022 Program impact: each lease adds 0.63 points to the Waste Diversion Rate.\n\n- Net-Zero Pilot Facility Build-Outs (flagship multi-benefit sites)\n  \u2022 Budget impact: 8.57 per site.\n  \u2022 Ordering limits: between 0 and 16.04 sites, in whole sites.\n  \u2022 Program impact: each site delivers 8.95 points to the Water Savings Index, 7.33 points to the Energy Efficiency Score, 6.24 units of Direct Emissions Abatement, 8.18 Biodiversity Offset Credits, and 7.37 credits into the Renewable Certificate Pool.\n\nFacility Specs and Minimums (these are the minimum performance levels we must meet or exceed):\n- Water Savings Index: at least 29.75 points.\n- Energy Efficiency Score: at least 41.04 points.\n- Waste Diversion Rate: at least 0.11 points.\n- Direct Emissions Abatement: at least 6.35 units.\n- Community Engagement Milestones: at least 5.41 credits.\n- Biodiversity Offset Credits: at least 7.07 credits.\n- Renewable Certificate Pool: at least 39.13 credits.\n\nPlease use the above to develop a lowest-cost mix that fulfills all of the minimums. Note that several options must be ordered in whole units, while the solar and process heat measures can be fractionally scaled. Also, the contingency packages are available within their cap but do not contribute to any of our required scores and should only be included if they help manage risk without compromising cost efficiency.\n\nThanks,\n[Client Name]"
+}

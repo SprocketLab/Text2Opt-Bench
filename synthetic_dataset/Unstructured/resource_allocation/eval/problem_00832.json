@@ -1,0 +1,407 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 14,
+    "num_constraints": 16,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Clear costs, caps, integrality (whole vs scalable), and per-unit KPI contributions. 16 >= floors; minimize spend. Zeros explicit. Minor UB vs whole-number phrasing but equivalent; model is reconstructible.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Long business prose with repeated 'no measurable delivery' notes and extra context. Some fluff, but most detail pins down coefficients, bounds, and types.",
+      "realism": 96,
+      "realism_comment": "A plausible media mix optimization: channel caps, integer package buys, per-unit KPI deliveries, and delivery floors. Reads like a real campaign planning problem."
+    },
+    "prompt_tokens_with_data": 2947,
+    "prompt_tokens_without_data": 2947
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 434.71295408859424,
+    "optimal_values": {
+      "Var_0": 6.29,
+      "Var_1": 11.925191379076601,
+      "Var_2": 9.0,
+      "Var_3": 11.53,
+      "Var_4": 4.0,
+      "Var_5": 6.973643743670179,
+      "Var_6": -0.0,
+      "Var_7": 2.0,
+      "Var_8": 17.12,
+      "Var_9": 6.489775701704987,
+      "Var_10": 0.2854375752519582,
+      "Var_11": 5.0,
+      "Var_12": 5.0,
+      "Var_13": 5.404367278074081
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 316.67
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 183.68
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 226.53
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 366.41
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 281.29
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 258.6
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 412.91
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 278.5
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 128.58
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 226.93
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 130.6
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.5
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 246.48
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 212.94
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 361.44
+    },
+    "C15": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 255.78
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.29
+      ],
+      "objective_linear_coefficient": 3.22,
+      "resource_costs": {
+        "C0": 3.33,
+        "C1": 8.19,
+        "C2": 3.62,
+        "C5": 7.86,
+        "C7": 1.41,
+        "C9": 4.69,
+        "C10": 6.0,
+        "C11": 0.56,
+        "C12": 0.17,
+        "C13": 8.35,
+        "C14": 5.43,
+        "C15": 1.55
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.16
+      ],
+      "objective_linear_coefficient": 3.08,
+      "resource_costs": {
+        "C0": 1.71,
+        "C3": 8.55,
+        "C5": 4.72,
+        "C6": 3.77,
+        "C7": 5.49,
+        "C8": 6.58,
+        "C10": 1.75,
+        "C12": 4.46,
+        "C13": 3.03,
+        "C14": 7.05,
+        "C15": 6.42
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.74
+      ],
+      "objective_linear_coefficient": 6.03,
+      "resource_costs": {
+        "C0": 5.7,
+        "C1": 0.91,
+        "C3": 7.49,
+        "C4": 9.86,
+        "C6": 8.9,
+        "C7": 2.83,
+        "C11": 3.26,
+        "C13": 0.32,
+        "C14": 0.84
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.53
+      ],
+      "objective_linear_coefficient": 5.45,
+      "resource_costs": {
+        "C0": 8.74,
+        "C1": 7.75,
+        "C2": 6.41,
+        "C3": 1.58,
+        "C5": 0.54,
+        "C6": 7.59,
+        "C7": 8.18,
+        "C8": 0.04,
+        "C9": 1.07,
+        "C12": 9.63,
+        "C14": 8.65,
+        "C15": 3.26
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.14
+      ],
+      "objective_linear_coefficient": 6.1,
+      "resource_costs": {
+        "C0": 8.83,
+        "C2": 1.21,
+        "C3": 5.09,
+        "C4": 7.36,
+        "C5": 7.68,
+        "C6": 5.84,
+        "C7": 9.56,
+        "C8": 1.78,
+        "C9": 4.34,
+        "C11": 1.36,
+        "C14": 9.71,
+        "C15": 0.49
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.79
+      ],
+      "objective_linear_coefficient": 8.57,
+      "resource_costs": {
+        "C0": 7.45,
+        "C2": 6.14,
+        "C3": 7.28,
+        "C5": 5.03,
+        "C10": 7.18,
+        "C11": 1.02,
+        "C12": 8.18,
+        "C13": 7.31,
+        "C14": 8.21,
+        "C15": 3.57
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 8.72,
+      "resource_costs": {
+        "C0": 0.21,
+        "C1": 4.57,
+        "C2": 0.37,
+        "C3": 6.56,
+        "C6": 4.52,
+        "C9": 7.75,
+        "C12": 3.89,
+        "C13": 5.36,
+        "C14": 4.91
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.32
+      ],
+      "objective_linear_coefficient": 1.12,
+      "resource_costs": {
+        "C0": 9.48,
+        "C1": 3.77,
+        "C4": 0.73,
+        "C6": 0.96,
+        "C8": 2.6,
+        "C9": 9.16,
+        "C10": 4.09,
+        "C15": 3.93
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.12
+      ],
+      "objective_linear_coefficient": 2.76,
+      "resource_costs": {
+        "C1": 1.04,
+        "C3": 7.19,
+        "C4": 5.31,
+        "C5": 3.27,
+        "C6": 7.28,
+        "C7": 3.61,
+        "C9": 7.4,
+        "C10": 2.99,
+        "C12": 1.26,
+        "C13": 2.48,
+        "C15": 3.49
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.33
+      ],
+      "objective_linear_coefficient": 8.7,
+      "resource_costs": {
+        "C0": 3.31,
+        "C2": 7.65,
+        "C4": 4.36,
+        "C5": 4.21,
+        "C6": 3.1,
+        "C8": 3.84,
+        "C11": 0.02,
+        "C13": 1.25,
+        "C15": 4.74
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.8
+      ],
+      "objective_linear_coefficient": 7.66,
+      "resource_costs": {
+        "C1": 0.41,
+        "C2": 2.27,
+        "C3": 5.14,
+        "C5": 5.54,
+        "C6": 9.31,
+        "C7": 1.85,
+        "C9": 1.47,
+        "C11": 0.61,
+        "C12": 8.32,
+        "C15": 6.38
+      }
+    },
+    "Var_11": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.75
+      ],
+      "objective_linear_coefficient": 2.46,
+      "resource_costs": {
+        "C1": 3.19,
+        "C2": 6.38,
+        "C3": 6.65,
+        "C5": 1.13,
+        "C8": 1.82,
+        "C9": 4.37,
+        "C12": 0.04,
+        "C13": 7.46,
+        "C14": 2.0,
+        "C15": 9.83
+      }
+    },
+    "Var_12": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 7.68,
+      "resource_costs": {
+        "C4": 7.55,
+        "C6": 5.53,
+        "C7": 4.72,
+        "C8": 3.21,
+        "C11": 7.59,
+        "C14": 4.83
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.48
+      ],
+      "objective_linear_coefficient": 3.26,
+      "resource_costs": {
+        "C1": 6.49,
+        "C4": 8.12,
+        "C5": 2.71,
+        "C7": 1.58,
+        "C9": 1.84,
+        "C10": 6.08,
+        "C11": 7.0,
+        "C13": 4.8,
+        "C14": 1.05,
+        "C15": 2.88
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.29, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.22 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.16, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.08 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=9.8, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 7.66 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=5.75, vtype=GRB.INTEGER, name='Var_11')\n    lin_expr += 2.46 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_12')\n    lin_expr += 7.68 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=5.48, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 3.26 * vars['Var_13']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.74, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.03 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.53, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.45 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.14, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.1 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.79, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.57 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 8.72 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=12.32, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 1.12 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=17.12, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 2.76 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=11.33, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 8.7 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.33 * vars['Var_0'] + 1.71 * vars['Var_1'] + 5.7 * vars['Var_2'] + 8.74 * vars['Var_3'] + 8.83 * vars['Var_4'] + 7.45 * vars['Var_5'] + 0.21 * vars['Var_6'] + 9.48 * vars['Var_7'] + 3.31 * vars['Var_9'] >= 316.67, name='C0')\n    m.addConstr(8.19 * vars['Var_0'] + 0.41 * vars['Var_10'] + 3.19 * vars['Var_11'] + 6.49 * vars['Var_13'] + 0.91 * vars['Var_2'] + 7.75 * vars['Var_3'] + 4.57 * vars['Var_6'] + 3.77 * vars['Var_7'] + 1.04 * vars['Var_8'] >= 183.68, name='C1')\n    m.addConstr(6.0 * vars['Var_0'] + 1.75 * vars['Var_1'] + 6.08 * vars['Var_13'] + 7.18 * vars['Var_5'] + 4.09 * vars['Var_7'] + 2.99 * vars['Var_8'] >= 130.6, name='C10')\n    m.addConstr(0.56 * vars['Var_0'] + 0.61 * vars['Var_10'] + 7.59 * vars['Var_12'] + 7.0 * vars['Var_13'] + 3.26 * vars['Var_2'] + 1.36 * vars['Var_4'] + 1.02 * vars['Var_5'] + 0.02 * vars['Var_9'] >= 121.5, name='C11')\n    m.addConstr(0.17 * vars['Var_0'] + 4.46 * vars['Var_1'] + 8.32 * vars['Var_10'] + 0.04 * vars['Var_11'] + 9.63 * vars['Var_3'] + 8.18 * vars['Var_5'] + 3.89 * vars['Var_6'] + 1.26 * vars['Var_8'] >= 246.48, name='C12')\n    m.addConstr(8.35 * vars['Var_0'] + 3.03 * vars['Var_1'] + 7.46 * vars['Var_11'] + 4.8 * vars['Var_13'] + 0.32 * vars['Var_2'] + 7.31 * vars['Var_5'] + 5.36 * vars['Var_6'] + 2.48 * vars['Var_8'] + 1.25 * vars['Var_9'] >= 212.94, name='C13')\n    m.addConstr(5.43 * vars['Var_0'] + 7.05 * vars['Var_1'] + 2.0 * vars['Var_11'] + 4.83 * vars['Var_12'] + 1.05 * vars['Var_13'] + 0.84 * vars['Var_2'] + 8.65 * vars['Var_3'] + 9.71 * vars['Var_4'] + 8.21 * vars['Var_5'] + 4.91 * vars['Var_6'] >= 361.44, name='C14')\n    m.addConstr(1.55 * vars['Var_0'] + 6.42 * vars['Var_1'] + 6.38 * vars['Var_10'] + 9.83 * vars['Var_11'] + 2.88 * vars['Var_13'] + 3.26 * vars['Var_3'] + 0.49 * vars['Var_4'] + 3.57 * vars['Var_5'] + 3.93 * vars['Var_7'] + 3.49 * vars['Var_8'] + 4.74 * vars['Var_9'] >= 255.78, name='C15')\n    m.addConstr(3.62 * vars['Var_0'] + 2.27 * vars['Var_10'] + 6.38 * vars['Var_11'] + 6.41 * vars['Var_3'] + 1.21 * vars['Var_4'] + 6.14 * vars['Var_5'] + 0.37 * vars['Var_6'] + 7.65 * vars['Var_9'] >= 226.53, name='C2')\n    m.addConstr(8.55 * vars['Var_1'] + 5.14 * vars['Var_10'] + 6.65 * vars['Var_11'] + 7.49 * vars['Var_2'] + 1.58 * vars['Var_3'] + 5.09 * vars['Var_4'] + 7.28 * vars['Var_5'] + 6.56 * vars['Var_6'] + 7.19 * vars['Var_8'] >= 366.41, name='C3')\n    m.addConstr(7.55 * vars['Var_12'] + 8.12 * vars['Var_13'] + 9.86 * vars['Var_2'] + 7.36 * vars['Var_4'] + 0.73 * vars['Var_7'] + 5.31 * vars['Var_8'] + 4.36 * vars['Var_9'] >= 281.29, name='C4')\n    m.addConstr(7.86 * vars['Var_0'] + 4.72 * vars['Var_1'] + 5.54 * vars['Var_10'] + 1.13 * vars['Var_11'] + 2.71 * vars['Var_13'] + 0.54 * vars['Var_3'] + 7.68 * vars['Var_4'] + 5.03 * vars['Var_5'] + 3.27 * vars['Var_8'] + 4.21 * vars['Var_9'] >= 258.6, name='C5')\n    m.addConstr(3.77 * vars['Var_1'] + 9.31 * vars['Var_10'] + 5.53 * vars['Var_12'] + 8.9 * vars['Var_2'] + 7.59 * vars['Var_3'] + 5.84 * vars['Var_4'] + 4.52 * vars['Var_6'] + 0.96 * vars['Var_7'] + 7.28 * vars['Var_8'] + 3.1 * vars['Var_9'] >= 412.91, name='C6')\n    m.addConstr(1.41 * vars['Var_0'] + 5.49 * vars['Var_1'] + 1.85 * vars['Var_10'] + 4.72 * vars['Var_12'] + 1.58 * vars['Var_13'] + 2.83 * vars['Var_2'] + 8.18 * vars['Var_3'] + 9.56 * vars['Var_4'] + 3.61 * vars['Var_8'] >= 278.5, name='C7')\n    m.addConstr(6.58 * vars['Var_1'] + 1.82 * vars['Var_11'] + 3.21 * vars['Var_12'] + 0.04 * vars['Var_3'] + 1.78 * vars['Var_4'] + 2.6 * vars['Var_7'] + 3.84 * vars['Var_9'] >= 128.58, name='C8')\n    m.addConstr(4.69 * vars['Var_0'] + 1.47 * vars['Var_10'] + 4.37 * vars['Var_11'] + 1.84 * vars['Var_13'] + 1.07 * vars['Var_3'] + 4.34 * vars['Var_4'] + 7.75 * vars['Var_6'] + 9.16 * vars['Var_7'] + 7.4 * vars['Var_8'] >= 226.93, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Media Mix to Fulfill Q2 Audience Delivery Commitments\n\nTeam,\n\nPer your request, below is a clear, implementation-ready description of the media levers available to hit our guaranteed delivery floors across sixteen audience and channel KPIs, while minimizing total spend. All delivery figures below are per unit and expressed in thousands of qualified engagements; costs are per unit. Some levers are sold only in whole packages, while others can be scaled fractionally. Each lever has a practical cap based on inventory.\n\nLevers we can pull (in the exact sequence we have modeled)\n- Regional Broadcast TV Bundles (scalable up to 6.29 units at $3.22 per unit): Delivers 3.33 to National Reach, 8.19 to Millennial Reach, 3.62 to Gen X Reach, 7.86 to Urban Markets, 1.41 to Prime-Time GRPs, 4.69 to Branded Video Streams, 6.00 to Social Media Deliveries, 0.56 to Search Clicks, 0.17 to CRM/Email Touches, 8.35 to Out-of-Home Views, 5.43 to Podcast Downloads, and 1.55 to Print Readership. No measurable delivery to Boomer Reach, Hispanic Audience, Rural Markets, or Late-Night GRPs. This lever can be set anywhere from 0 up to 6.29 units.\n\n- Connected TV Prime Flights (scalable up to 12.16 units at $3.08 per unit): Delivers 1.71 to National Reach, 8.55 to Boomer Reach, 4.72 to Urban Markets, 3.77 to Rural Markets, 5.49 to Prime-Time GRPs, 6.58 to Late-Night GRPs, 1.75 to Social Media Deliveries, 4.46 to CRM/Email Touches, 3.03 to Out-of-Home Views, 7.05 to Podcast Downloads, and 6.42 to Print Readership. No measurable delivery to Millennial Reach, Gen X Reach, Hispanic Audience, Branded Video Streams, or Search Clicks. This lever can be set anywhere from 0 up to 12.16 units.\n\n- Sports Sponsorship Blocks (booked in whole units, up to 12.74, at $6.03 per unit): Delivers 5.70 to National Reach, 0.91 to Millennial Reach, 7.49 to Boomer Reach, 9.86 to Hispanic Audience, 8.90 to Rural Markets, 2.83 to Prime-Time GRPs, 3.26 to Search Clicks, 0.32 to Out-of-Home Views, and 0.84 to Podcast Downloads. No measurable delivery to Gen X Reach, Urban Markets, Late-Night GRPs, Branded Video Streams, Social Media Deliveries, CRM/Email Touches, or Print Readership. This lever can be set to any whole number from 0 to 12.\n\n- Premium Cable Packages (scalable up to 11.53 units at $5.45 per unit): Delivers 8.74 to National Reach, 7.75 to Millennial Reach, 6.41 to Gen X Reach, 1.58 to Boomer Reach, 0.54 to Urban Markets, 7.59 to Rural Markets, 8.18 to Prime-Time GRPs, 0.04 to Late-Night GRPs, 1.07 to Branded Video Streams, 9.63 to CRM/Email Touches, 8.65 to Podcast Downloads, and 3.26 to Print Readership. No measurable delivery to Hispanic Audience, Social Media Deliveries, Search Clicks, or Out-of-Home Views. This lever can be set anywhere from 0 up to 11.53 units.\n\n- Spanish-Language TV Blocks (booked in whole units, up to 13.14, at $6.10 per unit): Delivers 8.83 to National Reach, 1.21 to Gen X Reach, 5.09 to Boomer Reach, 7.36 to Hispanic Audience, 7.68 to Urban Markets, 5.84 to Rural Markets, 9.56 to Prime-Time GRPs, 1.78 to Late-Night GRPs, 4.34 to Branded Video Streams, 1.36 to Search Clicks, 9.71 to Podcast Downloads, and 0.49 to Print Readership. No measurable delivery to Millennial Reach, Social Media Deliveries, CRM/Email Touches, or Out-of-Home Views. This lever can be set to any whole number from 0 to 13.\n\n- YouTube Masthead Days (scalable up to 17.79 units at $8.57 per unit): Delivers 7.45 to National Reach, 6.14 to Gen X Reach, 7.28 to Boomer Reach, 5.03 to Urban Markets, 7.18 to Social Media Deliveries, 1.02 to Search Clicks, 8.18 to CRM/Email Touches, 7.31 to Out-of-Home Views, 8.21 to Podcast Downloads, and 3.57 to Print Readership. No measurable delivery to Millennial Reach, Hispanic Audience, Rural Markets, Prime-Time GRPs, Late-Night GRPs, or Branded Video Streams. This lever can be set anywhere from 0 up to 17.79 units.\n\n- Podcast Network Spots (booked in whole units, up to 8.00, at $8.72 per unit): Delivers 0.21 to National Reach, 4.57 to Millennial Reach, 0.37 to Gen X Reach, 6.56 to Boomer Reach, 4.52 to Rural Markets, 7.75 to Branded Video Streams, 3.89 to CRM/Email Touches, 5.36 to Out-of-Home Views, and 4.91 to Podcast Downloads. No measurable delivery to Hispanic Audience, Urban Markets, Prime-Time GRPs, Late-Night GRPs, Social Media Deliveries, Search Clicks, or Print Readership. This lever can be set to any whole number from 0 to 8.\n\n- Radio Drive-Time Bursts (booked in whole units, up to 12.32, at $1.12 per unit): Delivers 9.48 to National Reach, 3.77 to Millennial Reach, 0.73 to Hispanic Audience, 0.96 to Rural Markets, 2.60 to Late-Night GRPs, 9.16 to Branded Video Streams, 4.09 to Social Media Deliveries, and 3.93 to Print Readership. No measurable delivery to Gen X Reach, Boomer Reach, Urban Markets, Prime-Time GRPs, Search Clicks, CRM/Email Touches, Out-of-Home Views, or Podcast Downloads. This lever can be set to any whole number from 0 to 12.\n\n- Paid Social Carousel Packs (scalable up to 17.12 units at $2.76 per unit): Delivers 1.04 to Millennial Reach, 7.19 to Boomer Reach, 5.31 to Hispanic Audience, 3.27 to Urban Markets, 7.28 to Rural Markets, 3.61 to Prime-Time GRPs, 7.40 to Branded Video Streams, 2.99 to Social Media Deliveries, 1.26 to CRM/Email Touches, 2.48 to Out-of-Home Views, and 3.49 to Print Readership. No measurable delivery to National Reach, Gen X Reach, Late-Night GRPs, Search Clicks, or Podcast Downloads. This lever can be set anywhere from 0 up to 17.12 units.\n\n- OTT Video Mid-rolls (scalable up to 11.33 units at $8.70 per unit): Delivers 3.31 to National Reach, 7.65 to Gen X Reach, 4.36 to Hispanic Audience, 4.21 to Urban Markets, 3.10 to Rural Markets, 3.84 to Late-Night GRPs, 0.02 to Search Clicks, 1.25 to Out-of-Home Views, and 4.74 to Print Readership. No measurable delivery to Millennial Reach, Boomer Reach, Prime-Time GRPs, Branded Video Streams, Social Media Deliveries, CRM/Email Touches, or Podcast Downloads. This lever can be set anywhere from 0 up to 11.33 units.\n\n- Search Engine Marketing (scalable up to 9.80 units at $7.66 per unit): Delivers 0.41 to Millennial Reach, 2.27 to Gen X Reach, 5.14 to Boomer Reach, 5.54 to Urban Markets, 9.31 to Rural Markets, 1.85 to Prime-Time GRPs, 1.47 to Branded Video Streams, 0.61 to Search Clicks, 8.32 to CRM/Email Touches, and 6.38 to Print Readership. No measurable delivery to National Reach, Hispanic Audience, Late-Night GRPs, Social Media Deliveries, Out-of-Home Views, or Podcast Downloads. This lever can be set anywhere from 0 up to 9.80 units.\n\n- Sunday Print Inserts (booked in whole units, up to 5.75, at $2.46 per unit): Delivers 3.19 to Millennial Reach, 6.38 to Gen X Reach, 6.65 to Boomer Reach, 1.13 to Urban Markets, 1.82 to Late-Night GRPs, 4.37 to Branded Video Streams, 0.04 to CRM/Email Touches, 7.46 to Out-of-Home Views, 2.00 to Podcast Downloads, and 9.83 to Print Readership. No measurable delivery to National Reach, Hispanic Audience, Rural Markets, Prime-Time GRPs, Social Media Deliveries, or Search Clicks. This lever can be set to any whole number from 0 to 5.\n\n- Digital Out-of-Home with QR Activations (booked in whole units, up to 10.00, at $7.68 per unit): Delivers 7.55 to Hispanic Audience, 5.53 to Rural Markets, 4.72 to Prime-Time GRPs, 3.21 to Late-Night GRPs, 7.59 to Search Clicks, and 4.83 to Podcast Downloads. No measurable delivery to National Reach, Millennial Reach, Gen X Reach, Boomer Reach, Urban Markets, Branded Video Streams, Social Media Deliveries, CRM/Email Touches, Out-of-Home Views, or Print Readership. This lever can be set to any whole number from 0 to 10.\n\n- Influencer Collaborations (scalable up to 5.48 units at $3.26 per unit): Delivers 6.49 to Millennial Reach, 8.12 to Hispanic Audience, 2.71 to Urban Markets, 1.58 to Prime-Time GRPs, 1.84 to Branded Video Streams, 6.08 to Social Media Deliveries, 7.00 to Search Clicks, 4.80 to Out-of-Home Views, 1.05 to Podcast Downloads, and 2.88 to Print Readership. No measurable delivery to National Reach, Gen X Reach, Boomer Reach, Rural Markets, Late-Night GRPs, or CRM/Email Touches. This lever can be set anywhere from 0 up to 5.48 units.\n\nMarket limits and delivery floors we must satisfy (minimums, in thousands)\n- National Reach: at least 316.67\n- Millennial Reach: at least 183.68\n- Gen X Reach: at least 226.53\n- Boomer Reach: at least 366.41\n- Hispanic Audience: at least 281.29\n- Urban Markets: at least 258.60\n- Rural Markets: at least 412.91\n- Prime-Time GRPs: at least 278.50\n- Late-Night GRPs: at least 128.58\n- Branded Video Streams: at least 226.93\n- Social Media Deliveries: at least 130.60\n- Search Clicks: at least 121.50\n- CRM/Email Touches: at least 246.48\n- Out-of-Home Views: at least 212.94\n- Podcast Downloads: at least 361.44\n- Print Readership: at least 255.78\n\nWe will use the above levers, within their stated caps and package rules, to meet or exceed each floor at the lowest total outlay. Please let me know if you\u2019d like these commitments re-labeled to match your internal KPI taxonomy or if we should update package caps before we run the final buy plan."
+}

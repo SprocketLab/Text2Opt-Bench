@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and capacity limits are explicit; whole-lot integrality is clear. Objective is sum of contributions. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Business-style context adds some fluff, but technical specs are clear and non-redundant.",
+      "realism": 95,
+      "realism_comment": "Realistic production planning with resource caps and integer lots; only slight oddity is fractional upper bounds on integer lots."
+    },
+    "prompt_tokens_with_data": 942,
+    "prompt_tokens_without_data": 942
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 124.07,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 7.0,
+      "Var_2": 5.0,
+      "Var_3": 1.0,
+      "Var_4": 11.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 180.28
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 171.05
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 142.65
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 66.46
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 130.31
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.77
+      ],
+      "objective_linear_coefficient": 5.23,
+      "resource_costs": {
+        "C0": 4.27,
+        "C1": 9.05,
+        "C2": 0.28,
+        "C3": 3.96,
+        "C4": 9.27
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 3.6,
+      "resource_costs": {
+        "C0": 8.68,
+        "C1": 7.93,
+        "C3": 7.7,
+        "C4": 0.01
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 2.36,
+      "resource_costs": {
+        "C0": 9.78,
+        "C1": 9.09,
+        "C2": 9.85,
+        "C4": 4.17
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.26
+      ],
+      "objective_linear_coefficient": 3.91,
+      "resource_costs": {
+        "C0": 2.76,
+        "C1": 6.39,
+        "C2": 6.65,
+        "C3": 6.41,
+        "C4": 5.02
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.61
+      ],
+      "objective_linear_coefficient": 7.56,
+      "resource_costs": {
+        "C0": 3.77,
+        "C1": 2.59,
+        "C2": 4.03,
+        "C4": 9.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.77, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.23 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.6 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.36 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.26, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.91 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.61, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 7.56 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.27 * vars['Var_0'] + 8.68 * vars['Var_1'] + 9.78 * vars['Var_2'] + 2.76 * vars['Var_3'] + 3.77 * vars['Var_4'] <= 180.28, name='C0')\n    m.addConstr(9.05 * vars['Var_0'] + 7.93 * vars['Var_1'] + 9.09 * vars['Var_2'] + 6.39 * vars['Var_3'] + 2.59 * vars['Var_4'] <= 171.05, name='C1')\n    m.addConstr(0.28 * vars['Var_0'] + 9.85 * vars['Var_2'] + 6.65 * vars['Var_3'] + 4.03 * vars['Var_4'] <= 142.65, name='C2')\n    m.addConstr(3.96 * vars['Var_0'] + 7.7 * vars['Var_1'] + 6.41 * vars['Var_3'] <= 66.46, name='C3')\n    m.addConstr(9.27 * vars['Var_0'] + 0.01 * vars['Var_1'] + 4.17 * vars['Var_2'] + 5.02 * vars['Var_3'] + 9.46 * vars['Var_4'] <= 130.31, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance for Allocating Q1 Production Across Five Campaigns (Maximize Total Contribution)\n\nTeam,\n\nFor the upcoming planning window, our goal is to maximize total contribution by choosing the right mix of five production campaigns while staying within plant capacities and market/storage limits. All decisions should be made in whole production lots, but please use the detailed caps and per\u2011lot impacts below when building the schedule.\n\nCampaign 1 \u2014 Indigo Solvent\n- Commercial impact: Each lot delivers 5.23 contribution units.\n- Volume bounds: You may schedule anywhere from 0 up to 14.77 lots.\n- Resource footprint per lot:\n  - Reactor hours: 4.27\n  - Skilled technician hours: 9.05\n  - Feedstock A: 0.28\n  - Analytical/lab time: 3.96\n  - Tank farm/finished-goods slots: 9.27\n\nCampaign 2 \u2014 Crimson Catalyst\n- Commercial impact: Each lot delivers 3.6 contribution units.\n- Volume bounds: You may schedule anywhere from 0 up to 7 lots.\n- Resource footprint per lot:\n  - Reactor hours: 8.68\n  - Skilled technician hours: 7.93\n  - Feedstock A: 0\n  - Analytical/lab time: 7.7\n  - Tank farm/finished-goods slots: 0.01\n\nCampaign 3 \u2014 Silver Polymer\n- Commercial impact: Each lot delivers 2.36 contribution units.\n- Volume bounds: You may schedule anywhere from 0 up to 10 lots.\n- Resource footprint per lot:\n  - Reactor hours: 9.78\n  - Skilled technician hours: 9.09\n  - Feedstock A: 9.85\n  - Analytical/lab time: 0\n  - Tank farm/finished-goods slots: 4.17\n\nCampaign 4 \u2014 Amber Resin\n- Commercial impact: Each lot delivers 3.91 contribution units.\n- Volume bounds: You may schedule anywhere from 0 up to 14.26 lots.\n- Resource footprint per lot:\n  - Reactor hours: 2.76\n  - Skilled technician hours: 6.39\n  - Feedstock A: 6.65\n  - Analytical/lab time: 6.41\n  - Tank farm/finished-goods slots: 5.02\n\nCampaign 5 \u2014 Jade Emulsion\n- Commercial impact: Each lot delivers 7.56 contribution units.\n- Volume bounds: You may schedule anywhere from 0 up to 11.61 lots.\n- Resource footprint per lot:\n  - Reactor hours: 3.77\n  - Skilled technician hours: 2.59\n  - Feedstock A: 4.03\n  - Analytical/lab time: 0\n  - Tank farm/finished-goods slots: 9.46\n\nFacility and Market Limits (do not exceed)\n- Reactor availability: up to 180.28 hours in total across all campaigns.\n- Skilled technician availability: up to 171.05 hours in total.\n- Feedstock A on hand: up to 142.65 units in total.\n- Analytical/lab capacity: up to 66.46 hours in total.\n- Tank farm and finished-goods storage: up to 130.31 slots in total.\n\nPlease build the production plan that maximizes total contribution within these limits and the lot caps noted above. If you see any risk to these limits or need assumptions clarified, let me know before locking the schedule."
+}

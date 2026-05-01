@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact costs, bounds, integrality (whole vs fractional), and per-unit contributions are enumerated with \u2265 minima. 'No contribution' implies zero. Objective is clear: minimize total cost.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business memo style with extra narrative and reminders; longer than needed but details are precise and relevant.",
+      "realism": 85,
+      "realism_comment": "Plausible deployment planning with service targets and costs; slight unrealism from decimal caps on whole-unit levers."
+    },
+    "prompt_tokens_with_data": 1704,
+    "prompt_tokens_without_data": 1704
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 170.34900740846422,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 16.0,
+      "Var_2": 15.448322981366301,
+      "Var_3": -0.0,
+      "Var_4": 10.61,
+      "Var_5": 8.604612800341272,
+      "Var_6": 10.936614220358397,
+      "Var_7": 1.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 212.82
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 178.44
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 232.06
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 256.58
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 92.21
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 134.01
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 200.8
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 309.69
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.48
+      ],
+      "objective_linear_coefficient": 8.44,
+      "resource_costs": {
+        "C0": 3.42,
+        "C1": 6.71,
+        "C2": 9.87,
+        "C3": 6.35,
+        "C5": 5.76,
+        "C6": 5.98
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.67
+      ],
+      "objective_linear_coefficient": 2.92,
+      "resource_costs": {
+        "C1": 6.77,
+        "C2": 4.9,
+        "C3": 9.45,
+        "C5": 3.69,
+        "C7": 9.33
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.78
+      ],
+      "objective_linear_coefficient": 2.64,
+      "resource_costs": {
+        "C0": 6.88,
+        "C2": 2.58,
+        "C3": 6.56,
+        "C4": 4.09,
+        "C5": 1.61,
+        "C6": 2.79,
+        "C7": 6.34
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.19
+      ],
+      "objective_linear_coefficient": 6.66,
+      "resource_costs": {
+        "C2": 8.07,
+        "C3": 9.74,
+        "C5": 4.93,
+        "C6": 0.2,
+        "C7": 9.56
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.61
+      ],
+      "objective_linear_coefficient": 1.51,
+      "resource_costs": {
+        "C1": 8.53,
+        "C3": 2.55,
+        "C4": 3.91,
+        "C5": 4.62,
+        "C7": 8.56
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.64
+      ],
+      "objective_linear_coefficient": 3.81,
+      "resource_costs": {
+        "C0": 9.46,
+        "C1": 1.3,
+        "C2": 9.42,
+        "C4": 9.01,
+        "C6": 6.62,
+        "C7": 5.49
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.98
+      ],
+      "objective_linear_coefficient": 2.67,
+      "resource_costs": {
+        "C0": 6.54,
+        "C2": 2.4,
+        "C3": 6.02,
+        "C6": 8.73,
+        "C7": 9.7
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.29
+      ],
+      "objective_linear_coefficient": 4.84,
+      "resource_costs": {
+        "C0": 6.4,
+        "C1": 9.58,
+        "C2": 6.5,
+        "C5": 1.08,
+        "C6": 5.26
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.48, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.44 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.67, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.92 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.78, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.64 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.19, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.66 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.61, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.51 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.64, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.81 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.98, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.67 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=9.29, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 4.84 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.42 * vars['Var_0'] + 6.88 * vars['Var_2'] + 9.46 * vars['Var_5'] + 6.54 * vars['Var_6'] + 6.4 * vars['Var_7'] >= 212.82, name='C0')\n    m.addConstr(6.71 * vars['Var_0'] + 6.77 * vars['Var_1'] + 8.53 * vars['Var_4'] + 1.3 * vars['Var_5'] + 9.58 * vars['Var_7'] >= 178.44, name='C1')\n    m.addConstr(9.87 * vars['Var_0'] + 4.9 * vars['Var_1'] + 2.58 * vars['Var_2'] + 8.07 * vars['Var_3'] + 9.42 * vars['Var_5'] + 2.4 * vars['Var_6'] + 6.5 * vars['Var_7'] >= 232.06, name='C2')\n    m.addConstr(6.35 * vars['Var_0'] + 9.45 * vars['Var_1'] + 6.56 * vars['Var_2'] + 9.74 * vars['Var_3'] + 2.55 * vars['Var_4'] + 6.02 * vars['Var_6'] >= 256.58, name='C3')\n    m.addConstr(4.09 * vars['Var_2'] + 3.91 * vars['Var_4'] + 9.01 * vars['Var_5'] >= 92.21, name='C4')\n    m.addConstr(5.76 * vars['Var_0'] + 3.69 * vars['Var_1'] + 1.61 * vars['Var_2'] + 4.93 * vars['Var_3'] + 4.62 * vars['Var_4'] + 1.08 * vars['Var_7'] >= 134.01, name='C5')\n    m.addConstr(5.98 * vars['Var_0'] + 2.79 * vars['Var_2'] + 0.2 * vars['Var_3'] + 6.62 * vars['Var_5'] + 8.73 * vars['Var_6'] + 5.26 * vars['Var_7'] >= 200.8, name='C6')\n    m.addConstr(9.33 * vars['Var_1'] + 6.34 * vars['Var_2'] + 9.56 * vars['Var_3'] + 8.56 * vars['Var_4'] + 5.49 * vars['Var_5'] + 9.7 * vars['Var_6'] >= 309.69, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing deployment plan to meet our network service commitments\n\nTeam,\n\nFor the upcoming planning window, we need to assemble the lowest-cost mix of deployment options to satisfy (and preferably exceed) our minimum service commitments across eight dimensions: Baseline Throughput Hours, Metro Response Coverage, Rural Coverage, Priority Work Orders, Quality Assurance Audits, Training Credits, Sustainability Points, and Customer Touchpoints. We have eight distinct levers available; several of them must be activated in whole units, while others can be scaled fractionally. All levers are optional (we may select zero units) but are subject to upper limits. Below is a detailed description of each lever\u2019s fully loaded unit cost and how one unit contributes to every service dimension.\n\n- Blue Line Day Crews (whole-unit lever; 0.0 up to 13.48 crews)\n  \u2022 Unit cost: 8.44 per crew.\n  \u2022 Service contributions per crew:\n    - Baseline Throughput Hours: 3.42\n    - Metro Response Coverage: 6.71\n    - Rural Coverage: 9.87\n    - Priority Work Orders: 6.35\n    - Quality Assurance Audits: no contribution\n    - Training Credits: 5.76\n    - Sustainability Points: 5.98\n    - Customer Touchpoints: no contribution\n  \u2022 These crews must be committed in whole numbers, with a policy cap of 13.48 crews (we may choose any whole number from 0 up to 13.48).\n\n- Green Line Night Crews (whole-unit lever; 0.0 up to 16.67 crews)\n  \u2022 Unit cost: 2.92 per crew.\n  \u2022 Service contributions per crew:\n    - Baseline Throughput Hours: no contribution\n    - Metro Response Coverage: 6.77\n    - Rural Coverage: 4.90\n    - Priority Work Orders: 9.45\n    - Quality Assurance Audits: no contribution\n    - Training Credits: 3.69\n    - Sustainability Points: no contribution\n    - Customer Touchpoints: 9.33\n  \u2022 Must be deployed in whole crews, up to a maximum of 16.67.\n\n- Contractor Relief Hours (scalable lever; 0.0 up to 15.78 units)\n  \u2022 Unit cost: 2.64 per unit.\n  \u2022 Service contributions per unit:\n    - Baseline Throughput Hours: 6.88\n    - Metro Response Coverage: no contribution\n    - Rural Coverage: 2.58\n    - Priority Work Orders: 6.56\n    - Quality Assurance Audits: 4.09\n    - Training Credits: 1.61\n    - Sustainability Points: 2.79\n    - Customer Touchpoints: 6.34\n  \u2022 This lever can be assigned fractionally between 0.0 and 15.78 units.\n\n- Rapid Response Pods (whole-unit lever; 0.0 up to 8.19 pods)\n  \u2022 Unit cost: 6.66 per pod.\n  \u2022 Service contributions per pod:\n    - Baseline Throughput Hours: no contribution\n    - Metro Response Coverage: no contribution\n    - Rural Coverage: 8.07\n    - Priority Work Orders: 9.74\n    - Quality Assurance Audits: no contribution\n    - Training Credits: 4.93\n    - Sustainability Points: 0.20\n    - Customer Touchpoints: 9.56\n  \u2022 Must be committed in whole pods, up to 8.19.\n\n- Community Clinics (scalable lever; 0.0 up to 10.61 units)\n  \u2022 Unit cost: 1.51 per unit.\n  \u2022 Service contributions per unit:\n    - Baseline Throughput Hours: no contribution\n    - Metro Response Coverage: 8.53\n    - Rural Coverage: no contribution\n    - Priority Work Orders: 2.55\n    - Quality Assurance Audits: 3.91\n    - Training Credits: 4.62\n    - Sustainability Points: no contribution\n    - Customer Touchpoints: 8.56\n  \u2022 This lever can be set at any fractional level from 0.0 up to 10.61 units.\n\n- Mobile Surge Teams (scalable lever; 0.0 up to 8.64 teams)\n  \u2022 Unit cost: 3.81 per team.\n  \u2022 Service contributions per team:\n    - Baseline Throughput Hours: 9.46\n    - Metro Response Coverage: 1.30\n    - Rural Coverage: 9.42\n    - Priority Work Orders: no contribution\n    - Quality Assurance Audits: 9.01\n    - Training Credits: no contribution\n    - Sustainability Points: 6.62\n    - Customer Touchpoints: 5.49\n  \u2022 Fractional deployment is allowed between 0.0 and 8.64 teams.\n\n- Hybrid Support Hours (scalable lever; 0.0 up to 10.98 units)\n  \u2022 Unit cost: 2.67 per unit.\n  \u2022 Service contributions per unit:\n    - Baseline Throughput Hours: 6.54\n    - Metro Response Coverage: no contribution\n    - Rural Coverage: 2.40\n    - Priority Work Orders: 6.02\n    - Quality Assurance Audits: no contribution\n    - Training Credits: no contribution\n    - Sustainability Points: 8.73\n    - Customer Touchpoints: 9.70\n  \u2022 This lever can be selected at any fractional level from 0.0 up to 10.98 units.\n\n- Metro Plus Overtime Teams (whole-unit lever; 0.0 up to 9.29 teams)\n  \u2022 Unit cost: 4.84 per team.\n  \u2022 Service contributions per team:\n    - Baseline Throughput Hours: 6.40\n    - Metro Response Coverage: 9.58\n    - Rural Coverage: 6.50\n    - Priority Work Orders: no contribution\n    - Quality Assurance Audits: no contribution\n    - Training Credits: 1.08\n    - Sustainability Points: 5.26\n    - Customer Touchpoints: no contribution\n  \u2022 Must be committed in whole teams, up to 9.29.\n\nService Level Commitments (must meet or exceed these minimums)\n- Baseline Throughput Hours: at least 212.82\n- Metro Response Coverage: at least 178.44\n- Rural Coverage: at least 232.06\n- Priority Work Orders: at least 256.58\n- Quality Assurance Audits: at least 92.21\n- Training Credits: at least 134.01\n- Sustainability Points: at least 200.80\n- Customer Touchpoints: at least 309.69\n\nOur objective is to meet all of the above minimums at the lowest possible total cost by selecting the most economical combination of the levers described. Please review and confirm that the unit cost assumptions and the divisibility rules (whole-unit versus fractional) align with operational realities so we can proceed with the optimization run and generate a recommended deployment mix."
+}

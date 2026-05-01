@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Coefficients, bounds, integrality, and resource linkages are explicit; objective and both capacity constraints uniquely defined for the single consuming lever.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Moderately verbose with business context, but technical details are concise and non-repetitive; includes necessary code instructions and template.",
+      "realism": 92,
+      "realism_comment": "Feels like a real Q1 planning problem with bandwidth constraints and integrality; slight oddity of non-integer ceilings for discrete items, otherwise plausible."
+    },
+    "prompt_tokens_with_data": 725,
+    "prompt_tokens_without_data": 725
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 211.6189159891599,
+    "optimal_values": {
+      "Var_0": 15.0,
+      "Var_1": 5.700542005420054,
+      "Var_2": 9.0,
+      "Var_3": 10.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 52.4
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.07
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.13
+      ],
+      "objective_linear_coefficient": 8.44,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.44
+      ],
+      "objective_linear_coefficient": 5.38,
+      "resource_costs": {
+        "C0": 9.05,
+        "C1": 7.38
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.34
+      ],
+      "objective_linear_coefficient": 3.75,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.27
+      ],
+      "objective_linear_coefficient": 2.06,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.13, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.44 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.44, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.38 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.34, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.75 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.27, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.06 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.05 * vars['Var_1'] <= 52.4, name='C0')\n    m.addConstr(7.38 * vars['Var_1'] <= 42.07, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan for Q1\u2014maximize contribution within review bandwidth\n\nTeam,\n\nAs we finalize the Q1 operating plan, our goal is to maximize total gross contribution across a small set of revenue levers while staying inside two internal bottlenecks: Solutions Lab bandwidth and Security & Compliance review bandwidth. We can dial each lever anywhere from zero up to its market or contractual ceiling, subject to the notes below on whether we can make fractional or only whole-unit commitments.\n\nOur levers\n- Core Platform License Bundles (annual, thousand-seat lots)\n  \u2022 Each additional bundle returns 8.44 in gross contribution.  \n  \u2022 We may commit anywhere from 0 up to 15.13 bundles this quarter, and because bundles are contracted in lots, the count must be a whole number.  \n  \u2022 This lever does not draw on Solutions Lab bandwidth or Security & Compliance review bandwidth.\n\n- Bespoke Integration Projects\n  \u2022 Each project-equivalent adds 5.38 in gross contribution.  \n  \u2022 We may take on anywhere from 0 up to 13.44 project-equivalents, and partial engagements are acceptable (fractional scheduling is allowed).  \n  \u2022 This is the only lever that consumes our two constrained bandwidths: each project-equivalent uses 9.05 units of Solutions Lab bandwidth and 7.38 units of Security & Compliance review bandwidth.\n\n- Customer Enablement Bootcamps (cohorts)\n  \u2022 Each cohort contributes 3.75 in gross contribution.  \n  \u2022 We may schedule anywhere from 0 up to 9.34 cohorts, and these are planned in whole cohorts only.  \n  \u2022 No Solutions Lab or Security & Compliance bandwidth is required for this lever.\n\n- Premium Support SLAs (enterprise blocks)\n  \u2022 Each block contributes 2.06 in gross contribution.  \n  \u2022 We may commit anywhere from 0 up to 10.27 blocks, and commitments must be in whole blocks.  \n  \u2022 This lever does not consume either constrained bandwidth.\n\nFacility specs and market limits\n- Solutions Lab bandwidth available for Q1: 52.4 units in total.  \n- Security & Compliance review bandwidth available for Q1: 42.07 units in total.\n\nPlease use the above as the basis for the Q1 allocation. The intent is to push total contribution as high as possible while never exceeding 52.4 units of Solutions Lab bandwidth or 42.07 units of Security & Compliance review bandwidth, and while staying within the individual ceilings and whole-unit requirements noted for each lever."
+}

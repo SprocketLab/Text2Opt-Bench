@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource constraints are explicit and map directly to the model. Minor potential confusion from fractional caps with integer units.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Memo-style context adds verbosity and some repetition, but most text supports the model. Not overly repetitive.",
+      "realism": 94,
+      "realism_comment": "Plausible business scenario: product mix under environmental and labor limits with integer decisions. Constraints and data feel realistic."
+    },
+    "prompt_tokens_with_data": 523,
+    "prompt_tokens_without_data": 523
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 84.5,
+    "optimal_values": {
+      "Var_0": 16.0,
+      "Var_1": 7.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 8.25
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 40.03
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.58
+      ],
+      "objective_linear_coefficient": 2.28,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.23
+      ],
+      "objective_linear_coefficient": 6.86,
+      "resource_costs": {
+        "C0": 0.8,
+        "C1": 5.4
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.58, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.23, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.86 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.8 * vars['Var_1'] <= 8.25, name='C0')\n    m.addConstr(5.4 * vars['Var_1'] <= 40.03, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Q1 Revenue Mix Under Permit and Labor Limits\n\nTeam,\n\nWe\u2019re finalizing the Q1 mix of offerings with the goal of maximizing contribution while staying within our environmental permit and specialist labor limits. All decisions must be made in whole units only.\n\nRevenue levers under consideration:\n\n- Remote Monitoring Subscriptions\n  - Financial impact: Each subscription adds 2.28 in contribution.\n  - Capacity impact: These subscriptions do not draw on our limited resources\u2014no environmental credits are required and no specialist hours are needed.\n  - Practical limits: We can choose any whole number of subscriptions from a minimum of 0 up to an operational cap equivalent to 16.58 units.\n\n- On\u2011Site Retrofit Packages\n  - Financial impact: Each completed package adds 6.86 in contribution.\n  - Capacity impact: Each package uses 0.8 units from our environmental emissions allowance and 5.4 specialist hours from the field team.\n  - Practical limits: We can schedule any whole number of packages from a minimum of 0 up to an operational cap equivalent to 10.23 units.\n\nFacility and market limits for the period:\n\n- Environmental Emissions Allowance: Total available is 8.25 allowance units and cannot be exceeded.\n- Specialist Field Labor: Total available is 40.03 hours and cannot be exceeded.\n\nPlease use these parameters to shape the recommended mix. The intent is to push contribution as high as possible while respecting the above limits and the requirement that we only plan in whole numbers of subscriptions and packages."
+}

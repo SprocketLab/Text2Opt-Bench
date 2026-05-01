@@ -1,0 +1,159 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variable types, bounds, unit costs, and contribution coefficients are explicit. Thresholds are >=, objective is cost minimization. A reader can reproduce the exact model without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Lengthy narrative with repeated per-option notes and coding requirements; could be condensed, but most details are relevant to the model.",
+      "realism": 92,
+      "realism_comment": "Realistic staffing/resource allocation scenario with clear commitments and caps. Minor oddity: non-integer caps for integer resources."
+    },
+    "prompt_tokens_with_data": 1017,
+    "prompt_tokens_without_data": 1017
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 193.632223701731,
+    "optimal_values": {
+      "Var_0": 2.0,
+      "Var_1": 0.0,
+      "Var_2": 8.0,
+      "Var_3": 7.0,
+      "Var_4": 4.374167776298269,
+      "Var_5": -0.0,
+      "Var_6": 12.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.61
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.56
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 23.41
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 207.35
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 140.43
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.98
+      ],
+      "objective_linear_coefficient": 8.38,
+      "resource_costs": {
+        "C0": 2.64,
+        "C1": 3.81,
+        "C2": 4.91,
+        "C3": 7.98,
+        "C4": 4.92
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.17
+      ],
+      "objective_linear_coefficient": 3.9,
+      "resource_costs": {
+        "C2": 0.99,
+        "C3": 0.19
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.3
+      ],
+      "objective_linear_coefficient": 6.21,
+      "resource_costs": {
+        "C0": 0.72,
+        "C1": 0.1,
+        "C2": 2.36,
+        "C3": 9.91
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 9.34,
+      "resource_costs": {
+        "C0": 2.96,
+        "C1": 2.07,
+        "C3": 9.28,
+        "C4": 8.31
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.69
+      ],
+      "objective_linear_coefficient": 6.34,
+      "resource_costs": {
+        "C0": 7.51,
+        "C3": 7.2,
+        "C4": 0.34
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.11
+      ],
+      "objective_linear_coefficient": 7.82,
+      "resource_costs": {
+        "C0": 2.85,
+        "C3": 4.74,
+        "C4": 3.74
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.91
+      ],
+      "objective_linear_coefficient": 2.84,
+      "resource_costs": {
+        "C3": 1.49,
+        "C4": 5.98
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.98, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.38 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.17, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.9 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.3, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.21 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.34 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.69, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.34 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.11, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 7.82 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=15.91, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 2.84 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.64 * vars['Var_0'] + 0.72 * vars['Var_2'] + 2.96 * vars['Var_3'] + 7.51 * vars['Var_4'] + 2.85 * vars['Var_5'] >= 64.61, name='C0')\n    m.addConstr(3.81 * vars['Var_0'] + 0.1 * vars['Var_2'] + 2.07 * vars['Var_3'] >= 22.56, name='C1')\n    m.addConstr(4.91 * vars['Var_0'] + 0.99 * vars['Var_1'] + 2.36 * vars['Var_2'] >= 23.41, name='C2')\n    m.addConstr(7.98 * vars['Var_0'] + 0.19 * vars['Var_1'] + 9.91 * vars['Var_2'] + 9.28 * vars['Var_3'] + 7.2 * vars['Var_4'] + 4.74 * vars['Var_5'] + 1.49 * vars['Var_6'] >= 207.35, name='C3')\n    m.addConstr(4.92 * vars['Var_0'] + 8.31 * vars['Var_3'] + 0.34 * vars['Var_4'] + 3.74 * vars['Var_5'] + 5.98 * vars['Var_6'] >= 140.43, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix to Meet Next-Period Service Commitments\n\nTeam,\n\nFor the upcoming period, we need to meet a set of minimum service commitments across five categories while keeping total spend as low as possible. Below are the levers we can pull, with their unit costs, caps, and the precise credits each option contributes toward our commitments. Some items must be scheduled in whole units (pods/teams/blocks), while others can be purchased in fractional hours. We may choose to use none of any option (minimum zero), but cannot exceed the caps listed.\n\nAlpha Response Pods (whole pods, up to 8.98 authorized; unit cost 8.38)\n- Each pod contributes 2.64 toward Emergency Readiness, 3.81 toward Training & Certification, 4.91 toward Quality Audits, 7.98 toward Field Service Hours, and 4.92 toward Customer Site Visits.\n- No lower minimum; we can select zero pods if needed, but we generally deploy in whole pods only.\n\nFreelance Audit Hours (fractional hours, up to 13.17; unit cost 3.9)\n- Every hour contributes 0.99 toward Quality Audits and 0.19 toward Field Service Hours.\n- These hours do not affect Emergency Readiness, Training & Certification, or Customer Site Visits.\n- We may purchase any fraction up to 13.17 hours.\n\nBravo Compliance Teams (whole teams, up to 13.3; unit cost 6.21)\n- Each team contributes 0.72 toward Emergency Readiness, 0.1 toward Training & Certification, 2.36 toward Quality Audits, and 9.91 toward Field Service Hours.\n- These teams do not contribute to Customer Site Visits.\n- Selectable in whole teams only; zero to 13.3 authorized.\n\nRegional Install Squads (whole squads, up to 9.0; unit cost 9.34)\n- Each squad contributes 2.96 toward Emergency Readiness, 2.07 toward Training & Certification, 9.28 toward Field Service Hours, and 8.31 toward Customer Site Visits.\n- These squads do not contribute to Quality Audits.\n- Whole squads only; up to 9.0.\n\nDispatch Overtime Hours (fractional hours, up to 9.69; unit cost 6.34)\n- Every overtime hour contributes 7.51 toward Emergency Readiness, 7.2 toward Field Service Hours, and 0.34 toward Customer Site Visits.\n- These hours do not affect Training & Certification or Quality Audits.\n- Any fraction up to 9.69 hours is allowed.\n\nPartner Contractor Blocks (whole blocks, up to 15.11; unit cost 7.82)\n- Each block contributes 2.85 toward Emergency Readiness, 4.74 toward Field Service Hours, and 3.74 toward Customer Site Visits.\n- These blocks do not contribute to Training & Certification or Quality Audits.\n- Whole blocks only; authorization up to 15.11.\n\nCustomer Outreach Teams (whole teams, up to 15.91; unit cost 2.84)\n- Each team contributes 1.49 toward Field Service Hours and 5.98 toward Customer Site Visits.\n- These teams do not contribute to Emergency Readiness, Training & Certification, or Quality Audits.\n- Whole teams only; up to 15.91.\n\nFacility Specs \u2013 Minimum Service Commitments (must meet or exceed):\n- Emergency Readiness: 64.61\n- Training & Certification: 22.56\n- Quality Audits: 23.41\n- Field Service Hours: 207.35\n- Customer Site Visits: 140.43\n\nOur aim is to choose the least-cost combination of the above options that meets or exceeds each of the five commitments. Please use this as the basis for the proposed sourcing plan and advise the optimal mix."
+}

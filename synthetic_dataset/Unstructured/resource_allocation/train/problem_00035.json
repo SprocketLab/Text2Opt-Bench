@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and \u2265 thresholds are explicit; negative variance effect is clarified. Objective is minimize cost. The model can be reconstructed without guesswork.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business-flavored prose adds context but is somewhat wordy; bullet points clearly convey all needed data without real repetition.",
+      "realism": 95,
+      "realism_comment": "Plausible service planning scenario with credible metrics and constraints; only minor oddity is fractional caps on integer blocks."
+    },
+    "prompt_tokens_with_data": 810,
+    "prompt_tokens_without_data": 810
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 23.82,
+    "optimal_values": {
+      "Var_0": 5.0,
+      "Var_1": 2.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.03
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.68
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -4.98
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 23.39
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 62.95
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.42
+      ],
+      "objective_linear_coefficient": 1.14,
+      "resource_costs": {
+        "C0": 7.46,
+        "C1": 7.13,
+        "C2": -0.74,
+        "C3": 2.14,
+        "C4": 9.42
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.32
+      ],
+      "objective_linear_coefficient": 9.06,
+      "resource_costs": {
+        "C0": 2.31,
+        "C1": 3.27,
+        "C3": 7.3,
+        "C4": 8.96
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.42, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.14 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.32, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.06 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.46 * vars['Var_0'] + 2.31 * vars['Var_1'] >= 41.03, name='C0')\n    m.addConstr(7.13 * vars['Var_0'] + 3.27 * vars['Var_1'] >= 41.68, name='C1')\n    m.addConstr(-0.74 * vars['Var_0'] >= -4.98, name='C2')\n    m.addConstr(2.14 * vars['Var_0'] + 7.3 * vars['Var_1'] >= 23.39, name='C3')\n    m.addConstr(9.42 * vars['Var_0'] + 8.96 * vars['Var_1'] >= 62.95, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized Plan to Meet Q1 Service Floors\n\nTeam,\n\nWe need to set Q1 allocations to meet our minimum service and compliance thresholds at the lowest possible operating outlay. There are two levers we can pull\u2014two distinct workstreams\u2014each purchased in whole service blocks only (no partial blocks), with its own per-block cost and impact on our tracked obligations.\n\n1) Blue Response Crews\n- What it costs: Each full block of Blue Response Crews carries an outlay of 1.14 cost units.\n- Where we can flex: We may schedule anywhere from 0.0 up to 19.42 full blocks this quarter. Only whole blocks are allowed.\n- What it delivers:\n  \u2022 Rapid Response Coverage: Each block adds 7.46 coverage credits toward our Rapid Response target.\n  \u2022 On-Site Visit Quota: Each block adds 7.13 visit credits toward our site visit commitment.\n  \u2022 Net Materials Variance: Each block draws the variance down by 0.74 units (i.e., a \u22120.74 change). This is a controlled use of spares that reduces the variance metric.\n  \u2022 Training & Coaching Hours: Each block adds 2.14 hours toward the training requirement.\n  \u2022 Preventive Maintenance Score: Each block adds 9.42 points to our preventive maintenance score.\n\n2) Gold Specialist Teams\n- What it costs: Each full activation of Gold Specialist Teams carries an outlay of 9.06 cost units.\n- Where we can flex: We may schedule anywhere from 0.0 up to 18.32 full activations this quarter. Only whole activations are allowed.\n- What it delivers:\n  \u2022 Rapid Response Coverage: Each activation adds 2.31 coverage credits.\n  \u2022 On-Site Visit Quota: Each activation adds 3.27 visit credits.\n  \u2022 Net Materials Variance: No effect; this workstream contributes 0.00 units to the variance metric.\n  \u2022 Training & Coaching Hours: Each activation adds 7.3 hours.\n  \u2022 Preventive Maintenance Score: Each activation adds 8.96 points.\n\nFacility Specs and Minimum Obligations (must be met or exceeded)\n- Rapid Response Coverage: Not less than 41.03 coverage credits across all workstreams.\n- On-Site Visit Quota: Not less than 41.68 visit credits across all workstreams.\n- Net Materials Variance: Not worse than \u22124.98 units (i.e., the net variance must be \u2265 \u22124.98).\n- Training & Coaching Hours: Not less than 23.39 hours.\n- Preventive Maintenance Score: Not less than 62.95 points.\n\nOur aim is to satisfy these floors at the lowest combined cost from the two workstreams, within the stated caps and using only whole blocks/activations. Please review and confirm that these parameters reflect current policy so we can proceed with the allocation recommendation."
+}

@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, caps, integrality, and category contributions are explicit; thresholds use >=; objective is minimize cost. Minor oddity: whole-block (integer) decisions with fractional caps.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some narrative preface and repeated operational notes add verbosity, but the bullet points clearly specify all needed data.",
+      "realism": 92,
+      "realism_comment": "Plausible energy procurement portfolio meeting regulatory thresholds with realistic categories and costs; fractional caps with whole blocks are slightly odd."
+    },
+    "prompt_tokens_with_data": 903,
+    "prompt_tokens_without_data": 903
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 98.78,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 9.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 10.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 16.43
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 22.82
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.06
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 23.04
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 14.27
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 68.2
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.35
+      ],
+      "objective_linear_coefficient": 5.98,
+      "resource_costs": {
+        "C1": 4.01,
+        "C2": 2.08,
+        "C3": 1.92
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 7.42,
+      "resource_costs": {
+        "C2": 6.78,
+        "C5": 5.21
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.5
+      ],
+      "objective_linear_coefficient": 5.29,
+      "resource_costs": {
+        "C3": 6.97,
+        "C5": 8.44
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.1
+      ],
+      "objective_linear_coefficient": 8.5,
+      "resource_costs": {
+        "C0": 6.11
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.11
+      ],
+      "objective_linear_coefficient": 3.2,
+      "resource_costs": {
+        "C0": 5.92,
+        "C1": 2.4,
+        "C2": 1.89,
+        "C3": 7.44,
+        "C4": 8.1,
+        "C5": 9.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.35, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.98 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.42 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.5, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.29 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=5.1, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.5 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.11, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.2 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.11 * vars['Var_3'] + 5.92 * vars['Var_4'] >= 16.43, name='C0')\n    m.addConstr(4.01 * vars['Var_0'] + 2.4 * vars['Var_4'] >= 22.82, name='C1')\n    m.addConstr(2.08 * vars['Var_0'] + 6.78 * vars['Var_1'] + 1.89 * vars['Var_4'] >= 79.06, name='C2')\n    m.addConstr(1.92 * vars['Var_0'] + 6.97 * vars['Var_2'] + 7.44 * vars['Var_4'] >= 23.04, name='C3')\n    m.addConstr(8.1 * vars['Var_4'] >= 14.27, name='C4')\n    m.addConstr(5.21 * vars['Var_1'] + 8.44 * vars['Var_2'] + 9.46 * vars['Var_4'] >= 68.2, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio plan to meet mandatory service thresholds at the lowest total cost\n\nTeam,\n\nFor the upcoming planning period, we need to build a cost\u2011efficient mix of contracted capability while meeting six mandatory performance thresholds. Our aim is to minimize total spend while still hitting or exceeding the required levels across all categories. All selections must be made in whole blocks (no partial blocks), and none of the options require a minimum take\u2014each can be set to zero if desired\u2014subject to the vendor caps noted below.\n\nThe levers we can pull\n\n1) Harbor Ridge Wind Blocks\n- Commercial terms: Each block costs 5.98. There is no minimum commitment (we can take 0), and we cannot exceed 7.35 blocks in total.\n- What it delivers: Every block contributes 4.01 toward the Renewable Obligation, 2.08 toward Baseload Supply, and 1.92 toward Ramp Readiness. It does not contribute to the other categories.\n- Operational note: Orders must be in whole blocks only.\n\n2) Riverside Combined\u2011Cycle Blocks\n- Commercial terms: Each block costs 7.42. There is no minimum (0 allowed), and we can take up to 11.0 blocks.\n- What it delivers: Every block contributes 6.78 toward Baseload Supply and 5.21 toward Peak Flexibility. It does not contribute to the other categories.\n- Operational note: Whole\u2011block purchases only.\n\n3) Lightning Storage Modules\n- Commercial terms: Each module costs 5.29. There is no minimum (0 allowed), and we can take up to 15.5 modules.\n- What it delivers: Every module contributes 6.97 toward Ramp Readiness and 8.44 toward Peak Flexibility. It does not contribute to the other categories.\n- Operational note: Whole\u2011module selections only.\n\n4) Cascade Hydro Spinning Reserve\n- Commercial terms: Each strip costs 8.5. There is no minimum (0 allowed), and we can take up to 5.1 strips.\n- What it delivers: Every strip contributes 6.11 toward Spinning Reserve. It does not contribute to the other categories.\n- Operational note: Whole\u2011strip commitments only.\n\n5) Local Distributed Energy Bundles\n- Commercial terms: Each bundle costs 3.2. There is no minimum (0 allowed), and we can take up to 12.11 bundles.\n- What it delivers: Every bundle contributes 5.92 toward Spinning Reserve, 2.4 toward the Renewable Obligation, 1.89 toward Baseload Supply, 7.44 toward Ramp Readiness, 8.1 toward Local Content, and 9.46 toward Peak Flexibility.\n- Operational note: Whole\u2011bundle selections only.\n\nMarket limits and compliance thresholds we must meet or exceed\n- Spinning Reserve: at least 16.43\n- Renewable Obligation: at least 22.82\n- Baseload Supply: at least 79.06\n- Ramp Readiness: at least 23.04\n- Local Content: at least 14.27\n- Peak Flexibility: at least 68.2\n\nPlease review these options and caps so we can finalize a mix that satisfies all minimums at the lowest total outlay, using only whole blocks/modules/strips/bundles and staying within each vendor\u2019s maximum availability."
+}

@@ -1,0 +1,249 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 11,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource caps are explicit; the model is reconstructable exactly. Minor nit: variable names aren't specified; 'LP or QP' phrasing is superfluous.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Email-style wrapper adds length, but most content is precise per-SKU data and limits. Some superfluous phrasing (e.g., LP/QP mention).",
+      "realism": 98,
+      "realism_comment": "Genuine plant capacity allocation with plausible shared resources and margins. Minor quirk: integer items have non-integer upper bounds."
+    },
+    "prompt_tokens_with_data": 2059,
+    "prompt_tokens_without_data": 2059
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 455.44913864008396,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 2.0,
+      "Var_2": -0.0,
+      "Var_3": 10.75,
+      "Var_4": 8.0,
+      "Var_5": 14.79,
+      "Var_6": 8.313706070287541,
+      "Var_7": 0.15683459335091274,
+      "Var_8": 12.529049293306679,
+      "Var_9": 16.60494333387478,
+      "Var_10": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 162.37
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 177.5
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 46.58
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 269.83
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 92.72
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 260.35
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 153.47
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 114.12
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 131.09
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.23
+      ],
+      "objective_linear_coefficient": 9.28,
+      "resource_costs": {
+        "C0": 6.49,
+        "C2": 4.85,
+        "C3": 6.28,
+        "C5": 9.78,
+        "C7": 4.03
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.22
+      ],
+      "objective_linear_coefficient": 1.05,
+      "resource_costs": {
+        "C3": 7.95,
+        "C4": 2.54,
+        "C6": 5.05
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.65
+      ],
+      "objective_linear_coefficient": 1.56,
+      "resource_costs": {
+        "C0": 6.29,
+        "C1": 1.49,
+        "C3": 8.09
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.75
+      ],
+      "objective_linear_coefficient": 4.88,
+      "resource_costs": {
+        "C0": 5.44,
+        "C1": 2.42,
+        "C3": 5.03,
+        "C5": 0.64
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.03
+      ],
+      "objective_linear_coefficient": 2.21,
+      "resource_costs": {
+        "C1": 4.41,
+        "C3": 0.1,
+        "C5": 0.62
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.79
+      ],
+      "objective_linear_coefficient": 5.38,
+      "resource_costs": {
+        "C2": 1.39,
+        "C3": 5.38
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.67
+      ],
+      "objective_linear_coefficient": 6.72,
+      "resource_costs": {
+        "C0": 3.3,
+        "C2": 3.13,
+        "C3": 8.3,
+        "C6": 3.1,
+        "C7": 5.61,
+        "C8": 5.83
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.73
+      ],
+      "objective_linear_coefficient": 4.44,
+      "resource_costs": {
+        "C1": 0.87,
+        "C5": 6.46,
+        "C6": 7.33,
+        "C7": 4.18,
+        "C8": 8.14
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.85
+      ],
+      "objective_linear_coefficient": 7.62,
+      "resource_costs": {
+        "C0": 3.16,
+        "C4": 6.45,
+        "C5": 9.92,
+        "C8": 3.6
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.77
+      ],
+      "objective_linear_coefficient": 9.13,
+      "resource_costs": {
+        "C0": 2.22,
+        "C1": 6.99,
+        "C3": 2.83,
+        "C5": 7.42,
+        "C6": 0.71,
+        "C8": 2.16
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.82
+      ],
+      "objective_linear_coefficient": 2.8,
+      "resource_costs": {
+        "C0": 2.43,
+        "C1": 8.55,
+        "C3": 0.58,
+        "C4": 5.04,
+        "C5": 9.29,
+        "C6": 6.99,
+        "C7": 5.49,
+        "C8": 0.65
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.23, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.22, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 1.05 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=14.82, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 2.8 * vars['Var_10']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.65, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.56 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.75, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.88 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.03, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 2.21 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.79, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.38 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.67, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.72 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=8.73, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 4.44 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=19.85, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 7.62 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=16.77, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 9.13 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.49 * vars['Var_0'] + 2.43 * vars['Var_10'] + 6.29 * vars['Var_2'] + 5.44 * vars['Var_3'] + 3.3 * vars['Var_6'] + 3.16 * vars['Var_8'] + 2.22 * vars['Var_9'] <= 162.37, name='C0')\n    m.addConstr(8.55 * vars['Var_10'] + 1.49 * vars['Var_2'] + 2.42 * vars['Var_3'] + 4.41 * vars['Var_4'] + 0.87 * vars['Var_7'] + 6.99 * vars['Var_9'] <= 177.5, name='C1')\n    m.addConstr(4.85 * vars['Var_0'] + 1.39 * vars['Var_5'] + 3.13 * vars['Var_6'] <= 46.58, name='C2')\n    m.addConstr(6.28 * vars['Var_0'] + 7.95 * vars['Var_1'] + 0.58 * vars['Var_10'] + 8.09 * vars['Var_2'] + 5.03 * vars['Var_3'] + 0.1 * vars['Var_4'] + 5.38 * vars['Var_5'] + 8.3 * vars['Var_6'] + 2.83 * vars['Var_9'] <= 269.83, name='C3')\n    m.addConstr(2.54 * vars['Var_1'] + 5.04 * vars['Var_10'] + 6.45 * vars['Var_8'] <= 92.72, name='C4')\n    m.addConstr(9.78 * vars['Var_0'] + 9.29 * vars['Var_10'] + 0.64 * vars['Var_3'] + 0.62 * vars['Var_4'] + 6.46 * vars['Var_7'] + 9.92 * vars['Var_8'] + 7.42 * vars['Var_9'] <= 260.35, name='C5')\n    m.addConstr(5.05 * vars['Var_1'] + 6.99 * vars['Var_10'] + 3.1 * vars['Var_6'] + 7.33 * vars['Var_7'] + 0.71 * vars['Var_9'] <= 153.47, name='C6')\n    m.addConstr(4.03 * vars['Var_0'] + 5.49 * vars['Var_10'] + 5.61 * vars['Var_6'] + 4.18 * vars['Var_7'] <= 114.12, name='C7')\n    m.addConstr(0.65 * vars['Var_10'] + 5.83 * vars['Var_6'] + 8.14 * vars['Var_7'] + 3.6 * vars['Var_8'] + 2.16 * vars['Var_9'] <= 131.09, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for support on Q2 capacity allocation to maximize contribution\n\nHi team,\n\nWe\u2019re planning our Q2 run plan at the Northside plant and want to maximize total contribution across a slate of eleven SKUs while respecting shared resource limits. Below are the levers we can pull, the per\u2011unit contribution assumptions, the maximum quantities we\u2019re prepared to run for each item this quarter, and exactly how each item draws on our plant limits. Some items can be scheduled in fractional lots, while others must be scheduled in whole runs.\n\nDecision levers and how they use our shared resources\n\n1) Heritage Granola (HG\u20111)\n- Economic impact: Each batch contributes 9.28 in margin.\n- Flexibility: Can be scheduled in fractional batches from 0 up to 6.23 batches.\n- Resource use per batch:\n  \u2022 Line A processing hours: 6.49\n  \u2022 Blending Room time: none\n  \u2022 Quality Lab hours: 4.85\n  \u2022 Plant\u2011wide run capacity: 6.28\n  \u2022 Chilled storage space: none\n  \u2022 Packing line capacity: 9.78\n  \u2022 Materials handling shifts: none\n  \u2022 Wastewater allocation: 4.03\n  \u2022 Outbound dock windows: none\n\n2) Value Snack Packs\n- Economic impact: Each run contributes 1.05 in margin.\n- Flexibility: Must be scheduled in whole runs, from 0 up to 19.22 runs.\n- Resource use per run:\n  \u2022 Line A processing hours: none\n  \u2022 Blending Room time: none\n  \u2022 Quality Lab hours: none\n  \u2022 Plant\u2011wide run capacity: 7.95\n  \u2022 Chilled storage space: 2.54\n  \u2022 Packing line capacity: none\n  \u2022 Materials handling shifts: 5.05\n  \u2022 Wastewater allocation: none\n  \u2022 Outbound dock windows: none\n\n3) Protein Crunch Contracts\n- Economic impact: Each contract run contributes 1.56 in margin.\n- Flexibility: Must be scheduled in whole runs, from 0 up to 13.65 runs.\n- Resource use per run:\n  \u2022 Line A processing hours: 6.29\n  \u2022 Blending Room time: 1.49\n  \u2022 Quality Lab hours: none\n  \u2022 Plant\u2011wide run capacity: 8.09\n  \u2022 Chilled storage space: none\n  \u2022 Packing line capacity: none\n  \u2022 Materials handling shifts: none\n  \u2022 Wastewater allocation: none\n  \u2022 Outbound dock windows: none\n\n4) Chef\u2019s Blend Muesli\n- Economic impact: Each batch contributes 4.88 in margin.\n- Flexibility: Can be scheduled in fractional batches from 0 up to 10.75 batches.\n- Resource use per batch:\n  \u2022 Line A processing hours: 5.44\n  \u2022 Blending Room time: 2.42\n  \u2022 Quality Lab hours: none\n  \u2022 Plant\u2011wide run capacity: 5.03\n  \u2022 Chilled storage space: none\n  \u2022 Packing line capacity: 0.64\n  \u2022 Materials handling shifts: none\n  \u2022 Wastewater allocation: none\n  \u2022 Outbound dock windows: none\n\n5) Overnight Oats Cups\n- Economic impact: Each run contributes 2.21 in margin.\n- Flexibility: Must be scheduled in whole runs, from 0 up to 19.03 runs.\n- Resource use per run:\n  \u2022 Line A processing hours: none\n  \u2022 Blending Room time: 4.41\n  \u2022 Quality Lab hours: none\n  \u2022 Plant\u2011wide run capacity: 0.10\n  \u2022 Chilled storage space: none\n  \u2022 Packing line capacity: 0.62\n  \u2022 Materials handling shifts: none\n  \u2022 Wastewater allocation: none\n  \u2022 Outbound dock windows: none\n\n6) Gluten\u2011Free Clusters\n- Economic impact: Each batch contributes 5.38 in margin.\n- Flexibility: Can be scheduled in fractional batches from 0 up to 14.79 batches.\n- Resource use per batch:\n  \u2022 Line A processing hours: none\n  \u2022 Blending Room time: none\n  \u2022 Quality Lab hours: 1.39\n  \u2022 Plant\u2011wide run capacity: 5.38\n  \u2022 Chilled storage space: none\n  \u2022 Packing line capacity: none\n  \u2022 Materials handling shifts: none\n  \u2022 Wastewater allocation: none\n  \u2022 Outbound dock windows: none\n\n7) Keto Seed Mix\n- Economic impact: Each batch contributes 6.72 in margin.\n- Flexibility: Can be scheduled in fractional batches from 0 up to 8.67 batches.\n- Resource use per batch:\n  \u2022 Line A processing hours: 3.3\n  \u2022 Blending Room time: none\n  \u2022 Quality Lab hours: 3.13\n  \u2022 Plant\u2011wide run capacity: 8.3\n  \u2022 Chilled storage space: none\n  \u2022 Packing line capacity: none\n  \u2022 Materials handling shifts: 3.1\n  \u2022 Wastewater allocation: 5.61\n  \u2022 Outbound dock windows: 5.83\n\n8) Family Size Cereal\n- Economic impact: Each batch contributes 4.44 in margin.\n- Flexibility: Can be scheduled in fractional batches from 0 up to 8.73 batches.\n- Resource use per batch:\n  \u2022 Line A processing hours: none\n  \u2022 Blending Room time: 0.87\n  \u2022 Quality Lab hours: none\n  \u2022 Plant\u2011wide run capacity: none\n  \u2022 Chilled storage space: none\n  \u2022 Packing line capacity: 6.46\n  \u2022 Materials handling shifts: 7.33\n  \u2022 Wastewater allocation: 4.18\n  \u2022 Outbound dock windows: 8.14\n\n9) Cold\u2011Pressed Bars\n- Economic impact: Each batch contributes 7.62 in margin.\n- Flexibility: Can be scheduled in fractional batches from 0 up to 19.85 batches.\n- Resource use per batch:\n  \u2022 Line A processing hours: 3.16\n  \u2022 Blending Room time: none\n  \u2022 Quality Lab hours: none\n  \u2022 Plant\u2011wide run capacity: none\n  \u2022 Chilled storage space: 6.45\n  \u2022 Packing line capacity: 9.92\n  \u2022 Materials handling shifts: none\n  \u2022 Wastewater allocation: none\n  \u2022 Outbound dock windows: 3.6\n\n10) Premium Trail Mix\n- Economic impact: Each batch contributes 9.13 in margin.\n- Flexibility: Can be scheduled in fractional batches from 0 up to 16.77 batches.\n- Resource use per batch:\n  \u2022 Line A processing hours: 2.22\n  \u2022 Blending Room time: 6.99\n  \u2022 Quality Lab hours: none\n  \u2022 Plant\u2011wide run capacity: 2.83\n  \u2022 Chilled storage space: none\n  \u2022 Packing line capacity: 7.42\n  \u2022 Materials handling shifts: 0.71\n  \u2022 Wastewater allocation: none\n  \u2022 Outbound dock windows: 2.16\n\n11) Seasonal Gift Tins\n- Economic impact: Each batch contributes 2.8 in margin.\n- Flexibility: Can be scheduled in fractional batches from 0 up to 14.82 batches.\n- Resource use per batch:\n  \u2022 Line A processing hours: 2.43\n  \u2022 Blending Room time: 8.55\n  \u2022 Quality Lab hours: none\n  \u2022 Plant\u2011wide run capacity: 0.58\n  \u2022 Chilled storage space: 5.04\n  \u2022 Packing line capacity: 9.29\n  \u2022 Materials handling shifts: 6.99\n  \u2022 Wastewater allocation: 5.49\n  \u2022 Outbound dock windows: 0.65\n\nFacility limits for the quarter (cannot be exceeded)\n- Line A processing hours: 162.37\n- Blending Room time: 177.5\n- Quality Lab hours: 46.58\n- Plant\u2011wide run capacity: 269.83\n- Chilled storage space: 92.72\n- Packing line capacity: 260.35\n- Materials handling shifts: 153.47\n- Wastewater allocation: 114.12\n- Outbound dock windows: 131.09\n\nOur objective is to prioritize the mix that maximizes total contribution while observing the above caps and the run\u2011level rules noted for each item (whole\u2011run requirements where specified, and nonnegative quantities with their respective maximums). Please use this as the basis for the allocation plan and let us know the recommended production slate.\n\nThanks in advance,\n\nMara Jensen\nDirector of Operations\nNorthside Plant, Harvest Grove Foods"
+}

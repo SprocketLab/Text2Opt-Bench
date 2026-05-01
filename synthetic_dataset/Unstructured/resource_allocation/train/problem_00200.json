@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, integrality, objective coefficients, and resource usages are explicitly specified with <= limits; zero-usage resources are called out, leaving no guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo framing and repeated 'no use of' lines add some verbosity, but the bullet structure stays focused on necessary data.",
+      "realism": 98,
+      "realism_comment": "Very plausible production mix problem with machine time, lab cycles, feedstock, discharge, and logistics limits; coherent and realistic details."
+    },
+    "prompt_tokens_with_data": 1011,
+    "prompt_tokens_without_data": 1011
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 209.5364817471945,
+    "optimal_values": {
+      "Var_0": 5.0,
+      "Var_1": 3.9481641468682525,
+      "Var_2": 9.314685314685315,
+      "Var_3": 8.0,
+      "Var_4": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 88.72
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 10.61
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 85.23
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 15.96
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 157.91
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 46.52
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.63
+      ],
+      "objective_linear_coefficient": 4.2,
+      "resource_costs": {
+        "C4": 8.11
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.6
+      ],
+      "objective_linear_coefficient": 8.71,
+      "resource_costs": {
+        "C1": 2.52,
+        "C2": 5.24,
+        "C3": 3.74,
+        "C5": 4.63
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.2
+      ],
+      "objective_linear_coefficient": 8.51,
+      "resource_costs": {
+        "C0": 9.49,
+        "C2": 6.9,
+        "C4": 5.72
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.68
+      ],
+      "objective_linear_coefficient": 9.36,
+      "resource_costs": {
+        "C4": 8.01,
+        "C5": 3.53
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.65
+      ],
+      "objective_linear_coefficient": 3.97,
+      "resource_costs": {
+        "C1": 0.92,
+        "C2": 5.79,
+        "C3": 4.47,
+        "C5": 6.36
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.63, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.2 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.6, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.71 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.2, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.51 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.68, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.36 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.65, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.97 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.49 * vars['Var_2'] <= 88.72, name='C0')\n    m.addConstr(2.52 * vars['Var_1'] + 0.92 * vars['Var_4'] <= 10.61, name='C1')\n    m.addConstr(5.24 * vars['Var_1'] + 6.9 * vars['Var_2'] + 5.79 * vars['Var_4'] <= 85.23, name='C2')\n    m.addConstr(3.74 * vars['Var_1'] + 4.47 * vars['Var_4'] <= 15.96, name='C3')\n    m.addConstr(8.11 * vars['Var_0'] + 5.72 * vars['Var_2'] + 8.01 * vars['Var_3'] <= 157.91, name='C4')\n    m.addConstr(4.63 * vars['Var_1'] + 3.53 * vars['Var_3'] + 6.36 * vars['Var_4'] <= 46.52, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Planning mix for the upcoming production window \u2013 request to maximize contribution within plant limits\n\nTeam,\n\nWe\u2019re preparing the next production window and want to deploy our constrained resources in a way that maximizes total contribution. Below are the five levers we can adjust this cycle, along with the per\u2011unit contribution, feasible ranges, and how each option draws on our limited assets. Some commitments must be made in whole increments; others can be flexed fractionally.\n\n- Blue Base Batches\n  - Financials: Each batch contributes 4.20 in margin.\n  - Range: We can run anywhere from 0 up to 14.63 batches, and these must be whole batches.\n  - Resource impacts:\n    - Finishing Unit B time: 8.11 hours per batch.\n    - No use of Distillation Column A runtime, Quality Lab cycles, Reagent Z feedstock, Solvent Discharge quota, or Outbound Loading slots.\n\n- Silver Additive Concentrate\n  - Financials: Each unit contributes 8.71 in margin.\n  - Range: We can produce between 0 and 10.6 units, and this can be scaled fractionally.\n  - Resource impacts:\n    - Quality Lab cycles: 2.52 cycles per unit.\n    - Reagent Z feedstock: 5.24 units per unit produced.\n    - Solvent Discharge quota: 3.74 units per unit.\n    - Outbound Loading slots: 4.63 slots per unit.\n    - No use of Distillation Column A runtime or Finishing Unit B time.\n\n- Columbia Purified Solvent Runs\n  - Financials: Each run contributes 8.51 in margin.\n  - Range: We can schedule from 0 to 10.2 runs, and this can be fractional.\n  - Resource impacts:\n    - Distillation Column A runtime: 9.49 hours per run.\n    - Reagent Z feedstock: 6.9 units per run.\n    - Finishing Unit B time: 5.72 hours per run.\n    - No use of Quality Lab cycles, Solvent Discharge quota, or Outbound Loading slots.\n\n- Orion Custom Blend Lots\n  - Financials: Each lot contributes 9.36 in margin.\n  - Range: We can commit from 0 up to 14.68 lots, and these must be whole lots.\n  - Resource impacts:\n    - Finishing Unit B time: 8.01 hours per lot.\n    - Outbound Loading slots: 3.53 slots per lot.\n    - No use of Distillation Column A runtime, Quality Lab cycles, Reagent Z feedstock, or Solvent Discharge quota.\n\n- Nova Value Packs\n  - Financials: Each pack contributes 3.97 in margin.\n  - Range: We can release between 0 and 9.65 packs, and these must be whole packs.\n  - Resource impacts:\n    - Quality Lab cycles: 0.92 cycles per pack.\n    - Reagent Z feedstock: 5.79 units per pack.\n    - Solvent Discharge quota: 4.47 units per pack.\n    - Outbound Loading slots: 6.36 slots per pack.\n    - No use of Distillation Column A runtime or Finishing Unit B time.\n\nFacility limits for this window (do not exceed):\n- Distillation Column A runtime: 88.72 hours total.\n- Quality Lab cycles: 10.61 total.\n- Reagent Z feedstock availability: 85.23 units total.\n- Solvent Discharge quota: 15.96 total.\n- Finishing Unit B time: 157.91 hours total.\n- Outbound Loading slots: 46.52 total.\n\nPlease use this to recommend the mix that maximizes total contribution while staying within the above limits and the stated ranges and granularity for each lever."
+}

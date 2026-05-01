@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit costs, bounds, and balance impacts map to a linear objective and five >= floor constraints. Signs and magnitudes are clear; continuous variables implied by fractional bounds.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative context and repeated 'no material change' add length but the technical data is organized and clear.",
+      "realism": 85,
+      "realism_comment": "Realistic planning levers and variance floors; slight gap as no baseline demand yields a trivial zero solution."
+    },
+    "prompt_tokens_with_data": 1182,
+    "prompt_tokens_without_data": 1182
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 0.0,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -67.33
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -36.12
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -38.81
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -0.46
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -61.0
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.03
+      ],
+      "objective_linear_coefficient": 4.24,
+      "resource_costs": {
+        "C0": -2.53,
+        "C3": 0.23,
+        "C4": 7.41
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.64
+      ],
+      "objective_linear_coefficient": 1.31,
+      "resource_costs": {
+        "C1": -4.73,
+        "C2": 0.26,
+        "C3": -8.26
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.57
+      ],
+      "objective_linear_coefficient": 6.51,
+      "resource_costs": {
+        "C1": -1.52,
+        "C4": -8.12
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.7
+      ],
+      "objective_linear_coefficient": 1.04,
+      "resource_costs": {
+        "C2": -9.87,
+        "C3": 9.32
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.91
+      ],
+      "objective_linear_coefficient": 9.47,
+      "resource_costs": {
+        "C0": -7.82,
+        "C1": -0.96,
+        "C2": 0.15,
+        "C4": -9.37
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.03, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.24 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.64, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.31 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.57, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.51 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.7, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.04 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.91, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.47 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-2.53 * vars['Var_0'] + -7.82 * vars['Var_4'] >= -67.33, name='C0')\n    m.addConstr(-4.73 * vars['Var_1'] + -1.52 * vars['Var_2'] + -0.96 * vars['Var_4'] >= -36.12, name='C1')\n    m.addConstr(0.26 * vars['Var_1'] + -9.87 * vars['Var_3'] + 0.15 * vars['Var_4'] >= -38.81, name='C2')\n    m.addConstr(0.23 * vars['Var_0'] + -8.26 * vars['Var_1'] + 9.32 * vars['Var_3'] >= -0.46, name='C3')\n    m.addConstr(7.41 * vars['Var_0'] + -8.12 * vars['Var_2'] + -9.37 * vars['Var_4'] >= -61.0, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Operating Mix for the Next Planning Cycle\n\nTeam,\n\nWe\u2019re preparing the operating plan for the upcoming cycle with a simple objective: minimize our total run-rate spend while keeping each operating balance within its allowed overdraft range. We track five balances that can swing positive or negative versus plan; the only hard rule is that none of them can fall below its floor. The balances are:\n- Energy usage variance (must not go below -67.33 units)\n- Skilled labor hours variance (must not go below -36.12 units)\n- Critical resin balance variance (must not go below -38.81 units)\n- Quality/compliance score variance (must not go below -0.46 units)\n- Working capital swing (must not go below -61.0 units)\n\nBelow are the levers available to us, in the order we\u2019re evaluating them, with their cost per unit, feasible scale, and the way each one moves those five balances. Negative movements draw down the relevant balance (moving it toward its floor); positive movements add headroom.\n\n1) Atlas High-Speed Runs\n- Cost profile: 4.24 per run-equivalent.\n- Feasible scale: between 0 and 16.03 run-equivalents.\n- Impact on balances:\n  - Energy usage variance: each run withdraws 2.53 units (i.e., -2.53).\n  - Skilled labor hours variance: no material change.\n  - Critical resin balance variance: no material change.\n  - Quality/compliance score variance: each run adds 0.23 units.\n  - Working capital swing: each run adds 7.41 units.\n\n2) Weekend Overtime Sets\n- Cost profile: 1.31 per set.\n- Feasible scale: between 0 and 5.64 sets.\n- Impact on balances:\n  - Energy usage variance: no material change.\n  - Skilled labor hours variance: each set withdraws 4.73 units (i.e., -4.73).\n  - Critical resin balance variance: each set adds 0.26 units.\n  - Quality/compliance score variance: each set withdraws 8.26 units (i.e., -8.26).\n  - Working capital swing: no material change.\n\n3) Custom Short Orders\n- Cost profile: 6.51 per order block.\n- Feasible scale: between 0 and 15.57 order blocks.\n- Impact on balances:\n  - Energy usage variance: no material change.\n  - Skilled labor hours variance: each block withdraws 1.52 units (i.e., -1.52).\n  - Critical resin balance variance: no material change.\n  - Quality/compliance score variance: no material change.\n  - Working capital swing: each block withdraws 8.12 units (i.e., -8.12).\n\n4) Night-Shift Resin Campaigns\n- Cost profile: 1.04 per campaign.\n- Feasible scale: between 0 and 13.7 campaigns.\n- Impact on balances:\n  - Energy usage variance: no material change.\n  - Skilled labor hours variance: no material change.\n  - Critical resin balance variance: each campaign withdraws 9.87 units (i.e., -9.87).\n  - Quality/compliance score variance: each campaign adds 9.32 units.\n  - Working capital swing: no material change.\n\n5) Premium Customization Cells\n- Cost profile: 9.47 per cell-block.\n- Feasible scale: between 0 and 7.91 cell-blocks.\n- Impact on balances:\n  - Energy usage variance: each block withdraws 7.82 units (i.e., -7.82).\n  - Skilled labor hours variance: each block withdraws 0.96 units (i.e., -0.96).\n  - Critical resin balance variance: each block adds 0.15 units.\n  - Quality/compliance score variance: no material change.\n  - Working capital swing: each block withdraws 9.37 units (i.e., -9.37).\n\nOperating guardrails (must be respected at all times):\n- Energy usage variance floor: -67.33 or higher.\n- Skilled labor hours variance floor: -36.12 or higher.\n- Critical resin balance variance floor: -38.81 or higher.\n- Quality/compliance score variance floor: -0.46 or higher.\n- Working capital swing floor: -61.0 or higher.\n\nPlease use this as the basis for assembling the lowest-cost mix of activities while keeping every balance at or above its floor. If any of the overdraft limits look too tight given the negative movements above, flag it and we\u2019ll revisit the allowed swing for that account."
+}

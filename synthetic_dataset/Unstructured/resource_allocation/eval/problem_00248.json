@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and inequality directions are explicit; negatives denote reductions; partial deployment implies continuous vars. A direct LP reconstruction matches the gold model.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds context and some extra phrasing, but numerical specs are clear and non-redundant.",
+      "realism": 98,
+      "realism_comment": "Highly realistic portfolio allocation with sustainability and resource limits; metrics and tradeoffs (incl. rebates, freed bandwidth) are plausible."
+    },
+    "prompt_tokens_with_data": 1448,
+    "prompt_tokens_without_data": 1448
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 231.93612546823627,
+    "optimal_values": {
+      "Var_0": 15.97,
+      "Var_1": 4.8825111472328055,
+      "Var_2": 8.929633894082222,
+      "Var_3": 9.52,
+      "Var_4": 2.407954336867641,
+      "Var_5": 9.29
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -9.01
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -52.29
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -63.19
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 41.08
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 28.1
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.97
+      ],
+      "objective_linear_coefficient": 1.92,
+      "resource_costs": {
+        "C0": 3.57,
+        "C1": -7.85,
+        "C2": -9.05,
+        "C3": 1.34,
+        "C4": 6.18
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.15
+      ],
+      "objective_linear_coefficient": 4.62,
+      "resource_costs": {
+        "C0": -2.19,
+        "C2": -2.98,
+        "C3": 1.7,
+        "C4": 5.62
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.1
+      ],
+      "objective_linear_coefficient": 6.94,
+      "resource_costs": {
+        "C0": -2.15,
+        "C1": 5.31,
+        "C2": -7.23,
+        "C3": 5.18,
+        "C4": 3.1
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.52
+      ],
+      "objective_linear_coefficient": 5.97,
+      "resource_costs": {
+        "C0": -1.55,
+        "C1": 8.34,
+        "C2": -4.73,
+        "C3": -6.17,
+        "C4": -4.73
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.21
+      ],
+      "objective_linear_coefficient": 5.59,
+      "resource_costs": {
+        "C1": -4.03,
+        "C2": 5.94,
+        "C3": 9.91,
+        "C4": 2.14
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.29
+      ],
+      "objective_linear_coefficient": 5.0,
+      "resource_costs": {
+        "C0": -7.77,
+        "C1": -4.74,
+        "C2": 4.63,
+        "C4": -9.24
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.97, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.92 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.15, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.62 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.1, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.94 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.52, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.97 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.21, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.59 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.29, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.0 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.57 * vars['Var_0'] + -2.19 * vars['Var_1'] + -2.15 * vars['Var_2'] + -1.55 * vars['Var_3'] + -7.77 * vars['Var_5'] <= -9.01, name='C0')\n    m.addConstr(-7.85 * vars['Var_0'] + 5.31 * vars['Var_2'] + 8.34 * vars['Var_3'] + -4.03 * vars['Var_4'] + -4.74 * vars['Var_5'] <= -52.29, name='C1')\n    m.addConstr(-9.05 * vars['Var_0'] + -2.98 * vars['Var_1'] + -7.23 * vars['Var_2'] + -4.73 * vars['Var_3'] + 5.94 * vars['Var_4'] + 4.63 * vars['Var_5'] <= -63.19, name='C2')\n    m.addConstr(1.34 * vars['Var_0'] + 1.7 * vars['Var_1'] + 5.18 * vars['Var_2'] + -6.17 * vars['Var_3'] + 9.91 * vars['Var_4'] <= 41.08, name='C3')\n    m.addConstr(6.18 * vars['Var_0'] + 5.62 * vars['Var_1'] + 3.1 * vars['Var_2'] + -4.73 * vars['Var_3'] + 2.14 * vars['Var_4'] + -9.24 * vars['Var_5'] <= 28.1, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Scaling Six FYQ3 Initiatives Within Our Commitments and Capacity\n\nTeam,\n\nAs discussed, we\u2019re preparing to scale a set of six initiatives this quarter and would like your help determining the best mix to maximize net value while honoring our sustainability commitments and staying within our execution capacity. Each initiative can be scaled from zero up to its specified maximum this quarter (partial deployment is acceptable), delivers a defined per\u2011tranche benefit, and moves our carbon, grid draw, and water ledgers (negative values are reductions vs. baseline), while also consuming or freeing execution bandwidth and cash.\n\nHere are the levers, in the order we\u2019re considering them:\n\n- Aurora Cogeneration Modules (Plant power and heat co\u2011gen)\n  \u2022 Value: Each module contributes 1.92 in net benefit.\n  \u2022 Scale: We can deploy anywhere from 0 up to 15.97 modules this quarter.\n  \u2022 Carbon ledger: Adds 3.57 tCO2e per module (i.e., increases direct emissions).\n  \u2022 Grid draw: Cuts purchased electricity by 7.85 MWh per module.\n  \u2022 Water/waste: Reduces net water usage by 9.05 units per module.\n  \u2022 Execution bandwidth: Requires 1.34 thousand PMO/engineering hours per module.\n  \u2022 Cash envelope: Draws 6.18 in cash per module this quarter.\n\n- Sparrow Packaging Light\u2011Weighting (materials and washing optimization)\n  \u2022 Value: Each tranche contributes 4.62 in net benefit.\n  \u2022 Scale: 0 up to 18.15 tranches this quarter.\n  \u2022 Carbon ledger: Reduces 2.19 tCO2e per tranche.\n  \u2022 Grid draw: No material change to purchased electricity.\n  \u2022 Water/waste: Reduces net water usage by 2.98 units per tranche.\n  \u2022 Execution bandwidth: Requires 1.7 thousand hours per tranche.\n  \u2022 Cash envelope: Draws 5.62 in cash per tranche.\n\n- Closed\u2011Loop Cooling Upgrade (circulation pumps and heat recovery)\n  \u2022 Value: Each tranche contributes 6.94 in net benefit.\n  \u2022 Scale: 0 up to 10.1 tranches this quarter.\n  \u2022 Carbon ledger: Reduces 2.15 tCO2e per tranche.\n  \u2022 Grid draw: Increases purchased electricity by 5.31 MWh per tranche (pumps and controls).\n  \u2022 Water/waste: Reduces net water usage by 7.23 units per tranche.\n  \u2022 Execution bandwidth: Requires 5.18 thousand hours per tranche.\n  \u2022 Cash envelope: Draws 3.1 in cash per tranche.\n\n- Digital Workflows & Automation (controls, robotics, and orchestration)\n  \u2022 Value: Each tranche contributes 5.97 in net benefit.\n  \u2022 Scale: 0 up to 9.52 tranches this quarter.\n  \u2022 Carbon ledger: Reduces 1.55 tCO2e per tranche.\n  \u2022 Grid draw: Increases purchased electricity by 8.34 MWh per tranche (sensors/IT load).\n  \u2022 Water/waste: Reduces net water usage by 4.73 units per tranche.\n  \u2022 Execution bandwidth: Frees 6.17 thousand hours per tranche (negative draw on our bandwidth).\n  \u2022 Cash envelope: Returns 4.73 per tranche to the cash envelope in\u2011quarter (vendor incentives and offsets reduce our net outlay).\n\n- Distillation Column B Upgrade (process efficiency and yield)\n  \u2022 Value: Each tranche contributes 5.59 in net benefit.\n  \u2022 Scale: 0 up to 11.21 tranches this quarter.\n  \u2022 Carbon ledger: No meaningful change to direct emissions.\n  \u2022 Grid draw: Reduces purchased electricity by 4.03 MWh per tranche.\n  \u2022 Water/waste: Increases net water usage by 5.94 units per tranche.\n  \u2022 Execution bandwidth: Requires 9.91 thousand hours per tranche.\n  \u2022 Cash envelope: Draws 2.14 in cash per tranche.\n\n- Renewable PPA with Embedded Rebates (supplier\u2011backed portfolio)\n  \u2022 Value: Each tranche contributes 5.0 in net benefit.\n  \u2022 Scale: 0 up to 9.29 tranches this quarter.\n  \u2022 Carbon ledger: Reduces 7.77 tCO2e per tranche.\n  \u2022 Grid draw: Reduces purchased electricity by 4.74 MWh per tranche.\n  \u2022 Water/waste: Increases net water usage by 4.63 units per tranche (associated upstream effects).\n  \u2022 Execution bandwidth: No incremental PMO/engineering hours required.\n  \u2022 Cash envelope: Provides a net in\u2011quarter inflow of 9.24 per tranche (rebates/subsidies reduce our cash draw).\n\nOperating limits and commitments we must respect this quarter:\n\n- Net carbon change vs. baseline: At least a 9.01\u2011ton reduction; we are capping the net ledger at \u22129.01 tCO2e or lower.\n- Net grid electricity change vs. baseline: At least a 52.29 MWh reduction; we are capping the net ledger at \u221252.29 MWh or lower.\n- Net water/waste change vs. baseline: At least a 63.19\u2011unit reduction; we are capping the net ledger at \u221263.19 or lower.\n- Execution bandwidth: We have no more than 41.08 thousand PMO/engineering hours available this quarter.\n- Cash envelope: We have no more than 28.1 in cash available in\u2011quarter (negative draws from rebates can increase the headroom).\n\nIn short, please advise on the tranche levels for each of the six initiatives\u2014ranging from zero up to their respective maxima\u2014so that we maximize total net benefit (as noted above for each initiative) while keeping the combined impacts within the carbon, electricity, and water reduction commitments and within our bandwidth and cash limits. Happy to provide any additional context you need."
+}

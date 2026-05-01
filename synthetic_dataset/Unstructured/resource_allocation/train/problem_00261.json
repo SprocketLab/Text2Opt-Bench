@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, costs, contributions, and minimum targets are explicit. Variables are continuous (fractional) with 0\u2013UB. Objective is clear: minimize total cost. No hidden assumptions.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Business narrative and repeated 'no material effect' entries add verbosity, but the structure and coefficients are precise and necessary.",
+      "realism": 95,
+      "realism_comment": "Plausible logistics/field services planning with capacities, service targets, costs, and emissions; coefficients and units are coherent and realistic."
+    },
+    "prompt_tokens_with_data": 1336,
+    "prompt_tokens_without_data": 1336
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 214.89818704023602,
+    "optimal_values": {
+      "Var_0": 8.41,
+      "Var_1": 0.0,
+      "Var_2": 6.418670988654779,
+      "Var_3": 8.76,
+      "Var_4": 4.754444145521517,
+      "Var_5": 6.402173913043479
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -7.35
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 63.29
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 63.89
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 17.67
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 105.71
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 92.41
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 138.53
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.41
+      ],
+      "objective_linear_coefficient": 3.83,
+      "resource_costs": {
+        "C1": 8.34,
+        "C2": 8.73,
+        "C4": 0.84,
+        "C5": 8.23,
+        "C6": 8.36
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.71
+      ],
+      "objective_linear_coefficient": 1.21,
+      "resource_costs": {
+        "C1": 3.01,
+        "C5": 7.53
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.84
+      ],
+      "objective_linear_coefficient": 9.59,
+      "resource_costs": {
+        "C0": -0.58,
+        "C1": 0.27,
+        "C4": 6.17,
+        "C6": 5.14
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.76
+      ],
+      "objective_linear_coefficient": 4.62,
+      "resource_costs": {
+        "C4": 6.74
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.53
+      ],
+      "objective_linear_coefficient": 5.21,
+      "resource_costs": {
+        "C5": 7.46,
+        "C6": 7.41
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.38
+      ],
+      "objective_linear_coefficient": 8.73,
+      "resource_costs": {
+        "C3": 2.76
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.41, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.83 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.71, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.21 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.84, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.59 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.76, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.62 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.53, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.21 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.38, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.73 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-0.58 * vars['Var_2'] >= -7.35, name='C0')\n    m.addConstr(8.34 * vars['Var_0'] + 3.01 * vars['Var_1'] + 0.27 * vars['Var_2'] >= 63.29, name='C1')\n    m.addConstr(8.73 * vars['Var_0'] >= 63.89, name='C2')\n    m.addConstr(2.76 * vars['Var_5'] >= 17.67, name='C3')\n    m.addConstr(0.84 * vars['Var_0'] + 6.17 * vars['Var_2'] + 6.74 * vars['Var_3'] >= 105.71, name='C4')\n    m.addConstr(8.23 * vars['Var_0'] + 7.53 * vars['Var_1'] + 7.46 * vars['Var_4'] >= 92.41, name='C5')\n    m.addConstr(8.36 * vars['Var_0'] + 5.14 * vars['Var_2'] + 7.41 * vars['Var_4'] >= 138.53, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Deployment Plan for Logistics & Field Services\n\nTeam,\n\nWe need your help building a weekly plan that meets our service and compliance commitments at the lowest possible total operating spend. We have six deployable options below (fleet assets and crews). Each can be scheduled in fractional units within its availability limit, and each carries a per-unit operating cost. They contribute differently to our required service outputs and compliance measures.\n\nDeployment options (in the order we\u2019d like you to consider them)\n\n- Electric Box Trucks\n  - Availability: from 0 up to 8.41 unit-days each week.\n  - Operating cost: 3.83 per unit-day.\n  - What they deliver:\n    - Urban Deliveries: +8.34 deliveries per unit-day.\n    - Suburban Deliveries: +8.73 deliveries per unit-day.\n    - Long-Range Freight Miles: +0.84 lane-equivalent miles per unit-day.\n    - On-Site Service Calls: +8.23 calls per unit-day.\n    - Coverage Hours (24/7 readiness): +8.36 hours per unit-day.\n    - Emissions Credit Balance: no material effect.\n    - Heavy Lift Jobs: no material effect.\n\n- Cargo Vans\n  - Availability: from 0 up to 12.71 unit-days each week.\n  - Operating cost: 1.21 per unit-day.\n  - What they deliver:\n    - Urban Deliveries: +3.01 deliveries per unit-day.\n    - On-Site Service Calls: +7.53 calls per unit-day.\n    - Suburban Deliveries: no material effect.\n    - Heavy Lift Jobs: no material effect.\n    - Long-Range Freight Miles: no material effect.\n    - Coverage Hours (24/7 readiness): no material effect.\n    - Emissions Credit Balance: no material effect.\n\n- Diesel Long-Haul Rigs\n  - Availability: from 0 up to 10.84 unit-days each week.\n  - Operating cost: 9.59 per unit-day.\n  - What they deliver:\n    - Emissions Credit Balance: debits 0.58 credits per unit-day (i.e., \u22120.58).\n    - Urban Deliveries: +0.27 deliveries per unit-day.\n    - Long-Range Freight Miles: +6.17 lane-equivalent miles per unit-day.\n    - Coverage Hours (24/7 readiness): +5.14 hours per unit-day.\n    - Suburban Deliveries: no material effect.\n    - Heavy Lift Jobs: no material effect.\n    - On-Site Service Calls: no material effect.\n\n- Rail Intermodal Slots\n  - Availability: from 0 up to 8.76 unit-days each week.\n  - Operating cost: 4.62 per unit-day.\n  - What they deliver:\n    - Long-Range Freight Miles: +6.74 lane-equivalent miles per unit-day.\n    - Emissions Credit Balance: no material effect.\n    - Urban Deliveries: no material effect.\n    - Suburban Deliveries: no material effect.\n    - Heavy Lift Jobs: no material effect.\n    - On-Site Service Calls: no material effect.\n    - Coverage Hours (24/7 readiness): no material effect.\n\n- Field Technician Crews\n  - Availability: from 0 up to 8.53 crew-days each week.\n  - Operating cost: 5.21 per crew-day.\n  - What they deliver:\n    - On-Site Service Calls: +7.46 calls per crew-day.\n    - Coverage Hours (24/7 readiness): +7.41 hours per crew-day.\n    - Emissions Credit Balance: no material effect.\n    - Urban Deliveries: no material effect.\n    - Suburban Deliveries: no material effect.\n    - Heavy Lift Jobs: no material effect.\n    - Long-Range Freight Miles: no material effect.\n\n- Specialty Crane Rentals\n  - Availability: from 0 up to 16.38 unit-days each week.\n  - Operating cost: 8.73 per unit-day.\n  - What they deliver:\n    - Heavy Lift Jobs: +2.76 jobs per unit-day.\n    - Emissions Credit Balance: no material effect.\n    - Urban Deliveries: no material effect.\n    - Suburban Deliveries: no material effect.\n    - Long-Range Freight Miles: no material effect.\n    - On-Site Service Calls: no material effect.\n    - Coverage Hours (24/7 readiness): no material effect.\n\nMarket and compliance commitments we must meet or exceed each week\n\n- Emissions Credit Balance: not lower than \u22127.35 credits (we can be up to 7.35 credits short, but no worse).\n- Urban Deliveries: at least 63.29 deliveries.\n- Suburban Deliveries: at least 63.89 deliveries.\n- Heavy Lift Jobs: at least 17.67 jobs.\n- Long-Range Freight Miles: at least 105.71 lane-equivalent miles.\n- On-Site Service Calls: at least 92.41 calls.\n- Coverage Hours (24/7 readiness): at least 138.53 hours.\n\nPlease assemble a deployment mix that satisfies all of the above requirements while minimizing the total weekly operating spend implied by the per-unit costs. Let me know if any assumptions need to be clarified (e.g., if you\u2019d like us to standardize units or adjust how we account for partial-day utilization).\n\nThanks in advance."
+}

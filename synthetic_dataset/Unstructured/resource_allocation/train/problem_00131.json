@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and each lever\u2019s contributions are explicit; 'at least' defines >=. Objective to minimize total cost is clear; no missing numbers.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Corporate email framing adds fluff; some repeated 'no impact' lines. Still, technical details are clear and necessary.",
+      "realism": 95,
+      "realism_comment": "Feels like a real Q4 operations mix problem with service/volume guarantees and discrete/continuous levers; minor oddity in decimal caps for integer items."
+    },
+    "prompt_tokens_with_data": 1068,
+    "prompt_tokens_without_data": 1068
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 96.92198844624029,
+    "optimal_values": {
+      "Var_0": 15.0,
+      "Var_1": -0.0,
+      "Var_2": 3.9751773049645394,
+      "Var_3": 5.674248163815055
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.21
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 28.47
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 59.01
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.61
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 74.6
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 101.28
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.29
+      ],
+      "objective_linear_coefficient": 2.67,
+      "resource_costs": {
+        "C1": 2.3,
+        "C2": 8.65,
+        "C3": 2.95,
+        "C5": 8.98
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.45
+      ],
+      "objective_linear_coefficient": 8.16,
+      "resource_costs": {
+        "C0": 6.15,
+        "C1": 2.27,
+        "C3": 3.78,
+        "C5": 7.61
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.83
+      ],
+      "objective_linear_coefficient": 3.23,
+      "resource_costs": {
+        "C0": 2.82,
+        "C3": 1.79,
+        "C4": 9.49
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.21
+      ],
+      "objective_linear_coefficient": 7.76,
+      "resource_costs": {
+        "C1": 1.04,
+        "C3": 6.74,
+        "C4": 8.23,
+        "C5": 2.72
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.29, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.67 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.45, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.16 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.83, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.23 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.21, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.76 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.15 * vars['Var_1'] + 2.82 * vars['Var_2'] >= 11.21, name='C0')\n    m.addConstr(2.3 * vars['Var_0'] + 2.27 * vars['Var_1'] + 1.04 * vars['Var_3'] >= 28.47, name='C1')\n    m.addConstr(8.65 * vars['Var_0'] >= 59.01, name='C2')\n    m.addConstr(2.95 * vars['Var_0'] + 3.78 * vars['Var_1'] + 1.79 * vars['Var_2'] + 6.74 * vars['Var_3'] >= 89.61, name='C3')\n    m.addConstr(9.49 * vars['Var_2'] + 8.23 * vars['Var_3'] >= 74.6, name='C4')\n    m.addConstr(8.98 * vars['Var_0'] + 7.61 * vars['Var_1'] + 2.72 * vars['Var_3'] >= 101.28, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q4 service mix proposal to minimize spend while meeting our guarantees\n\nTeam,\n\nAs we finalize the fourth-quarter plan, I need a cost-minimizing mix across four fulfillment levers while still hitting our minimum service and volume guarantees. Below is the decision set we can pull, what each option costs, and exactly how each one moves our required targets.\n\nLevers we can pull\n\n- Linehaul Rail Blocks\n  - Unit economics and availability: Each block carries a unit cost of 2.67. We may schedule anywhere from zero up to a policy cap equivalent to 15.29 blocks, and these must be scheduled in whole blocks.\n  - How this moves our obligations:\n    - Baseline Readiness Hours: no impact.\n    - Regional Service Coverage: contributes 2.30 coverage points per block.\n    - Linehaul Volume Obligation: contributes 8.65 volume units per block.\n    - Network Throughput Score: contributes 2.95 throughput points per block.\n    - Premium Response Level: no impact.\n    - Quarter-End Deliveries: contributes 8.98 delivery units per block.\n\n- Regional Courier Crews\n  - Unit economics and availability: Each crew has a unit cost of 8.16. We may deploy anywhere from zero up to a cap equivalent to 6.45 crews, and these must be whole crews.\n  - How this moves our obligations:\n    - Baseline Readiness Hours: contributes 6.15 hours per crew.\n    - Regional Service Coverage: contributes 2.27 coverage points per crew.\n    - Linehaul Volume Obligation: no impact.\n    - Network Throughput Score: contributes 3.78 throughput points per crew.\n    - Premium Response Level: no impact.\n    - Quarter-End Deliveries: contributes 7.61 delivery units per crew.\n\n- Night-Shift Overtime Hours\n  - Unit economics and availability: Each overtime hour carries a unit cost of 3.23. We may authorize from zero up to 7.83 hours, and partial hours are allowed.\n  - How this moves our obligations:\n    - Baseline Readiness Hours: contributes 2.82 hours per overtime hour.\n    - Regional Service Coverage: no impact.\n    - Linehaul Volume Obligation: no impact.\n    - Network Throughput Score: contributes 1.79 throughput points per overtime hour.\n    - Premium Response Level: contributes 9.49 premium-level points per overtime hour.\n    - Quarter-End Deliveries: no impact.\n\n- Third-Party Expeditor Lots\n  - Unit economics and availability: Each expeditor lot has a unit cost of 7.76. We may book from zero up to 10.21 lots, and partial lots are permitted.\n  - How this moves our obligations:\n    - Baseline Readiness Hours: no impact.\n    - Regional Service Coverage: contributes 1.04 coverage points per lot.\n    - Linehaul Volume Obligation: no impact.\n    - Network Throughput Score: contributes 6.74 throughput points per lot.\n    - Premium Response Level: contributes 8.23 premium-level points per lot.\n    - Quarter-End Deliveries: contributes 2.72 delivery units per lot.\n\nFacility specs and minimum service commitments we must meet\n\n- Baseline Readiness Hours: at least 11.21 hours.\n- Regional Service Coverage: at least 28.47 coverage points.\n- Linehaul Volume Obligation: at least 59.01 volume units.\n- Network Throughput Score: at least 89.61 throughput points.\n- Premium Response Level: at least 74.60 premium-level points.\n- Quarter-End Deliveries: at least 101.28 delivery units.\n\nPlease develop the lowest-cost combination of the above levers that satisfies all of the minimums. We may elect to use zero of any option if it\u2019s not needed, provided all obligations are still met. Note the discrete nature of Linehaul Rail Blocks and Regional Courier Crews (whole units only), and the fractional flexibility available for Night-Shift Overtime Hours and Third-Party Expeditor Lots.\n\nThanks in advance for turning this into a recommended allocation.\n\nBest,\nDana Greene\nVP, Network Operations"
+}

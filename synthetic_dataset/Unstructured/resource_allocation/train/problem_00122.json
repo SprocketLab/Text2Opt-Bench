@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, and per-unit impacts are explicit; five >= commitments clearly stated; fractional scheduling implies continuous vars; objective is minimize total run cost.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some email-style narrative and LP/QP mention add fluff, but most content precisely lists necessary data and constraints.",
+      "realism": 95,
+      "realism_comment": "Very plausible grid dispatch scenario with costs, capacities, energy/inertia/reactive/sustainability/reserve targets; negative impacts handled sensibly."
+    },
+    "prompt_tokens_with_data": 876,
+    "prompt_tokens_without_data": 876
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 57.074716293922506,
+    "optimal_values": {
+      "Var_0": 1.4795892696745252,
+      "Var_1": 0.9663643317297996,
+      "Var_2": 6.414919102275753,
+      "Var_3": 6.6100477964134035
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.77
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 13.43
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 36.53
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -5.92
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 62.0
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.77
+      ],
+      "objective_linear_coefficient": 2.22,
+      "resource_costs": {
+        "C0": 1.22,
+        "C1": 8.48,
+        "C2": 7.16,
+        "C3": -1.71,
+        "C4": 5.75
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.66
+      ],
+      "objective_linear_coefficient": 3.3,
+      "resource_costs": {
+        "C0": 5.26,
+        "C1": 0.25,
+        "C2": -4.84
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.85
+      ],
+      "objective_linear_coefficient": 6.6,
+      "resource_costs": {
+        "C0": 1.13,
+        "C1": 0.1,
+        "C2": -0.71,
+        "C3": 1.79,
+        "C4": 0.59
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.47
+      ],
+      "objective_linear_coefficient": 1.25,
+      "resource_costs": {
+        "C0": 7.66,
+        "C2": 5.66,
+        "C3": -2.25,
+        "C4": 7.52
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.77, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.22 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.66, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.3 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.85, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.6 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.47, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.25 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.22 * vars['Var_0'] + 5.26 * vars['Var_1'] + 1.13 * vars['Var_2'] + 7.66 * vars['Var_3'] >= 64.77, name='C0')\n    m.addConstr(8.48 * vars['Var_0'] + 0.25 * vars['Var_1'] + 0.1 * vars['Var_2'] >= 13.43, name='C1')\n    m.addConstr(7.16 * vars['Var_0'] + -4.84 * vars['Var_1'] + -0.71 * vars['Var_2'] + 5.66 * vars['Var_3'] >= 36.53, name='C2')\n    m.addConstr(-1.71 * vars['Var_0'] + 1.79 * vars['Var_2'] + -2.25 * vars['Var_3'] >= -5.92, name='C3')\n    m.addConstr(5.75 * vars['Var_0'] + 0.59 * vars['Var_2'] + 7.52 * vars['Var_3'] >= 62.0, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed low-cost blend to meet grid commitments\n\nTeam,\n\nFor the upcoming period, our aim is to meet or exceed five operating commitments at the lowest total run cost. The portfolio options below can be scheduled in fractional or whole units within their available ranges. Each unit changes our metrics for delivered energy, stability support, voltage support, sustainability balance, and contingency reserves as noted.\n\n- Ridgeview Steam Blocks\n  - Run cost: 2.22 per block.\n  - Availability: we may schedule anywhere from 0.00 up to 5.77 blocks.\n  - Impact per block:\n    - Delivered energy: adds 1.22 units.\n    - Stability support (inertia): adds 8.48 credits.\n    - Voltage support (reactive capability): adds 7.16 units.\n    - Sustainability balance: counts as \u22121.71 compliance points (i.e., it draws down the emissions ledger).\n    - Contingency reserves: adds 5.75 units.\n\n- Harbor Battery Dispatch Windows\n  - Run cost: 3.30 per window.\n  - Availability: we may schedule anywhere from 0.00 up to 7.66 windows.\n  - Impact per window:\n    - Delivered energy: adds 5.26 units.\n    - Stability support (inertia): adds 0.25 credits.\n    - Voltage support (reactive capability): reduces the total by 4.84 units.\n    - Sustainability balance: no effect.\n    - Contingency reserves: no effect.\n\n- SkyWind Renewable Packages\n  - Run cost: 6.60 per package.\n  - Availability: we may schedule anywhere from 0.00 up to 16.85 packages.\n  - Impact per package:\n    - Delivered energy: adds 1.13 units.\n    - Stability support (inertia): adds 0.10 credits.\n    - Voltage support (reactive capability): reduces the total by 0.71 units.\n    - Sustainability balance: adds 1.79 compliance points (a positive credit).\n    - Contingency reserves: adds 0.59 units.\n\n- Pioneer Peaker Runs\n  - Run cost: 1.25 per run.\n  - Availability: we may schedule anywhere from 0.00 up to 9.47 runs.\n  - Impact per run:\n    - Delivered energy: adds 7.66 units.\n    - Stability support (inertia): no effect.\n    - Voltage support (reactive capability): adds 5.66 units.\n    - Sustainability balance: counts as \u22122.25 compliance points (a debit).\n    - Contingency reserves: adds 7.52 units.\n\nOperating commitments (minimums we must collectively meet or exceed):\n- Delivered energy: at least 64.77 units.\n- Stability support (inertia): at least 13.43 credits.\n- Voltage support (reactive capability): at least 36.53 units.\n- Sustainability balance: no worse than \u22125.92 compliance points (the total must remain at or above \u22125.92).\n- Contingency reserves: at least 62.0 units.\n\nPlease review this framing so we can proceed with a dispatch plan that satisfies all five commitments while minimizing total spend."
+}

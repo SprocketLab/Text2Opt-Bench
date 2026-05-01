@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All costs, bounds, and per-unit impacts are specified; thresholds explicit; objective is minimize spend; continuous scaling and >= constraints with signs are clear.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Business prose and repeated 'no impact' lines add length, but most content conveys coefficients and bounds; moderately verbose.",
+      "realism": 96,
+      "realism_comment": "Realistic field service resource planning with caps, trade-offs, and performance floors; numbers and relations are plausible."
+    },
+    "prompt_tokens_with_data": 1378,
+    "prompt_tokens_without_data": 1378
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 189.51076133501567,
+    "optimal_values": {
+      "Var_0": 4.235036496350365,
+      "Var_1": 0.0,
+      "Var_2": 4.659602374315618,
+      "Var_3": 6.650927554447235,
+      "Var_4": 8.076272862571276,
+      "Var_5": 9.36241610738255
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 36.87
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 72.92
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 111.04
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.91
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 29.01
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -0.33
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 87.93
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 41.85
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 40.91
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.93
+      ],
+      "objective_linear_coefficient": 5.44,
+      "resource_costs": {
+        "C0": -4.8,
+        "C1": 9.11,
+        "C4": 6.85,
+        "C5": 2.01
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.48
+      ],
+      "objective_linear_coefficient": 2.07,
+      "resource_costs": {
+        "C1": -3.59,
+        "C3": 1.19
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.15
+      ],
+      "objective_linear_coefficient": 3.0,
+      "resource_costs": {
+        "C0": 6.78,
+        "C1": 8.91,
+        "C2": -3.16,
+        "C3": 0.22,
+        "C5": -4.21,
+        "C6": 8.07
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.01
+      ],
+      "objective_linear_coefficient": 4.04,
+      "resource_costs": {
+        "C0": 3.85,
+        "C3": -0.66,
+        "C5": 1.62
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.15
+      ],
+      "objective_linear_coefficient": 4.82,
+      "resource_costs": {
+        "C2": 7.04,
+        "C3": 5.82,
+        "C6": 2.01
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.56
+      ],
+      "objective_linear_coefficient": 9.26,
+      "resource_costs": {
+        "C2": 7.36,
+        "C3": 0.46,
+        "C6": 3.88,
+        "C7": 4.47,
+        "C8": 4.48
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.93, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.44 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.48, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.07 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.15, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.0 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.01, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.04 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.15, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.82 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.56, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.26 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-4.8 * vars['Var_0'] + 6.78 * vars['Var_2'] + 3.85 * vars['Var_3'] >= 36.87, name='C0')\n    m.addConstr(9.11 * vars['Var_0'] + -3.59 * vars['Var_1'] + 8.91 * vars['Var_2'] >= 72.92, name='C1')\n    m.addConstr(-3.16 * vars['Var_2'] + 7.04 * vars['Var_4'] + 7.36 * vars['Var_5'] >= 111.04, name='C2')\n    m.addConstr(1.19 * vars['Var_1'] + 0.22 * vars['Var_2'] + -0.66 * vars['Var_3'] + 5.82 * vars['Var_4'] + 0.46 * vars['Var_5'] >= 45.91, name='C3')\n    m.addConstr(6.85 * vars['Var_0'] >= 29.01, name='C4')\n    m.addConstr(2.01 * vars['Var_0'] + -4.21 * vars['Var_2'] + 1.62 * vars['Var_3'] >= -0.33, name='C5')\n    m.addConstr(8.07 * vars['Var_2'] + 2.01 * vars['Var_4'] + 3.88 * vars['Var_5'] >= 87.93, name='C6')\n    m.addConstr(4.47 * vars['Var_5'] >= 41.85, name='C7')\n    m.addConstr(4.48 * vars['Var_5'] >= 40.91, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed field service resource mix to meet commitments at lowest total cost\n\nTeam,\n\nAs discussed, we need to assemble the most cost\u2011efficient mix of six deployment levers to satisfy our FY service commitments and compliance floors. The aim is to minimize total operating spend while meeting or exceeding nine required performance and impact metrics across coverage, responsiveness, throughput, workforce capacity, training, sustainability, regional build\u2011out, audits, and outreach. Each lever below can be scaled anywhere from zero up to its operational cap.\n\nThe levers\n\n1) Training & Simulation Labs\n- Fully loaded cost per unit: 5.44. Available scale: 0.00 up to 6.93 units.\n- Impact on our commitments (per unit deployed):\n  - Baseline Coverage Index: reduces by 4.80.\n  - Priority Response Readiness: adds 9.11.\n  - Bulk Order Throughput: no impact.\n  - Skilled Technician Hours: no impact.\n  - Customer Training Points: adds 6.85.\n  - Sustainability Offset Score: adds 2.01.\n  - Regional Capacity Build\u2011out: no impact.\n  - Compliance Audits Completed: no impact.\n  - Community Outreach Contacts: no impact.\n\n2) Apprentice Technician Cohort\n- Fully loaded cost per unit: 2.07. Available scale: 0.00 up to 17.48 units.\n- Impact on our commitments (per unit deployed):\n  - Baseline Coverage Index: no impact.\n  - Priority Response Readiness: reduces by 3.59.\n  - Bulk Order Throughput: no impact.\n  - Skilled Technician Hours: adds 1.19.\n  - Customer Training Points: no impact.\n  - Sustainability Offset Score: no impact.\n  - Regional Capacity Build\u2011out: no impact.\n  - Compliance Audits Completed: no impact.\n  - Community Outreach Contacts: no impact.\n\n3) Mobile Service Vans\n- Fully loaded cost per unit: 3.00. Available scale: 0.00 up to 10.15 units.\n- Impact on our commitments (per unit deployed):\n  - Baseline Coverage Index: adds 6.78.\n  - Priority Response Readiness: adds 8.91.\n  - Bulk Order Throughput: reduces by 3.16.\n  - Skilled Technician Hours: adds 0.22.\n  - Customer Training Points: no impact.\n  - Sustainability Offset Score: reduces by 4.21.\n  - Regional Capacity Build\u2011out: adds 8.07.\n  - Compliance Audits Completed: no impact.\n  - Community Outreach Contacts: no impact.\n\n4) On\u2011Call Specialist Teams\n- Fully loaded cost per unit: 4.04. Available scale: 0.00 up to 10.01 units.\n- Impact on our commitments (per unit deployed):\n  - Baseline Coverage Index: adds 3.85.\n  - Priority Response Readiness: no impact.\n  - Bulk Order Throughput: no impact.\n  - Skilled Technician Hours: reduces by 0.66.\n  - Customer Training Points: no impact.\n  - Sustainability Offset Score: adds 1.62.\n  - Regional Capacity Build\u2011out: no impact.\n  - Compliance Audits Completed: no impact.\n  - Community Outreach Contacts: no impact.\n\n5) Automation Workcells\n- Fully loaded cost per unit: 4.82. Available scale: 0.00 up to 11.15 units.\n- Impact on our commitments (per unit deployed):\n  - Baseline Coverage Index: no impact.\n  - Priority Response Readiness: no impact.\n  - Bulk Order Throughput: adds 7.04.\n  - Skilled Technician Hours: adds 5.82.\n  - Customer Training Points: no impact.\n  - Sustainability Offset Score: no impact.\n  - Regional Capacity Build\u2011out: adds 2.01.\n  - Compliance Audits Completed: no impact.\n  - Community Outreach Contacts: no impact.\n\n6) Regional Service Centers\n- Fully loaded cost per unit: 9.26. Available scale: 0.00 up to 10.56 units.\n- Impact on our commitments (per unit deployed):\n  - Baseline Coverage Index: no impact.\n  - Priority Response Readiness: no impact.\n  - Bulk Order Throughput: adds 7.36.\n  - Skilled Technician Hours: adds 0.46.\n  - Customer Training Points: no impact.\n  - Sustainability Offset Score: no impact.\n  - Regional Capacity Build\u2011out: adds 3.88.\n  - Compliance Audits Completed: adds 4.47.\n  - Community Outreach Contacts: adds 4.48.\n\nMinimum commitments and compliance floors\n\nPlease ensure the combined plan meets or exceeds all of the following:\n- Baseline Coverage Index: at least 36.87.\n- Priority Response Readiness: at least 72.92.\n- Bulk Order Throughput: at least 111.04.\n- Skilled Technician Hours: at least 45.91.\n- Customer Training Points: at least 29.01.\n- Sustainability Offset Score: at least \u22120.33 (a small deficit is permissible; overall score must not fall below \u22120.33).\n- Regional Capacity Build\u2011out: at least 87.93.\n- Compliance Audits Completed: at least 41.85.\n- Community Outreach Contacts: at least 40.91.\n\nOur objective is to meet these thresholds at the lowest total spend by dialing each lever anywhere between its minimum (0.00) and maximum availability shown above. Let me know if you need additional context on any lever\u2019s operational constraints or the measurement definitions for the metrics."
+}

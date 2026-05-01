@@ -1,0 +1,491 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 15,
+    "num_constraints": 17,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-product profit, bounds, integrality, and per-resource loads with clear capacity limits and '<= do not exceed' make the MILP fully reconstructible; zeros are explicit via omissions.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email framing and repeated 'No draw on other listed resources' add some verbosity, but most length is necessary to list coefficients across 17 resources.",
+      "realism": 96,
+      "realism_comment": "Plausible production planning with multiple plants and shared resources, mixed integer/continuous decisions, and realistic capacities; coherent and detailed."
+    },
+    "prompt_tokens_with_data": 3802,
+    "prompt_tokens_without_data": 3802
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 532.5367644360645,
+    "optimal_values": {
+      "Var_0": 6.0,
+      "Var_1": 10.704468894450951,
+      "Var_2": 1.2553106225925685,
+      "Var_3": -0.0,
+      "Var_4": 0.0,
+      "Var_5": -0.0,
+      "Var_6": -0.0,
+      "Var_7": 16.0,
+      "Var_8": -0.0,
+      "Var_9": 0.0,
+      "Var_10": 12.0,
+      "Var_11": 0.0,
+      "Var_12": 4.964395449118805,
+      "Var_13": 10.381771008847732,
+      "Var_14": 3.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 235.82
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 255.61
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 327.71
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 242.16
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 390.25
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 351.22
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 307.5
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 237.23
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 224.19
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 242.7
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 262.03
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 167.74
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 171.86
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 267.77
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 281.17
+    },
+    "C15": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 247.37
+    },
+    "C16": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 276.89
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.7
+      ],
+      "objective_linear_coefficient": 9.82,
+      "resource_costs": {
+        "C0": 4.38,
+        "C1": 3.67,
+        "C2": 6.96,
+        "C3": 2.85,
+        "C4": 5.48,
+        "C5": 9.71,
+        "C6": 8.98,
+        "C7": 0.22,
+        "C8": 0.16,
+        "C9": 9.38,
+        "C10": 1.05,
+        "C11": 1.26,
+        "C12": 4.18,
+        "C13": 1.42,
+        "C14": 0.33,
+        "C15": 0.38,
+        "C16": 7.84
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.11
+      ],
+      "objective_linear_coefficient": 8.46,
+      "resource_costs": {
+        "C2": 8.73,
+        "C3": 6.3,
+        "C4": 7.89,
+        "C5": 1.5,
+        "C6": 0.91,
+        "C8": 4.23,
+        "C9": 2.49,
+        "C10": 1.19,
+        "C11": 7.56,
+        "C13": 7.06,
+        "C14": 1.0
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.71
+      ],
+      "objective_linear_coefficient": 7.32,
+      "resource_costs": {
+        "C0": 7.97,
+        "C1": 6.77,
+        "C2": 8.98,
+        "C3": 4.4,
+        "C4": 8.32,
+        "C5": 6.14,
+        "C6": 5.15,
+        "C7": 1.39,
+        "C8": 3.35,
+        "C9": 1.41,
+        "C10": 5.04,
+        "C13": 4.83,
+        "C15": 5.31,
+        "C16": 9.3
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.59
+      ],
+      "objective_linear_coefficient": 1.34,
+      "resource_costs": {
+        "C0": 5.76,
+        "C2": 9.01,
+        "C3": 9.82,
+        "C4": 0.76,
+        "C5": 7.57,
+        "C6": 2.41,
+        "C8": 8.96,
+        "C11": 1.07,
+        "C12": 6.26,
+        "C13": 2.08,
+        "C14": 6.66,
+        "C15": 7.95
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.0
+      ],
+      "objective_linear_coefficient": 1.88,
+      "resource_costs": {
+        "C0": 1.48,
+        "C1": 1.35,
+        "C2": 3.53,
+        "C3": 3.71,
+        "C4": 3.83,
+        "C5": 1.49,
+        "C7": 4.74,
+        "C8": 8.69,
+        "C9": 1.74,
+        "C10": 7.9,
+        "C11": 8.11,
+        "C12": 4.37,
+        "C13": 1.2,
+        "C14": 7.0,
+        "C15": 3.68,
+        "C16": 8.19
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.1
+      ],
+      "objective_linear_coefficient": 1.88,
+      "resource_costs": {
+        "C1": 5.24,
+        "C2": 4.7,
+        "C3": 8.89,
+        "C4": 4.27,
+        "C6": 4.09,
+        "C7": 9.01,
+        "C8": 3.0,
+        "C9": 1.42,
+        "C10": 7.18,
+        "C11": 9.86,
+        "C13": 8.9,
+        "C14": 4.69,
+        "C15": 1.16
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.66
+      ],
+      "objective_linear_coefficient": 6.83,
+      "resource_costs": {
+        "C0": 6.74,
+        "C1": 1.33,
+        "C4": 8.16,
+        "C5": 7.72,
+        "C7": 5.45,
+        "C8": 1.6,
+        "C9": 4.53,
+        "C10": 4.09,
+        "C11": 8.11,
+        "C12": 6.17,
+        "C13": 4.3,
+        "C14": 9.31,
+        "C15": 9.69,
+        "C16": 7.09
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.9
+      ],
+      "objective_linear_coefficient": 8.03,
+      "resource_costs": {
+        "C0": 2.62,
+        "C1": 7.54,
+        "C3": 3.21,
+        "C4": 0.52,
+        "C5": 7.19,
+        "C6": 5.83,
+        "C7": 8.81,
+        "C9": 1.7,
+        "C10": 3.14,
+        "C12": 8.02,
+        "C14": 0.25,
+        "C15": 2.87,
+        "C16": 2.02
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.75
+      ],
+      "objective_linear_coefficient": 1.59,
+      "resource_costs": {
+        "C0": 4.34,
+        "C1": 3.62,
+        "C3": 6.7,
+        "C4": 6.58,
+        "C5": 7.27,
+        "C6": 8.93,
+        "C7": 7.57,
+        "C8": 7.04,
+        "C9": 6.59,
+        "C10": 9.1,
+        "C11": 0.33,
+        "C12": 2.4,
+        "C13": 5.99,
+        "C14": 7.37,
+        "C15": 7.1
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.63
+      ],
+      "objective_linear_coefficient": 3.82,
+      "resource_costs": {
+        "C0": 6.5,
+        "C1": 4.61,
+        "C2": 3.19,
+        "C3": 2.05,
+        "C4": 5.82,
+        "C5": 9.25,
+        "C6": 8.4,
+        "C7": 7.71,
+        "C8": 4.96,
+        "C9": 4.64,
+        "C10": 7.54,
+        "C12": 8.57,
+        "C13": 9.61,
+        "C14": 5.25,
+        "C15": 8.11,
+        "C16": 3.57
+      }
+    },
+    "Var_10": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.59
+      ],
+      "objective_linear_coefficient": 9.93,
+      "resource_costs": {
+        "C0": 3.09,
+        "C1": 7.01,
+        "C2": 2.12,
+        "C4": 4.58,
+        "C8": 9.16,
+        "C9": 2.78,
+        "C10": 6.58,
+        "C11": 2.12,
+        "C13": 0.47,
+        "C14": 4.93
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.06
+      ],
+      "objective_linear_coefficient": 1.4,
+      "resource_costs": {
+        "C0": 0.22,
+        "C1": 7.8,
+        "C2": 6.83,
+        "C3": 1.94,
+        "C4": 2.9,
+        "C5": 5.77,
+        "C6": 6.25,
+        "C7": 1.95,
+        "C8": 0.13,
+        "C9": 2.21,
+        "C10": 0.28,
+        "C11": 1.82,
+        "C12": 1.16,
+        "C14": 7.94,
+        "C15": 1.03,
+        "C16": 8.25
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.11
+      ],
+      "objective_linear_coefficient": 7.71,
+      "resource_costs": {
+        "C0": 5.79,
+        "C1": 1.08,
+        "C3": 3.25,
+        "C4": 8.76,
+        "C7": 6.11,
+        "C8": 9.46,
+        "C9": 9.43,
+        "C10": 8.99,
+        "C11": 3.57,
+        "C12": 3.23,
+        "C14": 8.51,
+        "C16": 9.53
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.66
+      ],
+      "objective_linear_coefficient": 6.66,
+      "resource_costs": {
+        "C0": 4.11,
+        "C2": 9.7,
+        "C3": 7.45,
+        "C4": 8.09,
+        "C5": 9.94,
+        "C6": 1.44,
+        "C7": 2.84,
+        "C8": 0.24,
+        "C9": 4.48,
+        "C11": 2.78,
+        "C13": 1.85,
+        "C14": 4.72,
+        "C15": 8.1,
+        "C16": 4.36
+      }
+    },
+    "Var_14": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.76
+      ],
+      "objective_linear_coefficient": 6.27,
+      "resource_costs": {
+        "C0": 3.44,
+        "C1": 4.99,
+        "C2": 1.64,
+        "C3": 2.42,
+        "C4": 7.8,
+        "C6": 8.78,
+        "C7": 4.77,
+        "C8": 4.79,
+        "C9": 1.3,
+        "C10": 8.58,
+        "C11": 2.41,
+        "C13": 8.63,
+        "C14": 2.49,
+        "C15": 4.09
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.7, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 9.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.11, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.46 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=12.59, vtype=GRB.INTEGER, name='Var_10')\n    lin_expr += 9.93 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=19.06, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 1.4 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=7.11, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 7.71 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=13.66, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 6.66 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=19.76, vtype=GRB.INTEGER, name='Var_14')\n    lin_expr += 6.27 * vars['Var_14']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.71, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.32 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.59, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 1.34 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.0, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.88 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=5.1, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 1.88 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=17.66, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 6.83 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=19.9, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 8.03 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=7.75, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 1.59 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=10.63, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 3.82 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.38 * vars['Var_0'] + 3.09 * vars['Var_10'] + 0.22 * vars['Var_11'] + 5.79 * vars['Var_12'] + 4.11 * vars['Var_13'] + 3.44 * vars['Var_14'] + 7.97 * vars['Var_2'] + 5.76 * vars['Var_3'] + 1.48 * vars['Var_4'] + 6.74 * vars['Var_6'] + 2.62 * vars['Var_7'] + 4.34 * vars['Var_8'] + 6.5 * vars['Var_9'] <= 235.82, name='C0')\n    m.addConstr(3.67 * vars['Var_0'] + 7.01 * vars['Var_10'] + 7.8 * vars['Var_11'] + 1.08 * vars['Var_12'] + 4.99 * vars['Var_14'] + 6.77 * vars['Var_2'] + 1.35 * vars['Var_4'] + 5.24 * vars['Var_5'] + 1.33 * vars['Var_6'] + 7.54 * vars['Var_7'] + 3.62 * vars['Var_8'] + 4.61 * vars['Var_9'] <= 255.61, name='C1')\n    m.addConstr(1.05 * vars['Var_0'] + 1.19 * vars['Var_1'] + 6.58 * vars['Var_10'] + 0.28 * vars['Var_11'] + 8.99 * vars['Var_12'] + 8.58 * vars['Var_14'] + 5.04 * vars['Var_2'] + 7.9 * vars['Var_4'] + 7.18 * vars['Var_5'] + 4.09 * vars['Var_6'] + 3.14 * vars['Var_7'] + 9.1 * vars['Var_8'] + 7.54 * vars['Var_9'] <= 262.03, name='C10')\n    m.addConstr(1.26 * vars['Var_0'] + 7.56 * vars['Var_1'] + 2.12 * vars['Var_10'] + 1.82 * vars['Var_11'] + 3.57 * vars['Var_12'] + 2.78 * vars['Var_13'] + 2.41 * vars['Var_14'] + 1.07 * vars['Var_3'] + 8.11 * vars['Var_4'] + 9.86 * vars['Var_5'] + 8.11 * vars['Var_6'] + 0.33 * vars['Var_8'] <= 167.74, name='C11')\n    m.addConstr(4.18 * vars['Var_0'] + 1.16 * vars['Var_11'] + 3.23 * vars['Var_12'] + 6.26 * vars['Var_3'] + 4.37 * vars['Var_4'] + 6.17 * vars['Var_6'] + 8.02 * vars['Var_7'] + 2.4 * vars['Var_8'] + 8.57 * vars['Var_9'] <= 171.86, name='C12')\n    m.addConstr(1.42 * vars['Var_0'] + 7.06 * vars['Var_1'] + 0.47 * vars['Var_10'] + 1.85 * vars['Var_13'] + 8.63 * vars['Var_14'] + 4.83 * vars['Var_2'] + 2.08 * vars['Var_3'] + 1.2 * vars['Var_4'] + 8.9 * vars['Var_5'] + 4.3 * vars['Var_6'] + 5.99 * vars['Var_8'] + 9.61 * vars['Var_9'] <= 267.77, name='C13')\n    m.addConstr(0.33 * vars['Var_0'] + 1.0 * vars['Var_1'] + 4.93 * vars['Var_10'] + 7.94 * vars['Var_11'] + 8.51 * vars['Var_12'] + 4.72 * vars['Var_13'] + 2.49 * vars['Var_14'] + 6.66 * vars['Var_3'] + 7.0 * vars['Var_4'] + 4.69 * vars['Var_5'] + 9.31 * vars['Var_6'] + 0.25 * vars['Var_7'] + 7.37 * vars['Var_8'] + 5.25 * vars['Var_9'] <= 281.17, name='C14')\n    m.addConstr(0.38 * vars['Var_0'] + 1.03 * vars['Var_11'] + 8.1 * vars['Var_13'] + 4.09 * vars['Var_14'] + 5.31 * vars['Var_2'] + 7.95 * vars['Var_3'] + 3.68 * vars['Var_4'] + 1.16 * vars['Var_5'] + 9.69 * vars['Var_6'] + 2.87 * vars['Var_7'] + 7.1 * vars['Var_8'] + 8.11 * vars['Var_9'] <= 247.37, name='C15')\n    m.addConstr(7.84 * vars['Var_0'] + 8.25 * vars['Var_11'] + 9.53 * vars['Var_12'] + 4.36 * vars['Var_13'] + 9.3 * vars['Var_2'] + 8.19 * vars['Var_4'] + 7.09 * vars['Var_6'] + 2.02 * vars['Var_7'] + 3.57 * vars['Var_9'] <= 276.89, name='C16')\n    m.addConstr(6.96 * vars['Var_0'] + 8.73 * vars['Var_1'] + 2.12 * vars['Var_10'] + 6.83 * vars['Var_11'] + 9.7 * vars['Var_13'] + 1.64 * vars['Var_14'] + 8.98 * vars['Var_2'] + 9.01 * vars['Var_3'] + 3.53 * vars['Var_4'] + 4.7 * vars['Var_5'] + 3.19 * vars['Var_9'] <= 327.71, name='C2')\n    m.addConstr(2.85 * vars['Var_0'] + 6.3 * vars['Var_1'] + 1.94 * vars['Var_11'] + 3.25 * vars['Var_12'] + 7.45 * vars['Var_13'] + 2.42 * vars['Var_14'] + 4.4 * vars['Var_2'] + 9.82 * vars['Var_3'] + 3.71 * vars['Var_4'] + 8.89 * vars['Var_5'] + 3.21 * vars['Var_7'] + 6.7 * vars['Var_8'] + 2.05 * vars['Var_9'] <= 242.16, name='C3')\n    m.addConstr(5.48 * vars['Var_0'] + 7.89 * vars['Var_1'] + 4.58 * vars['Var_10'] + 2.9 * vars['Var_11'] + 8.76 * vars['Var_12'] + 8.09 * vars['Var_13'] + 7.8 * vars['Var_14'] + 8.32 * vars['Var_2'] + 0.76 * vars['Var_3'] + 3.83 * vars['Var_4'] + 4.27 * vars['Var_5'] + 8.16 * vars['Var_6'] + 0.52 * vars['Var_7'] + 6.58 * vars['Var_8'] + 5.82 * vars['Var_9'] <= 390.25, name='C4')\n    m.addConstr(9.71 * vars['Var_0'] + 1.5 * vars['Var_1'] + 5.77 * vars['Var_11'] + 9.94 * vars['Var_13'] + 6.14 * vars['Var_2'] + 7.57 * vars['Var_3'] + 1.49 * vars['Var_4'] + 7.72 * vars['Var_6'] + 7.19 * vars['Var_7'] + 7.27 * vars['Var_8'] + 9.25 * vars['Var_9'] <= 351.22, name='C5')\n    m.addConstr(8.98 * vars['Var_0'] + 0.91 * vars['Var_1'] + 6.25 * vars['Var_11'] + 1.44 * vars['Var_13'] + 8.78 * vars['Var_14'] + 5.15 * vars['Var_2'] + 2.41 * vars['Var_3'] + 4.09 * vars['Var_5'] + 5.83 * vars['Var_7'] + 8.93 * vars['Var_8'] + 8.4 * vars['Var_9'] <= 307.5, name='C6')\n    m.addConstr(0.22 * vars['Var_0'] + 1.95 * vars['Var_11'] + 6.11 * vars['Var_12'] + 2.84 * vars['Var_13'] + 4.77 * vars['Var_14'] + 1.39 * vars['Var_2'] + 4.74 * vars['Var_4'] + 9.01 * vars['Var_5'] + 5.45 * vars['Var_6'] + 8.81 * vars['Var_7'] + 7.57 * vars['Var_8'] + 7.71 * vars['Var_9'] <= 237.23, name='C7')\n    m.addConstr(0.16 * vars['Var_0'] + 4.23 * vars['Var_1'] + 9.16 * vars['Var_10'] + 0.13 * vars['Var_11'] + 9.46 * vars['Var_12'] + 0.24 * vars['Var_13'] + 4.79 * vars['Var_14'] + 3.35 * vars['Var_2'] + 8.96 * vars['Var_3'] + 8.69 * vars['Var_4'] + 3.0 * vars['Var_5'] + 1.6 * vars['Var_6'] + 7.04 * vars['Var_8'] + 4.96 * vars['Var_9'] <= 224.19, name='C8')\n    m.addConstr(9.38 * vars['Var_0'] + 2.49 * vars['Var_1'] + 2.78 * vars['Var_10'] + 2.21 * vars['Var_11'] + 9.43 * vars['Var_12'] + 4.48 * vars['Var_13'] + 1.3 * vars['Var_14'] + 1.41 * vars['Var_2'] + 1.74 * vars['Var_4'] + 1.42 * vars['Var_5'] + 4.53 * vars['Var_6'] + 1.7 * vars['Var_7'] + 6.59 * vars['Var_8'] + 4.64 * vars['Var_9'] <= 242.7, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q3 Production Mix \u2014 Maximizing Contribution Within Plant and Market Limits\n\nTeam,\n\nWe\u2019re preparing the Q3 production mix with the clear intent to maximize total gross contribution while staying within the practical limits of our plants, people, and partner allocations. Below are the levers available to us this quarter\u2014each product family\u2019s economics, how flexibly we can scale them, and the load they place on shared resources.\n\nThe levers (in the order we\u2019ll consider them)\n\n1) Aurora Base Unit\n- Financials: Delivers $9.82 in contribution per unit.\n- Scale: We may schedule from 0 up to 6.7 units this quarter, but only in whole-run increments.\n- Per-unit load on shared resources:\n  \u2022 North Plant fabrication: 4.38 hours\n  \u2022 South Plant fabrication: 3.67 hours\n  \u2022 CNC machining: 6.96 hours\n  \u2022 Paint & coating: 2.85 hours\n  \u2022 Final assembly: 5.48 hours\n  \u2022 Warehouse throughput: 9.71 slots\n  \u2022 Electrical test: 8.98 hours\n  \u2022 Senior technicians (Grade A): 0.22 hours\n  \u2022 Quality lab: 0.16 hours\n  \u2022 Shipping dock: 9.38 slots\n  \u2022 Software configuration: 1.05 hours\n  \u2022 Compliance & inspection: 1.26 hours\n  \u2022 Field calibration: 4.18 hours\n  \u2022 Alloy A material: 1.42 units\n  \u2022 Wastewater treatment: 0.33 credits\n  \u2022 Overtime budget: 0.38 hours\n  \u2022 Logistics route hours: 7.84 hours\n- No draw on other listed resources.\n\n2) Beacon Plus Module\n- Financials: Delivers $8.46 per unit.\n- Scale: 0 to 14.11 units; can be scheduled in fractional batches.\n- Per-unit load:\n  \u2022 CNC machining: 8.73 hours\n  \u2022 Paint & coating: 6.3 hours\n  \u2022 Final assembly: 7.89 hours\n  \u2022 Warehouse throughput: 1.5 slots\n  \u2022 Electrical test: 0.91 hours\n  \u2022 Quality lab: 4.23 hours\n  \u2022 Shipping dock: 2.49 slots\n  \u2022 Software configuration: 1.19 hours\n  \u2022 Compliance & inspection: 7.56 hours\n  \u2022 Alloy A material: 7.06 units\n  \u2022 Wastewater treatment: 1.00 credits\n- No draw on other listed resources.\n\n3) Cobalt Core Unit\n- Financials: Delivers $7.32 per unit.\n- Scale: 0 to 11.71 units; fractional runs permitted.\n- Per-unit load:\n  \u2022 North Plant fabrication: 7.97 hours\n  \u2022 South Plant fabrication: 6.77 hours\n  \u2022 CNC machining: 8.98 hours\n  \u2022 Paint & coating: 4.4 hours\n  \u2022 Final assembly: 8.32 hours\n  \u2022 Warehouse throughput: 6.14 slots\n  \u2022 Electrical test: 5.15 hours\n  \u2022 Senior technicians (Grade A): 1.39 hours\n  \u2022 Quality lab: 3.35 hours\n  \u2022 Shipping dock: 1.41 slots\n  \u2022 Software configuration: 5.04 hours\n  \u2022 Alloy A material: 4.83 units\n  \u2022 Overtime budget: 5.31 hours\n  \u2022 Logistics route hours: 9.3 hours\n- No draw on other listed resources.\n\n4) Delta Pro Chassis\n- Financials: Delivers $1.34 per unit.\n- Scale: 0 to 6.59 units; whole-run increments only.\n- Per-unit load:\n  \u2022 North Plant fabrication: 5.76 hours\n  \u2022 CNC machining: 9.01 hours\n  \u2022 Paint & coating: 9.82 hours\n  \u2022 Final assembly: 0.76 hours\n  \u2022 Warehouse throughput: 7.57 slots\n  \u2022 Electrical test: 2.41 hours\n  \u2022 Quality lab: 8.96 hours\n  \u2022 Compliance & inspection: 1.07 hours\n  \u2022 Field calibration: 6.26 hours\n  \u2022 Alloy A material: 2.08 units\n  \u2022 Wastewater treatment: 6.66 credits\n  \u2022 Overtime budget: 7.95 hours\n- No draw on other listed resources.\n\n5) Eclipse Lite Kit\n- Financials: Delivers $1.88 per unit.\n- Scale: 0 to 17.00 units; fractional runs permitted.\n- Per-unit load:\n  \u2022 North Plant fabrication: 1.48 hours\n  \u2022 South Plant fabrication: 1.35 hours\n  \u2022 CNC machining: 3.53 hours\n  \u2022 Paint & coating: 3.71 hours\n  \u2022 Final assembly: 3.83 hours\n  \u2022 Warehouse throughput: 1.49 slots\n  \u2022 Senior technicians (Grade A): 4.74 hours\n  \u2022 Quality lab: 8.69 hours\n  \u2022 Shipping dock: 1.74 slots\n  \u2022 Software configuration: 7.90 hours\n  \u2022 Compliance & inspection: 8.11 hours\n  \u2022 Field calibration: 4.37 hours\n  \u2022 Alloy A material: 1.20 units\n  \u2022 Wastewater treatment: 7.00 credits\n  \u2022 Overtime budget: 3.68 hours\n  \u2022 Logistics route hours: 8.19 hours\n- No draw on other listed resources.\n\n6) Falcon Rack\n- Financials: Delivers $1.88 per unit.\n- Scale: 0 to 5.10 units; whole-run increments only.\n- Per-unit load:\n  \u2022 South Plant fabrication: 5.24 hours\n  \u2022 CNC machining: 4.70 hours\n  \u2022 Paint & coating: 8.89 hours\n  \u2022 Final assembly: 4.27 hours\n  \u2022 Electrical test: 4.09 hours\n  \u2022 Senior technicians (Grade A): 9.01 hours\n  \u2022 Quality lab: 3.00 hours\n  \u2022 Shipping dock: 1.42 slots\n  \u2022 Software configuration: 7.18 hours\n  \u2022 Compliance & inspection: 9.86 hours\n  \u2022 Alloy A material: 8.90 units\n  \u2022 Wastewater treatment: 4.69 credits\n  \u2022 Overtime budget: 1.16 hours\n- No draw on other listed resources.\n\n7) Garnet Control Pack\n- Financials: Delivers $6.83 per unit.\n- Scale: 0 to 17.66 units; whole-run increments only.\n- Per-unit load:\n  \u2022 North Plant fabrication: 6.74 hours\n  \u2022 South Plant fabrication: 1.33 hours\n  \u2022 Final assembly: 8.16 hours\n  \u2022 Warehouse throughput: 7.72 slots\n  \u2022 Senior technicians (Grade A): 5.45 hours\n  \u2022 Quality lab: 1.60 hours\n  \u2022 Shipping dock: 4.53 slots\n  \u2022 Software configuration: 4.09 hours\n  \u2022 Compliance & inspection: 8.11 hours\n  \u2022 Field calibration: 6.17 hours\n  \u2022 Alloy A material: 4.30 units\n  \u2022 Wastewater treatment: 9.31 credits\n  \u2022 Overtime budget: 9.69 hours\n  \u2022 Logistics route hours: 7.09 hours\n- No draw on other listed resources.\n\n8) Helios Drive\n- Financials: Delivers $8.03 per unit.\n- Scale: 0 to 19.90 units; whole-run increments only.\n- Per-unit load:\n  \u2022 North Plant fabrication: 2.62 hours\n  \u2022 South Plant fabrication: 7.54 hours\n  \u2022 Paint & coating: 3.21 hours\n  \u2022 Final assembly: 0.52 hours\n  \u2022 Warehouse throughput: 7.19 slots\n  \u2022 Electrical test: 5.83 hours\n  \u2022 Senior technicians (Grade A): 8.81 hours\n  \u2022 Shipping dock: 1.70 slots\n  \u2022 Software configuration: 3.14 hours\n  \u2022 Field calibration: 8.02 hours\n  \u2022 Wastewater treatment: 0.25 credits\n  \u2022 Overtime budget: 2.87 hours\n  \u2022 Logistics route hours: 2.02 hours\n- No draw on other listed resources.\n\n9) Ion Micro Assembly\n- Financials: Delivers $1.59 per unit.\n- Scale: 0 to 7.75 units; whole-run increments only.\n- Per-unit load:\n  \u2022 North Plant fabrication: 4.34 hours\n  \u2022 South Plant fabrication: 3.62 hours\n  \u2022 Paint & coating: 6.70 hours\n  \u2022 Final assembly: 6.58 hours\n  \u2022 Warehouse throughput: 7.27 slots\n  \u2022 Electrical test: 8.93 hours\n  \u2022 Senior technicians (Grade A): 7.57 hours\n  \u2022 Quality lab: 7.04 hours\n  \u2022 Shipping dock: 6.59 slots\n  \u2022 Software configuration: 9.10 hours\n  \u2022 Compliance & inspection: 0.33 hours\n  \u2022 Field calibration: 2.40 hours\n  \u2022 Alloy A material: 5.99 units\n  \u2022 Wastewater treatment: 7.37 credits\n  \u2022 Overtime budget: 7.10 hours\n- No draw on other listed resources.\n\n10) Jade Panel\n- Financials: Delivers $3.82 per unit.\n- Scale: 0 to 10.63 units; fractional runs permitted.\n- Per-unit load:\n  \u2022 North Plant fabrication: 6.50 hours\n  \u2022 South Plant fabrication: 4.61 hours\n  \u2022 CNC machining: 3.19 hours\n  \u2022 Paint & coating: 2.05 hours\n  \u2022 Final assembly: 5.82 hours\n  \u2022 Warehouse throughput: 9.25 slots\n  \u2022 Electrical test: 8.40 hours\n  \u2022 Senior technicians (Grade A): 7.71 hours\n  \u2022 Quality lab: 4.96 hours\n  \u2022 Shipping dock: 4.64 slots\n  \u2022 Software configuration: 7.54 hours\n  \u2022 Field calibration: 8.57 hours\n  \u2022 Alloy A material: 9.61 units\n  \u2022 Wastewater treatment: 5.25 credits\n  \u2022 Overtime budget: 8.11 hours\n  \u2022 Logistics route hours: 3.57 hours\n- No draw on other listed resources.\n\n11) Keystone Premium Kit\n- Financials: Delivers $9.93 per unit.\n- Scale: 0 to 12.59 units; whole-run increments only.\n- Per-unit load:\n  \u2022 North Plant fabrication: 3.09 hours\n  \u2022 South Plant fabrication: 7.01 hours\n  \u2022 CNC machining: 2.12 hours\n  \u2022 Final assembly: 4.58 hours\n  \u2022 Quality lab: 9.16 hours\n  \u2022 Shipping dock: 2.78 slots\n  \u2022 Software configuration: 6.58 hours\n  \u2022 Compliance & inspection: 2.12 hours\n  \u2022 Alloy A material: 0.47 units\n  \u2022 Wastewater treatment: 4.93 credits\n- No draw on other listed resources.\n\n12) Lumen Sensor Bundle\n- Financials: Delivers $1.40 per unit.\n- Scale: 0 to 19.06 units; fractional runs permitted.\n- Per-unit load:\n  \u2022 North Plant fabrication: 0.22 hours\n  \u2022 South Plant fabrication: 7.80 hours\n  \u2022 CNC machining: 6.83 hours\n  \u2022 Paint & coating: 1.94 hours\n  \u2022 Final assembly: 2.90 hours\n  \u2022 Warehouse throughput: 5.77 slots\n  \u2022 Electrical test: 6.25 hours\n  \u2022 Senior technicians (Grade A): 1.95 hours\n  \u2022 Quality lab: 0.13 hours\n  \u2022 Shipping dock: 2.21 slots\n  \u2022 Software configuration: 0.28 hours\n  \u2022 Compliance & inspection: 1.82 hours\n  \u2022 Field calibration: 1.16 hours\n  \u2022 Wastewater treatment: 7.94 credits\n  \u2022 Overtime budget: 1.03 hours\n  \u2022 Logistics route hours: 8.25 hours\n- No draw on other listed resources.\n\n13) Mariner Board Set\n- Financials: Delivers $7.71 per unit.\n- Scale: 0 to 7.11 units; fractional runs permitted.\n- Per-unit load:\n  \u2022 North Plant fabrication: 5.79 hours\n  \u2022 South Plant fabrication: 1.08 hours\n  \u2022 Paint & coating: 3.25 hours\n  \u2022 Final assembly: 8.76 hours\n  \u2022 Senior technicians (Grade A): 6.11 hours\n  \u2022 Quality lab: 9.46 hours\n  \u2022 Shipping dock: 9.43 slots\n  \u2022 Software configuration: 8.99 hours\n  \u2022 Compliance & inspection: 3.57 hours\n  \u2022 Field calibration: 3.23 hours\n  \u2022 Wastewater treatment: 8.51 credits\n  \u2022 Logistics route hours: 9.53 hours\n- No draw on other listed resources.\n\n14) Nimbus Array\n- Financials: Delivers $6.66 per unit.\n- Scale: 0 to 13.66 units; fractional runs permitted.\n- Per-unit load:\n  \u2022 North Plant fabrication: 4.11 hours\n  \u2022 CNC machining: 9.70 hours\n  \u2022 Paint & coating: 7.45 hours\n  \u2022 Final assembly: 8.09 hours\n  \u2022 Warehouse throughput: 9.94 slots\n  \u2022 Electrical test: 1.44 hours\n  \u2022 Senior technicians (Grade A): 2.84 hours\n  \u2022 Quality lab: 0.24 hours\n  \u2022 Shipping dock: 4.48 slots\n  \u2022 Compliance & inspection: 2.78 hours\n  \u2022 Alloy A material: 1.85 units\n  \u2022 Wastewater treatment: 4.72 credits\n  \u2022 Overtime budget: 8.10 hours\n  \u2022 Logistics route hours: 4.36 hours\n- No draw on other listed resources.\n\n15) Orion Frame\n- Financials: Delivers $6.27 per unit.\n- Scale: 0 to 19.76 units; whole-run increments only.\n- Per-unit load:\n  \u2022 North Plant fabrication: 3.44 hours\n  \u2022 South Plant fabrication: 4.99 hours\n  \u2022 CNC machining: 1.64 hours\n  \u2022 Paint & coating: 2.42 hours\n  \u2022 Final assembly: 7.80 hours\n  \u2022 Electrical test: 8.78 hours\n  \u2022 Senior technicians (Grade A): 4.77 hours\n  \u2022 Quality lab: 4.79 hours\n  \u2022 Shipping dock: 1.30 slots\n  \u2022 Software configuration: 8.58 hours\n  \u2022 Compliance & inspection: 2.41 hours\n  \u2022 Alloy A material: 8.63 units\n  \u2022 Wastewater treatment: 2.49 credits\n  \u2022 Overtime budget: 4.09 hours\n- No draw on other listed resources.\n\nFacility specs and market limits (do not exceed)\n- North Plant fabrication: up to 235.82 hours this quarter.\n- South Plant fabrication: up to 255.61 hours.\n- CNC machining: up to 327.71 hours.\n- Paint & coating: up to 242.16 hours.\n- Final assembly: up to 390.25 hours.\n- Warehouse throughput: up to 351.22 slots.\n- Electrical test: up to 307.50 hours.\n- Senior technicians (Grade A): up to 237.23 hours.\n- Quality lab: up to 224.19 hours.\n- Shipping dock: up to 242.70 slots.\n- Software configuration: up to 262.03 hours.\n- Compliance & inspection: up to 167.74 hours.\n- Field calibration: up to 171.86 hours.\n- Alloy A material quota: up to 267.77 units.\n- Wastewater treatment capacity: up to 281.17 credits.\n- Overtime budget: up to 247.37 hours.\n- Logistics route hours: up to 276.89 hours.\n\nNext steps\nWith these economics and limits, we can set the mix to maximize contribution while respecting every plant and market constraint. I\u2019ll bring a proposed schedule that balances the high-return items (e.g., Keystone Premium Kit, Aurora Base Unit, Helios Drive) against the scarcest capacities (notably Wastewater, Quality Lab, and Compliance hours on certain products). If you\u2019d like scenario comparisons (e.g., with or without Alloy A expansion), I can prepare those as well.\n\nBest,\n[Your Name]\nDirector of Operations"
+}

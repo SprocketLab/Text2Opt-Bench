@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, category contributions, and >= minima are explicit; objective is to minimize total spend. Minor gap: variable names not specified.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style framing adds some fluff, but most detail is necessary to list coefficients and bounds; limited repetition across levers.",
+      "realism": 95,
+      "realism_comment": "Highly realistic service mix planning with capacities, integer decisions, and service-level minimums; numbers and logic are plausible."
+    },
+    "prompt_tokens_with_data": 1191,
+    "prompt_tokens_without_data": 1191
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 191.5187987241055,
+    "optimal_values": {
+      "Var_0": 2.0672097759674166,
+      "Var_1": 13.0,
+      "Var_2": 0.0,
+      "Var_3": 10.935719303206081,
+      "Var_4": 5.0,
+      "Var_5": 3.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 195.77
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 174.52
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 151.08
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 193.35
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 180.55
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 99.8
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.92
+      ],
+      "objective_linear_coefficient": 7.59,
+      "resource_costs": {
+        "C0": 6.0,
+        "C2": 6.14,
+        "C3": 1.34,
+        "C4": 4.91
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.68
+      ],
+      "objective_linear_coefficient": 3.8,
+      "resource_costs": {
+        "C0": 5.58,
+        "C1": 7.42,
+        "C2": 2.67,
+        "C3": 9.99,
+        "C4": 8.42,
+        "C5": 1.98
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.32
+      ],
+      "objective_linear_coefficient": 9.1,
+      "resource_costs": {
+        "C1": 1.02,
+        "C2": 6.29,
+        "C3": 6.66,
+        "C4": 3.65
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.01
+      ],
+      "objective_linear_coefficient": 6.71,
+      "resource_costs": {
+        "C0": 5.81,
+        "C1": 7.18,
+        "C2": 9.22,
+        "C3": 8.27,
+        "C5": 5.23
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.06
+      ],
+      "objective_linear_coefficient": 8.24,
+      "resource_costs": {
+        "C0": 8.14,
+        "C1": 6.71,
+        "C3": 5.51,
+        "C4": 9.89,
+        "C5": 0.52
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.08
+      ],
+      "objective_linear_coefficient": 3.95,
+      "resource_costs": {
+        "C0": 2.57,
+        "C1": 6.26,
+        "C2": 0.95,
+        "C3": 4.76,
+        "C4": 3.83,
+        "C5": 7.29
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.92, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.59 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.68, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.8 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.32, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.1 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.01, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.71 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.06, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 8.24 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.08, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 3.95 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.0 * vars['Var_0'] + 5.58 * vars['Var_1'] + 5.81 * vars['Var_3'] + 8.14 * vars['Var_4'] + 2.57 * vars['Var_5'] >= 195.77, name='C0')\n    m.addConstr(7.42 * vars['Var_1'] + 1.02 * vars['Var_2'] + 7.18 * vars['Var_3'] + 6.71 * vars['Var_4'] + 6.26 * vars['Var_5'] >= 174.52, name='C1')\n    m.addConstr(6.14 * vars['Var_0'] + 2.67 * vars['Var_1'] + 6.29 * vars['Var_2'] + 9.22 * vars['Var_3'] + 0.95 * vars['Var_5'] >= 151.08, name='C2')\n    m.addConstr(1.34 * vars['Var_0'] + 9.99 * vars['Var_1'] + 6.66 * vars['Var_2'] + 8.27 * vars['Var_3'] + 5.51 * vars['Var_4'] + 4.76 * vars['Var_5'] >= 193.35, name='C3')\n    m.addConstr(4.91 * vars['Var_0'] + 8.42 * vars['Var_1'] + 3.65 * vars['Var_2'] + 9.89 * vars['Var_4'] + 3.83 * vars['Var_5'] >= 180.55, name='C4')\n    m.addConstr(1.98 * vars['Var_1'] + 5.23 * vars['Var_3'] + 0.52 * vars['Var_4'] + 7.29 * vars['Var_5'] >= 99.8, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1\u2013Q2 Service Mix: Cost-Minimizing Plan to Meet Contracted Minimums\n\nTeam,\n\nAs discussed, we need to set our Q1\u2013Q2 operating mix to meet our contracted minimum service levels across six performance categories while keeping total spend as low as possible. Below is the decision set we can pull from. Each lever has a per\u2011unit cost, a maximum available capacity this cycle, and a defined contribution to our six scorecards: Emergency Coverage, Customer Engagement, Preventive Maintenance, Regulatory Actions, Sustainability & Outreach, and Training & Certification.\n\nThe levers\n\n1) Specialist Inspection Days\n- What it costs: $7.59 per day.\n- How much we can book: from 0 up to 9.92 days this cycle; partial days are acceptable.\n- What it delivers per day:\n  \u2022 Emergency Coverage: 6.00 units.\n  \u2022 Customer Engagement: no impact.\n  \u2022 Preventive Maintenance: 6.14 units.\n  \u2022 Regulatory Actions: 1.34 units.\n  \u2022 Sustainability & Outreach: 4.91 units.\n  \u2022 Training & Certification: no impact.\n\n2) Union Overtime Shifts\n- What it costs: $3.80 per shift.\n- How much we can book: from 0 up to 13.68 shifts this cycle; scheduling must be in whole shifts.\n- What it delivers per shift:\n  \u2022 Emergency Coverage: 5.58 units.\n  \u2022 Customer Engagement: 7.42 units.\n  \u2022 Preventive Maintenance: 2.67 units.\n  \u2022 Regulatory Actions: 9.99 units.\n  \u2022 Sustainability & Outreach: 8.42 units.\n  \u2022 Training & Certification: 1.98 units.\n\n3) Diagnostic Analysis Hours (Lab)\n- What it costs: $9.10 per hour.\n- How much we can book: from 0 up to 11.32 hours this cycle; fractional hours are fine.\n- What it delivers per hour:\n  \u2022 Emergency Coverage: no impact.\n  \u2022 Customer Engagement: 1.02 units.\n  \u2022 Preventive Maintenance: 6.29 units.\n  \u2022 Regulatory Actions: 6.66 units.\n  \u2022 Sustainability & Outreach: 3.65 units.\n  \u2022 Training & Certification: no impact.\n\n4) Regional Maintenance Tour-Days\n- What it costs: $6.71 per tour-day.\n- How much we can book: from 0 up to 14.01 tour-days; partial-day allocation is acceptable.\n- What it delivers per tour-day:\n  \u2022 Emergency Coverage: 5.81 units.\n  \u2022 Customer Engagement: 7.18 units.\n  \u2022 Preventive Maintenance: 9.22 units.\n  \u2022 Regulatory Actions: 8.27 units.\n  \u2022 Sustainability & Outreach: no impact.\n  \u2022 Training & Certification: 5.23 units.\n\n5) Green Upgrade Projects\n- What it costs: $8.24 per project.\n- How much we can book: from 0 up to 14.06 projects; projects must be scheduled in whole units.\n- What it delivers per project:\n  \u2022 Emergency Coverage: 8.14 units.\n  \u2022 Customer Engagement: 6.71 units.\n  \u2022 Preventive Maintenance: no impact.\n  \u2022 Regulatory Actions: 5.51 units.\n  \u2022 Sustainability & Outreach: 9.89 units.\n  \u2022 Training & Certification: 0.52 units.\n\n6) Apprentice Crew Rotations\n- What it costs: $3.95 per rotation.\n- How much we can book: from 0 up to 18.08 rotations; rotations must be in whole units.\n- What it delivers per rotation:\n  \u2022 Emergency Coverage: 2.57 units.\n  \u2022 Customer Engagement: 6.26 units.\n  \u2022 Preventive Maintenance: 0.95 units.\n  \u2022 Regulatory Actions: 4.76 units.\n  \u2022 Sustainability & Outreach: 3.83 units.\n  \u2022 Training & Certification: 7.29 units.\n\nMarket and compliance minimums (must meet or exceed)\n- Emergency Coverage: at least 195.77 units.\n- Customer Engagement: at least 174.52 units.\n- Preventive Maintenance: at least 151.08 units.\n- Regulatory Actions: at least 193.35 units.\n- Sustainability & Outreach: at least 180.55 units.\n- Training & Certification: at least 99.80 units.\n\nPlease use this as the basis for the recommended mix that minimizes our total spend while satisfying every minimum. Note the whole\u2011unit requirements for Union Overtime Shifts, Green Upgrade Projects, and Apprentice Crew Rotations; the others can be allocated fractionally within their caps.\n\nThanks,\n[Client Name]\nDirector, Operations Planning"
+}

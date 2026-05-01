@@ -1,0 +1,190 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 10,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, types, bounds, per-unit contributions, resource usages, and resource caps are precisely given; objective is clearly the linear sum of contributions.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative/preamble, but each figure is used once and the structure is clear; minimal repetition.",
+      "realism": 95,
+      "realism_comment": "Reads like a real planning brief with plausible resources/caps; slight oddity with fractional caps on integer items but overall very realistic."
+    },
+    "prompt_tokens_with_data": 997,
+    "prompt_tokens_without_data": 997
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 148.42690701630337,
+    "optimal_values": {
+      "Var_0": 5.0,
+      "Var_1": 3.1265659897350955,
+      "Var_2": 4.0,
+      "Var_3": 0.0,
+      "Var_4": 4.2749244712990935,
+      "Var_5": 6.0,
+      "Var_6": 14.905308464849352
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.15
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.16
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 71.99
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 224.33
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 119.22
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 44.18
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 86.23
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 156.47
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 15.85
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 111.51
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.35
+      ],
+      "objective_linear_coefficient": 4.98,
+      "resource_costs": {
+        "C2": 0.6,
+        "C3": 5.75,
+        "C4": 0.05,
+        "C5": 0.6,
+        "C6": 3.91,
+        "C9": 4.8
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.03
+      ],
+      "objective_linear_coefficient": 2.86,
+      "resource_costs": {
+        "C1": 4.38,
+        "C5": 9.02,
+        "C9": 5.82
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 1.74,
+      "resource_costs": {
+        "C3": 6.45,
+        "C4": 7.75,
+        "C6": 5.28,
+        "C7": 3.26,
+        "C9": 7.23
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.57
+      ],
+      "objective_linear_coefficient": 1.97,
+      "resource_costs": {
+        "C0": 2.08,
+        "C3": 8.52,
+        "C5": 3.26,
+        "C6": 6.38,
+        "C7": 6.17,
+        "C8": 3.51
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.85
+      ],
+      "objective_linear_coefficient": 7.56,
+      "resource_costs": {
+        "C0": 3.31,
+        "C6": 2.53
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 2.49,
+      "resource_costs": {
+        "C2": 8.68,
+        "C3": 7.91,
+        "C4": 5.96,
+        "C7": 6.59
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.11
+      ],
+      "objective_linear_coefficient": 4.05,
+      "resource_costs": {
+        "C3": 8.01,
+        "C7": 6.97,
+        "C9": 2.71
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.35, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.98 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.03, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.86 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.74 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.57, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.97 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=16.85, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.56 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 2.49 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=15.11, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.05 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.08 * vars['Var_3'] + 3.31 * vars['Var_4'] <= 14.15, name='C0')\n    m.addConstr(4.38 * vars['Var_1'] <= 14.16, name='C1')\n    m.addConstr(0.6 * vars['Var_0'] + 8.68 * vars['Var_5'] <= 71.99, name='C2')\n    m.addConstr(5.75 * vars['Var_0'] + 6.45 * vars['Var_2'] + 8.52 * vars['Var_3'] + 7.91 * vars['Var_5'] + 8.01 * vars['Var_6'] <= 224.33, name='C3')\n    m.addConstr(0.05 * vars['Var_0'] + 7.75 * vars['Var_2'] + 5.96 * vars['Var_5'] <= 119.22, name='C4')\n    m.addConstr(0.6 * vars['Var_0'] + 9.02 * vars['Var_1'] + 3.26 * vars['Var_3'] <= 44.18, name='C5')\n    m.addConstr(3.91 * vars['Var_0'] + 5.28 * vars['Var_2'] + 6.38 * vars['Var_3'] + 2.53 * vars['Var_4'] <= 86.23, name='C6')\n    m.addConstr(3.26 * vars['Var_2'] + 6.17 * vars['Var_3'] + 6.59 * vars['Var_5'] + 6.97 * vars['Var_6'] <= 156.47, name='C7')\n    m.addConstr(3.51 * vars['Var_3'] <= 15.85, name='C8')\n    m.addConstr(4.8 * vars['Var_0'] + 5.82 * vars['Var_1'] + 7.23 * vars['Var_2'] + 2.71 * vars['Var_6'] <= 111.51, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Planning brief for maximizing next-quarter contribution under operating limits\n\nTeam,\n\nAs discussed, our aim for next quarter is to maximize total contribution across seven initiatives while staying within ten specific operating and market limits. We can dial each lever from zero up to its cap; some levers can be scaled fractionally, while others must be committed in whole units.\n\nThe seven levers\n\n- Aurora Kits (premium starter assemblies; whole units only, up to 5.35 kits)\n  Each kit contributes 4.98 to overall margin. Every kit draws 0.6 refrigerated truck\u2011day slots, 5.75 hours on Assembly Line A, 0.05 QA inspection cycles, 0.6 hours on Packaging Line B, 3.91 Skilled Technician Crew hours, and 4.8 from the Vendor Prepayment Budget.\n\n- Beacon Bundles (flexible promotional bundles; fractional scaling allowed, up to 8.03 bundles)\n  Each bundle adds 2.86 to margin. Per bundle, we use 4.38 units of Field Sales Quota, 9.02 Packaging Line B hours, and 5.82 from the Vendor Prepayment Budget.\n\n- Cobalt Refurb Services (device refurbishment jobs; whole jobs only, up to 10 jobs)\n  Each job contributes 1.74 to margin. Each requires 6.45 Assembly Line A hours, 7.75 QA inspection cycles, 5.28 Skilled Technician Crew hours, 3.26 Outbound Dock slots, and 7.23 of Vendor Prepayment Budget.\n\n- Discovery Workshops (customer training/demo sessions; fractional scheduling allowed, up to 12.57 sessions)\n  Each session adds 1.97 to margin. Per session, we need 2.08 Regulatory Review hours, 8.52 Assembly Line A runtime, 3.26 Packaging Line B hours, 6.38 Skilled Technician Crew hours, 6.17 Outbound Dock slots, and 3.51 hours of Training Room availability.\n\n- Elevate Digital Campaign (digital placements; fractional scaling allowed, up to 16.85 placements)\n  Each placement contributes 7.56 to margin. Each requires 3.31 Regulatory Review hours and 2.53 Skilled Technician Crew hours.\n\n- Forge Pro Units (advanced builds; whole units only, up to 9 units)\n  Each unit adds 2.49 to margin. Per unit, we consume 8.68 refrigerated truck\u2011day slots, 7.91 Assembly Line A hours, 5.96 QA inspection cycles, and 6.59 Outbound Dock slots.\n\n- Glide Logistics Programs (enhanced delivery packages; fractional scaling allowed, up to 15.11 programs)\n  Each program contributes 4.05 to margin. Each program uses 8.01 Assembly Line A hours, 6.97 Outbound Dock slots, and 2.71 of Vendor Prepayment Budget.\n\nFacility specs and market limits\n\n- Regulatory Review hours are capped at 14.15 in total.\n- Field Sales Quota is limited to 14.16 units.\n- Refrigerated truck\u2011day slots are limited to 71.99 in total.\n- Assembly Line A runtime is capped at 224.33 hours.\n- QA inspection cycles are limited to 119.22 in total.\n- Packaging Line B hours are limited to 44.18 in total.\n- Skilled Technician Crew hours are capped at 86.23 in total.\n- Outbound Dock slots are limited to 156.47 in total.\n- Training Room availability is capped at 15.85 hours.\n- Vendor Prepayment Budget is limited to 111.51 in total.\n\nAll levers can start at zero; the upper caps are as stated above. Please use this brief to configure the plan that delivers the highest overall contribution while respecting each limit."
+}

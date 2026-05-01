@@ -1,0 +1,325 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 14,
+    "num_constraints": 12,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All 14 levers specify bounds, per-unit costs, integrality, and credits per scorecard; 12 >= thresholds with RHS given; objective is to minimize spend. No missing values; model derivable directly.",
+      "ambiguity": false,
+      "redundancy": 22,
+      "redundancy_comment": "Business email framing and minor narrative add some fluff; most length is essential coefficient and bound data.",
+      "realism": 94,
+      "realism_comment": "Plausible training portfolio optimization with capacity caps and scorecard thresholds; coherent units and contributions; fits real-world MILP."
+    },
+    "prompt_tokens_with_data": 1885,
+    "prompt_tokens_without_data": 1885
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 236.36582526708273,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 8.0,
+      "Var_2": 2.0,
+      "Var_3": 8.0,
+      "Var_4": 3.0,
+      "Var_5": 2.0,
+      "Var_6": 0.4598957664784633,
+      "Var_7": 0.5187641197250288,
+      "Var_8": 10.42,
+      "Var_9": 9.04,
+      "Var_10": 8.937696179219454,
+      "Var_11": -0.0,
+      "Var_12": 1.5836726749217398,
+      "Var_13": 10.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 26.85
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 202.68
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 129.47
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 269.89
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 166.2
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 122.8
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 209.1
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 213.95
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 80.14
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 77.83
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 255.65
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 194.72
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.02
+      ],
+      "objective_linear_coefficient": 7.36,
+      "resource_costs": {
+        "C2": 3.68,
+        "C3": 1.96,
+        "C7": 3.1,
+        "C9": 0.49,
+        "C11": 2.96
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.66
+      ],
+      "objective_linear_coefficient": 1.66,
+      "resource_costs": {
+        "C5": 2.44,
+        "C10": 8.64
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.52
+      ],
+      "objective_linear_coefficient": 6.71,
+      "resource_costs": {
+        "C2": 4.4,
+        "C5": 4.31,
+        "C7": 5.69,
+        "C10": 6.74
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.43
+      ],
+      "objective_linear_coefficient": 4.46,
+      "resource_costs": {
+        "C0": 4.75,
+        "C2": 2.28,
+        "C3": 6.67,
+        "C4": 3.82,
+        "C6": 5.6,
+        "C7": 8.83,
+        "C8": 3.55,
+        "C9": 7.02,
+        "C10": 0.79
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.0
+      ],
+      "objective_linear_coefficient": 3.43,
+      "resource_costs": {
+        "C2": 5.96,
+        "C4": 0.09,
+        "C5": 8.76,
+        "C8": 5.61,
+        "C11": 7.59
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.39
+      ],
+      "objective_linear_coefficient": 6.19,
+      "resource_costs": {
+        "C0": 0.17,
+        "C1": 1.69,
+        "C4": 5.39,
+        "C6": 4.87,
+        "C8": 7.03,
+        "C9": 9.06
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.7
+      ],
+      "objective_linear_coefficient": 4.78,
+      "resource_costs": {
+        "C1": 8.41,
+        "C2": 3.76,
+        "C4": 4.34,
+        "C5": 8.94,
+        "C6": 7.98,
+        "C7": 1.33,
+        "C8": 2.26,
+        "C9": 1.47,
+        "C11": 0.41
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.32
+      ],
+      "objective_linear_coefficient": 6.48,
+      "resource_costs": {
+        "C1": 7.59,
+        "C4": 4.29,
+        "C6": 8.53,
+        "C9": 5.54,
+        "C11": 1.54
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.42
+      ],
+      "objective_linear_coefficient": 1.44,
+      "resource_costs": {
+        "C1": 2.25,
+        "C2": 1.04,
+        "C3": 7.59,
+        "C5": 2.04,
+        "C6": 4.65,
+        "C7": 7.3,
+        "C10": 6.7,
+        "C11": 5.37
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.04
+      ],
+      "objective_linear_coefficient": 3.67,
+      "resource_costs": {
+        "C1": 6.78,
+        "C3": 8.53,
+        "C4": 9.93,
+        "C7": 5.18
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.76
+      ],
+      "objective_linear_coefficient": 5.85,
+      "resource_costs": {
+        "C1": 3.81,
+        "C2": 7.99,
+        "C5": 7.08,
+        "C8": 3.65,
+        "C10": 9.74,
+        "C11": 6.31
+      }
+    },
+    "Var_11": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 5.28,
+      "resource_costs": {
+        "C10": 8.07,
+        "C11": 0.1
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.48
+      ],
+      "objective_linear_coefficient": 8.77,
+      "resource_costs": {
+        "C1": 7.96,
+        "C2": 2.39,
+        "C3": 7.11,
+        "C6": 0.52,
+        "C7": 5.32,
+        "C10": 7.56,
+        "C11": 3.29
+      }
+    },
+    "Var_13": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.61
+      ],
+      "objective_linear_coefficient": 3.14,
+      "resource_costs": {
+        "C1": 6.01,
+        "C3": 6.19,
+        "C4": 4.19,
+        "C6": 9.83,
+        "C11": 5.34
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.02, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.36 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.66, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 1.66 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=14.76, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 5.85 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_11')\n    lin_expr += 5.28 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=5.48, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 8.77 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=19.61, vtype=GRB.INTEGER, name='Var_13')\n    lin_expr += 3.14 * vars['Var_13']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.52, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.71 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.43, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.46 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.0, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.43 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.39, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 6.19 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.7, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.78 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=18.32, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 6.48 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=10.42, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 1.44 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=9.04, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 3.67 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.75 * vars['Var_3'] + 0.17 * vars['Var_5'] >= 26.85, name='C0')\n    m.addConstr(3.81 * vars['Var_10'] + 7.96 * vars['Var_12'] + 6.01 * vars['Var_13'] + 1.69 * vars['Var_5'] + 8.41 * vars['Var_6'] + 7.59 * vars['Var_7'] + 2.25 * vars['Var_8'] + 6.78 * vars['Var_9'] >= 202.68, name='C1')\n    m.addConstr(8.64 * vars['Var_1'] + 9.74 * vars['Var_10'] + 8.07 * vars['Var_11'] + 7.56 * vars['Var_12'] + 6.74 * vars['Var_2'] + 0.79 * vars['Var_3'] + 6.7 * vars['Var_8'] >= 255.65, name='C10')\n    m.addConstr(2.96 * vars['Var_0'] + 6.31 * vars['Var_10'] + 0.1 * vars['Var_11'] + 3.29 * vars['Var_12'] + 5.34 * vars['Var_13'] + 7.59 * vars['Var_4'] + 0.41 * vars['Var_6'] + 1.54 * vars['Var_7'] + 5.37 * vars['Var_8'] >= 194.72, name='C11')\n    m.addConstr(3.68 * vars['Var_0'] + 7.99 * vars['Var_10'] + 2.39 * vars['Var_12'] + 4.4 * vars['Var_2'] + 2.28 * vars['Var_3'] + 5.96 * vars['Var_4'] + 3.76 * vars['Var_6'] + 1.04 * vars['Var_8'] >= 129.47, name='C2')\n    m.addConstr(1.96 * vars['Var_0'] + 7.11 * vars['Var_12'] + 6.19 * vars['Var_13'] + 6.67 * vars['Var_3'] + 7.59 * vars['Var_8'] + 8.53 * vars['Var_9'] >= 269.89, name='C3')\n    m.addConstr(4.19 * vars['Var_13'] + 3.82 * vars['Var_3'] + 0.09 * vars['Var_4'] + 5.39 * vars['Var_5'] + 4.34 * vars['Var_6'] + 4.29 * vars['Var_7'] + 9.93 * vars['Var_9'] >= 166.2, name='C4')\n    m.addConstr(2.44 * vars['Var_1'] + 7.08 * vars['Var_10'] + 4.31 * vars['Var_2'] + 8.76 * vars['Var_4'] + 8.94 * vars['Var_6'] + 2.04 * vars['Var_8'] >= 122.8, name='C5')\n    m.addConstr(0.52 * vars['Var_12'] + 9.83 * vars['Var_13'] + 5.6 * vars['Var_3'] + 4.87 * vars['Var_5'] + 7.98 * vars['Var_6'] + 8.53 * vars['Var_7'] + 4.65 * vars['Var_8'] >= 209.1, name='C6')\n    m.addConstr(3.1 * vars['Var_0'] + 5.32 * vars['Var_12'] + 5.69 * vars['Var_2'] + 8.83 * vars['Var_3'] + 1.33 * vars['Var_6'] + 7.3 * vars['Var_8'] + 5.18 * vars['Var_9'] >= 213.95, name='C7')\n    m.addConstr(3.65 * vars['Var_10'] + 3.55 * vars['Var_3'] + 5.61 * vars['Var_4'] + 7.03 * vars['Var_5'] + 2.26 * vars['Var_6'] >= 80.14, name='C8')\n    m.addConstr(0.49 * vars['Var_0'] + 7.02 * vars['Var_3'] + 9.06 * vars['Var_5'] + 1.47 * vars['Var_6'] + 5.54 * vars['Var_7'] >= 77.83, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Minimizing FY Program Spend While Meeting Capability Thresholds\n\nTeam,\n\nWe need to put forward a cost\u2011efficient mix of training and enablement offerings that meets or exceeds our minimum companywide capability thresholds across twelve scorecards. The objective is straightforward: deliver the required coverage in each capability area at the lowest total program spend. We have fourteen scalable offerings to combine; some can be split fractionally (e.g., online hours), others must be scheduled in whole cohorts. Each offering below lists its per\u2011unit cost, the maximum we can feasibly run this year, and the specific credit it adds to each capability scorecard.\n\nLevers we can scale this year\n\n1) Foundational Compliance e\u2011Learning (fractional; 0 to 15.02 session\u2011equivalents; $7.36K per session\u2011equivalent)\n- Adds 3.68 credits to Regulatory Compliance.\n- Adds 1.96 credits to Systems Architecture.\n- Adds 3.10 credits to Program Governance.\n- Adds 0.49 credits to Inclusion & Ethics.\n- Adds 2.96 credits to Environmental Stewardship.\n\n2) Data Literacy Bootcamps (whole cohorts; 0 to 15.66 cohort\u2011equivalents; $1.66K per cohort)\n- Adds 2.44 credits to Analytics & Reporting per cohort.\n- Adds 8.64 credits to Supplier Management per cohort.\n\n3) Advanced Analytics Practicum (whole cohorts; 0 to 7.52 cohorts; $6.71K per cohort)\n- Adds 4.40 credits to Regulatory Compliance.\n- Adds 4.31 credits to Analytics & Reporting.\n- Adds 5.69 credits to Program Governance.\n- Adds 6.74 credits to Supplier Management.\n\n4) Operations Excellence Workshops (whole cohorts; 0 to 8.43 cohorts; $4.46K per cohort)\n- Adds 4.75 credits to Safety & Incident Response.\n- Adds 2.28 credits to Regulatory Compliance.\n- Adds 6.67 credits to Systems Architecture.\n- Adds 3.82 credits to Customer Experience.\n- Adds 5.60 credits to Field Operations.\n- Adds 8.83 credits to Program Governance.\n- Adds 3.55 credits to Digital Workplace.\n- Adds 7.02 credits to Inclusion & Ethics.\n- Adds 0.79 credits to Supplier Management.\n\n5) Customer Care Simulations (whole cohorts; 0 to 6.00 cohorts; $3.43K per cohort)\n- Adds 5.96 credits to Regulatory Compliance.\n- Adds 0.09 credits to Customer Experience.\n- Adds 8.76 credits to Analytics & Reporting.\n- Adds 5.61 credits to Digital Workplace.\n- Adds 7.59 credits to Environmental Stewardship.\n\n6) Field Readiness Roadshows (whole cohorts; 0 to 9.39 cohorts; $6.19K per cohort)\n- Adds 0.17 credits to Safety & Incident Response.\n- Adds 1.69 credits to Strategic Leadership.\n- Adds 5.39 credits to Customer Experience.\n- Adds 4.87 credits to Field Operations.\n- Adds 7.03 credits to Digital Workplace.\n- Adds 9.06 credits to Inclusion & Ethics.\n\n7) Leadership Essentials Online Series (fractional; 0 to 19.70 session\u2011equivalents; $4.78K per session\u2011equivalent)\n- Adds 8.41 credits to Strategic Leadership.\n- Adds 3.76 credits to Regulatory Compliance.\n- Adds 4.34 credits to Customer Experience.\n- Adds 8.94 credits to Analytics & Reporting.\n- Adds 7.98 credits to Field Operations.\n- Adds 1.33 credits to Program Governance.\n- Adds 2.26 credits to Digital Workplace.\n- Adds 1.47 credits to Inclusion & Ethics.\n- Adds 0.41 credits to Environmental Stewardship.\n\n8) Change Management Clinics (fractional; 0 to 18.32 session\u2011equivalents; $6.48K per session\u2011equivalent)\n- Adds 7.59 credits to Strategic Leadership.\n- Adds 4.29 credits to Customer Experience.\n- Adds 8.53 credits to Field Operations.\n- Adds 5.54 credits to Inclusion & Ethics.\n- Adds 1.54 credits to Environmental Stewardship.\n\n9) Systems Integration Labs (fractional; 0 to 10.42 session\u2011equivalents; $1.44K per session\u2011equivalent)\n- Adds 2.25 credits to Strategic Leadership.\n- Adds 1.04 credits to Regulatory Compliance.\n- Adds 7.59 credits to Systems Architecture.\n- Adds 2.04 credits to Analytics & Reporting.\n- Adds 4.65 credits to Field Operations.\n- Adds 7.30 credits to Program Governance.\n- Adds 6.70 credits to Supplier Management.\n- Adds 5.37 credits to Environmental Stewardship.\n\n10) Client Experience Masterclass (fractional; 0 to 9.04 session\u2011equivalents; $3.67K per session\u2011equivalent)\n- Adds 6.78 credits to Strategic Leadership.\n- Adds 8.53 credits to Systems Architecture.\n- Adds 9.93 credits to Customer Experience.\n- Adds 5.18 credits to Program Governance.\n\n11) Supplier & Risk Academy (fractional; 0 to 14.76 session\u2011equivalents; $5.85K per session\u2011equivalent)\n- Adds 3.81 credits to Strategic Leadership.\n- Adds 7.99 credits to Regulatory Compliance.\n- Adds 7.08 credits to Analytics & Reporting.\n- Adds 3.65 credits to Digital Workplace.\n- Adds 9.74 credits to Supplier Management.\n- Adds 6.31 credits to Environmental Stewardship.\n\n12) Procurement Negotiation Sprints (whole cohorts; 0 to 10.00 sprints; $5.28K per sprint)\n- Adds 8.07 credits to Supplier Management per sprint.\n- Adds 0.10 credits to Environmental Stewardship per sprint.\n\n13) Program Governance Capstone (fractional; 0 to 5.48 session\u2011equivalents; $8.77K per session\u2011equivalent)\n- Adds 7.96 credits to Strategic Leadership.\n- Adds 2.39 credits to Regulatory Compliance.\n- Adds 7.11 credits to Systems Architecture.\n- Adds 0.52 credits to Field Operations.\n- Adds 5.32 credits to Program Governance.\n- Adds 7.56 credits to Supplier Management.\n- Adds 3.29 credits to Environmental Stewardship.\n\n14) Sustainability in Operations (whole cohorts; 0 to 19.61 cohorts; $3.14K per cohort)\n- Adds 6.01 credits to Strategic Leadership.\n- Adds 6.19 credits to Systems Architecture.\n- Adds 4.19 credits to Customer Experience.\n- Adds 9.83 credits to Field Operations.\n- Adds 5.34 credits to Environmental Stewardship.\n\nFacility specs and minimum scorecard thresholds (must be met or exceeded)\n- Safety & Incident Response: 26.85 credits minimum.\n- Strategic Leadership: 202.68 credits minimum.\n- Regulatory Compliance: 129.47 credits minimum.\n- Systems Architecture: 269.89 credits minimum.\n- Customer Experience: 166.20 credits minimum.\n- Analytics & Reporting: 122.80 credits minimum.\n- Field Operations: 209.10 credits minimum.\n- Program Governance: 213.95 credits minimum.\n- Digital Workplace: 80.14 credits minimum.\n- Inclusion & Ethics: 77.83 credits minimum.\n- Supplier Management: 255.65 credits minimum.\n- Environmental Stewardship: 194.72 credits minimum.\n\nAll offerings above are optional (we can choose zero of any) up to their stated caps. Our task is to select the mix and scale of these fourteen levers that satisfies every minimum threshold while keeping total program spend as low as possible. Please review and confirm any delivery constraints (venues, trainers, or vendor dependencies) that could affect the cohort\u2011equivalent capacities noted above."
+}

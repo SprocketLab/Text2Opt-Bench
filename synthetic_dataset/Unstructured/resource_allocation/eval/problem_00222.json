@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit bounds, costs, and impact coefficients per lever; constraints clearly as coverage>=35.93, working capital>=-158.89, sustainability>=58.77; continuous vars with caps; minimize total cost.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Corporate narrative and coding requirements add verbosity; technical details are precise with little repetition.",
+      "realism": 95,
+      "realism_comment": "Very realistic ops planning trade-off among coverage, working capital, and sustainability; data and signs are plausible."
+    },
+    "prompt_tokens_with_data": 980,
+    "prompt_tokens_without_data": 980
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 56.14926421404682,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 6.551839464882943,
+      "Var_5": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 35.93
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -158.89
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 58.77
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.7
+      ],
+      "objective_linear_coefficient": 1.42,
+      "resource_costs": {
+        "C1": -7.84,
+        "C2": -7.12
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.33
+      ],
+      "objective_linear_coefficient": 2.74,
+      "resource_costs": {
+        "C0": -0.66,
+        "C1": -9.4
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.34
+      ],
+      "objective_linear_coefficient": 2.47,
+      "resource_costs": {
+        "C1": -2.31
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.03
+      ],
+      "objective_linear_coefficient": 4.86,
+      "resource_costs": {
+        "C0": -1.76,
+        "C1": -5.81
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.59
+      ],
+      "objective_linear_coefficient": 8.57,
+      "resource_costs": {
+        "C0": 5.64,
+        "C1": -3.05,
+        "C2": 8.97
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.94
+      ],
+      "objective_linear_coefficient": 6.67,
+      "resource_costs": {
+        "C0": -7.21,
+        "C2": -2.8
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.7, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.42 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.33, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.74 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.34, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.47 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.03, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.86 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.59, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.57 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.94, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.67 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-0.66 * vars['Var_1'] + -1.76 * vars['Var_3'] + 5.64 * vars['Var_4'] + -7.21 * vars['Var_5'] >= 35.93, name='C0')\n    m.addConstr(-7.84 * vars['Var_0'] + -9.4 * vars['Var_1'] + -2.31 * vars['Var_2'] + -5.81 * vars['Var_3'] + -3.05 * vars['Var_4'] >= -158.89, name='C1')\n    m.addConstr(-7.12 * vars['Var_0'] + 8.97 * vars['Var_4'] + -2.8 * vars['Var_5'] >= 58.77, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request to configure our Q3 operations mix to minimize run\u2011rate costs while meeting coverage, cash, and sustainability guardrails\n\nTeam,\n\nWe need your help selecting the right blend of six operational levers for the upcoming quarter. The goal is to minimize total run\u2011rate expense while meeting three corporate guardrails: a minimum coverage commitment, a floor on our net working capital movement (we cannot let it slip beyond a set negative level), and a minimum sustainability performance score. Each lever can be set anywhere from zero up to its stated cap; fractional allocations are acceptable.\n\nThe levers\n1) Emergency diesel power runs\n- Volume range: 0 to 6.7 units.\n- Unit run\u2011rate cost: 1.42 (treat as cost per unit in the same dollars as our run\u2011rate budget).\n- Coverage impact: none (no material effect on the coverage commitment).\n- Working capital impact: each unit draws 7.84 units from net working capital (recorded as a \u22127.84 movement).\n- Sustainability impact: each unit lowers the sustainability score by 7.12 points.\n\n2) In\u2011plant training days\n- Volume range: 0 to 10.33 units.\n- Unit run\u2011rate cost: 2.74.\n- Coverage impact: each unit diverts 0.66 coverage points (\u22120.66).\n- Working capital impact: each unit draws 9.40 units from net working capital (\u22129.40).\n- Sustainability impact: none.\n\n3) Spare\u2011parts buffer build\n- Volume range: 0 to 12.34 units.\n- Unit run\u2011rate cost: 2.47.\n- Coverage impact: none.\n- Working capital impact: each unit draws 2.31 units from net working capital (\u22122.31).\n- Sustainability impact: none.\n\n4) Planned maintenance shutdowns\n- Volume range: 0 to 14.03 units.\n- Unit run\u2011rate cost: 4.86.\n- Coverage impact: each unit reduces coverage by 1.76 points (\u22121.76).\n- Working capital impact: each unit draws 5.81 units from net working capital (\u22125.81).\n- Sustainability impact: none.\n\n5) Electric fleet overtime shifts\n- Volume range: 0 to 14.59 units.\n- Unit run\u2011rate cost: 8.57.\n- Coverage impact: each unit adds 5.64 coverage points (+5.64).\n- Working capital impact: each unit draws 3.05 units from net working capital (\u22123.05).\n- Sustainability impact: each unit adds 8.97 sustainability points (+8.97).\n\n6) Legacy line rework overtime\n- Volume range: 0 to 15.94 units.\n- Unit run\u2011rate cost: 6.67.\n- Coverage impact: each unit reduces coverage by 7.21 points (\u22127.21).\n- Working capital impact: no direct effect (neutral).\n- Sustainability impact: each unit reduces the sustainability score by 2.80 points (\u22122.80).\n\nMarket limits and facility specs\n- Coverage commitment: our net coverage must be at least 35.93 points; please ensure our chosen mix meets or exceeds this minimum.\n- Net working capital movement: the combined movement must not fall below \u2212158.89; in other words, the net effect across all levers must be at or above \u2212158.89 (negative values indicate outflows).\n- Sustainability performance: our net sustainability score must be at least 58.77 points.\n\nPlease propose the combination (anywhere from zero up to each lever\u2019s cap) that achieves the three limits above while minimizing our total run\u2011rate cost based on the unit costs provided."
+}

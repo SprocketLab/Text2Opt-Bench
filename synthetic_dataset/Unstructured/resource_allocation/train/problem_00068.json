@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and capacities are explicit; objective and constraints are mechanically derivable. Only variable names are not specified.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business prose and repeated 'not required' lines add length; core data is clear but could be more concise.",
+      "realism": 96,
+      "realism_comment": "Plausible production planning with resource limits (lab time, line time, QC, storage) and integer runs; feels like a real scenario."
+    },
+    "prompt_tokens_with_data": 765,
+    "prompt_tokens_without_data": 765
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 87.0,
+    "optimal_values": {
+      "Var_0": 4.0,
+      "Var_1": 2.0,
+      "Var_2": 5.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 27.46
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.41
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 18.0
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 24.62
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.66
+      ],
+      "objective_linear_coefficient": 6.15,
+      "resource_costs": {
+        "C1": 5.23
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.38
+      ],
+      "objective_linear_coefficient": 9.9,
+      "resource_costs": {
+        "C0": 8.58,
+        "C2": 0.73
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.4
+      ],
+      "objective_linear_coefficient": 8.52,
+      "resource_costs": {
+        "C0": 1.6,
+        "C2": 2.99,
+        "C3": 4.35
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.66, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.15 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.38, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.9 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.4, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.52 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.58 * vars['Var_1'] + 1.6 * vars['Var_2'] <= 27.46, name='C0')\n    m.addConstr(5.23 * vars['Var_0'] <= 22.41, name='C1')\n    m.addConstr(0.73 * vars['Var_1'] + 2.99 * vars['Var_2'] <= 18.0, name='C2')\n    m.addConstr(4.35 * vars['Var_2'] <= 24.62, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocating next cycle\u2019s production to maximize total contribution\n\nTeam,\n\nFor the upcoming planning window, we want to maximize total contribution by choosing how many whole production runs to schedule across three product families. Each decision is in whole units only (no partial runs), each family has a cap for the period, and each run draws on specific, limited plant resources. Details follow.\n\nThe levers we can pull\n\n- Botanical Serum, Lab-Only Series\n  - Business impact: Each small-batch run contributes 6.15 units to total contribution.\n  - Decision bounds: Minimum commitment is 0 runs; at most 6.66 runs may be scheduled this period. All runs must be whole numbers.\n  - Resource usage per run:\n    - Formulation Lab bench time: 5.23 hours per run.\n    - Line 1 processing time: not required.\n    - Quality-control test slots: not required.\n    - Chilled storage capacity: not required.\n\n- Hydrating Cleanser, Line 1 Campaign\n  - Business impact: Each production run contributes 9.9 units to total contribution.\n  - Decision bounds: Minimum commitment is 0 runs; at most 18.38 runs may be scheduled this period. All runs must be whole numbers.\n  - Resource usage per run:\n    - Line 1 processing time: 8.58 hours per run.\n    - Quality-control test slots: 0.73 slots per run.\n    - Formulation Lab bench time: not required.\n    - Chilled storage capacity: not required.\n\n- Probiotic Gel, Cold-Chain Pack\n  - Business impact: Each production run contributes 8.52 units to total contribution.\n  - Decision bounds: Minimum commitment is 0 runs; at most 7.4 runs may be scheduled this period. All runs must be whole numbers.\n  - Resource usage per run:\n    - Line 1 processing time: 1.6 hours per run.\n    - Quality-control test slots: 2.99 slots per run.\n    - Chilled storage capacity: 4.35 bay-equivalents per run.\n    - Formulation Lab bench time: not required.\n\nFacility specs and period limits\n\n- Line 1 processing time available: up to 27.46 hours across all scheduled runs.\n- Formulation Lab bench time available: up to 22.41 hours across all scheduled runs.\n- Quality-control test slots available: up to 18.0 slots across all scheduled runs.\n- Chilled storage capacity available: up to 24.62 bay-equivalents across all scheduled runs.\n\nPlease use these numbers to propose the mix of whole runs that delivers the highest total contribution within the stated limits."
+}

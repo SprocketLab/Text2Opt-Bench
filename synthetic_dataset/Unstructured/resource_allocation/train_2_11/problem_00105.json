@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and per-lot contributions are explicit. Nutrition floors and objective are clear, enabling exact reconstruction of variables, constraints, and objective.",
+      "ambiguity": false,
+      "redundancy": 22,
+      "redundancy_comment": "Email-style context and repeated non-negativity phrasing add minor fluff, but technical specs are concise and non-repetitive.",
+      "realism": 98,
+      "realism_comment": "Classic blending/procurement problem with nutrition floors, availability caps, and integer lot-sizing; highly plausible real-world scenario."
+    },
+    "prompt_tokens_with_data": 764,
+    "prompt_tokens_without_data": 764
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 63.41693723849284,
+    "optimal_values": {
+      "Var_0": 0.023012552301161088,
+      "Var_1": 10.18,
+      "Var_2": 10.0,
+      "Var_3": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 107.46
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 95.15
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 78.18
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.14
+      ],
+      "objective_linear_coefficient": 9.34,
+      "resource_costs": {
+        "C0": 2.39
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.18
+      ],
+      "objective_linear_coefficient": 3.9,
+      "resource_costs": {
+        "C0": 2.25,
+        "C1": 7.82,
+        "C2": 4.53
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.04
+      ],
+      "objective_linear_coefficient": 2.35,
+      "resource_costs": {
+        "C0": 8.45,
+        "C1": 1.62,
+        "C2": 3.4
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.87
+      ],
+      "objective_linear_coefficient": 1.88,
+      "resource_costs": {
+        "C1": 2.0,
+        "C2": 1.87
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.14, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.34 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.18, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.9 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.04, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.35 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.87, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.88 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.39 * vars['Var_0'] + 2.25 * vars['Var_1'] + 8.45 * vars['Var_2'] >= 107.46, name='C0')\n    m.addConstr(7.82 * vars['Var_1'] + 1.62 * vars['Var_2'] + 2.0 * vars['Var_3'] >= 95.15, name='C1')\n    m.addConstr(4.53 * vars['Var_1'] + 3.4 * vars['Var_2'] + 1.87 * vars['Var_3'] >= 78.18, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing blend plan to meet nutrition floors\n\nHi team,\n\nAs discussed, we need to set the least-cost mix for our next production run while guaranteeing we clear three required nutrition floors. The objective is to minimize total procurement spend subject to those minimums. Below are the four levers we can pull, in the order we are evaluating them, with their costs, availability limits, and how each one contributes to our three nutrition targets.\n\n- Alfalfa Concentrate (protein isolate)\n  - Cost profile: 9.34 per lot.\n  - Availability and lot-sizing: we can buy anywhere from 0 up to 17.14 lots; partial lots are allowed (we cannot go below zero).\n  - Impact on targets: each lot delivers 2.39 units toward the Protein target and does not contribute to the Energy or Fiber targets.\n\n- Maize Premium Pellets\n  - Cost profile: 3.9 per lot.\n  - Availability and lot-sizing: we can buy anywhere from 0 up to 10.18 lots; partial lots are allowed (we cannot go below zero).\n  - Impact on targets: each lot adds 2.25 units toward Protein, 7.82 units toward Energy, and 4.53 units toward Fiber.\n\n- Soybean Meal (whole lots only)\n  - Cost profile: 2.35 per lot.\n  - Availability and lot-sizing: we can procure from 0 up to 15.04 lots, but only in whole-lot increments (no fractional lots; we cannot go below zero).\n  - Impact on targets: each lot contributes 8.45 units toward Protein, 1.62 units toward Energy, and 3.4 units toward Fiber.\n\n- Molasses Blend\n  - Cost profile: 1.88 per lot.\n  - Availability and lot-sizing: we can buy anywhere from 0 up to 10.87 lots; partial lots are allowed (we cannot go below zero).\n  - Impact on targets: each lot adds 2.0 units toward Energy and 1.87 units toward Fiber, with no direct contribution to Protein.\n\nNutrition floors (must be met or exceeded):\n- Protein: at least 107.46 units in total from the items above.\n- Energy: at least 95.15 units in total from the items above.\n- Fiber: at least 78.18 units in total from the items above.\n\nPlease use this structure to determine the lowest-cost combination that satisfies all three minimums while respecting each item\u2019s lot-sizing rule and availability cap. Let me know if you need any clarifications or if supply changes alter these bounds.\n\nBest regards,\n[Client Name]\nDirector of Operations"
+}

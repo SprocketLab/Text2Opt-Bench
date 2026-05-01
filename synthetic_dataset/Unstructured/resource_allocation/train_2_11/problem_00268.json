@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, coefficients, and constraint directions are explicitly stated (including reductions as negatives). A human can reconstruct the exact LP without guessing.",
+      "ambiguity": false,
+      "redundancy": 38,
+      "redundancy_comment": "Narrative adds length and some repeated 'No draw/No change' notes, but content is structured and relevant.",
+      "realism": 95,
+      "realism_comment": "A plausible planning problem with sustainability and capacity constraints; units and signs are coherent and realistic."
+    },
+    "prompt_tokens_with_data": 1383,
+    "prompt_tokens_without_data": 1383
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 453.9611259897683,
+    "optimal_values": {
+      "Var_0": 5.482738400353513,
+      "Var_1": 5.278890603509003,
+      "Var_2": 9.976712328767123,
+      "Var_3": 14.43,
+      "Var_4": 10.15633423180593,
+      "Var_5": 19.47
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 37.68
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -124.45
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -83.73
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 21.64
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 72.83
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -61.46
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 8.02
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.61
+      ],
+      "objective_linear_coefficient": 9.86,
+      "resource_costs": {
+        "C1": -4.6,
+        "C3": 3.1,
+        "C5": -2.71,
+        "C6": -0.24
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.1
+      ],
+      "objective_linear_coefficient": 1.8,
+      "resource_costs": {
+        "C5": -6.28,
+        "C6": 5.88
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.75
+      ],
+      "objective_linear_coefficient": 9.36,
+      "resource_costs": {
+        "C3": -1.95,
+        "C4": 7.3,
+        "C6": -0.17
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.43
+      ],
+      "objective_linear_coefficient": 5.63,
+      "resource_costs": {
+        "C1": -4.9,
+        "C3": 1.67
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.86
+      ],
+      "objective_linear_coefficient": 5.43,
+      "resource_costs": {
+        "C0": 3.71,
+        "C1": -5.06,
+        "C2": -8.75,
+        "C6": -1.97
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.47
+      ],
+      "objective_linear_coefficient": 8.25,
+      "resource_costs": {
+        "C5": -1.27
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.61, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.86 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.1, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.8 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.75, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.36 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.43, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.63 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=16.86, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.43 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.47, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.25 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.71 * vars['Var_4'] <= 37.68, name='C0')\n    m.addConstr(-4.6 * vars['Var_0'] + -4.9 * vars['Var_3'] + -5.06 * vars['Var_4'] <= -124.45, name='C1')\n    m.addConstr(-8.75 * vars['Var_4'] <= -83.73, name='C2')\n    m.addConstr(3.1 * vars['Var_0'] + -1.95 * vars['Var_2'] + 1.67 * vars['Var_3'] <= 21.64, name='C3')\n    m.addConstr(7.3 * vars['Var_2'] <= 72.83, name='C4')\n    m.addConstr(-2.71 * vars['Var_0'] + -6.28 * vars['Var_1'] + -1.27 * vars['Var_5'] <= -61.46, name='C5')\n    m.addConstr(-0.24 * vars['Var_0'] + 5.88 * vars['Var_1'] + -0.17 * vars['Var_2'] + -1.97 * vars['Var_4'] <= 8.02, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio allocation brief \u2014 maximizing strategic impact under operational and compliance limits\n\nTeam,\n\nFor the upcoming planning cycle, we need to size six scalable initiatives to maximize our overall Strategic Impact score while staying within our operational capacities and compliance balances. Each initiative can be deployed fractionally (we are not restricted to whole units) within the specific range noted below, and each has a defined per\u2011unit contribution to value and to our capacity/compliance balances. Some balances are measured relative to a baseline and are framed as \u201cnet\u201d positions; where those limits are negative, they represent required net reductions.\n\nInitiative 1 \u2014 Rooftop Solar Rollout\n- Scale: We may commission anywhere from 0 up to 8.61 units.\n- Strategic value: Each unit contributes 9.86 points to the Strategic Impact score.\n- Capital budget: No draw.\n- Net carbon balance: Lowers the balance by 4.6 tCO2e per unit (helps us meet the required net reduction).\n- Nitrate discharge balance: No change.\n- Skilled technician hours: Requires 3.1 thousand hours per unit.\n- Grid interconnection capacity: No draw.\n- Net landfill mass: Lowers the balance by 2.71 tons per unit (additional diversion relative to baseline).\n- Community noise index: Reduces the index by 0.24 points per unit.\n\nInitiative 2 \u2014 Waste\u2011to\u2011Energy Operations Expansion\n- Scale: We may deploy anywhere from 0 up to 6.1 units.\n- Strategic value: Each unit contributes 1.8 points to the Strategic Impact score.\n- Capital budget: No draw.\n- Net carbon balance: No change.\n- Nitrate discharge balance: No change.\n- Skilled technician hours: No draw.\n- Grid interconnection capacity: No draw.\n- Net landfill mass: Lowers the balance by 6.28 tons per unit (significant diversion benefit).\n- Community noise index: Increases the index by 5.88 points per unit (community impact to manage).\n\nInitiative 3 \u2014 Smart Controls and Distributed Storage\n- Scale: We may deploy anywhere from 0 up to 17.75 units.\n- Strategic value: Each unit contributes 9.36 points to the Strategic Impact score.\n- Capital budget: No draw.\n- Net carbon balance: No change.\n- Nitrate discharge balance: No change.\n- Skilled technician hours: Frees up 1.95 thousand hours per unit (reduces demand on our skilled workforce).\n- Grid interconnection capacity: Uses 7.3 capacity units per deployment unit.\n- Net landfill mass: No change.\n- Community noise index: Reduces the index by 0.17 points per unit.\n\nInitiative 4 \u2014 High\u2011Efficiency Boiler Retrofits\n- Scale: We may deploy anywhere from 0 up to 14.43 units.\n- Strategic value: Each unit contributes 5.63 points to the Strategic Impact score.\n- Capital budget: No draw.\n- Net carbon balance: Lowers the balance by 4.9 tCO2e per unit.\n- Nitrate discharge balance: No change.\n- Skilled technician hours: Requires 1.67 thousand hours per unit.\n- Grid interconnection capacity: No draw.\n- Net landfill mass: No change.\n- Community noise index: No change.\n\nInitiative 5 \u2014 Water Reclamation Plant Upgrade\n- Scale: We may deploy anywhere from 0 up to 16.86 units.\n- Strategic value: Each unit contributes 5.43 points to the Strategic Impact score.\n- Capital budget: Draws 3.71 million of the capital budget per unit.\n- Net carbon balance: Lowers the balance by 5.06 tCO2e per unit.\n- Nitrate discharge balance: Lowers the balance by 8.75 kg N per unit.\n- Skilled technician hours: No draw.\n- Grid interconnection capacity: No draw.\n- Net landfill mass: No change.\n- Community noise index: Reduces the index by 1.97 points per unit.\n\nInitiative 6 \u2014 Recycling Logistics Enhancement\n- Scale: We may deploy anywhere from 0 up to 19.47 units.\n- Strategic value: Each unit contributes 8.25 points to the Strategic Impact score.\n- Capital budget: No draw.\n- Net carbon balance: No change.\n- Nitrate discharge balance: No change.\n- Skilled technician hours: No draw.\n- Grid interconnection capacity: No draw.\n- Net landfill mass: Lowers the balance by 1.27 tons per unit.\n- Community noise index: No change.\n\nCompliance and capacity limits (must not be exceeded)\n- Capital budget availability: At most 37.68 million is available for capital outlays.\n- Net carbon balance (relative to baseline): Must be at or below \u2212124.45 tCO2e (i.e., at least 124.45 tons of net abatement).\n- Nitrate discharge balance (relative to baseline): Must be at or below \u221283.73 kg N (i.e., at least 83.73 kg of net reduction).\n- Skilled technician hours: No more than 21.64 thousand hours are available.\n- Grid interconnection capacity: No more than 72.83 capacity units are available.\n- Net landfill mass (relative to baseline): Must be at or below \u221261.46 tons (i.e., at least 61.46 tons of net diversion).\n- Community noise index: Must not exceed 8.02 index points.\n\nOur objective is to configure the above six initiatives within their respective ranges so that the total Strategic Impact score is as high as possible while honoring every limit listed. Please use this brief to guide scenario development and come back with the recommended mix."
+}

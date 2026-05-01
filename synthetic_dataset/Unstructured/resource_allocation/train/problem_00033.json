@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, and >= thresholds are explicit; objective is minimize cost. Signs for negative impacts are clear. Only minor implicitness on variable continuity.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative email style with explanatory notes adds verbosity, though specifics are clear and non-repetitive.",
+      "realism": 90,
+      "realism_comment": "A plausible capacity mix and compliance scenario; indices and trade-offs make sense, though fractional 'blocks/dispatches' are slightly artificial."
+    },
+    "prompt_tokens_with_data": 787,
+    "prompt_tokens_without_data": 787
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 25.621978021978023,
+    "optimal_values": {
+      "Var_0": 9.56043956043956,
+      "Var_1": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 6.14
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 56.35
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -17.11
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.5
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -1.7
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.91
+      ],
+      "objective_linear_coefficient": 2.68,
+      "resource_costs": {
+        "C0": 0.9,
+        "C1": 5.93,
+        "C2": -1.51,
+        "C3": 4.55
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.21
+      ],
+      "objective_linear_coefficient": 2.17,
+      "resource_costs": {
+        "C0": -4.59,
+        "C1": 0.91,
+        "C2": -4.91,
+        "C3": -0.38,
+        "C4": 5.58
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.91, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.68 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.21, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.17 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.9 * vars['Var_0'] + -4.59 * vars['Var_1'] >= 6.14, name='C0')\n    m.addConstr(5.93 * vars['Var_0'] + 0.91 * vars['Var_1'] >= 56.35, name='C1')\n    m.addConstr(-1.51 * vars['Var_0'] + -4.91 * vars['Var_1'] >= -17.11, name='C2')\n    m.addConstr(4.55 * vars['Var_0'] + -0.38 * vars['Var_1'] >= 43.5, name='C3')\n    m.addConstr(5.58 * vars['Var_1'] >= -1.7, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Minimizing Daily Spend While Meeting Service and Compliance Thresholds\n\nTeam,\n\nWe\u2019re finalizing the daily mix of delivery capacity to minimize total operating spend while still hitting our service and compliance commitments. We have two levers we can dial up or down within set limits. The plan is to choose the least-cost combination that keeps each of our indices at or above their required floors.\n\nLevers under consideration\n\n- Priority Fleet Route Blocks\n  - Cost: $2.68 per block deployed.\n  - Availability: We can schedule no less than 0 and no more than 16.91 blocks per day.\n  - Impact on our indices:\n    - Reliability Index: adds 0.9 points per block.\n    - Network Coverage Credits: adds 5.93 credits per block.\n    - Sustainability Ledger: draws the ledger down by 1.51 points per block (i.e., \u22121.51 per block).\n    - Peak Window Response Capacity: adds 4.55 units per block.\n    - Community Outreach Index: no material effect (0 per block).\n  - Interpretation: This lever is our strongest contributor to coverage and peak windows, and it supports reliability, but it does consume our sustainability headroom.\n\n- Partner Courier Dispatches\n  - Cost: $2.17 per dispatch.\n  - Availability: We can subcontract no less than 0 and no more than 10.21 dispatches per day.\n  - Impact on our indices:\n    - Reliability Index: reduces the index by 4.59 points per dispatch.\n    - Network Coverage Credits: adds 0.91 credits per dispatch.\n    - Sustainability Ledger: draws the ledger down by 4.91 points per dispatch (i.e., \u22124.91 per dispatch).\n    - Peak Window Response Capacity: slightly reduces capacity by 0.38 units per dispatch.\n    - Community Outreach Index: adds 5.58 points per dispatch.\n  - Interpretation: This lever is cost-efficient and supports outreach and coverage, but it detracts from reliability and peak responsiveness and is more demanding on the sustainability ledger.\n\nFacility specs and market limits we must honor\n\n- Reliability Index: at least 6.14 points across the day.\n- Network Coverage Credits: at least 56.35 credits in total.\n- Sustainability Ledger: no lower than \u221217.11 points (we cannot let the ledger fall below this floor).\n- Peak Window Response Capacity: at least 43.5 units available.\n- Community Outreach Index: no lower than \u22121.7 points across the period.\n\nPlease use the above impacts and limits to propose the lowest-cost daily mix of Priority Fleet Route Blocks (0 to 16.91) and Partner Courier Dispatches (0 to 10.21) that keeps every index at or above its respective minimum. \n\nThanks,\nOperations Planning Director"
+}

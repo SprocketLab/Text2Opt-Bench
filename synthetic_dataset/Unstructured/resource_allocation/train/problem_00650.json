@@ -1,0 +1,275 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 12,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables (bounds, one integer), contributions, resource consumptions, and 9 capacity limits are explicit; objective is maximize contribution. Model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative and repeated 'does not require' statements make it verbose, but most details map directly to coefficients; little fluff.",
+      "realism": 95,
+      "realism_comment": "Feels like a real production planning problem with plausible resources and capacities; coherent units and impacts, realistic constraints."
+    },
+    "prompt_tokens_with_data": 1705,
+    "prompt_tokens_without_data": 1705
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 408.2235803584067,
+    "optimal_values": {
+      "Var_0": 7.07,
+      "Var_1": 11.32439287158091,
+      "Var_2": 9.30095979985193,
+      "Var_3": 11.85,
+      "Var_4": 0.0,
+      "Var_5": -0.0,
+      "Var_6": 0.0,
+      "Var_7": 8.77378143668809,
+      "Var_8": 0.0,
+      "Var_9": 0.0,
+      "Var_10": 1.2919177206799795,
+      "Var_11": 10.121695539518992
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 168.03
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 199.09
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 138.05
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 85.2
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 138.32
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 265.5
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 168.8
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 243.45
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 92.83
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.07
+      ],
+      "objective_linear_coefficient": 9.61,
+      "resource_costs": {
+        "C0": 6.84,
+        "C3": 1.06,
+        "C5": 0.84,
+        "C7": 5.34
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.89
+      ],
+      "objective_linear_coefficient": 7.52,
+      "resource_costs": {
+        "C1": 1.51,
+        "C2": 1.49,
+        "C3": 2.74,
+        "C5": 4.71,
+        "C7": 9.04,
+        "C8": 6.75
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.17
+      ],
+      "objective_linear_coefficient": 2.98,
+      "resource_costs": {
+        "C0": 7.52,
+        "C1": 8.37,
+        "C2": 2.94,
+        "C6": 5.0,
+        "C7": 2.72
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.85
+      ],
+      "objective_linear_coefficient": 8.37,
+      "resource_costs": {
+        "C0": 3.73,
+        "C2": 3.72,
+        "C4": 3.37,
+        "C5": 9.47,
+        "C6": 9.54,
+        "C7": 0.64
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.78
+      ],
+      "objective_linear_coefficient": 3.51,
+      "resource_costs": {
+        "C0": 5.27,
+        "C1": 3.22,
+        "C2": 0.38,
+        "C4": 7.49,
+        "C6": 1.79,
+        "C7": 7.5,
+        "C8": 3.04
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.95
+      ],
+      "objective_linear_coefficient": 2.11,
+      "resource_costs": {
+        "C2": 8.89,
+        "C5": 8.02,
+        "C7": 5.56,
+        "C8": 0.27
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.69
+      ],
+      "objective_linear_coefficient": 9.12,
+      "resource_costs": {
+        "C0": 2.03,
+        "C1": 9.96,
+        "C3": 5.71,
+        "C5": 9.54,
+        "C6": 7.27,
+        "C7": 8.24
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.94
+      ],
+      "objective_linear_coefficient": 4.78,
+      "resource_costs": {
+        "C0": 0.63,
+        "C1": 2.08,
+        "C2": 1.73,
+        "C3": 1.49,
+        "C4": 9.0,
+        "C8": 1.74
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.51
+      ],
+      "objective_linear_coefficient": 3.17,
+      "resource_costs": {
+        "C0": 5.33,
+        "C1": 6.99,
+        "C4": 4.96,
+        "C5": 8.66,
+        "C8": 6.82
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.88
+      ],
+      "objective_linear_coefficient": 2.69,
+      "resource_costs": {
+        "C0": 1.57,
+        "C1": 1.62,
+        "C2": 5.02,
+        "C3": 3.22,
+        "C4": 8.27,
+        "C5": 1.1,
+        "C6": 6.87,
+        "C7": 4.95
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.2
+      ],
+      "objective_linear_coefficient": 3.09,
+      "resource_costs": {
+        "C4": 6.65,
+        "C5": 4.21,
+        "C6": 1.14,
+        "C8": 0.87
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.85
+      ],
+      "objective_linear_coefficient": 8.13,
+      "resource_costs": {
+        "C3": 3.32,
+        "C4": 1.07,
+        "C5": 8.75
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.07, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.61 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.89, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.52 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=5.2, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 3.09 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=17.85, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 8.13 * vars['Var_11']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.17, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.98 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.85, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.37 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.78, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.51 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.95, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 2.11 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=15.69, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 9.12 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=11.94, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 4.78 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=13.51, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 3.17 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=18.88, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 2.69 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.84 * vars['Var_0'] + 7.52 * vars['Var_2'] + 3.73 * vars['Var_3'] + 5.27 * vars['Var_4'] + 2.03 * vars['Var_6'] + 0.63 * vars['Var_7'] + 5.33 * vars['Var_8'] + 1.57 * vars['Var_9'] <= 168.03, name='C0')\n    m.addConstr(1.51 * vars['Var_1'] + 8.37 * vars['Var_2'] + 3.22 * vars['Var_4'] + 9.96 * vars['Var_6'] + 2.08 * vars['Var_7'] + 6.99 * vars['Var_8'] + 1.62 * vars['Var_9'] <= 199.09, name='C1')\n    m.addConstr(1.49 * vars['Var_1'] + 2.94 * vars['Var_2'] + 3.72 * vars['Var_3'] + 0.38 * vars['Var_4'] + 8.89 * vars['Var_5'] + 1.73 * vars['Var_7'] + 5.02 * vars['Var_9'] <= 138.05, name='C2')\n    m.addConstr(1.06 * vars['Var_0'] + 2.74 * vars['Var_1'] + 3.32 * vars['Var_11'] + 5.71 * vars['Var_6'] + 1.49 * vars['Var_7'] + 3.22 * vars['Var_9'] <= 85.2, name='C3')\n    m.addConstr(6.65 * vars['Var_10'] + 1.07 * vars['Var_11'] + 3.37 * vars['Var_3'] + 7.49 * vars['Var_4'] + 9.0 * vars['Var_7'] + 4.96 * vars['Var_8'] + 8.27 * vars['Var_9'] <= 138.32, name='C4')\n    m.addConstr(0.84 * vars['Var_0'] + 4.71 * vars['Var_1'] + 4.21 * vars['Var_10'] + 8.75 * vars['Var_11'] + 9.47 * vars['Var_3'] + 8.02 * vars['Var_5'] + 9.54 * vars['Var_6'] + 8.66 * vars['Var_8'] + 1.1 * vars['Var_9'] <= 265.5, name='C5')\n    m.addConstr(1.14 * vars['Var_10'] + 5.0 * vars['Var_2'] + 9.54 * vars['Var_3'] + 1.79 * vars['Var_4'] + 7.27 * vars['Var_6'] + 6.87 * vars['Var_9'] <= 168.8, name='C6')\n    m.addConstr(5.34 * vars['Var_0'] + 9.04 * vars['Var_1'] + 2.72 * vars['Var_2'] + 0.64 * vars['Var_3'] + 7.5 * vars['Var_4'] + 5.56 * vars['Var_5'] + 8.24 * vars['Var_6'] + 4.95 * vars['Var_9'] <= 243.45, name='C7')\n    m.addConstr(6.75 * vars['Var_1'] + 0.87 * vars['Var_10'] + 3.04 * vars['Var_4'] + 0.27 * vars['Var_5'] + 1.74 * vars['Var_7'] + 6.82 * vars['Var_8'] <= 92.83, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for Optimal Capacity Allocation to Maximize Contribution This Cycle\n\nTeam,\n\nWe need help setting our production plan across twelve product families for the upcoming cycle with the aim of maximizing total contribution. All items can be scheduled at zero or above, within their listed upper limits; most can be scheduled in partial lots, with the one exception noted below. We will be constrained by nine shared capacities across fabrication, blending, materials, inspection, additives, storage, skilled labor, shipping, and emissions allowances.\n\nPortfolio levers and their impacts\n- Aurora Panels (max 7.07 units; fractional lots allowed): Each unit contributes 9.61. It uses 6.84 hours on Fabrication Line A, 1.06 hours of Quality Inspection, 0.84 pallet-days of Warehouse storage, and 5.34 Outbound Dock slots. It draws nothing from the Blending Bay, Alloy B feed, Additive Q, Skilled Technician hours, or the Emissions budget.\n- Blue Ridge Kits (max 14.89 units; fractional lots allowed): Each unit contributes 7.52. It uses 1.51 hours in the Blending Bay, 1.49 units of Alloy B feedstock, 2.74 hours of Quality Inspection, 4.71 pallet-days of Warehouse storage, 9.04 Outbound Dock slots, and 6.75 units of Emissions budget. It requires no Fabrication Line A time, no Additive Q, and no Skilled Technician hours.\n- Cobalt Assemblies (max 10.17 units; fractional lots allowed): Each unit contributes 2.98. It uses 7.52 hours on Fabrication Line A, 8.37 hours in the Blending Bay, 2.94 units of Alloy B feedstock, 5.00 hours of Skilled Technician time, and 2.72 Outbound Dock slots. It requires no Quality Inspection, no Additive Q, no Warehouse storage, and no Emissions budget.\n- Dawn Modules (max 11.85 units; fractional lots allowed): Each unit contributes 8.37. It uses 3.73 hours on Fabrication Line A, 3.72 units of Alloy B feedstock, 3.37 units of Additive Q, 9.47 pallet-days of Warehouse storage, 9.54 hours of Skilled Technician time, and 0.64 Outbound Dock slots. It requires no Blending Bay time, no Quality Inspection, and no Emissions budget.\n- Eclipse Housings (max 7.78 units; fractional lots allowed): Each unit contributes 3.51. It uses 5.27 hours on Fabrication Line A, 3.22 hours in the Blending Bay, 0.38 units of Alloy B feedstock, 7.49 units of Additive Q, 1.79 hours of Skilled Technician time, 7.50 Outbound Dock slots, and 3.04 units of Emissions budget. It does not require Quality Inspection or Warehouse storage.\n- Foundry Batches (max 15.95 batches; whole batches only): Each batch contributes 2.11. Each batch uses 8.89 units of Alloy B feedstock, 8.02 pallet-days of Warehouse storage, 5.56 Outbound Dock slots, and 0.27 units of Emissions budget. It does not use Fabrication Line A, the Blending Bay, Quality Inspection, Additive Q, or Skilled Technician hours.\n- Granite Units (max 15.69 units; fractional lots allowed): Each unit contributes 9.12. It uses 2.03 hours on Fabrication Line A, 9.96 hours in the Blending Bay, 5.71 hours of Quality Inspection, 9.54 pallet-days of Warehouse storage, 7.27 hours of Skilled Technician time, and 8.24 Outbound Dock slots. It requires no Alloy B feedstock, no Additive Q, and no Emissions budget.\n- Harbor Frames (max 11.94 units; fractional lots allowed): Each unit contributes 4.78. It uses 0.63 hours on Fabrication Line A, 2.08 hours in the Blending Bay, 1.73 units of Alloy B feedstock, 1.49 hours of Quality Inspection, 9.00 units of Additive Q, and 1.74 units of Emissions budget. It does not require Warehouse storage, Skilled Technician hours, or Outbound Dock slots.\n- Indigo Packs (max 13.51 units; fractional lots allowed): Each unit contributes 3.17. It uses 5.33 hours on Fabrication Line A, 6.99 hours in the Blending Bay, 4.96 units of Additive Q, 8.66 pallet-days of Warehouse storage, and 6.82 units of Emissions budget. It requires no Alloy B feedstock, Quality Inspection, Skilled Technician hours, or Outbound Dock slots.\n- Jasper Sets (max 18.88 units; fractional lots allowed): Each unit contributes 2.69. It uses 1.57 hours on Fabrication Line A, 1.62 hours in the Blending Bay, 5.02 units of Alloy B feedstock, 3.22 hours of Quality Inspection, 8.27 units of Additive Q, 1.10 pallet-days of Warehouse storage, 6.87 hours of Skilled Technician time, and 4.95 Outbound Dock slots. It requires no Emissions budget.\n- Keystone Cores (max 5.20 units; fractional lots allowed): Each unit contributes 3.09. It uses 6.65 units of Additive Q, 4.21 pallet-days of Warehouse storage, 1.14 hours of Skilled Technician time, and 0.87 units of Emissions budget. It draws nothing from Fabrication Line A, the Blending Bay, Alloy B feedstock, Quality Inspection, or Outbound Dock slots.\n- Lumen Drives (max 17.85 units; fractional lots allowed): Each unit contributes 8.13. It uses 3.32 hours of Quality Inspection, 1.07 units of Additive Q, and 8.75 pallet-days of Warehouse storage. It does not require Fabrication Line A, the Blending Bay, Alloy B feedstock, Skilled Technician hours, Outbound Dock slots, or Emissions budget.\n\nFacility specs and market limits for the period\n- Fabrication Line A hours available: 168.03\n- Blending Bay time available: 199.09\n- Alloy B feedstock available: 138.05\n- Quality Inspection hours available: 85.20\n- Additive Q available: 138.32\n- Warehouse storage (pallet-days) available: 265.50\n- Skilled Technician hours available: 168.80\n- Outbound Dock slots available: 243.45\n- Emissions budget available: 92.83\n\nPlease use the above to develop the production mix that maximizes our total contribution while respecting these limits. Let me know if you need any clarifications on process requirements or if you\u2019d like us to validate assumptions behind fractional-lot feasibility for the families identified as such."
+}

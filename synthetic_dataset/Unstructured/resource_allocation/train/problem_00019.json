@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and capacities are explicit. Digital blocks use no resources; runs consume stated resources. Objective: maximize contribution. No missing data.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business-letter framing and solver instructions add verbosity, but the optimization details are concise and non-repetitive.",
+      "realism": 95,
+      "realism_comment": "Realistic production/ad allocation with machine hours, compliance, and material limits; values plausible. Slight oddity with 14.97 cap but credible."
+    },
+    "prompt_tokens_with_data": 557,
+    "prompt_tokens_without_data": 557
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 47.011443850267376,
+    "optimal_values": {
+      "Var_0": 14.0,
+      "Var_1": 3.6898395721925135
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 27.6
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 4.96
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.94
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.97
+      ],
+      "objective_linear_coefficient": 2.28,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.4
+      ],
+      "objective_linear_coefficient": 4.09,
+      "resource_costs": {
+        "C0": 7.48,
+        "C1": 1.04,
+        "C2": 2.93
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.97, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.4, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.09 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.48 * vars['Var_1'] <= 27.6, name='C0')\n    m.addConstr(1.04 * vars['Var_1'] <= 4.96, name='C1')\n    m.addConstr(2.93 * vars['Var_1'] <= 12.94, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance on Allocating Digital Placements and Small-Batch Runs to Maximize Contribution\n\nHi team,\n\nWe\u2019re planning a short allocation cycle and want to maximize total contribution while respecting our operating limits. We have two levers to pull this period and three constrained resources that cap what we can do.\n\nLevers we can adjust:\n- Digital Sponsorship Blocks\n  - Each block delivers a contribution of 2.28.\n  - These placements do not draw on any of our constrained internal resources\u2014no machine-hours, no compliance review time, and no specialty materials at all.\n  - We will not book a negative amount; the floor is 0 blocks. The partner caps availability at 14.97 block-equivalents, and bookings must be in whole blocks only.\n\n- Small-Batch Premium Runs\n  - Each run delivers a contribution of 4.09.\n  - Per run, we require 7.48 machine-hours on Line Alpha, 1.04 hours of compliance review, and 2.93 units of our Specialty Resin RZ-2.\n  - We will not schedule a negative amount; the floor is 0 runs. We can schedule up to 6.4 runs this period, and partial runs are allowed if helpful.\n\nFacility and policy limits for this period:\n- Line Alpha availability: up to 27.6 machine-hours.\n- Compliance review capacity: up to 4.96 hours.\n- Specialty Resin RZ-2 on hand: up to 12.94 units.\n\nPlease use this to advise the mix of digital blocks and small-batch runs that maximizes total contribution without exceeding any of the above limits.\n\nThanks,\n[Client Name]\n[Title]"
+}

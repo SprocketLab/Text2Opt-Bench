@@ -1,0 +1,507 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 18,
+    "num_constraints": 21,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "Bounds, unit costs, and KPI impacts (with signs) are fully specified; KPI floors define >= constraints. Objective is clear. Only minor ambiguity on variable type/naming.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some business narrative and generic LP/QP/heuristic remarks add fluff, but most text encodes necessary coefficients and bounds.",
+      "realism": 90,
+      "realism_comment": "Feels like a real planning problem with KPIs and capacity caps; coefficients are coherent. A few unusual minimums (e.g., load) but still plausible."
+    },
+    "prompt_tokens_with_data": 3352,
+    "prompt_tokens_without_data": 3352
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 706.1335243264957,
+    "optimal_values": {
+      "Var_0": 7.9412989445961815,
+      "Var_1": 8.866556003009096,
+      "Var_2": 3.8004737308316012,
+      "Var_3": 6.16894678933374,
+      "Var_4": 9.166891159303566,
+      "Var_5": 0.0,
+      "Var_6": 7.95664407139833,
+      "Var_7": 6.108344805486742,
+      "Var_8": 10.482526203529819,
+      "Var_9": 7.004786143277889,
+      "Var_10": 9.06,
+      "Var_11": 11.64,
+      "Var_12": 0.0,
+      "Var_13": 2.0154117558536013,
+      "Var_14": 4.0895705629357355,
+      "Var_15": 3.8775388268697766,
+      "Var_16": 5.706253859677516,
+      "Var_17": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 29.36
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 173.68
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 118.92
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -46.16
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 106.93
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 356.36
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 80.46
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 118.7
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 206.68
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 299.63
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 176.11
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 56.58
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 297.74
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 1.48
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 63.38
+    },
+    "C15": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 117.74
+    },
+    "C16": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 315.91
+    },
+    "C17": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -65.12
+    },
+    "C18": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 31.73
+    },
+    "C19": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 91.71
+    },
+    "C20": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 125.31
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.8
+      ],
+      "objective_linear_coefficient": 4.22,
+      "resource_costs": {
+        "C2": 2.61,
+        "C5": 9.3,
+        "C6": 0.54,
+        "C9": 5.98,
+        "C15": 2.79,
+        "C16": 4.02,
+        "C17": 7.55
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.02
+      ],
+      "objective_linear_coefficient": 9.92,
+      "resource_costs": {
+        "C1": 8.35,
+        "C2": 3.37,
+        "C3": 6.04,
+        "C4": 6.62,
+        "C5": 9.92,
+        "C8": 5.14,
+        "C10": 9.42,
+        "C11": 2.39,
+        "C12": 1.51,
+        "C13": 2.21,
+        "C15": 4.98,
+        "C16": -1.44,
+        "C19": -4.12
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.24
+      ],
+      "objective_linear_coefficient": 5.17,
+      "resource_costs": {
+        "C0": -3.15,
+        "C3": -3.26,
+        "C4": 3.76,
+        "C8": 4.15,
+        "C10": -2.47,
+        "C11": 8.47,
+        "C12": 7.49,
+        "C13": -1.46,
+        "C14": 6.47,
+        "C16": 5.14,
+        "C17": -1.01,
+        "C18": -3.18
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.01
+      ],
+      "objective_linear_coefficient": 8.67,
+      "resource_costs": {
+        "C0": 7.72,
+        "C2": 1.09,
+        "C3": -4.77,
+        "C7": 9.59,
+        "C8": 9.55,
+        "C9": 3.23,
+        "C11": -0.52,
+        "C15": 3.54,
+        "C16": 5.45,
+        "C17": -4.55,
+        "C18": -1.54
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.72
+      ],
+      "objective_linear_coefficient": 7.91,
+      "resource_costs": {
+        "C0": 1.2,
+        "C2": -3.49,
+        "C3": -1.87,
+        "C4": -0.7,
+        "C5": 8.51,
+        "C6": -1.77,
+        "C9": 3.32,
+        "C12": 9.37,
+        "C16": 5.5,
+        "C19": 5.28
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.32
+      ],
+      "objective_linear_coefficient": 7.62,
+      "resource_costs": {
+        "C1": -3.74,
+        "C5": 8.26,
+        "C9": 9.88,
+        "C10": 6.49,
+        "C12": 0.84,
+        "C13": -1.02,
+        "C15": 3.41,
+        "C18": -3.13
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.77
+      ],
+      "objective_linear_coefficient": 6.61,
+      "resource_costs": {
+        "C0": -2.91,
+        "C2": 3.01,
+        "C3": -0.41,
+        "C9": 7.43,
+        "C10": 2.75,
+        "C16": 3.6,
+        "C17": -2.14,
+        "C18": 4.31,
+        "C19": 5.83
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.89
+      ],
+      "objective_linear_coefficient": 1.3,
+      "resource_costs": {
+        "C0": 0.98,
+        "C1": -0.1,
+        "C2": 5.7,
+        "C3": -3.69,
+        "C4": 4.28,
+        "C5": -1.36,
+        "C7": -4.32,
+        "C8": 8.8,
+        "C9": -1.47,
+        "C14": 8.98
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.55
+      ],
+      "objective_linear_coefficient": 7.16,
+      "resource_costs": {
+        "C1": 5.7,
+        "C6": 4.3,
+        "C12": -0.57,
+        "C15": 9.5,
+        "C17": 3.32,
+        "C18": -0.96,
+        "C19": 3.51,
+        "C20": 9.41
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.38
+      ],
+      "objective_linear_coefficient": 9.13,
+      "resource_costs": {
+        "C4": 3.25,
+        "C9": 8.59,
+        "C10": -1.15,
+        "C11": -1.11,
+        "C12": 9.67,
+        "C14": 1.78,
+        "C17": -4.12,
+        "C18": -1.15,
+        "C19": 1.56,
+        "C20": 4.35
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.06
+      ],
+      "objective_linear_coefficient": 7.17,
+      "resource_costs": {
+        "C2": 8.63,
+        "C5": -0.01,
+        "C7": 7.31,
+        "C8": -4.52,
+        "C9": -1.06,
+        "C10": 9.76,
+        "C12": 4.09,
+        "C13": -0.05,
+        "C15": -1.01,
+        "C16": 6.08
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.64
+      ],
+      "objective_linear_coefficient": 4.84,
+      "resource_costs": {
+        "C5": 8.9,
+        "C8": 5.05,
+        "C9": 8.55,
+        "C10": -0.46,
+        "C11": 1.73,
+        "C12": 5.32,
+        "C14": 3.41,
+        "C17": -4.59
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.65
+      ],
+      "objective_linear_coefficient": 5.64,
+      "resource_costs": {
+        "C1": 8.46,
+        "C5": 5.13,
+        "C7": -0.66,
+        "C8": 9.01,
+        "C9": -2.37,
+        "C13": -3.46,
+        "C19": -3.99
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.6
+      ],
+      "objective_linear_coefficient": 7.62,
+      "resource_costs": {
+        "C1": 0.25,
+        "C4": 9.66,
+        "C7": 4.14,
+        "C9": -3.94,
+        "C10": -1.1,
+        "C11": 8.28,
+        "C12": 4.59,
+        "C16": 9.55
+      }
+    },
+    "Var_14": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.66
+      ],
+      "objective_linear_coefficient": 9.27,
+      "resource_costs": {
+        "C0": -1.14,
+        "C2": 2.1,
+        "C3": -0.99,
+        "C6": 8.79,
+        "C9": -4.39,
+        "C10": 2.3,
+        "C14": 1.45,
+        "C15": -2.78,
+        "C18": 2.51
+      }
+    },
+    "Var_15": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.18
+      ],
+      "objective_linear_coefficient": 4.6,
+      "resource_costs": {
+        "C0": 1.17,
+        "C2": -2.12,
+        "C6": 2.08,
+        "C13": 6.05,
+        "C14": -0.23,
+        "C15": 6.28,
+        "C16": 9.96,
+        "C17": 5.09,
+        "C19": -3.68,
+        "C20": 6.36
+      }
+    },
+    "Var_16": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.22
+      ],
+      "objective_linear_coefficient": 8.25,
+      "resource_costs": {
+        "C1": 7.01,
+        "C4": -4.91,
+        "C5": 3.74,
+        "C6": 0.58,
+        "C7": 1.99,
+        "C8": 2.6,
+        "C9": 4.81,
+        "C10": -0.37,
+        "C11": 0.31,
+        "C13": 1.2,
+        "C16": 9.04,
+        "C18": 4.71
+      }
+    },
+    "Var_17": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.02
+      ],
+      "objective_linear_coefficient": 3.24,
+      "resource_costs": {
+        "C1": 6.7,
+        "C4": 0.82,
+        "C5": 6.14,
+        "C7": -4.77,
+        "C8": 4.52,
+        "C11": -2.92,
+        "C14": -4.02,
+        "C15": -3.82
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.8, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.22 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.02, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.92 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=9.06, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 7.17 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=11.64, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 4.84 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=13.65, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 5.64 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=9.6, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 7.62 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=12.66, vtype=GRB.CONTINUOUS, name='Var_14')\n    lin_expr += 9.27 * vars['Var_14']\n    vars['Var_15'] = m.addVar(lb=0.0, ub=7.18, vtype=GRB.CONTINUOUS, name='Var_15')\n    lin_expr += 4.6 * vars['Var_15']\n    vars['Var_16'] = m.addVar(lb=0.0, ub=16.22, vtype=GRB.CONTINUOUS, name='Var_16')\n    lin_expr += 8.25 * vars['Var_16']\n    vars['Var_17'] = m.addVar(lb=0.0, ub=9.02, vtype=GRB.CONTINUOUS, name='Var_17')\n    lin_expr += 3.24 * vars['Var_17']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.24, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.17 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.01, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.67 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.72, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.91 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.32, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.62 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.77, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.61 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.89, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 1.3 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=19.55, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 7.16 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=10.38, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 9.13 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-1.14 * vars['Var_14'] + 1.17 * vars['Var_15'] + -3.15 * vars['Var_2'] + 7.72 * vars['Var_3'] + 1.2 * vars['Var_4'] + -2.91 * vars['Var_6'] + 0.98 * vars['Var_7'] >= 29.36, name='C0')\n    m.addConstr(8.35 * vars['Var_1'] + 8.46 * vars['Var_12'] + 0.25 * vars['Var_13'] + 7.01 * vars['Var_16'] + 6.7 * vars['Var_17'] + -3.74 * vars['Var_5'] + -0.1 * vars['Var_7'] + 5.7 * vars['Var_8'] >= 173.68, name='C1')\n    m.addConstr(9.42 * vars['Var_1'] + 9.76 * vars['Var_10'] + -0.46 * vars['Var_11'] + -1.1 * vars['Var_13'] + 2.3 * vars['Var_14'] + -0.37 * vars['Var_16'] + -2.47 * vars['Var_2'] + 6.49 * vars['Var_5'] + 2.75 * vars['Var_6'] + -1.15 * vars['Var_9'] >= 176.11, name='C10')\n    m.addConstr(2.39 * vars['Var_1'] + 1.73 * vars['Var_11'] + 8.28 * vars['Var_13'] + 0.31 * vars['Var_16'] + -2.92 * vars['Var_17'] + 8.47 * vars['Var_2'] + -0.52 * vars['Var_3'] + -1.11 * vars['Var_9'] >= 56.58, name='C11')\n    m.addConstr(1.51 * vars['Var_1'] + 4.09 * vars['Var_10'] + 5.32 * vars['Var_11'] + 4.59 * vars['Var_13'] + 7.49 * vars['Var_2'] + 9.37 * vars['Var_4'] + 0.84 * vars['Var_5'] + -0.57 * vars['Var_8'] + 9.67 * vars['Var_9'] >= 297.74, name='C12')\n    m.addConstr(2.21 * vars['Var_1'] + -0.05 * vars['Var_10'] + -3.46 * vars['Var_12'] + 6.05 * vars['Var_15'] + 1.2 * vars['Var_16'] + -1.46 * vars['Var_2'] + -1.02 * vars['Var_5'] >= 1.48, name='C13')\n    m.addConstr(3.41 * vars['Var_11'] + 1.45 * vars['Var_14'] + -0.23 * vars['Var_15'] + -4.02 * vars['Var_17'] + 6.47 * vars['Var_2'] + 8.98 * vars['Var_7'] + 1.78 * vars['Var_9'] >= 63.38, name='C14')\n    m.addConstr(2.79 * vars['Var_0'] + 4.98 * vars['Var_1'] + -1.01 * vars['Var_10'] + -2.78 * vars['Var_14'] + 6.28 * vars['Var_15'] + -3.82 * vars['Var_17'] + 3.54 * vars['Var_3'] + 3.41 * vars['Var_5'] + 9.5 * vars['Var_8'] >= 117.74, name='C15')\n    m.addConstr(4.02 * vars['Var_0'] + -1.44 * vars['Var_1'] + 6.08 * vars['Var_10'] + 9.55 * vars['Var_13'] + 9.96 * vars['Var_15'] + 9.04 * vars['Var_16'] + 5.14 * vars['Var_2'] + 5.45 * vars['Var_3'] + 5.5 * vars['Var_4'] + 3.6 * vars['Var_6'] >= 315.91, name='C16')\n    m.addConstr(7.55 * vars['Var_0'] + -4.59 * vars['Var_11'] + 5.09 * vars['Var_15'] + -1.01 * vars['Var_2'] + -4.55 * vars['Var_3'] + -2.14 * vars['Var_6'] + 3.32 * vars['Var_8'] + -4.12 * vars['Var_9'] >= -65.12, name='C17')\n    m.addConstr(2.51 * vars['Var_14'] + 4.71 * vars['Var_16'] + -3.18 * vars['Var_2'] + -1.54 * vars['Var_3'] + -3.13 * vars['Var_5'] + 4.31 * vars['Var_6'] + -0.96 * vars['Var_8'] + -1.15 * vars['Var_9'] >= 31.73, name='C18')\n    m.addConstr(-4.12 * vars['Var_1'] + -3.99 * vars['Var_12'] + -3.68 * vars['Var_15'] + 5.28 * vars['Var_4'] + 5.83 * vars['Var_6'] + 3.51 * vars['Var_8'] + 1.56 * vars['Var_9'] >= 91.71, name='C19')\n    m.addConstr(2.61 * vars['Var_0'] + 3.37 * vars['Var_1'] + 8.63 * vars['Var_10'] + 2.1 * vars['Var_14'] + -2.12 * vars['Var_15'] + 1.09 * vars['Var_3'] + -3.49 * vars['Var_4'] + 3.01 * vars['Var_6'] + 5.7 * vars['Var_7'] >= 118.92, name='C2')\n    m.addConstr(6.36 * vars['Var_15'] + 9.41 * vars['Var_8'] + 4.35 * vars['Var_9'] >= 125.31, name='C20')\n    m.addConstr(6.04 * vars['Var_1'] + -0.99 * vars['Var_14'] + -3.26 * vars['Var_2'] + -4.77 * vars['Var_3'] + -1.87 * vars['Var_4'] + -0.41 * vars['Var_6'] + -3.69 * vars['Var_7'] >= -46.16, name='C3')\n    m.addConstr(6.62 * vars['Var_1'] + 9.66 * vars['Var_13'] + -4.91 * vars['Var_16'] + 0.82 * vars['Var_17'] + 3.76 * vars['Var_2'] + -0.7 * vars['Var_4'] + 4.28 * vars['Var_7'] + 3.25 * vars['Var_9'] >= 106.93, name='C4')\n    m.addConstr(9.3 * vars['Var_0'] + 9.92 * vars['Var_1'] + -0.01 * vars['Var_10'] + 8.9 * vars['Var_11'] + 5.13 * vars['Var_12'] + 3.74 * vars['Var_16'] + 6.14 * vars['Var_17'] + 8.51 * vars['Var_4'] + 8.26 * vars['Var_5'] + -1.36 * vars['Var_7'] >= 356.36, name='C5')\n    m.addConstr(0.54 * vars['Var_0'] + 8.79 * vars['Var_14'] + 2.08 * vars['Var_15'] + 0.58 * vars['Var_16'] + -1.77 * vars['Var_4'] + 4.3 * vars['Var_8'] >= 80.46, name='C6')\n    m.addConstr(7.31 * vars['Var_10'] + -0.66 * vars['Var_12'] + 4.14 * vars['Var_13'] + 1.99 * vars['Var_16'] + -4.77 * vars['Var_17'] + 9.59 * vars['Var_3'] + -4.32 * vars['Var_7'] >= 118.7, name='C7')\n    m.addConstr(5.14 * vars['Var_1'] + -4.52 * vars['Var_10'] + 5.05 * vars['Var_11'] + 9.01 * vars['Var_12'] + 2.6 * vars['Var_16'] + 4.52 * vars['Var_17'] + 4.15 * vars['Var_2'] + 9.55 * vars['Var_3'] + 8.8 * vars['Var_7'] >= 206.68, name='C8')\n    m.addConstr(5.98 * vars['Var_0'] + -1.06 * vars['Var_10'] + 8.55 * vars['Var_11'] + -2.37 * vars['Var_12'] + -3.94 * vars['Var_13'] + -4.39 * vars['Var_14'] + 4.81 * vars['Var_16'] + 3.23 * vars['Var_3'] + 3.32 * vars['Var_4'] + 9.88 * vars['Var_5'] + 7.43 * vars['Var_6'] + -1.47 * vars['Var_7'] + 8.59 * vars['Var_9'] >= 299.63, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Team,\n\nWe need to settle our Q4 operating plan with a clear goal: minimize total operating spend while still meeting the minimum floors we\u2019ve set across our service, quality, compliance, and capacity KPIs. Below is how I recommend we think about each lever and its impact, along with the limits we have to respect.\n\nLakeside Assembly Line A (up to 10.8 units; unit operating cost 4.22)\n- Quality Conformance Units rise by 2.61 per unit.\n- Throughput Capacity Credits rise by 9.3 per unit.\n- Energy Use Efficiency Points rise by 0.54 per unit.\n- Distribution Network Load rises by 5.98 per unit.\n- Customer Support Hours rise by 2.79 per unit.\n- Strategic Capacity Reserve rises by 4.02 per unit.\n- Risk Mitigation Buffer rises by 7.55 per unit.\n\nHarbor Packaging Cell B (up to 12.02 units; unit operating cost 9.92)\n- Demand Fulfillment Score rises by 8.35 per unit.\n- Quality Conformance Units rise by 3.37 per unit.\n- Regulatory Compliance Margin rises by 6.04 per unit.\n- Customer Experience Rating rises by 6.62 per unit.\n- Throughput Capacity Credits rise by 9.92 per unit.\n- Market Reach Index rises by 5.14 per unit.\n- Reliability Score rises by 9.42 per unit.\n- Training & Skill Hours rise by 2.39 per unit.\n- Technology Adoption Credits rise by 1.51 per unit.\n- Sustainability Offsets rise by 2.21 per unit.\n- Customer Support Hours rise by 4.98 per unit.\n- Strategic Capacity Reserve is reduced by 1.44 per unit.\n- Cost-to-Serve Credits are reduced by 4.12 per unit.\n\nCentral Kitting Team (up to 13.24 units; unit operating cost 5.17)\n- Safety Preparedness Index is reduced by 3.15 per unit.\n- Regulatory Compliance Margin is reduced by 3.26 per unit.\n- Customer Experience Rating rises by 3.76 per unit.\n- Market Reach Index rises by 4.15 per unit.\n- Reliability Score is reduced by 2.47 per unit.\n- Training & Skill Hours rise by 8.47 per unit.\n- Technology Adoption Credits rise by 7.49 per unit.\n- Sustainability Offsets are reduced by 1.46 per unit.\n- Seasonal Promotion Lift rises by 6.47 per unit.\n- Strategic Capacity Reserve rises by 5.14 per unit.\n- Risk Mitigation Buffer is reduced by 1.01 per unit.\n- Return Logistics Load is reduced by 3.18 per unit.\n\nRiverfront Finishing Line (up to 12.01 units; unit operating cost 8.67)\n- Safety Preparedness Index rises by 7.72 per unit.\n- Quality Conformance Units rise by 1.09 per unit.\n- Regulatory Compliance Margin is reduced by 4.77 per unit.\n- Expedited Service Coverage rises by 9.59 per unit.\n- Market Reach Index rises by 9.55 per unit.\n- Distribution Network Load rises by 3.23 per unit.\n- Training & Skill Hours are reduced by 0.52 per unit.\n- Customer Support Hours rise by 3.54 per unit.\n- Strategic Capacity Reserve rises by 5.45 per unit.\n- Risk Mitigation Buffer is reduced by 4.55 per unit.\n- Return Logistics Load is reduced by 1.54 per unit.\n\nMountain Forge Cell (up to 10.72 units; unit operating cost 7.91)\n- Safety Preparedness Index rises by 1.2 per unit.\n- Quality Conformance Units are reduced by 3.49 per unit.\n- Regulatory Compliance Margin is reduced by 1.87 per unit.\n- Customer Experience Rating is reduced by 0.7 per unit.\n- Throughput Capacity Credits rise by 8.51 per unit.\n- Energy Use Efficiency Points are reduced by 1.77 per unit.\n- Distribution Network Load rises by 3.32 per unit.\n- Technology Adoption Credits rise by 9.37 per unit.\n- Strategic Capacity Reserve rises by 5.5 per unit.\n- Cost-to-Serve Credits rise by 5.28 per unit.\n\nBay Area Outsource Lot (up to 13.32 units; unit operating cost 7.62)\n- Demand Fulfillment Score is reduced by 3.74 per unit.\n- Throughput Capacity Credits rise by 8.26 per unit.\n- Distribution Network Load rises by 9.88 per unit.\n- Reliability Score rises by 6.49 per unit.\n- Technology Adoption Credits rise by 0.84 per unit.\n- Sustainability Offsets are reduced by 1.02 per unit.\n- Customer Support Hours rise by 3.41 per unit.\n- Return Logistics Load is reduced by 3.13 per unit.\n\nCoastal Repair Crew (up to 10.77 units; unit operating cost 6.61)\n- Safety Preparedness Index is reduced by 2.91 per unit.\n- Quality Conformance Units rise by 3.01 per unit.\n- Regulatory Compliance Margin is reduced by 0.41 per unit.\n- Distribution Network Load rises by 7.43 per unit.\n- Reliability Score rises by 2.75 per unit.\n- Strategic Capacity Reserve rises by 3.6 per unit.\n- Risk Mitigation Buffer is reduced by 2.14 per unit.\n- Return Logistics Load rises by 4.31 per unit.\n- Cost-to-Serve Credits rise by 5.83 per unit.\n\nNight-Shift Expedite Desk (up to 13.89 units; unit operating cost 1.3)\n- Safety Preparedness Index rises by 0.98 per unit.\n- Demand Fulfillment Score is reduced by 0.1 per unit.\n- Quality Conformance Units rise by 5.7 per unit.\n- Regulatory Compliance Margin is reduced by 3.69 per unit.\n- Customer Experience Rating rises by 4.28 per unit.\n- Throughput Capacity Credits are reduced by 1.36 per unit.\n- Expedited Service Coverage is reduced by 4.32 per unit.\n- Market Reach Index rises by 8.8 per unit.\n- Distribution Network Load is reduced by 1.47 per unit.\n- Seasonal Promotion Lift rises by 8.98 per unit.\n\nRegional Dropship Program (up to 19.55 units; unit operating cost 7.16)\n- Demand Fulfillment Score rises by 5.7 per unit.\n- Energy Use Efficiency Points rise by 4.3 per unit.\n- Technology Adoption Credits are reduced by 0.57 per unit.\n- Customer Support Hours rise by 9.5 per unit.\n- Risk Mitigation Buffer rises by 3.32 per unit.\n- Return Logistics Load is reduced by 0.96 per unit.\n- Cost-to-Serve Credits rise by 3.51 per unit.\n- Capital Flexibility Buffer rises by 9.41 per unit.\n\nHigh-Volume Sorter (up to 10.38 units; unit operating cost 9.13)\n- Customer Experience Rating rises by 3.25 per unit.\n- Distribution Network Load rises by 8.59 per unit.\n- Reliability Score is reduced by 1.15 per unit.\n- Training & Skill Hours are reduced by 1.11 per unit.\n- Technology Adoption Credits rise by 9.67 per unit.\n- Seasonal Promotion Lift rises by 1.78 per unit.\n- Risk Mitigation Buffer is reduced by 4.12 per unit.\n- Return Logistics Load is reduced by 1.15 per unit.\n- Cost-to-Serve Credits rise by 1.56 per unit.\n- Capital Flexibility Buffer rises by 4.35 per unit.\n\nAutomation Cluster X (up to 9.06 units; unit operating cost 7.17)\n- Quality Conformance Units rise by 8.63 per unit.\n- Throughput Capacity Credits are reduced by 0.01 per unit.\n- Expedited Service Coverage rises by 7.31 per unit.\n- Market Reach Index is reduced by 4.52 per unit.\n- Distribution Network Load is reduced by 1.06 per unit.\n- Reliability Score rises by 9.76 per unit.\n- Technology Adoption Credits rise by 4.09 per unit.\n- Sustainability Offsets are reduced by 0.05 per unit.\n- Customer Support Hours are reduced by 1.01 per unit.\n- Strategic Capacity Reserve rises by 6.08 per unit.\n\nField Service Pods (up to 11.64 units; unit operating cost 4.84)\n- Throughput Capacity Credits rise by 8.9 per unit.\n- Market Reach Index rises by 5.05 per unit.\n- Distribution Network Load rises by 8.55 per unit.\n- Reliability Score is reduced by 0.46 per unit.\n- Training & Skill Hours rise by 1.73 per unit.\n- Technology Adoption Credits rise by 5.32 per unit.\n- Seasonal Promotion Lift rises by 3.41 per unit.\n- Risk Mitigation Buffer is reduced by 4.59 per unit.\n\nPremium Same-Day Line (up to 13.65 units; unit operating cost 5.64)\n- Demand Fulfillment Score rises by 8.46 per unit.\n- Throughput Capacity Credits rise by 5.13 per unit.\n- Expedited Service Coverage is reduced by 0.66 per unit.\n- Market Reach Index rises by 9.01 per unit.\n- Distribution Network Load is reduced by 2.37 per unit.\n- Sustainability Offsets are reduced by 3.46 per unit.\n- Cost-to-Serve Credits are reduced by 3.99 per unit.\n\nCustom Projects Bench (up to 9.6 units; unit operating cost 7.62)\n- Demand Fulfillment Score rises by 0.25 per unit.\n- Customer Experience Rating rises by 9.66 per unit.\n- Expedited Service Coverage rises by 4.14 per unit.\n- Distribution Network Load is reduced by 3.94 per unit.\n- Reliability Score is reduced by 1.1 per unit.\n- Training & Skill Hours rise by 8.28 per unit.\n- Technology Adoption Credits rise by 4.59 per unit.\n- Strategic Capacity Reserve rises by 9.55 per unit.\n\nGreen Packaging Initiative (up to 12.66 units; unit operating cost 9.27)\n- Safety Preparedness Index is reduced by 1.14 per unit.\n- Quality Conformance Units rise by 2.1 per unit.\n- Regulatory Compliance Margin is reduced by 0.99 per unit.\n- Energy Use Efficiency Points rise by 8.79 per unit.\n- Distribution Network Load is reduced by 4.39 per unit.\n- Reliability Score rises by 2.3 per unit.\n- Seasonal Promotion Lift rises by 1.45 per unit.\n- Customer Support Hours are reduced by 2.78 per unit.\n- Return Logistics Load rises by 2.51 per unit.\n\nSupplier Co-Production (up to 7.18 units; unit operating cost 4.6)\n- Safety Preparedness Index rises by 1.17 per unit.\n- Quality Conformance Units are reduced by 2.12 per unit.\n- Energy Use Efficiency Points rise by 2.08 per unit.\n- Sustainability Offsets rise by 6.05 per unit.\n- Seasonal Promotion Lift is reduced by 0.23 per unit.\n- Customer Support Hours rise by 6.28 per unit.\n- Strategic Capacity Reserve rises by 9.96 per unit.\n- Risk Mitigation Buffer rises by 5.09 per unit.\n- Cost-to-Serve Credits are reduced by 3.68 per unit.\n- Capital Flexibility Buffer rises by 6.36 per unit.\n\nOmnichannel Orchestration Hub (up to 16.22 units; unit operating cost 8.25)\n- Demand Fulfillment Score rises by 7.01 per unit.\n- Customer Experience Rating is reduced by 4.91 per unit.\n- Throughput Capacity Credits rise by 3.74 per unit.\n- Energy Use Efficiency Points rise by 0.58 per unit.\n- Expedited Service Coverage rises by 1.99 per unit.\n- Market Reach Index rises by 2.6 per unit.\n- Distribution Network Load rises by 4.81 per unit.\n- Reliability Score is reduced by 0.37 per unit.\n- Training & Skill Hours rise by 0.31 per unit.\n- Sustainability Offsets rise by 1.2 per unit.\n- Strategic Capacity Reserve rises by 9.04 per unit.\n- Return Logistics Load rises by 4.71 per unit.\n\nLast-Mile Partner Network (up to 9.02 units; unit operating cost 3.24)\n- Demand Fulfillment Score rises by 6.7 per unit.\n- Customer Experience Rating rises by 0.82 per unit.\n- Throughput Capacity Credits rise by 6.14 per unit.\n- Expedited Service Coverage is reduced by 4.77 per unit.\n- Market Reach Index rises by 4.52 per unit.\n- Training & Skill Hours are reduced by 2.92 per unit.\n- Seasonal Promotion Lift is reduced by 4.02 per unit.\n- Customer Support Hours are reduced by 3.82 per unit.\n\nFacility Specs & KPI Floors\n- Safety Preparedness Index must be at least 29.36.\n- Demand Fulfillment Score must be at least 173.68.\n- Quality Conformance Units must be at least 118.92.\n- Regulatory Compliance Margin must be at least -46.16.\n- Customer Experience Rating must be at least 106.93.\n- Throughput Capacity Credits must be at least 356.36.\n- Energy Use Efficiency Points must be at least 80.46.\n- Expedited Service Coverage must be at least 118.7.\n- Market Reach Index must be at least 206.68.\n- Distribution Network Load must be at least 299.63.\n- Reliability Score must be at least 176.11.\n- Training & Skill Hours must be at least 56.58.\n- Technology Adoption Credits must be at least 297.74.\n- Sustainability Offsets must be at least 1.48.\n- Seasonal Promotion Lift must be at least 63.38.\n- Customer Support Hours must be at least 117.74.\n- Strategic Capacity Reserve must be at least 315.91.\n- Risk Mitigation Buffer must be at least -65.12.\n- Return Logistics Load must be at least 31.73.\n- Cost-to-Serve Credits must be at least 91.71.\n- Capital Flexibility Buffer must be at least 125.31.\n\nIf we hold to these floors and allocate across the levers with the lowest unit operating costs first (subject to the maximums noted above and the KPI impacts listed), we\u2019ll minimize spend and still hit our targets. Please review and confirm any adjustments to the upper limits or KPI thresholds before we build the allocation plan."
+}

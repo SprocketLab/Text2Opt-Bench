@@ -1,0 +1,216 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 11,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and per-unit contributions and floors are explicit; objective is minimize cost. A model can be built mechanically.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative fluff, but most content is structured and necessary to map coefficients to constraints.",
+      "realism": 90,
+      "realism_comment": "Plausible compliance coverage planning MIP; slight oddities (non-integer caps, negative floor) but overall realistic."
+    },
+    "prompt_tokens_with_data": 1536,
+    "prompt_tokens_without_data": 1536
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 214.0471325959191,
+    "optimal_values": {
+      "Var_0": 0.8690958164642284,
+      "Var_1": 11.0,
+      "Var_2": 7.0,
+      "Var_3": 4.8278834527551275,
+      "Var_4": -0.0,
+      "Var_5": 6.0,
+      "Var_6": 6.0,
+      "Var_7": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.91
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 162.05
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 42.77
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 61.86
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 58.23
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 82.26
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 109.15
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 33.84
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 228.97
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -1.38
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 112.58
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.9
+      ],
+      "objective_linear_coefficient": 7.37,
+      "resource_costs": {
+        "C1": 3.01,
+        "C2": 7.41,
+        "C4": 8.71,
+        "C8": 2.57
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.58
+      ],
+      "objective_linear_coefficient": 4.53,
+      "resource_costs": {
+        "C1": 3.94,
+        "C5": 1.96,
+        "C6": 6.25,
+        "C8": 9.26,
+        "C10": 6.41
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.17
+      ],
+      "objective_linear_coefficient": 3.65,
+      "resource_costs": {
+        "C2": 5.19,
+        "C3": 0.27,
+        "C4": 2.27,
+        "C8": 0.33
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.13
+      ],
+      "objective_linear_coefficient": 6.38,
+      "resource_costs": {
+        "C0": 2.65,
+        "C1": 9.97,
+        "C4": 5.38,
+        "C6": 0.44,
+        "C7": 2.34,
+        "C8": 7.69,
+        "C10": 6.57
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.81
+      ],
+      "objective_linear_coefficient": 3.83,
+      "resource_costs": {
+        "C1": 2.7,
+        "C5": 4.01,
+        "C8": 3.75
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.41
+      ],
+      "objective_linear_coefficient": 6.09,
+      "resource_costs": {
+        "C0": 6.48,
+        "C1": 6.8,
+        "C3": 6.58,
+        "C4": 1.48,
+        "C6": 5.19
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.12
+      ],
+      "objective_linear_coefficient": 3.81,
+      "resource_costs": {
+        "C1": 8.3,
+        "C5": 6.69,
+        "C6": 8.51,
+        "C7": 7.77,
+        "C8": 5.64,
+        "C10": 6.13
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.45
+      ],
+      "objective_linear_coefficient": 7.01,
+      "resource_costs": {
+        "C0": 2.47,
+        "C3": 3.69,
+        "C5": 3.74,
+        "C8": 8.6,
+        "C9": 0.01
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.9, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.37 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.58, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 4.53 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.17, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.65 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.13, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.38 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=5.81, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.83 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=7.41, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 6.09 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=6.12, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 3.81 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=14.45, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 7.01 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.65 * vars['Var_3'] + 6.48 * vars['Var_5'] + 2.47 * vars['Var_7'] >= 64.91, name='C0')\n    m.addConstr(3.01 * vars['Var_0'] + 3.94 * vars['Var_1'] + 9.97 * vars['Var_3'] + 2.7 * vars['Var_4'] + 6.8 * vars['Var_5'] + 8.3 * vars['Var_6'] >= 162.05, name='C1')\n    m.addConstr(6.41 * vars['Var_1'] + 6.57 * vars['Var_3'] + 6.13 * vars['Var_6'] >= 112.58, name='C10')\n    m.addConstr(7.41 * vars['Var_0'] + 5.19 * vars['Var_2'] >= 42.77, name='C2')\n    m.addConstr(0.27 * vars['Var_2'] + 6.58 * vars['Var_5'] + 3.69 * vars['Var_7'] >= 61.86, name='C3')\n    m.addConstr(8.71 * vars['Var_0'] + 2.27 * vars['Var_2'] + 5.38 * vars['Var_3'] + 1.48 * vars['Var_5'] >= 58.23, name='C4')\n    m.addConstr(1.96 * vars['Var_1'] + 4.01 * vars['Var_4'] + 6.69 * vars['Var_6'] + 3.74 * vars['Var_7'] >= 82.26, name='C5')\n    m.addConstr(6.25 * vars['Var_1'] + 0.44 * vars['Var_3'] + 5.19 * vars['Var_5'] + 8.51 * vars['Var_6'] >= 109.15, name='C6')\n    m.addConstr(2.34 * vars['Var_3'] + 7.77 * vars['Var_6'] >= 33.84, name='C7')\n    m.addConstr(2.57 * vars['Var_0'] + 9.26 * vars['Var_1'] + 0.33 * vars['Var_2'] + 7.69 * vars['Var_3'] + 3.75 * vars['Var_4'] + 5.64 * vars['Var_6'] + 8.6 * vars['Var_7'] >= 228.97, name='C8')\n    m.addConstr(0.01 * vars['Var_7'] >= -1.38, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Coverage Plan to Meet 2025 Minimum Commitments at Lowest Cost\n\nTeam,\n\nAs discussed, we need to assemble a cost-minimized mix of programs to satisfy mandated minimum coverage across a set of compliance and capability areas this year. The objective is straightforward: hit or exceed each required floor while spending as little as possible. We will choose whole units where the program format demands it and use fractional increments only where the offering can be split.\n\nBelow are the levers we can use, in the order we plan to consider them. For each, I\u2019ve noted the per-unit cost, how many units we\u2019re allowed to schedule, whether we can split units, and exactly how each unit contributes to the various minimum commitments.\n\n- Lean Quality Labs\n  - Cost: 7.37 per lab.\n  - Capacity and format: up to 6.9 labs for the year; these can be scheduled in partial increments (we may use any fraction between 0 and 6.9).\n  - Contribution per lab:\n    - Data Privacy & Security: 3.01 coverage points.\n    - Financial Controls & Audit Standards: 7.41 coverage points.\n    - Quality Systems & Operational Excellence: 8.71 coverage points.\n    - Digital Transformation & Skills: 2.57 coverage points.\n\n- Vendor Assurance Audits\n  - Cost: 4.53 per audit.\n  - Capacity and format: up to 13.58 audits; these must be scheduled in whole audits (no partials).\n  - Contribution per audit:\n    - Data Privacy & Security: 3.94 coverage points.\n    - Consumer Protection & Customer Care: 1.96 coverage points.\n    - Regulatory Reporting & Compliance: 6.25 coverage points.\n    - Digital Transformation & Skills: 9.26 coverage points.\n    - Third-Party & Vendor Management: 6.41 coverage points.\n\n- Controls Fundamentals Workshops\n  - Cost: 3.65 per workshop.\n  - Capacity and format: up to 10.17 workshops; whole workshops only.\n  - Contribution per workshop:\n    - Financial Controls & Audit Standards: 5.19 coverage points.\n    - Workplace Safety & Field Readiness: 0.27 coverage points.\n    - Quality Systems & Operational Excellence: 2.27 coverage points.\n    - Digital Transformation & Skills: 0.33 coverage points.\n\n- Risk & Resilience Intensives\n  - Cost: 6.38 per intensive.\n  - Capacity and format: up to 13.13 intensives; these can be scheduled in partial increments.\n  - Contribution per intensive:\n    - Emergency Preparedness & Continuity: 2.65 coverage points.\n    - Data Privacy & Security: 9.97 coverage points.\n    - Quality Systems & Operational Excellence: 5.38 coverage points.\n    - Regulatory Reporting & Compliance: 0.44 coverage points.\n    - Ethics & Conduct: 2.34 coverage points.\n    - Digital Transformation & Skills: 7.69 coverage points.\n    - Third-Party & Vendor Management: 6.57 coverage points.\n\n- Customer Trust Forums\n  - Cost: 3.83 per forum.\n  - Capacity and format: up to 5.81 forums; whole forums only.\n  - Contribution per forum:\n    - Data Privacy & Security: 2.70 coverage points.\n    - Consumer Protection & Customer Care: 4.01 coverage points.\n    - Digital Transformation & Skills: 3.75 coverage points.\n\n- Safety & Incident Response Drills\n  - Cost: 6.09 per drill.\n  - Capacity and format: up to 7.41 drills; whole drills only.\n  - Contribution per drill:\n    - Emergency Preparedness & Continuity: 6.48 coverage points.\n    - Data Privacy & Security: 6.80 coverage points.\n    - Workplace Safety & Field Readiness: 6.58 coverage points.\n    - Quality Systems & Operational Excellence: 1.48 coverage points.\n    - Regulatory Reporting & Compliance: 5.19 coverage points.\n\n- Compliance Masterclasses\n  - Cost: 3.81 per masterclass.\n  - Capacity and format: up to 6.12 masterclasses; whole masterclasses only.\n  - Contribution per masterclass:\n    - Data Privacy & Security: 8.30 coverage points.\n    - Consumer Protection & Customer Care: 6.69 coverage points.\n    - Regulatory Reporting & Compliance: 8.51 coverage points.\n    - Ethics & Conduct: 7.77 coverage points.\n    - Digital Transformation & Skills: 5.64 coverage points.\n    - Third-Party & Vendor Management: 6.13 coverage points.\n\n- Community & Digital Outreach Sprints\n  - Cost: 7.01 per sprint.\n  - Capacity and format: up to 14.45 sprints; whole sprints only.\n  - Contribution per sprint:\n    - Emergency Preparedness & Continuity: 2.47 coverage points.\n    - Workplace Safety & Field Readiness: 3.69 coverage points.\n    - Consumer Protection & Customer Care: 3.74 coverage points.\n    - Digital Transformation & Skills: 8.60 coverage points.\n    - Goodwill Buffer (public sentiment): 0.01 points.\n\nFacility Specs and Minimum Commitments (these are the floors we must meet or exceed):\n- Emergency Preparedness & Continuity: at least 64.91 coverage points.\n- Data Privacy & Security: at least 162.05 coverage points.\n- Financial Controls & Audit Standards: at least 42.77 coverage points.\n- Workplace Safety & Field Readiness: at least 61.86 coverage points.\n- Quality Systems & Operational Excellence: at least 58.23 coverage points.\n- Consumer Protection & Customer Care: at least 82.26 coverage points.\n- Regulatory Reporting & Compliance: at least 109.15 coverage points.\n- Ethics & Conduct: at least 33.84 coverage points.\n- Digital Transformation & Skills: at least 228.97 coverage points.\n- Goodwill Buffer (public sentiment): at least -1.38 points.\n- Third-Party & Vendor Management: at least 112.58 coverage points.\n\nPlease use the above to assemble the lowest-cost mix that hits every floor while respecting each lever\u2019s maximum and whether it can be fractional or must be whole. Let me know if you need any clarifications before you run the scenario."
+}

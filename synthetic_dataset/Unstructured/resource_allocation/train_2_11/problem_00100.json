@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact contributions, bounds, and ledger impacts (including negative returns) are specified. Two <= constraints and continuous non-negative variables are clear; linear max objective is explicit.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Email-style narrative adds flavor; some verbosity but most content is modeling-relevant with minimal repetition.",
+      "realism": 95,
+      "realism_comment": "Plausible operations planning with power/water budgets; cogen and closed-loop reduce utility use; outsourced sales unaffected. Very realistic."
+    },
+    "prompt_tokens_with_data": 641,
+    "prompt_tokens_without_data": 641
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 239.9801372093023,
+    "optimal_values": {
+      "Var_0": 6.958139534883721,
+      "Var_1": 5.47,
+      "Var_2": 13.2,
+      "Var_3": 11.46
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.38
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 46.86
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.07
+      ],
+      "objective_linear_coefficient": 8.15,
+      "resource_costs": {
+        "C0": 4.44,
+        "C1": 7.74
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.47
+      ],
+      "objective_linear_coefficient": 8.35,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.2
+      ],
+      "objective_linear_coefficient": 3.93,
+      "resource_costs": {
+        "C1": -0.53
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.46
+      ],
+      "objective_linear_coefficient": 7.48,
+      "resource_costs": {
+        "C0": -4.73
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.07, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.15 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.47, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.35 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.2, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.93 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.46, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.48 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.44 * vars['Var_0'] + -4.73 * vars['Var_3'] <= 30.38, name='C0')\n    m.addConstr(7.74 * vars['Var_0'] + -0.53 * vars['Var_2'] <= 46.86, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocating next-period volumes to maximize contribution within our utility budgets\n\nTeam,\n\nAs we lock our operating plan, our aim is to maximize total contribution while keeping within our two plant-wide ledgers: the Power Ledger (net grid draw) and the Water Ledger (net freshwater withdrawal). Below are the four levers we can adjust this period, along with their economics and how each one affects our utility budgets.\n\n- Line A \u2014 Core Production Batches\n  \u2022 Contribution: 8.15 per batch.\n  \u2022 Operating window: any non\u2011negative volume up to 16.07 batches.\n  \u2022 Utility impact: each batch draws 4.44 units from the Power Ledger and 7.74 units from the Water Ledger.\n\n- Partner Channel \u2014 Outsourced Sales\n  \u2022 Contribution: 8.35 per unit shipped.\n  \u2022 Operating window: any non\u2011negative volume up to 5.47 units.\n  \u2022 Utility impact: externally fulfilled; does not draw from either the Power Ledger or the Water Ledger.\n\n- Closed\u2011Loop Rinse Program\n  \u2022 Contribution: 3.93 per cycle.\n  \u2022 Operating window: any non\u2011negative volume up to 13.2 cycles.\n  \u2022 Utility impact: no draw on the Power Ledger; each cycle returns 0.53 units to the Water Ledger (a net reduction in our freshwater withdrawal).\n\n- Onsite Co\u2011Generation Dispatches\n  \u2022 Contribution: 7.48 per dispatch.\n  \u2022 Operating window: any non\u2011negative volume up to 11.46 dispatches.\n  \u2022 Utility impact: each dispatch returns 4.73 units to the Power Ledger (a net reduction in grid draw); no impact on the Water Ledger.\n\nFacility and compliance limits for the period\n- Power Ledger (net grid draw) allowance: up to 30.38 units; we cannot exceed this.\n- Water Ledger (net freshwater withdrawal) allowance: up to 46.86 units; we cannot exceed this.\n\nPlease use the above parameters to set volumes so that total contribution is as high as possible without breaching the Power or Water ledgers."
+}

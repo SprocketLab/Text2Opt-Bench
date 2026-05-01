@@ -1,0 +1,1018 @@
+{
+    "meta": {
+        "optimization_type": "LP",
+        "problem_type": "vehicle routing",
+        "goal": "MINIMIZE",
+        "num_vars": 41,
+        "num_constraints": 56,
+        "is_integer": true,
+        "prompt_tokens_with_data": 953,
+        "prompt_tokens_without_data": 769
+    },
+    "instance_data": {
+        "n_customers": 5,
+        "n_vehicles": 4,
+        "vehicle_capacity": 42,
+        "vehicle_fixed_cost": 100.0,
+        "depot_coordinates": [
+            50,
+            50
+        ],
+        "customer_coordinates": [
+            [
+                62,
+                78
+            ],
+            [
+                15,
+                26
+            ],
+            [
+                44,
+                24
+            ],
+            [
+                88,
+                81
+            ],
+            [
+                93,
+                37
+            ]
+        ],
+        "customer_demands": [
+            21,
+            18,
+            8,
+            16,
+            15
+        ],
+        "time_windows": [
+            [
+                0,
+                284
+            ],
+            [
+                29,
+                119
+            ],
+            [
+                54,
+                123
+            ],
+            [
+                38,
+                93
+            ],
+            [
+                63,
+                119
+            ],
+            [
+                56,
+                121
+            ]
+        ],
+        "service_times": [
+            5,
+            6,
+            10,
+            12,
+            10
+        ]
+    },
+    "gurobi_result": {
+        "solver_status": 2,
+        "theoretical_optimum": 593.7111083854779,
+        "optimal_values": {
+            "Arc_0_1": 0.0,
+            "Arc_0_2": 0.0,
+            "Arc_0_3": 1.0,
+            "Arc_0_4": 1.0,
+            "Arc_0_5": 1.0,
+            "Arc_1_0": 1.0,
+            "Arc_1_2": 0.0,
+            "Arc_1_3": 0.0,
+            "Arc_1_4": 0.0,
+            "Arc_1_5": 0.0,
+            "Arc_2_0": 1.0,
+            "Arc_2_1": 0.0,
+            "Arc_2_3": 0.0,
+            "Arc_2_4": 0.0,
+            "Arc_2_5": 0.0,
+            "Arc_3_0": 0.0,
+            "Arc_3_1": 0.0,
+            "Arc_3_2": 1.0,
+            "Arc_3_4": 0.0,
+            "Arc_3_5": 0.0,
+            "Arc_4_0": 0.0,
+            "Arc_4_1": 1.0,
+            "Arc_4_2": 0.0,
+            "Arc_4_3": 0.0,
+            "Arc_4_5": 0.0,
+            "Arc_5_0": 1.0,
+            "Arc_5_1": 0.0,
+            "Arc_5_2": 0.0,
+            "Arc_5_3": 0.0,
+            "Arc_5_4": 0.0,
+            "Load_1": 42.0,
+            "Load_2": 26.0,
+            "Load_3": 8.0,
+            "Load_4": 16.0,
+            "Load_5": 15.0,
+            "Time_0": 0.0,
+            "Time_1": 101.17250465660481,
+            "Time_2": 123.0,
+            "Time_3": 38.0,
+            "Time_4": 63.0,
+            "Time_5": 56.0
+        }
+    },
+    "constraints": {
+        "VisitOut_C1": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C2": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C3": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C4": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitOut_C5": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C1": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C2": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C3": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C4": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VisitIn_C5": {
+            "type": "Constraint",
+            "sense": "=",
+            "rhs": 1.0
+        },
+        "VehicleLimit": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 4.0
+        },
+        "MTZ_1_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 24.0
+        },
+        "MTZ_1_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 34.0
+        },
+        "MTZ_1_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_1_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 27.0
+        },
+        "MTZ_2_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 21.0
+        },
+        "MTZ_2_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 34.0
+        },
+        "MTZ_2_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_2_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 27.0
+        },
+        "MTZ_3_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 21.0
+        },
+        "MTZ_3_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 24.0
+        },
+        "MTZ_3_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "MTZ_3_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 27.0
+        },
+        "MTZ_4_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 21.0
+        },
+        "MTZ_4_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 24.0
+        },
+        "MTZ_4_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 34.0
+        },
+        "MTZ_4_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 27.0
+        },
+        "MTZ_5_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 21.0
+        },
+        "MTZ_5_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 24.0
+        },
+        "MTZ_5_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 34.0
+        },
+        "MTZ_5_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 26.0
+        },
+        "TimeLink_0_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 357.93712639466315
+        },
+        "TimeLink_2_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 312.30742318261855
+        },
+        "TimeLink_3_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 321.47922093508794
+        },
+        "TimeLink_4_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 350.227714161514
+        },
+        "TimeLink_5_1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 326.9998297145332
+        },
+        "TimeLink_0_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 345.9620284702729
+        },
+        "TimeLink_1_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 313.30742318261855
+        },
+        "TimeLink_3_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 349.3313351106215
+        },
+        "TimeLink_4_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 285.0
+        },
+        "TimeLink_5_2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 299.6283964448869
+        },
+        "TimeLink_0_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 361.7168906898661
+        },
+        "TimeLink_1_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 326.47922093508794
+        },
+        "TimeLink_2_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 353.3313351106215
+        },
+        "TimeLink_4_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 304.39327470854005
+        },
+        "TimeLink_5_3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 327.70505139557247
+        },
+        "TimeLink_0_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 339.35941947716185
+        },
+        "TimeLink_1_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 357.227714161514
+        },
+        "TimeLink_2_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 291.0
+        },
+        "TimeLink_3_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 306.39327470854005
+        },
+        "TimeLink_5_4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 334.11703916714976
+        },
+        "TimeLink_0_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 343.4780639276864
+        },
+        "TimeLink_1_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 331.9998297145332
+        },
+        "TimeLink_2_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 303.6283964448869
+        },
+        "TimeLink_3_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 327.70505139557247
+        },
+        "TimeLink_4_5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 332.11703916714976
+        }
+    },
+    "variables": {
+        "Arc_0_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 130.46309242345563,
+            "resource_costs": {
+                "VisitIn_C1": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_1": 388.4002188181188
+            }
+        },
+        "Arc_0_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 142.43819034784588,
+            "resource_costs": {
+                "VisitIn_C2": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_2": 388.4002188181188
+            }
+        },
+        "Arc_0_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 126.68332812825267,
+            "resource_costs": {
+                "VisitIn_C3": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_3": 388.4002188181188
+            }
+        },
+        "Arc_0_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 149.0407993409569,
+            "resource_costs": {
+                "VisitIn_C4": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_4": 388.4002188181188
+            }
+        },
+        "Arc_0_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 144.9221548904324,
+            "resource_costs": {
+                "VisitIn_C5": 1.0,
+                "VehicleLimit": 1.0,
+                "TimeLink_0_5": 388.4002188181188
+            }
+        },
+        "Arc_1_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 30.463092423455635,
+            "resource_costs": {
+                "VisitOut_C1": 1.0
+            }
+        },
+        "Arc_1_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 70.09279563550022,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_1_2": 42.0,
+                "TimeLink_1_2": 388.4002188181188
+            }
+        },
+        "Arc_1_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 56.92099788303083,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_1_3": 42.0,
+                "TimeLink_1_3": 388.4002188181188
+            }
+        },
+        "Arc_1_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 26.1725046566048,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_1_4": 42.0,
+                "TimeLink_1_4": 388.4002188181188
+            }
+        },
+        "Arc_1_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 51.40038910358559,
+            "resource_costs": {
+                "VisitOut_C1": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_1_5": 42.0,
+                "TimeLink_1_5": 388.4002188181188
+            }
+        },
+        "Arc_2_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 42.43819034784589,
+            "resource_costs": {
+                "VisitOut_C2": 1.0
+            }
+        },
+        "Arc_2_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 70.09279563550022,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_2_1": 42.0,
+                "TimeLink_2_1": 388.4002188181188
+            }
+        },
+        "Arc_2_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 29.068883707497267,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_2_3": 42.0,
+                "TimeLink_2_3": 388.4002188181188
+            }
+        },
+        "Arc_2_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 91.40021881811882,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_2_4": 42.0,
+                "TimeLink_2_4": 388.4002188181188
+            }
+        },
+        "Arc_2_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 78.77182237323191,
+            "resource_costs": {
+                "VisitOut_C2": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_2_5": 42.0,
+                "TimeLink_2_5": 388.4002188181188
+            }
+        },
+        "Arc_3_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 26.68332812825267,
+            "resource_costs": {
+                "VisitOut_C3": 1.0
+            }
+        },
+        "Arc_3_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 56.92099788303083,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_3_1": 42.0,
+                "TimeLink_3_1": 388.4002188181188
+            }
+        },
+        "Arc_3_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 29.068883707497267,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_3_2": 42.0,
+                "TimeLink_3_2": 388.4002188181188
+            }
+        },
+        "Arc_3_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 72.00694410957877,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_3_4": 42.0,
+                "TimeLink_3_4": 388.4002188181188
+            }
+        },
+        "Arc_3_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 50.695167422546305,
+            "resource_costs": {
+                "VisitOut_C3": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_3_5": 42.0,
+                "TimeLink_3_5": 388.4002188181188
+            }
+        },
+        "Arc_4_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 49.040799340956916,
+            "resource_costs": {
+                "VisitOut_C4": 1.0
+            }
+        },
+        "Arc_4_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 26.1725046566048,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_4_1": 42.0,
+                "TimeLink_4_1": 388.4002188181188
+            }
+        },
+        "Arc_4_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 91.40021881811882,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_4_2": 42.0,
+                "TimeLink_4_2": 388.4002188181188
+            }
+        },
+        "Arc_4_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 72.00694410957877,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_4_3": 42.0,
+                "TimeLink_4_3": 388.4002188181188
+            }
+        },
+        "Arc_4_5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 44.28317965096906,
+            "resource_costs": {
+                "VisitOut_C4": 1.0,
+                "VisitIn_C5": 1.0,
+                "MTZ_4_5": 42.0,
+                "TimeLink_4_5": 388.4002188181188
+            }
+        },
+        "Arc_5_0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 44.9221548904324,
+            "resource_costs": {
+                "VisitOut_C5": 1.0
+            }
+        },
+        "Arc_5_1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 51.40038910358559,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C1": 1.0,
+                "MTZ_5_1": 42.0,
+                "TimeLink_5_1": 388.4002188181188
+            }
+        },
+        "Arc_5_2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 78.77182237323191,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C2": 1.0,
+                "MTZ_5_2": 42.0,
+                "TimeLink_5_2": 388.4002188181188
+            }
+        },
+        "Arc_5_3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 50.695167422546305,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C3": 1.0,
+                "MTZ_5_3": 42.0,
+                "TimeLink_5_3": 388.4002188181188
+            }
+        },
+        "Arc_5_4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 44.28317965096906,
+            "resource_costs": {
+                "VisitOut_C5": 1.0,
+                "VisitIn_C4": 1.0,
+                "MTZ_5_4": 42.0,
+                "TimeLink_5_4": 388.4002188181188
+            }
+        },
+        "Load_1": {
+            "type": "Continuous",
+            "range": [
+                21.0,
+                42.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_2": 1.0,
+                "MTZ_1_3": 1.0,
+                "MTZ_1_4": 1.0,
+                "MTZ_1_5": 1.0,
+                "MTZ_2_1": -1.0,
+                "MTZ_3_1": -1.0,
+                "MTZ_4_1": -1.0,
+                "MTZ_5_1": -1.0
+            }
+        },
+        "Load_2": {
+            "type": "Continuous",
+            "range": [
+                18.0,
+                42.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_2": -1.0,
+                "MTZ_2_1": 1.0,
+                "MTZ_2_3": 1.0,
+                "MTZ_2_4": 1.0,
+                "MTZ_2_5": 1.0,
+                "MTZ_3_2": -1.0,
+                "MTZ_4_2": -1.0,
+                "MTZ_5_2": -1.0
+            }
+        },
+        "Load_3": {
+            "type": "Continuous",
+            "range": [
+                8.0,
+                42.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_3": -1.0,
+                "MTZ_2_3": -1.0,
+                "MTZ_3_1": 1.0,
+                "MTZ_3_2": 1.0,
+                "MTZ_3_4": 1.0,
+                "MTZ_3_5": 1.0,
+                "MTZ_4_3": -1.0,
+                "MTZ_5_3": -1.0
+            }
+        },
+        "Load_4": {
+            "type": "Continuous",
+            "range": [
+                16.0,
+                42.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_4": -1.0,
+                "MTZ_2_4": -1.0,
+                "MTZ_3_4": -1.0,
+                "MTZ_4_1": 1.0,
+                "MTZ_4_2": 1.0,
+                "MTZ_4_3": 1.0,
+                "MTZ_4_5": 1.0,
+                "MTZ_5_4": -1.0
+            }
+        },
+        "Load_5": {
+            "type": "Continuous",
+            "range": [
+                15.0,
+                42.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "MTZ_1_5": -1.0,
+                "MTZ_2_5": -1.0,
+                "MTZ_3_5": -1.0,
+                "MTZ_4_5": -1.0,
+                "MTZ_5_1": 1.0,
+                "MTZ_5_2": 1.0,
+                "MTZ_5_3": 1.0,
+                "MTZ_5_4": 1.0
+            }
+        },
+        "Time_0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                0.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_0_1": 1.0,
+                "TimeLink_0_2": 1.0,
+                "TimeLink_0_3": 1.0,
+                "TimeLink_0_4": 1.0,
+                "TimeLink_0_5": 1.0
+            }
+        },
+        "Time_1": {
+            "type": "Continuous",
+            "range": [
+                29.0,
+                119.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_0_1": -1.0,
+                "TimeLink_2_1": -1.0,
+                "TimeLink_3_1": -1.0,
+                "TimeLink_4_1": -1.0,
+                "TimeLink_5_1": -1.0,
+                "TimeLink_1_2": 1.0,
+                "TimeLink_1_3": 1.0,
+                "TimeLink_1_4": 1.0,
+                "TimeLink_1_5": 1.0
+            }
+        },
+        "Time_2": {
+            "type": "Continuous",
+            "range": [
+                54.0,
+                123.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_2_1": 1.0,
+                "TimeLink_0_2": -1.0,
+                "TimeLink_1_2": -1.0,
+                "TimeLink_3_2": -1.0,
+                "TimeLink_4_2": -1.0,
+                "TimeLink_5_2": -1.0,
+                "TimeLink_2_3": 1.0,
+                "TimeLink_2_4": 1.0,
+                "TimeLink_2_5": 1.0
+            }
+        },
+        "Time_3": {
+            "type": "Continuous",
+            "range": [
+                38.0,
+                93.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_3_1": 1.0,
+                "TimeLink_3_2": 1.0,
+                "TimeLink_0_3": -1.0,
+                "TimeLink_1_3": -1.0,
+                "TimeLink_2_3": -1.0,
+                "TimeLink_4_3": -1.0,
+                "TimeLink_5_3": -1.0,
+                "TimeLink_3_4": 1.0,
+                "TimeLink_3_5": 1.0
+            }
+        },
+        "Time_4": {
+            "type": "Continuous",
+            "range": [
+                63.0,
+                119.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_4_1": 1.0,
+                "TimeLink_4_2": 1.0,
+                "TimeLink_4_3": 1.0,
+                "TimeLink_0_4": -1.0,
+                "TimeLink_1_4": -1.0,
+                "TimeLink_2_4": -1.0,
+                "TimeLink_3_4": -1.0,
+                "TimeLink_5_4": -1.0,
+                "TimeLink_4_5": 1.0
+            }
+        },
+        "Time_5": {
+            "type": "Continuous",
+            "range": [
+                56.0,
+                121.0
+            ],
+            "objective_linear_coefficient": 0.0,
+            "resource_costs": {
+                "TimeLink_5_1": 1.0,
+                "TimeLink_5_2": 1.0,
+                "TimeLink_5_3": 1.0,
+                "TimeLink_5_4": 1.0,
+                "TimeLink_0_5": -1.0,
+                "TimeLink_1_5": -1.0,
+                "TimeLink_2_5": -1.0,
+                "TimeLink_3_5": -1.0,
+                "TimeLink_4_5": -1.0
+            }
+        }
+    },
+    "gold_solution": "```python\nimport math\nfrom gurobipy import *\n\ndef solve_problem():\n    m = Model(\"VRPTW\")\n    m.setParam('TimeLimit', 300)\n\n    # --- Data ---\n    n_customers = 5\n    n_vehicles = 4\n    Q = 42  # vehicle capacity\n    vehicle_fixed_cost = 100.0\n    depot = [50, 50]\n    customers = [[62, 78], [15, 26], [44, 24], [88, 81], [93, 37]]\n    demands = [21, 18, 8, 16, 15]\n    time_windows = [[0, 284], [29, 119], [54, 123], [38, 93], [63, 119], [56, 121]]\n    service_times = [5, 6, 10, 12, 10]\n\n    # Node 0 = depot, nodes 1..N = customers\n    N = n_customers\n    nodes = list(range(N + 1))\n    cust_nodes = list(range(1, N + 1))\n\n    # Coordinates: index 0 = depot, 1..N = customers\n    coords = [depot] + customers\n\n    # COMPUTE distance matrix from coordinates\n    dist = {}\n    for i in nodes:\n        for j in nodes:\n            if i != j:\n                dist[(i,j)] = math.sqrt(\n                    (coords[i][0]-coords[j][0])**2 +\n                    (coords[i][1]-coords[j][1])**2)\n\n    # Service time by node (depot = 0)\n    svc = [0] + service_times\n\n    # Big-M for time linking\n    T_max = time_windows[0][1]\n    max_svc = max(service_times)\n    max_dist = max(dist.values())\n    M = T_max + max_svc + max_dist + 1\n\n    # --- Variables ---\n    # Arc variables (binary)\n    x = {}\n    for i in nodes:\n        for j in nodes:\n            if i != j:\n                x[(i,j)] = m.addVar(vtype=GRB.BINARY, name=f\"Arc_{i}_{j}\")\n\n    # Load variables (MTZ subtour elimination)\n    u = {}\n    for i in cust_nodes:\n        u[i] = m.addVar(lb=demands[i-1], ub=Q, vtype=GRB.CONTINUOUS, name=f\"Load_{i}\")\n\n    # Time variables\n    t = {}\n    for i in nodes:\n        a, b = time_windows[i]\n        t[i] = m.addVar(lb=a, ub=b, vtype=GRB.CONTINUOUS, name=f\"Time_{i}\")\n    # Fix depot departure to time 0\n    t[0].ub = 0.0\n\n    # --- Objective ---\n    # Minimize travel distance + vehicle fixed costs\n    obj = quicksum(dist[(i,j)] * x[(i,j)] for i in nodes for j in nodes if i != j)\n    obj += quicksum(vehicle_fixed_cost * x[(0,j)] for j in cust_nodes)\n    m.setObjective(obj, GRB.MINIMIZE)\n\n    # --- Constraints ---\n    # 1. Each customer has exactly one outgoing arc\n    for i in cust_nodes:\n        m.addConstr(\n            quicksum(x[(i,j)] for j in nodes if j != i) == 1,\n            name=f\"VisitOut_C{i}\")\n\n    # 2. Each customer has exactly one incoming arc\n    for j in cust_nodes:\n        m.addConstr(\n            quicksum(x[(i,j)] for i in nodes if i != j) == 1,\n            name=f\"VisitIn_C{j}\")\n\n    # 3. At most K vehicles leave the depot\n    m.addConstr(\n        quicksum(x[(0,j)] for j in cust_nodes) <= n_vehicles,\n        name=\"VehicleLimit\")\n\n    # 4. MTZ subtour elimination\n    for i in cust_nodes:\n        for j in cust_nodes:\n            if i != j:\n                m.addConstr(\n                    u[i] - u[j] + Q * x[(i,j)] <= Q - demands[j-1],\n                    name=f\"MTZ_{i}_{j}\")\n\n    # 5. Time linking: if arc (i,j) is used, arrival at j >= departure from i\n    for j in cust_nodes:\n        for i in nodes:\n            if i != j:\n                m.addConstr(\n                    t[i] - t[j] + M * x[(i,j)] <= M - svc[i] - dist[(i,j)],\n                    name=f\"TimeLink_{i}_{j}\")\n\n    m.optimize()\n    return m\n```",
+    "LLM_description": "To: Dispatch and Route Planning Team\nFrom: Logistics Operations Manager\nSubject: Routing and Scheduling for Single-Trip Deliveries with Time Windows\n\nOverview\nWe will execute a set of same-day deliveries from our central depot to a defined list of customer locations. All vehicles are identical and will operate within a single planning horizon. To streamline operations and ensure on-time service, each vehicle will depart the depot at time 0, complete its assigned deliveries in sequence, and return to the depot before the depot\u2019s latest allowable return time specified in the data annex.\n\nRouting and Scheduling Challenge\nOur task is to assign each customer to exactly one vehicle, determine the order of visits on each route, and schedule arrivals so that service begins within the customer\u2019s acceptable time window. Travel time between any two locations is taken as the straight-line distance between their coordinates, with an assumed speed of 1, so one unit of distance equals one unit of time. Because each deployed vehicle carries a fixed cost in addition to distance-related costs, we must balance the benefits of using additional vehicles (to ease time windows and reduce route lengths) against these added deployment costs.\n\nOperating Rules and Constraints\n- Fleet and trips:\n  - Identical vehicles are dispatched from the depot at time 0.\n  - Each vehicle performs a single trip: depart at time 0, visit its assigned customers, and return to the depot before the closing time listed in the annex.\n  - Using a vehicle incurs a fixed deployment cost as specified in the annex, in addition to route distance costs.\n- Customer service:\n  - Every customer must be visited exactly once by exactly one vehicle.\n  - Each customer has an allowed delivery window. Service must begin within this window.\n  - If a vehicle arrives early, it must wait until the window opens; if it arrives after the window closes, service is not permitted.\n  - Each location requires a non-zero service/unloading time. After service completes, the vehicle departs immediately.\n- Capacity and loading:\n  - Each customer has a demand that contributes to vehicle load when served.\n  - The cumulative load on a vehicle must never exceed its capacity at any point on the route.\n- Travel and timing:\n  - Travel time between any two locations equals their straight-line distance; distance and time share the same units.\n  - Arrival times must account for driving time, any waiting due to early arrival, and the service durations at prior stops.\n\nGoal\nDesign a set of feasible routes and schedules that:\n- Visit all customers exactly once,\n- Respect vehicle capacity limits at all times,\n- Begin service within each customer\u2019s time window (waiting allowed if early),\n- Ensure each vehicle returns to the depot no later than the depot\u2019s closing time, and\n- Minimize the sum of total travel distance and the fixed cost of each vehicle that is deployed.\n\nExpected Planning Output\n- The set of routes to activate and vehicles to deploy.\n- The customer sequence on each route, with planned arrival, service start, departure, and return-to-depot times.\n- Load profiles confirming capacity compliance along each route.\n- Totals for route distances and the overall estimated cost (distance-based cost plus fixed deployment costs).\n\nANNEX \u2013 Operations Data\n- Depot location (coordinates): (50, 50)\n- Depot latest return time (closing time): 284\n- Customer locations (coordinates): Customer Locations (coordinates):\n  - C1: (62, 78)\n  - C2: (15, 26)\n  - C3: (44, 24)\n  - C4: (88, 81)\n  - C5: (93, 37)\n- Customer demands (units): Customer Demands:\n  - C1: 21 units\n  - C2: 18 units\n  - C3: 8 units\n  - C4: 16 units\n  - C5: 15 units\n- Customer delivery time windows (earliest, latest): Customer Time Windows [earliest, latest]:\n  - C1: [29, 119]\n  - C2: [54, 123]\n  - C3: [38, 93]\n  - C4: [63, 119]\n  - C5: [56, 121]\n- Customer service/unloading times: Service Times (minutes at customer):\n  - C1: 5\n  - C2: 6\n  - C3: 10\n  - C4: 12\n  - C5: 10\n- Vehicle capacity (units): 42\n- Number of available vehicles: 4\n- Fixed deployment cost per vehicle: 100.0",
+    "LLM_description_template": "To: Dispatch and Route Planning Team\nFrom: Logistics Operations Manager\nSubject: Routing and Scheduling for Single-Trip Deliveries with Time Windows\n\nOverview\nWe will execute a set of same-day deliveries from our central depot to a defined list of customer locations. All vehicles are identical and will operate within a single planning horizon. To streamline operations and ensure on-time service, each vehicle will depart the depot at time 0, complete its assigned deliveries in sequence, and return to the depot before the depot\u2019s latest allowable return time specified in the data annex.\n\nRouting and Scheduling Challenge\nOur task is to assign each customer to exactly one vehicle, determine the order of visits on each route, and schedule arrivals so that service begins within the customer\u2019s acceptable time window. Travel time between any two locations is taken as the straight-line distance between their coordinates, with an assumed speed of 1, so one unit of distance equals one unit of time. Because each deployed vehicle carries a fixed cost in addition to distance-related costs, we must balance the benefits of using additional vehicles (to ease time windows and reduce route lengths) against these added deployment costs.\n\nOperating Rules and Constraints\n- Fleet and trips:\n  - Identical vehicles are dispatched from the depot at time 0.\n  - Each vehicle performs a single trip: depart at time 0, visit its assigned customers, and return to the depot before the closing time listed in the annex.\n  - Using a vehicle incurs a fixed deployment cost as specified in the annex, in addition to route distance costs.\n- Customer service:\n  - Every customer must be visited exactly once by exactly one vehicle.\n  - Each customer has an allowed delivery window. Service must begin within this window.\n  - If a vehicle arrives early, it must wait until the window opens; if it arrives after the window closes, service is not permitted.\n  - Each location requires a non-zero service/unloading time. After service completes, the vehicle departs immediately.\n- Capacity and loading:\n  - Each customer has a demand that contributes to vehicle load when served.\n  - The cumulative load on a vehicle must never exceed its capacity at any point on the route.\n- Travel and timing:\n  - Travel time between any two locations equals their straight-line distance; distance and time share the same units.\n  - Arrival times must account for driving time, any waiting due to early arrival, and the service durations at prior stops.\n\nGoal\nDesign a set of feasible routes and schedules that:\n- Visit all customers exactly once,\n- Respect vehicle capacity limits at all times,\n- Begin service within each customer\u2019s time window (waiting allowed if early),\n- Ensure each vehicle returns to the depot no later than the depot\u2019s closing time, and\n- Minimize the sum of total travel distance and the fixed cost of each vehicle that is deployed.\n\nExpected Planning Output\n- The set of routes to activate and vehicles to deploy.\n- The customer sequence on each route, with planned arrival, service start, departure, and return-to-depot times.\n- Load profiles confirming capacity compliance along each route.\n- Totals for route distances and the overall estimated cost (distance-based cost plus fixed deployment costs).\n\nANNEX \u2013 Operations Data\n- Depot location (coordinates): {DEPOT_LOCATION}\n- Depot latest return time (closing time): {DEPOT_CLOSING_TIME}\n- Customer locations (coordinates): {CUSTOMER_LOCATIONS}\n- Customer demands (units): {CUSTOMER_DEMANDS}\n- Customer delivery time windows (earliest, latest): {TIME_WINDOWS}\n- Customer service/unloading times: {SERVICE_TIMES}\n- Vehicle capacity (units): {VEHICLE_CAPACITY}\n- Number of available vehicles: {NUM_VEHICLES}\n- Fixed deployment cost per vehicle: {VEHICLE_FIXED_COST}"
+}

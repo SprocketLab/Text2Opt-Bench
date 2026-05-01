@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variable bounds, costs, and KPI impacts are explicitly listed; KPI floors are clear; continuous nonnegativity specified. The objective is cost minimization. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Memo-style prose adds verbosity and some nonessential phrasing, but each data point appears once and is clear; little repetition.",
+      "realism": 92,
+      "realism_comment": "Feels like a real operations planning problem with costs and KPI floors. Slightly unusual negative floors, but still credible and coherent."
+    },
+    "prompt_tokens_with_data": 1246,
+    "prompt_tokens_without_data": 1246
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 83.22556579746205,
+    "optimal_values": {
+      "Var_0": 4.242513188527678,
+      "Var_1": 0.0,
+      "Var_2": 10.997458703939008,
+      "Var_3": 0.0,
+      "Var_4": 3.6602461924480005,
+      "Var_5": 0.0,
+      "Var_6": 1.8910891089108914
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -86.55
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 85.12
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.04
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -67.93
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.75
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -16.24
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -28.37
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 5.73
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.0
+      ],
+      "objective_linear_coefficient": 4.82,
+      "resource_costs": {
+        "C1": 1.72,
+        "C3": -4.45,
+        "C5": 1.76,
+        "C6": -1.78
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.96
+      ],
+      "objective_linear_coefficient": 7.24,
+      "resource_costs": {
+        "C1": -0.86,
+        "C3": 5.26,
+        "C4": -7.82,
+        "C6": -7.72,
+        "C7": -4.92
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.57
+      ],
+      "objective_linear_coefficient": 2.58,
+      "resource_costs": {
+        "C0": -7.87,
+        "C1": 4.77,
+        "C2": 8.81,
+        "C3": -2.65,
+        "C4": 7.07,
+        "C6": -2.84
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.63
+      ],
+      "objective_linear_coefficient": 9.61,
+      "resource_costs": {
+        "C0": -6.23,
+        "C1": -2.08,
+        "C3": -9.53,
+        "C5": 8.44
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.72
+      ],
+      "objective_linear_coefficient": 8.65,
+      "resource_costs": {
+        "C1": 8.33,
+        "C5": -6.73,
+        "C6": 6.82
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.16
+      ],
+      "objective_linear_coefficient": 4.92,
+      "resource_costs": {
+        "C0": 3.79,
+        "C1": 1.47,
+        "C2": -6.17,
+        "C4": 0.62,
+        "C5": -7.1,
+        "C6": 0.51
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.46
+      ],
+      "objective_linear_coefficient": 1.45,
+      "resource_costs": {
+        "C1": -2.71,
+        "C2": 2.88,
+        "C4": 8.28,
+        "C5": 0.49,
+        "C6": -5.6,
+        "C7": 3.03
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.0, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.96, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.24 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.57, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.58 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.63, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.61 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.72, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.65 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.16, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.92 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.46, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.45 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-7.87 * vars['Var_2'] + -6.23 * vars['Var_3'] + 3.79 * vars['Var_5'] >= -86.55, name='C0')\n    m.addConstr(1.72 * vars['Var_0'] + -0.86 * vars['Var_1'] + 4.77 * vars['Var_2'] + -2.08 * vars['Var_3'] + 8.33 * vars['Var_4'] + 1.47 * vars['Var_5'] + -2.71 * vars['Var_6'] >= 85.12, name='C1')\n    m.addConstr(8.81 * vars['Var_2'] + -6.17 * vars['Var_5'] + 2.88 * vars['Var_6'] >= 89.04, name='C2')\n    m.addConstr(-4.45 * vars['Var_0'] + 5.26 * vars['Var_1'] + -2.65 * vars['Var_2'] + -9.53 * vars['Var_3'] >= -67.93, name='C3')\n    m.addConstr(-7.82 * vars['Var_1'] + 7.07 * vars['Var_2'] + 0.62 * vars['Var_5'] + 8.28 * vars['Var_6'] >= 89.75, name='C4')\n    m.addConstr(1.76 * vars['Var_0'] + 8.44 * vars['Var_3'] + -6.73 * vars['Var_4'] + -7.1 * vars['Var_5'] + 0.49 * vars['Var_6'] >= -16.24, name='C5')\n    m.addConstr(-1.78 * vars['Var_0'] + -7.72 * vars['Var_1'] + -2.84 * vars['Var_2'] + 6.82 * vars['Var_4'] + 0.51 * vars['Var_5'] + -5.6 * vars['Var_6'] >= -28.37, name='C6')\n    m.addConstr(-4.92 * vars['Var_1'] + 3.03 * vars['Var_6'] >= 5.73, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Direction for the upcoming allocation plan (minimize spend while holding KPI floors)\n\nTeam,\n\nAs discussed, we need to set Q1 allocations across seven operational levers in a way that minimizes our total run\u2011rate spend. Each lever below can be dialed up or down in fractional increments but cannot be negative; caps are noted. For each lever, I\u2019ve outlined the per\u2011unit operating expense and how one additional unit influences our key performance thresholds (positive numbers add to a metric; negative numbers erode it). Please use this as the basis for the plan.\n\n- Priority Handling Hours\n  - Availability: 0 to 14.00 units (scalable in fractions)\n  - Run\u2011rate expense: $4.82 per unit\n  - Impact on KPIs per unit:\n    - Service Level Index: +1.72 points\n    - Operational Risk Buffer: \u22124.45 points (compresses the buffer)\n    - Operational Slack: +1.76 units\n    - Regulatory Balance: \u22121.78 points\n\n- Preventive Maintenance Blocks\n  - Availability: 0 to 10.96 units (scalable in fractions)\n  - Run\u2011rate expense: $7.24 per unit\n  - Impact on KPIs per unit:\n    - Service Level Index: \u22120.86 points\n    - Operational Risk Buffer: +5.26 points\n    - Strategic Coverage Score: \u22127.82 points\n    - Regulatory Balance: \u22127.72 points\n    - Stakeholder Goodwill: \u22124.92 points\n\n- Process Automation Runs\n  - Availability: 0 to 14.57 units (scalable in fractions)\n  - Run\u2011rate expense: $2.58 per unit\n  - Impact on KPIs per unit:\n    - Cash Flow Buffer: \u22127.87 units\n    - Service Level Index: +4.77 points\n    - Compliance Score (Audit Readiness): +8.81 points\n    - Operational Risk Buffer: \u22122.65 points\n    - Strategic Coverage Score: +7.07 points\n    - Regulatory Balance: \u22122.84 points\n\n- Regional Pop\u2011Up Pilot\n  - Availability: 0 to 9.63 units (scalable in fractions)\n  - Run\u2011rate expense: $9.61 per unit\n  - Impact on KPIs per unit:\n    - Cash Flow Buffer: \u22126.23 units\n    - Service Level Index: \u22122.08 points\n    - Operational Risk Buffer: \u22129.53 points\n    - Operational Slack: +8.44 units\n\n- Premium Pick Teams\n  - Availability: 0 to 15.72 units (scalable in fractions)\n  - Run\u2011rate expense: $8.65 per unit\n  - Impact on KPIs per unit:\n    - Service Level Index: +8.33 points\n    - Operational Slack: \u22126.73 units\n    - Regulatory Balance: +6.82 points\n\n- Cross\u2011Dock Consolidations\n  - Availability: 0 to 12.16 units (scalable in fractions)\n  - Run\u2011rate expense: $4.92 per unit\n  - Impact on KPIs per unit:\n    - Cash Flow Buffer: +3.79 units\n    - Service Level Index: +1.47 points\n    - Compliance Score (Audit Readiness): \u22126.17 points\n    - Strategic Coverage Score: +0.62 points\n    - Operational Slack: \u22127.10 units\n    - Regulatory Balance: +0.51 points\n\n- Field Outreach Campaigns\n  - Availability: 0 to 12.46 units (scalable in fractions)\n  - Run\u2011rate expense: $1.45 per unit\n  - Impact on KPIs per unit:\n    - Service Level Index: \u22122.71 points\n    - Compliance Score (Audit Readiness): +2.88 points\n    - Strategic Coverage Score: +8.28 points\n    - Operational Slack: +0.49 units\n    - Regulatory Balance: \u22125.60 points\n    - Stakeholder Goodwill: +3.03 points\n\nFacility specs and KPI floors (must be satisfied in aggregate):\n- Cash Flow Buffer must not fall below \u221286.55 units.\n- Service Level Index must be at least 85.12 points.\n- Compliance Score (Audit Readiness) must be at least 89.04 points.\n- Operational Risk Buffer must not fall below \u221267.93 points.\n- Strategic Coverage Score must be at least 89.75 points.\n- Operational Slack must not fall below \u221216.24 units.\n- Regulatory Balance must not fall below \u221228.37 points.\n- Stakeholder Goodwill must be at least 5.73 points.\n\nPlease build the cost\u2011minimizing allocation within these bounds and floors, noting that each lever can be partially deployed up to its cap. If any threshold looks tight based on preliminary runs, flag it so we can consider trade\u2011offs before freezing the plan."
+}

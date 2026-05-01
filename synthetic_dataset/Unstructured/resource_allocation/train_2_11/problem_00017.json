@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Explicit coefficients, bounds, and \u2264 capacities; continuous choice stated. Minor issue: variable names not given, but the model is mechanically reconstructible.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Narrative business context adds length; some descriptive fluff but numbers and constraints are clear. Slightly verbose but not repetitive.",
+      "realism": 97,
+      "realism_comment": "Real-world fulfillment planning LP with machine, labor, and packout capacities; drop-ship bypassing laser is plausible; margins and hour limits are sensible."
+    },
+    "prompt_tokens_with_data": 556,
+    "prompt_tokens_without_data": 556
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 74.7995238095238,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 13.380952380952381
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 41.47
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.91
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 45.64
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.01
+      ],
+      "objective_linear_coefficient": 5.56,
+      "resource_costs": {
+        "C0": 7.36,
+        "C1": 3.65,
+        "C2": 7.82
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.67
+      ],
+      "objective_linear_coefficient": 5.59,
+      "resource_costs": {
+        "C1": 2.31,
+        "C2": 0.88
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.01, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.56 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.67, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.59 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.36 * vars['Var_0'] <= 41.47, name='C0')\n    m.addConstr(3.65 * vars['Var_0'] + 2.31 * vars['Var_1'] <= 30.91, name='C1')\n    m.addConstr(7.82 * vars['Var_0'] + 0.88 * vars['Var_1'] <= 45.64, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Maximizing Contribution from Q1 Fulfillment Mix within Current Capacity\n\nTeam,\n\nWe\u2019re planning our near-term fulfillment mix with the aim of maximizing total gross contribution while staying within our available machine time, labor hours, and packout capacity. We have two levers to pull this period:\n\n- Signature Custom Kits\n  Each production lot of Signature Custom Kits contributes 5.56 in gross margin. Producing one lot draws on three parts of the operation: 7.36 hours in the Laser Cutting Bay, 3.65 hours from the Assembly Crew, and 7.82 hours on the Packout Line. Market and scheduling conditions cap us at no more than 17.01 lots for this item in the period, and we can choose any level from zero up to that cap.\n\n- Supplier Drop-Ship Bundles\n  Each lot of Supplier Drop-Ship Bundles contributes 5.59 in gross margin. These lots bypass the Laser Cutting Bay entirely (they require no laser cutting time from us), but they do require 2.31 hours of Assembly time and 0.88 hours on the Packout Line per lot. We can run anywhere from zero up to a maximum of 16.67 lots for this item in the period.\n\nFacility Specs and Limits for the Period\n- Laser Cutting Bay availability: no more than 41.47 total hours.\n- Assembly Crew availability: no more than 30.91 total hours.\n- Packout Line availability: no more than 45.64 total hours.\n\nWithin these limits, we\u2019d like to determine the combination of the two offerings that yields the highest total contribution. Please review the above parameters so we can finalize the run plan."
+}

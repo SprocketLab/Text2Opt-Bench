@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit coefficients, bounds, inequality directions, and continuous vars (fractional allowed) with LB 0 and UBs. Carbon signs are clear. Objective and constraints can be reproduced exactly.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Email-style framing adds some length; minor fluff (greeting/closing), but the numerical data and constraints are clear, concise, and not repetitive.",
+      "realism": 97,
+      "realism_comment": "Plausible planning of product vs. carbon removal with labor-hour capacity and carbon target; continuous scheduling and capacity limits fit real operations."
+    },
+    "prompt_tokens_with_data": 598,
+    "prompt_tokens_without_data": 598
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 64.21670731707319,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 11.591463414634148
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -36.98
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 76.04
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.44
+      ],
+      "objective_linear_coefficient": 6.3,
+      "resource_costs": {
+        "C0": 0.68,
+        "C1": 9.25
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.99
+      ],
+      "objective_linear_coefficient": 5.54,
+      "resource_costs": {
+        "C0": -5.07,
+        "C1": 6.56
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.44, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.3 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.99, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.54 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.68 * vars['Var_0'] + -5.07 * vars['Var_1'] <= -36.98, name='C0')\n    m.addConstr(9.25 * vars['Var_0'] + 6.56 * vars['Var_1'] <= 76.04, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Allocating Hours Between Premium Kits and Carbon Removal to Maximize Contribution\n\nHi team,\n\nFor the upcoming planning window, we want to maximize total contribution while meeting our sustainability commitment and staying within our available skilled labor hours. We have two adjustable workstreams and the flexibility to schedule them in fractional increments, with no minimum commitments.\n\nLevers we can pull\n\n- Aurora Premium Kits\n  - Financially, each kit contributes 6.3 in margin.\n  - Operationally, each kit draws 9.25 skilled labor hours.\n  - Sustainability-wise, each kit adds 0.68 to our net carbon position (i.e., it increases emissions by that amount).\n  - Capacity: we can schedule anywhere from 0.0 up to 8.44 kits during the window; partial runs are acceptable.\n\n- Sequoia Carbon Removal Projects\n  - Financially, each project unit contributes 5.54 in margin.\n  - Operationally, each unit draws 6.56 skilled labor hours.\n  - Sustainability-wise, each unit draws down 5.07 from our net carbon position (i.e., it provides a carbon removal credit of 5.07).\n  - Capacity: we can schedule anywhere from 0.0 up to 11.99 units during the window; partial execution is acceptable.\n\nFacility & policy limits\n\n- Net carbon balance: Across both activities combined, our net position for the period must be at or below -36.98 (i.e., we must achieve at least 36.98 units of net removal).\n- Skilled labor availability: We have no more than 76.04 skilled labor hours to allocate across the two workstreams.\n\nPlease use the above to recommend the mix of Aurora Premium Kits and Sequoia Carbon Removal Projects that maximizes total contribution without breaching the net carbon target or the labor-hour ceiling.\n\nThanks,\n[Client Name]"
+}

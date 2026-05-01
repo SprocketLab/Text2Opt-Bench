@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All costs, bounds, and service contributions are explicit with clear >= minima and continuous variables. Only variable naming is implicit, but the model is fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative framing and repeated 'no contribution' statements add verbosity, but details remain focused and structured.",
+      "realism": 88,
+      "realism_comment": "Plausible multi-output resource planning with minima and availability. Two options deliver nothing, slightly reducing realism but still believable."
+    },
+    "prompt_tokens_with_data": 916,
+    "prompt_tokens_without_data": 916
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 95.25442783882781,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 6.577846153846152,
+      "Var_2": 0.0,
+      "Var_3": 4.476190476190476,
+      "Var_4": 0.0,
+      "Var_5": 10.76
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 2.82
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 37.9
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 68.32
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 112.1
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.76
+      ],
+      "objective_linear_coefficient": 2.52,
+      "resource_costs": {
+        "C1": 1.03
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.61
+      ],
+      "objective_linear_coefficient": 8.95,
+      "resource_costs": {
+        "C2": 2.6
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.99
+      ],
+      "objective_linear_coefficient": 9.72,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.73
+      ],
+      "objective_linear_coefficient": 4.33,
+      "resource_costs": {
+        "C0": 0.63,
+        "C3": 5.38
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.64
+      ],
+      "objective_linear_coefficient": 9.71,
+      "resource_costs": {}
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.76
+      ],
+      "objective_linear_coefficient": 1.58,
+      "resource_costs": {
+        "C1": 3.73,
+        "C2": 4.76,
+        "C3": 8.67
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=5.76, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.52 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.61, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.95 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.99, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.72 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.73, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.33 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.64, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.71 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.76, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.58 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.63 * vars['Var_3'] >= 2.82, name='C0')\n    m.addConstr(1.03 * vars['Var_0'] + 3.73 * vars['Var_5'] >= 37.9, name='C1')\n    m.addConstr(2.6 * vars['Var_1'] + 4.76 * vars['Var_5'] >= 68.32, name='C2')\n    m.addConstr(5.38 * vars['Var_3'] + 8.67 * vars['Var_5'] >= 112.1, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing mix for our upcoming service period\n\nTeam,\n\nWe need to lock in a mix of field resources for the upcoming period that meets our minimum service commitments at the lowest possible total spend. All quantities below are for this planning period; for ease of comparison, service outputs are expressed in thousands of units, and we can scale each resource in fractional increments if needed.\n\nLevers we can pull (in this exact order):\n\n1) Downtown Inspection Rotations\n- Budget impact: 2.52 per rotation-month.\n- Availability: between 0 and 5.76 rotation-months.\n- What it delivers:\n  \u2022 Hazard Response Coverage: no contribution. \n  \u2022 Urban Compliance Visits: 1.03 thousand visits per rotation-month.\n  \u2022 Preventive Maintenance Tickets: no contribution.\n  \u2022 Community Support Hours: no contribution.\n\n2) Line Maintenance Crews\n- Budget impact: 8.95 per crew-month.\n- Availability: between 0 and 13.61 crew-months.\n- What it delivers:\n  \u2022 Hazard Response Coverage: no contribution.\n  \u2022 Urban Compliance Visits: no contribution.\n  \u2022 Preventive Maintenance Tickets: 2.6 thousand tickets per crew-month.\n  \u2022 Community Support Hours: no contribution.\n\n3) Community Innovation Pod A\n- Budget impact: 9.72 per pod-month.\n- Availability: between 0 and 7.99 pod-months.\n- What it delivers:\n  \u2022 Hazard Response Coverage: no contribution.\n  \u2022 Urban Compliance Visits: no contribution.\n  \u2022 Preventive Maintenance Tickets: no contribution.\n  \u2022 Community Support Hours: no contribution.\n\n4) Specialist Emergency Response\n- Budget impact: 4.33 per unit-month.\n- Availability: between 0 and 15.73 unit-months.\n- What it delivers:\n  \u2022 Hazard Response Coverage: 0.63 thousand certified responses per unit-month.\n  \u2022 Urban Compliance Visits: no contribution.\n  \u2022 Preventive Maintenance Tickets: no contribution.\n  \u2022 Community Support Hours: 5.38 thousand hours per unit-month.\n\n5) Community Innovation Pod B\n- Budget impact: 9.71 per pod-month.\n- Availability: between 0 and 7.64 pod-months.\n- What it delivers:\n  \u2022 Hazard Response Coverage: no contribution.\n  \u2022 Urban Compliance Visits: no contribution.\n  \u2022 Preventive Maintenance Tickets: no contribution.\n  \u2022 Community Support Hours: no contribution.\n\n6) Regional Contracted Field Teams\n- Budget impact: 1.58 per crew-month.\n- Availability: between 0 and 10.76 crew-months.\n- What it delivers:\n  \u2022 Hazard Response Coverage: no contribution.\n  \u2022 Urban Compliance Visits: 3.73 thousand visits per crew-month.\n  \u2022 Preventive Maintenance Tickets: 4.76 thousand tickets per crew-month.\n  \u2022 Community Support Hours: 8.67 thousand hours per crew-month.\n\nMarket limits (minimums we must meet this period):\n- Hazard Response Coverage: at least 2.82 thousand certified responses.\n- Urban Compliance Visits: at least 37.9 thousand visits.\n- Preventive Maintenance Tickets: at least 68.32 thousand tickets.\n- Community Support Hours: at least 112.1 thousand hours.\n\nOur objective is to assemble the lowest-cost combination of the above resources that satisfies all four minimums without exceeding the stated availability of each option. Please review and confirm any availability changes before we finalize the mix."
+}

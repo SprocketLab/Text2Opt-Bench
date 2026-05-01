@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "All bounds, costs, effects, and floors are explicit; signs clear and 'no direct effect' means zero. Continuous quantities implied. Variable names aren't specified but mapping is unambiguous.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds fluff; core bullet specs are clear but verbose. Minimal repetition.",
+      "realism": 96,
+      "realism_comment": "Plausible energy portfolio optimization with coherent metrics and trade-offs; constraints and coefficients make sense."
+    },
+    "prompt_tokens_with_data": 1215,
+    "prompt_tokens_without_data": 1215
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 145.07152355877022,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 5.216074933280427,
+      "Var_3": 11.85,
+      "Var_4": 0.0,
+      "Var_5": 7.65513698630137,
+      "Var_6": 9.107397640120613
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 31.77
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.22
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 18.44
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -83.91
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 112.15
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 40.42
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -60.16
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.83
+      ],
+      "objective_linear_coefficient": 7.35,
+      "resource_costs": {
+        "C0": 8.98,
+        "C2": 5.19,
+        "C3": -3.57,
+        "C5": -1.76,
+        "C6": -7.87
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.05
+      ],
+      "objective_linear_coefficient": 8.85,
+      "resource_costs": {
+        "C1": -9.96,
+        "C2": -9.58,
+        "C3": -7.08
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.62
+      ],
+      "objective_linear_coefficient": 1.75,
+      "resource_costs": {
+        "C1": -5.88,
+        "C3": 2.92,
+        "C4": 2.54,
+        "C5": 9.48
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.85
+      ],
+      "objective_linear_coefficient": 1.42,
+      "resource_costs": {
+        "C0": 8.34,
+        "C1": 0.74,
+        "C2": 6.68,
+        "C5": 3.78,
+        "C6": 6.58
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.42
+      ],
+      "objective_linear_coefficient": 9.69,
+      "resource_costs": {
+        "C1": 7.06,
+        "C6": -3.97
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.24
+      ],
+      "objective_linear_coefficient": 4.96,
+      "resource_costs": {
+        "C0": -8.76,
+        "C2": 0.91,
+        "C3": -0.96,
+        "C4": 7.09,
+        "C6": -1.2
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.1
+      ],
+      "objective_linear_coefficient": 8.91,
+      "resource_costs": {
+        "C1": 7.37,
+        "C2": -0.43,
+        "C3": -1.63,
+        "C4": 4.9
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.83, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.35 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.05, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.85 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.62, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.75 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.85, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.42 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=17.42, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.69 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.24, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.96 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=12.1, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.91 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.98 * vars['Var_0'] + 8.34 * vars['Var_3'] + -8.76 * vars['Var_5'] >= 31.77, name='C0')\n    m.addConstr(-9.96 * vars['Var_1'] + -5.88 * vars['Var_2'] + 0.74 * vars['Var_3'] + 7.06 * vars['Var_4'] + 7.37 * vars['Var_6'] >= 45.22, name='C1')\n    m.addConstr(5.19 * vars['Var_0'] + -9.58 * vars['Var_1'] + 6.68 * vars['Var_3'] + 0.91 * vars['Var_5'] + -0.43 * vars['Var_6'] >= 18.44, name='C2')\n    m.addConstr(-3.57 * vars['Var_0'] + -7.08 * vars['Var_1'] + 2.92 * vars['Var_2'] + -0.96 * vars['Var_5'] + -1.63 * vars['Var_6'] >= -83.91, name='C3')\n    m.addConstr(2.54 * vars['Var_2'] + 7.09 * vars['Var_5'] + 4.9 * vars['Var_6'] >= 112.15, name='C4')\n    m.addConstr(-1.76 * vars['Var_0'] + 9.48 * vars['Var_2'] + 3.78 * vars['Var_3'] >= 40.42, name='C5')\n    m.addConstr(-7.87 * vars['Var_0'] + 6.58 * vars['Var_3'] + -3.97 * vars['Var_4'] + -1.2 * vars['Var_5'] >= -60.16, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Minimizing All-In Cost While Meeting Portfolio Thresholds\u2014Proposed Q3 Resource Mix\n\nTeam,\n\nAs discussed, our aim this quarter is to meet or exceed our required portfolio thresholds at the lowest possible all-in cost. Below is a proposed set of levers we can pull\u2014each can be taken in any quantity from zero up to its indicated ceiling. I\u2019ve summarized the per\u2011unit cost of each lever and how it moves the seven scorecard metrics we must keep above their floors.\n\nLevers we can adjust\n\n1) Sunset Ridge Solar Blocks (max 11.83 units; unit cost 7.35)\n- Each block increases our Reserve Reliability Score by 8.98 points and adds 5.19 Grid Stability Credits.\n- It draws down the Congestion Settlement Balance by 3.57 points, reduces the Operational Flexibility Index by 1.76 points, and reduces the Interconnection Curtailment Balance by 7.87 points.\n- No direct effect on Resource Adequacy Credits or the Sustainability Compliance Score.\n\n2) Heritage Coal Take\u2011or\u2011Pay Strip (max 13.05 units; unit cost 8.85)\n- Each strip reduces the Sustainability Compliance Score by 9.96 points and reduces Grid Stability Credits by 9.58.\n- It also reduces the Congestion Settlement Balance by 7.08 points.\n- No direct effect on the Reserve Reliability Score, Resource Adequacy Credits, Operational Flexibility Index, or Interconnection Curtailment Balance.\n\n3) Quick\u2011Start Gas Peaker Hours (max 12.62 units; unit cost 1.75)\n- Each hour reduces the Sustainability Compliance Score by 5.88 points.\n- It improves the Congestion Settlement Balance by 2.92 points, contributes 2.54 Resource Adequacy Credits, and raises the Operational Flexibility Index by 9.48 points.\n- No direct effect on the Reserve Reliability Score, Grid Stability Credits, or Interconnection Curtailment Balance.\n\n4) Oak Valley Battery Dispatch (max 11.85 units; unit cost 1.42)\n- Each dispatch block increases the Reserve Reliability Score by 8.34 points and adds 6.68 Grid Stability Credits.\n- It also lifts the Sustainability Compliance Score by 0.74 points, increases the Operational Flexibility Index by 3.78 points, and improves the Interconnection Curtailment Balance by 6.58 points.\n- No direct effect on the Congestion Settlement Balance or Resource Adequacy Credits.\n\n5) Harbor Wind Imports (max 17.42 units; unit cost 9.69)\n- Each import block increases the Sustainability Compliance Score by 7.06 points.\n- It reduces the Interconnection Curtailment Balance by 3.97 points.\n- No direct effect on the Reserve Reliability Score, Grid Stability Credits, Congestion Settlement Balance, Resource Adequacy Credits, or Operational Flexibility Index.\n\n6) Metro Waste\u2011Heat Recovery Program (max 13.24 units; unit cost 4.96)\n- Each program unit reduces the Reserve Reliability Score by 8.76 points.\n- It adds 0.91 Grid Stability Credits and 7.09 Resource Adequacy Credits.\n- It reduces the Congestion Settlement Balance by 0.96 points and reduces the Interconnection Curtailment Balance by 1.20 points.\n- No direct effect on the Sustainability Compliance Score or Operational Flexibility Index.\n\n7) High Plains Wind PPAs (max 12.10 units; unit cost 8.91)\n- Each PPA adds 7.37 points to the Sustainability Compliance Score.\n- It reduces Grid Stability Credits by 0.43, reduces the Congestion Settlement Balance by 1.63, and contributes 4.90 Resource Adequacy Credits.\n- No direct effect on the Reserve Reliability Score, Operational Flexibility Index, or Interconnection Curtailment Balance.\n\nMarket limits and portfolio floors we must respect\n\n- Reserve Reliability Score: must be at least 31.77.\n- Sustainability Compliance Score: must be at least 45.22.\n- Grid Stability Credits: must be at least 18.44.\n- Congestion Settlement Balance: cannot fall below \u221283.91.\n- Resource Adequacy Credits: must be at least 112.15.\n- Operational Flexibility Index: must be at least 40.42.\n- Interconnection Curtailment Balance: cannot fall below \u221260.16.\n\nNext steps: I recommend we run scenario tests that push the Resource Adequacy Credits and Sustainability Compliance Score to their floors while exploiting the lower\u2011cost flexibility from battery dispatch and quick\u2011start peakers, using wind and solar judiciously to avoid breaching Congestion and Curtailment balances. I\u2019ll circulate an initial mix that satisfies the above thresholds at the minimum total cost for review.\n\nRegards,\n[Client Name]\nVP, Energy Portfolio Strategy"
+}

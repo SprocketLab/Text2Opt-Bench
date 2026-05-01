@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Exact per-product contributions, bounds, integrality, and resource coefficients are given; resource capacities are explicit. 'Up to' and 'none' clearly imply <= and zero. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Contains business narrative and repeated phrasing per item; some fluff (greeting, trade-offs note). Most content is necessary coefficients and limits.",
+      "realism": 98,
+      "realism_comment": "Feels like a real production planning problem with plausible resources, capacities, and integrality. Units and limits are realistic."
+    },
+    "prompt_tokens_with_data": 1331,
+    "prompt_tokens_without_data": 1331
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 282.9099110882806,
+    "optimal_values": {
+      "Var_0": 15.0,
+      "Var_1": 14.0,
+      "Var_2": 6.0,
+      "Var_3": 0.0019320425049345852,
+      "Var_4": 0.9391775361274634,
+      "Var_5": 8.0,
+      "Var_6": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 34.49
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 201.15
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 203.89
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 128.77
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 160.25
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 215.76
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 130.67
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.23
+      ],
+      "objective_linear_coefficient": 6.36,
+      "resource_costs": {
+        "C1": 9.48,
+        "C2": 0.87,
+        "C3": 1.28,
+        "C5": 6.93,
+        "C6": 5.34
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.55
+      ],
+      "objective_linear_coefficient": 5.77,
+      "resource_costs": {
+        "C1": 0.69,
+        "C2": 3.24,
+        "C4": 4.27,
+        "C5": 1.61,
+        "C6": 0.72
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.96
+      ],
+      "objective_linear_coefficient": 6.51,
+      "resource_costs": {
+        "C0": 3.04,
+        "C1": 8.21,
+        "C2": 3.18,
+        "C3": 0.94,
+        "C4": 2.3,
+        "C5": 9.32,
+        "C6": 3.81
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.54
+      ],
+      "objective_linear_coefficient": 1.11,
+      "resource_costs": {
+        "C1": 1.83,
+        "C2": 8.33,
+        "C4": 4.35,
+        "C5": 6.18,
+        "C6": 7.6
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.26
+      ],
+      "objective_linear_coefficient": 6.12,
+      "resource_costs": {
+        "C2": 2.6,
+        "C3": 1.93,
+        "C4": 8.03,
+        "C6": 3.25
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.24
+      ],
+      "objective_linear_coefficient": 7.74,
+      "resource_costs": {
+        "C2": 7.58,
+        "C3": 7.54,
+        "C4": 9.89
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.94
+      ],
+      "objective_linear_coefficient": 1.05,
+      "resource_costs": {
+        "C0": 1.85,
+        "C1": 6.04,
+        "C2": 5.72,
+        "C3": 7.03,
+        "C4": 1.7,
+        "C5": 5.6
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.23, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.36 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.55, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.77 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.96, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.51 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.54, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.11 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.26, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.12 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.24, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 7.74 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=19.94, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 1.05 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.04 * vars['Var_2'] + 1.85 * vars['Var_6'] <= 34.49, name='C0')\n    m.addConstr(9.48 * vars['Var_0'] + 0.69 * vars['Var_1'] + 8.21 * vars['Var_2'] + 1.83 * vars['Var_3'] + 6.04 * vars['Var_6'] <= 201.15, name='C1')\n    m.addConstr(0.87 * vars['Var_0'] + 3.24 * vars['Var_1'] + 3.18 * vars['Var_2'] + 8.33 * vars['Var_3'] + 2.6 * vars['Var_4'] + 7.58 * vars['Var_5'] + 5.72 * vars['Var_6'] <= 203.89, name='C2')\n    m.addConstr(1.28 * vars['Var_0'] + 0.94 * vars['Var_2'] + 1.93 * vars['Var_4'] + 7.54 * vars['Var_5'] + 7.03 * vars['Var_6'] <= 128.77, name='C3')\n    m.addConstr(4.27 * vars['Var_1'] + 2.3 * vars['Var_2'] + 4.35 * vars['Var_3'] + 8.03 * vars['Var_4'] + 9.89 * vars['Var_5'] + 1.7 * vars['Var_6'] <= 160.25, name='C4')\n    m.addConstr(6.93 * vars['Var_0'] + 1.61 * vars['Var_1'] + 9.32 * vars['Var_2'] + 6.18 * vars['Var_3'] + 5.6 * vars['Var_6'] <= 215.76, name='C5')\n    m.addConstr(5.34 * vars['Var_0'] + 0.72 * vars['Var_1'] + 3.81 * vars['Var_2'] + 7.6 * vars['Var_3'] + 3.25 * vars['Var_4'] <= 130.67, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix planning for the upcoming cycle \u2014 request to maximize contribution within plant limits\n\nTeam,\n\nWe\u2019re setting the production plan for the next cycle and want to maximize overall contribution across our portfolio while staying within plant and market limits. Below is the context you\u2019ll need to recommend the mix. Each item notes its per-run margin, how much we can realistically schedule, whether it must be whole batches or can be throttled, and the exact draw it places on our shared resources.\n\n- Aurora Resin A\n  - Contribution per batch: 6.36.\n  - Scheduling window: anywhere from 0 up to 16.23 batches; this product must run in whole batches.\n  - Resource use per batch:\n    - Special Additive X drums: none.\n    - Senior Technician hours: 9.48.\n    - Mixer Bay throughput hours: 0.87.\n    - Wastewater treatment loads: 1.28.\n    - Packaging Line B hours: none.\n    - Dispatch & distribution hours: 6.93.\n    - Quality Lab testing hours: 5.34.\n\n- Sapphire Coating B\n  - Contribution per batch: 5.77.\n  - Scheduling window: anywhere from 0 up to 14.55 batches; whole batches only.\n  - Resource use per batch:\n    - Special Additive X drums: none.\n    - Senior Technician hours: 0.69.\n    - Mixer Bay throughput hours: 3.24.\n    - Wastewater treatment loads: none.\n    - Packaging Line B hours: 4.27.\n    - Dispatch & distribution hours: 1.61.\n    - Quality Lab testing hours: 0.72.\n\n- Citrine Polymer C\n  - Contribution per batch: 6.51.\n  - Scheduling window: anywhere from 0 up to 10.96 batches; whole batches only.\n  - Resource use per batch:\n    - Special Additive X drums: 3.04.\n    - Senior Technician hours: 8.21.\n    - Mixer Bay throughput hours: 3.18.\n    - Wastewater treatment loads: 0.94.\n    - Packaging Line B hours: 2.30.\n    - Dispatch & distribution hours: 9.32.\n    - Quality Lab testing hours: 3.81.\n\n- Nebula Solvent D\n  - Contribution per run: 1.11.\n  - Scheduling window: anywhere from 0 up to 17.54 runs; can be throttled (partial loads allowed).\n  - Resource use per run:\n    - Special Additive X drums: none.\n    - Senior Technician hours: 1.83.\n    - Mixer Bay throughput hours: 8.33.\n    - Wastewater treatment loads: none.\n    - Packaging Line B hours: 4.35.\n    - Dispatch & distribution hours: 6.18.\n    - Quality Lab testing hours: 7.60.\n\n- Orion Adhesive E\n  - Contribution per load: 6.12.\n  - Scheduling window: anywhere from 0 up to 13.26 loads; can be throttled (partial loads allowed).\n  - Resource use per load:\n    - Special Additive X drums: none.\n    - Senior Technician hours: none.\n    - Mixer Bay throughput hours: 2.60.\n    - Wastewater treatment loads: 1.93.\n    - Packaging Line B hours: 8.03.\n    - Dispatch & distribution hours: none.\n    - Quality Lab testing hours: 3.25.\n\n- Topaz Sealant F\n  - Contribution per batch: 7.74.\n  - Scheduling window: anywhere from 0 up to 19.24 batches; whole batches only.\n  - Resource use per batch:\n    - Special Additive X drums: none.\n    - Senior Technician hours: none.\n    - Mixer Bay throughput hours: 7.58.\n    - Wastewater treatment loads: 7.54.\n    - Packaging Line B hours: 9.89.\n    - Dispatch & distribution hours: none.\n    - Quality Lab testing hours: none.\n\n- Quasar Cleaner G\n  - Contribution per batch: 1.05.\n  - Scheduling window: anywhere from 0 up to 19.94 batches; whole batches only.\n  - Resource use per batch:\n    - Special Additive X drums: 1.85.\n    - Senior Technician hours: 6.04.\n    - Mixer Bay throughput hours: 5.72.\n    - Wastewater treatment loads: 7.03.\n    - Packaging Line B hours: 1.70.\n    - Dispatch & distribution hours: 5.60.\n    - Quality Lab testing hours: none.\n\nFacility specs and market limits\n- Special Additive X drums available: up to 34.49.\n- Senior Technician hours available: up to 201.15.\n- Mixer Bay throughput hours available: up to 203.89.\n- Wastewater treatment loads allowable: up to 128.77.\n- Packaging Line B hours available: up to 160.25.\n- Dispatch & distribution hours available: up to 215.76.\n- Quality Lab testing hours available: up to 130.67.\n\nPlease use these figures to recommend the optimal production mix that maximizes total contribution while staying comfortably within the above limits. If there are trade-offs where a small mix adjustment could unlock significantly more margin, call those out."
+}

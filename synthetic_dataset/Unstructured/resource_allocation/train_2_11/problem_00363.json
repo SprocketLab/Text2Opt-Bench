@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, integer requirements, and per-unit contributions to each service area are explicit with \u2265 floors; objective is clear: minimize total weekly spend.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email style and repeated 'does not contribute' statements add verbosity, but most detail is needed to define coefficients and zeros unambiguously.",
+      "realism": 96,
+      "realism_comment": "Highly plausible staffing coverage planning with FTE limits, cross-coverage, and service level minimums; aligns with real workforce optimization."
+    },
+    "prompt_tokens_with_data": 1273,
+    "prompt_tokens_without_data": 1273
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 182.68609808131038,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": -0.0,
+      "Var_3": 1.5393168290049561,
+      "Var_4": 2.159783934564208,
+      "Var_5": 12.0,
+      "Var_6": 6.103109443676045,
+      "Var_7": 8.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 8.64
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 103.19
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 86.53
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 127.87
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.4
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.21
+      ],
+      "objective_linear_coefficient": 8.36,
+      "resource_costs": {
+        "C3": 1.77
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.64
+      ],
+      "objective_linear_coefficient": 3.11,
+      "resource_costs": {
+        "C4": 0.37
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.18
+      ],
+      "objective_linear_coefficient": 5.23,
+      "resource_costs": {
+        "C3": 3.44
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.57
+      ],
+      "objective_linear_coefficient": 6.98,
+      "resource_costs": {
+        "C1": 5.13,
+        "C4": 9.19
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.43
+      ],
+      "objective_linear_coefficient": 7.77,
+      "resource_costs": {
+        "C2": 4.3,
+        "C3": 2.17,
+        "C4": 3.34
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.0
+      ],
+      "objective_linear_coefficient": 4.37,
+      "resource_costs": {
+        "C1": 4.62,
+        "C2": 5.14,
+        "C3": 3.8,
+        "C4": 2.27
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.97
+      ],
+      "objective_linear_coefficient": 8.73,
+      "resource_costs": {
+        "C1": 6.53,
+        "C2": 2.55,
+        "C3": 0.73
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.11
+      ],
+      "objective_linear_coefficient": 6.18,
+      "resource_costs": {
+        "C0": 1.61,
+        "C3": 9.61,
+        "C4": 9.1
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.21, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.36 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.64, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.11 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.18, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.23 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.57, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.98 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.43, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.77 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.0, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.37 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.97, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.73 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=14.11, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 6.18 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.61 * vars['Var_7'] >= 8.64, name='C0')\n    m.addConstr(5.13 * vars['Var_3'] + 4.62 * vars['Var_5'] + 6.53 * vars['Var_6'] >= 103.19, name='C1')\n    m.addConstr(4.3 * vars['Var_4'] + 5.14 * vars['Var_5'] + 2.55 * vars['Var_6'] >= 86.53, name='C2')\n    m.addConstr(1.77 * vars['Var_0'] + 3.44 * vars['Var_2'] + 2.17 * vars['Var_4'] + 3.8 * vars['Var_5'] + 0.73 * vars['Var_6'] + 9.61 * vars['Var_7'] >= 127.87, name='C3')\n    m.addConstr(0.37 * vars['Var_1'] + 9.19 * vars['Var_3'] + 3.34 * vars['Var_4'] + 2.27 * vars['Var_5'] + 9.1 * vars['Var_7'] >= 121.4, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for a lowest-cost staffing mix to meet mandatory service levels\n\nTeam,\n\nWe need a cost-minimizing coverage plan for the upcoming period that meets or exceeds our mandatory service levels across five operational areas. Below is the set of staffing levers we can use and how each affects the required service lines. The intent is to deploy these options in amounts that collectively achieve all minimums at the lowest possible weekly spend.\n\nStaffing options we can deploy\n\n- Night Control Room Specialists\n  - Cost: 8.36 per FTE-week.\n  - Scheduling range: anywhere from zero up to 8.21 FTE-weeks.\n  - Provides monitoring-center coverage only, at 1.77 coverage credits per FTE-week toward Monitoring Center Coverage.\n  - Does not contribute to Emergency Preparedness, Field Patrol, Preventive Maintenance, or Access Control.\n\n- Lobby Ambassadors\n  - Cost: 3.11 per FTE-week.\n  - Scheduling range: anywhere from zero up to 15.64 FTE-weeks.\n  - Provides front-of-house presence only, at 0.37 coverage credits per FTE-week toward Access Control & Reception.\n  - Does not contribute to Emergency Preparedness, Field Patrol, Preventive Maintenance, or Monitoring Center Coverage.\n\n- Duty Supervisors\n  - Cost: 5.23 per FTE-week.\n  - Scheduling range: anywhere from zero up to 11.18 FTE-weeks; must be deployed in whole-person increments (no partial headcount).\n  - Provides 3.44 coverage credits per FTE-week toward Monitoring Center Coverage.\n  - Does not contribute to Emergency Preparedness, Field Patrol, Preventive Maintenance, or Access Control.\n\n- Day Patrol & Access Cross-Trained Officers\n  - Cost: 6.98 per FTE-week.\n  - Scheduling range: anywhere from zero up to 9.57 FTE-weeks.\n  - Provides 5.13 coverage credits per FTE-week toward Field Patrol Coverage.\n  - Also provides 9.19 coverage credits per FTE-week toward Access Control & Reception.\n  - Does not contribute to Emergency Preparedness or Preventive Maintenance.\n\n- Mobile Maintenance Teams\n  - Cost: 7.77 per FTE-week.\n  - Scheduling range: anywhere from zero up to 13.43 FTE-weeks.\n  - Provides 4.30 maintenance credits per FTE-week toward Preventive Maintenance & Inspection.\n  - Also provides 2.17 coverage credits per FTE-week toward Monitoring Center Coverage and 3.34 coverage credits per FTE-week toward Access Control & Reception.\n  - Does not contribute to Emergency Preparedness or Field Patrol.\n\n- Multi\u2011Skilled Technicians\n  - Cost: 4.37 per FTE-week.\n  - Scheduling range: anywhere from zero up to 12.00 FTE-weeks.\n  - Provides a balanced contribution across several areas:\n    - 4.62 coverage credits per FTE-week toward Field Patrol Coverage,\n    - 5.14 maintenance credits per FTE-week toward Preventive Maintenance & Inspection,\n    - 3.80 coverage credits per FTE-week toward Monitoring Center Coverage,\n    - 2.27 coverage credits per FTE-week toward Access Control & Reception.\n  - Does not contribute to Emergency Preparedness.\n\n- Rapid Response Units\n  - Cost: 8.73 per FTE-week.\n  - Scheduling range: anywhere from zero up to 8.97 FTE-weeks.\n  - Provides 6.53 coverage credits per FTE-week toward Field Patrol Coverage,\n  - 2.55 maintenance credits per FTE-week toward Preventive Maintenance & Inspection,\n  - 0.73 coverage credits per FTE-week toward Monitoring Center Coverage.\n  - Does not contribute to Emergency Preparedness or Access Control.\n\n- Fire Safety Wardens\n  - Cost: 6.18 per FTE-week.\n  - Scheduling range: anywhere from zero up to 14.11 FTE-weeks; must be deployed in whole-person increments (no partial headcount).\n  - Provides 1.61 preparedness credits per FTE-week toward Emergency Preparedness.\n  - Also provides 9.61 coverage credits per FTE-week toward Monitoring Center Coverage and 9.10 coverage credits per FTE-week toward Access Control & Reception.\n  - Does not contribute to Field Patrol or Preventive Maintenance.\n\nService level floors for the period (these are minimums to be met or exceeded)\n\n- Emergency Preparedness (Fire Safety & Evacuation): at least 8.64 preparedness credits.\n- Field Patrol Coverage: at least 103.19 coverage credits.\n- Preventive Maintenance & Inspection: at least 86.53 maintenance credits.\n- Monitoring Center Coverage: at least 127.87 coverage credits.\n- Access Control & Reception: at least 121.40 coverage credits.\n\nPlease use the above availability limits and per-unit costs to propose a staffing mix that achieves all five minimums at the lowest total weekly spend. Note that Duty Supervisors and Fire Safety Wardens must be allocated in whole-person increments; all other categories can be scheduled fractionally within their stated ranges.\n\nThanks,\n[Client Name]"
+}

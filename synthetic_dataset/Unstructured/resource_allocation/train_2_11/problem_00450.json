@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, integrality, margins, per-lot resource usages, and weekly capacity limits are explicit; objective and <= constraints follow directly with no missing data.",
+      "ambiguity": false,
+      "redundancy": 20,
+      "redundancy_comment": "Light narrative framing, but most text concisely conveys needed coefficients, bounds, and capacities.",
+      "realism": 97,
+      "realism_comment": "Highly plausible production planning with labor, packaging, lab time, storage, and logistics; integer lot-sizing and partial runs are realistic."
+    },
+    "prompt_tokens_with_data": 1031,
+    "prompt_tokens_without_data": 1031
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 395.5825939819459,
+    "optimal_values": {
+      "Var_0": 4.0,
+      "Var_1": 14.0,
+      "Var_2": 4.0,
+      "Var_3": 9.0,
+      "Var_4": 9.82,
+      "Var_5": 5.0,
+      "Var_6": 5.933480441323972,
+      "Var_7": -0.0,
+      "Var_8": 15.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 86.88
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 138.27
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 26.26
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 87.93
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 105.9
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 50.96
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 150.2
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.67
+      ],
+      "objective_linear_coefficient": 2.76,
+      "resource_costs": {
+        "C1": 3.63,
+        "C6": 6.66
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.31
+      ],
+      "objective_linear_coefficient": 5.97,
+      "resource_costs": {
+        "C3": 0.95
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.48
+      ],
+      "objective_linear_coefficient": 4.95,
+      "resource_costs": {
+        "C0": 9.18,
+        "C1": 1.54,
+        "C2": 5.57,
+        "C6": 5.86
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.56
+      ],
+      "objective_linear_coefficient": 6.97,
+      "resource_costs": {
+        "C3": 0.9
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.82
+      ],
+      "objective_linear_coefficient": 7.21,
+      "resource_costs": {
+        "C3": 0.44,
+        "C4": 4.76,
+        "C6": 5.06
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.65
+      ],
+      "objective_linear_coefficient": 3.33,
+      "resource_costs": {
+        "C0": 9.1,
+        "C1": 9.56,
+        "C3": 7.28,
+        "C6": 3.85
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.88
+      ],
+      "objective_linear_coefficient": 7.21,
+      "resource_costs": {
+        "C0": 0.39,
+        "C1": 7.75,
+        "C3": 3.06,
+        "C4": 9.97,
+        "C6": 5.18
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.09
+      ],
+      "objective_linear_coefficient": 2.82,
+      "resource_costs": {
+        "C2": 4.02,
+        "C4": 4.49,
+        "C5": 9.81,
+        "C6": 3.77
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.12
+      ],
+      "objective_linear_coefficient": 5.88,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.67, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 2.76 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.31, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.97 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.48, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 4.95 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.56, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 6.97 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.82, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.21 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.65, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 3.33 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=14.88, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 7.21 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=12.09, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 2.82 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=15.12, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 5.88 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.18 * vars['Var_2'] + 9.1 * vars['Var_5'] + 0.39 * vars['Var_6'] <= 86.88, name='C0')\n    m.addConstr(3.63 * vars['Var_0'] + 1.54 * vars['Var_2'] + 9.56 * vars['Var_5'] + 7.75 * vars['Var_6'] <= 138.27, name='C1')\n    m.addConstr(5.57 * vars['Var_2'] + 4.02 * vars['Var_7'] <= 26.26, name='C2')\n    m.addConstr(0.95 * vars['Var_1'] + 0.9 * vars['Var_3'] + 0.44 * vars['Var_4'] + 7.28 * vars['Var_5'] + 3.06 * vars['Var_6'] <= 87.93, name='C3')\n    m.addConstr(4.76 * vars['Var_4'] + 9.97 * vars['Var_6'] + 4.49 * vars['Var_7'] <= 105.9, name='C4')\n    m.addConstr(9.81 * vars['Var_7'] <= 50.96, name='C5')\n    m.addConstr(6.66 * vars['Var_0'] + 5.86 * vars['Var_2'] + 5.06 * vars['Var_4'] + 3.85 * vars['Var_5'] + 5.18 * vars['Var_6'] + 3.77 * vars['Var_7'] <= 150.2, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Weekly Production Mix\u2014Maximize Margin within Plant Limits\n\nHi team,\n\nWe\u2019re setting the weekly production mix with the aim of maximizing total contribution across our lines. Below are the levers we can adjust and how each one draws on plant resources. Please use whole lots for lines where noted; a couple of lines can be run in partial lots.\n\n- Sunrise Meal Kit (whole lots only, anywhere from 0 up to 6.67 lots)\n  Each lot adds 2.76 to weekly gross margin. It requires 3.63 hours from the skilled production crew and consumes 6.66 outbound logistics credits per lot.\n\n- Granola Clusters (whole lots only, anywhere from 0 up to 14.31 lots)\n  Each lot adds 5.97 to weekly gross margin. It uses Line B runtime only\u20140.95 hours per lot\u2014and does not call on other constrained resources.\n\n- Heritage Rye Loaf (whole lots only, anywhere from 0 up to 12.48 lots)\n  Each lot adds 4.95 to weekly gross margin. It draws 9.18 units of the Raw Base Mix, 1.54 hours from the skilled production crew, 5.57 hours of regulatory lab sampling, and consumes 5.86 outbound logistics credits per lot.\n\n- Crisp Biscuit (whole lots only, anywhere from 0 up to 9.56 lots)\n  Each lot adds 6.97 to weekly gross margin. It uses 0.90 hours of Line B runtime per lot and does not require other constrained resources.\n\n- Citrus Iced Tea (partial runs allowed, anywhere from 0 up to 9.82 lots)\n  Each lot adds 7.21 to weekly gross margin. It uses 0.44 hours of Line B runtime, 4.76 hours on Packaging Line C, and consumes 5.06 outbound logistics credits per lot.\n\n- Spicy Trail Mix (whole lots only, anywhere from 0 up to 16.65 lots)\n  Each lot adds 3.33 to weekly gross margin. It draws 9.10 units of the Raw Base Mix, 9.56 hours from the skilled production crew, 7.28 hours of Line B runtime, and consumes 3.85 outbound logistics credits per lot.\n\n- Chilled Smoothie Blend (partial runs allowed, anywhere from 0 up to 14.88 lots)\n  Each lot adds 7.21 to weekly gross margin. It requires 0.39 units of the Raw Base Mix, 7.75 hours from the skilled production crew, 3.06 hours of Line B runtime, 9.97 hours on Packaging Line C, and consumes 5.18 outbound logistics credits per lot.\n\n- Farmhouse Yogurt Cups (whole lots only, anywhere from 0 up to 12.09 lots)\n  Each lot adds 2.82 to weekly gross margin. It requires 4.02 hours of regulatory lab sampling, 4.49 hours on Packaging Line C, 9.81 pallet-equivalents of refrigerated storage, and consumes 3.77 outbound logistics credits per lot.\n\n- Digital Recipe Subscription (whole lots only, anywhere from 0 up to 15.12 lots)\n  Each lot adds 5.88 to weekly gross margin. This line does not draw on the physical resources listed below.\n\nFacility Specs & Market Limits (weekly maximums):\n- Raw Base Mix availability: 86.88 units\n- Skilled production crew time: 138.27 hours\n- Regulatory lab sampling time: 26.26 hours\n- Line B runtime: 87.93 hours\n- Packaging Line C availability: 105.90 hours\n- Refrigerated storage capacity: 50.96 pallet-equivalents\n- Outbound logistics credits: 150.20 credits\n\nPlease optimize the mix within these limits to maximize our overall contribution for the week. If you need any clarifications on resource definitions or availability, let me know."
+}

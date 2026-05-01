@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All per-lot impacts, bounds, and resource caps are explicit with clear sign conventions (consume/uses vs frees/credits/improves). Objective is maximize contribution. Model can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Memo-style narrative with parenthetical explanations adds verbosity but numbers are precise and relevant; minimal repetition.",
+      "realism": 97,
+      "realism_comment": "Very realistic production-mix LP with labor, capacity, inventory, carbon credits, storage, and cash constraints. Credit/frees effects are plausible and consistent."
+    },
+    "prompt_tokens_with_data": 1542,
+    "prompt_tokens_without_data": 1542
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 188.27869617676708,
+    "optimal_values": {
+      "Var_0": 0.05519295235747747,
+      "Var_1": 6.482197079978012,
+      "Var_2": 0.0,
+      "Var_3": 7.64,
+      "Var_4": 9.79,
+      "Var_5": 4.750613556740799,
+      "Var_6": 8.390894987233576,
+      "Var_7": 3.958474383279961
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 74.24
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 37.32
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.17
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -19.08
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 8.46
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 71.33
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 25.5
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -36.42
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.24
+      ],
+      "objective_linear_coefficient": 1.33,
+      "resource_costs": {
+        "C0": -8.41,
+        "C1": -0.47,
+        "C2": 7.54,
+        "C3": 6.69,
+        "C5": 5.88,
+        "C6": 1.37,
+        "C7": -2.59
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.08
+      ],
+      "objective_linear_coefficient": 5.58,
+      "resource_costs": {
+        "C1": -8.01,
+        "C3": 7.75,
+        "C5": 9.76,
+        "C6": -5.93,
+        "C7": -0.17
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.85
+      ],
+      "objective_linear_coefficient": 9.19,
+      "resource_costs": {
+        "C0": 8.06,
+        "C1": 9.16,
+        "C2": -4.37,
+        "C3": -8.97,
+        "C4": -4.56,
+        "C5": 7.89,
+        "C6": 7.98,
+        "C7": -2.72
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.64
+      ],
+      "objective_linear_coefficient": 1.27,
+      "resource_costs": {
+        "C1": -2.93,
+        "C2": -1.55
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.79
+      ],
+      "objective_linear_coefficient": 6.74,
+      "resource_costs": {
+        "C0": 4.66,
+        "C1": 7.57,
+        "C3": -9.73,
+        "C6": 3.46
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.41
+      ],
+      "objective_linear_coefficient": 9.29,
+      "resource_costs": {
+        "C1": 4.07,
+        "C2": 0.55,
+        "C3": -4.67,
+        "C4": 3.75,
+        "C5": 9.82,
+        "C6": -7.48,
+        "C7": -5.94
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.66
+      ],
+      "objective_linear_coefficient": 2.99,
+      "resource_costs": {
+        "C0": -0.61,
+        "C1": 2.17,
+        "C3": 9.64,
+        "C4": -5.79,
+        "C6": -1.73
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.88
+      ],
+      "objective_linear_coefficient": 1.8,
+      "resource_costs": {
+        "C0": 8.64,
+        "C3": -8.37,
+        "C4": 9.91,
+        "C5": -9.83,
+        "C6": 1.93,
+        "C7": -2.06
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.24, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.33 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.08, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.58 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.85, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.19 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.64, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.27 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.79, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.74 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.41, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.29 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=17.66, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.99 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=11.88, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 1.8 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-8.41 * vars['Var_0'] + 8.06 * vars['Var_2'] + 4.66 * vars['Var_4'] + -0.61 * vars['Var_6'] + 8.64 * vars['Var_7'] <= 74.24, name='C0')\n    m.addConstr(-0.47 * vars['Var_0'] + -8.01 * vars['Var_1'] + 9.16 * vars['Var_2'] + -2.93 * vars['Var_3'] + 7.57 * vars['Var_4'] + 4.07 * vars['Var_5'] + 2.17 * vars['Var_6'] <= 37.32, name='C1')\n    m.addConstr(7.54 * vars['Var_0'] + -4.37 * vars['Var_2'] + -1.55 * vars['Var_3'] + 0.55 * vars['Var_5'] <= 16.17, name='C2')\n    m.addConstr(6.69 * vars['Var_0'] + 7.75 * vars['Var_1'] + -8.97 * vars['Var_2'] + -9.73 * vars['Var_4'] + -4.67 * vars['Var_5'] + 9.64 * vars['Var_6'] + -8.37 * vars['Var_7'] <= -19.08, name='C3')\n    m.addConstr(-4.56 * vars['Var_2'] + 3.75 * vars['Var_5'] + -5.79 * vars['Var_6'] + 9.91 * vars['Var_7'] <= 8.46, name='C4')\n    m.addConstr(5.88 * vars['Var_0'] + 9.76 * vars['Var_1'] + 7.89 * vars['Var_2'] + 9.82 * vars['Var_5'] + -9.83 * vars['Var_7'] <= 71.33, name='C5')\n    m.addConstr(1.37 * vars['Var_0'] + -5.93 * vars['Var_1'] + 7.98 * vars['Var_2'] + 3.46 * vars['Var_4'] + -7.48 * vars['Var_5'] + -1.73 * vars['Var_6'] + 1.93 * vars['Var_7'] <= 25.5, name='C6')\n    m.addConstr(-2.59 * vars['Var_0'] + -0.17 * vars['Var_1'] + -2.72 * vars['Var_2'] + -5.94 * vars['Var_5'] + -2.06 * vars['Var_7'] <= -36.42, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix brief and operating limits for the upcoming run\n\nTeam,\n\nAhead of next month\u2019s scheduling meeting, here is the production mix and the operating assumptions we\u2019d like you to use to maximize overall contribution, while staying within plant and policy limits. Each line item below can be dialed between zero and its stated ceiling; per-lot impacts on margins and resources are noted so you can weigh trade-offs clearly.\n\nSeltzer Lite (Contract Mix)\n- Commercial goal: Delivers 1.33 units of gross margin per production lot; we can run between 0 and 17.24 lots.\n- Plant impacts per lot:\n  - Main Blending Hall time: reduces load by 8.41 hours (outsourced blending gives back time).\n  - Skilled Bottling Crew shifts: reduces by 0.47 shift equivalents.\n  - Rare Botanicals inventory: consumes 7.54 units.\n  - Carbon compliance account: uses 6.69 tonnes of allowance.\n  - Packaging Line throughput: consumes 5.88 hours.\n  - Cold Storage pallets: occupies 1.37 pallets.\n  - Net working capital draw: releases 2.59 units of cash (i.e., reduces draw by 2.59).\n\nHeritage Cola\n- Commercial goal: Delivers 5.58 units of gross margin per production lot; we can run between 0 and 11.08 lots.\n- Plant impacts per lot:\n  - Skilled Bottling Crew shifts: reduces by 8.01 shift equivalents (automation and contract labor).\n  - Carbon compliance account: uses 7.75 tonnes of allowance.\n  - Packaging Line throughput: consumes 9.76 hours.\n  - Cold Storage pallets: frees 5.93 pallets (fast turnover).\n  - Net working capital draw: releases 0.17 units of cash.\n\nPremium Botanical Tonic\n- Commercial goal: Delivers 9.19 units of gross margin per production lot; we can run between 0 and 13.85 lots.\n- Plant impacts per lot:\n  - Main Blending Hall time: consumes 8.06 hours.\n  - Skilled Bottling Crew shifts: consumes 9.16 shift equivalents.\n  - Rare Botanicals inventory: credits back 4.37 units (formulation reduces net usage).\n  - Carbon compliance account: generates 8.97 tonnes of credits.\n  - Community impact score: improves by 4.56 points (operating plan mitigates impact).\n  - Packaging Line throughput: consumes 7.89 hours.\n  - Cold Storage pallets: occupies 7.98 pallets.\n  - Net working capital draw: releases 2.72 units of cash.\n\nZero-Sugar Iced Tea\n- Commercial goal: Delivers 1.27 units of gross margin per production lot; we can run between 0 and 7.64 lots.\n- Plant impacts per lot:\n  - Skilled Bottling Crew shifts: reduces by 2.93 shift equivalents.\n  - Rare Botanicals inventory: credits back 1.55 units.\n\nSparkling Lemonade\n- Commercial goal: Delivers 6.74 units of gross margin per production lot; we can run between 0 and 9.79 lots.\n- Plant impacts per lot:\n  - Main Blending Hall time: consumes 4.66 hours.\n  - Skilled Bottling Crew shifts: consumes 7.57 shift equivalents.\n  - Carbon compliance account: generates 9.73 tonnes of credits (low-emission process).\n  - Cold Storage pallets: occupies 3.46 pallets.\n\nEnergy Drink X\n- Commercial goal: Delivers 9.29 units of gross margin per production lot; we can run between 0 and 12.41 lots.\n- Plant impacts per lot:\n  - Skilled Bottling Crew shifts: consumes 4.07 shift equivalents.\n  - Rare Botanicals inventory: consumes 0.55 units.\n  - Carbon compliance account: generates 4.67 tonnes of credits.\n  - Community impact score: adds 3.75 points (more intensive local activity).\n  - Packaging Line throughput: consumes 9.82 hours.\n  - Cold Storage pallets: frees 7.48 pallets (rapid shipment cycle).\n  - Net working capital draw: releases 5.94 units of cash.\n\nCold Brew Coffee\n- Commercial goal: Delivers 2.99 units of gross margin per production lot; we can run between 0 and 17.66 lots.\n- Plant impacts per lot:\n  - Main Blending Hall time: reduces load by 0.61 hours (brew off-line).\n  - Skilled Bottling Crew shifts: consumes 2.17 shift equivalents.\n  - Carbon compliance account: uses 9.64 tonnes of allowance.\n  - Community impact score: improves by 5.79 points.\n  - Cold Storage pallets: frees 1.73 pallets.\n\nSeasonal Ginger Beer\n- Commercial goal: Delivers 1.80 units of gross margin per production lot; we can run between 0 and 11.88 lots.\n- Plant impacts per lot:\n  - Main Blending Hall time: consumes 8.64 hours.\n  - Carbon compliance account: generates 8.37 tonnes of credits.\n  - Community impact score: adds 9.91 points (louder, seasonal operations).\n  - Packaging Line throughput: frees 9.83 hours (keg and bulk formats).\n  - Cold Storage pallets: occupies 1.93 pallets.\n  - Net working capital draw: releases 2.06 units of cash.\n\nFacility and policy limits to respect\n- Main Blending Hall time available: 74.24 hours total.\n- Skilled Bottling Crew shifts available: 37.32 shift equivalents total.\n- Rare Botanicals inventory on hand: 16.17 units total.\n- Carbon compliance account: must not exceed -19.08 tonnes (we must remain in a net credit position at or below this level).\n- Community impact score: capped at 8.46 points.\n- Packaging Line throughput capacity: 71.33 hours total.\n- Cold Storage capacity: 25.50 pallets total.\n- Net working capital draw: must not exceed -36.42 units (i.e., maintain at least 36.42 units of net cash release across the mix).\n\nIf you need any clarifications on the per-lot impacts or the operating limits, let me know. Please come back with the mix that maximizes total contribution while meeting all of the above limits."
+}

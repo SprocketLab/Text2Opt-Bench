@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-program costs, capacities, and pillar contributions; clear >= targets and 0\u2013UB bounds; continuous quantities; objective is minimize cost. No missing parameters.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Narrative style with repeated statements of bounds and zero contributions, but content is structured; some extra prose beyond what's needed.",
+      "realism": 98,
+      "realism_comment": "Plausible training mix planning with capacities and multi-pillar minimums; mirrors real budgeting/compliance planning needs."
+    },
+    "prompt_tokens_with_data": 1172,
+    "prompt_tokens_without_data": 1172
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 59.80570677571686,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 11.392033660502065,
+      "Var_2": 0.0,
+      "Var_3": 4.402731577128595,
+      "Var_4": 0.5721639703761568
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 60.18
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.19
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 31.55
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 39.6
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 25.89
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 71.66
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.29
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.76
+      ],
+      "objective_linear_coefficient": 4.64,
+      "resource_costs": {
+        "C0": 4.49,
+        "C1": 6.34
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.96
+      ],
+      "objective_linear_coefficient": 3.19,
+      "resource_costs": {
+        "C0": 2.99,
+        "C1": 6.26,
+        "C2": 4.36,
+        "C3": 2.77,
+        "C5": 8.61,
+        "C6": 2.71
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.79
+      ],
+      "objective_linear_coefficient": 8.53,
+      "resource_costs": {
+        "C0": 1.6,
+        "C1": 6.17,
+        "C2": 4.04,
+        "C5": 8.18,
+        "C6": 9.85
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.37
+      ],
+      "objective_linear_coefficient": 4.65,
+      "resource_costs": {
+        "C0": 4.99,
+        "C1": 0.38,
+        "C3": 3.53,
+        "C4": 8.93,
+        "C5": 2.39,
+        "C6": 3.25
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.75
+      ],
+      "objective_linear_coefficient": 5.23,
+      "resource_costs": {
+        "C0": 7.25,
+        "C1": 3.85,
+        "C3": 5.99,
+        "C4": 5.28,
+        "C5": 1.04,
+        "C6": 0.19
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.76, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.64 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.96, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 3.19 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=16.79, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.53 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=6.37, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.65 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.75, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.23 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.49 * vars['Var_0'] + 2.99 * vars['Var_1'] + 1.6 * vars['Var_2'] + 4.99 * vars['Var_3'] + 7.25 * vars['Var_4'] >= 60.18, name='C0')\n    m.addConstr(6.34 * vars['Var_0'] + 6.26 * vars['Var_1'] + 6.17 * vars['Var_2'] + 0.38 * vars['Var_3'] + 3.85 * vars['Var_4'] >= 75.19, name='C1')\n    m.addConstr(4.36 * vars['Var_1'] + 4.04 * vars['Var_2'] >= 31.55, name='C2')\n    m.addConstr(2.77 * vars['Var_1'] + 3.53 * vars['Var_3'] + 5.99 * vars['Var_4'] >= 39.6, name='C3')\n    m.addConstr(8.93 * vars['Var_3'] + 5.28 * vars['Var_4'] >= 25.89, name='C4')\n    m.addConstr(8.61 * vars['Var_1'] + 8.18 * vars['Var_2'] + 2.39 * vars['Var_3'] + 1.04 * vars['Var_4'] >= 71.66, name='C5')\n    m.addConstr(2.71 * vars['Var_1'] + 9.85 * vars['Var_2'] + 3.25 * vars['Var_3'] + 0.19 * vars['Var_4'] >= 45.29, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed Training Mix to Hit Q1 Capability Targets at Lowest Cost\n\nTeam,\n\nWe need to settle the Q1 mix of five workforce programs to meet our capability and compliance obligations at the lowest possible spend. Each program can be scheduled in flexible day\u2011equivalents (fractions allowed), up to the partner\u2019s stated capacity. Our goal is to minimize total program spend while delivering at least the required credits across seven pillars: Service Quality, Compliance, Cybersecurity, Safety, Community Engagement, Digital Systems Readiness, and Emergency Readiness.\n\nBelow are the levers we can pull, in the order we\u2019ll consider them, along with each program\u2019s unit cost, scheduling limits, and exactly how much credit a single day\u2011equivalent contributes to each pillar.\n\n- Foundations Lab: Service & Compliance (up to 8.76 day\u2011equivalents)\n  \u2022 Cost: 4.64 per day\u2011equivalent.\n  \u2022 Per day\u2011equivalent, it adds 4.49 credits to Service Quality and 6.34 hours to Compliance.\n  \u2022 It contributes nothing to Cybersecurity, Safety, Community Engagement, Digital Systems Readiness, or Emergency Readiness (each of those pillars receives 0 from this program).\n  \u2022 We can schedule anywhere from 0 to 8.76 day\u2011equivalents.\n\n- Digital Ops Bootcamp (up to 12.96 day\u2011equivalents)\n  \u2022 Cost: 3.19 per day\u2011equivalent.\n  \u2022 Per day\u2011equivalent, it adds 2.99 to Service Quality; 6.26 to Compliance; 4.36 to Cybersecurity; 2.77 to Safety; 8.61 to Digital Systems Readiness; and 2.71 to Emergency Readiness.\n  \u2022 It does not build Community Engagement at all (0 for that pillar).\n  \u2022 We can schedule anywhere from 0 to 12.96 day\u2011equivalents.\n\n- Cyber & Remote Readiness Intensive (up to 16.79 day\u2011equivalents)\n  \u2022 Cost: 8.53 per day\u2011equivalent.\n  \u2022 Per day\u2011equivalent, it adds 1.6 to Service Quality; 6.17 to Compliance; 4.04 to Cybersecurity; 8.18 to Digital Systems Readiness; and 9.85 to Emergency Readiness.\n  \u2022 It contributes nothing to Safety or Community Engagement (both 0).\n  \u2022 We can schedule anywhere from 0 to 16.79 day\u2011equivalents.\n\n- Safety & Community Practicum (up to 6.37 day\u2011equivalents)\n  \u2022 Cost: 4.65 per day\u2011equivalent.\n  \u2022 Per day\u2011equivalent, it adds 4.99 to Service Quality; 0.38 to Compliance; 3.53 to Safety; 8.93 to Community Engagement; 2.39 to Digital Systems Readiness; and 3.25 to Emergency Readiness.\n  \u2022 It does not contribute to Cybersecurity at all (0).\n  \u2022 We can schedule anywhere from 0 to 6.37 day\u2011equivalents.\n\n- Customer Leadership Studio (up to 8.75 day\u2011equivalents)\n  \u2022 Cost: 5.23 per day\u2011equivalent.\n  \u2022 Per day\u2011equivalent, it adds 7.25 to Service Quality; 3.85 to Compliance; 5.99 to Safety; 5.28 to Community Engagement; 1.04 to Digital Systems Readiness; and 0.19 to Emergency Readiness.\n  \u2022 It does not contribute to Cybersecurity (0).\n  \u2022 We can schedule anywhere from 0 to 8.75 day\u2011equivalents.\n\nMarket Limits and Obligations (Q1 Minimums)\n\n- Service Quality: deliver at least 60.18 credits in total.\n- Compliance: log at least 75.19 hours in total.\n- Cybersecurity: achieve at least 31.55 proficiency credits in total.\n- Safety: complete at least 39.6 drill credits in total.\n- Community Engagement: conduct at least 25.89 workshop credits in total.\n- Digital Systems Readiness: attain at least 71.66 readiness credits in total.\n- Emergency Readiness: build at least 45.29 readiness credits in total.\n\nPlease review and confirm that this framing aligns with expectations. Once approved, we\u2019ll run the scheduling to find the lowest\u2011cost combination of day\u2011equivalents across the five programs that meets or exceeds every pillar\u2019s minimums without exceeding any partner\u2019s capacity (with each program\u2019s quantity allowed to be any value from zero up to its stated limit)."
+}

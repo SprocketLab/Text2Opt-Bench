@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds (incl. integer integrality), resource consumptions, and capacities are explicit; objective is clear; model reconstructible without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business email framing adds a bit of fluff and repeated notes on integrality/maximization, but it's largely concise and necessary for context.",
+      "realism": 92,
+      "realism_comment": "Plausible shop scheduling/activation planning with capacity limits and policy caps; numbers sensible; only mild oddity of decimal ceilings on integer decisions."
+    },
+    "prompt_tokens_with_data": 531,
+    "prompt_tokens_without_data": 531
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 92.04,
+    "optimal_values": {
+      "Var_0": 4.0,
+      "Var_1": 14.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.36
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 28.7
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.69
+      ],
+      "objective_linear_coefficient": 5.44,
+      "resource_costs": {
+        "C0": 2.8,
+        "C1": 7.05
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.3
+      ],
+      "objective_linear_coefficient": 5.02,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.69, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.44 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.3, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.02 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.8 * vars['Var_0'] <= 12.36, name='C0')\n    m.addConstr(7.05 * vars['Var_0'] <= 28.7, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Help needed to maximize contribution under current shop and channel limits\n\nHi team,\n\nWe\u2019re looking for your guidance on how to deploy two revenue levers this period to maximize total contribution while staying within our practical limits. All plans should be expressed in whole units (no partials), but I\u2019ve noted our policy ceilings as they are currently written.\n\n- Precision Valve Kits: Each kit contributes 5.44 in margin. Building one kit draws on two shared capacities: 2.8 hours of Test Bench time and 7.05 hours of Assembly Bay time per kit. We can choose any whole number of kits from zero up to a policy ceiling of 19.69 kits for the period.\n\n- Software Feature Activations: Each activation contributes 5.02 in margin. These do not consume any of the two constrained resources above\u2014there is zero Test Bench time and zero Assembly Bay time required per activation. We can choose any whole number of activations from zero up to a policy ceiling of 14.3 activations for the period.\n\nA few notes to keep us aligned:\n- We\u2019re targeting the highest total contribution possible from the combined mix of the two levers.\n- Decisions must be in whole numbers only (no fractional kits or activations).\n- Zero is a valid choice for either lever if capacity or economics warrant it.\n\nFacility and operating limits for this period:\n- Test Bench time available: do not exceed 12.36 hours.\n- Assembly Bay time available: do not exceed 28.7 hours.\n\nPlease advise on the optimal whole-number plan within these boundaries."
+}

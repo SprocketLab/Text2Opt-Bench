@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and inequality directions are explicit; credits vs burdens are explained. One can mechanically derive variables, objective, and the four constraints exactly.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative framing and repeated 'no effect' bullets add verbosity, but specifications remain precise and necessary details are clear.",
+      "realism": 90,
+      "realism_comment": "Feels like a real quarterly planning problem with carbon, water, quality, and labor limits; minor oddity is a likely nonbinding quality cap and negative targets, but still plausible."
+    },
+    "prompt_tokens_with_data": 1026,
+    "prompt_tokens_without_data": 1026
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 363.80828494623654,
+    "optimal_values": {
+      "Var_0": 3.526881720430107,
+      "Var_1": 10.9,
+      "Var_2": 6.85,
+      "Var_3": 13.28,
+      "Var_4": 18.31,
+      "Var_5": 13.3
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -37.62
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -4.51
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 0.72
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 6.56
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.95
+      ],
+      "objective_linear_coefficient": 4.27,
+      "resource_costs": {
+        "C0": 6.86,
+        "C3": 1.86
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.9
+      ],
+      "objective_linear_coefficient": 8.73,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.85
+      ],
+      "objective_linear_coefficient": 1.14,
+      "resource_costs": {
+        "C0": 3.44
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.28
+      ],
+      "objective_linear_coefficient": 9.15,
+      "resource_costs": {
+        "C0": -8.83,
+        "C1": -0.72
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.31
+      ],
+      "objective_linear_coefficient": 5.85,
+      "resource_costs": {
+        "C2": -0.02
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.3
+      ],
+      "objective_linear_coefficient": 1.29,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.95, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.27 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.9, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.73 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.85, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.14 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.28, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.15 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.31, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.85 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.3, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 1.29 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.86 * vars['Var_0'] + 3.44 * vars['Var_2'] + -8.83 * vars['Var_3'] <= -37.62, name='C0')\n    m.addConstr(-0.72 * vars['Var_3'] <= -4.51, name='C1')\n    m.addConstr(-0.02 * vars['Var_4'] <= 0.72, name='C2')\n    m.addConstr(1.86 * vars['Var_0'] <= 6.56, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Allocating Q2 Initiatives to Maximize Contribution Within Carbon, Water, Quality, and Skilled Labor Limits\n\nTeam,\n\nWe\u2019re preparing to allocate effort across six scalable initiatives this quarter with the aim of maximizing total contribution. Each lever can be dialed up or down fractionally within its allowed range, and each one has specific implications for our sustainability and capacity limits. Below are the details in the order we\u2019d like you to evaluate them.\n\n1) Distillation Column Bravo \u2013 Extended Runs\n- Financial impact: Each additional run contributes 4.27 in margin.\n- Operational range: We can schedule anywhere from 0 to 7.95 extended runs.\n- Sustainability and capacity impacts per run:\n  \u2022 Net carbon position rises by 6.86 units (this is an emissions burden on our carbon ledger).\n  \u2022 Wastewater footprint is unaffected.\n  \u2022 Quality risk score is unaffected.\n  \u2022 Senior technician hours consumed: 1.86 hours.\n\n2) Digital Commerce Upsell Campaign\n- Financial impact: Each campaign unit contributes 8.73 in margin.\n- Operational range: We can deploy 0 to 10.9 campaign units, in fractional increments if needed.\n- Sustainability and capacity impacts per unit:\n  \u2022 No effect on net carbon position.\n  \u2022 No effect on wastewater footprint.\n  \u2022 No effect on quality risk score.\n  \u2022 No senior technician hours required.\n\n3) Line C Boiler Boost\n- Financial impact: Each boosted shift contributes 1.14 in margin.\n- Operational range: We can run between 0 and 6.85 boosted shifts.\n- Sustainability and capacity impacts per shift:\n  \u2022 Net carbon position rises by 3.44 units (emissions burden).\n  \u2022 No effect on wastewater footprint.\n  \u2022 No effect on quality risk score.\n  \u2022 No senior technician hours required.\n\n4) Regenerative Carbon Capture & Water Reclamation Cycles\n- Financial impact: Each cycle contributes 9.15 in margin.\n- Operational range: We can schedule 0 to 13.28 cycles.\n- Sustainability and capacity impacts per cycle:\n  \u2022 Net carbon position improves by 8.83 units (treated as a credit on the carbon ledger; a reduction is represented as a negative change).\n  \u2022 Wastewater footprint improves by 0.72 units (credit on the water ledger; negative change).\n  \u2022 No effect on quality risk score.\n  \u2022 No senior technician hours required.\n\n5) Inline Vision Quality Assurance Deployment\n- Financial impact: Each deployment contributes 5.85 in margin.\n- Operational range: We can deploy 0 to 18.31 units.\n- Sustainability and capacity impacts per deployment:\n  \u2022 No effect on net carbon position.\n  \u2022 No effect on wastewater footprint.\n  \u2022 Quality risk score decreases by 0.02 per deployment (negative change is beneficial).\n  \u2022 No senior technician hours required.\n\n6) Third-Party Micro\u2011Fulfillment Blocks\n- Financial impact: Each block contributes 1.29 in margin.\n- Operational range: We can contract 0 to 13.3 blocks.\n- Sustainability and capacity impacts per block:\n  \u2022 No effect on net carbon position.\n  \u2022 No effect on wastewater footprint.\n  \u2022 No effect on quality risk score.\n  \u2022 No senior technician hours required.\n\nMarket limits and facility specs we must respect this quarter:\n- Net carbon position (relative to our baseline and credit accounting) must be no more than \u221237.62. A more negative number indicates greater net removal; activities that add emissions move the balance upward, and activities that generate credits push it downward.\n- Wastewater footprint (relative to baseline) must be no more than \u22124.51. Again, negative indicates net reduction relative to baseline.\n- Quality risk score must not exceed 0.72.\n- Senior technician hours available for these initiatives total 6.56.\n\nPlease optimize the mix to maximize total contribution while staying within all four limits above. Let us know if you need any further operational detail or assumptions clarified."
+}

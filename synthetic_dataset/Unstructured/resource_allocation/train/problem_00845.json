@@ -1,0 +1,338 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 14,
+    "num_constraints": 17,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit bounds, types, costs, and metric coefficients per lever; all minima as >=; objective minimize total run-rate. One-to-one mapping to constraints and objective.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style framing adds verbosity, but quantitative specs are clear and non-repetitive; most text conveys necessary parameters.",
+      "realism": 93,
+      "realism_comment": "Realistic service-mix planning with compliance targets and mixed-integer levers; slight oddity of decimal upper bounds for integer deployments."
+    },
+    "prompt_tokens_with_data": 1661,
+    "prompt_tokens_without_data": 1661
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 291.00370567901234,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 7.0,
+      "Var_2": 10.0,
+      "Var_3": 2.0,
+      "Var_4": 8.0,
+      "Var_5": 8.621160493827158,
+      "Var_6": -0.0,
+      "Var_7": 6.0,
+      "Var_8": 0.0,
+      "Var_9": 3.0,
+      "Var_10": 11.89,
+      "Var_11": 10.49,
+      "Var_12": 4.622222222222222,
+      "Var_13": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 69.63
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.83
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 171.32
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 64.14
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 82.24
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 2.33
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 113.14
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 100.25
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 59.17
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 46.97
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 225.31
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 77.28
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 80.66
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 174.17
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 187.9
+    },
+    "C15": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 225.71
+    },
+    "C16": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 12.24
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.18
+      ],
+      "objective_linear_coefficient": 2.51,
+      "resource_costs": {
+        "C1": 0.74,
+        "C5": 7.35,
+        "C6": 1.12,
+        "C11": 6.04,
+        "C13": 0.42,
+        "C15": 5.46
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.79
+      ],
+      "objective_linear_coefficient": 1.09,
+      "resource_costs": {
+        "C3": 5.48,
+        "C4": 0.45,
+        "C8": 7.93,
+        "C10": 8.7,
+        "C12": 3.47,
+        "C14": 9.62
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 1.87,
+      "resource_costs": {
+        "C2": 7.34,
+        "C8": 1.58
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.08
+      ],
+      "objective_linear_coefficient": 4.29,
+      "resource_costs": {
+        "C0": 8.47,
+        "C4": 7.33
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.65
+      ],
+      "objective_linear_coefficient": 3.31,
+      "resource_costs": {
+        "C2": 9.93,
+        "C4": 4.22,
+        "C10": 1.36,
+        "C11": 2.6,
+        "C15": 8.07
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.61
+      ],
+      "objective_linear_coefficient": 2.14,
+      "resource_costs": {
+        "C1": 8.91,
+        "C3": 7.64,
+        "C5": 0.59,
+        "C8": 1.35,
+        "C13": 4.05,
+        "C15": 9.08
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 9.42,
+      "resource_costs": {
+        "C2": 3.38,
+        "C13": 6.48
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.35
+      ],
+      "objective_linear_coefficient": 6.41,
+      "resource_costs": {
+        "C4": 6.66,
+        "C6": 9.35,
+        "C10": 7.38,
+        "C11": 9.44,
+        "C14": 8.04,
+        "C16": 2.13
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.15
+      ],
+      "objective_linear_coefficient": 1.03,
+      "resource_costs": {
+        "C5": 6.56,
+        "C10": 1.06
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.91
+      ],
+      "objective_linear_coefficient": 9.48,
+      "resource_costs": {
+        "C0": 0.87,
+        "C1": 0.82,
+        "C2": 7.46,
+        "C3": 5.36,
+        "C10": 7.01,
+        "C14": 9.22
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.89
+      ],
+      "objective_linear_coefficient": 3.53,
+      "resource_costs": {
+        "C4": 0.83,
+        "C7": 8.81,
+        "C13": 7.53,
+        "C15": 9.08
+      }
+    },
+    "Var_11": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.49
+      ],
+      "objective_linear_coefficient": 2.25,
+      "resource_costs": {
+        "C3": 0.82,
+        "C7": 2.06,
+        "C8": 0.75,
+        "C10": 7.07,
+        "C13": 4.74,
+        "C14": 5.99,
+        "C15": 2.73
+      }
+    },
+    "Var_12": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.92
+      ],
+      "objective_linear_coefficient": 5.77,
+      "resource_costs": {
+        "C1": 7.43,
+        "C6": 8.55,
+        "C9": 9.9,
+        "C15": 1.91
+      }
+    },
+    "Var_13": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.47
+      ],
+      "objective_linear_coefficient": 8.67,
+      "resource_costs": {
+        "C0": 8.47,
+        "C6": 2.92,
+        "C8": 0.85,
+        "C9": 2.23,
+        "C10": 5.55,
+        "C12": 9.85,
+        "C15": 7.21
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.18, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.51 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.79, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 1.09 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=11.89, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 3.53 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=10.49, vtype=GRB.CONTINUOUS, name='Var_11')\n    lin_expr += 2.25 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=15.92, vtype=GRB.CONTINUOUS, name='Var_12')\n    lin_expr += 5.77 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=15.47, vtype=GRB.INTEGER, name='Var_13')\n    lin_expr += 8.67 * vars['Var_13']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.87 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.08, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.29 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.65, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.31 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.61, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.14 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 9.42 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.35, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 6.41 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=7.15, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 1.03 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=6.91, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 9.48 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.47 * vars['Var_13'] + 8.47 * vars['Var_3'] + 0.87 * vars['Var_9'] >= 69.63, name='C0')\n    m.addConstr(0.74 * vars['Var_0'] + 7.43 * vars['Var_12'] + 8.91 * vars['Var_5'] + 0.82 * vars['Var_9'] >= 43.83, name='C1')\n    m.addConstr(8.7 * vars['Var_1'] + 7.07 * vars['Var_11'] + 5.55 * vars['Var_13'] + 1.36 * vars['Var_4'] + 7.38 * vars['Var_7'] + 1.06 * vars['Var_8'] + 7.01 * vars['Var_9'] >= 225.31, name='C10')\n    m.addConstr(6.04 * vars['Var_0'] + 2.6 * vars['Var_4'] + 9.44 * vars['Var_7'] >= 77.28, name='C11')\n    m.addConstr(3.47 * vars['Var_1'] + 9.85 * vars['Var_13'] >= 80.66, name='C12')\n    m.addConstr(0.42 * vars['Var_0'] + 7.53 * vars['Var_10'] + 4.74 * vars['Var_11'] + 4.05 * vars['Var_5'] + 6.48 * vars['Var_6'] >= 174.17, name='C13')\n    m.addConstr(9.62 * vars['Var_1'] + 5.99 * vars['Var_11'] + 8.04 * vars['Var_7'] + 9.22 * vars['Var_9'] >= 187.9, name='C14')\n    m.addConstr(5.46 * vars['Var_0'] + 9.08 * vars['Var_10'] + 2.73 * vars['Var_11'] + 1.91 * vars['Var_12'] + 7.21 * vars['Var_13'] + 8.07 * vars['Var_4'] + 9.08 * vars['Var_5'] >= 225.71, name='C15')\n    m.addConstr(2.13 * vars['Var_7'] >= 12.24, name='C16')\n    m.addConstr(7.34 * vars['Var_2'] + 9.93 * vars['Var_4'] + 3.38 * vars['Var_6'] + 7.46 * vars['Var_9'] >= 171.32, name='C2')\n    m.addConstr(5.48 * vars['Var_1'] + 0.82 * vars['Var_11'] + 7.64 * vars['Var_5'] + 5.36 * vars['Var_9'] >= 64.14, name='C3')\n    m.addConstr(0.45 * vars['Var_1'] + 0.83 * vars['Var_10'] + 7.33 * vars['Var_3'] + 4.22 * vars['Var_4'] + 6.66 * vars['Var_7'] >= 82.24, name='C4')\n    m.addConstr(7.35 * vars['Var_0'] + 0.59 * vars['Var_5'] + 6.56 * vars['Var_8'] >= 2.33, name='C5')\n    m.addConstr(1.12 * vars['Var_0'] + 8.55 * vars['Var_12'] + 2.92 * vars['Var_13'] + 9.35 * vars['Var_7'] >= 113.14, name='C6')\n    m.addConstr(8.81 * vars['Var_10'] + 2.06 * vars['Var_11'] >= 100.25, name='C7')\n    m.addConstr(7.93 * vars['Var_1'] + 0.75 * vars['Var_11'] + 0.85 * vars['Var_13'] + 1.58 * vars['Var_2'] + 1.35 * vars['Var_5'] >= 59.17, name='C8')\n    m.addConstr(9.9 * vars['Var_12'] + 2.23 * vars['Var_13'] >= 46.97, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Monthly Service Mix\u2014Minimizing Run-Rate While Meeting Contracted Minimums\n\nTeam,\n\nWe need to set our monthly mix of programs and deployments to meet all contractual and regulatory minimums at the lowest possible operating cost. Each lever below represents a program block (think 1.00 as one standard block of work). Some levers can be dialed in fractional blocks, and others must be deployed in whole teams. The notes specify per\u2011block run-rate and exactly how each lever contributes to our required service and compliance totals.\n\nLevers we can pull (in the order we evaluate them):\n- Starter Success Clinics (flexible, fractional): We may schedule anywhere from 0 up to 11.18 blocks, in partial increments. Each block costs 2.51. Per block, this contributes 0.74 Client Success Interactions, 7.35 Training & Enablement Hours, 1.12 Compliance Reviews, 6.04 Field Audits, 0.42 Quality Score Contributions, and 5.46 Strategic Capacity Reserve. No other metrics are affected.\n\n- Regional Rollout Crews (whole teams only): We may deploy 0 up to 18.79 teams (in whole-team increments). Each team costs 1.09. Each team adds 5.48 Preventive Maintenance Hours, 0.45 Installation Milestones, 7.93 Customer Education Credits, 8.70 Deliveries Completed, 3.47 Innovation Pilot Points, and 9.62 Safety Certification Credits.\n\n- Ticket Blitz Sprints (whole sprints only): We may schedule 0 up to 10.00 sprints. Each sprint costs 1.87. Every sprint produces 7.34 Resolved Tickets and 1.58 Customer Education Credits.\n\n- Emergency Callout Teams (whole teams only): We may deploy 0 up to 14.08 teams. Each team costs 4.29. Each team delivers 8.47 Rapid Response Coverage Hours and 7.33 Installation Milestones.\n\n- Advanced Implementation Pods (whole pods only): We may deploy 0 up to 8.65 pods. Each pod costs 3.31. Per pod, we get 9.93 Resolved Tickets, 4.22 Installation Milestones, 1.36 Deliveries Completed, 2.60 Field Audits, and 8.07 Strategic Capacity Reserve.\n\n- Optimization Workshops (flexible, fractional): We may schedule 0 up to 14.61 workshops. Each workshop costs 2.14. Every workshop contributes 8.91 Client Success Interactions, 7.64 Preventive Maintenance Hours, 0.59 Training & Enablement Hours, 1.35 Customer Education Credits, 4.05 Quality Score Contributions, and 9.08 Strategic Capacity Reserve.\n\n- Expert Resolver Units (whole units only): We may deploy 0 up to 9. Each unit costs 9.42. Per unit, we get 3.38 Resolved Tickets and 6.48 Quality Score Contributions.\n\n- Compliance Field Squads (whole squads only): We may deploy 0 up to 13.35 squads. Each squad costs 6.41. Each squad produces 6.66 Installation Milestones, 9.35 Compliance Reviews, 7.38 Deliveries Completed, 9.44 Field Audits, 8.04 Safety Certification Credits, and 2.13 Community Engagement Events.\n\n- Training Bootcamps (flexible, fractional): We may schedule 0 up to 7.15 bootcamps. Each bootcamp costs 1.03. Each bootcamp yields 6.56 Training & Enablement Hours and 1.06 Deliveries Completed.\n\n- Premium Dispatch Lots (whole lots only): We may schedule 0 up to 6.91 lots. Each lot costs 9.48. Per lot, we add 0.87 Rapid Response Coverage Hours, 0.82 Client Success Interactions, 7.46 Resolved Tickets, 5.36 Preventive Maintenance Hours, 7.01 Deliveries Completed, and 9.22 Safety Certification Credits.\n\n- Digital Enablement Drives (flexible, fractional): We may run 0 up to 11.89 drives. Each drive costs 3.53. Each adds 0.83 Installation Milestones, 8.81 Digital Adoption Sessions, 7.53 Quality Score Contributions, and 9.08 Strategic Capacity Reserve.\n\n- Hybrid Support Cadence (flexible, fractional): We may schedule 0 up to 10.49 cadence blocks. Each block costs 2.25. Each contributes 0.82 Preventive Maintenance Hours, 2.06 Digital Adoption Sessions, 0.75 Customer Education Credits, 7.07 Deliveries Completed, 4.74 Quality Score Contributions, 5.99 Safety Certification Credits, and 2.73 Strategic Capacity Reserve.\n\n- Assurance & Compliance Package (flexible, fractional): We may deploy 0 up to 15.92 packages. Each package costs 5.77. Per package, we gain 7.43 Client Success Interactions, 8.55 Compliance Reviews, 9.90 Warranty Case Closures, and 1.91 Strategic Capacity Reserve.\n\n- Strategic Deployment Waves (whole waves only): We may deploy 0 up to 15.47 waves. Each wave costs 8.67. Per wave, we secure 8.47 Rapid Response Coverage Hours, 2.92 Compliance Reviews, 0.85 Customer Education Credits, 2.23 Warranty Case Closures, 5.55 Deliveries Completed, 9.85 Innovation Pilot Points, and 7.21 Strategic Capacity Reserve.\n\nFacility specs and minimum commitments for the period (all thresholds are \u201cat least\u201d):\n- Rapid Response Coverage Hours: 69.63\n- Client Success Interactions: 43.83\n- Resolved Tickets: 171.32\n- Preventive Maintenance Hours: 64.14\n- Installation Milestones: 82.24\n- Training & Enablement Hours: 2.33\n- Compliance Reviews: 113.14\n- Digital Adoption Sessions: 100.25\n- Customer Education Credits: 59.17\n- Warranty Case Closures: 46.97\n- Deliveries Completed: 225.31\n- Field Audits Conducted: 77.28\n- Innovation Pilot Points: 80.66\n- Quality Score Contributions: 174.17\n- Safety Certification Credits: 187.90\n- Strategic Capacity Reserve: 225.71\n- Community Engagement Events: 12.24\n\nOur objective is to select quantities for the above levers within their allowable ranges\u2014respecting which must be whole deployments versus which can be fractional\u2014so that we meet or exceed every minimum while keeping the total run-rate as low as possible.\n\nPlease use this as the basis for the monthly plan and confirm the resulting mix and cost once optimized.\n\nBest,\n[Client Sponsor]\nHead of Operations, National Service Programs"
+}

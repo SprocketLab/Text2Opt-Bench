@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, costs, and metric coefficients are explicit with clear >= thresholds and continuous ranges. Negative effects are clarified. Objective is clearly minimize total cost.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some narrative and business framing adds length, but the coefficients, ranges, and thresholds are clearly listed without repetition.",
+      "realism": 94,
+      "realism_comment": "A plausible resource-mix budgeting scenario with trade-offs across business metrics and thresholds; data and signs feel realistic."
+    },
+    "prompt_tokens_with_data": 1267,
+    "prompt_tokens_without_data": 1267
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 82.85288096490318,
+    "optimal_values": {
+      "Var_0": 2.6904594615627277,
+      "Var_1": 2.789618601092075,
+      "Var_2": 5.153636032628089,
+      "Var_3": 0.0,
+      "Var_4": 3.477114284400531,
+      "Var_5": 9.73
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 88.46
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.77
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 24.53
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -21.56
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 81.57
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -8.36
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 30.59
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.08
+      ],
+      "objective_linear_coefficient": 3.92,
+      "resource_costs": {
+        "C0": 1.56,
+        "C1": -9.34,
+        "C2": 8.17,
+        "C3": -9.59,
+        "C5": -5.67,
+        "C6": 7.76
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.97
+      ],
+      "objective_linear_coefficient": 8.02,
+      "resource_costs": {
+        "C0": 8.78,
+        "C1": 8.67,
+        "C2": -8.75,
+        "C3": 2.82,
+        "C4": -3.35
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.42
+      ],
+      "objective_linear_coefficient": 1.97,
+      "resource_costs": {
+        "C0": -3.38,
+        "C1": 8.86,
+        "C2": 6.37,
+        "C3": -3.05,
+        "C4": 9.31
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.09
+      ],
+      "objective_linear_coefficient": 8.47,
+      "resource_costs": {
+        "C0": -4.77,
+        "C1": -8.29,
+        "C4": 4.28,
+        "C6": 3.88
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.97
+      ],
+      "objective_linear_coefficient": 2.85,
+      "resource_costs": {
+        "C0": 1.24,
+        "C1": 5.1,
+        "C3": -3.95,
+        "C4": 5.52,
+        "C5": 2.55,
+        "C6": -5.21
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.73
+      ],
+      "objective_linear_coefficient": 3.07,
+      "resource_costs": {
+        "C0": 7.49,
+        "C1": -1.92,
+        "C2": 9.31,
+        "C3": 8.68,
+        "C4": 2.44,
+        "C6": 2.86
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.08, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.92 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.97, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.02 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.42, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.97 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.09, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.47 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.97, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.85 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.73, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.07 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.56 * vars['Var_0'] + 8.78 * vars['Var_1'] + -3.38 * vars['Var_2'] + -4.77 * vars['Var_3'] + 1.24 * vars['Var_4'] + 7.49 * vars['Var_5'] >= 88.46, name='C0')\n    m.addConstr(-9.34 * vars['Var_0'] + 8.67 * vars['Var_1'] + 8.86 * vars['Var_2'] + -8.29 * vars['Var_3'] + 5.1 * vars['Var_4'] + -1.92 * vars['Var_5'] >= 43.77, name='C1')\n    m.addConstr(8.17 * vars['Var_0'] + -8.75 * vars['Var_1'] + 6.37 * vars['Var_2'] + 9.31 * vars['Var_5'] >= 24.53, name='C2')\n    m.addConstr(-9.59 * vars['Var_0'] + 2.82 * vars['Var_1'] + -3.05 * vars['Var_2'] + -3.95 * vars['Var_4'] + 8.68 * vars['Var_5'] >= -21.56, name='C3')\n    m.addConstr(-3.35 * vars['Var_1'] + 9.31 * vars['Var_2'] + 4.28 * vars['Var_3'] + 5.52 * vars['Var_4'] + 2.44 * vars['Var_5'] >= 81.57, name='C4')\n    m.addConstr(-5.67 * vars['Var_0'] + 2.55 * vars['Var_4'] >= -8.36, name='C5')\n    m.addConstr(7.76 * vars['Var_0'] + 3.88 * vars['Var_3'] + -5.21 * vars['Var_4'] + 2.86 * vars['Var_5'] >= 30.59, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Resourcing mix to minimize spend while meeting 2025 scorecard thresholds\n\nTeam,\n\nAs requested, here is a concise framing of the decision we need to make about our Q1 resourcing mix. The goal is to meet or exceed our scorecard thresholds across seven metrics at the lowest possible run\u2011rate spend. We will choose how much to deploy from six levers below (each can be used in fractional increments within its operating range). The per\u2011unit figures indicate how each lever adds to or subtracts from the relevant scorecard metrics and the unit cost we incur.\n\nLevers and their effects (in order):\n\n1) Rapid Response Teams\n- Deployment range: 0 to 8.08 units\n- Run-rate cost: 3.92 per unit\n- Service Coverage Credits: adds 1.56 per unit\n- Client Experience Score: reduces by 9.34 per unit\n- Quality Assurance Points: adds 8.17 per unit\n- Net Environmental Balance: reduces by 9.59 per unit\n- Training Hours Delivered: no change (0 per unit)\n- Operational Risk Balance: reduces by 5.67 per unit\n- Network Availability Capacity: adds 7.76 per unit\n\n2) Premium Care Hotline\n- Deployment range: 0 to 9.97 units\n- Run-rate cost: 8.02 per unit\n- Service Coverage Credits: adds 8.78 per unit\n- Client Experience Score: adds 8.67 per unit\n- Quality Assurance Points: reduces by 8.75 per unit\n- Net Environmental Balance: adds 2.82 per unit\n- Training Hours Delivered: reduces by 3.35 per unit\n- Operational Risk Balance: no change (0 per unit)\n- Network Availability Capacity: no change (0 per unit)\n\n3) Smart Diagnostics Platform\n- Deployment range: 0 to 8.42 units\n- Run-rate cost: 1.97 per unit\n- Service Coverage Credits: reduces by 3.38 per unit\n- Client Experience Score: adds 8.86 per unit\n- Quality Assurance Points: adds 6.37 per unit\n- Net Environmental Balance: reduces by 3.05 per unit\n- Training Hours Delivered: adds 9.31 per unit\n- Operational Risk Balance: no change (0 per unit)\n- Network Availability Capacity: no change (0 per unit)\n\n4) Mobile Repair Fleet\n- Deployment range: 0 to 7.09 units\n- Run-rate cost: 8.47 per unit\n- Service Coverage Credits: reduces by 4.77 per unit\n- Client Experience Score: reduces by 8.29 per unit\n- Quality Assurance Points: no change (0 per unit)\n- Net Environmental Balance: no change (0 per unit)\n- Training Hours Delivered: adds 4.28 per unit\n- Operational Risk Balance: no change (0 per unit)\n- Network Availability Capacity: adds 3.88 per unit\n\n5) Apprentice Technician Program\n- Deployment range: 0 to 14.97 units\n- Run-rate cost: 2.85 per unit\n- Service Coverage Credits: adds 1.24 per unit\n- Client Experience Score: adds 5.10 per unit\n- Quality Assurance Points: no change (0 per unit)\n- Net Environmental Balance: reduces by 3.95 per unit\n- Training Hours Delivered: adds 5.52 per unit\n- Operational Risk Balance: adds 2.55 per unit\n- Network Availability Capacity: reduces by 5.21 per unit\n\n6) Certified Partner Network\n- Deployment range: 0 to 9.73 units\n- Run-rate cost: 3.07 per unit\n- Service Coverage Credits: adds 7.49 per unit\n- Client Experience Score: reduces by 1.92 per unit\n- Quality Assurance Points: adds 9.31 per unit\n- Net Environmental Balance: adds 8.68 per unit\n- Training Hours Delivered: adds 2.44 per unit\n- Operational Risk Balance: no change (0 per unit)\n- Network Availability Capacity: adds 2.86 per unit\n\nMarket limits and internal thresholds\nTo remain compliant with our scorecard for the period, the combined effect of the above choices must satisfy these floors:\n- Service Coverage Credits: at least 88.46\n- Client Experience Score: at least 43.77\n- Quality Assurance Points: at least 24.53\n- Net Environmental Balance: not lower than -21.56\n- Training Hours Delivered: at least 81.57\n- Operational Risk Balance: not lower than -8.36\n- Network Availability Capacity: at least 30.59\n\nPlease note: some levers add to certain metrics while detracting from others (negative values indicate a reduction in that metric). Our task is to select quantities within the stated ranges so that all of the minimums above are met while keeping the total spend\u2014the sum of each lever\u2019s quantity times its per\u2011unit run\u2011rate\u2014 as low as possible.\n\nI\u2019m happy to walk through scenarios if helpful."
+}

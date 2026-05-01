@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All costs, caps, contributions, and minimums are explicit; integrality is stated. Only minor quirk: decimal caps for integer units, but it doesn\u2019t change the feasible set.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Email-style narrative adds fluff (greetings, sign-off) but parameters are clearly listed with minimal repetition.",
+      "realism": 93,
+      "realism_comment": "Feels like a real deployment planning problem with service KPIs and integer units; only slight oddity is fractional availability caps."
+    },
+    "prompt_tokens_with_data": 1508,
+    "prompt_tokens_without_data": 1508
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 140.09,
+    "optimal_values": {
+      "Var_0": 10.0,
+      "Var_1": -0.0,
+      "Var_2": -0.0,
+      "Var_3": -0.0,
+      "Var_4": -0.0,
+      "Var_5": 9.0,
+      "Var_6": 8.0,
+      "Var_7": -0.0,
+      "Var_8": 13.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 175.99
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 199.89
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 134.64
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 181.88
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 81.33
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 173.54
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.11
+      ],
+      "objective_linear_coefficient": 1.82,
+      "resource_costs": {
+        "C0": 8.3,
+        "C2": 7.1,
+        "C3": 9.7,
+        "C4": 3.33,
+        "C5": 9.7
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.56
+      ],
+      "objective_linear_coefficient": 7.45,
+      "resource_costs": {
+        "C1": 9.8,
+        "C4": 4.82,
+        "C5": 1.2
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.98
+      ],
+      "objective_linear_coefficient": 9.91,
+      "resource_costs": {
+        "C0": 8.97,
+        "C1": 2.67,
+        "C2": 9.34,
+        "C3": 1.68,
+        "C4": 4.69,
+        "C5": 5.21
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.11
+      ],
+      "objective_linear_coefficient": 9.14,
+      "resource_costs": {
+        "C0": 9.39,
+        "C1": 4.52,
+        "C2": 0.35,
+        "C3": 5.19,
+        "C5": 7.14
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.05
+      ],
+      "objective_linear_coefficient": 5.21,
+      "resource_costs": {
+        "C1": 4.68,
+        "C2": 4.32,
+        "C5": 0.93
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.06
+      ],
+      "objective_linear_coefficient": 6.52,
+      "resource_costs": {
+        "C0": 7.6,
+        "C1": 8.62,
+        "C2": 1.37,
+        "C4": 5.15,
+        "C5": 7.79
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.37
+      ],
+      "objective_linear_coefficient": 3.66,
+      "resource_costs": {
+        "C1": 5.02,
+        "C2": 6.34,
+        "C5": 8.35
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.03
+      ],
+      "objective_linear_coefficient": 5.83,
+      "resource_costs": {
+        "C0": 2.81,
+        "C3": 8.53,
+        "C5": 1.46
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.31
+      ],
+      "objective_linear_coefficient": 2.61,
+      "resource_costs": {
+        "C0": 2.52,
+        "C1": 6.47,
+        "C2": 0.38,
+        "C3": 8.93,
+        "C4": 0.17
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.11, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.56, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.45 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.98, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 9.91 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.11, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 9.14 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.05, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.21 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.06, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 6.52 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.37, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 3.66 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.03, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 5.83 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=13.31, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 2.61 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.3 * vars['Var_0'] + 8.97 * vars['Var_2'] + 9.39 * vars['Var_3'] + 7.6 * vars['Var_5'] + 2.81 * vars['Var_7'] + 2.52 * vars['Var_8'] >= 175.99, name='C0')\n    m.addConstr(9.8 * vars['Var_1'] + 2.67 * vars['Var_2'] + 4.52 * vars['Var_3'] + 4.68 * vars['Var_4'] + 8.62 * vars['Var_5'] + 5.02 * vars['Var_6'] + 6.47 * vars['Var_8'] >= 199.89, name='C1')\n    m.addConstr(7.1 * vars['Var_0'] + 9.34 * vars['Var_2'] + 0.35 * vars['Var_3'] + 4.32 * vars['Var_4'] + 1.37 * vars['Var_5'] + 6.34 * vars['Var_6'] + 0.38 * vars['Var_8'] >= 134.64, name='C2')\n    m.addConstr(9.7 * vars['Var_0'] + 1.68 * vars['Var_2'] + 5.19 * vars['Var_3'] + 8.53 * vars['Var_7'] + 8.93 * vars['Var_8'] >= 181.88, name='C3')\n    m.addConstr(3.33 * vars['Var_0'] + 4.82 * vars['Var_1'] + 4.69 * vars['Var_2'] + 5.15 * vars['Var_5'] + 0.17 * vars['Var_8'] >= 81.33, name='C4')\n    m.addConstr(9.7 * vars['Var_0'] + 1.2 * vars['Var_1'] + 5.21 * vars['Var_2'] + 7.14 * vars['Var_3'] + 0.93 * vars['Var_4'] + 7.79 * vars['Var_5'] + 8.35 * vars['Var_6'] + 1.46 * vars['Var_7'] >= 173.54, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for a cost-minimizing deployment plan that meets our minimum service commitments\n\nHi team,\n\nWe\u2019re preparing the next deployment cycle for our regional service operation and need your help to set up a cost-minimizing allocation that still honors all minimum commitments. We have six service lines with minimum delivery levels we must reach, and a menu of deployable units we can draw from. Each unit type adds defined amounts of work to different service lines, carries a per-unit operating cost, and has an upper cap on how many we can deploy. All deployments must be whole units\u2014fractional assignments aren\u2019t permitted.\n\nBelow are the levers we can pull, in the order we\u2019d like you to consider them:\n\n- Alpha Response Units\n  - Cost: 1.82 per unit deployed.\n  - Deployment cap: up to 12.11 units (we will only deploy whole units within that cap).\n  - Impact on commitments:\n    - Northern Region Service Credits: +8.3 per unit.\n    - Western Region Service Credits: +7.1 per unit.\n    - Southern Field Engagements: +9.7 per unit.\n    - Training & Outreach Touchpoints: +3.33 per unit.\n    - Compliance & Reporting Credits: +9.7 per unit.\n    - No contribution to Eastern Region Service Credits.\n\n- Blue Shift Specialists\n  - Cost: 7.45 per unit.\n  - Deployment cap: up to 5.56 units (whole units only).\n  - Impact on commitments:\n    - Eastern Region Service Credits: +9.8 per unit.\n    - Training & Outreach Touchpoints: +4.82 per unit.\n    - Compliance & Reporting Credits: +1.2 per unit.\n    - No contribution to Northern, Western, or Southern lines.\n\n- Field Technician Pods\n  - Cost: 9.91 per unit.\n  - Deployment cap: up to 7.98 units (whole units only).\n  - Impact on commitments:\n    - Northern Region Service Credits: +8.97 per unit.\n    - Eastern Region Service Credits: +2.67 per unit.\n    - Western Region Service Credits: +9.34 per unit.\n    - Southern Field Engagements: +1.68 per unit.\n    - Training & Outreach Touchpoints: +4.69 per unit.\n    - Compliance & Reporting Credits: +5.21 per unit.\n\n- Logistics Support Vans\n  - Cost: 9.14 per unit.\n  - Deployment cap: up to 7.11 units (whole units only).\n  - Impact on commitments:\n    - Northern Region Service Credits: +9.39 per unit.\n    - Eastern Region Service Credits: +4.52 per unit.\n    - Western Region Service Credits: +0.35 per unit.\n    - Southern Field Engagements: +5.19 per unit.\n    - Compliance & Reporting Credits: +7.14 per unit.\n    - No contribution to Training & Outreach Touchpoints.\n\n- Community Liaison Teams\n  - Cost: 5.21 per unit.\n  - Deployment cap: up to 13.05 units (whole units only).\n  - Impact on commitments:\n    - Eastern Region Service Credits: +4.68 per unit.\n    - Western Region Service Credits: +4.32 per unit.\n    - Compliance & Reporting Credits: +0.93 per unit.\n    - No contribution to Northern, Southern, or Training & Outreach lines.\n\n- Regional Operations Squads\n  - Cost: 6.52 per unit.\n  - Deployment cap: up to 13.06 units (whole units only).\n  - Impact on commitments:\n    - Northern Region Service Credits: +7.6 per unit.\n    - Eastern Region Service Credits: +8.62 per unit.\n    - Western Region Service Credits: +1.37 per unit.\n    - Training & Outreach Touchpoints: +5.15 per unit.\n    - Compliance & Reporting Credits: +7.79 per unit.\n    - No contribution to Southern Field Engagements.\n\n- Compliance Analysts\n  - Cost: 3.66 per unit.\n  - Deployment cap: up to 8.37 units (whole units only).\n  - Impact on commitments:\n    - Eastern Region Service Credits: +5.02 per unit.\n    - Western Region Service Credits: +6.34 per unit.\n    - Compliance & Reporting Credits: +8.35 per unit.\n    - No contribution to Northern, Southern, or Training & Outreach lines.\n\n- Rapid Response Drones\n  - Cost: 5.83 per unit.\n  - Deployment cap: up to 15.03 units (whole units only).\n  - Impact on commitments:\n    - Northern Region Service Credits: +2.81 per unit.\n    - Southern Field Engagements: +8.53 per unit.\n    - Compliance & Reporting Credits: +1.46 per unit.\n    - No contribution to Eastern, Western, or Training & Outreach lines.\n\n- Training Outreach Units\n  - Cost: 2.61 per unit.\n  - Deployment cap: up to 13.31 units (whole units only).\n  - Impact on commitments:\n    - Northern Region Service Credits: +2.52 per unit.\n    - Eastern Region Service Credits: +6.47 per unit.\n    - Western Region Service Credits: +0.38 per unit.\n    - Southern Field Engagements: +8.93 per unit.\n    - Training & Outreach Touchpoints: +0.17 per unit.\n    - No contribution to Compliance & Reporting Credits.\n\nWe\u2019d like you to assemble a plan that minimizes total operating spend from the above options while satisfying these minimum service commitments:\n\nFacility/Market Minimums\n- Northern Region Service Credits: at least 175.99\n- Eastern Region Service Credits: at least 199.89\n- Western Region Service Credits: at least 134.64\n- Southern Field Engagements: at least 181.88\n- Training & Outreach Touchpoints: at least 81.33\n- Compliance & Reporting Credits: at least 173.54\n\nPlease base the plan on whole-unit deployments only and respect each unit\u2019s maximum availability noted above. Let us know if any of the caps create infeasibility so we can revisit them.\n\nBest regards,\n[Client Name]\nOperations Planning Office"
+}

@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, objective coeffs, and constraint coefficients/signs are explicitly given. Negative RHS thresholds are clarified. Zero impacts noted. Model is fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative/email framing adds verbosity, but lever bullets and limits are clear and non-repetitive. Minor fluff remains.",
+      "realism": 98,
+      "realism_comment": "Very realistic sustainability-capex portfolio LP with plausible impacts and policy thresholds; coherent and business-like scenario."
+    },
+    "prompt_tokens_with_data": 1129,
+    "prompt_tokens_without_data": 1129
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 119.3410385012385,
+    "optimal_values": {
+      "Var_0": 6.884118678509887,
+      "Var_1": 10.83,
+      "Var_2": 3.8161911989504125,
+      "Var_3": 0.18700896571931888
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 71.32
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -121.05
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -44.07
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 2.4
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -0.48
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -2.5
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.93
+      ],
+      "objective_linear_coefficient": 2.1,
+      "resource_costs": {
+        "C0": 7.07,
+        "C1": -9.28,
+        "C2": 6.69,
+        "C5": 0.12
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.83
+      ],
+      "objective_linear_coefficient": 6.79,
+      "resource_costs": {
+        "C1": -5.65,
+        "C2": -8.26,
+        "C3": -2.31
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.18
+      ],
+      "objective_linear_coefficient": 8.05,
+      "resource_costs": {
+        "C0": 5.47,
+        "C2": -4.63,
+        "C3": 6.74,
+        "C5": -0.58
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.74
+      ],
+      "objective_linear_coefficient": 3.36,
+      "resource_costs": {
+        "C0": 9.49,
+        "C3": 9.07,
+        "C4": -3.55,
+        "C5": -5.95
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.93, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.1 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.83, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.79 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.18, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.05 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.74, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.36 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.07 * vars['Var_0'] + 5.47 * vars['Var_2'] + 9.49 * vars['Var_3'] <= 71.32, name='C0')\n    m.addConstr(-9.28 * vars['Var_0'] + -5.65 * vars['Var_1'] <= -121.05, name='C1')\n    m.addConstr(6.69 * vars['Var_0'] + -8.26 * vars['Var_1'] + -4.63 * vars['Var_2'] <= -44.07, name='C2')\n    m.addConstr(-2.31 * vars['Var_1'] + 6.74 * vars['Var_2'] + 9.07 * vars['Var_3'] <= 2.4, name='C3')\n    m.addConstr(-3.55 * vars['Var_3'] <= -0.48, name='C4')\n    m.addConstr(0.12 * vars['Var_0'] + -0.58 * vars['Var_2'] + -5.95 * vars['Var_3'] <= -2.5, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio allocation across four sustainability levers (maximize value within capital and compliance limits)\n\nTeam,\n\nAs we set the FY plan, we need to decide how far to scale four sustainability and operations levers to maximize annual value while honoring capital and policy limits on climate, water, process safety, air emissions, and landfill. Below is the business description of each lever and how it draws on or improves the relevant limits. Each lever can be deployed from zero up to its stated maximum; our intent is to push the combination that yields the most benefit without violating any limit.\n\nThe levers\n\n1) High\u2011Efficiency Furnace Swap\n- Financial impact: Each unit completed adds 2.1 units to annual contribution.\n- Capital: Draws 7.07 from the capital pool per unit.\n- Climate commitment: Reduces our greenhouse\u2011gas score by 9.28 per unit.\n- Water stewardship: Increases freshwater withdrawal by 6.69 per unit.\n- Process safety: No material impact on the process\u2011safety exposure index.\n- Air toxics: No material impact on the air\u2011emissions improvement index.\n- Landfill: Adds 0.12 to the landfill waste delta per unit.\n- Scale: We may implement anywhere from 0 up to 15.93 units.\n\n2) Advanced Controls & Leak Mitigation\n- Financial impact: Each unit implemented adds 6.79 units to annual contribution.\n- Capital: No draw on the capital pool.\n- Climate commitment: Reduces our greenhouse\u2011gas score by 5.65 per unit.\n- Water stewardship: Reduces freshwater withdrawal by 8.26 per unit.\n- Process safety: Lowers the process\u2011safety exposure index by 2.31 per unit.\n- Air toxics: No material impact on the air\u2011emissions improvement index.\n- Landfill: No material impact on the landfill waste delta.\n- Scale: We may implement anywhere from 0 up to 10.83 units.\n\n3) Closed\u2011Loop Cooling Retrofit\n- Financial impact: Each unit installed adds 8.05 units to annual contribution.\n- Capital: Draws 5.47 from the capital pool per unit.\n- Climate commitment: No direct impact on the greenhouse\u2011gas score.\n- Water stewardship: Reduces freshwater withdrawal by 4.63 per unit.\n- Process safety: Increases the process\u2011safety exposure index by 6.74 per unit.\n- Air toxics: No material impact on the air\u2011emissions improvement index.\n- Landfill: Reduces the landfill waste delta by 0.58 per unit.\n- Scale: We may implement anywhere from 0 up to 11.18 units.\n\n4) Solvent Recovery Column B\n- Financial impact: Each unit commissioned adds 3.36 units to annual contribution.\n- Capital: Draws 9.49 from the capital pool per unit.\n- Climate commitment: No direct impact on the greenhouse\u2011gas score.\n- Water stewardship: No material impact on freshwater withdrawal.\n- Process safety: Increases the process\u2011safety exposure index by 9.07 per unit.\n- Air toxics: Improves the air\u2011emissions index by 3.55 per unit (i.e., reduces NOx/VOC footprint).\n- Landfill: Reduces the landfill waste delta by 5.95 per unit.\n- Scale: We may implement anywhere from 0 up to 13.74 units.\n\nFacility specs and policy limits\n\n- Capital budget: The total draw across the portfolio must not exceed 71.32.\n- Climate commitment: Net greenhouse\u2011gas delta must be at or below \u2212121.05 (i.e., achieve at least 121.05 units of reduction).\n- Water stewardship: Net freshwater\u2011withdrawal delta must be at or below \u221244.07 (i.e., achieve at least 44.07 units of reduction).\n- Process\u2011safety exposure: The combined index must not exceed 2.4.\n- Air\u2011emissions improvement (NOx/VOC composite): Net delta must be at or below \u22120.48 (i.e., achieve at least 0.48 units of improvement).\n- Landfill waste: Net delta must be at or below \u22122.5 (i.e., achieve at least 2.5 units of reduction).\n\nPlease use this as the basis for the portfolio recommendation that maximizes our annual contribution while meeting all six limits. Let me know if you need further context on measurement units or implementation phasing."
+}

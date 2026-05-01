@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, costs, and impact coefficients (including negatives) are explicit; 'partial increments' implies continuous vars. Constraint senses and objective are clear; no missing data.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative/fluff and repeated 'no effect' and capacity statements, but details are structured in bullets; modest verbosity aids clarity.",
+      "realism": 92,
+      "realism_comment": "Plausible planning scenario with capacities, costs, and KPI minimums; realistic trade-offs including negative impacts. Numbers are arbitrary but coherent."
+    },
+    "prompt_tokens_with_data": 869,
+    "prompt_tokens_without_data": 869
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 45.42439429642587,
+    "optimal_values": {
+      "Var_0": 13.485623003194888,
+      "Var_1": 0.0,
+      "Var_2": 3.1118881118881117,
+      "Var_3": 0.30266419666908256,
+      "Var_4": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 26.57
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 84.42
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 26.7
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 4.63
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.33
+      ],
+      "objective_linear_coefficient": 1.86,
+      "resource_costs": {
+        "C0": 1.81,
+        "C1": 6.26,
+        "C3": 2.68
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.46
+      ],
+      "objective_linear_coefficient": 2.97,
+      "resource_costs": {
+        "C3": -6.76
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.58
+      ],
+      "objective_linear_coefficient": 6.38,
+      "resource_costs": {
+        "C2": 8.58,
+        "C3": -4.87
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.05
+      ],
+      "objective_linear_coefficient": 1.61,
+      "resource_costs": {
+        "C0": 7.14,
+        "C3": 8.38
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.73
+      ],
+      "objective_linear_coefficient": 8.69,
+      "resource_costs": {
+        "C0": -3.61,
+        "C1": 9.84
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.33, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.86 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.46, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.97 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.58, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.38 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.05, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.61 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.73, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.69 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.81 * vars['Var_0'] + 7.14 * vars['Var_3'] + -3.61 * vars['Var_4'] >= 26.57, name='C0')\n    m.addConstr(6.26 * vars['Var_0'] + 9.84 * vars['Var_4'] >= 84.42, name='C1')\n    m.addConstr(8.58 * vars['Var_2'] >= 26.7, name='C2')\n    m.addConstr(2.68 * vars['Var_0'] + -6.76 * vars['Var_1'] + -4.87 * vars['Var_2'] + 8.38 * vars['Var_3'] >= 4.63, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized Mix to Hit Q1 Scorecard Minimums\n\nTeam,\n\nAs discussed, we need to set the mix of five initiatives so that we meet four board-level minimums at the lowest possible spend. Each initiative can be dialed anywhere from zero up to its capacity, and partial increments are fine.\n\nHere are the levers, in order, with their per\u2011unit cost, capacity, and impact on each scorecard requirement:\n\n- Community Liaison Teams\n  - Capacity: up to 15.33 units; can be set as low as zero.\n  - Cost: 1.86 per unit of deployment.\n  - Impact:\n    - Infrastructure readiness: adds 1.81 units per deployed unit.\n    - Market reach: adds 6.26 engagement points per unit.\n    - Risk & resilience buffer: adds 2.68 buffer points per unit.\n    - Certification credits: no effect.\n\n- Surge Production Windows\n  - Capacity: up to 7.46 units; can be set as low as zero.\n  - Cost: 2.97 per unit executed.\n  - Impact:\n    - Risk & resilience buffer: reduces the buffer by 6.76 points per unit (a detractor we will only tolerate if fully offset elsewhere).\n    - Infrastructure readiness, market reach, certification credits: no effect.\n\n- Accredited Training Cohorts\n  - Capacity: up to 19.58 units; can be set as low as zero.\n  - Cost: 6.38 per cohort unit.\n  - Impact:\n    - Certification credits: adds 8.58 credits per unit.\n    - Risk & resilience buffer: reduces the buffer by 4.87 points per unit (temporary strain while people are off the line).\n    - Infrastructure readiness and market reach: no effect.\n\n- Rapid Field Upgrade Crews\n  - Capacity: up to 13.05 units; can be set as low as zero.\n  - Cost: 1.61 per unit deployed.\n  - Impact:\n    - Infrastructure readiness: adds 7.14 units per deployed unit.\n    - Risk & resilience buffer: adds 8.38 buffer points per unit.\n    - Market reach and certification credits: no effect.\n\n- National Awareness Campaign\n  - Capacity: up to 8.73 units; can be set as low as zero.\n  - Cost: 8.69 per unit of media.\n  - Impact:\n    - Market reach: adds 9.84 engagement points per unit.\n    - Infrastructure readiness: reduces readiness by 3.61 units per media unit (resource shift away from field work).\n    - Certification credits and risk & resilience buffer: no effect.\n\nFacility Specs and Minimums to Hit\n- Infrastructure readiness must net at least 26.57 units after all adds and reductions.\n- Market reach must net at least 84.42 engagement points.\n- Certification credits must be at least 26.7.\n- Risk & resilience buffer must net at least 4.63 points.\n\nThe objective is to meet or exceed each of the above minimums with the least total spend across the five levers, honoring each lever\u2019s capacity and the fact that none of them may be set below zero."
+}

@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 3,
+    "is_integer": false,
+    "prompt_tokens_with_data": 814,
+    "prompt_tokens_without_data": 814
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 265.8112450841907,
+    "optimal_values": {
+      "Var_0": 18.22590674779853,
+      "Var_1": 3.0789397096581523,
+      "Var_2": 13.68,
+      "Var_3": 19.6,
+      "Var_4": 4.645078635788501,
+      "Var_5": 5.16
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 45.8
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 33.47
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 170.06
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.12
+      ],
+      "objective_linear_coefficient": 2.94,
+      "resource_costs": {
+        "C0": 5.25,
+        "C1": 1.64,
+        "C2": 2.79
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.5
+      ],
+      "objective_linear_coefficient": 5.18,
+      "resource_costs": {
+        "C1": -3.78,
+        "C2": 6.21
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.68
+      ],
+      "objective_linear_coefficient": 2.4,
+      "resource_costs": {
+        "C1": 4.51,
+        "C2": 0.42
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.6
+      ],
+      "objective_linear_coefficient": 5.27,
+      "resource_costs": {
+        "C0": -3.87,
+        "C1": -3.69,
+        "C2": 2.69
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.51
+      ],
+      "objective_linear_coefficient": 8.54,
+      "resource_costs": {
+        "C0": 5.59,
+        "C1": 8.33,
+        "C2": 8.96
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.16
+      ],
+      "objective_linear_coefficient": 3.97,
+      "resource_costs": {
+        "C1": -2.49
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.12, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.94 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.5, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.18 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.68, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.4 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.6, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.27 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.51, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.54 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=5.16, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.97 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.25 * vars['Var_0'] + -3.87 * vars['Var_3'] + 5.59 * vars['Var_4'] <= 45.8, name='C0')\n    m.addConstr(1.64 * vars['Var_0'] + -3.78 * vars['Var_1'] + 4.51 * vars['Var_2'] + -3.69 * vars['Var_3'] + 8.33 * vars['Var_4'] + -2.49 * vars['Var_5'] <= 33.47, name='C1')\n    m.addConstr(2.79 * vars['Var_0'] + 6.21 * vars['Var_1'] + 0.42 * vars['Var_2'] + 2.69 * vars['Var_3'] + 8.96 * vars['Var_4'] <= 170.06, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed mix to maximize contribution while staying within water and air permit limits\n\nTeam,\n\nAs we prepare the next planning cycle for the Riverton site, our objective is to maximize total contribution while operating within our current freshwater withdrawal and air permit allowances. Below are the six levers we can scale this period, their per-unit contribution, the maximum practical scale we can run, and how each affects our freshwater, NOx, and carbon budgets. We can dial each lever anywhere from zero up to its noted cap.\n\n- Orion base runs\n  \u2022 Financials: contributes 2.94 per run; scalable from 0 up to 19.12 runs.\n  \u2022 Environmental impact per run: draws 5.25 from our freshwater cap, uses 1.64 of our NOx allowance, and adds 2.79 to our carbon footprint.\n\n- Catalyst regeneration campaigns\n  \u2022 Financials: contributes 5.18 per campaign; scalable from 0 up to 18.5 campaigns.\n  \u2022 Environmental impact per campaign: no draw on freshwater; lowers NOx usage by 3.78 (i.e., frees NOx headroom), but adds 6.21 to our carbon footprint.\n\n- Specialty blend K2\n  \u2022 Financials: contributes 2.4 per run; scalable from 0 up to 13.68 runs.\n  \u2022 Environmental impact per run: no draw on freshwater; uses 4.51 of our NOx allowance and adds 0.42 to our carbon footprint.\n\n- Heat-recovery and NOx retrofit program\n  \u2022 Financials: contributes 5.27 per unit deployed; scalable from 0 up to 19.6 units.\n  \u2022 Environmental impact per unit: returns 3.87 to our freshwater headroom (i.e., reduces freshwater use by that amount), reduces NOx usage by 3.69, and adds 2.69 to our carbon footprint.\n\n- Premium resin Alpha\n  \u2022 Financials: contributes 8.54 per run; scalable from 0 up to 10.51 runs.\n  \u2022 Environmental impact per run: draws 5.59 from our freshwater cap, uses 8.33 of our NOx allowance, and adds 8.96 to our carbon footprint.\n\n- Targeted SCR retrofits\n  \u2022 Financials: contributes 3.97 per unit deployed; scalable from 0 up to 5.16 units.\n  \u2022 Environmental impact per unit: reduces NOx usage by 2.49; no effect on freshwater and no impact on carbon.\n\nFacility and permit limits for the planning period\n- Freshwater withdrawal cap: 45.8 total\n- NOx emissions allowance: 33.47 total\n- Carbon footprint budget: 170.06 total\n\nPlease review these levers and limits. With your approval, we\u2019ll determine the mix that achieves the highest total contribution while honoring the freshwater, NOx, and carbon ceilings noted above."
+}

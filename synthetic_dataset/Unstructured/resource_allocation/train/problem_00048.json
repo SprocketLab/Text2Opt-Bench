@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and constraints are explicit; zero/negative resource effects clarified; objective is maximize total contribution. Nonnegativity and upper bounds are clear.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style narrative adds some fluff, but content is structured and relevant; no repetitive or conflicting info.",
+      "realism": 95,
+      "realism_comment": "Very plausible lab time/budget allocation scenario; negative Bay A usage from automation is realistic; constraints and bounds make sense."
+    },
+    "prompt_tokens_with_data": 768,
+    "prompt_tokens_without_data": 768
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 114.64765644078345,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 1.5461057529455324,
+      "Var_2": 12.303856566298437
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 2.1
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 53.95
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.63
+      ],
+      "objective_linear_coefficient": 7.85,
+      "resource_costs": {
+        "C1": 8.24
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.46
+      ],
+      "objective_linear_coefficient": 2.69,
+      "resource_costs": {
+        "C0": 8.6,
+        "C1": -2.19
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.31
+      ],
+      "objective_linear_coefficient": 8.98,
+      "resource_costs": {
+        "C0": -0.91,
+        "C1": 4.66
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.63, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.85 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.46, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.69 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.31, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.98 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.6 * vars['Var_1'] + -0.91 * vars['Var_2'] <= 2.1, name='C0')\n    m.addConstr(8.24 * vars['Var_0'] + -2.19 * vars['Var_1'] + 4.66 * vars['Var_2'] <= 53.95, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance requested on allocating our limited lab time and budget to maximize portfolio impact\n\nTeam,\n\nWe\u2019re preparing the next planning window and need your help selecting the best mix of three near\u2011term initiatives to maximize total contribution to our portfolio. We\u2019re constrained by a very small amount of Bay A cleanroom time and a finite program budget. Below are the levers and how each one affects value, lab time, and budget.\n\n- High\u2011Throughput Screening (HTS) lots \u2013 \u201cBlue Horizon\u201d series\n  - Strategic value: Each lot is expected to add 7.85 units of contribution.\n  - Budget draw: Each lot requires 8.24 from the program budget (treat these as $k for planning).\n  - Bay A cleanroom time: None. These lots do not use Bay A at all (zero hours).\n  - Volume limits: We can schedule anywhere from 0 up to 7.63 lots this period; there is no obligation to run a minimum.\n\n- Partnered Stability Studies \u2013 client\u2011funded program\n  - Strategic value: Each study adds 2.69 units of contribution.\n  - Budget impact: The partner co\u2011funds this work and returns 2.19 to our budget per study (i.e., each study reduces the net program spend by that amount).\n  - Bay A cleanroom time: High draw\u2014each study consumes 8.6 hours of Bay A time.\n  - Volume limits: We can schedule from 0 up to 5.46 studies; again, no minimum commitment.\n\n- Automated Microfluidics Runs \u2013 \u201cDelta Cell\u201d platform\n  - Strategic value: Each run adds 8.98 units of contribution.\n  - Budget draw: Each run requires 4.66 from the program budget.\n  - Bay A cleanroom time: Automation frees Bay A capacity\u2014each run reduces our Bay A requirement by 0.91 hours (credit back to the available hours).\n  - Volume limits: We can schedule from 0 up to 12.31 runs.\n\nFacility specs and budget limits\n- Bay A cleanroom time is extremely tight. Net Bay A usage across all decisions (time consumed by Partnered Stability Studies, plus/minus the effects of the other activities) must not exceed 2.1 hours during this window.\n- Program budget is capped. Net budget usage across all decisions (spending on HTS and Automated Microfluidics, offset by the partner\u2019s per\u2011study co\u2011funding) must not exceed 53.95.\n\nPlease use the figures above to recommend the mix that maximizes our total contribution while respecting the Bay A time and program budget limits. Let me know if you need any additional context or assumptions clarified."
+}

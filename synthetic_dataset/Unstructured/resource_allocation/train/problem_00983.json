@@ -1,0 +1,492 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 16,
+    "num_constraints": 19,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All levers have clear types, bounds, unit costs, KPI coefficients; thresholds are explicit (>=). Objective is cost min. A model can be rebuilt mechanically; only naming/QP mention slightly vague.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds fluff and repeated phrasing, but most length is needed to list coefficients and thresholds. Moderate verbosity overall.",
+      "realism": 92,
+      "realism_comment": "A plausible operations portfolio allocation with KPIs and mixed integrality. Minor oddity: decimal upper bounds for integer items, but scenario otherwise realistic."
+    },
+    "prompt_tokens_with_data": 2779,
+    "prompt_tokens_without_data": 2779
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 304.9561424314713,
+    "optimal_values": {
+      "Var_0": 6.0,
+      "Var_1": 5.0,
+      "Var_2": 13.311743497606892,
+      "Var_3": 12.0,
+      "Var_4": 0.0,
+      "Var_5": 10.0,
+      "Var_6": 3.0,
+      "Var_7": 9.744924933343928,
+      "Var_8": 10.0,
+      "Var_9": -0.0,
+      "Var_10": 10.57,
+      "Var_11": 3.0,
+      "Var_12": 3.0,
+      "Var_13": 0.0,
+      "Var_14": 0.0008315098468255842,
+      "Var_15": 0.1666013980942399
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 219.45
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 352.2
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 218.74
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 205.87
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 244.68
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 153.57
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 157.52
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 341.87
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 158.86
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 409.65
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 232.35
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 162.96
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 320.48
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 318.37
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 332.01
+    },
+    "C15": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 315.05
+    },
+    "C16": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 278.51
+    },
+    "C17": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 180.76
+    },
+    "C18": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 141.5
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.51
+      ],
+      "objective_linear_coefficient": 3.9,
+      "resource_costs": {
+        "C2": 0.72,
+        "C3": 0.61,
+        "C5": 1.8,
+        "C8": 9.83,
+        "C10": 9.47,
+        "C12": 9.63,
+        "C15": 5.76,
+        "C16": 1.67
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.66
+      ],
+      "objective_linear_coefficient": 6.33,
+      "resource_costs": {
+        "C1": 8.59,
+        "C2": 7.77,
+        "C3": 5.29,
+        "C4": 8.91,
+        "C6": 3.86,
+        "C8": 1.11,
+        "C9": 8.42,
+        "C10": 9.67,
+        "C12": 7.81,
+        "C13": 3.47,
+        "C14": 8.67,
+        "C16": 5.61,
+        "C17": 2.79,
+        "C18": 1.02
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.39
+      ],
+      "objective_linear_coefficient": 4.14,
+      "resource_costs": {
+        "C0": 3.66,
+        "C2": 0.22,
+        "C3": 3.64,
+        "C5": 4.39,
+        "C6": 1.04,
+        "C7": 7.57,
+        "C9": 9.04,
+        "C10": 9.97,
+        "C11": 4.46,
+        "C12": 2.73,
+        "C13": 4.51,
+        "C14": 3.57,
+        "C16": 6.89,
+        "C17": 8.53
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.7
+      ],
+      "objective_linear_coefficient": 2.83,
+      "resource_costs": {
+        "C1": 7.12,
+        "C2": 1.34,
+        "C4": 7.19,
+        "C6": 0.16,
+        "C8": 0.78,
+        "C9": 8.86,
+        "C10": 2.54,
+        "C12": 7.39,
+        "C13": 7.83,
+        "C14": 4.84,
+        "C16": 2.19,
+        "C17": 5.47
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.17
+      ],
+      "objective_linear_coefficient": 8.61,
+      "resource_costs": {
+        "C0": 4.12,
+        "C1": 4.6,
+        "C2": 1.32,
+        "C3": 6.91,
+        "C7": 9.22,
+        "C9": 7.44,
+        "C10": 7.32,
+        "C12": 5.49,
+        "C13": 7.47,
+        "C14": 6.63,
+        "C16": 8.81
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.5
+      ],
+      "objective_linear_coefficient": 1.27,
+      "resource_costs": {
+        "C0": 7.4,
+        "C1": 5.92,
+        "C2": 9.98,
+        "C5": 2.51,
+        "C6": 0.88,
+        "C7": 6.39,
+        "C9": 0.84,
+        "C10": 4.01,
+        "C13": 6.41,
+        "C14": 4.39,
+        "C15": 9.47,
+        "C17": 6.25
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.61
+      ],
+      "objective_linear_coefficient": 7.53,
+      "resource_costs": {
+        "C1": 2.43,
+        "C3": 2.13,
+        "C4": 7.88,
+        "C7": 2.82,
+        "C8": 5.44,
+        "C9": 9.77,
+        "C12": 0.83,
+        "C13": 0.43,
+        "C14": 9.97,
+        "C15": 3.66,
+        "C17": 8.5
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.78
+      ],
+      "objective_linear_coefficient": 3.9,
+      "resource_costs": {
+        "C0": 1.26,
+        "C2": 1.89,
+        "C3": 9.09,
+        "C5": 8.93,
+        "C8": 4.99,
+        "C9": 0.42,
+        "C11": 2.69,
+        "C13": 2.28,
+        "C14": 2.23,
+        "C15": 6.5,
+        "C16": 2.63
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.92
+      ],
+      "objective_linear_coefficient": 3.34,
+      "resource_costs": {
+        "C0": 5.84,
+        "C1": 7.39,
+        "C6": 6.71,
+        "C7": 9.64,
+        "C8": 1.85,
+        "C9": 0.75,
+        "C10": 6.99,
+        "C12": 5.94,
+        "C14": 6.76,
+        "C15": 0.39,
+        "C16": 2.68,
+        "C17": 3.14,
+        "C18": 7.98
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.88
+      ],
+      "objective_linear_coefficient": 8.1,
+      "resource_costs": {
+        "C0": 6.58,
+        "C4": 6.01,
+        "C6": 1.21,
+        "C7": 3.75,
+        "C9": 5.6,
+        "C10": 4.71,
+        "C11": 7.87,
+        "C12": 6.55,
+        "C14": 0.27,
+        "C15": 2.39,
+        "C16": 3.36,
+        "C18": 5.77
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.57
+      ],
+      "objective_linear_coefficient": 4.18,
+      "resource_costs": {
+        "C1": 8.75,
+        "C2": 8.53,
+        "C3": 3.47,
+        "C4": 7.66,
+        "C5": 0.34,
+        "C6": 7.71,
+        "C7": 6.96,
+        "C9": 7.77,
+        "C11": 7.32,
+        "C12": 9.16,
+        "C13": 5.53,
+        "C15": 9.88,
+        "C16": 7.82,
+        "C18": 5.26
+      }
+    },
+    "Var_11": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.9
+      ],
+      "objective_linear_coefficient": 1.93,
+      "resource_costs": {
+        "C2": 1.55,
+        "C4": 3.08,
+        "C5": 7.57,
+        "C6": 1.69,
+        "C9": 2.69,
+        "C14": 8.87,
+        "C16": 0.82,
+        "C17": 0.35
+      }
+    },
+    "Var_12": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.34
+      ],
+      "objective_linear_coefficient": 1.09,
+      "resource_costs": {
+        "C0": 9.15,
+        "C2": 8.77,
+        "C3": 5.35,
+        "C5": 2.51,
+        "C6": 4.39,
+        "C12": 9.8,
+        "C15": 5.05,
+        "C17": 3.74,
+        "C18": 0.58
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.15
+      ],
+      "objective_linear_coefficient": 9.27,
+      "resource_costs": {
+        "C0": 9.23,
+        "C1": 3.56,
+        "C2": 2.46,
+        "C3": 8.55,
+        "C4": 1.68,
+        "C5": 9.92,
+        "C7": 6.86,
+        "C8": 4.51,
+        "C9": 5.16,
+        "C11": 5.2,
+        "C12": 4.39,
+        "C13": 4.78,
+        "C14": 5.15,
+        "C15": 5.64,
+        "C16": 0.11,
+        "C17": 1.48
+      }
+    },
+    "Var_14": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.13
+      ],
+      "objective_linear_coefficient": 9.7,
+      "resource_costs": {
+        "C0": 1.14,
+        "C1": 3.64,
+        "C4": 4.57,
+        "C6": 3.62,
+        "C7": 3.96,
+        "C8": 8.12,
+        "C9": 6.75,
+        "C11": 4.06,
+        "C14": 6.66,
+        "C15": 9.76,
+        "C16": 6.48,
+        "C18": 4.42
+      }
+    },
+    "Var_15": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.71
+      ],
+      "objective_linear_coefficient": 5.34,
+      "resource_costs": {
+        "C5": 5.56,
+        "C7": 0.66,
+        "C8": 9.1,
+        "C9": 8.31,
+        "C10": 8.51,
+        "C12": 1.84,
+        "C13": 9.55,
+        "C15": 7.12,
+        "C16": 2.69,
+        "C17": 7.64
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.51, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 3.9 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.66, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.33 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=10.57, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 4.18 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=5.9, vtype=GRB.INTEGER, name='Var_11')\n    lin_expr += 1.93 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=17.34, vtype=GRB.INTEGER, name='Var_12')\n    lin_expr += 1.09 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=10.15, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 9.27 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=12.13, vtype=GRB.CONTINUOUS, name='Var_14')\n    lin_expr += 9.7 * vars['Var_14']\n    vars['Var_15'] = m.addVar(lb=0.0, ub=15.71, vtype=GRB.CONTINUOUS, name='Var_15')\n    lin_expr += 5.34 * vars['Var_15']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.39, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.14 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.7, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.83 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.17, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.61 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.5, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 1.27 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=5.61, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 7.53 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=10.78, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.9 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=11.92, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 3.34 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=8.88, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 8.1 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.15 * vars['Var_12'] + 9.23 * vars['Var_13'] + 1.14 * vars['Var_14'] + 3.66 * vars['Var_2'] + 4.12 * vars['Var_4'] + 7.4 * vars['Var_5'] + 1.26 * vars['Var_7'] + 5.84 * vars['Var_8'] + 6.58 * vars['Var_9'] >= 219.45, name='C0')\n    m.addConstr(8.59 * vars['Var_1'] + 8.75 * vars['Var_10'] + 3.56 * vars['Var_13'] + 3.64 * vars['Var_14'] + 7.12 * vars['Var_3'] + 4.6 * vars['Var_4'] + 5.92 * vars['Var_5'] + 2.43 * vars['Var_6'] + 7.39 * vars['Var_8'] >= 352.2, name='C1')\n    m.addConstr(9.47 * vars['Var_0'] + 9.67 * vars['Var_1'] + 8.51 * vars['Var_15'] + 9.97 * vars['Var_2'] + 2.54 * vars['Var_3'] + 7.32 * vars['Var_4'] + 4.01 * vars['Var_5'] + 6.99 * vars['Var_8'] + 4.71 * vars['Var_9'] >= 232.35, name='C10')\n    m.addConstr(7.32 * vars['Var_10'] + 5.2 * vars['Var_13'] + 4.06 * vars['Var_14'] + 4.46 * vars['Var_2'] + 2.69 * vars['Var_7'] + 7.87 * vars['Var_9'] >= 162.96, name='C11')\n    m.addConstr(9.63 * vars['Var_0'] + 7.81 * vars['Var_1'] + 9.16 * vars['Var_10'] + 9.8 * vars['Var_12'] + 4.39 * vars['Var_13'] + 1.84 * vars['Var_15'] + 2.73 * vars['Var_2'] + 7.39 * vars['Var_3'] + 5.49 * vars['Var_4'] + 0.83 * vars['Var_6'] + 5.94 * vars['Var_8'] + 6.55 * vars['Var_9'] >= 320.48, name='C12')\n    m.addConstr(3.47 * vars['Var_1'] + 5.53 * vars['Var_10'] + 4.78 * vars['Var_13'] + 9.55 * vars['Var_15'] + 4.51 * vars['Var_2'] + 7.83 * vars['Var_3'] + 7.47 * vars['Var_4'] + 6.41 * vars['Var_5'] + 0.43 * vars['Var_6'] + 2.28 * vars['Var_7'] >= 318.37, name='C13')\n    m.addConstr(8.67 * vars['Var_1'] + 8.87 * vars['Var_11'] + 5.15 * vars['Var_13'] + 6.66 * vars['Var_14'] + 3.57 * vars['Var_2'] + 4.84 * vars['Var_3'] + 6.63 * vars['Var_4'] + 4.39 * vars['Var_5'] + 9.97 * vars['Var_6'] + 2.23 * vars['Var_7'] + 6.76 * vars['Var_8'] + 0.27 * vars['Var_9'] >= 332.01, name='C14')\n    m.addConstr(5.76 * vars['Var_0'] + 9.88 * vars['Var_10'] + 5.05 * vars['Var_12'] + 5.64 * vars['Var_13'] + 9.76 * vars['Var_14'] + 7.12 * vars['Var_15'] + 9.47 * vars['Var_5'] + 3.66 * vars['Var_6'] + 6.5 * vars['Var_7'] + 0.39 * vars['Var_8'] + 2.39 * vars['Var_9'] >= 315.05, name='C15')\n    m.addConstr(1.67 * vars['Var_0'] + 5.61 * vars['Var_1'] + 7.82 * vars['Var_10'] + 0.82 * vars['Var_11'] + 0.11 * vars['Var_13'] + 6.48 * vars['Var_14'] + 2.69 * vars['Var_15'] + 6.89 * vars['Var_2'] + 2.19 * vars['Var_3'] + 8.81 * vars['Var_4'] + 2.63 * vars['Var_7'] + 2.68 * vars['Var_8'] + 3.36 * vars['Var_9'] >= 278.51, name='C16')\n    m.addConstr(2.79 * vars['Var_1'] + 0.35 * vars['Var_11'] + 3.74 * vars['Var_12'] + 1.48 * vars['Var_13'] + 7.64 * vars['Var_15'] + 8.53 * vars['Var_2'] + 5.47 * vars['Var_3'] + 6.25 * vars['Var_5'] + 8.5 * vars['Var_6'] + 3.14 * vars['Var_8'] >= 180.76, name='C17')\n    m.addConstr(1.02 * vars['Var_1'] + 5.26 * vars['Var_10'] + 0.58 * vars['Var_12'] + 4.42 * vars['Var_14'] + 7.98 * vars['Var_8'] + 5.77 * vars['Var_9'] >= 141.5, name='C18')\n    m.addConstr(0.72 * vars['Var_0'] + 7.77 * vars['Var_1'] + 8.53 * vars['Var_10'] + 1.55 * vars['Var_11'] + 8.77 * vars['Var_12'] + 2.46 * vars['Var_13'] + 0.22 * vars['Var_2'] + 1.34 * vars['Var_3'] + 1.32 * vars['Var_4'] + 9.98 * vars['Var_5'] + 1.89 * vars['Var_7'] >= 218.74, name='C2')\n    m.addConstr(0.61 * vars['Var_0'] + 5.29 * vars['Var_1'] + 3.47 * vars['Var_10'] + 5.35 * vars['Var_12'] + 8.55 * vars['Var_13'] + 3.64 * vars['Var_2'] + 6.91 * vars['Var_4'] + 2.13 * vars['Var_6'] + 9.09 * vars['Var_7'] >= 205.87, name='C3')\n    m.addConstr(8.91 * vars['Var_1'] + 7.66 * vars['Var_10'] + 3.08 * vars['Var_11'] + 1.68 * vars['Var_13'] + 4.57 * vars['Var_14'] + 7.19 * vars['Var_3'] + 7.88 * vars['Var_6'] + 6.01 * vars['Var_9'] >= 244.68, name='C4')\n    m.addConstr(1.8 * vars['Var_0'] + 0.34 * vars['Var_10'] + 7.57 * vars['Var_11'] + 2.51 * vars['Var_12'] + 9.92 * vars['Var_13'] + 5.56 * vars['Var_15'] + 4.39 * vars['Var_2'] + 2.51 * vars['Var_5'] + 8.93 * vars['Var_7'] >= 153.57, name='C5')\n    m.addConstr(3.86 * vars['Var_1'] + 7.71 * vars['Var_10'] + 1.69 * vars['Var_11'] + 4.39 * vars['Var_12'] + 3.62 * vars['Var_14'] + 1.04 * vars['Var_2'] + 0.16 * vars['Var_3'] + 0.88 * vars['Var_5'] + 6.71 * vars['Var_8'] + 1.21 * vars['Var_9'] >= 157.52, name='C6')\n    m.addConstr(6.96 * vars['Var_10'] + 6.86 * vars['Var_13'] + 3.96 * vars['Var_14'] + 0.66 * vars['Var_15'] + 7.57 * vars['Var_2'] + 9.22 * vars['Var_4'] + 6.39 * vars['Var_5'] + 2.82 * vars['Var_6'] + 9.64 * vars['Var_8'] + 3.75 * vars['Var_9'] >= 341.87, name='C7')\n    m.addConstr(9.83 * vars['Var_0'] + 1.11 * vars['Var_1'] + 4.51 * vars['Var_13'] + 8.12 * vars['Var_14'] + 9.1 * vars['Var_15'] + 0.78 * vars['Var_3'] + 5.44 * vars['Var_6'] + 4.99 * vars['Var_7'] + 1.85 * vars['Var_8'] >= 158.86, name='C8')\n    m.addConstr(8.42 * vars['Var_1'] + 7.77 * vars['Var_10'] + 2.69 * vars['Var_11'] + 5.16 * vars['Var_13'] + 6.75 * vars['Var_14'] + 8.31 * vars['Var_15'] + 9.04 * vars['Var_2'] + 8.86 * vars['Var_3'] + 7.44 * vars['Var_4'] + 0.84 * vars['Var_5'] + 9.77 * vars['Var_6'] + 0.42 * vars['Var_7'] + 0.75 * vars['Var_8'] + 5.6 * vars['Var_9'] >= 409.65, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 Integrated Operations & Impact Portfolio \u2013 Cost-Minimizing Allocation Brief\n\nTeam,\n\nWe\u2019re preparing the Q2 allocation plan across our operations and impact initiatives with a simple aim: meet or exceed our minimum scorecard thresholds at the lowest possible total program expense. Some commitments must be scheduled in whole units (e.g., sessions or sites), while others can be flexed fractionally (e.g., hours or budget tranches). Below are the levers we can pull, their per\u2011unit costs, allowable ranges, and how each contributes to the KPIs we track.\n\nThe levers\n\n- Customer Care Field Clinics (whole units; minimum 0, up to 18.51 clinics; unit operating cost 3.90)\n  Each clinic strengthens several KPIs: Quality Accreditation Score (+0.72), Safety Readiness Index (+0.61), Wellness Program Hours (+1.80), Customer Experience Index (+9.83), On\u2011Time Fulfillment KPI (+9.47), Sustainability Scorecard (+9.63), Team Development Hours (+5.76), and Community Engagement Credits (+1.67).\n\n- Workforce Upskilling Bootcamps (whole units; minimum 0, up to 11.66 bootcamps; unit operating cost 6.33)\n  Each bootcamp adds Workforce Training Hours (+8.59), Quality Accreditation Score (+7.77), Safety Readiness Index (+5.29), Water Stewardship Points (+8.91), IT Resilience Hours (+3.86), Customer Experience Index (+1.11), Distribution Throughput Units (+8.42), On\u2011Time Fulfillment KPI (+9.67), Sustainability Scorecard (+7.81), Brand Equity Lift (+3.47), Market Presence Points (+8.67), Community Engagement Credits (+5.61), Innovation Sprint Points (+2.79), and Digital Inclusion Commitments (+1.02).\n\n- Supplier Quality Assurance Audits (fractional allowed; minimum 0, up to 13.39 audits; unit operating cost 4.14)\n  Each audit contributes Foundational Efficiency Credits (+3.66), Quality Accreditation Score (+0.22), Safety Readiness Index (+3.64), Wellness Program Hours (+4.39), IT Resilience Hours (+1.04), Network Coverage Miles (+7.57), Distribution Throughput Units (+9.04), On\u2011Time Fulfillment KPI (+9.97), Audit Preparedness Level (+4.46), Sustainability Scorecard (+2.73), Brand Equity Lift (+4.51), Market Presence Points (+3.57), Community Engagement Credits (+6.89), and Innovation Sprint Points (+8.53).\n\n- Safety Readiness Drills (whole units; minimum 0, up to 12.70 drills; unit operating cost 2.83)\n  Each drill builds Workforce Training Hours (+7.12), Quality Accreditation Score (+1.34), Water Stewardship Points (+7.19), IT Resilience Hours (+0.16), Customer Experience Index (+0.78), Distribution Throughput Units (+8.86), On\u2011Time Fulfillment KPI (+2.54), Sustainability Scorecard (+7.39), Brand Equity Lift (+7.83), Market Presence Points (+4.84), Community Engagement Credits (+2.19), and Innovation Sprint Points (+5.47).\n\n- Green Operations Rollouts (fractional allowed; minimum 0, up to 13.17 rollouts; unit operating cost 8.61)\n  Each rollout advances Foundational Efficiency Credits (+4.12), Workforce Training Hours (+4.60), Quality Accreditation Score (+1.32), Safety Readiness Index (+6.91), Network Coverage Miles (+9.22), Distribution Throughput Units (+7.44), On\u2011Time Fulfillment KPI (+7.32), Sustainability Scorecard (+5.49), Brand Equity Lift (+7.47), Market Presence Points (+6.63), and Community Engagement Credits (+8.81).\n\n- Micro\u2011Fulfillment Pop\u2011Ups (whole units; minimum 0, up to 14.50 sites; unit operating cost 1.27)\n  Each pop\u2011up adds Foundational Efficiency Credits (+7.40), Workforce Training Hours (+5.92), Quality Accreditation Score (+9.98), Wellness Program Hours (+2.51), IT Resilience Hours (+0.88), Network Coverage Miles (+6.39), Distribution Throughput Units (+0.84), On\u2011Time Fulfillment KPI (+4.01), Brand Equity Lift (+6.41), Market Presence Points (+4.39), Team Development Hours (+9.47), and Innovation Sprint Points (+6.25).\n\n- Premium Air Freight Slots (whole units; minimum 0, up to 5.61 slots; unit operating cost 7.53)\n  Each slot contributes Workforce Training Hours (+2.43), Safety Readiness Index (+2.13), Water Stewardship Points (+7.88), Network Coverage Miles (+2.82), Customer Experience Index (+5.44), Distribution Throughput Units (+9.77), Sustainability Scorecard (+0.83), Brand Equity Lift (+0.43), Market Presence Points (+9.97), Team Development Hours (+3.66), and Innovation Sprint Points (+8.50).\n\n- Customer Onboarding Webinars (fractional allowed; minimum 0, up to 10.78 webinars; unit operating cost 3.90)\n  Each webinar enhances Foundational Efficiency Credits (+1.26), Quality Accreditation Score (+1.89), Safety Readiness Index (+9.09), Wellness Program Hours (+8.93), Customer Experience Index (+4.99), Distribution Throughput Units (+0.42), Audit Preparedness Level (+2.69), Brand Equity Lift (+2.28), Market Presence Points (+2.23), Team Development Hours (+6.50), and Community Engagement Credits (+2.63).\n\n- Regional Coverage Drives (whole units; minimum 0, up to 11.92 drives; unit operating cost 3.34)\n  Each drive advances Foundational Efficiency Credits (+5.84), Workforce Training Hours (+7.39), IT Resilience Hours (+6.71), Network Coverage Miles (+9.64), Customer Experience Index (+1.85), Distribution Throughput Units (+0.75), On\u2011Time Fulfillment KPI (+6.99), Sustainability Scorecard (+5.94), Market Presence Points (+6.76), Team Development Hours (+0.39), Community Engagement Credits (+2.68), Innovation Sprint Points (+3.14), and Digital Inclusion Commitments (+7.98).\n\n- Distribution Process Reengineering (whole units; minimum 0, up to 8.88 programs; unit operating cost 8.10)\n  Each program contributes Foundational Efficiency Credits (+6.58), Water Stewardship Points (+6.01), IT Resilience Hours (+1.21), Network Coverage Miles (+3.75), Distribution Throughput Units (+5.60), On\u2011Time Fulfillment KPI (+4.71), Audit Preparedness Level (+7.87), Sustainability Scorecard (+6.55), Market Presence Points (+0.27), Team Development Hours (+2.39), Community Engagement Credits (+3.36), and Digital Inclusion Commitments (+5.77).\n\n- Integrated Systems Upgrade (fractional allowed; minimum 0, up to 10.57 upgrades; unit operating cost 4.18)\n  Each upgrade boosts Workforce Training Hours (+8.75), Quality Accreditation Score (+8.53), Safety Readiness Index (+3.47), Water Stewardship Points (+7.66), Wellness Program Hours (+0.34), IT Resilience Hours (+7.71), Network Coverage Miles (+6.96), Distribution Throughput Units (+7.77), Audit Preparedness Level (+7.32), Sustainability Scorecard (+9.16), Brand Equity Lift (+5.53), Team Development Hours (+9.88), Community Engagement Credits (+7.82), and Digital Inclusion Commitments (+5.26).\n\n- Community Wellness Drives (whole units; minimum 0, up to 5.90 drives; unit operating cost 1.93)\n  Each drive adds Quality Accreditation Score (+1.55), Water Stewardship Points (+3.08), Wellness Program Hours (+7.57), IT Resilience Hours (+1.69), Distribution Throughput Units (+2.69), Market Presence Points (+8.87), Community Engagement Credits (+0.82), and Innovation Sprint Points (+0.35).\n\n- Fleet Electrification Pilots (whole units; minimum 0, up to 17.34 pilots; unit operating cost 1.09)\n  Each pilot moves the needle on Foundational Efficiency Credits (+9.15), Quality Accreditation Score (+8.77), Safety Readiness Index (+5.35), Wellness Program Hours (+2.51), IT Resilience Hours (+4.39), Sustainability Scorecard (+9.80), Team Development Hours (+5.05), Innovation Sprint Points (+3.74), and Digital Inclusion Commitments (+0.58).\n\n- Brand Partnership Campaigns (fractional allowed; minimum 0, up to 10.15 campaigns; unit operating cost 9.27)\n  Each campaign grows Foundational Efficiency Credits (+9.23), Workforce Training Hours (+3.56), Quality Accreditation Score (+2.46), Safety Readiness Index (+8.55), Water Stewardship Points (+1.68), Wellness Program Hours (+9.92), Network Coverage Miles (+6.86), Customer Experience Index (+4.51), Distribution Throughput Units (+5.16), Audit Preparedness Level (+5.20), Sustainability Scorecard (+4.39), Brand Equity Lift (+4.78), Market Presence Points (+5.15), Team Development Hours (+5.64), Community Engagement Credits (+0.11), and Innovation Sprint Points (+1.48).\n\n- Digital Experience Enhancements (fractional allowed; minimum 0, up to 12.13 enhancements; unit operating cost 9.70)\n  Each enhancement adds Foundational Efficiency Credits (+1.14), Workforce Training Hours (+3.64), Water Stewardship Points (+4.57), IT Resilience Hours (+3.62), Network Coverage Miles (+3.96), Customer Experience Index (+8.12), Distribution Throughput Units (+6.75), Audit Preparedness Level (+4.06), Market Presence Points (+6.66), Team Development Hours (+9.76), Community Engagement Credits (+6.48), and Digital Inclusion Commitments (+4.42).\n\n- Pop\u2011Up Innovation Labs (fractional allowed; minimum 0, up to 15.71 labs; unit operating cost 5.34)\n  Each lab contributes Wellness Program Hours (+5.56), Network Coverage Miles (+0.66), Customer Experience Index (+9.10), Distribution Throughput Units (+8.31), On\u2011Time Fulfillment KPI (+8.51), Sustainability Scorecard (+1.84), Brand Equity Lift (+9.55), Team Development Hours (+7.12), Community Engagement Credits (+2.69), and Innovation Sprint Points (+7.64).\n\nFacility specs and market limits (minimum thresholds we must meet or exceed)\n\n- Foundational Efficiency Credits: at least 219.45\n- Workforce Training Hours: at least 352.20\n- Quality Accreditation Score: at least 218.74\n- Safety Readiness Index: at least 205.87\n- Water Stewardship Points: at least 244.68\n- Wellness Program Hours: at least 153.57\n- IT Resilience Hours: at least 157.52\n- Network Coverage Miles: at least 341.87\n- Customer Experience Index: at least 158.86\n- Distribution Throughput Units: at least 409.65\n- On\u2011Time Fulfillment KPI: at least 232.35\n- Audit Preparedness Level: at least 162.96\n- Sustainability Scorecard: at least 320.48\n- Brand Equity Lift: at least 318.37\n- Market Presence Points: at least 332.01\n- Team Development Hours: at least 315.05\n- Community Engagement Credits: at least 278.51\n- Innovation Sprint Points: at least 180.76\n- Digital Inclusion Commitments: at least 141.50\n\nPlease use this as the guidance for the cost\u2011minimizing allocation. Let me know if you need any clarifications before we lock the Q2 plan.\n\nBest,\n[Client Name]"
+}

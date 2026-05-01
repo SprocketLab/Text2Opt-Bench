@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Costs, bounds (including one continuous lever), integrality, and per-unit contributions are explicit; nine >= targets and minimize spend objective are clear and map 1:1 to constraints.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some memo-style fluff, but the lever lists and commitments are precise and non-repetitive; extra context does not hinder reconstruction.",
+      "realism": 92,
+      "realism_comment": "Feels like a real media mix optimization with KPI minima and caps; slight quirk is fractional caps for integer buys, but still plausible."
+    },
+    "prompt_tokens_with_data": 1352,
+    "prompt_tokens_without_data": 1352
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 182.87206572769955,
+    "optimal_values": {
+      "Var_0": 16.701877934272304,
+      "Var_1": 5.0,
+      "Var_2": 17.0,
+      "Var_3": -0.0,
+      "Var_4": -0.0,
+      "Var_5": -0.0,
+      "Var_6": 8.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 104.28
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.8
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 150.82
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 99.58
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 47.95
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 23.52
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 78.01
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 76.41
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 71.15
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.37
+      ],
+      "objective_linear_coefficient": 5.36,
+      "resource_costs": {
+        "C1": 0.03,
+        "C2": 7.88,
+        "C3": 7.07,
+        "C5": 2.88,
+        "C8": 4.26
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.35
+      ],
+      "objective_linear_coefficient": 6.07,
+      "resource_costs": {
+        "C1": 7.46,
+        "C3": 0.56
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.51
+      ],
+      "objective_linear_coefficient": 1.32,
+      "resource_costs": {
+        "C0": 8.52,
+        "C1": 2.28,
+        "C2": 8.11,
+        "C3": 6.12,
+        "C6": 3.62,
+        "C7": 0.11
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.58
+      ],
+      "objective_linear_coefficient": 3.95,
+      "resource_costs": {
+        "C0": 0.56,
+        "C2": 4.6,
+        "C5": 2.81,
+        "C6": 1.91
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.07
+      ],
+      "objective_linear_coefficient": 4.46,
+      "resource_costs": {
+        "C0": 2.21,
+        "C2": 2.57,
+        "C5": 6.85
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 8.89,
+      "resource_costs": {
+        "C1": 1.59,
+        "C2": 3.42,
+        "C5": 0.46,
+        "C8": 4.88
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 5.07,
+      "resource_costs": {
+        "C0": 4.54,
+        "C1": 0.51,
+        "C4": 6.23,
+        "C6": 6.16,
+        "C7": 9.55
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.37, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.36 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.35, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.07 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.51, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.32 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.58, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 3.95 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.07, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 4.46 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.89 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 5.07 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.52 * vars['Var_2'] + 0.56 * vars['Var_3'] + 2.21 * vars['Var_4'] + 4.54 * vars['Var_6'] >= 104.28, name='C0')\n    m.addConstr(0.03 * vars['Var_0'] + 7.46 * vars['Var_1'] + 2.28 * vars['Var_2'] + 1.59 * vars['Var_5'] + 0.51 * vars['Var_6'] >= 79.8, name='C1')\n    m.addConstr(7.88 * vars['Var_0'] + 8.11 * vars['Var_2'] + 4.6 * vars['Var_3'] + 2.57 * vars['Var_4'] + 3.42 * vars['Var_5'] >= 150.82, name='C2')\n    m.addConstr(7.07 * vars['Var_0'] + 0.56 * vars['Var_1'] + 6.12 * vars['Var_2'] >= 99.58, name='C3')\n    m.addConstr(6.23 * vars['Var_6'] >= 47.95, name='C4')\n    m.addConstr(2.88 * vars['Var_0'] + 2.81 * vars['Var_3'] + 6.85 * vars['Var_4'] + 0.46 * vars['Var_5'] >= 23.52, name='C5')\n    m.addConstr(3.62 * vars['Var_2'] + 1.91 * vars['Var_3'] + 6.16 * vars['Var_6'] >= 78.01, name='C6')\n    m.addConstr(0.11 * vars['Var_2'] + 9.55 * vars['Var_6'] >= 76.41, name='C7')\n    m.addConstr(4.26 * vars['Var_0'] + 4.88 * vars['Var_5'] >= 71.15, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Q1 Media Mix Decision to Meet Commitments at the Lowest Possible Spend\n\nTeam,\n\nWe need to set our Q1 media mix to cover a set of minimum audience and engagement commitments while keeping total spend as low as possible. Below is a plain-English description of the levers available to us, what each one costs per unit, how many units we can practically book, and exactly how each lever contributes to the nine commitments we\u2019ve agreed with the business. With one exception noted below, all units must be planned in whole numbers; we can choose anywhere from zero up to each lever\u2019s availability cap.\n\nThe levers (in decision order)\n\n1) Always\u2011On Digital Continuity\n- How we use it: This is our flexible, meterable stream of digital activity that we can dial up or down in fractional increments.\n- Cost: 5.36 per unit.\n- Booking limits: Anywhere from 0 up to 18.37 units; fractional amounts are permitted.\n- What it delivers per unit:\n  \u2022 Young Professionals reach: +0.03 index points.\n  \u2022 Digital engagement: +7.88 points.\n  \u2022 Direct response: +7.07 points.\n  \u2022 Conversion intent: +2.88 points.\n  \u2022 Branded search traffic: +4.26 points.\n\n2) Prime Broadcast Spots\n- How we use it: Fixed TV placements in prime inventory; must be bought as whole spots.\n- Cost: 6.07 per spot.\n- Booking limits: Anywhere from 0 up to 8.35 spots; whole spots only.\n- What each spot delivers:\n  \u2022 Young Professionals reach: +7.46 points.\n  \u2022 Direct response: +0.56 points.\n\n3) Regional Print Inserts\n- How we use it: Insert packages that deliver broad reach and credibility; must be bought as whole packages.\n- Cost: 1.32 per package.\n- Booking limits: Anywhere from 0 up to 17.51 packages; whole packages only.\n- What each package delivers:\n  \u2022 Core awareness: +8.52 points.\n  \u2022 Young Professionals reach: +2.28 points.\n  \u2022 Digital engagement: +8.11 points.\n  \u2022 Direct response: +6.12 points.\n  \u2022 Late\u2011night reach: +3.62 points.\n  \u2022 Regional activation: +0.11 points.\n\n4) Out\u2011of\u2011Home Panels\n- How we use it: Large\u2011format panels; must be bought as whole panels.\n- Cost: 3.95 per panel.\n- Booking limits: Anywhere from 0 up to 14.58 panels; whole panels only.\n- What each panel delivers:\n  \u2022 Core awareness: +0.56 points.\n  \u2022 Digital engagement: +4.6 points.\n  \u2022 Conversion intent: +2.81 points.\n  \u2022 Late\u2011night reach: +1.91 points.\n\n5) Influencer Collaborations\n- How we use it: Sponsored creator packages; must be bought as whole collaborations.\n- Cost: 4.46 per collaboration.\n- Booking limits: Anywhere from 0 up to 15.07 collaborations; whole collaborations only.\n- What each collaboration delivers:\n  \u2022 Core awareness: +2.21 points.\n  \u2022 Digital engagement: +2.57 points.\n  \u2022 Conversion intent: +6.85 points.\n\n6) Search Ad Bursts\n- How we use it: Short, high\u2011intensity paid search bursts; must be bought as whole bursts.\n- Cost: 8.89 per burst.\n- Booking limits: Anywhere from 0 up to 10 bursts; whole bursts only.\n- What each burst delivers:\n  \u2022 Young Professionals reach: +1.59 points.\n  \u2022 Digital engagement: +3.42 points.\n  \u2022 Conversion intent: +0.46 points.\n  \u2022 Branded search traffic: +4.88 points.\n\n7) Event Sponsorships\n- How we use it: In\u2011person activations; must be bought as whole sponsorships.\n- Cost: 5.07 per sponsorship.\n- Booking limits: Anywhere from 0 up to 9 sponsorships; whole sponsorships only.\n- What each sponsorship delivers:\n  \u2022 Core awareness: +4.54 points.\n  \u2022 Young Professionals reach: +0.51 points.\n  \u2022 Experiential touchpoints: +6.23 points.\n  \u2022 Late\u2011night reach: +6.16 points.\n  \u2022 Regional activation: +9.55 points.\n\nMarket limits and commitments we must meet\n\nTo be successful, the combined effect of the above choices must reach or exceed these minimums:\n\n- Core awareness: at least 104.28 index points.\n- Young Professionals reach: at least 79.8 points.\n- Digital engagement: at least 150.82 points.\n- Direct response: at least 99.58 points.\n- Experiential touchpoints: at least 47.95 points.\n- Conversion intent: at least 23.52 points.\n- Late\u2011night reach: at least 78.01 points.\n- Regional activation: at least 76.41 points.\n- Branded search traffic: at least 71.15 points.\n\nOur objective is to combine these seven levers in a way that satisfies all nine commitments above while minimizing total spend, respecting the booking limits and the fact that everything except the always\u2011on digital stream must be planned in whole units.\n\nPlease review. With your go\u2011ahead, we\u2019ll run this through our planning tool and return the lowest\u2011cost schedule that meets or beats every commitment."
+}

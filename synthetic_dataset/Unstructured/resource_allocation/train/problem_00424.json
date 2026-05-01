@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 11,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit costs, bounds, integrality, and per-item contributions for each metric; floors given; 'no contribution' clarified. Objective is min cost with >= floors. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business narrative and repeated notes like 'partial tons are fine' add verbosity, but most text conveys necessary coefficients and limits.",
+      "realism": 98,
+      "realism_comment": "Classic feed mix formulation with nutrient floors, costs, integer lot sizes, and max inclusion caps; very plausible and coherent."
+    },
+    "prompt_tokens_with_data": 1434,
+    "prompt_tokens_without_data": 1434
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 272.38940330001975,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 10.09,
+      "Var_2": 0.0,
+      "Var_3": 6.930035540804015,
+      "Var_4": 1.0,
+      "Var_5": 8.189353352863003,
+      "Var_6": 3.8876268482782486,
+      "Var_7": 4.604013129735601
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 174.14
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 162.14
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 38.21
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 7.64
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 93.82
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 95.13
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 117.21
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 120.31
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 39.03
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 117.84
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 21.96
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.8
+      ],
+      "objective_linear_coefficient": 4.93,
+      "resource_costs": {
+        "C0": 3.39,
+        "C1": 2.64,
+        "C2": 5.33,
+        "C6": 4.31,
+        "C9": 7.97,
+        "C10": 4.36
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.09
+      ],
+      "objective_linear_coefficient": 8.16,
+      "resource_costs": {
+        "C0": 9.09,
+        "C1": 3.51,
+        "C2": 0.5,
+        "C3": 0.08,
+        "C5": 9.74,
+        "C8": 0.12
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.21
+      ],
+      "objective_linear_coefficient": 9.8,
+      "resource_costs": {
+        "C0": 2.25,
+        "C2": 8.74,
+        "C3": 2.95,
+        "C4": 4.5,
+        "C5": 9.03,
+        "C7": 8.98,
+        "C8": 2.97,
+        "C10": 3.03
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.44
+      ],
+      "objective_linear_coefficient": 8.48,
+      "resource_costs": {
+        "C0": 2.94,
+        "C1": 9.46,
+        "C7": 8.05,
+        "C10": 1.1
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.5
+      ],
+      "objective_linear_coefficient": 6.86,
+      "resource_costs": {
+        "C0": 8.43,
+        "C6": 4.61
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.88
+      ],
+      "objective_linear_coefficient": 5.97,
+      "resource_costs": {
+        "C0": 2.74,
+        "C4": 7.1,
+        "C6": 8.33,
+        "C7": 7.03,
+        "C9": 9.93
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.54
+      ],
+      "objective_linear_coefficient": 8.31,
+      "resource_costs": {
+        "C0": 8.02,
+        "C1": 4.4,
+        "C2": 2.87,
+        "C3": 2.27,
+        "C4": 7.64,
+        "C5": 1.63
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.72
+      ],
+      "objective_linear_coefficient": 9.39,
+      "resource_costs": {
+        "C1": 9.57,
+        "C2": 5.02,
+        "C4": 1.54,
+        "C6": 9.64,
+        "C7": 1.51,
+        "C8": 8.59,
+        "C9": 8.9,
+        "C10": 3.27
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.8, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.93 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.09, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.16 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.21, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.8 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.44, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.48 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.5, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.86 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.88, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.97 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=17.54, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 8.31 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.72, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 9.39 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.39 * vars['Var_0'] + 9.09 * vars['Var_1'] + 2.25 * vars['Var_2'] + 2.94 * vars['Var_3'] + 8.43 * vars['Var_4'] + 2.74 * vars['Var_5'] + 8.02 * vars['Var_6'] >= 174.14, name='C0')\n    m.addConstr(2.64 * vars['Var_0'] + 3.51 * vars['Var_1'] + 9.46 * vars['Var_3'] + 4.4 * vars['Var_6'] + 9.57 * vars['Var_7'] >= 162.14, name='C1')\n    m.addConstr(4.36 * vars['Var_0'] + 3.03 * vars['Var_2'] + 1.1 * vars['Var_3'] + 3.27 * vars['Var_7'] >= 21.96, name='C10')\n    m.addConstr(5.33 * vars['Var_0'] + 0.5 * vars['Var_1'] + 8.74 * vars['Var_2'] + 2.87 * vars['Var_6'] + 5.02 * vars['Var_7'] >= 38.21, name='C2')\n    m.addConstr(0.08 * vars['Var_1'] + 2.95 * vars['Var_2'] + 2.27 * vars['Var_6'] >= 7.64, name='C3')\n    m.addConstr(4.5 * vars['Var_2'] + 7.1 * vars['Var_5'] + 7.64 * vars['Var_6'] + 1.54 * vars['Var_7'] >= 93.82, name='C4')\n    m.addConstr(9.74 * vars['Var_1'] + 9.03 * vars['Var_2'] + 1.63 * vars['Var_6'] >= 95.13, name='C5')\n    m.addConstr(4.31 * vars['Var_0'] + 4.61 * vars['Var_4'] + 8.33 * vars['Var_5'] + 9.64 * vars['Var_7'] >= 117.21, name='C6')\n    m.addConstr(8.98 * vars['Var_2'] + 8.05 * vars['Var_3'] + 7.03 * vars['Var_5'] + 1.51 * vars['Var_7'] >= 120.31, name='C7')\n    m.addConstr(0.12 * vars['Var_1'] + 2.97 * vars['Var_2'] + 8.59 * vars['Var_7'] >= 39.03, name='C8')\n    m.addConstr(7.97 * vars['Var_0'] + 9.93 * vars['Var_5'] + 8.9 * vars['Var_7'] >= 117.84, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized Feed Mix to Meet Winter Nutrition Floors\n\nTeam,\n\nWe need to lock in a feed mix for the winter ration with a clear objective: meet or exceed our nutrition and quality floors while minimizing total spend. Below are the eight purchasing levers we can flex. For each item, I\u2019ve noted the unit cost, the maximum we\u2019re comfortable using, whether we must buy in whole units, and exactly how it moves the needle on our nutrition and quality measures. Any measure not mentioned for an item sees no contribution from that item. We can choose zero of any ingredient if needed, so long as the overall plan still hits the floors.\n\nBluegrass Soy Pellets\n- Cost per pallet-lot is 4.93. We can include up to 18.8 pallet-lots, and these must be ordered in whole pallet-lots only.\n- Each pallet-lot adds 3.39 toward our Protein score, 2.64 toward Energy, 5.33 toward Fiber, 4.31 toward Starch/Carbohydrates, 7.97 toward Trace Minerals, and 4.36 toward Digestive Support. It does not add anything to Calcium, Phosphorus, Salt/Sodium, Vitamins, or Fatty Acids.\n\nMolasses Mineral Syrup\n- Cost per ton is 8.16. We can include up to 10.09 tons, and partial tons are fine.\n- Each ton adds 9.09 toward Protein, 3.51 toward Energy, 0.50 toward Fiber, 0.08 toward Calcium, 9.74 toward Salt/Sodium, and 0.12 toward Fatty Acids. It does not add anything to Phosphorus, Starch/Carbohydrates, Vitamins, Trace Minerals, or Digestive Support.\n\nAlfalfa High-Fiber Concentrate\n- Cost per ton is 9.80. We can include up to 11.21 tons, with partial tons allowed.\n- Each ton adds 2.25 toward Protein, 8.74 toward Fiber, 2.95 toward Calcium, 4.50 toward Phosphorus, 9.03 toward Salt/Sodium, 8.98 toward Vitamins, 2.97 toward Fatty Acids, and 3.03 toward Digestive Support. It does not add anything to Energy, Starch/Carbohydrates, or Trace Minerals.\n\nSunflower Energy Meal\n- Cost per ton is 8.48. We can include up to 8.44 tons, and partial tons are fine.\n- Each ton adds 2.94 toward Protein, 9.46 toward Energy, 8.05 toward Vitamins, and 1.10 toward Digestive Support. It does not add anything to Fiber, Calcium, Phosphorus, Salt/Sodium, Starch/Carbohydrates, Fatty Acids, or Trace Minerals.\n\nWhole Oat Grain Lots\n- Cost per lot is 6.86. We can include up to 18.5 lots, and these must be ordered in whole lots only.\n- Each lot adds 8.43 toward Protein and 4.61 toward Starch/Carbohydrates. It does not add anything to Energy, Fiber, Calcium, Phosphorus, Salt/Sodium, Vitamins, Fatty Acids, Trace Minerals, or Digestive Support.\n\nFortified Barley Mix\n- Cost per ton is 5.97. We can include up to 8.88 tons, and partial tons are fine.\n- Each ton adds 2.74 toward Protein, 7.10 toward Phosphorus, 8.33 toward Starch/Carbohydrates, 7.03 toward Vitamins, and 9.93 toward Trace Minerals. It does not add anything to Energy, Fiber, Calcium, Salt/Sodium, Fatty Acids, or Digestive Support.\n\nPremium Wheat Blend\n- Cost per ton is 8.31. We can include up to 17.54 tons, and partial tons are fine.\n- Each ton adds 8.02 toward Protein, 4.40 toward Energy, 2.87 toward Fiber, 2.27 toward Calcium, 7.64 toward Phosphorus, and 1.63 toward Salt/Sodium. It does not add anything to Starch/Carbohydrates, Vitamins, Fatty Acids, Trace Minerals, or Digestive Support.\n\nOmega-Enriched Canola Meal\n- Cost per ton is 9.39. We can include up to 15.72 tons, and partial tons are fine.\n- Each ton adds 9.57 toward Energy, 5.02 toward Fiber, 1.54 toward Phosphorus, 9.64 toward Starch/Carbohydrates, 1.51 toward Vitamins, 8.59 toward Fatty Acids, 8.90 toward Trace Minerals, and 3.27 toward Digestive Support. It does not add anything to Protein, Calcium, or Salt/Sodium.\n\nMarket Commitments & Compliance Floors\n- Protein: at least 174.14\n- Energy: at least 162.14\n- Fiber: at least 38.21\n- Calcium: at least 7.64\n- Phosphorus: at least 93.82\n- Salt/Sodium: at least 95.13\n- Starch/Carbohydrates: at least 117.21\n- Vitamins: at least 120.31\n- Fatty Acids: at least 39.03\n- Trace Minerals: at least 117.84\n- Digestive Support: at least 21.96\n\nPlease use this as the basis for a plan that hits every floor at the lowest possible cost, honoring the whole-unit requirements for Soy Pellets and Oat Lots and the maximum inclusion levels on each item. Once you have a recommended mix, let\u2019s review for palatability and sourcing before we place orders."
+}

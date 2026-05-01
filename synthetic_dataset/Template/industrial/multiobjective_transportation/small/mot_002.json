@@ -1,0 +1,1203 @@
+{
+    "meta": {
+        "optimization_type": "MILP",
+        "problem_type": "multi-objective transportation",
+        "goal": "MINIMIZE",
+        "num_vars": 48,
+        "num_constraints": 64,
+        "is_integer": true,
+        "prompt_tokens_with_data": 1410,
+        "prompt_tokens_without_data": 724
+    },
+    "instance_data": {
+        "num_sources": 4,
+        "num_destinations": 6,
+        "supplies": [
+            222,
+            122,
+            153,
+            182
+        ],
+        "demands": [
+            47,
+            51,
+            29,
+            58,
+            32,
+            49
+        ],
+        "cost_matrix": [
+            [
+                10.49,
+                26.3,
+                15.49,
+                3.64,
+                28.42,
+                5.53
+            ],
+            [
+                27.05,
+                13.04,
+                28.46,
+                4.89,
+                21.35,
+                26.58
+            ],
+            [
+                22.18,
+                21.55,
+                9.63,
+                22.64,
+                26.75,
+                9.29
+            ],
+            [
+                28.64,
+                16.59,
+                17.62,
+                28.68,
+                26.98,
+                17.01
+            ]
+        ],
+        "emission_matrix": [
+            [
+                17.69,
+                6.7,
+                12.6,
+                16.13,
+                12.2,
+                13.56
+            ],
+            [
+                2.17,
+                5.63,
+                10.93,
+                7.3,
+                12.47,
+                13.83
+            ],
+            [
+                4.02,
+                17.33,
+                20.0,
+                15.24,
+                1.0,
+                12.61
+            ],
+            [
+                10.14,
+                7.39,
+                3.65,
+                7.48,
+                13.78,
+                6.68
+            ]
+        ],
+        "fixed_costs": [
+            [
+                89,
+                83,
+                101,
+                272,
+                102,
+                246
+            ],
+            [
+                141,
+                59,
+                78,
+                50,
+                53,
+                205
+            ],
+            [
+                223,
+                69,
+                236,
+                275,
+                291,
+                194
+            ],
+            [
+                212,
+                95,
+                171,
+                261,
+                94,
+                81
+            ]
+        ],
+        "min_order_quantities": [
+            [
+                13,
+                13,
+                17,
+                11,
+                12,
+                9
+            ],
+            [
+                7,
+                15,
+                19,
+                5,
+                19,
+                6
+            ],
+            [
+                5,
+                10,
+                13,
+                10,
+                8,
+                18
+            ],
+            [
+                13,
+                8,
+                16,
+                10,
+                8,
+                15
+            ]
+        ],
+        "max_suppliers_per_store": 3,
+        "weight_cost": 0.6,
+        "weight_emission": 0.4
+    },
+    "gurobi_result": {
+        "solver_status": 2,
+        "theoretical_optimum": 3642.224,
+        "optimal_values": {
+            "Ship_S0_D0": 47.0,
+            "Ship_S0_D1": 0.0,
+            "Ship_S0_D2": 29.0,
+            "Ship_S0_D3": 0.0,
+            "Ship_S0_D4": 0.0,
+            "Ship_S0_D5": 49.0,
+            "Ship_S1_D0": 0.0,
+            "Ship_S1_D1": 32.0,
+            "Ship_S1_D2": 0.0,
+            "Ship_S1_D3": 58.0,
+            "Ship_S1_D4": 32.0,
+            "Ship_S1_D5": 0.0,
+            "Ship_S2_D0": 0.0,
+            "Ship_S2_D1": 0.0,
+            "Ship_S2_D2": 0.0,
+            "Ship_S2_D3": 0.0,
+            "Ship_S2_D4": 0.0,
+            "Ship_S2_D5": 0.0,
+            "Ship_S3_D0": 0.0,
+            "Ship_S3_D1": 19.0,
+            "Ship_S3_D2": 0.0,
+            "Ship_S3_D3": 0.0,
+            "Ship_S3_D4": 0.0,
+            "Ship_S3_D5": 0.0,
+            "RouteOpen_S0_D0": 1.0,
+            "RouteOpen_S0_D1": -0.0,
+            "RouteOpen_S0_D2": 1.0,
+            "RouteOpen_S0_D3": -0.0,
+            "RouteOpen_S0_D4": -0.0,
+            "RouteOpen_S0_D5": 1.0,
+            "RouteOpen_S1_D0": -0.0,
+            "RouteOpen_S1_D1": 1.0,
+            "RouteOpen_S1_D2": -0.0,
+            "RouteOpen_S1_D3": 1.0,
+            "RouteOpen_S1_D4": 1.0,
+            "RouteOpen_S1_D5": -0.0,
+            "RouteOpen_S2_D0": -0.0,
+            "RouteOpen_S2_D1": -0.0,
+            "RouteOpen_S2_D2": -0.0,
+            "RouteOpen_S2_D3": -0.0,
+            "RouteOpen_S2_D4": -0.0,
+            "RouteOpen_S2_D5": -0.0,
+            "RouteOpen_S3_D0": -0.0,
+            "RouteOpen_S3_D1": 1.0,
+            "RouteOpen_S3_D2": -0.0,
+            "RouteOpen_S3_D3": -0.0,
+            "RouteOpen_S3_D4": -0.0,
+            "RouteOpen_S3_D5": -0.0
+        },
+        "individual_objectives": {
+            "total_cost": 2912.52,
+            "total_emissions": 3004.28,
+            "total_fixed_costs": 693.0
+        }
+    },
+    "constraints": {
+        "Supply_S0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 222.0
+        },
+        "Supply_S1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 122.0
+        },
+        "Supply_S2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 153.0
+        },
+        "Supply_S3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 182.0
+        },
+        "Demand_D0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 47.0
+        },
+        "Demand_D1": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 51.0
+        },
+        "Demand_D2": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 29.0
+        },
+        "Demand_D3": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 58.0
+        },
+        "Demand_D4": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 32.0
+        },
+        "Demand_D5": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 49.0
+        },
+        "Link_S0_D0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S0_D1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S0_D2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S0_D3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S0_D4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S0_D5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S1_D0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S1_D1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S1_D2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S1_D3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S1_D4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S1_D5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S2_D0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S2_D1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S2_D2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S2_D3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S2_D4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S2_D5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S3_D0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S3_D1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S3_D2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S3_D3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S3_D4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "Link_S3_D5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 0.0
+        },
+        "MOQ_S0_D0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S0_D1": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S0_D2": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S0_D3": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S0_D4": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S0_D5": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S1_D0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S1_D1": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S1_D2": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S1_D3": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S1_D4": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S1_D5": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S2_D0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S2_D1": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S2_D2": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S2_D3": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S2_D4": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S2_D5": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S3_D0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S3_D1": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S3_D2": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S3_D3": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S3_D4": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MOQ_S3_D5": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 0.0
+        },
+        "MaxSupplier_D0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "MaxSupplier_D1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "MaxSupplier_D2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "MaxSupplier_D3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "MaxSupplier_D4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "MaxSupplier_D5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        }
+    },
+    "variables": {
+        "Ship_S0_D0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 13.370000000000001,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D0": 1.0,
+                "Link_S0_D0": 1.0,
+                "MOQ_S0_D0": 1.0
+            }
+        },
+        "Ship_S0_D1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 18.46,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D1": 1.0,
+                "Link_S0_D1": 1.0,
+                "MOQ_S0_D1": 1.0
+            }
+        },
+        "Ship_S0_D2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 14.334,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D2": 1.0,
+                "Link_S0_D2": 1.0,
+                "MOQ_S0_D2": 1.0
+            }
+        },
+        "Ship_S0_D3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 8.636,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D3": 1.0,
+                "Link_S0_D3": 1.0,
+                "MOQ_S0_D3": 1.0
+            }
+        },
+        "Ship_S0_D4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 21.932,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D4": 1.0,
+                "Link_S0_D4": 1.0,
+                "MOQ_S0_D4": 1.0
+            }
+        },
+        "Ship_S0_D5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 8.742,
+            "resource_costs": {
+                "Supply_S0": 1.0,
+                "Demand_D5": 1.0,
+                "Link_S0_D5": 1.0,
+                "MOQ_S0_D5": 1.0
+            }
+        },
+        "Ship_S1_D0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 17.098,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D0": 1.0,
+                "Link_S1_D0": 1.0,
+                "MOQ_S1_D0": 1.0
+            }
+        },
+        "Ship_S1_D1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.075999999999999,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D1": 1.0,
+                "Link_S1_D1": 1.0,
+                "MOQ_S1_D1": 1.0
+            }
+        },
+        "Ship_S1_D2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 21.448,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D2": 1.0,
+                "Link_S1_D2": 1.0,
+                "MOQ_S1_D2": 1.0
+            }
+        },
+        "Ship_S1_D3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 5.853999999999999,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D3": 1.0,
+                "Link_S1_D3": 1.0,
+                "MOQ_S1_D3": 1.0
+            }
+        },
+        "Ship_S1_D4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 17.798000000000002,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D4": 1.0,
+                "Link_S1_D4": 1.0,
+                "MOQ_S1_D4": 1.0
+            }
+        },
+        "Ship_S1_D5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 21.479999999999997,
+            "resource_costs": {
+                "Supply_S1": 1.0,
+                "Demand_D5": 1.0,
+                "Link_S1_D5": 1.0,
+                "MOQ_S1_D5": 1.0
+            }
+        },
+        "Ship_S2_D0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 14.916,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D0": 1.0,
+                "Link_S2_D0": 1.0,
+                "MOQ_S2_D0": 1.0
+            }
+        },
+        "Ship_S2_D1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 19.862,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D1": 1.0,
+                "Link_S2_D1": 1.0,
+                "MOQ_S2_D1": 1.0
+            }
+        },
+        "Ship_S2_D2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 13.778,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D2": 1.0,
+                "Link_S2_D2": 1.0,
+                "MOQ_S2_D2": 1.0
+            }
+        },
+        "Ship_S2_D3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 19.68,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D3": 1.0,
+                "Link_S2_D3": 1.0,
+                "MOQ_S2_D3": 1.0
+            }
+        },
+        "Ship_S2_D4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 16.45,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D4": 1.0,
+                "Link_S2_D4": 1.0,
+                "MOQ_S2_D4": 1.0
+            }
+        },
+        "Ship_S2_D5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 10.617999999999999,
+            "resource_costs": {
+                "Supply_S2": 1.0,
+                "Demand_D5": 1.0,
+                "Link_S2_D5": 1.0,
+                "MOQ_S2_D5": 1.0
+            }
+        },
+        "Ship_S3_D0": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 21.240000000000002,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D0": 1.0,
+                "Link_S3_D0": 1.0,
+                "MOQ_S3_D0": 1.0
+            }
+        },
+        "Ship_S3_D1": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 12.909999999999998,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D1": 1.0,
+                "Link_S3_D1": 1.0,
+                "MOQ_S3_D1": 1.0
+            }
+        },
+        "Ship_S3_D2": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 12.032,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D2": 1.0,
+                "Link_S3_D2": 1.0,
+                "MOQ_S3_D2": 1.0
+            }
+        },
+        "Ship_S3_D3": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 20.2,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D3": 1.0,
+                "Link_S3_D3": 1.0,
+                "MOQ_S3_D3": 1.0
+            }
+        },
+        "Ship_S3_D4": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 21.7,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D4": 1.0,
+                "Link_S3_D4": 1.0,
+                "MOQ_S3_D4": 1.0
+            }
+        },
+        "Ship_S3_D5": {
+            "type": "Continuous",
+            "range": [
+                0.0,
+                "inf"
+            ],
+            "objective_linear_coefficient": 12.878000000000002,
+            "resource_costs": {
+                "Supply_S3": 1.0,
+                "Demand_D5": 1.0,
+                "Link_S3_D5": 1.0,
+                "MOQ_S3_D5": 1.0
+            }
+        },
+        "RouteOpen_S0_D0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 89.0,
+            "resource_costs": {
+                "Link_S0_D0": -222.0,
+                "MOQ_S0_D0": -13.0,
+                "MaxSupplier_D0": 1.0
+            }
+        },
+        "RouteOpen_S0_D1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 83.0,
+            "resource_costs": {
+                "Link_S0_D1": -222.0,
+                "MOQ_S0_D1": -13.0,
+                "MaxSupplier_D1": 1.0
+            }
+        },
+        "RouteOpen_S0_D2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 101.0,
+            "resource_costs": {
+                "Link_S0_D2": -222.0,
+                "MOQ_S0_D2": -17.0,
+                "MaxSupplier_D2": 1.0
+            }
+        },
+        "RouteOpen_S0_D3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 272.0,
+            "resource_costs": {
+                "Link_S0_D3": -222.0,
+                "MOQ_S0_D3": -11.0,
+                "MaxSupplier_D3": 1.0
+            }
+        },
+        "RouteOpen_S0_D4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 102.0,
+            "resource_costs": {
+                "Link_S0_D4": -222.0,
+                "MOQ_S0_D4": -12.0,
+                "MaxSupplier_D4": 1.0
+            }
+        },
+        "RouteOpen_S0_D5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 246.0,
+            "resource_costs": {
+                "Link_S0_D5": -222.0,
+                "MOQ_S0_D5": -9.0,
+                "MaxSupplier_D5": 1.0
+            }
+        },
+        "RouteOpen_S1_D0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 141.0,
+            "resource_costs": {
+                "Link_S1_D0": -122.0,
+                "MOQ_S1_D0": -7.0,
+                "MaxSupplier_D0": 1.0
+            }
+        },
+        "RouteOpen_S1_D1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 59.0,
+            "resource_costs": {
+                "Link_S1_D1": -122.0,
+                "MOQ_S1_D1": -15.0,
+                "MaxSupplier_D1": 1.0
+            }
+        },
+        "RouteOpen_S1_D2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 78.0,
+            "resource_costs": {
+                "Link_S1_D2": -122.0,
+                "MOQ_S1_D2": -19.0,
+                "MaxSupplier_D2": 1.0
+            }
+        },
+        "RouteOpen_S1_D3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 50.0,
+            "resource_costs": {
+                "Link_S1_D3": -122.0,
+                "MOQ_S1_D3": -5.0,
+                "MaxSupplier_D3": 1.0
+            }
+        },
+        "RouteOpen_S1_D4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 53.0,
+            "resource_costs": {
+                "Link_S1_D4": -122.0,
+                "MOQ_S1_D4": -19.0,
+                "MaxSupplier_D4": 1.0
+            }
+        },
+        "RouteOpen_S1_D5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 205.0,
+            "resource_costs": {
+                "Link_S1_D5": -122.0,
+                "MOQ_S1_D5": -6.0,
+                "MaxSupplier_D5": 1.0
+            }
+        },
+        "RouteOpen_S2_D0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 223.0,
+            "resource_costs": {
+                "Link_S2_D0": -153.0,
+                "MOQ_S2_D0": -5.0,
+                "MaxSupplier_D0": 1.0
+            }
+        },
+        "RouteOpen_S2_D1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 69.0,
+            "resource_costs": {
+                "Link_S2_D1": -153.0,
+                "MOQ_S2_D1": -10.0,
+                "MaxSupplier_D1": 1.0
+            }
+        },
+        "RouteOpen_S2_D2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 236.0,
+            "resource_costs": {
+                "Link_S2_D2": -153.0,
+                "MOQ_S2_D2": -13.0,
+                "MaxSupplier_D2": 1.0
+            }
+        },
+        "RouteOpen_S2_D3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 275.0,
+            "resource_costs": {
+                "Link_S2_D3": -153.0,
+                "MOQ_S2_D3": -10.0,
+                "MaxSupplier_D3": 1.0
+            }
+        },
+        "RouteOpen_S2_D4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 291.0,
+            "resource_costs": {
+                "Link_S2_D4": -153.0,
+                "MOQ_S2_D4": -8.0,
+                "MaxSupplier_D4": 1.0
+            }
+        },
+        "RouteOpen_S2_D5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 194.0,
+            "resource_costs": {
+                "Link_S2_D5": -153.0,
+                "MOQ_S2_D5": -18.0,
+                "MaxSupplier_D5": 1.0
+            }
+        },
+        "RouteOpen_S3_D0": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 212.0,
+            "resource_costs": {
+                "Link_S3_D0": -182.0,
+                "MOQ_S3_D0": -13.0,
+                "MaxSupplier_D0": 1.0
+            }
+        },
+        "RouteOpen_S3_D1": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 95.0,
+            "resource_costs": {
+                "Link_S3_D1": -182.0,
+                "MOQ_S3_D1": -8.0,
+                "MaxSupplier_D1": 1.0
+            }
+        },
+        "RouteOpen_S3_D2": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 171.0,
+            "resource_costs": {
+                "Link_S3_D2": -182.0,
+                "MOQ_S3_D2": -16.0,
+                "MaxSupplier_D2": 1.0
+            }
+        },
+        "RouteOpen_S3_D3": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 261.0,
+            "resource_costs": {
+                "Link_S3_D3": -182.0,
+                "MOQ_S3_D3": -10.0,
+                "MaxSupplier_D3": 1.0
+            }
+        },
+        "RouteOpen_S3_D4": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 94.0,
+            "resource_costs": {
+                "Link_S3_D4": -182.0,
+                "MOQ_S3_D4": -8.0,
+                "MaxSupplier_D4": 1.0
+            }
+        },
+        "RouteOpen_S3_D5": {
+            "type": "Binary",
+            "range": [
+                0.0,
+                1.0
+            ],
+            "objective_linear_coefficient": 81.0,
+            "resource_costs": {
+                "Link_S3_D5": -182.0,
+                "MOQ_S3_D5": -15.0,
+                "MaxSupplier_D5": 1.0
+            }
+        }
+    },
+    "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    m = Model(\"MultiObjective_Transportation\")\n    m.setParam('TimeLimit', 300)\n\n    # --- Data ---\n    I = 4  # sources\n    J = 6  # destinations\n    K = 3  # max suppliers per store\n    w_cost = 0.6\n    w_emission = 0.4\n\n    supplies = [222, 122, 153, 182]\n    demands = [47, 51, 29, 58, 32, 49]\n    cost_matrix = [[10.49, 26.3, 15.49, 3.64, 28.42, 5.53], [27.05, 13.04, 28.46, 4.89, 21.35, 26.58], [22.18, 21.55, 9.63, 22.64, 26.75, 9.29], [28.64, 16.59, 17.62, 28.68, 26.98, 17.01]]\n    emission_matrix = [[17.69, 6.7, 12.6, 16.13, 12.2, 13.56], [2.17, 5.63, 10.93, 7.3, 12.47, 13.83], [4.02, 17.33, 20.0, 15.24, 1.0, 12.61], [10.14, 7.39, 3.65, 7.48, 13.78, 6.68]]\n    fixed_costs = [[89, 83, 101, 272, 102, 246], [141, 59, 78, 50, 53, 205], [223, 69, 236, 275, 291, 194], [212, 95, 171, 261, 94, 81]]\n    moq = [[13, 13, 17, 11, 12, 9], [7, 15, 19, 5, 19, 6], [5, 10, 13, 10, 8, 18], [13, 8, 16, 10, 8, 15]]\n\n    # Big-M per route\n    total_demand = sum(demands)\n    big_M = [[min(supplies[i], total_demand) for j in range(J)] for i in range(I)]\n\n    # --- Variables ---\n    # Continuous: shipment quantities\n    x = {}\n    for i in range(I):\n        for j in range(J):\n            x[(i,j)] = m.addVar(lb=0, vtype=GRB.CONTINUOUS, name=f\"Ship_S{i}_D{j}\")\n\n    # Binary: route-open indicators\n    y = {}\n    for i in range(I):\n        for j in range(J):\n            y[(i,j)] = m.addVar(vtype=GRB.BINARY, name=f\"RouteOpen_S{i}_D{j}\")\n\n    # --- Objective ---\n    # Weighted variable cost + fixed setup costs\n    m.setObjective(\n        quicksum(\n            (w_cost * cost_matrix[i][j] + w_emission * emission_matrix[i][j]) * x[(i,j)]\n            for i in range(I) for j in range(J)\n        )\n        + quicksum(fixed_costs[i][j] * y[(i,j)] for i in range(I) for j in range(J)),\n        GRB.MINIMIZE\n    )\n\n    # --- Constraints ---\n    # C1: Supply\n    for i in range(I):\n        m.addConstr(\n            quicksum(x[(i,j)] for j in range(J)) <= supplies[i],\n            name=f\"Supply_S{i}\")\n\n    # C2: Demand\n    for j in range(J):\n        m.addConstr(\n            quicksum(x[(i,j)] for i in range(I)) >= demands[j],\n            name=f\"Demand_D{j}\")\n\n    # C3: Linking \u2014 can only ship if route is open\n    for i in range(I):\n        for j in range(J):\n            m.addConstr(\n                x[(i,j)] <= big_M[i][j] * y[(i,j)],\n                name=f\"Link_S{i}_D{j}\")\n\n    # C4: Minimum order quantity\n    for i in range(I):\n        for j in range(J):\n            m.addConstr(\n                x[(i,j)] >= moq[i][j] * y[(i,j)],\n                name=f\"MOQ_S{i}_D{j}\")\n\n    # C5: Max suppliers per store\n    for j in range(J):\n        m.addConstr(\n            quicksum(y[(i,j)] for i in range(I)) <= K,\n            name=f\"MaxSupplier_D{j}\")\n\n    m.optimize()\n    return m\n```",
+    "LLM_description": "To: Executive Leadership Team\nFrom: Sustainability & Logistics Director\nDate: Today\nSubject: Balancing Shipping Cost and Carbon Impact Under Real-World Operating Rules\n\nContext\nOur distribution network moves product from multiple warehouses to multiple stores. Each potential shipping route offers both a monetary cost per unit and a carbon emission rate per unit. In practice, the lowest-cost lanes are often the most carbon-intensive, so we face a meaningful trade-off between immediate spend and environmental footprint. The purpose of this memo is to outline how we will balance these priorities while honoring the operational rules that govern how we actually move freight.\n\nOperational Rules We Must Honor\n- Route activation carries a fixed setup cost. Opening a lane requires contracts, paperwork, and loading dock arrangements. This charge applies once a lane is activated, regardless of the volume moved on it.\n- Minimum order quantities apply on any activated lane. To justify the logistics overhead and avoid partial loads, an activated route must move at least the defined minimum volume.\n- Each store can receive from a limited number of suppliers. To stay within receiving capacity and maintain vendor management discipline, every store can be served by no more than a set number of warehouses.\n\nSupply and Demand Boundaries\n- Warehouses cannot ship more than available inventory.\n- Each store has a minimum demand that must be met reliably within the planning horizon.\n\nManagement Priority\nLeadership has defined the relative importance of cost versus emissions. We will evaluate candidate shipping plans using a blended total that:\n- Multiplies total variable shipping expense by the established cost weight,\n- Multiplies total route emissions by the established emissions weight,\n- Adds all route setup costs for activated lanes at full value (setup costs are not scaled by the weights).\nThis approach reflects our intention to align near-term P&L performance with our climate commitments, without obscuring the true cash impact of activating lanes.\n\nBusiness Goal\nOur goal is to recommend which routes to activate and how much to ship on each active route so that:\n- Warehouse inventory is not exceeded,\n- Each store\u2019s minimum demand is met,\n- Activated routes ship at least their minimum order,\n- Each store receives from no more than the allowed number of warehouses,\n- The blended total of weighted variable cost, weighted emissions, and full setup costs is as low as possible.\nThe output will be a practical shipping plan that can be executed by Transportation and Store Operations, along with trade-off visibility for leadership. We will also identify near-term opportunities (e.g., consolidating suppliers to a store, or switching to cleaner lanes where cost impact is modest) and operational risks (e.g., underutilization due to minimums, activation cost payback assumptions).\n\nNext Steps\n- Confirm data in the annex.\n- Generate a recommended plan and sensitivity views around the management weights and supplier limits per store.\n- Review with Operations and Procurement to validate feasibility and timing before execution.\n\nAnnex \u2013 Data Inputs\n- Number of sources (warehouses): 4\n- Number of destinations (stores): 6\n- Available supply by warehouse: Warehouse capacities: [222, 122, 153, 182]\n- Minimum demand by store: Store demand requirements: [47, 51, 29, 58, 32, 49]\n- Variable cost per unit by route: Shipping Costs ($/unit, 4 sources x 6 destinations):\nSource\\Dest | D0 | D1 | D2 | D3 | D4 | D5\n-----------------------------------------\nS0         |  10.49 |  26.30 |  15.49 |   3.64 |  28.42 |   5.53\nS1         |  27.05 |  13.04 |  28.46 |   4.89 |  21.35 |  26.58\nS2         |  22.18 |  21.55 |   9.63 |  22.64 |  26.75 |   9.29\nS3         |  28.64 |  16.59 |  17.62 |  28.68 |  26.98 |  17.01\n- Emission rate per unit by route: CO2 Emissions (kg CO2/unit, 4 sources x 6 destinations):\nSource\\Dest | D0 | D1 | D2 | D3 | D4 | D5\n-----------------------------------------\nS0         |  17.69 |   6.70 |  12.60 |  16.13 |  12.20 |  13.56\nS1         |   2.17 |   5.63 |  10.93 |   7.30 |  12.47 |  13.83\nS2         |   4.02 |  17.33 |  20.00 |  15.24 |   1.00 |  12.61\nS3         |  10.14 |   7.39 |   3.65 |   7.48 |  13.78 |   6.68\n- Cost weight: 60%\n- Emissions weight: 40%\n- Route setup/activation costs: Route Setup Costs ($, 4 sources x 6 destinations):\nSource\\Dest | D0 | D1 | D2 | D3 | D4 | D5\n-----------------------------------------\nS0         |     89 |     83 |    101 |    272 |    102 |    246\nS1         |    141 |     59 |     78 |     50 |     53 |    205\nS2         |    223 |     69 |    236 |    275 |    291 |    194\nS3         |    212 |     95 |    171 |    261 |     94 |     81\n- Minimum order quantities per activated route: Minimum Order Quantities (units, 4 sources x 6 destinations):\nSource\\Dest | D0 | D1 | D2 | D3 | D4 | D5\n-----------------------------------------\nS0         |     13 |     13 |     17 |     11 |     12 |      9\nS1         |      7 |     15 |     19 |      5 |     19 |      6\nS2         |      5 |     10 |     13 |     10 |      8 |     18\nS3         |     13 |      8 |     16 |     10 |      8 |     15\n- Maximum suppliers per store: 3",
+    "LLM_description_template": "To: Executive Leadership Team\nFrom: Sustainability & Logistics Director\nDate: Today\nSubject: Balancing Shipping Cost and Carbon Impact Under Real-World Operating Rules\n\nContext\nOur distribution network moves product from multiple warehouses to multiple stores. Each potential shipping route offers both a monetary cost per unit and a carbon emission rate per unit. In practice, the lowest-cost lanes are often the most carbon-intensive, so we face a meaningful trade-off between immediate spend and environmental footprint. The purpose of this memo is to outline how we will balance these priorities while honoring the operational rules that govern how we actually move freight.\n\nOperational Rules We Must Honor\n- Route activation carries a fixed setup cost. Opening a lane requires contracts, paperwork, and loading dock arrangements. This charge applies once a lane is activated, regardless of the volume moved on it.\n- Minimum order quantities apply on any activated lane. To justify the logistics overhead and avoid partial loads, an activated route must move at least the defined minimum volume.\n- Each store can receive from a limited number of suppliers. To stay within receiving capacity and maintain vendor management discipline, every store can be served by no more than a set number of warehouses.\n\nSupply and Demand Boundaries\n- Warehouses cannot ship more than available inventory.\n- Each store has a minimum demand that must be met reliably within the planning horizon.\n\nManagement Priority\nLeadership has defined the relative importance of cost versus emissions. We will evaluate candidate shipping plans using a blended total that:\n- Multiplies total variable shipping expense by the established cost weight,\n- Multiplies total route emissions by the established emissions weight,\n- Adds all route setup costs for activated lanes at full value (setup costs are not scaled by the weights).\nThis approach reflects our intention to align near-term P&L performance with our climate commitments, without obscuring the true cash impact of activating lanes.\n\nBusiness Goal\nOur goal is to recommend which routes to activate and how much to ship on each active route so that:\n- Warehouse inventory is not exceeded,\n- Each store\u2019s minimum demand is met,\n- Activated routes ship at least their minimum order,\n- Each store receives from no more than the allowed number of warehouses,\n- The blended total of weighted variable cost, weighted emissions, and full setup costs is as low as possible.\nThe output will be a practical shipping plan that can be executed by Transportation and Store Operations, along with trade-off visibility for leadership. We will also identify near-term opportunities (e.g., consolidating suppliers to a store, or switching to cleaner lanes where cost impact is modest) and operational risks (e.g., underutilization due to minimums, activation cost payback assumptions).\n\nNext Steps\n- Confirm data in the annex.\n- Generate a recommended plan and sensitivity views around the management weights and supplier limits per store.\n- Review with Operations and Procurement to validate feasibility and timing before execution.\n\nAnnex \u2013 Data Inputs\n- Number of sources (warehouses): {NUM_SOURCES}\n- Number of destinations (stores): {NUM_DESTINATIONS}\n- Available supply by warehouse: {SUPPLIES}\n- Minimum demand by store: {DEMANDS}\n- Variable cost per unit by route: {COST_MATRIX}\n- Emission rate per unit by route: {EMISSION_MATRIX}\n- Cost weight: {WEIGHT_COST}\n- Emissions weight: {WEIGHT_EMISSION}\n- Route setup/activation costs: {FIXED_COSTS}\n- Minimum order quantities per activated route: {MIN_ORDER_QUANTITIES}\n- Maximum suppliers per store: {MAX_SUPPLIERS_PER_STORE}"
+}

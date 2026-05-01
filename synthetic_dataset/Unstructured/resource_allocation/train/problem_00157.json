@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit per-lever objective coefficients, bounds, and effects on two constraints; signs clarified. A linear objective and two <= constraints can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds fluff; data is precise. Some context is unnecessary, making it moderately verbose.",
+      "realism": 95,
+      "realism_comment": "Realistic portfolio planning with carbon and staffing limits; negative emissions and capacity freeing are plausible."
+    },
+    "prompt_tokens_with_data": 855,
+    "prompt_tokens_without_data": 855
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 93.23350245501709,
+    "optimal_values": {
+      "Var_0": 10.16,
+      "Var_1": 0.0,
+      "Var_2": 2.392715547412196,
+      "Var_3": 0.0,
+      "Var_4": 10.550245398773006
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -20.1
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.57
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.16
+      ],
+      "objective_linear_coefficient": 2.42,
+      "resource_costs": {
+        "C0": -3.87,
+        "C1": -3.86
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.28
+      ],
+      "objective_linear_coefficient": 4.07,
+      "resource_costs": {
+        "C0": 0.64,
+        "C1": 6.34
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.71
+      ],
+      "objective_linear_coefficient": 8.01,
+      "resource_costs": {
+        "C0": 5.96
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.56
+      ],
+      "objective_linear_coefficient": 1.76,
+      "resource_costs": {
+        "C0": -1.69,
+        "C1": 7.46
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.9
+      ],
+      "objective_linear_coefficient": 4.69,
+      "resource_costs": {
+        "C0": 0.47,
+        "C1": 6.52
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.16, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.42 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=19.28, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.07 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.71, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.01 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.56, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.76 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.9, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.69 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-3.87 * vars['Var_0'] + 0.64 * vars['Var_1'] + 5.96 * vars['Var_2'] + -1.69 * vars['Var_3'] + 0.47 * vars['Var_4'] <= -20.1, name='C0')\n    m.addConstr(-3.86 * vars['Var_0'] + 6.34 * vars['Var_1'] + 7.46 * vars['Var_3'] + 6.52 * vars['Var_4'] <= 29.57, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio plan to maximize contribution under our carbon and operations limits\n\nTeam,\n\nAs requested, here is a plain-language summary of the levers we can dial and the limits we must respect as we set the next allocation plan. The objective is to maximize total contribution while meeting both our net-emissions requirement and our operations capacity cap. Each lever can be scaled continuously with no minimum commitment, up to its stated maximum.\n\nLevers we can dial\n\n- Automation Wave Alpha\n  - Financial impact: contributes 2.42 in margin per standardized unit deployed.\n  - Scale: can be deployed anywhere from 0 up to 10.16 units; fractional deployments are acceptable.\n  - Sustainability/operations effects: each unit reduces our net carbon ledger by 3.87 tons (treated as a negative entry on the emissions ledger) and, separately, frees 3.86 units of operations capacity (counted as a reduction to the hours we need from the constrained team).\n\n- Premium Service Bookings\n  - Financial impact: contributes 4.07 in margin per booking-equivalent.\n  - Scale: can be set between 0 and 19.28 booking-equivalents.\n  - Sustainability/operations effects: each unit adds 0.64 tons to the net carbon ledger and consumes 6.34 units of operations capacity.\n\n- Outsourced Production Lots\n  - Financial impact: contributes 8.01 in margin per lot-equivalent.\n  - Scale: can be set between 0 and 19.71 lot-equivalents.\n  - Sustainability/operations effects: each unit adds 5.96 tons to the net carbon ledger. This lever does not draw on the constrained operations team at all (0 incremental hours).\n\n- Facility Retrofit Sprint\n  - Financial impact: contributes 1.76 in margin per sprint-equivalent.\n  - Scale: can be set between 0 and 18.56 sprint-equivalents.\n  - Sustainability/operations effects: each unit reduces our net carbon ledger by 1.69 tons, but it consumes 7.46 units of operations capacity.\n\n- Regional Roadshows\n  - Financial impact: contributes 4.69 in margin per event-equivalent.\n  - Scale: can be set between 0 and 13.9 event-equivalents.\n  - Sustainability/operations effects: each unit adds 0.47 tons to the net carbon ledger and consumes 6.52 units of operations capacity.\n\nFacility specs and portfolio limits\n\n- Net emissions requirement: our combined emissions ledger (counting removals as negative and additions as positive) must end at or below -20.1 tons. In practical terms, the portfolio must deliver at least 20.1 tons of net removal when all levers are summed together.\n\n- Operations capacity: after accounting for hours consumed and any hours freed by automation, the net draw on our constrained operations team cannot exceed 29.57 capacity units.\n\nPlease use the above levers and limits to shape the recommended mix that maximizes total contribution while staying within the carbon mandate and the staffing envelope. If you need any additional context on units or measurement conventions behind the figures, let me know."
+}

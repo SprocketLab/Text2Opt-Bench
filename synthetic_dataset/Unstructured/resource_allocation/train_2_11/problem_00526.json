@@ -1,0 +1,272 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 10,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All coefficients, bounds, and integrality are explicit per SKU and resource; objective is clear. Minor mismatch on variable naming (SKUs vs Var_i) and decimal UBs on integer vars, but still reconstructable.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Memo-style narrative adds context but is verbose; each SKU repeats resource lists. Content is relevant and structured, though longer than strictly necessary.",
+      "realism": 95,
+      "realism_comment": "Highly realistic production planning scenario with plausible resources and co-packing considerations; constraints and units make sense for real operations."
+    },
+    "prompt_tokens_with_data": 1655,
+    "prompt_tokens_without_data": 1655
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 385.4969707578259,
+    "optimal_values": {
+      "Var_0": 9.0,
+      "Var_1": 2.0,
+      "Var_2": 19.0,
+      "Var_3": 0.37042460592640636,
+      "Var_4": -0.0,
+      "Var_5": 10.0,
+      "Var_6": 10.0,
+      "Var_7": 8.61,
+      "Var_8": 2.069093987790313,
+      "Var_9": 6.63587993212992
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 374.07
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 232.58
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 313.45
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 248.88
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 348.45
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 291.17
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 296.3
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 271.97
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 285.01
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.49
+      ],
+      "objective_linear_coefficient": 4.9,
+      "resource_costs": {
+        "C0": 2.61,
+        "C1": 1.7,
+        "C2": 6.63,
+        "C3": 9.52,
+        "C4": 7.75,
+        "C5": 5.92,
+        "C6": 8.36,
+        "C7": 0.46,
+        "C8": 8.62
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.66
+      ],
+      "objective_linear_coefficient": 8.4,
+      "resource_costs": {
+        "C0": 6.76,
+        "C1": 2.46,
+        "C2": 9.14,
+        "C3": 7.48,
+        "C4": 5.76,
+        "C5": 6.56,
+        "C6": 0.46,
+        "C7": 8.76,
+        "C8": 0.34
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.81
+      ],
+      "objective_linear_coefficient": 6.22,
+      "resource_costs": {
+        "C0": 4.99,
+        "C1": 1.53,
+        "C2": 7.72,
+        "C4": 2.87,
+        "C5": 3.34,
+        "C6": 2.58,
+        "C7": 0.85,
+        "C8": 2.77
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.49
+      ],
+      "objective_linear_coefficient": 3.7,
+      "resource_costs": {
+        "C0": 7.94,
+        "C1": 0.05,
+        "C2": 6.83,
+        "C3": 2.99,
+        "C4": 0.59,
+        "C5": 7.12,
+        "C6": 3.31,
+        "C7": 4.84,
+        "C8": 8.46
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.14
+      ],
+      "objective_linear_coefficient": 2.62,
+      "resource_costs": {
+        "C0": 9.64,
+        "C1": 8.15,
+        "C2": 7.96,
+        "C3": 7.03,
+        "C5": 0.97,
+        "C6": 5.81,
+        "C7": 3.27
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.78
+      ],
+      "objective_linear_coefficient": 6.34,
+      "resource_costs": {
+        "C0": 4.98,
+        "C1": 5.94,
+        "C2": 2.63,
+        "C3": 8.77,
+        "C4": 0.57,
+        "C5": 0.05,
+        "C6": 8.54,
+        "C7": 9.87,
+        "C8": 3.03
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 7.01,
+      "resource_costs": {
+        "C0": 2.1,
+        "C1": 8.18,
+        "C2": 2.85,
+        "C4": 8.72,
+        "C5": 2.27,
+        "C6": 3.59,
+        "C7": 4.24,
+        "C8": 1.65
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.61
+      ],
+      "objective_linear_coefficient": 4.21,
+      "resource_costs": {
+        "C0": 8.29,
+        "C2": 1.03,
+        "C3": 3.78,
+        "C4": 5.25,
+        "C6": 2.25,
+        "C7": 6.65,
+        "C8": 7.98
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.29
+      ],
+      "objective_linear_coefficient": 1.89,
+      "resource_costs": {
+        "C0": 8.76,
+        "C2": 1.44,
+        "C3": 0.38,
+        "C4": 9.24,
+        "C5": 9.71,
+        "C6": 7.97,
+        "C7": 2.0,
+        "C8": 9.24
+      }
+    },
+    "Var_9": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.87
+      ],
+      "objective_linear_coefficient": 4.73,
+      "resource_costs": {
+        "C0": 4.46,
+        "C1": 6.34,
+        "C2": 2.96,
+        "C3": 0.47,
+        "C4": 8.32,
+        "C5": 3.73,
+        "C6": 0.51,
+        "C7": 4.5,
+        "C8": 0.61
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=16.49, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.9 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.66, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.4 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.81, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.22 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.49, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.7 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=18.14, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 2.62 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.78, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 6.34 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 7.01 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=8.61, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 4.21 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=17.29, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 1.89 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=9.87, vtype=GRB.CONTINUOUS, name='Var_9')\n    lin_expr += 4.73 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.61 * vars['Var_0'] + 6.76 * vars['Var_1'] + 4.99 * vars['Var_2'] + 7.94 * vars['Var_3'] + 9.64 * vars['Var_4'] + 4.98 * vars['Var_5'] + 2.1 * vars['Var_6'] + 8.29 * vars['Var_7'] + 8.76 * vars['Var_8'] + 4.46 * vars['Var_9'] <= 374.07, name='C0')\n    m.addConstr(1.7 * vars['Var_0'] + 2.46 * vars['Var_1'] + 1.53 * vars['Var_2'] + 0.05 * vars['Var_3'] + 8.15 * vars['Var_4'] + 5.94 * vars['Var_5'] + 8.18 * vars['Var_6'] + 6.34 * vars['Var_9'] <= 232.58, name='C1')\n    m.addConstr(6.63 * vars['Var_0'] + 9.14 * vars['Var_1'] + 7.72 * vars['Var_2'] + 6.83 * vars['Var_3'] + 7.96 * vars['Var_4'] + 2.63 * vars['Var_5'] + 2.85 * vars['Var_6'] + 1.03 * vars['Var_7'] + 1.44 * vars['Var_8'] + 2.96 * vars['Var_9'] <= 313.45, name='C2')\n    m.addConstr(9.52 * vars['Var_0'] + 7.48 * vars['Var_1'] + 2.99 * vars['Var_3'] + 7.03 * vars['Var_4'] + 8.77 * vars['Var_5'] + 3.78 * vars['Var_7'] + 0.38 * vars['Var_8'] + 0.47 * vars['Var_9'] <= 248.88, name='C3')\n    m.addConstr(7.75 * vars['Var_0'] + 5.76 * vars['Var_1'] + 2.87 * vars['Var_2'] + 0.59 * vars['Var_3'] + 0.57 * vars['Var_5'] + 8.72 * vars['Var_6'] + 5.25 * vars['Var_7'] + 9.24 * vars['Var_8'] + 8.32 * vars['Var_9'] <= 348.45, name='C4')\n    m.addConstr(5.92 * vars['Var_0'] + 6.56 * vars['Var_1'] + 3.34 * vars['Var_2'] + 7.12 * vars['Var_3'] + 0.97 * vars['Var_4'] + 0.05 * vars['Var_5'] + 2.27 * vars['Var_6'] + 9.71 * vars['Var_8'] + 3.73 * vars['Var_9'] <= 291.17, name='C5')\n    m.addConstr(8.36 * vars['Var_0'] + 0.46 * vars['Var_1'] + 2.58 * vars['Var_2'] + 3.31 * vars['Var_3'] + 5.81 * vars['Var_4'] + 8.54 * vars['Var_5'] + 3.59 * vars['Var_6'] + 2.25 * vars['Var_7'] + 7.97 * vars['Var_8'] + 0.51 * vars['Var_9'] <= 296.3, name='C6')\n    m.addConstr(0.46 * vars['Var_0'] + 8.76 * vars['Var_1'] + 0.85 * vars['Var_2'] + 4.84 * vars['Var_3'] + 3.27 * vars['Var_4'] + 9.87 * vars['Var_5'] + 4.24 * vars['Var_6'] + 6.65 * vars['Var_7'] + 2.0 * vars['Var_8'] + 4.5 * vars['Var_9'] <= 271.97, name='C7')\n    m.addConstr(8.62 * vars['Var_0'] + 0.34 * vars['Var_1'] + 2.77 * vars['Var_2'] + 8.46 * vars['Var_3'] + 3.03 * vars['Var_5'] + 1.65 * vars['Var_6'] + 7.98 * vars['Var_7'] + 9.24 * vars['Var_8'] + 0.61 * vars['Var_9'] <= 285.01, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "To: Operations Research Team\nFrom: Plant General Manager\nSubject: Portfolio mix and resource allocation brief for the upcoming cycle\n\nWe are preparing the production schedule for the upcoming cycle with the aim of maximizing total contribution from our beverage portfolio while honoring our plant\u2019s operating limits and service commitments. Below is a summary of each SKU we can schedule this cycle, including the per\u2011unit contribution, the maximum we can feasibly plan, whether we must plan in whole batches or can throttle in partials, and the way each SKU draws on our shared resources.\n\n- Citrus Essence Lemonade: Delivers 4.9 contribution per batch. We can schedule up to 16.49 batches, and this item must be planned in whole batches. Each batch uses 2.61 hours on the blending line, 1.7 certified operator hours, 6.63 units of Concentrate A, 9.52 hours on the bottling line, 7.75 MMBtu of steam/utilities, 5.92 pallet\u2011days of chilled storage, 8.36 quality\u2011lab hours, 0.46 distribution dock hours, and 8.62 environmental credits.\n\n- Herbal Sparkling Tonic: Delivers 8.4 contribution per batch. We can schedule up to 13.66 batches, planned in whole batches. Each batch uses 6.76 blending hours, 2.46 certified operator hours, 9.14 units of Concentrate A, 7.48 bottling hours, 5.76 steam/utilities, 6.56 pallet\u2011days in chilled storage, 0.46 quality\u2011lab hours, 8.76 distribution dock hours, and 0.34 environmental credits.\n\n- Ginger Zero Brew: Delivers 6.22 contribution per batch. We can schedule up to 19.81 batches, planned in whole batches. Each batch uses 4.99 blending hours, 1.53 certified operator hours, 7.72 units of Concentrate A, no in\u2011house bottling time (co\u2011packed), 2.87 steam/utilities, 3.34 chilled pallet\u2011days, 2.58 quality\u2011lab hours, 0.85 distribution dock hours, and 2.77 environmental credits.\n\n- Small\u2011Batch Cold Brew Coffee: Delivers 3.7 contribution per run. We can schedule up to 12.49 runs and can throttle this in partial runs. Each run uses 7.94 blending hours, 0.05 certified operator hours, 6.83 units of Concentrate A, 2.99 bottling hours, 0.59 steam/utilities, 7.12 chilled pallet\u2011days, 3.31 quality\u2011lab hours, 4.84 distribution dock hours, and 8.46 environmental credits.\n\n- Family Pack Still Water: Delivers 2.62 contribution per batch. We can schedule up to 18.14 batches, planned in whole batches. Each batch uses 9.64 blending hours, 8.15 certified operator hours, 7.96 units of Concentrate A, 7.03 bottling hours, no steam/utilities draw, 0.97 chilled pallet\u2011days, 5.81 quality\u2011lab hours, 3.27 distribution dock hours, and no environmental credits.\n\n- Energy Shot Vials: Delivers 6.34 contribution per batch. We can schedule up to 19.78 batches, planned in whole batches. Each batch uses 4.98 blending hours, 5.94 certified operator hours, 2.63 units of Concentrate A, 8.77 bottling hours, 0.57 steam/utilities, 0.05 chilled pallet\u2011days, 8.54 quality\u2011lab hours, 9.87 distribution dock hours, and 3.03 environmental credits.\n\n- Kombucha Original: Delivers 7.01 contribution per batch. We can schedule up to 10.0 batches, planned in whole batches. Each batch uses 2.1 blending hours, 8.18 certified operator hours, 2.85 units of Concentrate A, no bottling time on our line (handled off\u2011line), 8.72 steam/utilities, 2.27 chilled pallet\u2011days, 3.59 quality\u2011lab hours, 4.24 distribution dock hours, and 1.65 environmental credits.\n\n- Seasonal Berry Seltzer: Delivers 4.21 contribution per run. We can schedule up to 8.61 runs and can throttle this in partial runs. Each run uses 8.29 blending hours, no certified operator hours from the constrained pool, 1.03 units of Concentrate A, 3.78 bottling hours, 5.25 steam/utilities, no chilled storage draw, 2.25 quality\u2011lab hours, 6.65 distribution dock hours, and 7.98 environmental credits.\n\n- Private\u2011Label Iced Tea: Delivers 1.89 contribution per run. We can schedule up to 17.29 runs and can throttle this in partial runs. Each run uses 8.76 blending hours, no certified operator hours from the constrained pool, 1.44 units of Concentrate A, 0.38 bottling hours, 9.24 steam/utilities, 9.71 chilled pallet\u2011days, 7.97 quality\u2011lab hours, 2.0 distribution dock hours, and 9.24 environmental credits.\n\n- Coconut Water Line: Delivers 4.73 contribution per run. We can schedule up to 9.87 runs and can throttle this in partial runs. Each run uses 4.46 blending hours, 6.34 certified operator hours, 2.96 units of Concentrate A, 0.47 bottling hours, 8.32 steam/utilities, 3.73 chilled pallet\u2011days, 0.51 quality\u2011lab hours, 4.5 distribution dock hours, and 0.61 environmental credits.\n\nFacility specs and market limits for the cycle:\n- Blending line time available: up to 374.07 hours in total.\n- Certified operator hours available: up to 232.58 hours.\n- Concentrate A (active ingredient) availability: up to 313.45 units.\n- Bottling line time available: up to 248.88 hours.\n- Steam and utilities budget: up to 348.45 MMBtu\u2011equivalents.\n- Chilled storage capacity: up to 291.17 pallet\u2011days.\n- Quality\u2011lab testing time available: up to 296.3 hours.\n- Distribution dock capacity: up to 271.97 hours.\n- Environmental discharge/credits budget: up to 285.01 units.\n\nPlease use the above to recommend the production mix that maximizes total contribution while staying within these limits. If any assumptions need to be refined (e.g., co\u2011packing arrangements or storage turn), let us know and we\u2019ll update the inputs."
+}

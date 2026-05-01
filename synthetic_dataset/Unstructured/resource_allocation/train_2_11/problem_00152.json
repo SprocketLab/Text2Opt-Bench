@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 2,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "Exact costs, availabilities, variable types, and contributions are given; constraints are >= commitments; minimize total cost is explicit. Model can be reproduced without guessing.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business narrative adds length but is not repetitive; most text conveys needed coefficients, bounds, and logic.",
+      "realism": 93,
+      "realism_comment": "Plausible resource planning to meet service targets; costs and effects are realistic, with a minor oddity in fractional cap for integer shifts."
+    },
+    "prompt_tokens_with_data": 757,
+    "prompt_tokens_without_data": 757
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 15.288626653102702,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": -0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 8.13224821973548
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.94
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 48.31
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.4
+      ],
+      "objective_linear_coefficient": 9.64,
+      "resource_costs": {
+        "C0": 7.01,
+        "C1": 2.71
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.14
+      ],
+      "objective_linear_coefficient": 2.93,
+      "resource_costs": {
+        "C0": 4.87,
+        "C1": 5.49
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.23
+      ],
+      "objective_linear_coefficient": 7.96,
+      "resource_costs": {
+        "C0": 4.24,
+        "C1": 2.47
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.37
+      ],
+      "objective_linear_coefficient": 8.79,
+      "resource_costs": {
+        "C0": 1.43
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.3
+      ],
+      "objective_linear_coefficient": 1.88,
+      "resource_costs": {
+        "C0": 9.83,
+        "C1": 8.97
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.4, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.64 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.14, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.93 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.23, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.96 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.37, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.79 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.3, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.88 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.01 * vars['Var_0'] + 4.87 * vars['Var_1'] + 4.24 * vars['Var_2'] + 1.43 * vars['Var_3'] + 9.83 * vars['Var_4'] >= 79.94, name='C0')\n    m.addConstr(2.71 * vars['Var_0'] + 5.49 * vars['Var_1'] + 2.47 * vars['Var_2'] + 8.97 * vars['Var_4'] >= 48.31, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Planning the lowest-cost mix to meet our service-level commitments\n\nTeam,\n\nFor the upcoming period, we need to assemble the most economical mix of five deployable programs to hit two corporate obligations at the same time: a Reliability Capacity target and a Community Coverage Index. The intent is to meet or exceed both obligations while keeping total spend as low as possible. Below are the levers we can pull and how each one affects our targets.\n\n- Blue Line Field Hours\n  - Cost: $9.64 per unit of time deployed.\n  - Availability: up to 9.4 units this period; we can schedule partial units (no negative usage).\n  - Impact:\n    - Reliability Capacity: +7.01 capacity points per unit.\n    - Community Coverage Index: +2.71 coverage points per unit.\n\n- Union Overtime Crews\n  - Cost: $2.93 per crew-shift.\n  - Availability: up to 15.14 crew-shifts this period; must be scheduled in whole crew-shifts only (no negative usage).\n  - Impact:\n    - Reliability Capacity: +4.87 capacity points per crew-shift.\n    - Community Coverage Index: +5.49 coverage points per crew-shift.\n\n- Contracted Specialists\n  - Cost: $7.96 per assignment.\n  - Availability: up to 13.23 assignments this period; partial assignments can be arranged (no negative usage).\n  - Impact:\n    - Reliability Capacity: +4.24 capacity points per assignment.\n    - Community Coverage Index: +2.47 coverage points per assignment.\n\n- Diagnostic Automation Runs\n  - Cost: $8.79 per run.\n  - Availability: up to 10.37 runs this period; partial runs can be scheduled (no negative usage).\n  - Impact:\n    - Reliability Capacity: +1.43 capacity points per run.\n    - Community Coverage Index: no measurable effect from this lever.\n\n- Digital Outreach Blitz Days\n  - Cost: $1.88 per day.\n  - Availability: up to 14.3 days this period; partial-day deployments are allowed (no negative usage).\n  - Impact:\n    - Reliability Capacity: +9.83 capacity points per day.\n    - Community Coverage Index: +8.97 coverage points per day.\n\nMinimum service-level commitments for the period\n- Reliability Capacity: at least 79.94 capacity points.\n- Community Coverage Index: at least 48.31 coverage points.\n\nPlease use the above to develop a deployment plan that satisfies both commitments at the lowest total cost, staying within each lever\u2019s availability and respecting that Union Overtime Crews must be scheduled in whole units only."
+}

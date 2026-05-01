@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, metric contributions (including zeros), bounds, and >= thresholds are explicit; variables are fractional (continuous) 0\u2013UB; objective is to minimize total budget. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business memo style adds fluff (greeting, trade-off talk, LP/QP mention). Still clear and non-repetitive about data; some extra narrative beyond model needs.",
+      "realism": 95,
+      "realism_comment": "Plausible service deployment planning with budget and compliance minima; fractional packages and capacity caps are realistic for OR resource allocation."
+    },
+    "prompt_tokens_with_data": 946,
+    "prompt_tokens_without_data": 946
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 143.49275619911487,
+    "optimal_values": {
+      "Var_0": 3.5661083515255303,
+      "Var_1": 0.20538307713649373,
+      "Var_2": 4.815973410981952,
+      "Var_3": 1.1996673509040194,
+      "Var_4": 9.56,
+      "Var_5": 6.26
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.99
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 138.87
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.01
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 116.96
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 136.76
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.12
+      ],
+      "objective_linear_coefficient": 3.99,
+      "resource_costs": {
+        "C0": 2.22,
+        "C1": 9.13,
+        "C2": 2.06,
+        "C3": 9.24
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.58
+      ],
+      "objective_linear_coefficient": 2.24,
+      "resource_costs": {
+        "C0": 7.06,
+        "C2": 6.14,
+        "C3": 2.62
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.52
+      ],
+      "objective_linear_coefficient": 9.13,
+      "resource_costs": {
+        "C0": 4.18,
+        "C1": 8.73,
+        "C2": 2.96,
+        "C3": 7.58,
+        "C4": 7.04
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.07
+      ],
+      "objective_linear_coefficient": 2.74,
+      "resource_costs": {
+        "C0": 4.01,
+        "C1": 9.07,
+        "C3": 0.07,
+        "C4": 0.76
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.56
+      ],
+      "objective_linear_coefficient": 6.69,
+      "resource_costs": {
+        "C0": 3.56,
+        "C1": 5.46,
+        "C2": 6.14,
+        "C3": 2.73,
+        "C4": 9.02
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.26
+      ],
+      "objective_linear_coefficient": 2.81,
+      "resource_costs": {
+        "C0": 8.57,
+        "C1": 0.19,
+        "C2": 6.94,
+        "C3": 3.32,
+        "C4": 2.51
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.12, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.99 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.58, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.24 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.52, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.13 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.07, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.74 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.56, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 6.69 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=6.26, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.81 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.22 * vars['Var_0'] + 7.06 * vars['Var_1'] + 4.18 * vars['Var_2'] + 4.01 * vars['Var_3'] + 3.56 * vars['Var_4'] + 8.57 * vars['Var_5'] >= 121.99, name='C0')\n    m.addConstr(9.13 * vars['Var_0'] + 8.73 * vars['Var_2'] + 9.07 * vars['Var_3'] + 5.46 * vars['Var_4'] + 0.19 * vars['Var_5'] >= 138.87, name='C1')\n    m.addConstr(2.06 * vars['Var_0'] + 6.14 * vars['Var_1'] + 2.96 * vars['Var_2'] + 6.14 * vars['Var_4'] + 6.94 * vars['Var_5'] >= 121.01, name='C2')\n    m.addConstr(9.24 * vars['Var_0'] + 2.62 * vars['Var_1'] + 7.58 * vars['Var_2'] + 0.07 * vars['Var_3'] + 2.73 * vars['Var_4'] + 3.32 * vars['Var_5'] >= 116.96, name='C3')\n    m.addConstr(7.04 * vars['Var_2'] + 0.76 * vars['Var_3'] + 9.02 * vars['Var_4'] + 2.51 * vars['Var_5'] >= 136.76, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Q2 Service Deployment Plan \u2014 Minimize Spend While Hitting All Commitments\n\nTeam,\n\nWe\u2019re preparing the Q2 deployment mix across our service modules with a clear goal: meet or exceed all contractual and compliance minimums at the lowest possible operating cost. Each module can be scaled in fractional \u201cwork packages\u201d (e.g., crew-days or campaign blocks), and each package carries a specific budget requirement and contributes differently to our performance metrics. Below is the decision frame we\u2019ll use.\n\n- Priority Response Teams: Each package requires a budget of 3.99. Every package adds 2.22 toward Core Service Throughput, 9.13 toward Premium SLA Compliance, 2.06 toward Regional Coverage, and 9.24 toward Emergency Readiness. These teams do not contribute to Sustainability & Community Credits (0). We can allocate anywhere from 0 up to 19.12 packages.\n\n- Neighborhood Fix\u2011It Vans: Each package requires a budget of 2.24. Every package adds 7.06 toward Core Service Throughput, 6.14 toward Regional Coverage, and 2.62 toward Emergency Readiness. They do not contribute to Premium SLA Compliance (0) and do not contribute to Sustainability & Community Credits (0). We can allocate anywhere from 0 up to 10.58 packages.\n\n- Specialist Project Squads: Each package requires a budget of 9.13. Every package adds 4.18 toward Core Service Throughput, 8.73 toward Premium SLA Compliance, 2.96 toward Regional Coverage, 7.58 toward Emergency Readiness, and 7.04 toward Sustainability & Community Credits. We can allocate anywhere from 0 up to 7.52 packages.\n\n- Customer Care Pods: Each package requires a budget of 2.74. Every package adds 4.01 toward Core Service Throughput, 9.07 toward Premium SLA Compliance, 0.07 toward Emergency Readiness, and 0.76 toward Sustainability & Community Credits. They do not contribute to Regional Coverage (0). We can allocate anywhere from 0 up to 10.07 packages.\n\n- Territory Outreach Units: Each package requires a budget of 6.69. Every package adds 3.56 toward Core Service Throughput, 5.46 toward Premium SLA Compliance, 6.14 toward Regional Coverage, 2.73 toward Emergency Readiness, and 9.02 toward Sustainability & Community Credits. We can allocate anywhere from 0 up to 9.56 packages.\n\n- Mobile Support Kiosks: Each package requires a budget of 2.81. Every package adds 8.57 toward Core Service Throughput, 0.19 toward Premium SLA Compliance, 6.94 toward Regional Coverage, 3.32 toward Emergency Readiness, and 2.51 toward Sustainability & Community Credits. We can allocate anywhere from 0 up to 6.26 packages.\n\nContractual Minimums & Compliance Floors\n- Core Service Throughput: At least 121.99 throughput credits for the quarter.\n- Premium SLA Compliance: At least 138.87 compliance points.\n- Regional Coverage Index: At least 121.01 coverage points.\n- Emergency Readiness Hours: At least 116.96 readiness hours.\n- Sustainability & Community Credits: At least 136.76 credits.\n\nPlease use this framework to recommend the least\u2011cost mix of the six modules that satisfies all five minimums. Happy to discuss trade\u2011offs if we see concentration risk in any single module or if we want to prioritize headroom on a specific metric."
+}

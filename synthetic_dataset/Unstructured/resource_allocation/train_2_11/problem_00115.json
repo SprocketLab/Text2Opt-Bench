@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Explicit costs, caps, contribution coefficients, and minimum thresholds; continuous variables allowed; objective minimize spend; constraints are sums >= minima; no missing values.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style narrative adds some fluff, but the lists and numbers are essential. Slightly verbose yet clear and focused.",
+      "realism": 95,
+      "realism_comment": "Plausible sourcing optimization with sustainability scorecard minima, caps, and costs; resembles real procurement planning. Data and structure are coherent."
+    },
+    "prompt_tokens_with_data": 799,
+    "prompt_tokens_without_data": 799
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 59.156098890514556,
+    "optimal_values": {
+      "Var_0": 4.420544352536055,
+      "Var_1": 3.9103991257307844,
+      "Var_2": 0.0,
+      "Var_3": 4.259126792372127
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 71.48
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 62.91
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.07
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 72.14
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.83
+      ],
+      "objective_linear_coefficient": 4.58,
+      "resource_costs": {
+        "C0": 6.24,
+        "C1": 4.22,
+        "C2": 5.98,
+        "C3": 4.7
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.2
+      ],
+      "objective_linear_coefficient": 8.48,
+      "resource_costs": {
+        "C0": 2.86,
+        "C1": 9.64,
+        "C2": 3.96,
+        "C3": 4.89
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.97
+      ],
+      "objective_linear_coefficient": 6.3,
+      "resource_costs": {
+        "C0": 4.17,
+        "C1": 3.11,
+        "C2": 9.4,
+        "C3": 3.08
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.36
+      ],
+      "objective_linear_coefficient": 1.35,
+      "resource_costs": {
+        "C0": 8.98,
+        "C1": 1.54,
+        "C2": 0.27,
+        "C3": 7.57
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.83, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.58 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.2, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.48 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.97, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.3 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.36, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.35 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.24 * vars['Var_0'] + 2.86 * vars['Var_1'] + 4.17 * vars['Var_2'] + 8.98 * vars['Var_3'] >= 71.48, name='C0')\n    m.addConstr(4.22 * vars['Var_0'] + 9.64 * vars['Var_1'] + 3.11 * vars['Var_2'] + 1.54 * vars['Var_3'] >= 62.91, name='C1')\n    m.addConstr(5.98 * vars['Var_0'] + 3.96 * vars['Var_1'] + 9.4 * vars['Var_2'] + 0.27 * vars['Var_3'] >= 43.07, name='C2')\n    m.addConstr(4.7 * vars['Var_0'] + 4.89 * vars['Var_1'] + 3.08 * vars['Var_2'] + 7.57 * vars['Var_3'] >= 72.14, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request: Cost-minimizing sourcing plan to meet sustainability scorecard minimums\n\nHi team,\n\nWe\u2019re setting up our next sourcing cycle for sustainable packaging and need your help to identify the most cost-effective mix while meeting our retailer scorecard minimums. The goal is to minimize our spend, provided we hit or exceed each pillar\u2019s required totals. We can place fractional orders, and there are no minimums on any one item, but each option has a hard cap based on supplier availability.\n\nOur sourcing levers\n\n- OceanBlend Board\n  - Unit cost: $4.58\n  - Availability: up to 7.83 units (we can take anywhere from 0 to 7.83)\n  - Score contributions per unit:\n    - Carbon Reduction: 6.24\n    - Renewable Content: 4.22\n    - Water Stewardship: 5.98\n    - Circularity & Recyclability: 4.7\n\n- PlantFoam Resin\n  - Unit cost: $8.48\n  - Availability: up to 15.2 units (we can take anywhere from 0 to 15.2)\n  - Score contributions per unit:\n    - Carbon Reduction: 2.86\n    - Renewable Content: 9.64\n    - Water Stewardship: 3.96\n    - Circularity & Recyclability: 4.89\n\n- MineralLite Additive\n  - Unit cost: $6.3\n  - Availability: up to 11.97 units (we can take anywhere from 0 to 11.97)\n  - Score contributions per unit:\n    - Carbon Reduction: 4.17\n    - Renewable Content: 3.11\n    - Water Stewardship: 9.4\n    - Circularity & Recyclability: 3.08\n\n- RecycledFlex Film\n  - Unit cost: $1.35\n  - Availability: up to 13.36 units (we can take anywhere from 0 to 13.36)\n  - Score contributions per unit:\n    - Carbon Reduction: 8.98\n    - Renewable Content: 1.54\n    - Water Stewardship: 0.27\n    - Circularity & Recyclability: 7.57\n\nScorecard minimums for this cycle (must be met or exceeded)\n\n- Carbon Reduction: at least 71.48\n- Renewable Content: at least 62.91\n- Water Stewardship: at least 43.07\n- Circularity & Recyclability: at least 72.14\n\nPlease come back with the lowest-cost combination of the four options that satisfies all four minimums while respecting each item\u2019s availability cap. Let me know if you need any clarifications.\n\nBest regards,\n\n[Client Name]\nSustainable Sourcing Lead"
+}

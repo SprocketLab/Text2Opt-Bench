@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Unit costs, impacts, bounds, and floors are given with clear signs; variables are continuous; minimize total cost; constraints map directly from contributions.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Email-style framing adds some fluff (greeting/sign-off), but numeric specs are clear and not repetitive.",
+      "realism": 96,
+      "realism_comment": "Realistic marketing mix model with pipeline, brand, and compliance guardrails and capacity caps; coefficients and limits are plausible."
+    },
+    "prompt_tokens_with_data": 779,
+    "prompt_tokens_without_data": 779
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 35.93761627906976,
+    "optimal_values": {
+      "Var_0": 3.7848837209302304,
+      "Var_1": 0.0,
+      "Var_2": 7.372093023255814
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -15.85
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -27.4
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 30.93
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.56
+      ],
+      "objective_linear_coefficient": 2.97,
+      "resource_costs": {
+        "C1": -4.98,
+        "C2": 1.16
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.29
+      ],
+      "objective_linear_coefficient": 2.81,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.65
+      ],
+      "objective_linear_coefficient": 3.35,
+      "resource_costs": {
+        "C0": -2.15,
+        "C1": 0.83,
+        "C2": 3.6
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.56, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.97 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.29, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.81 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.65, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.35 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-2.15 * vars['Var_2'] >= -15.85, name='C0')\n    m.addConstr(-4.98 * vars['Var_0'] + 0.83 * vars['Var_2'] >= -27.4, name='C1')\n    m.addConstr(1.16 * vars['Var_0'] + 3.6 * vars['Var_2'] >= 30.93, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix for Q1 Demand Generation Under Brand/Compliance Guardrails\n\nTeam,\n\nWe need your help calibrating our Q1 demand generation mix to achieve our required pipeline while minimizing total program cost. We can scale each program in fractional increments, and there are caps based on capacity and market realities. In doing so, we must stay within our brand and compliance guardrails as described below.\n\nHere\u2019s how each lever works and what it costs, in the exact order we\u2019d like you to evaluate them:\n\n- Cold Outreach Campaigns\n  - Unit economics: Every unit we deploy carries a direct program cost of 2.97.\n  - Pipeline impact: Each unit contributes 1.16 toward our qualified pipeline volume.\n  - Brand impact: Each unit tends to depress our Brand Sentiment Balance by 4.98 points.\n  - Compliance impact: No direct effect on our Compliance Balance.\n  - Scale limits: We can allocate anywhere from 0 up to a maximum of 17.56 units, and we can scale in partial units.\n\n- Brand Sponsorships\n  - Unit economics: Every unit carries a direct program cost of 2.81.\n  - Pipeline impact: No immediate contribution to qualified pipeline volume.\n  - Brand impact: No direct effect on the Brand Sentiment Balance.\n  - Compliance impact: No direct effect on the Compliance Balance.\n  - Scale limits: We can allocate anywhere from 0 up to a maximum of 5.29 units, and we can scale in partial units.\n\n- Content Partnerships\n  - Unit economics: Every unit we deploy carries a direct program cost of 3.35.\n  - Pipeline impact: Each unit contributes 3.6 toward our qualified pipeline volume.\n  - Brand impact: Each unit improves the Brand Sentiment Balance by 0.83 points.\n  - Compliance impact: Each unit consumes compliance headroom, reducing the Compliance Balance by 2.15 points.\n  - Scale limits: We can allocate anywhere from 0 up to a maximum of 14.65 units, and we can scale in partial units.\n\nOur goal is to find the lowest-cost combination of these programs that satisfies the following guardrails and targets:\n\nMarket Limits & Guardrails\n- Compliance Balance: Must be maintained at or above -15.85 points (we cannot allow the balance to fall below -15.85).\n- Brand Sentiment Balance: Must be maintained at or above -27.4 points.\n- Qualified Pipeline Volume: Must reach at least 30.93 units in aggregate.\n\nPlease structure the recommended plan around these parameters and identify the cost-minimizing allocation across the three levers that delivers the required pipeline while keeping our brand and compliance positions within the floors noted above.\n\nThanks,\n[Client Name]\nVP, Growth Marketing"
+}

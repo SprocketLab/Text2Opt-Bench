@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All KPIs, coefficients, bounds, and >= constraints are explicit; objective is minimize total spend; variables are continuous with clear upper bounds and zero lower bounds.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some business narrative and instruction/template text, but most content conveys necessary data and mapping to the LP; not overly repetitive.",
+      "realism": 92,
+      "realism_comment": "Plausible planning scenario (compliance, service, resiliency) with realistic costs, contributions, and availability caps; fractional deployment justified."
+    },
+    "prompt_tokens_with_data": 676,
+    "prompt_tokens_without_data": 676
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 62.04879642175503,
+    "optimal_values": {
+      "Var_0": 9.844311377245509,
+      "Var_1": 0.0,
+      "Var_2": 8.644768856447689
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 8.09
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 35.53
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 49.32
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.95
+      ],
+      "objective_linear_coefficient": 1.28,
+      "resource_costs": {
+        "C2": 5.01
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.48
+      ],
+      "objective_linear_coefficient": 8.77,
+      "resource_costs": {
+        "C1": 3.78
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.7
+      ],
+      "objective_linear_coefficient": 5.72,
+      "resource_costs": {
+        "C0": 3.71,
+        "C1": 4.11
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.95, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 1.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.48, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 8.77 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.7, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.72 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.71 * vars['Var_2'] >= 8.09, name='C0')\n    m.addConstr(3.78 * vars['Var_1'] + 4.11 * vars['Var_2'] >= 35.53, name='C1')\n    m.addConstr(5.01 * vars['Var_0'] >= 49.32, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for a least\u2011cost plan to meet Q1 compliance, service, and resiliency commitments\n\nTeam,\n\nWe need your help to determine the lowest\u2011cost mix of three provisioning levers that will still satisfy our minimum Q1 obligations in regulatory compliance, customer service coverage, and network resiliency. The aim is to minimize total spend while meeting or exceeding the required thresholds listed at the end of this note.\n\nThe levers we can use\n\n- Resilience Nodes (failover compute blocks)\n  - Unit cost: $1.28 per block.\n  - Contribution to our KPIs: each block adds 5.01 units to Disaster Recovery Capacity. It does not move the Customer Service SLA Coverage or the Regulatory Compliance Baseline.\n  - Availability and bounds: we can deploy anywhere from 0 up to 10.95 blocks (fractional deployment is acceptable if that yields a better mix).\n  \n- Premium Care Shifts (customer support coverage)\n  - Unit cost: $8.77 per shift\u2011equivalent.\n  - Contribution to our KPIs: each shift\u2011equivalent adds 3.78 units to Customer Service SLA Coverage. It does not affect Disaster Recovery Capacity or the Regulatory Compliance Baseline.\n  - Availability and bounds: we can schedule anywhere from 0 up to 9.48 shift\u2011equivalents (partial coverage allowed).\n\n- Compliance & Care Platform Licenses (integrated security/compliance tooling)\n  - Unit cost: $5.72 per license.\n  - Contribution to our KPIs: each license adds 3.71 units to the Regulatory Compliance Baseline and 4.11 units to Customer Service SLA Coverage. It does not change Disaster Recovery Capacity.\n  - Availability and bounds: we can procure anywhere from 0 up to 11.7 licenses (fractional licensing allowed for modular features).\n\nService commitments and limits (must be met or exceeded)\n\n- Regulatory Compliance Baseline: at least 8.09 units.\n- Customer Service SLA Coverage: at least 35.53 units.\n- Disaster Recovery Capacity: at least 49.32 units.\n\nPlease build the optimal, least\u2011cost allocation across the three levers above, observing the stated upper limits and recognizing that any of the levers may be set to zero if not needed."
+}

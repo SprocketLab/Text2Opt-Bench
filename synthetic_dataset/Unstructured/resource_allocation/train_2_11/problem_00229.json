@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 97,
+      "prompt_inducibility_comment": "Explicit bounds, objective coefficients, and resource usage with capacities. Linear model reconstructable mechanically. Minor naming/type ambiguity, but overall clear.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some business narrative and repeated statements of zero resource usage; mostly necessary context. Not overly verbose.",
+      "realism": 96,
+      "realism_comment": "A credible production planning scenario with plausible resources and capacities; objective and constraints align with real operations."
+    },
+    "prompt_tokens_with_data": 899,
+    "prompt_tokens_without_data": 899
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 165.33373303616122,
+    "optimal_values": {
+      "Var_0": 7.84,
+      "Var_1": 8.345934065934069,
+      "Var_2": 6.92,
+      "Var_3": 0.0,
+      "Var_4": 10.23,
+      "Var_5": 2.3546637744034706
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 4.94
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 21.71
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 27.43
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.84
+      ],
+      "objective_linear_coefficient": 9.82,
+      "resource_costs": {
+        "C0": 0.29,
+        "C2": 2.53
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.83
+      ],
+      "objective_linear_coefficient": 2.2,
+      "resource_costs": {
+        "C2": 0.91
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.92
+      ],
+      "objective_linear_coefficient": 4.12,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.91
+      ],
+      "objective_linear_coefficient": 9.65,
+      "resource_costs": {
+        "C2": 5.24
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.23
+      ],
+      "objective_linear_coefficient": 1.78,
+      "resource_costs": {}
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.85
+      ],
+      "objective_linear_coefficient": 9.88,
+      "resource_costs": {
+        "C1": 9.22
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.84, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.83, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.2 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=6.92, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.12 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.91, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.65 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.23, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.78 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.85, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.88 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.29 * vars['Var_0'] <= 4.94, name='C0')\n    m.addConstr(9.22 * vars['Var_5'] <= 21.71, name='C1')\n    m.addConstr(2.53 * vars['Var_0'] + 0.91 * vars['Var_1'] + 5.24 * vars['Var_3'] <= 27.43, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocating this period\u2019s production and storage to maximize contribution\n\nTeam,\n\nFor the upcoming planning window, we need to allocate our limited plant and storage capacity across six product streams to maximize overall contribution. Below is a concise brief on each lever we can pull, including what each contributes financially, how much we\u2019re allowed to make, and how it uses (or doesn\u2019t use) our scarce resources: specialist analytical bench time, chilled storage in Zone A, and Distillation Column B runtime.\n\n- Pharma-Grade Solvent S (custom batches)\n  - Economic impact: each batch contributes 9.82 in margin.\n  - Allowable volume: we can schedule anywhere from 0 up to 7.84 batches this period.\n  - Resource use: each batch needs 0.29 hours of specialist analytical bench time and 2.53 hours on Distillation Column B; it does not require any chilled storage in Zone A.\n\n- Industrial Stabilizer I (standard runs)\n  - Economic impact: each run contributes 2.20 in margin.\n  - Allowable volume: we can schedule anywhere from 0 up to 12.83 runs this period.\n  - Resource use: each run requires 0.91 hours on Distillation Column B; it draws no specialist analytical bench time and no chilled storage in Zone A.\n\n- Toll-Manufactured Additive T (outsourced lots)\n  - Economic impact: each lot contributes 4.12 in margin.\n  - Allowable volume: we can schedule anywhere from 0 up to 6.92 lots this period.\n  - Resource use: fully outsourced\u2014no specialist analytical bench time, no chilled storage in Zone A, and no time on Distillation Column B.\n\n- High-Purity Reagent R (campaigns)\n  - Economic impact: each campaign contributes 9.65 in margin.\n  - Allowable volume: we can schedule anywhere from 0 up to 10.91 campaigns this period.\n  - Resource use: each campaign requires 5.24 hours on Distillation Column B; it needs no specialist analytical bench time and no chilled storage in Zone A.\n\n- Imported Catalyst C (direct shipments)\n  - Economic impact: each shipment contributes 1.78 in margin.\n  - Allowable volume: we can schedule anywhere from 0 up to 10.23 shipments this period.\n  - Resource use: direct import\u2014no specialist analytical bench time, no chilled storage in Zone A, and no Distillation Column B time.\n\n- Cryostable Monomer M (cold-chain lots)\n  - Economic impact: each lot contributes 9.88 in margin.\n  - Allowable volume: we can schedule anywhere from 0 up to 14.85 lots this period.\n  - Resource use: each lot requires 9.22 units of chilled storage in Zone A; it needs no specialist analytical bench time and no Distillation Column B time.\n\nFacility Specs and Market Limits (this period)\n- Specialist analytical bench time available: up to 4.94 hours.\n- Chilled storage capacity in Zone A: up to 21.71 units.\n- Distillation Column B runtime available: up to 27.43 hours.\n\nOur intent is to choose nonnegative production and shipment levels within the above bounds to maximize total contribution while respecting these limits. Please use this as the basis for the production and storage plan."
+}

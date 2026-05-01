@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "Coefficients, bounds, objective, and <= caps are explicit; credits/reductions clarify signs. Minor ambiguity on integrality, but ranges and decimals imply continuous variables.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Business-style framing and coding requirements add verbosity, but data is structured and non-repetitive; most text maps directly to model elements.",
+      "realism": 93,
+      "realism_comment": "Scenario is plausible (emissions cap and support capacity). Credits/reductions are sensible; fractional runs/units slightly unrealistic but acceptable in LP."
+    },
+    "prompt_tokens_with_data": 715,
+    "prompt_tokens_without_data": 715
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 220.54482981361042,
+    "optimal_values": {
+      "Var_0": 14.15,
+      "Var_1": 1.8205637786250022,
+      "Var_2": 15.3,
+      "Var_3": 2.9939909297052156
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 59.33
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.01
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.15
+      ],
+      "objective_linear_coefficient": 7.41,
+      "resource_costs": {
+        "C0": -2.02,
+        "C1": 0.82
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.79
+      ],
+      "objective_linear_coefficient": 2.95,
+      "resource_costs": {
+        "C1": 9.1
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.3
+      ],
+      "objective_linear_coefficient": 6.06,
+      "resource_costs": {
+        "C0": 4.02,
+        "C1": 2.89
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.68
+      ],
+      "objective_linear_coefficient": 5.88,
+      "resource_costs": {
+        "C0": 8.82,
+        "C1": -5.47
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.15, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.41 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.79, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.95 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.3, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.06 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=8.68, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.88 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-2.02 * vars['Var_0'] + 4.02 * vars['Var_2'] + 8.82 * vars['Var_3'] <= 59.33, name='C0')\n    m.addConstr(0.82 * vars['Var_0'] + 9.1 * vars['Var_1'] + 2.89 * vars['Var_2'] + -5.47 * vars['Var_3'] <= 56.01, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Recommendation Request to Maximize Period Contribution Under Emissions and Support Capacity Caps\n\nTeam,\n\nFor the upcoming planning window, please recommend a mix that maximizes our contribution while staying within our emissions allowance and our customer support capacity. Below are the levers we can pull and how each one affects the two companywide limits.\n\nLevers we can adjust (in the order we\u2019d like you to consider them):\n- Eco-Blend A runs\n  - Financial impact: adds 7.41 in contribution per run.\n  - Emissions ledger: each run earns 2.02 emissions credits (it improves the ledger by 2.02 units).\n  - Support load: each run adds 0.82 points to the customer support load index.\n  - Availability: may schedule anywhere from 0 up to 14.15 runs; no minimum commitment beyond zero.\n\n- Starter Line shipments\n  - Financial impact: adds 2.95 in contribution per unit shipped.\n  - Emissions ledger: no draw on the emissions allowance (0 units).\n  - Support load: adds 9.1 points to the customer support load index per unit.\n  - Availability: may schedule anywhere from 0 up to 10.79 units; no minimum commitment beyond zero.\n\n- Pro Line shipments\n  - Financial impact: adds 6.06 in contribution per unit shipped.\n  - Emissions ledger: consumes 4.02 emissions units per unit shipped.\n  - Support load: adds 2.89 points to the customer support load index per unit.\n  - Availability: may schedule anywhere from 0 up to 15.3 units; no minimum commitment beyond zero.\n\n- Quality Upgrade kits\n  - Financial impact: adds 5.88 in contribution per kit deployed.\n  - Emissions ledger: consumes 8.82 emissions units per kit.\n  - Support load: reduces the customer support load index by 5.47 points per kit.\n  - Availability: may schedule anywhere from 0 up to 8.68 kits; no minimum commitment beyond zero.\n\nFacility & Market Limits for the period:\n- Emissions allowance: total net emissions usage (after any credits earned) must not exceed 59.33 units.\n- Customer support capacity: total support load index must not exceed 56.01 points.\n\nPlease optimize within these caps and the availability ranges above to achieve the highest possible contribution. If you need any clarifications on measurement units or timing assumptions, let me know."
+}

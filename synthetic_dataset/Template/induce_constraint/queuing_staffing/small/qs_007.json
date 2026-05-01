@@ -1,0 +1,907 @@
+{
+    "meta": {
+        "optimization_type": "LP",
+        "problem_type": "queuing staffing",
+        "goal": "MINIMIZE",
+        "num_vars": 48,
+        "num_constraints": 20,
+        "is_integer": true,
+        "prompt_tokens_with_data": 1252,
+        "prompt_tokens_without_data": 654
+    },
+    "instance_data": {
+        "n_stations": 4,
+        "n_staff_types": 12,
+        "arrival_rates": [
+            40.0,
+            31.0,
+            14.0,
+            36.0
+        ],
+        "handling_times": [
+            [
+                13.4,
+                0.0,
+                12.9,
+                7.4
+            ],
+            [
+                11.6,
+                2.8,
+                0.0,
+                11.3
+            ],
+            [
+                3.7,
+                6.9,
+                3.7,
+                3.3
+            ],
+            [
+                6.9,
+                2.7,
+                7.9,
+                6.0
+            ],
+            [
+                2.2,
+                2.6,
+                4.1,
+                5.8
+            ],
+            [
+                5.6,
+                4.9,
+                6.0,
+                4.3
+            ],
+            [
+                2.7,
+                0.0,
+                4.1,
+                2.5
+            ],
+            [
+                1.7,
+                2.5,
+                4.7,
+                5.1
+            ],
+            [
+                4.1,
+                3.5,
+                5.7,
+                0.0
+            ],
+            [
+                2.2,
+                0.0,
+                0.0,
+                0.0
+            ],
+            [
+                3.7,
+                1.8,
+                4.4,
+                4.6
+            ],
+            [
+                5.8,
+                3.8,
+                2.4,
+                2.1
+            ]
+        ],
+        "hourly_costs": [
+            15.13,
+            15.14,
+            19.06,
+            21.91,
+            24.57,
+            26.98,
+            28.08,
+            29.15,
+            38.02,
+            38.97,
+            41.48,
+            43.01
+        ],
+        "available_staff": [
+            2.0,
+            3.0,
+            2.0,
+            2.0,
+            3.0,
+            3.0,
+            2.0,
+            4.0,
+            3.0,
+            3.0,
+            2.0,
+            6.0
+        ],
+        "max_utilization": [
+            0.81,
+            0.82,
+            0.89,
+            0.84
+        ],
+        "min_staff_per_station": [
+            3.0,
+            1.0,
+            1.0,
+            3.0
+        ]
+    },
+    "gurobi_result": {
+        "solver_status": 2,
+        "theoretical_optimum": 175.88,
+        "optimal_values": {
+            "Assign_K0_S0": 1.0,
+            "Assign_K0_S1": 0.0,
+            "Assign_K0_S2": -0.0,
+            "Assign_K0_S3": 1.0,
+            "Assign_K1_S0": 0.0,
+            "Assign_K1_S1": 2.0,
+            "Assign_K1_S2": 0.0,
+            "Assign_K1_S3": -0.0,
+            "Assign_K2_S0": -0.0,
+            "Assign_K2_S1": -0.0,
+            "Assign_K2_S2": 1.0,
+            "Assign_K2_S3": 1.0,
+            "Assign_K3_S0": -0.0,
+            "Assign_K3_S1": -0.0,
+            "Assign_K3_S2": -0.0,
+            "Assign_K3_S3": -0.0,
+            "Assign_K4_S0": 2.0,
+            "Assign_K4_S1": -0.0,
+            "Assign_K4_S2": -0.0,
+            "Assign_K4_S3": -0.0,
+            "Assign_K5_S0": -0.0,
+            "Assign_K5_S1": -0.0,
+            "Assign_K5_S2": -0.0,
+            "Assign_K5_S3": -0.0,
+            "Assign_K6_S0": -0.0,
+            "Assign_K6_S1": 0.0,
+            "Assign_K6_S2": -0.0,
+            "Assign_K6_S3": 1.0,
+            "Assign_K7_S0": -0.0,
+            "Assign_K7_S1": -0.0,
+            "Assign_K7_S2": -0.0,
+            "Assign_K7_S3": -0.0,
+            "Assign_K8_S0": -0.0,
+            "Assign_K8_S1": -0.0,
+            "Assign_K8_S2": -0.0,
+            "Assign_K8_S3": 0.0,
+            "Assign_K9_S0": -0.0,
+            "Assign_K9_S1": 0.0,
+            "Assign_K9_S2": 0.0,
+            "Assign_K9_S3": 0.0,
+            "Assign_K10_S0": -0.0,
+            "Assign_K10_S1": -0.0,
+            "Assign_K10_S2": -0.0,
+            "Assign_K10_S3": -0.0,
+            "Assign_K11_S0": -0.0,
+            "Assign_K11_S1": -0.0,
+            "Assign_K11_S2": -0.0,
+            "Assign_K11_S3": -0.0
+        }
+    },
+    "constraints": {
+        "Avail_K0": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 2.0
+        },
+        "Avail_K1": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "Avail_K2": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 2.0
+        },
+        "Avail_K3": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 2.0
+        },
+        "Avail_K4": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "Avail_K5": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "Avail_K6": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 2.0
+        },
+        "Avail_K7": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 4.0
+        },
+        "Avail_K8": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "Avail_K9": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 3.0
+        },
+        "Avail_K10": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 2.0
+        },
+        "Avail_K11": {
+            "type": "Constraint",
+            "sense": "<=",
+            "rhs": 6.0
+        },
+        "Capacity_S0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 49.382716049382715
+        },
+        "Capacity_S1": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 37.80487804878049
+        },
+        "Capacity_S2": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 15.730337078651685
+        },
+        "Capacity_S3": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 42.85714285714286
+        },
+        "MinStaff_S0": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 3.0
+        },
+        "MinStaff_S1": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 1.0
+        },
+        "MinStaff_S2": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 1.0
+        },
+        "MinStaff_S3": {
+            "type": "Constraint",
+            "sense": ">=",
+            "rhs": 3.0
+        }
+    },
+    "variables": {
+        "Assign_K0_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 15.13,
+            "resource_costs": {
+                "Avail_K0": 1.0,
+                "Capacity_S0": 4.477611940298507,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K0_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                0.0
+            ],
+            "objective_linear_coefficient": 15.13,
+            "resource_costs": {
+                "Avail_K0": 1.0
+            }
+        },
+        "Assign_K0_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 15.13,
+            "resource_costs": {
+                "Avail_K0": 1.0,
+                "Capacity_S2": 4.651162790697675,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K0_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 15.13,
+            "resource_costs": {
+                "Avail_K0": 1.0,
+                "Capacity_S3": 8.108108108108107,
+                "MinStaff_S3": 1.0
+            }
+        },
+        "Assign_K1_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 15.14,
+            "resource_costs": {
+                "Avail_K1": 1.0,
+                "Capacity_S0": 5.172413793103448,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K1_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 15.14,
+            "resource_costs": {
+                "Avail_K1": 1.0,
+                "Capacity_S1": 21.42857142857143,
+                "MinStaff_S1": 1.0
+            }
+        },
+        "Assign_K1_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                0.0
+            ],
+            "objective_linear_coefficient": 15.14,
+            "resource_costs": {
+                "Avail_K1": 1.0
+            }
+        },
+        "Assign_K1_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 15.14,
+            "resource_costs": {
+                "Avail_K1": 1.0,
+                "Capacity_S3": 5.309734513274336,
+                "MinStaff_S3": 1.0
+            }
+        },
+        "Assign_K2_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 19.06,
+            "resource_costs": {
+                "Avail_K2": 1.0,
+                "Capacity_S0": 16.216216216216214,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K2_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 19.06,
+            "resource_costs": {
+                "Avail_K2": 1.0,
+                "Capacity_S1": 8.695652173913043,
+                "MinStaff_S1": 1.0
+            }
+        },
+        "Assign_K2_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 19.06,
+            "resource_costs": {
+                "Avail_K2": 1.0,
+                "Capacity_S2": 16.216216216216214,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K2_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 19.06,
+            "resource_costs": {
+                "Avail_K2": 1.0,
+                "Capacity_S3": 18.181818181818183,
+                "MinStaff_S3": 1.0
+            }
+        },
+        "Assign_K3_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 21.91,
+            "resource_costs": {
+                "Avail_K3": 1.0,
+                "Capacity_S0": 8.695652173913043,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K3_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 21.91,
+            "resource_costs": {
+                "Avail_K3": 1.0,
+                "Capacity_S1": 22.22222222222222,
+                "MinStaff_S1": 1.0
+            }
+        },
+        "Assign_K3_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 21.91,
+            "resource_costs": {
+                "Avail_K3": 1.0,
+                "Capacity_S2": 7.594936708860759,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K3_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 21.91,
+            "resource_costs": {
+                "Avail_K3": 1.0,
+                "Capacity_S3": 10.0,
+                "MinStaff_S3": 1.0
+            }
+        },
+        "Assign_K4_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 24.57,
+            "resource_costs": {
+                "Avail_K4": 1.0,
+                "Capacity_S0": 27.27272727272727,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K4_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 24.57,
+            "resource_costs": {
+                "Avail_K4": 1.0,
+                "Capacity_S1": 23.076923076923077,
+                "MinStaff_S1": 1.0
+            }
+        },
+        "Assign_K4_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 24.57,
+            "resource_costs": {
+                "Avail_K4": 1.0,
+                "Capacity_S2": 14.634146341463415,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K4_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 24.57,
+            "resource_costs": {
+                "Avail_K4": 1.0,
+                "Capacity_S3": 10.344827586206897,
+                "MinStaff_S3": 1.0
+            }
+        },
+        "Assign_K5_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 26.98,
+            "resource_costs": {
+                "Avail_K5": 1.0,
+                "Capacity_S0": 10.714285714285715,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K5_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 26.98,
+            "resource_costs": {
+                "Avail_K5": 1.0,
+                "Capacity_S1": 12.244897959183673,
+                "MinStaff_S1": 1.0
+            }
+        },
+        "Assign_K5_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 26.98,
+            "resource_costs": {
+                "Avail_K5": 1.0,
+                "Capacity_S2": 10.0,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K5_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 26.98,
+            "resource_costs": {
+                "Avail_K5": 1.0,
+                "Capacity_S3": 13.953488372093023,
+                "MinStaff_S3": 1.0
+            }
+        },
+        "Assign_K6_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 28.08,
+            "resource_costs": {
+                "Avail_K6": 1.0,
+                "Capacity_S0": 22.22222222222222,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K6_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                0.0
+            ],
+            "objective_linear_coefficient": 28.08,
+            "resource_costs": {
+                "Avail_K6": 1.0
+            }
+        },
+        "Assign_K6_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 28.08,
+            "resource_costs": {
+                "Avail_K6": 1.0,
+                "Capacity_S2": 14.634146341463415,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K6_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 28.08,
+            "resource_costs": {
+                "Avail_K6": 1.0,
+                "Capacity_S3": 24.0,
+                "MinStaff_S3": 1.0
+            }
+        },
+        "Assign_K7_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                4.0
+            ],
+            "objective_linear_coefficient": 29.15,
+            "resource_costs": {
+                "Avail_K7": 1.0,
+                "Capacity_S0": 35.294117647058826,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K7_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                4.0
+            ],
+            "objective_linear_coefficient": 29.15,
+            "resource_costs": {
+                "Avail_K7": 1.0,
+                "Capacity_S1": 24.0,
+                "MinStaff_S1": 1.0
+            }
+        },
+        "Assign_K7_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                4.0
+            ],
+            "objective_linear_coefficient": 29.15,
+            "resource_costs": {
+                "Avail_K7": 1.0,
+                "Capacity_S2": 12.76595744680851,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K7_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                4.0
+            ],
+            "objective_linear_coefficient": 29.15,
+            "resource_costs": {
+                "Avail_K7": 1.0,
+                "Capacity_S3": 11.764705882352942,
+                "MinStaff_S3": 1.0
+            }
+        },
+        "Assign_K8_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 38.02,
+            "resource_costs": {
+                "Avail_K8": 1.0,
+                "Capacity_S0": 14.634146341463415,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K8_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 38.02,
+            "resource_costs": {
+                "Avail_K8": 1.0,
+                "Capacity_S1": 17.142857142857142,
+                "MinStaff_S1": 1.0
+            }
+        },
+        "Assign_K8_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 38.02,
+            "resource_costs": {
+                "Avail_K8": 1.0,
+                "Capacity_S2": 10.526315789473683,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K8_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                0.0
+            ],
+            "objective_linear_coefficient": 38.02,
+            "resource_costs": {
+                "Avail_K8": 1.0
+            }
+        },
+        "Assign_K9_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                3.0
+            ],
+            "objective_linear_coefficient": 38.97,
+            "resource_costs": {
+                "Avail_K9": 1.0,
+                "Capacity_S0": 27.27272727272727,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K9_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                0.0
+            ],
+            "objective_linear_coefficient": 38.97,
+            "resource_costs": {
+                "Avail_K9": 1.0
+            }
+        },
+        "Assign_K9_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                0.0
+            ],
+            "objective_linear_coefficient": 38.97,
+            "resource_costs": {
+                "Avail_K9": 1.0
+            }
+        },
+        "Assign_K9_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                0.0
+            ],
+            "objective_linear_coefficient": 38.97,
+            "resource_costs": {
+                "Avail_K9": 1.0
+            }
+        },
+        "Assign_K10_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 41.48,
+            "resource_costs": {
+                "Avail_K10": 1.0,
+                "Capacity_S0": 16.216216216216214,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K10_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 41.48,
+            "resource_costs": {
+                "Avail_K10": 1.0,
+                "Capacity_S1": 33.333333333333336,
+                "MinStaff_S1": 1.0
+            }
+        },
+        "Assign_K10_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 41.48,
+            "resource_costs": {
+                "Avail_K10": 1.0,
+                "Capacity_S2": 13.636363636363635,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K10_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                2.0
+            ],
+            "objective_linear_coefficient": 41.48,
+            "resource_costs": {
+                "Avail_K10": 1.0,
+                "Capacity_S3": 13.043478260869566,
+                "MinStaff_S3": 1.0
+            }
+        },
+        "Assign_K11_S0": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                6.0
+            ],
+            "objective_linear_coefficient": 43.01,
+            "resource_costs": {
+                "Avail_K11": 1.0,
+                "Capacity_S0": 10.344827586206897,
+                "MinStaff_S0": 1.0
+            }
+        },
+        "Assign_K11_S1": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                6.0
+            ],
+            "objective_linear_coefficient": 43.01,
+            "resource_costs": {
+                "Avail_K11": 1.0,
+                "Capacity_S1": 15.789473684210527,
+                "MinStaff_S1": 1.0
+            }
+        },
+        "Assign_K11_S2": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                6.0
+            ],
+            "objective_linear_coefficient": 43.01,
+            "resource_costs": {
+                "Avail_K11": 1.0,
+                "Capacity_S2": 25.0,
+                "MinStaff_S2": 1.0
+            }
+        },
+        "Assign_K11_S3": {
+            "type": "Integer",
+            "range": [
+                0.0,
+                6.0
+            ],
+            "objective_linear_coefficient": 43.01,
+            "resource_costs": {
+                "Avail_K11": 1.0,
+                "Capacity_S3": 28.57142857142857,
+                "MinStaff_S3": 1.0
+            }
+        }
+    },
+    "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    m = Model(\"Queuing_Staffing\")\n    m.setParam('TimeLimit', 300)\n\n    # --- Data ---\n    n_stations = 4\n    n_staff_types = 12\n    arrival_rates = [40.0, 31.0, 14.0, 36.0]  # customers/hour\n    handling_times = [[13.4, 0.0, 12.9, 7.4], [11.6, 2.8, 0.0, 11.3], [3.7, 6.9, 3.7, 3.3], [6.9, 2.7, 7.9, 6.0], [2.2, 2.6, 4.1, 5.8], [5.6, 4.9, 6.0, 4.3], [2.7, 0.0, 4.1, 2.5], [1.7, 2.5, 4.7, 5.1], [4.1, 3.5, 5.7, 0.0], [2.2, 0.0, 0.0, 0.0], [3.7, 1.8, 4.4, 4.6], [5.8, 3.8, 2.4, 2.1]]  # minutes/customer [staff_type][station]\n    hourly_costs = [15.13, 15.14, 19.06, 21.91, 24.57, 26.98, 28.08, 29.15, 38.02, 38.97, 41.48, 43.01]  # $/hour per staff type\n    available_staff = [2.0, 3.0, 2.0, 2.0, 3.0, 3.0, 2.0, 4.0, 3.0, 3.0, 2.0, 6.0]  # max available per type\n    max_utilization = [0.81, 0.82, 0.89, 0.84]  # utilization cap per station\n    min_staff = [3.0, 1.0, 1.0, 3.0]  # minimum staff per station\n\n    # COMPUTE service rates from handling times (INDUCED)\n    # handling_time is in minutes/customer, we need customers/hour\n    service_rate = {}\n    for k in range(n_staff_types):\n        for i in range(n_stations):\n            ht = handling_times[k][i]\n            service_rate[(k,i)] = 60.0 / ht if ht > 0 else 0.0\n\n    # COMPUTE capacity thresholds (INDUCED)\n    min_capacity = [arrival_rates[i] / max_utilization[i] for i in range(n_stations)]\n\n    # --- Variables ---\n    assign = {}\n    for k in range(n_staff_types):\n        for i in range(n_stations):\n            ub = int(available_staff[k]) if handling_times[k][i] > 0 else 0\n            assign[(k,i)] = m.addVar(lb=0, ub=ub, vtype=GRB.INTEGER,\n                                     name=f\"Assign_K{k}_S{i}\")\n\n    # --- Objective: minimize total hourly cost ---\n    m.setObjective(\n        quicksum(hourly_costs[k] * assign[(k,i)]\n                 for k in range(n_staff_types) for i in range(n_stations)),\n        GRB.MINIMIZE)\n\n    # --- Constraints ---\n    # Staff availability\n    for k in range(n_staff_types):\n        m.addConstr(\n            quicksum(assign[(k,i)] for i in range(n_stations)) <= available_staff[k],\n            name=f\"Avail_K{k}\")\n\n    # Capacity (induced): aggregate service rate >= arrival / max_util\n    for i in range(n_stations):\n        m.addConstr(\n            quicksum(service_rate[(k,i)] * assign[(k,i)]\n                     for k in range(n_staff_types) if handling_times[k][i] > 0)\n            >= min_capacity[i],\n            name=f\"Capacity_S{i}\")\n\n    # Minimum staffing\n    for i in range(n_stations):\n        m.addConstr(\n            quicksum(assign[(k,i)] for k in range(n_staff_types)\n                     if handling_times[k][i] > 0)\n            >= min_staff[i],\n            name=f\"MinStaff_S{i}\")\n\n    m.optimize()\n    return m\n```",
+    "LLM_description": "To: Service Center Leadership Team\nFrom: Service Operations Manager\nSubject: Staffing assignment review for multi-station service center\n\nPurpose\nWe are conducting a staffing review to align resources across our help desks, counters, and departmental service stations so that we meet expected demand while controlling cost and protecting service quality.\n\nSituation\nCustomers arrive at each station throughout the day at a known hourly pace. We have several types of staff available, each with different skill levels and access privileges. Depending on the station, staff process customers at different speeds, measured as average minutes per customer. Not all staff types are qualified for every station, which limits some assignments.\n\nStaffing Challenge\nThe core decision is how many people of each staff type to place at each station. There are many possible assignments, but some are restricted due to qualifications. Handling speeds vary widely by staff type and station; lower-cost staff may work more slowly, while higher-cost staff may process customers faster. The right mix must ensure each station can keep up with demand reliably without overworking employees, while staying within total available headcount by staff type.\n\nService Policies and Operating Requirements\n- Demand coverage: We will plan capacity station by station against the hourly arrival volumes. Because handling speed is tracked in minutes per customer, we will reconcile these measures to ensure fair comparisons across staff types and stations.\n- Utilization policy: To maintain service quality and reduce burnout, staff at each station should not be occupied more than a defined fraction of their time. In practical terms, this means the team\u2019s combined pace at a station should comfortably stay ahead of the expected inflow, leaving room for variability, brief interruptions, and ancillary tasks.\n- Minimum coverage: Each station must have a baseline number of staff in position at all times for coverage and customer visibility.\n- Qualification limits: Some staff types cannot work certain stations; these assignments are off-limits.\n- Availability limits: The plan cannot assign more employees of a given type than we have available.\n- Cost awareness: Hourly pay differs by staff type, so alternative mixes can meet the same workload at different costs.\n\nGoal\nDevelop a station-by-station staffing mix that:\n- Meets expected arrival volumes under the utilization policy\n- Satisfies minimum coverage requirements\n- Uses only qualified staff within available headcount\n- Minimizes total hourly staffing cost\n\nNext Steps\n- Confirm arrival-rate forecasts and handling-time observations by station and staff type\n- Validate qualification restrictions and available headcount by type\n- Produce a recommended staffing assignment and cost summary\n- Provide sensitivity views to illustrate how changes in demand or handling speeds affect staffing and cost\n\nANNEX \u2013 Operational Data\n- Number of service stations: 4\n- Number of staff types: 12\n- Arrival rates by station (customers/hour): Arrival Rates (customers per hour):\n  - Station 0: 40 customers/hour\n  - Station 1: 31 customers/hour\n  - Station 2: 14 customers/hour\n  - Station 3: 36 customers/hour\n- Handling times by station and staff type (minutes/customer; entries not applicable indicate not qualified): Average Handling Time (minutes per customer, by staff type and station):\n  A value of 0 means the staff type is not qualified for that station.\nStaff Type \\ Station | S0 | S1 | S2 | S3\n----------------------------------------\nType 0              |  13.4 |   N/A |  12.9 |   7.4\nType 1              |  11.6 |   2.8 |   N/A |  11.3\nType 2              |   3.7 |   6.9 |   3.7 |   3.3\nType 3              |   6.9 |   2.7 |   7.9 |   6.0\nType 4              |   2.2 |   2.6 |   4.1 |   5.8\nType 5              |   5.6 |   4.9 |   6.0 |   4.3\nType 6              |   2.7 |   N/A |   4.1 |   2.5\nType 7              |   1.7 |   2.5 |   4.7 |   5.1\nType 8              |   4.1 |   3.5 |   5.7 |   N/A\nType 9              |   2.2 |   N/A |   N/A |   N/A\nType 10              |   3.7 |   1.8 |   4.4 |   4.6\nType 11              |   5.8 |   3.8 |   2.4 |   2.1\n- Hourly cost by staff type: [15.13, 15.14, 19.06, 21.91, 24.57, 26.98, 28.08, 29.15, 38.02, 38.97, 41.48, 43.01]\n- Available staff by type: [2.0, 3.0, 2.0, 2.0, 3.0, 3.0, 2.0, 4.0, 3.0, 3.0, 2.0, 6.0]\n- Target maximum staff utilization (fraction of time): Maximum Utilization Policy (fraction of time staff may be busy):\n  - Station 0: 0.81\n  - Station 1: 0.82\n  - Station 2: 0.89\n  - Station 3: 0.84\n- Minimum staff coverage by station: [3.0, 1.0, 1.0, 3.0]",
+    "LLM_description_template": "To: Service Center Leadership Team\nFrom: Service Operations Manager\nSubject: Staffing assignment review for multi-station service center\n\nPurpose\nWe are conducting a staffing review to align resources across our help desks, counters, and departmental service stations so that we meet expected demand while controlling cost and protecting service quality.\n\nSituation\nCustomers arrive at each station throughout the day at a known hourly pace. We have several types of staff available, each with different skill levels and access privileges. Depending on the station, staff process customers at different speeds, measured as average minutes per customer. Not all staff types are qualified for every station, which limits some assignments.\n\nStaffing Challenge\nThe core decision is how many people of each staff type to place at each station. There are many possible assignments, but some are restricted due to qualifications. Handling speeds vary widely by staff type and station; lower-cost staff may work more slowly, while higher-cost staff may process customers faster. The right mix must ensure each station can keep up with demand reliably without overworking employees, while staying within total available headcount by staff type.\n\nService Policies and Operating Requirements\n- Demand coverage: We will plan capacity station by station against the hourly arrival volumes. Because handling speed is tracked in minutes per customer, we will reconcile these measures to ensure fair comparisons across staff types and stations.\n- Utilization policy: To maintain service quality and reduce burnout, staff at each station should not be occupied more than a defined fraction of their time. In practical terms, this means the team\u2019s combined pace at a station should comfortably stay ahead of the expected inflow, leaving room for variability, brief interruptions, and ancillary tasks.\n- Minimum coverage: Each station must have a baseline number of staff in position at all times for coverage and customer visibility.\n- Qualification limits: Some staff types cannot work certain stations; these assignments are off-limits.\n- Availability limits: The plan cannot assign more employees of a given type than we have available.\n- Cost awareness: Hourly pay differs by staff type, so alternative mixes can meet the same workload at different costs.\n\nGoal\nDevelop a station-by-station staffing mix that:\n- Meets expected arrival volumes under the utilization policy\n- Satisfies minimum coverage requirements\n- Uses only qualified staff within available headcount\n- Minimizes total hourly staffing cost\n\nNext Steps\n- Confirm arrival-rate forecasts and handling-time observations by station and staff type\n- Validate qualification restrictions and available headcount by type\n- Produce a recommended staffing assignment and cost summary\n- Provide sensitivity views to illustrate how changes in demand or handling speeds affect staffing and cost\n\nANNEX \u2013 Operational Data\n- Number of service stations: {NUM_STATIONS}\n- Number of staff types: {NUM_STAFF_TYPES}\n- Arrival rates by station (customers/hour): {ARRIVAL_RATES}\n- Handling times by station and staff type (minutes/customer; entries not applicable indicate not qualified): {HANDLING_TIMES}\n- Hourly cost by staff type: {HOURLY_COSTS}\n- Available staff by type: {AVAILABLE_STAFF}\n- Target maximum staff utilization (fraction of time): {MAX_UTILIZATION}\n- Minimum staff coverage by station: {MIN_STAFF}"
+}

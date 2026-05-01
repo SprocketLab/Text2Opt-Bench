@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Coefficients, integrality, 0-to-cap bounds, and resource ceilings are all explicit; each item\u2019s resource use maps directly to constraints; objective to maximize gross margin is clear.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Email-style prose and repeated \u201cno usage\u201d statements add verbosity, but the technical details are all pertinent and non-repetitive in content.",
+      "realism": 88,
+      "realism_comment": "Realistic brewery planning with materials, time, cellar, and carbon credits; slight oddity is decimal caps on integer counts, but overall very plausible."
+    },
+    "prompt_tokens_with_data": 989,
+    "prompt_tokens_without_data": 989
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 185.48000000000002,
+    "optimal_values": {
+      "Var_0": 2.0,
+      "Var_1": 1.0,
+      "Var_2": 4.0,
+      "Var_3": 5.0,
+      "Var_4": 11.0,
+      "Var_5": 9.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 44.11
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 3.71
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.79
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 37.35
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 8.23
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.65
+      ],
+      "objective_linear_coefficient": 5.96,
+      "resource_costs": {
+        "C1": 1.43
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.53
+      ],
+      "objective_linear_coefficient": 2.51,
+      "resource_costs": {
+        "C4": 3.03
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.22
+      ],
+      "objective_linear_coefficient": 1.05,
+      "resource_costs": {
+        "C0": 2.59,
+        "C2": 3.11,
+        "C3": 4.09
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.21
+      ],
+      "objective_linear_coefficient": 4.9,
+      "resource_costs": {}
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.6
+      ],
+      "objective_linear_coefficient": 5.16,
+      "resource_costs": {
+        "C0": 2.89
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.33
+      ],
+      "objective_linear_coefficient": 9.51,
+      "resource_costs": {
+        "C4": 0.34
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.65, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.96 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.53, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.51 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.22, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 1.05 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=5.21, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.9 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.6, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 5.16 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.33, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.51 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.59 * vars['Var_2'] + 2.89 * vars['Var_4'] <= 44.11, name='C0')\n    m.addConstr(1.43 * vars['Var_0'] <= 3.71, name='C1')\n    m.addConstr(3.11 * vars['Var_2'] <= 29.79, name='C2')\n    m.addConstr(4.09 * vars['Var_2'] <= 37.35, name='C3')\n    m.addConstr(3.03 * vars['Var_1'] + 0.34 * vars['Var_5'] <= 8.23, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Maximizing Q3 Contribution Within Plant and Compliance Limits\n\nTeam,\n\nWe\u2019re preparing the Q3 mix and need your guidance on how to allocate limited plant capacity and compliance allowances to maximize total gross contribution. All choices must be scheduled in whole units (no fractional runs), but the caps noted below reflect operational and permitting ceilings. Here are the six levers under consideration, in order, with their per\u2011unit contribution and how each one draws on our limited resources.\n\n1) Amber Reserve pilot batches\n- Financials: Each batch contributes 5.96 to gross margin.\n- Resource use: Requires 1.43 hours of Master Brewer oversight per batch. There is no draw on Primary Base Stock A, no Kettle Boil time, no Cold Cellar days, and no Carbon Offset credits for this item.\n- Practical limits: We can schedule any whole number of batches from 0 up to a cap of 8.65.\n\n2) Citrus Light promotional runs\n- Financials: Each run contributes 2.51 to gross margin.\n- Resource use: Requires 3.03 Carbon Offset credits per run. There is no usage of Primary Base Stock A, no Master Brewer oversight, no Kettle Boil time, and no Cold Cellar days for this item.\n- Practical limits: We can schedule any whole number of runs from 0 up to a cap of 6.53.\n\n3) Classic Draft production runs\n- Financials: Each run contributes 1.05 to gross margin.\n- Resource use: Draws 2.59 units of Primary Base Stock A, 3.11 hours of Kettle Boil time, and 4.09 Cold Cellar days per run. There is no Master Brewer oversight and no Carbon Offset credit requirement for this item.\n- Practical limits: We can schedule any whole number of runs from 0 up to a cap of 17.22.\n\n4) Taproom release nights\n- Financials: Each release night contributes 4.9 to gross margin.\n- Resource use: Does not use Primary Base Stock A, Master Brewer oversight, Kettle Boil time, Cold Cellar days, or Carbon Offset credits.\n- Practical limits: We can plan any whole number of nights from 0 up to a cap of 5.21.\n\n5) Oak\u2011Aged premium casks\n- Financials: Each cask contributes 5.16 to gross margin.\n- Resource use: Draws 2.89 units of Primary Base Stock A per cask. There is no need for Master Brewer oversight, no Kettle Boil time, no Cold Cellar days, and no Carbon Offset credits for this item.\n- Practical limits: We can schedule any whole number of casks from 0 up to a cap of 11.6.\n\n6) Zero\u2011Sugar flagship packs\n- Financials: Each pack contributes 9.51 to gross margin.\n- Resource use: Requires 0.34 Carbon Offset credits per pack. There is no usage of Primary Base Stock A, no Master Brewer oversight, no Kettle Boil time, and no Cold Cellar days.\n- Practical limits: We can schedule any whole number of packs from 0 up to a cap of 9.33.\n\nFacility and Market Limits (do not exceed)\n- Primary Base Stock A availability: up to 44.11 units total across all items that consume it.\n- Master Brewer oversight: up to 3.71 hours total.\n- Kettle Boil time: up to 29.79 hours total.\n- Cold Cellar occupancy: up to 37.35 days total.\n- Carbon Offset credits: up to 8.23 credits total.\n\nPlease recommend the whole\u2011number mix of the above that maximizes total gross contribution while staying within these plant and compliance limits."
+}

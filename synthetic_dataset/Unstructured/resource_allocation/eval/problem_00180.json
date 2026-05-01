@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, coefficients, and RHS are explicit; partial batches imply continuous vars. Objective and <= constraints map exactly to resources with clear units and maxima.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some business narrative and repeated 'none' entries add mild verbosity, but the coefficients and limits are clearly enumerated and necessary.",
+      "realism": 100,
+      "realism_comment": "A realistic production mix planning scenario with plausible resources (reactor, QA, storage, docks), consistent units, and a clear contribution-maximizing objective."
+    },
+    "prompt_tokens_with_data": 840,
+    "prompt_tokens_without_data": 840
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 158.5106362257033,
+    "optimal_values": {
+      "Var_0": 1.0263448124918835,
+      "Var_1": 5.611337705616114,
+      "Var_2": 11.88,
+      "Var_3": 4.6536518992422495,
+      "Var_4": 2.465283836013083
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 40.66
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 47.15
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.8
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.75
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.0
+      ],
+      "objective_linear_coefficient": 2.98,
+      "resource_costs": {
+        "C0": 6.35,
+        "C1": 0.93
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.16
+      ],
+      "objective_linear_coefficient": 9.71,
+      "resource_costs": {
+        "C1": 7.03,
+        "C2": 3.0,
+        "C3": 6.09
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.88
+      ],
+      "objective_linear_coefficient": 5.99,
+      "resource_costs": {
+        "C0": 1.66
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.87
+      ],
+      "objective_linear_coefficient": 4.72,
+      "resource_costs": {
+        "C1": 1.45,
+        "C3": 8.58
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.56
+      ],
+      "objective_linear_coefficient": 3.18,
+      "resource_costs": {
+        "C0": 5.85,
+        "C2": 2.42,
+        "C3": 1.48
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.0, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.98 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.16, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.71 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.88, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.99 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.87, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.72 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.56, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.18 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.35 * vars['Var_0'] + 1.66 * vars['Var_2'] + 5.85 * vars['Var_4'] <= 40.66, name='C0')\n    m.addConstr(0.93 * vars['Var_0'] + 7.03 * vars['Var_1'] + 1.45 * vars['Var_3'] <= 47.15, name='C1')\n    m.addConstr(3.0 * vars['Var_1'] + 2.42 * vars['Var_4'] <= 22.8, name='C2')\n    m.addConstr(6.09 * vars['Var_1'] + 8.58 * vars['Var_3'] + 1.48 * vars['Var_4'] <= 77.75, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan request to maximize contribution under current plant limits\n\nHi team,\n\nWe\u2019re setting our production mix for the upcoming window and want to maximize total contribution while staying within four plant limits: Reactor A run time, Pack & QA line hours, Cold Storage, and Outbound Dock capacity. We can schedule partial batches and are fine producing zero of any item if needed, but we cannot exceed the maximum volumes noted below.\n\nHere are the five levers we can pull, in order:\n\n- Silverline Base Resin\n  - Target economics: each batch adds 2.98 to contribution.\n  - Volume flexibility: anywhere from 0 up to 13.00 batches this window.\n  - Resource impacts per batch:\n    - Reactor A: 6.35 hours.\n    - Pack & QA: 0.93 hours.\n    - Cold Storage: none.\n    - Outbound Docks: none.\n\n- CryoSeal Adhesive\n  - Target economics: each batch adds 9.71 to contribution.\n  - Volume flexibility: anywhere from 0 up to 8.16 batches.\n  - Resource impacts per batch:\n    - Reactor A: none.\n    - Pack & QA: 7.03 hours.\n    - Cold Storage: 3.0 pallet\u2011days.\n    - Outbound Docks: 6.09 slot\u2011hours.\n\n- Catalyst X Booster\n  - Target economics: each batch adds 5.99 to contribution.\n  - Volume flexibility: anywhere from 0 up to 11.88 batches.\n  - Resource impacts per batch:\n    - Reactor A: 1.66 hours.\n    - Pack & QA: none.\n    - Cold Storage: none.\n    - Outbound Docks: none.\n\n- Bulk Solvent Blend\n  - Target economics: each batch adds 4.72 to contribution.\n  - Volume flexibility: anywhere from 0 up to 19.87 batches.\n  - Resource impacts per batch:\n    - Reactor A: none.\n    - Pack & QA: 1.45 hours.\n    - Cold Storage: none.\n    - Outbound Docks: 8.58 slot\u2011hours.\n\n- Chilled Polymer Gel\n  - Target economics: each batch adds 3.18 to contribution.\n  - Volume flexibility: anywhere from 0 up to 9.56 batches.\n  - Resource impacts per batch:\n    - Reactor A: 5.85 hours.\n    - Pack & QA: none.\n    - Cold Storage: 2.42 pallet\u2011days.\n    - Outbound Docks: 1.48 slot\u2011hours.\n\nFacility specs and limits for this planning window:\n- Reactor A available run time: no more than 40.66 hours total.\n- Pack & QA line availability: no more than 47.15 hours total.\n- Cold Storage capacity: no more than 22.8 pallet\u2011days total.\n- Outbound Dock capacity: no more than 77.75 slot\u2011hours total.\n\nPlease come back with the production mix that delivers the highest total contribution within these limits."
+}

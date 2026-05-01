@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 8,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, integrality, contributions, and resource coefficients are clearly specified; capacities are explicit with <=; objective is maximize contribution. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business framing and coding boilerplate add length, but the numeric specs are concise and non-repetitive. Most content is necessary to define the model.",
+      "realism": 95,
+      "realism_comment": "Very plausible production-mix model with realistic resources and quotas; integer batch/run rules fit operations. Minor naming quirks but overall highly realistic."
+    },
+    "prompt_tokens_with_data": 1189,
+    "prompt_tokens_without_data": 1189
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 256.2527975141917,
+    "optimal_values": {
+      "Var_0": 8.325664274229643,
+      "Var_1": 0.0,
+      "Var_2": 12.0,
+      "Var_3": 8.346647624623742,
+      "Var_4": 1.0,
+      "Var_5": 1.3020534102782928,
+      "Var_6": 10.212335692618806,
+      "Var_7": 4.0,
+      "Var_8": 1.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 85.33
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.56
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 66.65
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.0
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 76.13
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 101.57
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 111.46
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 11.08
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.02
+      ],
+      "objective_linear_coefficient": 6.24,
+      "resource_costs": {
+        "C1": 1.22,
+        "C3": 1.35,
+        "C6": 0.15
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.68
+      ],
+      "objective_linear_coefficient": 1.68,
+      "resource_costs": {
+        "C3": 1.74,
+        "C4": 1.52,
+        "C5": 2.2,
+        "C7": 5.26
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.17
+      ],
+      "objective_linear_coefficient": 2.82,
+      "resource_costs": {
+        "C2": 4.75
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.23
+      ],
+      "objective_linear_coefficient": 2.66,
+      "resource_costs": {
+        "C0": 1.84,
+        "C4": 5.46,
+        "C6": 9.97
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.32
+      ],
+      "objective_linear_coefficient": 1.49,
+      "resource_costs": {
+        "C7": 8.85
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.51
+      ],
+      "objective_linear_coefficient": 9.23,
+      "resource_costs": {
+        "C0": 6.32,
+        "C3": 2.12,
+        "C4": 3.07,
+        "C6": 2.34
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.04
+      ],
+      "objective_linear_coefficient": 9.94,
+      "resource_costs": {
+        "C0": 4.85,
+        "C1": 2.65,
+        "C5": 9.89
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.61
+      ],
+      "objective_linear_coefficient": 7.48,
+      "resource_costs": {
+        "C1": 4.78,
+        "C4": 6.64,
+        "C6": 1.46
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        5.21
+      ],
+      "objective_linear_coefficient": 3.32,
+      "resource_costs": {
+        "C0": 1.15,
+        "C1": 0.22,
+        "C2": 7.87,
+        "C5": 0.57,
+        "C6": 9.26,
+        "C7": 0.13
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.02, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.24 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.68, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.68 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=12.17, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.82 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.23, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 2.66 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.32, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.49 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.51, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 9.23 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=13.04, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 9.94 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.61, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 7.48 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=5.21, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 3.32 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.84 * vars['Var_3'] + 6.32 * vars['Var_5'] + 4.85 * vars['Var_6'] + 1.15 * vars['Var_8'] <= 85.33, name='C0')\n    m.addConstr(1.22 * vars['Var_0'] + 2.65 * vars['Var_6'] + 4.78 * vars['Var_7'] + 0.22 * vars['Var_8'] <= 56.56, name='C1')\n    m.addConstr(4.75 * vars['Var_2'] + 7.87 * vars['Var_8'] <= 66.65, name='C2')\n    m.addConstr(1.35 * vars['Var_0'] + 1.74 * vars['Var_1'] + 2.12 * vars['Var_5'] <= 14.0, name='C3')\n    m.addConstr(1.52 * vars['Var_1'] + 5.46 * vars['Var_3'] + 3.07 * vars['Var_5'] + 6.64 * vars['Var_7'] <= 76.13, name='C4')\n    m.addConstr(2.2 * vars['Var_1'] + 9.89 * vars['Var_6'] + 0.57 * vars['Var_8'] <= 101.57, name='C5')\n    m.addConstr(0.15 * vars['Var_0'] + 9.97 * vars['Var_3'] + 2.34 * vars['Var_5'] + 1.46 * vars['Var_7'] + 9.26 * vars['Var_8'] <= 111.46, name='C6')\n    m.addConstr(5.26 * vars['Var_1'] + 8.85 * vars['Var_4'] + 0.13 * vars['Var_8'] <= 11.08, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q1 Product Mix \u2013 Request to Maximize Contribution Within Plant and Market Limits\n\nTeam,\n\nWe\u2019re planning the Q1 production mix across our beverage portfolio and want to position volumes to maximize total contribution while staying within our plant capacities and market limits. Some lines can be scheduled in fractional runs; others must be whole batches. Below are the levers and their operational impacts.\n\n- Cascade Session Ale (flexible run size)\n  - Minimum commitment: 0 runs; maximum: 12.02 runs; partial runs permitted.\n  - Contribution: 6.24 per run.\n  - Resource use per run: 1.22 hours from the skilled brewing team, 1.35 units of specialty hops/additives, and 0.15 units of quality lab throughput.\n\n- Imperial Seasonal IPA (flexible run size)\n  - Minimum commitment: 0 runs; maximum: 12.68 runs; partial runs permitted.\n  - Contribution: 1.68 per run.\n  - Resource use per run: 1.74 units of specialty hops/additives, 1.52 units of packaging line time, 2.20 units of outbound trucking allocation, and 5.26 units counted against the high\u2011ABV regulatory quota.\n\n- Glacier Hard Seltzer Cold Pack (whole batches only)\n  - Minimum commitment: 0 batches; maximum: 12.17 batches; whole-batch increments only.\n  - Contribution: 2.82 per batch.\n  - Resource use per batch: 4.75 chilled warehouse slots.\n\n- Probiotic Kombucha Cans (flexible run size)\n  - Minimum commitment: 0 runs; maximum: 12.23 runs; partial runs permitted.\n  - Contribution: 2.66 per run.\n  - Resource use per run: 1.84 units of malt & kettle capacity, 5.46 units of packaging line time, and 9.97 units of quality lab throughput.\n\n- Barrel\u2011Aged Stout (whole batches only)\n  - Minimum commitment: 0 batches; maximum: 14.32 batches; whole-batch increments only.\n  - Contribution: 1.49 per batch.\n  - Resource use per batch: 8.85 units counted against the high\u2011ABV regulatory quota.\n\n- Heritage Pilsner (flexible run size)\n  - Minimum commitment: 0 runs; maximum: 17.51 runs; partial runs permitted.\n  - Contribution: 9.23 per run.\n  - Resource use per run: 6.32 units of malt & kettle capacity, 2.12 units of specialty hops/additives, 3.07 units of packaging line time, and 2.34 units of quality lab throughput.\n\n- Coastal Export Lager (flexible run size)\n  - Minimum commitment: 0 runs; maximum: 13.04 runs; partial runs permitted.\n  - Contribution: 9.94 per run.\n  - Resource use per run: 4.85 units of malt & kettle capacity, 2.65 hours from the skilled brewing team, and 9.89 units of outbound trucking allocation.\n\n- Holiday Gift Packs (whole batches only)\n  - Minimum commitment: 0 batches; maximum: 13.61 batches; whole-batch increments only.\n  - Contribution: 7.48 per batch.\n  - Resource use per batch: 4.78 hours from the skilled brewing team, 6.64 units of packaging line time, and 1.46 units of quality lab throughput.\n\n- Chilled Wellness Tonic (whole batches only)\n  - Minimum commitment: 0 batches; maximum: 5.21 batches; whole-batch increments only.\n  - Contribution: 3.32 per batch.\n  - Resource use per batch: 1.15 units of malt & kettle capacity, 0.22 hours from the skilled brewing team, 7.87 chilled warehouse slots, 0.57 units of outbound trucking allocation, 9.26 units of quality lab throughput, and 0.13 units counted against the high\u2011ABV regulatory quota.\n\nFacility Specs & Market Limits (do not exceed):\n- Malt & kettle capacity: 85.33 units total.\n- Skilled brewing team hours: 56.56 hours total.\n- Chilled warehouse slots: 66.65 slots total.\n- Specialty hops/additives: 14.00 units total.\n- Packaging line time: 76.13 units total.\n- Outbound trucking allocation: 101.57 units total.\n- Quality lab throughput: 111.46 units total.\n- High\u2011ABV regulatory quota: 11.08 units total.\n\nPlease propose the production plan that maximizes our total contribution while respecting the above limits and batch/run rules."
+}

@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "Exact bounds, costs, per-unit impacts, and >= guardrails are specified; signs are clear and variables are continuous. A precise LP can be reconstructed mechanically.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business email style adds some narrative, but most text conveys necessary data; minor fluff without harming clarity.",
+      "realism": 97,
+      "realism_comment": "Highly plausible budgeting/resource mix under sustainability, margin, coverage, and cash guardrails with linear effects and caps."
+    },
+    "prompt_tokens_with_data": 968,
+    "prompt_tokens_without_data": 968
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 25.371338310072485,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 3.5822784810126582,
+      "Var_4": 7.491507086443795
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 39.73
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -22.02
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.32
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 52.79
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.06
+      ],
+      "objective_linear_coefficient": 2.91,
+      "resource_costs": {
+        "C0": 0.92,
+        "C1": -1.29,
+        "C3": -3.64
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.72
+      ],
+      "objective_linear_coefficient": 6.67,
+      "resource_costs": {
+        "C1": 1.54,
+        "C2": 3.95,
+        "C3": 5.22
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.74
+      ],
+      "objective_linear_coefficient": 2.94,
+      "resource_costs": {
+        "C1": -1.6,
+        "C2": -2.36
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.6
+      ],
+      "objective_linear_coefficient": 3.36,
+      "resource_costs": {
+        "C0": -3.59,
+        "C2": 3.16
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.89
+      ],
+      "objective_linear_coefficient": 1.78,
+      "resource_costs": {
+        "C0": 7.02,
+        "C3": 9.29
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.06, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.91 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=6.72, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.67 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.74, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.94 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=12.6, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.36 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.89, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.78 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.92 * vars['Var_0'] + -3.59 * vars['Var_3'] + 7.02 * vars['Var_4'] >= 39.73, name='C0')\n    m.addConstr(-1.29 * vars['Var_0'] + 1.54 * vars['Var_1'] + -1.6 * vars['Var_2'] >= -22.02, name='C1')\n    m.addConstr(3.95 * vars['Var_1'] + -2.36 * vars['Var_2'] + 3.16 * vars['Var_3'] >= 11.32, name='C2')\n    m.addConstr(-3.64 * vars['Var_0'] + 5.22 * vars['Var_1'] + 9.29 * vars['Var_4'] >= 52.79, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance needed on the most cost-efficient 2025 program mix under operational guardrails\n\nTeam,\n\nAs we plan the 2025 operating mix, we\u2019d like your help identifying the least-cost combination of five initiatives that still satisfies our sustainability, margin, coverage, and cash guardrails. The intent is to minimize our annual run\u2011rate program spend while staying within the limits detailed below.\n\nHere are the levers we can pull and how each one behaves. For each initiative, we can scale from 0.0 units up to the stated cap.\n\n- Neighborhood Micro\u2011Fulfillment Pods (up to 13.06 units; may also choose zero):\n  \u2022 Run\u2011rate cost: 2.91 per unit.  \n  \u2022 Impact on sustainability credits: adds 0.92 credits per unit.  \n  \u2022 Impact on margin headroom: reduces headroom by 1.29 per unit.  \n  \u2022 Impact on customer coverage: no direct effect.  \n  \u2022 Impact on year\u2011end net cash: reduces cash by 3.64 per unit.\n\n- Regional Contract Driver Teams (up to 6.72 teams; may also choose zero):\n  \u2022 Run\u2011rate cost: 6.67 per team.  \n  \u2022 Impact on sustainability credits: no direct effect.  \n  \u2022 Impact on margin headroom: improves headroom by 1.54 per team.  \n  \u2022 Impact on customer coverage: adds 3.95 coverage points per team.  \n  \u2022 Impact on year\u2011end net cash: improves cash by 5.22 per team.\n\n- Planned Maintenance Shutdown Blocks (up to 19.74 blocks; may also choose zero):\n  \u2022 Run\u2011rate cost: 2.94 per block.  \n  \u2022 Impact on sustainability credits: no direct effect.  \n  \u2022 Impact on margin headroom: reduces headroom by 1.60 per block.  \n  \u2022 Impact on customer coverage: reduces coverage by 2.36 points per block.  \n  \u2022 Impact on year\u2011end net cash: no direct effect.\n\n- Automation Upgrades (up to 12.6 upgrade packs; may also choose zero):\n  \u2022 Run\u2011rate cost: 3.36 per pack.  \n  \u2022 Impact on sustainability credits: consumes 3.59 credits per pack (drawdown due to higher energy load).  \n  \u2022 Impact on margin headroom: no direct effect.  \n  \u2022 Impact on customer coverage: adds 3.16 coverage points per pack.  \n  \u2022 Impact on year\u2011end net cash: no direct effect.\n\n- Returns Optimization Initiative (up to 8.89 program units; may also choose zero):\n  \u2022 Run\u2011rate cost: 1.78 per unit.  \n  \u2022 Impact on sustainability credits: adds 7.02 credits per unit.  \n  \u2022 Impact on margin headroom: no direct effect.  \n  \u2022 Impact on customer coverage: no direct effect.  \n  \u2022 Impact on year\u2011end net cash: improves cash by 9.29 per unit.\n\n2025 guardrails and targets (we must meet or exceed these levels in aggregate):\n- Sustainability credits: at least 39.73 credits.  \n- Net margin headroom: no worse than \u221222.02 (i.e., the combined impact must be at least \u221222.02 or better).  \n- Customer coverage index: at least 11.32 points.  \n- Year\u2011end net cash contribution: at least 52.79.\n\nPlease use the above unit costs, caps, and per\u2011unit impacts to recommend the lowest\u2011cost mix that satisfies all four guardrails. Happy to discuss assumptions on unit scaling and timing if needed.\n\nThanks,\n[Client Name]"
+}

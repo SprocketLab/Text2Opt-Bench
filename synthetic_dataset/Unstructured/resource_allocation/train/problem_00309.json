@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 7,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All coefficients and caps are explicit; signs deduced from 'increase' vs 'reduce'; objective is to maximize margin; five constraints with clear thresholds. Reconstructable without guessing.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Includes narrative/context and per-initiative descriptions; some verbosity but most text conveys necessary coefficients and limits.",
+      "realism": 95,
+      "realism_comment": "A plausible sustainability portfolio optimization balancing margin with carbon, water, impurity, NOx, and waste limits."
+    },
+    "prompt_tokens_with_data": 1003,
+    "prompt_tokens_without_data": 1003
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 442.12889776357827,
+    "optimal_values": {
+      "Var_0": 17.071182108626193,
+      "Var_1": 0.0,
+      "Var_2": 10.43,
+      "Var_3": 14.55,
+      "Var_4": 10.54,
+      "Var_5": 19.5,
+      "Var_6": 9.15
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -256.16
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 80.66
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.15
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -44.62
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -79.62
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.64
+      ],
+      "objective_linear_coefficient": 4.82,
+      "resource_costs": {
+        "C0": -7.84,
+        "C2": -3.02,
+        "C3": 6.26,
+        "C4": -3.95
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.16
+      ],
+      "objective_linear_coefficient": 2.15,
+      "resource_costs": {
+        "C0": -8.11,
+        "C1": 6.75,
+        "C2": -6.18,
+        "C3": 9.72,
+        "C4": -5.91
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.43
+      ],
+      "objective_linear_coefficient": 5.83,
+      "resource_costs": {
+        "C0": -8.75
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.55
+      ],
+      "objective_linear_coefficient": 4.24,
+      "resource_costs": {
+        "C0": 3.35,
+        "C1": 8.54,
+        "C2": -9.15,
+        "C3": 4.09
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.54
+      ],
+      "objective_linear_coefficient": 9.76,
+      "resource_costs": {
+        "C0": -8.66,
+        "C1": 5.73,
+        "C2": 4.49,
+        "C3": -9.24,
+        "C4": -2.19
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.5
+      ],
+      "objective_linear_coefficient": 4.17,
+      "resource_costs": {
+        "C0": 0.32,
+        "C1": -5.83,
+        "C2": 6.48,
+        "C3": -3.4
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.15
+      ],
+      "objective_linear_coefficient": 5.81,
+      "resource_costs": {
+        "C0": -1.06,
+        "C3": -5.17
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.64, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.82 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.16, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.15 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.43, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.83 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.55, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.24 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.54, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.76 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.5, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.17 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.15, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 5.81 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-7.84 * vars['Var_0'] + -8.11 * vars['Var_1'] + -8.75 * vars['Var_2'] + 3.35 * vars['Var_3'] + -8.66 * vars['Var_4'] + 0.32 * vars['Var_5'] + -1.06 * vars['Var_6'] <= -256.16, name='C0')\n    m.addConstr(6.75 * vars['Var_1'] + 8.54 * vars['Var_3'] + 5.73 * vars['Var_4'] + -5.83 * vars['Var_5'] <= 80.66, name='C1')\n    m.addConstr(-3.02 * vars['Var_0'] + -6.18 * vars['Var_1'] + -9.15 * vars['Var_3'] + 4.49 * vars['Var_4'] + 6.48 * vars['Var_5'] <= 14.15, name='C2')\n    m.addConstr(6.26 * vars['Var_0'] + 9.72 * vars['Var_1'] + 4.09 * vars['Var_3'] + -9.24 * vars['Var_4'] + -3.4 * vars['Var_5'] + -5.17 * vars['Var_6'] <= -44.62, name='C3')\n    m.addConstr(-3.95 * vars['Var_0'] + -5.91 * vars['Var_1'] + -2.19 * vars['Var_4'] <= -79.62, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio mix to maximize margin under our environmental and operational limits\n\nTeam,\n\nWe need your help configuring a mix of seven initiatives to maximize our contribution margin while staying within our environmental commitments and plant limits. Each lever below can be dialed anywhere from zero up to the cap indicated; we\u2019re not obliged to deploy a lever if it doesn\u2019t help the overall plan.\n\n- Blue Furnace Retrofitting Program (cap: 18.64 units)\n  This retrofit adds 4.82 in margin for each unit we deploy. It helps our carbon ledger by 7.84 units per deployment (a reduction), trims impurity load by 3.02 units, and improves our waste footprint by 3.95 units. The trade-off is NOx: each unit worsens the NOx metric by 6.26 units. It has no measurable impact on freshwater draw.\n\n- Green Packaging Initiative (cap: 14.16 units)\n  Each unit delivers 2.15 in margin. It strengthens our carbon position by 8.11 units and cuts impurity load by 6.18 units per unit. On the downside, it increases freshwater draw by 6.75 units and worsens NOx by 9.72 units. It is favorable for waste, improving the footprint by 5.91 units per unit.\n\n- Solar Roof Expansion (cap: 10.43 units)\n  This adds 5.83 in margin per unit and materially improves our carbon ledger by 8.75 units per unit. It doesn\u2019t move freshwater draw, impurity load, NOx, or waste.\n\n- High-Output Line Upgrade (cap: 14.55 units)\n  Each unit adds 4.24 in margin. It increases our carbon load by 3.35 units and raises freshwater draw by 8.54 units per unit. It is strongly favorable on impurity, reducing that measure by 9.15 units, but it worsens NOx by 4.09 units. It has no detectable effect on waste.\n\n- Bio-Additive Program (cap: 10.54 units)\n  This is our highest-margin lever at 9.76 per unit. It improves the carbon ledger by 8.66 units per unit and provides a substantial NOx improvement of 9.24 units. However, it increases freshwater draw by 5.73 units and raises impurity load by 4.49 units per unit. It also slightly improves waste by 2.19 units per unit.\n\n- Onsite Recycling Plant (cap: 19.5 units)\n  Each unit adds 4.17 in margin. It slightly increases our carbon load by 0.32 units per unit but meaningfully reduces freshwater draw by 5.83 units per unit. It increases impurity load by 6.48 units, while providing a NOx reduction of 3.4 units. It does not affect the waste footprint.\n\n- Telework & Logistics Shift (cap: 9.15 units)\n  This shift pattern adds 5.81 in margin per unit. It modestly improves the carbon ledger by 1.06 units per unit and helps NOx by 5.17 units per unit. It does not move freshwater draw, impurity load, or waste.\n\nFacility specs and compliance limits to respect across the portfolio:\n- Carbon ledger: we must deliver a net reduction of at least 256.16 units versus baseline.\n- Freshwater draw: total draw must not exceed 80.66 units.\n- Impurity load: total must not exceed 14.15 units.\n- NOx emissions: we must deliver a net reduction of at least 44.62 units versus baseline.\n- Waste footprint: we must deliver a net reduction of at least 79.62 units versus baseline.\n\nPlease configure the portfolio to maximize margin while keeping the combined effects within these limits."
+}

@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds (with integrality), objective coefficients, resource usages, and capacity limits are explicit and map directly to a linear model; no guessing needed.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some email-style prose and repeated 'none' entries make it verbose, though the repetition clarifies zero coefficients.",
+      "realism": 94,
+      "realism_comment": "A plausible production planning allocation with realistic resources and budgets; only slightly synthetic due to precise decimal limits."
+    },
+    "prompt_tokens_with_data": 1824,
+    "prompt_tokens_without_data": 1824
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 304.56978370770025,
+    "optimal_values": {
+      "Var_0": 8.0,
+      "Var_1": 8.0,
+      "Var_2": 8.0,
+      "Var_3": 1.0,
+      "Var_4": 14.0,
+      "Var_5": -0.0,
+      "Var_6": 0.18369987063389442,
+      "Var_7": 10.0,
+      "Var_8": 0.15543328748280835
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 57.85
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 100.05
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 65.79
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.93
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 13.71
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 24.1
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 46.59
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 61.66
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 128.55
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.49
+      ],
+      "objective_linear_coefficient": 7.55,
+      "resource_costs": {
+        "C2": 1.12,
+        "C4": 1.53,
+        "C8": 2.74
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.68
+      ],
+      "objective_linear_coefficient": 7.84,
+      "resource_costs": {
+        "C0": 1.94,
+        "C1": 7.14,
+        "C3": 1.16
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.37
+      ],
+      "objective_linear_coefficient": 2.74,
+      "resource_costs": {
+        "C1": 4.76,
+        "C6": 2.99,
+        "C8": 8.27
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.19
+      ],
+      "objective_linear_coefficient": 4.4,
+      "resource_costs": {
+        "C0": 10.0,
+        "C6": 0.81,
+        "C7": 4.59,
+        "C8": 7.05
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.89
+      ],
+      "objective_linear_coefficient": 6.39,
+      "resource_costs": {
+        "C1": 0.12,
+        "C6": 1.46
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.51
+      ],
+      "objective_linear_coefficient": 2.48,
+      "resource_costs": {
+        "C2": 3.95,
+        "C3": 3.06,
+        "C7": 7.72,
+        "C8": 8.95
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.66
+      ],
+      "objective_linear_coefficient": 1.26,
+      "resource_costs": {
+        "C0": 3.67,
+        "C4": 6.29,
+        "C5": 0.25,
+        "C6": 7.73,
+        "C7": 0.25
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.23
+      ],
+      "objective_linear_coefficient": 6.5,
+      "resource_costs": {
+        "C0": 2.77,
+        "C2": 5.57,
+        "C5": 0.63
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.9
+      ],
+      "objective_linear_coefficient": 2.82,
+      "resource_costs": {
+        "C0": 6.79,
+        "C1": 7.91,
+        "C2": 7.27,
+        "C5": 6.6
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.49, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.55 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.68, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 7.84 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.37, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.74 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.19, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.4 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.89, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.39 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=18.51, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 2.48 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.66, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.26 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=15.23, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 6.5 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=13.9, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 2.82 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.94 * vars['Var_1'] + 10.0 * vars['Var_3'] + 3.67 * vars['Var_6'] + 2.77 * vars['Var_7'] + 6.79 * vars['Var_8'] <= 57.85, name='C0')\n    m.addConstr(7.14 * vars['Var_1'] + 4.76 * vars['Var_2'] + 0.12 * vars['Var_4'] + 7.91 * vars['Var_8'] <= 100.05, name='C1')\n    m.addConstr(1.12 * vars['Var_0'] + 3.95 * vars['Var_5'] + 5.57 * vars['Var_7'] + 7.27 * vars['Var_8'] <= 65.79, name='C2')\n    m.addConstr(1.16 * vars['Var_1'] + 3.06 * vars['Var_5'] <= 30.93, name='C3')\n    m.addConstr(1.53 * vars['Var_0'] + 6.29 * vars['Var_6'] <= 13.71, name='C4')\n    m.addConstr(0.25 * vars['Var_6'] + 0.63 * vars['Var_7'] + 6.6 * vars['Var_8'] <= 24.1, name='C5')\n    m.addConstr(2.99 * vars['Var_2'] + 0.81 * vars['Var_3'] + 1.46 * vars['Var_4'] + 7.73 * vars['Var_6'] <= 46.59, name='C6')\n    m.addConstr(4.59 * vars['Var_3'] + 7.72 * vars['Var_5'] + 0.25 * vars['Var_6'] <= 61.66, name='C7')\n    m.addConstr(2.74 * vars['Var_0'] + 8.27 * vars['Var_2'] + 7.05 * vars['Var_3'] + 8.95 * vars['Var_5'] <= 128.55, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation plan to maximize contribution within current operating caps\n\nTeam,\n\nAs we lock our plan for the upcoming cycle, our goal is to maximize overall contribution while staying comfortably inside our plant capacities, materials quotas, and service budgets. Below are the levers we can pull, what each one earns, how much we can push them, and exactly what they draw from our limited resources.\n\nThe levers\n\n- Eco Sensor Assembly Kits\n  - Earnings: each kit contributes 7.55 to operating margin.\n  - Volume: optional; we can book anywhere from zero up to 12.49 kits, in whole-kit increments.\n  - Resource impacts per kit:\n    - Fabrication Hours (Line Alpha): none.\n    - Alloy A Quota: none.\n    - Precision Machining Hours (Cell Delta): 1.12.\n    - Quality Lab Time: none.\n    - Specialty Coating Line: 1.53.\n    - Expedited Freight Budget: none.\n    - Plant Power Draw: none.\n    - Material Handling Hours (Dock & Forklift): none.\n    - Bulk Material B Allotment: 2.74.\n\n- Pro Control Units\n  - Earnings: each unit contributes 7.84 to operating margin.\n  - Volume: optional; we can make zero up to 8.68 units, in whole-unit increments.\n  - Resource impacts per unit:\n    - Fabrication Hours (Line Alpha): 1.94.\n    - Alloy A Quota: 7.14.\n    - Precision Machining Hours (Cell Delta): none.\n    - Quality Lab Time: 1.16.\n    - Specialty Coating Line: none.\n    - Expedited Freight Budget: none.\n    - Plant Power Draw: none.\n    - Material Handling Hours (Dock & Forklift): none.\n    - Bulk Material B Allotment: none.\n\n- Starter Brackets\n  - Earnings: each bracket contributes 2.74 to operating margin.\n  - Volume: optional; we can produce zero up to 15.37 brackets, in whole-unit increments.\n  - Resource impacts per bracket:\n    - Fabrication Hours (Line Alpha): none.\n    - Alloy A Quota: 4.76.\n    - Precision Machining Hours (Cell Delta): none.\n    - Quality Lab Time: none.\n    - Specialty Coating Line: none.\n    - Expedited Freight Budget: none.\n    - Plant Power Draw: 2.99.\n    - Material Handling Hours (Dock & Forklift): none.\n    - Bulk Material B Allotment: 8.27.\n\n- Industrial Pumps (Refurbished)\n  - Earnings: each pump contributes 4.4 to operating margin.\n  - Volume: optional; we can refurbish zero up to 15.19 pumps, in whole-unit increments.\n  - Resource impacts per pump:\n    - Fabrication Hours (Line Alpha): 10.0.\n    - Alloy A Quota: none.\n    - Precision Machining Hours (Cell Delta): none.\n    - Quality Lab Time: none.\n    - Specialty Coating Line: none.\n    - Expedited Freight Budget: none.\n    - Plant Power Draw: 0.81.\n    - Material Handling Hours (Dock & Forklift): 4.59.\n    - Bulk Material B Allotment: 7.05.\n\n- Smart Valve Cartridges\n  - Earnings: each cartridge contributes 6.39 to operating margin.\n  - Volume: optional; we can make zero up to 14.89 cartridges, in whole-unit increments.\n  - Resource impacts per cartridge:\n    - Fabrication Hours (Line Alpha): none.\n    - Alloy A Quota: 0.12.\n    - Precision Machining Hours (Cell Delta): none.\n    - Quality Lab Time: none.\n    - Specialty Coating Line: none.\n    - Expedited Freight Budget: none.\n    - Plant Power Draw: 1.46.\n    - Material Handling Hours (Dock & Forklift): none.\n    - Bulk Material B Allotment: none.\n\n- Heavy-Duty Mounting Frames\n  - Earnings: each frame contributes 2.48 to operating margin.\n  - Volume: optional; we can make zero up to 18.51 frames, in whole-unit increments.\n  - Resource impacts per frame:\n    - Fabrication Hours (Line Alpha): none.\n    - Alloy A Quota: none.\n    - Precision Machining Hours (Cell Delta): 3.95.\n    - Quality Lab Time: 3.06.\n    - Specialty Coating Line: none.\n    - Expedited Freight Budget: none.\n    - Plant Power Draw: none.\n    - Material Handling Hours (Dock & Forklift): 7.72.\n    - Bulk Material B Allotment: 8.95.\n\n- Custom Calibration Service Hours\n  - Earnings: each service hour contributes 1.26 to operating margin.\n  - Volume: optional; can be scheduled fractionally, from zero up to 11.66 hours.\n  - Resource impacts per service hour:\n    - Fabrication Hours (Line Alpha): 3.67.\n    - Alloy A Quota: none.\n    - Precision Machining Hours (Cell Delta): none.\n    - Quality Lab Time: none.\n    - Specialty Coating Line: 6.29.\n    - Expedited Freight Budget: 0.25.\n    - Plant Power Draw: 7.73.\n    - Material Handling Hours (Dock & Forklift): 0.25.\n    - Bulk Material B Allotment: none.\n\n- Field Installations (Crew Bravo)\n  - Earnings: each installation contributes 6.5 to operating margin.\n  - Volume: optional; we can schedule zero up to 15.23 installations, in whole-instance increments.\n  - Resource impacts per installation:\n    - Fabrication Hours (Line Alpha): 2.77.\n    - Alloy A Quota: none.\n    - Precision Machining Hours (Cell Delta): 5.57.\n    - Quality Lab Time: none.\n    - Specialty Coating Line: none.\n    - Expedited Freight Budget: 0.63.\n    - Plant Power Draw: none.\n    - Material Handling Hours (Dock & Forklift): none.\n    - Bulk Material B Allotment: none.\n\n- Pilot Program Units\n  - Earnings: each pilot unit contributes 2.82 to operating margin.\n  - Volume: optional; can be fractional, from zero up to 13.9 units.\n  - Resource impacts per unit:\n    - Fabrication Hours (Line Alpha): 6.79.\n    - Alloy A Quota: 7.91.\n    - Precision Machining Hours (Cell Delta): 7.27.\n    - Quality Lab Time: none.\n    - Specialty Coating Line: none.\n    - Expedited Freight Budget: 6.6.\n    - Plant Power Draw: none.\n    - Material Handling Hours (Dock & Forklift): none.\n    - Bulk Material B Allotment: none.\n\nFacility specs and operating caps\n\n- Fabrication Hours (Line Alpha): up to 57.85.\n- Alloy A Quota: up to 100.05.\n- Precision Machining Hours (Cell Delta): up to 65.79.\n- Quality Lab Time: up to 30.93.\n- Specialty Coating Line: up to 13.71.\n- Expedited Freight Budget: up to 24.1.\n- Plant Power Draw: up to 46.59.\n- Material Handling Hours (Dock & Forklift): up to 61.66.\n- Bulk Material B Allotment: up to 128.55.\n\nIf you need any refinements to names or units, let me know; otherwise, please proceed to quantify the best mix to maximize total contribution within these limits."
+}

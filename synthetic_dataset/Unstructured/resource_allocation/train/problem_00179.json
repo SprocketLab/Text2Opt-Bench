@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, types, objective coefficients, and resource caps are clearly specified; zero-usage resources are explicit. A human can reconstruct the exact model without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Contains narrative and greetings that are not needed; technical details are clear and non-repetitive.",
+      "realism": 98,
+      "realism_comment": "A credible production mix problem with plausible capacities and per-batch resource usage; integer batching for one product adds realistic detail."
+    },
+    "prompt_tokens_with_data": 945,
+    "prompt_tokens_without_data": 945
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 306.1584297839506,
+    "optimal_values": {
+      "Var_0": 11.986304012345679,
+      "Var_1": 5.0,
+      "Var_2": 0.0,
+      "Var_3": 14.752777777777778,
+      "Var_4": 12.55
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 91.3
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 119.33
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 138.46
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 60.02
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.3
+      ],
+      "objective_linear_coefficient": 6.26,
+      "resource_costs": {
+        "C1": 7.2,
+        "C2": 1.97
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.01
+      ],
+      "objective_linear_coefficient": 5.79,
+      "resource_costs": {
+        "C0": 8.54,
+        "C1": 2.77,
+        "C3": 1.39
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.75
+      ],
+      "objective_linear_coefficient": 3.93,
+      "resource_costs": {
+        "C1": 4.28,
+        "C2": 7.41,
+        "C3": 3.56
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.52
+      ],
+      "objective_linear_coefficient": 6.72,
+      "resource_costs": {
+        "C1": 1.3,
+        "C3": 3.24
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.55
+      ],
+      "objective_linear_coefficient": 8.21,
+      "resource_costs": {
+        "C0": 3.27,
+        "C2": 6.29,
+        "C3": 0.42
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.3, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.26 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.01, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.79 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.75, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.93 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.52, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.72 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.55, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.21 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.54 * vars['Var_1'] + 3.27 * vars['Var_4'] <= 91.3, name='C0')\n    m.addConstr(7.2 * vars['Var_0'] + 2.77 * vars['Var_1'] + 4.28 * vars['Var_2'] + 1.3 * vars['Var_3'] <= 119.33, name='C1')\n    m.addConstr(1.97 * vars['Var_0'] + 7.41 * vars['Var_2'] + 6.29 * vars['Var_4'] <= 138.46, name='C2')\n    m.addConstr(1.39 * vars['Var_1'] + 3.56 * vars['Var_2'] + 3.24 * vars['Var_3'] + 0.42 * vars['Var_4'] <= 60.02, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for an optimized production mix to maximize contribution\n\nHello team,\n\nWe\u2019re looking for your help to set the production mix across our specialty coatings portfolio to maximize total contribution this cycle. We have four plant limitations to respect (raw base stock, blender line hours, catalyst availability, and curing-oven time), and five distinct product streams we can schedule. Below are the levers you can use and how each one pulls on our constrained resources.\n\n- Summit Clearcoat (high-clarity topcoat)\n  - Commercial impact: contributes 6.26 per batch.\n  - Planning range: can be scheduled anywhere from 0 up to 15.3 batches; partial batches are acceptable.\n  - Resource usage per batch:\n    - Blender line: 7.20 hours.\n    - Catalyst Q additive: 1.97 units.\n    - Does not draw on high\u2011grade polymer base stock and does not require curing\u2011oven time.\n\n- Harbor Protective Batch (industrial barrier coating)\n  - Commercial impact: contributes 5.79 per batch.\n  - Planning range: at least 0 and up to 18.01 batches; this work must be committed in whole batches only (in practice, 0, 1, 2, \u2026 up to 18).\n  - Resource usage per batch:\n    - High\u2011grade polymer base stock: 8.54 units.\n    - Blender line: 2.77 hours.\n    - Curing ovens: 1.39 hours.\n    - Does not consume Catalyst Q additive.\n\n- Prairie Sealant (multi\u2011purpose sealant)\n  - Commercial impact: contributes 3.93 per batch.\n  - Planning range: can be scheduled from 0 up to 9.75 batches; partial batches are acceptable.\n  - Resource usage per batch:\n    - Blender line: 4.28 hours.\n    - Catalyst Q additive: 7.41 units.\n    - Curing ovens: 3.56 hours.\n    - Does not consume high\u2011grade polymer base stock.\n\n- Cobalt Fast\u2011Set (rapid\u2011cure line)\n  - Commercial impact: contributes 6.72 per batch.\n  - Planning range: can be scheduled from 0 up to 18.52 batches; partial batches are acceptable.\n  - Resource usage per batch:\n    - Blender line: 1.30 hours.\n    - Curing ovens: 3.24 hours.\n    - Does not consume high\u2011grade polymer base stock or Catalyst Q additive.\n\n- Aurora Premium Primer (premium primer line)\n  - Commercial impact: contributes 8.21 per batch.\n  - Planning range: can be scheduled from 0 up to 12.55 batches; partial batches are acceptable.\n  - Resource usage per batch:\n    - High\u2011grade polymer base stock: 3.27 units.\n    - Catalyst Q additive: 6.29 units.\n    - Curing ovens: 0.42 hours.\n    - Does not require blender line hours.\n\nFacility specs and market limits to observe:\n- High\u2011grade polymer base stock available this cycle: up to 91.3 units in total.\n- Blender line capacity: up to 119.33 hours in total.\n- Catalyst Q additive on hand: up to 138.46 units in total.\n- Curing\u2011oven time available: up to 60.02 hours in total.\n\nPlease use the above to recommend batch counts for each stream that maximize total contribution without exceeding any of the limits. Let us know if you need clarifications on units, but the figures above should be used as written."
+}

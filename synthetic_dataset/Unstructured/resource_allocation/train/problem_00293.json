@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "All costs, availabilities, and per-unit impacts are precisely given; objective is minimize cost; four >= threshold constraints clear; variables continuous (fractional lots). Model is mechanically reconstructable.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Memo-style with some fluff and repeated structure (min order 0.00, 'no measurable effect'); longer than needed but details are necessary.",
+      "realism": 97,
+      "realism_comment": "Classic feed/diet blending problem with nutrient indices and availabilities; coefficients and thresholds are plausible real-world data."
+    },
+    "prompt_tokens_with_data": 1001,
+    "prompt_tokens_without_data": 1001
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 159.88833852457842,
+    "optimal_values": {
+      "Var_0": 3.124578663010761,
+      "Var_1": 15.47,
+      "Var_2": 10.370641934943764,
+      "Var_3": 5.942107924628924,
+      "Var_4": 8.74,
+      "Var_5": 0.0,
+      "Var_6": 6.613423711458174
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 160.61
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 141.55
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 342.22
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 265.32
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.14
+      ],
+      "objective_linear_coefficient": 5.4,
+      "resource_costs": {
+        "C0": 0.14,
+        "C1": 3.53,
+        "C2": 7.85,
+        "C3": 9.68
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.47
+      ],
+      "objective_linear_coefficient": 2.19,
+      "resource_costs": {
+        "C0": 0.63,
+        "C1": 4.4,
+        "C2": 7.42,
+        "C3": 9.8
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.26
+      ],
+      "objective_linear_coefficient": 6.04,
+      "resource_costs": {
+        "C0": 8.51,
+        "C1": 2.0,
+        "C2": 7.8,
+        "C3": 5.74
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.02
+      ],
+      "objective_linear_coefficient": 3.79,
+      "resource_costs": {
+        "C0": 0.52,
+        "C1": 6.24,
+        "C2": 7.57
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.74
+      ],
+      "objective_linear_coefficient": 1.23,
+      "resource_costs": {
+        "C0": 6.76,
+        "C1": 0.53,
+        "C2": 2.45
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.5
+      ],
+      "objective_linear_coefficient": 6.99,
+      "resource_costs": {
+        "C0": 6.01,
+        "C1": 5.1,
+        "C2": 2.48,
+        "C3": 0.51
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.49
+      ],
+      "objective_linear_coefficient": 2.0,
+      "resource_costs": {
+        "C2": 8.41,
+        "C3": 3.62
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.14, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.4 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.47, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.19 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.26, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.04 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=11.02, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.79 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.74, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 1.23 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.5, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 6.99 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.49, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.0 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.14 * vars['Var_0'] + 0.63 * vars['Var_1'] + 8.51 * vars['Var_2'] + 0.52 * vars['Var_3'] + 6.76 * vars['Var_4'] + 6.01 * vars['Var_5'] >= 160.61, name='C0')\n    m.addConstr(3.53 * vars['Var_0'] + 4.4 * vars['Var_1'] + 2.0 * vars['Var_2'] + 6.24 * vars['Var_3'] + 0.53 * vars['Var_4'] + 5.1 * vars['Var_5'] >= 141.55, name='C1')\n    m.addConstr(7.85 * vars['Var_0'] + 7.42 * vars['Var_1'] + 7.8 * vars['Var_2'] + 7.57 * vars['Var_3'] + 2.45 * vars['Var_4'] + 2.48 * vars['Var_5'] + 8.41 * vars['Var_6'] >= 342.22, name='C2')\n    m.addConstr(9.68 * vars['Var_0'] + 9.8 * vars['Var_1'] + 5.74 * vars['Var_2'] + 0.51 * vars['Var_5'] + 3.62 * vars['Var_6'] >= 265.32, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed low-cost mix to fulfill required targets\n\nTeam,\n\nAs discussed, we need to assemble a cost-effective mix of seven purchasable components to meet or exceed our four minimum performance targets for the upcoming period. The objective is to minimize total spend while still hitting every required floor across our Mineral Index, Fiber Index, Protein Index, and Energy Index. Each component below can be procured in fractional lots, up to its stated availability, and may be omitted entirely if not needed.\n\n- Meadow Core Pellets\n  - Unit cost: $5.40 per unit.\n  - Availability: up to 18.14 units; minimum order is 0.00 units.\n  - Impact per unit:\n    - Mineral Index: +0.14\n    - Fiber Index: +3.53\n    - Protein Index: +7.85\n    - Energy Index: +9.68\n\n- Golden Grain Mix\n  - Unit cost: $2.19 per unit.\n  - Availability: up to 15.47 units; minimum order is 0.00 units.\n  - Impact per unit:\n    - Mineral Index: +0.63\n    - Fiber Index: +4.40\n    - Protein Index: +7.42\n    - Energy Index: +9.80\n\n- Fortified Soy Blend\n  - Unit cost: $6.04 per unit.\n  - Availability: up to 19.26 units; minimum order is 0.00 units.\n  - Impact per unit:\n    - Mineral Index: +8.51\n    - Fiber Index: +2.00\n    - Protein Index: +7.80\n    - Energy Index: +5.74\n\n- Bran-Rich Fiber Base\n  - Unit cost: $3.79 per unit.\n  - Availability: up to 11.02 units; minimum order is 0.00 units.\n  - Impact per unit:\n    - Mineral Index: +0.52\n    - Fiber Index: +6.24\n    - Protein Index: +7.57\n    - Energy Index: +0.00 (no measurable effect)\n\n- Coastal Mineral Meal\n  - Unit cost: $1.23 per unit.\n  - Availability: up to 8.74 units; minimum order is 0.00 units.\n  - Impact per unit:\n    - Mineral Index: +6.76\n    - Fiber Index: +0.53\n    - Protein Index: +2.45\n    - Energy Index: +0.00 (no measurable effect)\n\n- Molasses Fiber Syrup\n  - Unit cost: $6.99 per unit.\n  - Availability: up to 14.50 units; minimum order is 0.00 units.\n  - Impact per unit:\n    - Mineral Index: +6.01\n    - Fiber Index: +5.10\n    - Protein Index: +2.48\n    - Energy Index: +0.51\n\n- Protein Booster X\n  - Unit cost: $2.00 per unit.\n  - Availability: up to 11.49 units; minimum order is 0.00 units.\n  - Impact per unit:\n    - Mineral Index: +0.00 (no measurable effect)\n    - Fiber Index: +0.00 (no measurable effect)\n    - Protein Index: +8.41\n    - Energy Index: +3.62\n\nFacility Targets (minimums we must meet or exceed across the total mix):\n- Mineral Index: at least 160.61\n- Fiber Index: at least 141.55\n- Protein Index: at least 342.22\n- Energy Index: at least 265.32\n\nPlease use these numbers to assemble the lowest-cost combination that satisfies all four index thresholds without exceeding the stated availabilities."
+}

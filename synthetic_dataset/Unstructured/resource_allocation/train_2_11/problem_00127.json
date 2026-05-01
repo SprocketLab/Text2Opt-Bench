@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "All coefficients, bounds, signs, and <= limits are explicit; objective is clear. Only variable type/naming not explicitly stated, though decimal ranges imply continuous variables.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Clear specs but wrapped in business prose; some repeated clarifications (e.g., 'no draw/0'). Moderately verbose without harming clarity.",
+      "realism": 95,
+      "realism_comment": "Highly realistic production planning with hours, carbon credits, shipping, quality, and wastewater limits; plausible and consistent setup."
+    },
+    "prompt_tokens_with_data": 1006,
+    "prompt_tokens_without_data": 1006
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 95.89697743884736,
+    "optimal_values": {
+      "Var_0": 13.01525054466231,
+      "Var_1": 0.8768481057281737,
+      "Var_2": 2.6353956313057507,
+      "Var_3": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 17.77
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -14.31
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 59.74
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.43
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -18.14
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.97
+      ],
+      "objective_linear_coefficient": 5.66,
+      "resource_costs": {
+        "C0": 0.4,
+        "C1": -2.68,
+        "C2": 4.59,
+        "C4": -4.51
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.95
+      ],
+      "objective_linear_coefficient": 7.47,
+      "resource_costs": {
+        "C0": 4.29,
+        "C1": -1.73,
+        "C3": -1.67,
+        "C4": -1.92
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.28
+      ],
+      "objective_linear_coefficient": 5.95,
+      "resource_costs": {
+        "C0": 3.34,
+        "C1": 3.76,
+        "C3": 6.79,
+        "C4": 1.73
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.93
+      ],
+      "objective_linear_coefficient": 7.96,
+      "resource_costs": {
+        "C2": 7.61,
+        "C4": 9.31
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.97, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.66 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.95, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.47 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.28, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.95 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.93, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.96 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.4 * vars['Var_0'] + 4.29 * vars['Var_1'] + 3.34 * vars['Var_2'] <= 17.77, name='C0')\n    m.addConstr(-2.68 * vars['Var_0'] + -1.73 * vars['Var_1'] + 3.76 * vars['Var_2'] <= -14.31, name='C1')\n    m.addConstr(4.59 * vars['Var_0'] + 7.61 * vars['Var_3'] <= 59.74, name='C2')\n    m.addConstr(-1.67 * vars['Var_1'] + 6.79 * vars['Var_2'] <= 16.43, name='C3')\n    m.addConstr(-4.51 * vars['Var_0'] + -1.92 * vars['Var_1'] + 1.73 * vars['Var_2'] + 9.31 * vars['Var_3'] <= -18.14, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan to maximize contribution under hours, shipping, quality, and environmental limits\n\nTeam,\n\nAs we set the next cycle\u2019s production mix, our goal is to maximize total contribution while staying within our operating capacities and compliance targets. Below are the four levers we can pull, what each earns per unit, the practical limits on each, and how each one draws on (or credits) our hours, shipping slots, quality tolerance, and environmental ledgers.\n\nThe levers\n\n- Aurora Custom Assemblies\n  - Financial impact: contributes 5.66 per unit.\n  - Practical range: we can schedule anywhere from 0 up to 13.97 units; we cannot go negative.\n  - Resource and compliance footprint per unit:\n    - Fabrication Cell A hours: uses 0.4 hours.\n    - Net Carbon Ledger: provides a 2.68-credit reduction (counted as -2.68 on the ledger).\n    - Outbound Dock Slots: uses 4.59 slots.\n    - Quality Risk Index: no change (0 impact).\n    - Wastewater Impact Ledger: provides a 4.51-unit reduction (counted as -4.51 on the ledger).\n\n- Beacon Standard Runs\n  - Financial impact: contributes 7.47 per unit.\n  - Practical range: we can schedule from 0 to 14.95 units.\n  - Resource and compliance footprint per unit:\n    - Fabrication Cell A hours: uses 4.29 hours.\n    - Net Carbon Ledger: provides a 1.73-credit reduction (counted as -1.73).\n    - Outbound Dock Slots: no draw (0).\n    - Quality Risk Index: improves quality by reducing the index 1.67 points (counted as -1.67).\n    - Wastewater Impact Ledger: provides a 1.92-unit reduction (counted as -1.92).\n\n- Catalyst Premium Orders\n  - Financial impact: contributes 5.95 per unit.\n  - Practical range: we can schedule from 0 to 13.28 units.\n  - Resource and compliance footprint per unit:\n    - Fabrication Cell A hours: uses 3.34 hours.\n    - Net Carbon Ledger: increases the ledger by 3.76 (i.e., adds 3.76 emission-equivalent units).\n    - Outbound Dock Slots: no draw (0).\n    - Quality Risk Index: increases the index by 6.79 points.\n    - Wastewater Impact Ledger: increases the ledger by 1.73 units.\n\n- Dynamo Rush Contracts\n  - Financial impact: contributes 7.96 per unit.\n  - Practical range: we can schedule from 0 to 14.93 units.\n  - Resource and compliance footprint per unit:\n    - Fabrication Cell A hours: no draw (0).\n    - Net Carbon Ledger: no change (0).\n    - Outbound Dock Slots: uses 7.61 slots.\n    - Quality Risk Index: no change (0).\n    - Wastewater Impact Ledger: increases the ledger by 9.31 units.\n\nFacility specs and compliance limits\n\n- Fabrication Cell A hours: total use across all work must not exceed 17.77 hours.\n- Net Carbon Ledger: we track reductions as negative numbers; our end-of-period position must be at or below -14.31 (i.e., at least 14.31 units below baseline).\n- Outbound Dock Slots: total shipments must not exceed 59.74 slots.\n- Quality Risk Index: the cumulative index must not exceed 16.43.\n- Wastewater Impact Ledger: we track reductions as negative numbers; our net position must be at or below -18.14 (i.e., at least 18.14 units below baseline).\n\nPlease review so we can align on the mix that delivers the highest total contribution while respecting these operating and compliance thresholds."
+}

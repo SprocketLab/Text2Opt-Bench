@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 5,
+    "num_constraints": 2,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 95,
+      "prompt_inducibility_comment": "All bounds, margin coefficients, and compliance impacts are given; targets are clear '<=' thresholds with sign conventions. Streams with zero impact noted. A human can reconstruct the LP without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Memo style adds context with greetings and narrative, but provides needed coefficients, bounds, and targets without repetition. Some verbosity, little fluff.",
+      "realism": 93,
+      "realism_comment": "Feels like real production planning with carbon/sulfur compliance. Numbers and impacts are plausible; maximizing margin under sustainability targets is a common OR scenario."
+    },
+    "prompt_tokens_with_data": 832,
+    "prompt_tokens_without_data": 832
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 312.765,
+    "optimal_values": {
+      "Var_0": 10.41,
+      "Var_1": 9.21,
+      "Var_2": 11.7,
+      "Var_3": 17.58,
+      "Var_4": 8.13
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -17.48
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -43.75
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.41
+      ],
+      "objective_linear_coefficient": 4.23,
+      "resource_costs": {}
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.21
+      ],
+      "objective_linear_coefficient": 4.18,
+      "resource_costs": {
+        "C0": 2.91,
+        "C1": -1.07
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.7
+      ],
+      "objective_linear_coefficient": 2.84,
+      "resource_costs": {
+        "C0": -4.18,
+        "C1": -9.4
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.58
+      ],
+      "objective_linear_coefficient": 9.25,
+      "resource_costs": {
+        "C0": -0.08
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.13
+      ],
+      "objective_linear_coefficient": 4.23,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.41, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.23 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.21, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.18 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=11.7, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.84 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.58, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.25 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.13, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.23 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.91 * vars['Var_1'] + -4.18 * vars['Var_2'] + -0.08 * vars['Var_3'] <= -17.48, name='C0')\n    m.addConstr(-1.07 * vars['Var_1'] + -9.4 * vars['Var_2'] <= -43.75, name='C1')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Margin-maximizing mix under our net-negative compliance targets\n\nTeam,\n\nAs we set the next cycle\u2019s operating plan, I\u2019d like your help selecting a mix that maximizes total contribution while honoring our sustainability scorecard. Specifically, we are pursuing the highest overall contribution margin we can achieve, provided we meet two portfolio-wide compliance targets: a net-negative Carbon Balance and a net-negative Sulfur Index. For clarity, both metrics are expressed as \u201cscores\u201d where positive values indicate burden and negative values indicate abatement; the portfolio must land at or below the targets noted at the end of this memo.\n\nLevers we can adjust\n\n1) Core Blend Alpha\n- Economic impact: contributes 4.23 in margin per unit produced.\n- Operating range: we can run anywhere from 0 up to 10.41 units.\n- Compliance impact: this stream does not move our Carbon Balance or Sulfur Index (no measurable effect on either score).\n\n2) Desulfurized Diesel Beta\n- Economic impact: contributes 4.18 in margin per unit.\n- Operating range: we can schedule between 0 and 9.21 units.\n- Compliance impact: each additional unit increases our Carbon Balance by 2.91 (i.e., it adds to the carbon side of the ledger) but improves sulfur compliance by lowering the Sulfur Index by 1.07 points per unit.\n\n3) Capture-Enhanced Ethanol Gamma\n- Economic impact: contributes 2.84 in margin per unit.\n- Operating range: we can run 0 up to 11.7 units.\n- Compliance impact: each unit provides meaningful abatement on both dimensions, lowering the Carbon Balance by 4.18 and lowering the Sulfur Index by 9.4 per unit.\n\n4) Premium Catalyst Campaign Delta\n- Economic impact: our highest earner at 9.25 in margin per unit.\n- Operating range: we can run between 0 and 17.58 units.\n- Compliance impact: small but favorable carbon effect\u2014each unit lowers the Carbon Balance by 0.08. It does not affect the Sulfur Index.\n\n5) Specialty Additives Epsilon\n- Economic impact: contributes 4.23 in margin per unit.\n- Operating range: we can run 0 to 8.13 units.\n- Compliance impact: no effect on either the Carbon Balance or the Sulfur Index.\n\nMarket and compliance limits\n\n- Carbon Balance target: the combined portfolio must achieve a Carbon Balance at or below -17.48 (i.e., net abatement of at least 17.48 on that score).\n- Sulfur Index target: the combined portfolio must achieve a Sulfur Index at or below -43.75 (i.e., net abatement of at least 43.75 on that score).\n\nPlease use the above to recommend the production mix that maximizes total contribution while keeping both compliance scores at or below the stated thresholds. Let me know if you need any additional context on the streams or measurement conventions.\n\nThanks,\n[Client Name]\nVP, Operations"
+}

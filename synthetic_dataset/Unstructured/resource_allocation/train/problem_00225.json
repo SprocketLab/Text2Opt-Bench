@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "Explicit costs, bounds, and impacts per initiative; service-level thresholds define \u2265 constraints; objective is minimize cost. Decimal caps imply continuous variables. No guessing needed.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Email-style framing and narrative add verbosity; core data is structured and clear. Could be shorter without losing clarity.",
+      "realism": 95,
+      "realism_comment": "Portfolio planning for efficiency, reliability, and carbon reductions with per-unit costs/limits is plausible and typical of real OR applications; linear thresholds are realistic."
+    },
+    "prompt_tokens_with_data": 874,
+    "prompt_tokens_without_data": 874
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 223.69419914649433,
+    "optimal_values": {
+      "Var_0": 8.43,
+      "Var_1": 6.018012723910615,
+      "Var_2": 8.85,
+      "Var_3": 3.4094960696340713,
+      "Var_4": 12.574180473169417,
+      "Var_5": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 141.28
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 182.92
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 262.55
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.43
+      ],
+      "objective_linear_coefficient": 7.15,
+      "resource_costs": {
+        "C0": 5.27,
+        "C2": 9.89
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.23
+      ],
+      "objective_linear_coefficient": 2.49,
+      "resource_costs": {
+        "C0": 2.28,
+        "C1": 6.77
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.85
+      ],
+      "objective_linear_coefficient": 2.16,
+      "resource_costs": {
+        "C1": 4.78,
+        "C2": 6.77
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.44
+      ],
+      "objective_linear_coefficient": 7.54,
+      "resource_costs": {
+        "C0": 3.73,
+        "C1": 5.1,
+        "C2": 9.68
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.51
+      ],
+      "objective_linear_coefficient": 8.24,
+      "resource_costs": {
+        "C0": 5.6,
+        "C1": 6.56,
+        "C2": 6.86
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.07
+      ],
+      "objective_linear_coefficient": 5.78,
+      "resource_costs": {
+        "C0": 1.9,
+        "C1": 0.32,
+        "C2": 7.43
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.43, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.15 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.23, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.49 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.85, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 2.16 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.44, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 7.54 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.51, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.24 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=9.07, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.78 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.27 * vars['Var_0'] + 2.28 * vars['Var_1'] + 3.73 * vars['Var_3'] + 5.6 * vars['Var_4'] + 1.9 * vars['Var_5'] >= 141.28, name='C0')\n    m.addConstr(6.77 * vars['Var_1'] + 4.78 * vars['Var_2'] + 5.1 * vars['Var_3'] + 6.56 * vars['Var_4'] + 0.32 * vars['Var_5'] >= 182.92, name='C1')\n    m.addConstr(9.89 * vars['Var_0'] + 6.77 * vars['Var_2'] + 9.68 * vars['Var_3'] + 6.86 * vars['Var_4'] + 7.43 * vars['Var_5'] >= 262.55, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "To: Strategy & Analytics Team\nFrom: VP, Operations & Sustainability\nSubject: Cost-Optimal Mix of Initiatives to Meet Enterprise Targets\n\nWe are preparing the FY portfolio plan and need to choose a cost-effective mix of initiatives that satisfies our enterprise targets for efficiency, reliability, and carbon reduction. The objective is to minimize total spend while meeting or exceeding the minimum thresholds described below. Each initiative can be scaled up to a practical cap, and we may elect to use none of a given initiative if appropriate.\n\nLevers we can pull\n\n1) LED Lighting Retrofits\n- Economic profile: Each deployment unit costs 7.15.\n- Availability: We can deploy anywhere from 0 up to 8.43 units.\n- Impact:\n  - Efficiency Impact: +5.27 per unit.\n  - Reliability Uptime Score: no material effect (0).\n  - Carbon Reduction Credits: +9.89 per unit.\n\n2) Network Resilience Enhancements\n- Economic profile: Each implementation unit costs 2.49.\n- Availability: We can deploy anywhere from 0 up to 18.23 units.\n- Impact:\n  - Efficiency Impact: +2.28 per unit.\n  - Reliability Uptime Score: +6.77 per unit.\n  - Carbon Reduction Credits: no material effect (0).\n\n3) Process Automation & Controls\n- Economic profile: Each implementation unit costs 2.16.\n- Availability: We can deploy anywhere from 0 up to 8.85 units.\n- Impact:\n  - Efficiency Impact: no material effect (0).\n  - Reliability Uptime Score: +4.78 per unit.\n  - Carbon Reduction Credits: +6.77 per unit.\n\n4) Onsite Cogeneration\n- Economic profile: Each installed unit costs 7.54.\n- Availability: We can deploy anywhere from 0 up to 9.44 units.\n- Impact:\n  - Efficiency Impact: +3.73 per unit.\n  - Reliability Uptime Score: +5.1 per unit.\n  - Carbon Reduction Credits: +9.68 per unit.\n\n5) Fleet Electrification\n- Economic profile: Each conversion unit costs 8.24.\n- Availability: We can deploy anywhere from 0 up to 15.51 units.\n- Impact:\n  - Efficiency Impact: +5.6 per unit.\n  - Reliability Uptime Score: +6.56 per unit.\n  - Carbon Reduction Credits: +6.86 per unit.\n\n6) Smart Sensors & Analytics\n- Economic profile: Each deployment unit costs 5.78.\n- Availability: We can deploy anywhere from 0 up to 9.07 units.\n- Impact:\n  - Efficiency Impact: +1.9 per unit.\n  - Reliability Uptime Score: +0.32 per unit.\n  - Carbon Reduction Credits: +7.43 per unit.\n\nService-Level Commitments (Minimums)\n- Efficiency Impact: at least 141.28.\n- Reliability Uptime Score: at least 182.92.\n- Carbon Reduction Credits: at least 262.55.\n\nPlease use the above as the basis for identifying the lowest-cost combination of initiatives that achieves all three targets. We will review the recommended mix and proceed with funding approvals accordingly."
+}

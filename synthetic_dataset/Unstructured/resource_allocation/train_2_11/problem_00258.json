@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource caps are explicitly stated; zeros are clarified. Objective to maximize contribution is clear and fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Some narrative/flavor text and repeated notes (e.g., zero usages explanations) add verbosity, but core data is clear and non-repetitive.",
+      "realism": 98,
+      "realism_comment": "Highly realistic production planning with multiple resources and batch integrality; capacities and usages are plausible and consistent."
+    },
+    "prompt_tokens_with_data": 1193,
+    "prompt_tokens_without_data": 1193
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 248.89,
+    "optimal_values": {
+      "Var_0": 10.0,
+      "Var_1": 8.0,
+      "Var_2": 8.0,
+      "Var_3": 0.0,
+      "Var_4": 1.0,
+      "Var_5": 13.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 101.38
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 112.84
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 182.84
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 147.93
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 70.01
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 56.92
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 6.75,
+      "resource_costs": {
+        "C0": 7.95,
+        "C1": 3.2,
+        "C5": 1.67
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.35
+      ],
+      "objective_linear_coefficient": 6.64,
+      "resource_costs": {
+        "C0": 1.87,
+        "C1": 1.14,
+        "C2": 6.02,
+        "C3": 2.25,
+        "C4": 6.99
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.36
+      ],
+      "objective_linear_coefficient": 6.56,
+      "resource_costs": {
+        "C1": 6.44,
+        "C2": 8.46,
+        "C3": 8.53
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.0
+      ],
+      "objective_linear_coefficient": 4.94,
+      "resource_costs": {
+        "C2": 7.85,
+        "C4": 6.49,
+        "C5": 6.69
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.14
+      ],
+      "objective_linear_coefficient": 1.95,
+      "resource_costs": {
+        "C0": 5.71,
+        "C1": 5.04,
+        "C3": 9.64,
+        "C4": 2.02
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.54
+      ],
+      "objective_linear_coefficient": 5.68,
+      "resource_costs": {
+        "C2": 5.04,
+        "C3": 3.15
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 6.75 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=14.35, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.64 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.36, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 6.56 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.0, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.94 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.14, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.95 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.54, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 5.68 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.95 * vars['Var_0'] + 1.87 * vars['Var_1'] + 5.71 * vars['Var_4'] <= 101.38, name='C0')\n    m.addConstr(3.2 * vars['Var_0'] + 1.14 * vars['Var_1'] + 6.44 * vars['Var_2'] + 5.04 * vars['Var_4'] <= 112.84, name='C1')\n    m.addConstr(6.02 * vars['Var_1'] + 8.46 * vars['Var_2'] + 7.85 * vars['Var_3'] + 5.04 * vars['Var_5'] <= 182.84, name='C2')\n    m.addConstr(2.25 * vars['Var_1'] + 8.53 * vars['Var_2'] + 9.64 * vars['Var_4'] + 3.15 * vars['Var_5'] <= 147.93, name='C3')\n    m.addConstr(6.99 * vars['Var_1'] + 6.49 * vars['Var_3'] + 2.02 * vars['Var_4'] <= 70.01, name='C4')\n    m.addConstr(1.67 * vars['Var_0'] + 6.69 * vars['Var_3'] <= 56.92, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Weekly production mix to maximize contribution under plant limits\n\nHi team,\n\nWe\u2019re setting the weekly plan to maximize total contribution while staying within our plant\u2019s six critical limits. All production choices are counted in whole batches. Below are the levers we can pull (one paragraph per SKU) and how each batch draws on our constrained resources.\n\n- Classic Crunch Granola (shelf-stable)\n  \u2022 Financials: Each batch contributes 6.75 (in contribution dollars).\n  \u2022 Practical range: We can run between 0 and 10 batches this week, in whole batches only.\n  \u2022 Resource draw per batch:\n    \u2013 Blending Line Alpha hours: 7.95\n    \u2013 Packaging crew hours: 3.2\n    \u2013 Key Ingredient A drums: 0 (does not require this ingredient)\n    \u2013 Baking oven hours: 0 (no oven time)\n    \u2013 Cold storage pallets: 0 (shelf-stable)\n    \u2013 Outbound dock time: 1.67\n\n- Chilled Almond Bars\n  \u2022 Financials: Each batch contributes 6.64.\n  \u2022 Practical range: 0 to 14.35 batches this week, in whole batches only.\n  \u2022 Resource draw per batch:\n    \u2013 Blending Line Alpha hours: 1.87\n    \u2013 Packaging crew hours: 1.14\n    \u2013 Key Ingredient A drums: 6.02\n    \u2013 Baking oven hours: 2.25\n    \u2013 Cold storage pallets: 6.99\n    \u2013 Outbound dock time: 0 (no incremental dock time beyond routine consolidated shipments)\n\n- Savory Almond Crisps\n  \u2022 Financials: Each batch contributes 6.56.\n  \u2022 Practical range: 0 to 17.36 batches this week, in whole batches only.\n  \u2022 Resource draw per batch:\n    \u2013 Blending Line Alpha hours: 0 (pre-mix outsourced)\n    \u2013 Packaging crew hours: 6.44\n    \u2013 Key Ingredient A drums: 8.46\n    \u2013 Baking oven hours: 8.53\n    \u2013 Cold storage pallets: 0 (shelf-stable)\n    \u2013 Outbound dock time: 0 (ships on existing milk-runs)\n\n- Fresh Snack Kits (chilled, assembled)\n  \u2022 Financials: Each batch contributes 4.94.\n  \u2022 Practical range: 0 to 7 batches this week, in whole batches only.\n  \u2022 Resource draw per batch:\n    \u2013 Blending Line Alpha hours: 0 (no in-house mixing)\n    \u2013 Packaging crew hours: 0 (packaging is pre-kitted)\n    \u2013 Key Ingredient A drums: 7.85\n    \u2013 Baking oven hours: 0 (no baking)\n    \u2013 Cold storage pallets: 6.49\n    \u2013 Outbound dock time: 6.69\n\n- Family Baked Meal Kits\n  \u2022 Financials: Each batch contributes 1.95.\n  \u2022 Practical range: 0 to 11.14 batches this week, in whole batches only.\n  \u2022 Resource draw per batch:\n    \u2013 Blending Line Alpha hours: 5.71\n    \u2013 Packaging crew hours: 5.04\n    \u2013 Key Ingredient A drums: 0 (different ingredient set)\n    \u2013 Baking oven hours: 9.64\n    \u2013 Cold storage pallets: 2.02\n    \u2013 Outbound dock time: 0 (rides consolidated loads)\n\n- Roasted Almond Paste (bulk totes)\n  \u2022 Financials: Each batch contributes 5.68.\n  \u2022 Practical range: 0 to 13.54 batches this week, in whole batches only.\n  \u2022 Resource draw per batch:\n    \u2013 Blending Line Alpha hours: 0 (no mixing required)\n    \u2013 Packaging crew hours: 0 (bulk-loaded)\n    \u2013 Key Ingredient A drums: 5.04\n    \u2013 Baking oven hours: 3.15 (roast step)\n    \u2013 Cold storage pallets: 0 (ambient)\n    \u2013 Outbound dock time: 0 (ships via standing bulk appointments)\n\nFacility specs and weekly limits we must honor\n- Blending Line Alpha hours available: 101.38 total\n- Packaging crew hours available: 112.84 total\n- Key Ingredient A supply (drums): 182.84 total\n- Baking oven hours available: 147.93 total\n- Cold storage capacity (pallets): 70.01 total\n- Outbound dock time available (hours): 56.92 total\n\nOur aim is to maximize total contribution by selecting whole-batch counts for the six SKUs within the above limits and batch caps. Please review and confirm if any marketing or service-level updates would change the batch ceilings or resource allocations before we lock the schedule."
+}

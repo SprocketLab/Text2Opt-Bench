@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, resource usages, and integrality/continuity are explicit; objective is to maximize contribution. Clear 2-variable model with 5 capacity constraints and exact limits.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Business memo style adds some verbosity, but each number is used once and details are precise. Minor fluff (greeting/context) that doesn\u2019t affect the model.",
+      "realism": 98,
+      "realism_comment": "Very plausible product-mix planning with discrete engagements and partial batches, realistic resource capacities across functions, and clear financial contributions."
+    },
+    "prompt_tokens_with_data": 626,
+    "prompt_tokens_without_data": 626
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 76.82944269190327,
+    "optimal_values": {
+      "Var_0": 8.0,
+      "Var_1": 5.207150368033649
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.52
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 43.11
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.56
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 18.12
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 29.07
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 8.38,
+      "resource_costs": {
+        "C1": 5.26
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.17
+      ],
+      "objective_linear_coefficient": 1.88,
+      "resource_costs": {
+        "C0": 9.51,
+        "C2": 2.78,
+        "C3": 3.24,
+        "C4": 5.39
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.38 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=15.17, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.88 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.51 * vars['Var_1'] <= 49.52, name='C0')\n    m.addConstr(5.26 * vars['Var_0'] <= 43.11, name='C1')\n    m.addConstr(2.78 * vars['Var_1'] <= 14.56, name='C2')\n    m.addConstr(3.24 * vars['Var_1'] <= 18.12, name='C3')\n    m.addConstr(5.39 * vars['Var_1'] <= 29.07, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix plan for upcoming cycle \u2014 goal is to maximize total contribution\n\nTeam,\n\nWe need to choose the best mix of two offerings for the coming period to maximize total contribution while staying within our operating limits across line time, specialist time, compliance, lab, and fulfillment.\n\nLevers we can pull\n\n- On\u2011Site Executive Advisory Engagements\n  - Financial impact: Each engagement adds 8.38 in gross contribution.\n  - Resource use: Each one requires 5.26 Senior Advisor days. It does not draw on Fabrication Line A time, Regulatory Review hours, Quality Lab time, or Fulfillment capacity.\n  - Practical limits: There is no minimum commitment (we can book as few as 0), and we can book at most 9 engagements this cycle. Because these are discrete client commitments, the count must be in whole engagements.\n\n- Modular Production Batches\n  - Financial impact: Each batch adds 1.88 in gross contribution.\n  - Resource use: Each batch consumes 9.51 hours on Fabrication Line A, 2.78 hours of Regulatory Review, 3.24 hours of Quality Lab, and 5.39 units of Fulfillment capacity. It does not require any Senior Advisor days.\n  - Practical limits: There is no minimum run size (we can run as few as 0), and we can run up to 15.17 batch\u2011equivalents this cycle; partial batches are allowed.\n\nFacility specs and market limits\n\n- Fabrication Line A time available this period: up to 49.52 hours.\n- Senior Advisor days available this period: up to 43.11 days.\n- Regulatory Review capacity this period: up to 14.56 hours.\n- Quality Lab availability this period: up to 18.12 hours.\n- Fulfillment capacity this period: up to 29.07 units.\n\nPlease use the above to determine the mix that maximizes total contribution while respecting these limits. If you need any additional context on resource definitions or timing, let me know."
+}

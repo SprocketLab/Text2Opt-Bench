@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 7,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, integer bounds, delivery coefficients, and >= targets are explicitly given; objective is minimize spend. A mechanical, unambiguous mapping to the model is possible.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some narrative/intro and closing, but most text lists necessary coefficients and targets; minimal fluff overall.",
+      "realism": 92,
+      "realism_comment": "Highly plausible procurement/training allocation with supplier caps and coverage targets; only slight oddity is fractional caps on whole units."
+    },
+    "prompt_tokens_with_data": 1681,
+    "prompt_tokens_without_data": 1681
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 173.53,
+    "optimal_values": {
+      "Var_0": 8.0,
+      "Var_1": 9.0,
+      "Var_2": 8.0,
+      "Var_3": 3.0,
+      "Var_4": 10.0,
+      "Var_5": -0.0,
+      "Var_6": 2.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 169.89
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 213.37
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 35.31
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 111.21
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 83.43
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.73
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 232.18
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 85.36
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 121.71
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 8.0,
+      "resource_costs": {
+        "C0": 6.07,
+        "C1": 2.56,
+        "C2": 1.22,
+        "C5": 0.41,
+        "C6": 9.52,
+        "C7": 8.28,
+        "C8": 4.18
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.82
+      ],
+      "objective_linear_coefficient": 2.79,
+      "resource_costs": {
+        "C0": 8.24,
+        "C1": 6.6,
+        "C3": 7.74,
+        "C5": 7.98,
+        "C6": 7.86,
+        "C7": 1.17,
+        "C8": 8.47
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.72
+      ],
+      "objective_linear_coefficient": 3.98,
+      "resource_costs": {
+        "C0": 9.87,
+        "C1": 4.55,
+        "C2": 2.86,
+        "C3": 2.23,
+        "C4": 8.5,
+        "C5": 1.94,
+        "C6": 0.84,
+        "C7": 0.27,
+        "C8": 8.18
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.06
+      ],
+      "objective_linear_coefficient": 7.58,
+      "resource_costs": {
+        "C0": 0.95,
+        "C1": 7.28,
+        "C3": 4.6,
+        "C4": 8.05,
+        "C6": 7.56,
+        "C8": 1.01
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.33
+      ],
+      "objective_linear_coefficient": 1.04,
+      "resource_costs": {
+        "C0": 3.47,
+        "C1": 6.12,
+        "C3": 3.32,
+        "C5": 1.2,
+        "C6": 5.31
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.7
+      ],
+      "objective_linear_coefficient": 9.78,
+      "resource_costs": {
+        "C0": 2.22,
+        "C1": 9.26,
+        "C2": 6.8,
+        "C4": 3.56,
+        "C5": 3.27,
+        "C6": 3.11,
+        "C8": 7.7
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        16.4
+      ],
+      "objective_linear_coefficient": 9.72,
+      "resource_costs": {
+        "C0": 5.39,
+        "C1": 9.57,
+        "C2": 2.29,
+        "C3": 1.08,
+        "C4": 1.93,
+        "C5": 3.11,
+        "C6": 2.73,
+        "C7": 4.29
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.0 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.82, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.79 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.72, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.98 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.06, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.58 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.33, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.04 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=7.7, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.78 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.4, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 9.72 * vars['Var_6']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.07 * vars['Var_0'] + 8.24 * vars['Var_1'] + 9.87 * vars['Var_2'] + 0.95 * vars['Var_3'] + 3.47 * vars['Var_4'] + 2.22 * vars['Var_5'] + 5.39 * vars['Var_6'] >= 169.89, name='C0')\n    m.addConstr(2.56 * vars['Var_0'] + 6.6 * vars['Var_1'] + 4.55 * vars['Var_2'] + 7.28 * vars['Var_3'] + 6.12 * vars['Var_4'] + 9.26 * vars['Var_5'] + 9.57 * vars['Var_6'] >= 213.37, name='C1')\n    m.addConstr(1.22 * vars['Var_0'] + 2.86 * vars['Var_2'] + 6.8 * vars['Var_5'] + 2.29 * vars['Var_6'] >= 35.31, name='C2')\n    m.addConstr(7.74 * vars['Var_1'] + 2.23 * vars['Var_2'] + 4.6 * vars['Var_3'] + 3.32 * vars['Var_4'] + 1.08 * vars['Var_6'] >= 111.21, name='C3')\n    m.addConstr(8.5 * vars['Var_2'] + 8.05 * vars['Var_3'] + 3.56 * vars['Var_5'] + 1.93 * vars['Var_6'] >= 83.43, name='C4')\n    m.addConstr(0.41 * vars['Var_0'] + 7.98 * vars['Var_1'] + 1.94 * vars['Var_2'] + 1.2 * vars['Var_4'] + 3.27 * vars['Var_5'] + 3.11 * vars['Var_6'] >= 79.73, name='C5')\n    m.addConstr(9.52 * vars['Var_0'] + 7.86 * vars['Var_1'] + 0.84 * vars['Var_2'] + 7.56 * vars['Var_3'] + 5.31 * vars['Var_4'] + 3.11 * vars['Var_5'] + 2.73 * vars['Var_6'] >= 232.18, name='C6')\n    m.addConstr(8.28 * vars['Var_0'] + 1.17 * vars['Var_1'] + 0.27 * vars['Var_2'] + 4.29 * vars['Var_6'] >= 85.36, name='C7')\n    m.addConstr(4.18 * vars['Var_0'] + 8.47 * vars['Var_1'] + 8.18 * vars['Var_2'] + 1.01 * vars['Var_3'] + 7.7 * vars['Var_5'] >= 121.71, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Q2 Compliance Training Procurement \u2013 Minimizing Spend while Hitting All Mandatory Targets\n\nTeam,\n\nWe need to finalize our Q2 compliance training mix so we meet all mandated minimums across nine domains at the lowest possible spend. Each option below is a whole-unit commitment (we book full bundles/cohorts/events only), and any option can be left at zero if it doesn\u2019t help the plan. Supplier availability puts a hard cap on how many of each we can secure this quarter; those caps are noted with each option.\n\nProposed levers\n\n1) Foundation e\u2011Learning Bundles\n- Budget impact: $8.00K per bundle.\n- Availability: up to 9.00 bundles this quarter; whole bundles only (we may also choose none).\n- What it delivers per bundle:\n  - Data Privacy & Governance: 6.07 credits.\n  - Cybersecurity Readiness: 2.56 credits.\n  - Anti\u2011Corruption & Compliance: 1.22 credits.\n  - Safety & First Aid Practicum: no material contribution.\n  - Diversity, Equity & Inclusion: no material contribution.\n  - Environmental Stewardship & Sustainability: 0.41 credits.\n  - Regulatory Framework & Policy: 9.52 credits.\n  - Leadership & Ethics Casework: 8.28 credits.\n  - Customer Experience & Quality: 4.18 credits.\n\n2) Advanced Cyber Workshops\n- Budget impact: $2.79K per cohort.\n- Availability: up to 9.82 cohorts; whole cohorts only (we may also choose none).\n- What it delivers per cohort:\n  - Data Privacy & Governance: 8.24 credits.\n  - Cybersecurity Readiness: 6.60 credits.\n  - Anti\u2011Corruption & Compliance: no material contribution.\n  - Safety & First Aid Practicum: 7.74 credits.\n  - Diversity, Equity & Inclusion: no material contribution.\n  - Environmental Stewardship & Sustainability: 7.98 credits.\n  - Regulatory Framework & Policy: 7.86 credits.\n  - Leadership & Ethics Casework: 1.17 credits.\n  - Customer Experience & Quality: 8.47 credits.\n\n3) Field Compliance Roadshows\n- Budget impact: $3.98K per event.\n- Availability: up to 17.72 events; whole events only (we may also choose none).\n- What it delivers per event:\n  - Data Privacy & Governance: 9.87 credits.\n  - Cybersecurity Readiness: 4.55 credits.\n  - Anti\u2011Corruption & Compliance: 2.86 credits.\n  - Safety & First Aid Practicum: 2.23 credits.\n  - Diversity, Equity & Inclusion: 8.50 credits.\n  - Environmental Stewardship & Sustainability: 1.94 credits.\n  - Regulatory Framework & Policy: 0.84 credits.\n  - Leadership & Ethics Casework: 0.27 credits.\n  - Customer Experience & Quality: 8.18 credits.\n\n4) Safety Bootcamps\n- Budget impact: $7.58K per session.\n- Availability: up to 9.06 sessions; whole sessions only (we may also choose none).\n- What it delivers per session:\n  - Data Privacy & Governance: 0.95 credits.\n  - Cybersecurity Readiness: 7.28 credits.\n  - Anti\u2011Corruption & Compliance: no material contribution.\n  - Safety & First Aid Practicum: 4.60 credits.\n  - Diversity, Equity & Inclusion: 8.05 credits.\n  - Environmental Stewardship & Sustainability: no material contribution.\n  - Regulatory Framework & Policy: 7.56 credits.\n  - Leadership & Ethics Casework: no material contribution.\n  - Customer Experience & Quality: 1.01 credits.\n\n5) Manager Toolkits\n- Budget impact: $1.04K per kit.\n- Availability: up to 10.33 kits; whole kits only (we may also choose none).\n- What it delivers per kit:\n  - Data Privacy & Governance: 3.47 credits.\n  - Cybersecurity Readiness: 6.12 credits.\n  - Anti\u2011Corruption & Compliance: no material contribution.\n  - Safety & First Aid Practicum: 3.32 credits.\n  - Diversity, Equity & Inclusion: no material contribution.\n  - Environmental Stewardship & Sustainability: 1.20 credits.\n  - Regulatory Framework & Policy: 5.31 credits.\n  - Leadership & Ethics Casework: no material contribution.\n  - Customer Experience & Quality: no material contribution.\n\n6) Executive Seminars\n- Budget impact: $9.78K per seminar.\n- Availability: up to 7.70 seminars; whole seminars only (we may also choose none).\n- What it delivers per seminar:\n  - Data Privacy & Governance: 2.22 credits.\n  - Cybersecurity Readiness: 9.26 credits.\n  - Anti\u2011Corruption & Compliance: 6.80 credits.\n  - Safety & First Aid Practicum: no material contribution.\n  - Diversity, Equity & Inclusion: 3.56 credits.\n  - Environmental Stewardship & Sustainability: 3.27 credits.\n  - Regulatory Framework & Policy: 3.11 credits.\n  - Leadership & Ethics Casework: no material contribution.\n  - Customer Experience & Quality: 7.70 credits.\n\n7) Onboarding Intensives\n- Budget impact: $9.72K per class.\n- Availability: up to 16.40 classes; whole classes only (we may also choose none).\n- What it delivers per class:\n  - Data Privacy & Governance: 5.39 credits.\n  - Cybersecurity Readiness: 9.57 credits.\n  - Anti\u2011Corruption & Compliance: 2.29 credits.\n  - Safety & First Aid Practicum: 1.08 credits.\n  - Diversity, Equity & Inclusion: 1.93 credits.\n  - Environmental Stewardship & Sustainability: 3.11 credits.\n  - Regulatory Framework & Policy: 2.73 credits.\n  - Leadership & Ethics Casework: 4.29 credits.\n  - Customer Experience & Quality: no material contribution.\n\nCompliance targets for the quarter (minimums we must meet or exceed)\n- Data Privacy & Governance: at least 169.89 credits.\n- Cybersecurity Readiness: at least 213.37 credits.\n- Anti\u2011Corruption & Compliance: at least 35.31 credits.\n- Safety & First Aid Practicum: at least 111.21 credits.\n- Diversity, Equity & Inclusion: at least 83.43 credits.\n- Environmental Stewardship & Sustainability: at least 79.73 credits.\n- Regulatory Framework & Policy: at least 232.18 credits.\n- Leadership & Ethics Casework: at least 85.36 credits.\n- Customer Experience & Quality: at least 121.71 credits.\n\nOur aim is to select whole quantities of the above options to cover these minimums while keeping total outlay as low as possible. Please review and confirm any supplier constraints or pricing changes before we lock the mix."
+}

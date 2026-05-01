@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, costs, contributions (incl. negatives), and minimum thresholds are explicit; directions and objective are clear. A unique LP matching the code can be built without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative/email style adds verbosity and context, but most text specifies coefficients and limits; little repetition.",
+      "realism": 94,
+      "realism_comment": "Plausible operational planning mix with service, throughput, safety, sustainability, water, and staffing constraints; negative impacts modeled realistically."
+    },
+    "prompt_tokens_with_data": 1256,
+    "prompt_tokens_without_data": 1256
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 141.11511138534325,
+    "optimal_values": {
+      "Var_0": 4.383932077899397,
+      "Var_1": 9.21,
+      "Var_2": 0.9885566386387236,
+      "Var_3": 2.5132233167677183,
+      "Var_4": 1.525618618224673
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -0.75
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 34.31
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 88.24
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 57.48
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 60.66
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 4.54
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 79.31
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -7.12
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.49
+      ],
+      "objective_linear_coefficient": 6.78,
+      "resource_costs": {
+        "C0": -2.84,
+        "C1": 3.92,
+        "C2": 9.05,
+        "C4": 9.05,
+        "C5": 1.09,
+        "C6": 2.51
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.21
+      ],
+      "objective_linear_coefficient": 9.68,
+      "resource_costs": {
+        "C0": -0.76,
+        "C1": 2.28,
+        "C2": 3.34,
+        "C3": 8.46,
+        "C6": 6.87
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.53
+      ],
+      "objective_linear_coefficient": 8.14,
+      "resource_costs": {
+        "C0": 3.51,
+        "C5": 4.64,
+        "C6": 1.28,
+        "C7": -1.34
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.89
+      ],
+      "objective_linear_coefficient": 3.31,
+      "resource_costs": {
+        "C0": 6.06,
+        "C2": 8.79,
+        "C4": 8.35,
+        "C5": -1.92,
+        "C7": -1.77
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.28
+      ],
+      "objective_linear_coefficient": 3.85,
+      "resource_costs": {
+        "C3": -0.73,
+        "C6": 2.47
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.49, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 6.78 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.21, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.68 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.53, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.14 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=16.89, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.31 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.28, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.85 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-2.84 * vars['Var_0'] + -0.76 * vars['Var_1'] + 3.51 * vars['Var_2'] + 6.06 * vars['Var_3'] >= -0.75, name='C0')\n    m.addConstr(3.92 * vars['Var_0'] + 2.28 * vars['Var_1'] >= 34.31, name='C1')\n    m.addConstr(9.05 * vars['Var_0'] + 3.34 * vars['Var_1'] + 8.79 * vars['Var_3'] >= 88.24, name='C2')\n    m.addConstr(8.46 * vars['Var_1'] + -0.73 * vars['Var_4'] >= 57.48, name='C3')\n    m.addConstr(9.05 * vars['Var_0'] + 8.35 * vars['Var_3'] >= 60.66, name='C4')\n    m.addConstr(1.09 * vars['Var_0'] + 4.64 * vars['Var_2'] + -1.92 * vars['Var_3'] >= 4.54, name='C5')\n    m.addConstr(2.51 * vars['Var_0'] + 6.87 * vars['Var_1'] + 1.28 * vars['Var_2'] + 2.47 * vars['Var_4'] >= 79.31, name='C6')\n    m.addConstr(-1.34 * vars['Var_2'] + -1.77 * vars['Var_3'] >= -7.12, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix to Meet Next-Quarter Commitments\n\nTeam,\n\nFor the upcoming cycle, we need to decide how much to deploy across five operating levers so that we meet our minimum service, throughput, quality, compliance, water, staffing, and risk thresholds at the lowest possible total run-rate cost. Below is the proposed framing of the decision.\n\nThe levers we can pull\n\n- Tier\u20111 Contract Runs\n  - Deployment window: can be scheduled anywhere from 0 up to 15.49 units next quarter.\n  - Cost profile: each unit carries a run-rate cost of 6.78.\n  - What it accomplishes:\n    - Regional service commitments: adds 3.92 units of coverage per run.\n    - Core throughput: contributes 9.05 units per run.\n    - Premium quality output: adds 9.05 units per run.\n    - Water conservation: adds 1.09 credits per run.\n    - Staffing coverage: contributes 2.51 points per run.\n    - Sustainability balance: reduces the sustainability score by 2.84 points per run (i.e., a penalty we must offset elsewhere).\n  - No material effect on: workplace safety & compliance score, residual hazard index.\n\n- In\u2011House Premium Line Hours\n  - Deployment window: can be assigned from 0 up to 9.21 hours.\n  - Cost profile: each hour costs 9.68.\n  - What it accomplishes:\n    - Regional service commitments: adds 2.28 units per hour.\n    - Core throughput: contributes 3.34 units per hour.\n    - Workplace safety & compliance score: improves the score by 8.46 points per hour.\n    - Staffing coverage: contributes 6.87 points per hour.\n    - Sustainability balance: reduces the sustainability score by 0.76 points per hour.\n  - No material effect on: premium quality output, water conservation credits, residual hazard index.\n\n- Recycled Input Program\n  - Deployment window: can be scaled from 0 up to 13.53 units.\n  - Cost profile: each unit costs 8.14.\n  - What it accomplishes:\n    - Sustainability balance: improves the sustainability score by 3.51 points per unit.\n    - Water conservation: adds 4.64 credits per unit.\n    - Staffing coverage: contributes 1.28 points per unit.\n    - Residual hazard index: reduces the index by 1.34 points per unit (a negative movement that counts against the floor we must maintain).\n  - No material effect on: regional service commitments, core throughput, workplace safety & compliance score, premium quality output.\n\n- Legacy Line Overtime\n  - Deployment window: can be scheduled from 0 up to 16.89 shifts.\n  - Cost profile: each shift costs 3.31.\n  - What it accomplishes:\n    - Sustainability balance: improves the sustainability score by 6.06 points per shift.\n    - Core throughput: contributes 8.79 units per shift.\n    - Premium quality output: adds 8.35 units per shift.\n    - Water conservation: reduces credits by 1.92 per shift (i.e., it draws down our water conservation balance).\n    - Residual hazard index: reduces the index by 1.77 points per shift (again, a negative movement we must keep within tolerance).\n  - No material effect on: regional service commitments, workplace safety & compliance score, staffing coverage.\n\n- Third\u2011Party Logistics Surge\n  - Deployment window: can be engaged from 0 up to 7.28 units.\n  - Cost profile: each unit costs 3.85.\n  - What it accomplishes:\n    - Staffing coverage: contributes 2.47 points per unit.\n    - Workplace safety & compliance score: reduces the score by 0.73 points per unit (a safety headwind that must be countered elsewhere).\n  - No material effect on: sustainability balance, regional service commitments, core throughput, premium quality output, water conservation, residual hazard index.\n\nFacility specs and minimum commitments we must honor\n\n- Sustainability balance must not fall below \u22120.75 points (a floor; negative values are permissible to this limit).\n- Regional service commitments must be at least 34.31 units.\n- Core throughput must be at least 88.24 units.\n- Workplace safety & compliance score must be at least 57.48 points.\n- Premium quality output must be at least 60.66 units.\n- Water conservation credits must be at least 4.54 credits.\n- Staffing coverage must be at least 79.31 points.\n- Residual hazard index must not fall below \u22127.12 points (we can tolerate down to this level, but no worse).\n\nOur objective is to choose nonnegative deployment levels for each of the five levers (each with the upper limits listed above) so that all of the minimums are met while the sum of run-rate costs is as low as possible. Please review these inputs; once confirmed, we\u2019ll run the mix and bring back a recommended plan."
+}

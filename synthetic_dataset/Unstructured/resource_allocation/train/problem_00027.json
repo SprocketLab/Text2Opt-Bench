@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 4,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Precisely states coefficients, bounds, integrality, and resource capacities; a linear MIP can be reconstructed mechanically without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some narrative fluff and repeated 'none' notes; includes nonnegativity notes already implied by bounds, but overall focused and precise.",
+      "realism": 95,
+      "realism_comment": "Convincing operations context (brew runs, media buys) with plausible capacities and contributions; numbers and constraints are coherent and realistic."
+    },
+    "prompt_tokens_with_data": 665,
+    "prompt_tokens_without_data": 665
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 18.81807639836289,
+    "optimal_values": {
+      "Var_0": 6.0,
+      "Var_1": 2.9454297407912686
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.78
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 21.59
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 61.65
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 11.75
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.06
+      ],
+      "objective_linear_coefficient": 1.05,
+      "resource_costs": {
+        "C0": 1.98,
+        "C2": 9.93,
+        "C3": 1.72
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.85
+      ],
+      "objective_linear_coefficient": 4.25,
+      "resource_costs": {
+        "C1": 7.33
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.06, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.05 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.85, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.25 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.98 * vars['Var_0'] <= 12.78, name='C0')\n    m.addConstr(7.33 * vars['Var_1'] <= 21.59, name='C1')\n    m.addConstr(9.93 * vars['Var_0'] <= 61.65, name='C2')\n    m.addConstr(1.72 * vars['Var_0'] <= 11.75, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Allocation plan to maximize contribution across two initiatives\n\nHi team,\n\nAs we finalize the upcoming cycle\u2019s plan, we have two levers to pull and a clear goal: maximize total contribution while staying within our operational and market limits. Below are the decision points, along with exactly how each option uses capacity and budget.\n\nLever 1 \u2014 Heritage Small\u2011Batch Brew Runs (whole runs only)\n- Scope and financials: Each completed run contributes 1.05 units of gross margin. We can schedule anywhere from 0 up to 10.06 runs this period, but they must be committed in whole runs only.\n- Resource use per run:\n  - Fermentation Line A: 1.98 line\u2011hours per run.\n  - Media budget: none (this lever does not draw on marketing credits at all).\n  - Cold Storage: 9.93 pallet\u2011hours per run in our chilled warehouse.\n  - Quality & Compliance Lab: 1.72 lab\u2011hours per run.\n- Notes: We will not schedule negative quantities; the minimum feasible commitment is zero runs.\n\nLever 2 \u2014 Targeted Media Bursts (fractional buys allowed)\n- Scope and financials: Each burst delivers 4.25 units of contribution. We can place anywhere from 0 up to 5.85 bursts this period, and these can be purchased in fractional quantities if needed.\n- Resource use per burst:\n  - Fermentation Line A: none.\n  - Media budget: 7.33 marketing credit units per burst.\n  - Cold Storage: none.\n  - Quality & Compliance Lab: none.\n- Notes: We will not buy negative quantities; the minimum feasible commitment is zero bursts.\n\nFacility & market limits for this period\n- Fermentation Line A availability: up to 12.78 line\u2011hours total.\n- Marketing credits available for media placements: up to 21.59 credit units total.\n- Chilled warehouse capacity: up to 61.65 pallet\u2011hours total available for finished goods.\n- Quality & Compliance Lab availability: up to 11.75 lab\u2011hours total.\n\nPlease use the above to recommend the mix of brew runs and media bursts that maximizes overall contribution without exceeding any of the listed capacities."
+}

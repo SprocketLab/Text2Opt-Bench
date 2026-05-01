@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, impacts, integrality, bounds, and thresholds are precisely stated; zeros are explicit; objective and constraint directions are clear.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Corporate narrative adds fluff and repeated 'no minimum' notes; core specs are clear but wordy.",
+      "realism": 90,
+      "realism_comment": "Realistic sustainability portfolio optimization; slight oddity with fractional caps despite integer units."
+    },
+    "prompt_tokens_with_data": 799,
+    "prompt_tokens_without_data": 799
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 42.88,
+    "optimal_values": {
+      "Var_0": -0.0,
+      "Var_1": 8.0,
+      "Var_2": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 54.28
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 31.32
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.13
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.29
+      ],
+      "objective_linear_coefficient": 4.45,
+      "resource_costs": {
+        "C0": 1.32
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.97
+      ],
+      "objective_linear_coefficient": 5.36,
+      "resource_costs": {
+        "C0": 6.98,
+        "C1": 4.83,
+        "C2": 6.53
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.9
+      ],
+      "objective_linear_coefficient": 7.93,
+      "resource_costs": {
+        "C0": 7.49,
+        "C1": 7.52,
+        "C2": 2.48
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.29, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 4.45 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.97, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 5.36 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=18.9, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.93 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.32 * vars['Var_0'] + 6.98 * vars['Var_1'] + 7.49 * vars['Var_2'] >= 54.28, name='C0')\n    m.addConstr(4.83 * vars['Var_1'] + 7.52 * vars['Var_2'] >= 31.32, name='C1')\n    m.addConstr(6.53 * vars['Var_1'] + 2.48 * vars['Var_2'] >= 43.13, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Mix to Meet Q4 Impact Obligations\n\nTeam,\n\nWe need to assemble a cost-effective portfolio of approved initiatives to meet our Q4 impact obligations. The objective is to minimize total spend while ensuring we hit or exceed our minimum thresholds across three audited categories: Carbon Abatement Credits, Water Stewardship Credits, and Community Benefit Points. All commitments must be placed in whole units only; there is no minimum purchase requirement for any initiative, and we may choose zero if that is optimal.\n\nHere are the levers available to us this quarter, in the order we should consider them:\n\n- Neighborhood Tree-Planting Drives\n  - Unit economics: $4.45k per drive.\n  - Compliance impact per drive:\n    - Carbon Abatement Credits: 1.32 credits.\n    - Water Stewardship Credits: no recognized contribution.\n    - Community Benefit Points: no recognized contribution.\n  - Availability: up to 10.29 drives can be scheduled; we cannot schedule fractional drives.\n  - Minimum commitment: none (0 drives is acceptable if not needed).\n\n- Plant Efficiency Retrofits\n  - Unit economics: $5.36k per retrofit.\n  - Compliance impact per retrofit:\n    - Carbon Abatement Credits: 6.98 credits.\n    - Water Stewardship Credits: 4.83 credits.\n    - Community Benefit Points: 6.53 points.\n  - Availability: up to 10.97 retrofits may be executed; whole retrofits only.\n  - Minimum commitment: none (0 retrofits is acceptable if not needed).\n\n- Wetland Restoration Parcels\n  - Unit economics: $7.93k per parcel.\n  - Compliance impact per parcel:\n    - Carbon Abatement Credits: 7.49 credits.\n    - Water Stewardship Credits: 7.52 credits.\n    - Community Benefit Points: 2.48 points.\n  - Availability: up to 18.9 parcels can be acquired; whole parcels only.\n  - Minimum commitment: none (0 parcels is acceptable if not needed).\n\nMarket and Compliance Minimums (must be met or exceeded):\n- Carbon Abatement Credits: at least 54.28 credits this quarter.\n- Water Stewardship Credits: at least 31.32 credits this quarter.\n- Community Benefit Points: at least 43.13 points this quarter.\n\nOur task is to choose an integer number of each initiative (no fractional drives, retrofits, or parcels), within the availability caps noted above, to meet or exceed all three minimums while keeping total spend\u2014calculated at $4.45k per drive, $5.36k per retrofit, and $7.93k per parcel\u2014as low as possible.\n\nPlease let me know if you want a first-pass recommendation using these inputs, or if there are any last-minute changes to the caps or per-unit costs before we run the optimization."
+}

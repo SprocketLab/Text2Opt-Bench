@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 5,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, availabilities, integrality, per-unit contributions, and minimum thresholds are specified; objective is to minimize total spend. Constraints map unambiguously.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Memo-style prose adds some fluff; data is clear but longer than needed.",
+      "realism": 92,
+      "realism_comment": "Plausible training allocation with capacities and minimum commitments; integrality for blocks fits. One option with no credits is unusual but acceptable."
+    },
+    "prompt_tokens_with_data": 804,
+    "prompt_tokens_without_data": 804
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 136.8339777867626,
+    "optimal_values": {
+      "Var_0": 5.895172413793103,
+      "Var_1": 0.0,
+      "Var_2": 7.13959532630379,
+      "Var_3": 8.541158841550299,
+      "Var_4": -0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 42.74
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 149.42
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 115.86
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.81
+      ],
+      "objective_linear_coefficient": 8.09,
+      "resource_costs": {
+        "C0": 7.25,
+        "C1": 2.56,
+        "C2": 7.93
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.35
+      ],
+      "objective_linear_coefficient": 9.98,
+      "resource_costs": {
+        "C0": 0.81,
+        "C1": 3.53,
+        "C2": 7.19
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.53
+      ],
+      "objective_linear_coefficient": 5.87,
+      "resource_costs": {
+        "C1": 7.33,
+        "C2": 9.68
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.51
+      ],
+      "objective_linear_coefficient": 5.53,
+      "resource_costs": {
+        "C1": 9.6
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.52
+      ],
+      "objective_linear_coefficient": 7.58,
+      "resource_costs": {}
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.81, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.09 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.35, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.98 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.53, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.87 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.51, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.53 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=14.52, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 7.58 * vars['Var_4']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.25 * vars['Var_0'] + 0.81 * vars['Var_1'] >= 42.74, name='C0')\n    m.addConstr(2.56 * vars['Var_0'] + 3.53 * vars['Var_1'] + 7.33 * vars['Var_2'] + 9.6 * vars['Var_3'] >= 149.42, name='C1')\n    m.addConstr(7.93 * vars['Var_0'] + 7.19 * vars['Var_1'] + 9.68 * vars['Var_2'] >= 115.86, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed Allocation Plan to Meet Q1 Commitments at Lowest Cost\n\nTeam,\n\nWe need to decide how to allocate a limited set of programs to satisfy three non-negotiable commitments at the lowest possible total spend. The three commitments are Safety & Compliance hours, Accredited Skill credits, and Sustainability & Ethics hours. Each program below can be scaled within its availability limits, some in fractional increments and one only in whole units. Our objective is to cover all three minimums while minimizing our total outlay.\n\n- Core Operations Uplift Sessions\n  - Cost: $8.09 per unit delivered.\n  - Availability: optional, up to 13.81 units (can be scheduled fractionally).\n  - Contribution to commitments (per unit):\n    - Safety & Compliance: 7.25 hours.\n    - Accredited Skill: 2.56 credits.\n    - Sustainability & Ethics: 7.93 hours.\n\n- Customer Experience Immersion Days\n  - Cost: $9.98 per unit delivered.\n  - Availability: optional, up to 8.35 units (can be scheduled fractionally).\n  - Contribution to commitments (per unit):\n    - Safety & Compliance: 0.81 hours.\n    - Accredited Skill: 3.53 credits.\n    - Sustainability & Ethics: 7.19 hours.\n\n- Advanced Engineering Labs\n  - Cost: $5.87 per unit delivered.\n  - Availability: optional, up to 13.53 units (can be scheduled fractionally).\n  - Contribution to commitments (per unit):\n    - Safety & Compliance: no credited hours.\n    - Accredited Skill: 7.33 credits.\n    - Sustainability & Ethics: 9.68 hours.\n\n- Field Certification Blitz\n  - Cost: $5.53 per unit delivered.\n  - Availability: optional, up to 17.51 units (can be scheduled fractionally).\n  - Contribution to commitments (per unit):\n    - Safety & Compliance: no credited hours.\n    - Accredited Skill: 9.60 credits.\n    - Sustainability & Ethics: no credited hours.\n\n- Executive Coaching Blocks\n  - Cost: $7.58 per block.\n  - Availability: optional, up to 14.52 blocks (whole blocks only).\n  - Contribution to commitments: no credited hours or credits toward any of the three minimums.\n\nFacility & Contract Commitments (minimums for this period)\n- Safety & Compliance hours: at least 42.74 hours in total across the selected mix.\n- Accredited Skill credits: at least 149.42 credits in total across the selected mix.\n- Sustainability & Ethics hours: at least 115.86 hours in total across the selected mix.\n\nPlease review these levers and their cost/impact trade-offs so we can finalize the lowest-cost portfolio that meets all three thresholds within the stated availability limits.\n\nBest regards,\nMaya Patel\nDirector, Learning & Capability Development"
+}

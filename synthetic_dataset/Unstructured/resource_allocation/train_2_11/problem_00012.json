@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "Clear linear effects, bounds, integrality, and thresholds; objective is cost minimization. Exact variable names not specified, but math is fully reconstructible without guessing.",
+      "ambiguity": false,
+      "redudancy": 45,
+      "redundancy_comment": "Narrative is verbose and repeats impacts in both lever details and notes; some context fluff, but all info is relevant to the model.",
+      "realism": 92,
+      "realism_comment": "Realistic planning scenario (compliance, sentiment, throughput) with costs, limits, thresholds. Decimals and sentiment floor are unusual but plausible."
+    },
+    "prompt_tokens_with_data": 748,
+    "prompt_tokens_without_data": 748
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 98.33798283261802,
+    "optimal_values": {
+      "Var_0": 0.8683834048640915,
+      "Var_1": 10.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 6.07
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -0.73
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 53.28
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.96
+      ],
+      "objective_linear_coefficient": 4.65,
+      "resource_costs": {
+        "C0": 6.99,
+        "C1": 0.49
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.0
+      ],
+      "objective_linear_coefficient": 9.43,
+      "resource_costs": {
+        "C2": 5.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.96, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.65 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 9.43 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.99 * vars['Var_0'] >= 6.07, name='C0')\n    m.addConstr(0.49 * vars['Var_0'] >= -0.73, name='C1')\n    m.addConstr(5.46 * vars['Var_1'] >= 53.28, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Plan for Compliance and Delivery Commitments\n\nTeam,\n\nAs discussed, we need a cost-minimizing allocation for the upcoming period that simultaneously meets our compliance, reputation, and delivery commitments. Please use the following levers and limits exactly as described.\n\nLevers we can control:\n\n1) Regulatory Readiness Workshops\n- Purpose and cost: These are internal workshops aimed at audit preparation. Each workshop unit carries a fully loaded cost of 4.65.\n- Range and granularity: We can schedule anywhere from 0 up to 12.96 units this period, and this lever can be dialed fractionally (e.g., 2.5 units is acceptable).\n- Impact on commitments:\n  - Audit Readiness Score: Each unit adds 6.99 points toward the audit readiness requirement.\n  - Stakeholder Sentiment Index: Each unit improves sentiment by 0.49 points.\n  - Delivery Throughput: No effect; workshops contribute 0 units of throughput.\n\n2) Evening Delivery Runs\n- Purpose and cost: These runs are dedicated delivery blocks. Each run costs 9.43.\n- Range and granularity: We can plan from 0 up to 11 runs, but these must be whole run counts only (1, 2, \u2026; fractional runs are not allowed).\n- Impact on commitments:\n  - Delivery Throughput: Each run provides 5.46 throughput units.\n  - Audit Readiness Score: No effect; runs contribute 0 readiness points.\n  - Stakeholder Sentiment Index: No effect; runs contribute 0 sentiment points.\n\nGoal\n- Minimize total spend across the two levers while meeting all minimum thresholds below.\n\nFacility Specs and Minimum Commitments (must all be met concurrently):\n- Audit Readiness Score: At least 6.07 points.\n- Stakeholder Sentiment Index: Not below -0.73 points (we can tolerate slightly negative sentiment but must stay at or above this floor).\n- Delivery Throughput: At least 53.28 throughput units.\n\nNotes\n- Non-negativity applies to both levers (we do not plan negative quantities).\n- Workshops can be set in fractional units up to 12.96; delivery runs must be in whole numbers up to 11.\n- Workshops improve audit readiness (6.99 per unit) and sentiment (0.49 per unit) but do not add to throughput (0); delivery runs increase throughput (5.46 per run) but do not affect readiness (0) or sentiment (0).\n\nPlease develop a plan that meets the above floors at the lowest total cost using only the ranges and unit effects provided."
+}

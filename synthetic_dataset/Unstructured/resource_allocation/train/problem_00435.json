@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds and costs are explicit; per-lever impacts on six metrics are clearly signed (add/draw/unchanged); floors/targets are stated as >=; objective is minimize total cost; variables are fractional.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business-memo style adds some fluff, but most text conveys necessary coefficients, bounds, and goals. Slightly verbose yet not repetitive.",
+      "realism": 95,
+      "realism_comment": "A plausible operations planning scenario with resource balances and service targets; data and relationships are coherent. Minor oddity with negative floors but credible."
+    },
+    "prompt_tokens_with_data": 1421,
+    "prompt_tokens_without_data": 1421
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 24.27947598253275,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 0.0,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 6.069868995633188,
+      "Var_5": 0.0,
+      "Var_6": 0.0,
+      "Var_7": 0.0,
+      "Var_8": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -78.23
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -175.86
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -68.78
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -63.14
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 55.6
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 53.17
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.55
+      ],
+      "objective_linear_coefficient": 9.58,
+      "resource_costs": {
+        "C0": -5.07,
+        "C1": -0.56,
+        "C3": 2.6,
+        "C4": 7.76,
+        "C5": 0.27
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.07
+      ],
+      "objective_linear_coefficient": 2.58,
+      "resource_costs": {
+        "C0": 5.09,
+        "C1": 0.75,
+        "C2": 1.12,
+        "C3": -2.72,
+        "C4": 3.44,
+        "C5": 2.7
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.05
+      ],
+      "objective_linear_coefficient": 6.36,
+      "resource_costs": {
+        "C1": -6.74,
+        "C2": -8.53,
+        "C3": -2.25,
+        "C4": -2.78
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.83
+      ],
+      "objective_linear_coefficient": 4.46,
+      "resource_costs": {
+        "C0": 3.24,
+        "C1": -4.31,
+        "C3": 5.24,
+        "C4": -6.27,
+        "C5": -5.99
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.93
+      ],
+      "objective_linear_coefficient": 4.0,
+      "resource_costs": {
+        "C0": 1.94,
+        "C2": -1.56,
+        "C3": -5.79,
+        "C4": 9.16,
+        "C5": 9.78
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.38
+      ],
+      "objective_linear_coefficient": 7.72,
+      "resource_costs": {
+        "C0": -6.0,
+        "C1": -6.4,
+        "C2": -2.17,
+        "C3": -9.1,
+        "C4": 3.53,
+        "C5": -5.84
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.54
+      ],
+      "objective_linear_coefficient": 7.5,
+      "resource_costs": {
+        "C0": -7.44,
+        "C1": -4.83,
+        "C3": -1.15,
+        "C4": 3.85,
+        "C5": 9.64
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.28
+      ],
+      "objective_linear_coefficient": 3.29,
+      "resource_costs": {
+        "C0": -4.92,
+        "C1": 2.61,
+        "C2": -8.23,
+        "C4": -5.37,
+        "C5": 0.18
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.54
+      ],
+      "objective_linear_coefficient": 7.75,
+      "resource_costs": {
+        "C0": -0.34,
+        "C1": -6.65,
+        "C4": -0.97,
+        "C5": 8.23
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.55, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.58 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=18.07, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.58 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.05, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.36 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.83, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.46 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.93, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 4.0 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=19.38, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.72 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=11.54, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 7.5 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=18.28, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.29 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=10.54, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 7.75 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-5.07 * vars['Var_0'] + 5.09 * vars['Var_1'] + 3.24 * vars['Var_3'] + 1.94 * vars['Var_4'] + -6.0 * vars['Var_5'] + -7.44 * vars['Var_6'] + -4.92 * vars['Var_7'] + -0.34 * vars['Var_8'] >= -78.23, name='C0')\n    m.addConstr(-0.56 * vars['Var_0'] + 0.75 * vars['Var_1'] + -6.74 * vars['Var_2'] + -4.31 * vars['Var_3'] + -6.4 * vars['Var_5'] + -4.83 * vars['Var_6'] + 2.61 * vars['Var_7'] + -6.65 * vars['Var_8'] >= -175.86, name='C1')\n    m.addConstr(1.12 * vars['Var_1'] + -8.53 * vars['Var_2'] + -1.56 * vars['Var_4'] + -2.17 * vars['Var_5'] + -8.23 * vars['Var_7'] >= -68.78, name='C2')\n    m.addConstr(2.6 * vars['Var_0'] + -2.72 * vars['Var_1'] + -2.25 * vars['Var_2'] + 5.24 * vars['Var_3'] + -5.79 * vars['Var_4'] + -9.1 * vars['Var_5'] + -1.15 * vars['Var_6'] >= -63.14, name='C3')\n    m.addConstr(7.76 * vars['Var_0'] + 3.44 * vars['Var_1'] + -2.78 * vars['Var_2'] + -6.27 * vars['Var_3'] + 9.16 * vars['Var_4'] + 3.53 * vars['Var_5'] + 3.85 * vars['Var_6'] + -5.37 * vars['Var_7'] + -0.97 * vars['Var_8'] >= 55.6, name='C4')\n    m.addConstr(0.27 * vars['Var_0'] + 2.7 * vars['Var_1'] + -5.99 * vars['Var_3'] + 9.78 * vars['Var_4'] + -5.84 * vars['Var_5'] + 9.64 * vars['Var_6'] + 0.18 * vars['Var_7'] + 8.23 * vars['Var_8'] >= 53.17, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Final parameters for the service-and-operations allocation plan\n\nTeam,\n\nWe\u2019re ready to lock the parameters for our nine operational levers. The aim is to minimize total program spend while keeping our internal balances above their agreed floors and meeting the service commitments we\u2019ve set for the quarter. Each lever below can be scaled in fractional increments up to its noted cap.\n\n- Premium Care Packaging\n  - Scope and cost: Scalable from 0 up to 6.55 units, with a per\u2011unit run cost of 9.58.\n  - Impact: Each unit draws down our Bulk Materials Balance by 5.07 and our Specialist Labor Balance by 0.56, leaves Waste Treatment Load unchanged, adds 2.6 back into the Assembly Line Time Balance, lifts the Customer Satisfaction Index by 7.76, and nudges the Market Coverage Score up by 0.27.\n\n- Contract Kitting Expansion\n  - Scope and cost: Scalable from 0 up to 18.07 units, with a per\u2011unit run cost of 2.58.\n  - Impact: Each unit adds 5.09 to the Bulk Materials Balance and 0.75 to the Specialist Labor Balance, increases Waste Treatment Load by 1.12, consumes 2.72 from the Assembly Line Time Balance, raises the Customer Satisfaction Index by 3.44, and increases the Market Coverage Score by 2.7.\n\n- Rework Containment Cells\n  - Scope and cost: Scalable from 0 up to 10.05 units, with a per\u2011unit run cost of 6.36.\n  - Impact: This lever does not move the Bulk Materials Balance, but each unit draws down the Specialist Labor Balance by 6.74 and the Waste Treatment Load Balance by 8.53, uses 2.25 from the Assembly Line Time Balance, and reduces the Customer Satisfaction Index by 2.78; it does not change the Market Coverage Score.\n\n- Regional Co\u2011Packing Shift\n  - Scope and cost: Scalable from 0 up to 10.83 units, with a per\u2011unit run cost of 4.46.\n  - Impact: Each unit adds 3.24 to the Bulk Materials Balance, draws down the Specialist Labor Balance by 4.31, leaves Waste Treatment Load unchanged, adds 5.24 back to the Assembly Line Time Balance, and reduces both the Customer Satisfaction Index by 6.27 and the Market Coverage Score by 5.99.\n\n- Automated Cartoning Module\n  - Scope and cost: Scalable from 0 up to 9.93 units, with a per\u2011unit run cost of 4.0.\n  - Impact: Each unit adds 1.94 to the Bulk Materials Balance, does not affect the Specialist Labor Balance, draws 1.56 from the Waste Treatment Load Balance and 5.79 from the Assembly Line Time Balance, while lifting the Customer Satisfaction Index by 9.16 and the Market Coverage Score by 9.78.\n\n- Weekend Overtime Runs\n  - Scope and cost: Scalable from 0 up to 19.38 units, with a per\u2011unit run cost of 7.72.\n  - Impact: Each unit draws down the Bulk Materials Balance by 6.0 and the Specialist Labor Balance by 6.4, increases the Waste Treatment Load draw by 2.17, consumes 9.1 from the Assembly Line Time Balance, and while it lifts the Customer Satisfaction Index by 3.53, it reduces the Market Coverage Score by 5.84.\n\n- Reliability Upgrade Blitz\n  - Scope and cost: Scalable from 0 up to 11.54 units, with a per\u2011unit run cost of 7.5.\n  - Impact: Each unit draws 7.44 from the Bulk Materials Balance and 4.83 from the Specialist Labor Balance, leaves Waste Treatment Load unchanged, uses 1.15 from the Assembly Line Time Balance, lifts the Customer Satisfaction Index by 3.85, and increases the Market Coverage Score by 9.64.\n\n- Direct\u2011to\u2011Consumer Pilot\n  - Scope and cost: Scalable from 0 up to 18.28 units, with a per\u2011unit run cost of 3.29.\n  - Impact: Each unit draws down the Bulk Materials Balance by 4.92, adds 2.61 back to the Specialist Labor Balance, draws 8.23 from the Waste Treatment Load Balance, does not affect the Assembly Line Time Balance, reduces the Customer Satisfaction Index by 5.37, and provides a modest 0.18 increase to the Market Coverage Score.\n\n- Field Merchandising Surge\n  - Scope and cost: Scalable from 0 up to 10.54 units, with a per\u2011unit run cost of 7.75.\n  - Impact: Each unit draws 0.34 from the Bulk Materials Balance and 6.65 from the Specialist Labor Balance, leaves both Waste Treatment Load and Assembly Line Time balances unchanged, reduces the Customer Satisfaction Index by 0.97, and lifts the Market Coverage Score by 8.23.\n\nOperating floors and service commitments\n- Bulk Materials Balance: do not allow the net balance to fall below \u221278.23.\n- Specialist Labor Balance: do not allow the net balance to fall below \u2212175.86.\n- Waste Treatment Load Balance: do not allow the net balance to fall below \u221268.78.\n- Assembly Line Time Balance: do not allow the net balance to fall below \u221263.14.\n- Customer Satisfaction Index: achieve at least 55.6.\n- Market Coverage Score: achieve at least 53.17.\n\nPlease use the above to generate the recommended scaling of each lever that minimizes our total run cost while staying within the operating floors and meeting the two service targets. I\u2019m comfortable with fractional deployment where helpful."
+}

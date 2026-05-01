@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 4,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All bounds, contributions, and resource consumptions are explicit; four capacity limits defined; linear mapping is clear. Minor ambiguity on integrality/naming only.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business narrative and repeated 'uses 0' lines add verbosity, but the data is organized and relevant.",
+      "realism": 95,
+      "realism_comment": "Very plausible production planning scenario with realistic resources and caps; coherent and practical details."
+    },
+    "prompt_tokens_with_data": 893,
+    "prompt_tokens_without_data": 893
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 350.76992342388087,
+    "optimal_values": {
+      "Var_0": 14.97,
+      "Var_1": 10.417735042735044,
+      "Var_2": 8.14,
+      "Var_3": 17.81,
+      "Var_4": 0.0,
+      "Var_5": 5.514345434543452
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 97.51
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 1.52
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 167.76
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 88.19
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.97
+      ],
+      "objective_linear_coefficient": 7.65,
+      "resource_costs": {
+        "C2": 4.9
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.67
+      ],
+      "objective_linear_coefficient": 9.44,
+      "resource_costs": {
+        "C0": 9.36,
+        "C3": 0.18
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.14
+      ],
+      "objective_linear_coefficient": 5.01,
+      "resource_costs": {
+        "C2": 5.44
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.81
+      ],
+      "objective_linear_coefficient": 3.8,
+      "resource_costs": {}
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.97
+      ],
+      "objective_linear_coefficient": 5.01,
+      "resource_costs": {
+        "C0": 9.85,
+        "C1": 2.25,
+        "C2": 6.7,
+        "C3": 2.75
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.41
+      ],
+      "objective_linear_coefficient": 5.34,
+      "resource_costs": {
+        "C2": 9.09,
+        "C3": 8.7
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.97, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.65 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.67, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.44 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.14, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.01 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.81, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.8 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=6.97, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.01 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=17.41, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.34 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.36 * vars['Var_1'] + 9.85 * vars['Var_4'] <= 97.51, name='C0')\n    m.addConstr(2.25 * vars['Var_4'] <= 1.52, name='C1')\n    m.addConstr(4.9 * vars['Var_0'] + 5.44 * vars['Var_2'] + 6.7 * vars['Var_4'] + 9.09 * vars['Var_5'] <= 167.76, name='C2')\n    m.addConstr(0.18 * vars['Var_1'] + 2.75 * vars['Var_4'] + 8.7 * vars['Var_5'] <= 88.19, name='C3')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Portfolio production mix request \u2014 maximize contribution under current plant and market limits\n\nTeam,\n\nWe need your help setting our spring production mix to maximize total contribution given a few tight plant and market limits. Below is the context on each lever we can pull and how it draws on our constrained resources. Think of each lever as one standard production lot; all figures are per lot.\n\n- Sierra Sparkling Citrus\n  - Financials: Each lot returns 7.65 in contribution.\n  - Planning window: We can schedule from 0 up to 14.97 lots.\n  - Resource effects: Uses 0 premium glass credits, 0 regulatory/compliance review days, 4.9 shared processing vessel hours, and 0 chilled logistics hours.\n\n- Blue Ridge Botanical Tonic\n  - Financials: Each lot returns 9.44 in contribution.\n  - Planning window: We can schedule from 0 up to 11.67 lots.\n  - Resource effects: Uses 9.36 premium glass credits and 0.18 chilled logistics hours per lot; draws 0 regulatory/compliance review days and 0 shared processing vessel hours.\n\n- Harbor Cold Brew Concentrate\n  - Financials: Each lot returns 5.01 in contribution.\n  - Planning window: We can schedule from 0 up to 8.14 lots.\n  - Resource effects: Uses 0 premium glass credits, 0 regulatory/compliance review days, 5.44 shared processing vessel hours, and 0 chilled logistics hours.\n\n- Direct Digital Sampler Packs (outsourced channel)\n  - Financials: Each lot returns 3.8 in contribution.\n  - Planning window: We can schedule from 0 up to 17.81 lots.\n  - Resource effects: Uses 0 premium glass credits, 0 regulatory/compliance review days, 0 shared processing vessel hours, and 0 chilled logistics hours.\n\n- Amber Heritage Ale (barrel-aged line)\n  - Financials: Each lot returns 5.01 in contribution.\n  - Planning window: We can schedule from 0 up to 6.97 lots.\n  - Resource effects: Uses 9.85 premium glass credits, 2.25 regulatory/compliance review days, 6.7 shared processing vessel hours, and 2.75 chilled logistics hours per lot.\n\n- Northern IPA (canned program)\n  - Financials: Each lot returns 5.34 in contribution.\n  - Planning window: We can schedule from 0 up to 17.41 lots.\n  - Resource effects: Uses 0 premium glass credits, 0 regulatory/compliance review days, 9.09 shared processing vessel hours, and 8.7 chilled logistics hours per lot.\n\nFacility specs and market limits\n- Premium glass inventory is capped at 97.51 credits across the planning window.\n- Regulatory/compliance and allergen review bandwidth is capped at 1.52 review-days.\n- Shared processing vessel availability is capped at 167.76 hours.\n- Chilled logistics (cold-chain trucking and staging) is capped at 88.19 hours.\n\nOur objective is to allocate lots across the six offers above to maximize total contribution while respecting the resource ceilings and the lot limits noted for each line. Please translate this into a production plan with the mix that best uses the capacities available this cycle."
+}

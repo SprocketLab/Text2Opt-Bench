@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All bounds, costs, and per-unit scorecard effects are specified; floors and nonnegativity/caps are clear; zeros explicitly noted. A unique LP can be reconstructed without guessing.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some verbosity and repeated \u2018no measurable effect\u2019 statements, but they clarify zero coefficients. Overall structured and focused on needed data.",
+      "realism": 93,
+      "realism_comment": "Plausible corporate finance allocation with coherent scorecards and tradeoffs; negative effects and floors are believable. Data feels realistic and implementable."
+    },
+    "prompt_tokens_with_data": 1207,
+    "prompt_tokens_without_data": 1207
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 93.62881115086704,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 9.281187530390621,
+      "Var_2": 0.0,
+      "Var_3": 2.942994118331662,
+      "Var_4": 0.0,
+      "Var_5": 0.0,
+      "Var_6": 8.253012048192772,
+      "Var_7": 0.0,
+      "Var_8": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -47.95
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 57.03
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -5.54
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -49.52
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -17.25
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.56
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.13
+      ],
+      "objective_linear_coefficient": 8.71,
+      "resource_costs": {
+        "C2": 7.04,
+        "C3": 7.96,
+        "C4": -6.61
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.2
+      ],
+      "objective_linear_coefficient": 6.26,
+      "resource_costs": {
+        "C1": 5.26,
+        "C2": -8.92
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.52
+      ],
+      "objective_linear_coefficient": 9.21,
+      "resource_costs": {
+        "C3": -2.03,
+        "C4": -1.72
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.07
+      ],
+      "objective_linear_coefficient": 5.37,
+      "resource_costs": {
+        "C1": 2.79,
+        "C3": -0.77
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.04
+      ],
+      "objective_linear_coefficient": 3.38,
+      "resource_costs": {
+        "C2": 5.53
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.65
+      ],
+      "objective_linear_coefficient": 8.4,
+      "resource_costs": {
+        "C2": -9.93,
+        "C3": 6.8
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.88
+      ],
+      "objective_linear_coefficient": 2.39,
+      "resource_costs": {
+        "C0": -5.81,
+        "C2": 9.36,
+        "C5": 3.65
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.37
+      ],
+      "objective_linear_coefficient": 2.43,
+      "resource_costs": {}
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.94
+      ],
+      "objective_linear_coefficient": 3.23,
+      "resource_costs": {
+        "C2": -3.02,
+        "C3": -7.13,
+        "C5": -3.04
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.13, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.71 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.2, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.26 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.52, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 9.21 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.07, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 5.37 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.04, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 3.38 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=6.65, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 8.4 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.88, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.39 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=10.37, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 2.43 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=16.94, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 3.23 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-5.81 * vars['Var_6'] >= -47.95, name='C0')\n    m.addConstr(5.26 * vars['Var_1'] + 2.79 * vars['Var_3'] >= 57.03, name='C1')\n    m.addConstr(7.04 * vars['Var_0'] + -8.92 * vars['Var_1'] + 5.53 * vars['Var_4'] + -9.93 * vars['Var_5'] + 9.36 * vars['Var_6'] + -3.02 * vars['Var_8'] >= -5.54, name='C2')\n    m.addConstr(7.96 * vars['Var_0'] + -2.03 * vars['Var_2'] + -0.77 * vars['Var_3'] + 6.8 * vars['Var_5'] + -7.13 * vars['Var_8'] >= -49.52, name='C3')\n    m.addConstr(-6.61 * vars['Var_0'] + -1.72 * vars['Var_2'] >= -17.25, name='C4')\n    m.addConstr(3.65 * vars['Var_6'] + -3.04 * vars['Var_8'] >= 11.56, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Allocation Plan Across Nine Funding Levers\n\nTeam,\n\nWe need to set a cost-minimizing allocation across nine funding and program levers while keeping six enterprise scorecards at or above their minimum floors. Each lever has a per\u2011unit carrying cost, a hard cap, and a defined footprint on our scorecards. Allocations may not go below zero on any lever.\n\nThe levers\n\n1) Tier\u20111 Senior Notes\n- Allocation range: 0 to 17.13 units.\n- Cost: 8.71 per unit.\n- Scorecard effects per unit:\n  - Interest Rate Stability Index: +7.04.\n  - Counterparty Credit Cushion: +7.96.\n  - Currency Drift Balance: \u22126.61.\n  - No measurable effect on Operating Liquidity Margin, Backlog Assurance, or Sustainability & Community Score.\n\n2) Customer Prepayment Program\n- Allocation range: 0 to 10.20 units.\n- Cost: 6.26 per unit.\n- Scorecard effects per unit:\n  - Backlog Assurance: +5.26.\n  - Interest Rate Stability Index: \u22128.92.\n  - No measurable effect on Operating Liquidity Margin, Counterparty Credit Cushion, Currency Drift Balance, or Sustainability & Community Score.\n\n3) Frontier Market Notes\n- Allocation range: 0 to 8.52 units.\n- Cost: 9.21 per unit.\n- Scorecard effects per unit:\n  - Counterparty Credit Cushion: \u22122.03.\n  - Currency Drift Balance: \u22121.72.\n  - No measurable effect on Operating Liquidity Margin, Backlog Assurance, Interest Rate Stability Index, or Sustainability & Community Score.\n\n4) Multi\u2011Year Service Agreements\n- Allocation range: 0 to 18.07 units.\n- Cost: 5.37 per unit.\n- Scorecard effects per unit:\n  - Backlog Assurance: +2.79.\n  - Counterparty Credit Cushion: \u22120.77.\n  - No measurable effect on Operating Liquidity Margin, Interest Rate Stability Index, Currency Drift Balance, or Sustainability & Community Score.\n\n5) Fixed\u2011Receive Interest Rate Swap Hedge\n- Allocation range: 0 to 9.04 units.\n- Cost: 3.38 per unit.\n- Scorecard effects per unit:\n  - Interest Rate Stability Index: +5.53.\n  - No measurable effect on Operating Liquidity Margin, Backlog Assurance, Counterparty Credit Cushion, Currency Drift Balance, or Sustainability & Community Score.\n\n6) Supplier Early\u2011Pay Facility\n- Allocation range: 0 to 6.65 units.\n- Cost: 8.40 per unit.\n- Scorecard effects per unit:\n  - Interest Rate Stability Index: \u22129.93.\n  - Counterparty Credit Cushion: +6.80.\n  - No measurable effect on Operating Liquidity Margin, Backlog Assurance, Currency Drift Balance, or Sustainability & Community Score.\n\n7) Green Bond Issuance (Restricted Proceeds)\n- Allocation range: 0 to 10.88 units.\n- Cost: 2.39 per unit.\n- Scorecard effects per unit:\n  - Operating Liquidity Margin: \u22125.81 (restricted cash effect).\n  - Interest Rate Stability Index: +9.36.\n  - Sustainability & Community Score: +3.65.\n  - No measurable effect on Backlog Assurance, Counterparty Credit Cushion, or Currency Drift Balance.\n\n8) General Contingency Pool\n- Allocation range: 0 to 10.37 units.\n- Cost: 2.43 per unit.\n- Scorecard effects per unit:\n  - No measurable effect on Operating Liquidity Margin, Backlog Assurance, Interest Rate Stability Index, Counterparty Credit Cushion, Currency Drift Balance, or Sustainability & Community Score.\n\n9) Share Repurchase Program\n- Allocation range: 0 to 16.94 units.\n- Cost: 3.23 per unit.\n- Scorecard effects per unit:\n  - Interest Rate Stability Index: \u22123.02.\n  - Counterparty Credit Cushion: \u22127.13.\n  - Sustainability & Community Score: \u22123.04.\n  - No measurable effect on Operating Liquidity Margin, Backlog Assurance, or Currency Drift Balance.\n\nScorecard minimums we must respect\n- Operating Liquidity Margin must be at least \u221247.95.\n- Backlog Assurance must be at least 57.03.\n- Interest Rate Stability Index must be at least \u22125.54.\n- Counterparty Credit Cushion must be at least \u221249.52.\n- Currency Drift Balance must be at least \u221217.25.\n- Sustainability & Community Score must be at least 11.56.\n\nPlease structure the allocation to minimize total carrying cost while ensuring all six scorecards meet or exceed the floors above and each lever remains within its 0 to cap range."
+}

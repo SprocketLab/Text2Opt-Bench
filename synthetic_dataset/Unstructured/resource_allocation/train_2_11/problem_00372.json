@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variable costs, types, bounds, and nutrient coefficients are explicit; six >= thresholds and a min-cost objective are clear. 'None' implies zero. The listed order fixes mapping unambiguously.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business-memo style adds some fluff, but the bullet lists are focused and nonrepetitive; minor verbosity without duplication.",
+      "realism": 92,
+      "realism_comment": "A realistic feed-blend problem with nutrition floors and packaging integrality; data and constraints are plausible and consistent with real sourcing decisions."
+    },
+    "prompt_tokens_with_data": 1312,
+    "prompt_tokens_without_data": 1312
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 110.04253553496574,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 9.0,
+      "Var_2": -0.0,
+      "Var_3": 8.181756148462659,
+      "Var_4": 0.08868035190615796,
+      "Var_5": 7.0,
+      "Var_6": -0.0,
+      "Var_7": 5.04
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 132.1
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 111.44
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 117.6
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 52.56
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 113.72
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 119.01
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 8.67,
+      "resource_costs": {
+        "C1": 6.81,
+        "C2": 1.95,
+        "C3": 0.9,
+        "C4": 7.01,
+        "C5": 0.45
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.51
+      ],
+      "objective_linear_coefficient": 4.97,
+      "resource_costs": {
+        "C0": 4.46,
+        "C1": 8.72,
+        "C2": 8.07,
+        "C3": 2.06,
+        "C4": 1.57,
+        "C5": 5.06
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.71
+      ],
+      "objective_linear_coefficient": 8.09,
+      "resource_costs": {
+        "C0": 9.96,
+        "C1": 6.23,
+        "C4": 7.38,
+        "C5": 9.47
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.68
+      ],
+      "objective_linear_coefficient": 4.32,
+      "resource_costs": {
+        "C0": 1.06,
+        "C1": 2.06,
+        "C2": 7.81,
+        "C4": 8.15,
+        "C5": 9.1
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.05
+      ],
+      "objective_linear_coefficient": 8.45,
+      "resource_costs": {
+        "C0": 2.34,
+        "C1": 6.59,
+        "C2": 4.35,
+        "C3": 3.41,
+        "C4": 3.95
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.64
+      ],
+      "objective_linear_coefficient": 1.87,
+      "resource_costs": {
+        "C0": 6.0,
+        "C2": 9.87,
+        "C5": 9.73
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 7.66,
+      "resource_costs": {
+        "C0": 9.27,
+        "C1": 0.2,
+        "C2": 1.28,
+        "C3": 5.2
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.04
+      ],
+      "objective_linear_coefficient": 3.2,
+      "resource_costs": {
+        "C0": 8.52,
+        "C1": 6.14,
+        "C3": 6.69,
+        "C4": 6.46,
+        "C5": 8.51
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 8.67 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.51, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 4.97 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.71, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 8.09 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=9.68, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.32 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.05, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.45 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=15.64, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 1.87 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 7.66 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=5.04, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.2 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.46 * vars['Var_1'] + 9.96 * vars['Var_2'] + 1.06 * vars['Var_3'] + 2.34 * vars['Var_4'] + 6.0 * vars['Var_5'] + 9.27 * vars['Var_6'] + 8.52 * vars['Var_7'] >= 132.1, name='C0')\n    m.addConstr(6.81 * vars['Var_0'] + 8.72 * vars['Var_1'] + 6.23 * vars['Var_2'] + 2.06 * vars['Var_3'] + 6.59 * vars['Var_4'] + 0.2 * vars['Var_6'] + 6.14 * vars['Var_7'] >= 111.44, name='C1')\n    m.addConstr(1.95 * vars['Var_0'] + 8.07 * vars['Var_1'] + 7.81 * vars['Var_3'] + 4.35 * vars['Var_4'] + 9.87 * vars['Var_5'] + 1.28 * vars['Var_6'] >= 117.6, name='C2')\n    m.addConstr(0.9 * vars['Var_0'] + 2.06 * vars['Var_1'] + 3.41 * vars['Var_4'] + 5.2 * vars['Var_6'] + 6.69 * vars['Var_7'] >= 52.56, name='C3')\n    m.addConstr(7.01 * vars['Var_0'] + 1.57 * vars['Var_1'] + 7.38 * vars['Var_2'] + 8.15 * vars['Var_3'] + 3.95 * vars['Var_4'] + 6.46 * vars['Var_7'] >= 113.72, name='C4')\n    m.addConstr(0.45 * vars['Var_0'] + 5.06 * vars['Var_1'] + 9.47 * vars['Var_2'] + 9.1 * vars['Var_3'] + 9.73 * vars['Var_5'] + 8.51 * vars['Var_7'] >= 119.01, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Blend Plan to Meet Nutrition Floors for the Fortified Feed Launch\n\nTeam,\n\nPer the brief, our target is to assemble a least-cost blend while meeting or exceeding six required nutrition standards for the new fortified feed. Below is a decision-ready summary of the levers we can pull\u2014each ingredient\u2019s unit cost, practical ordering bounds, and its nutrient contributions\u2014followed by the minimums we must collectively achieve.\n\nThe levers (in the order we\u2019ll consider them)\n- Alpine Barley Extract\n  - Cost: $8.67 per unit.\n  - Availability: can be dosed in fractional amounts from 0 up to 10.00 units.\n  - Contribution per unit:\n    - Calcium units: 6.81\n    - Iron units: 1.95\n    - Dietary fiber units: 0.90\n    - Omega complex units: 7.01\n    - Vitamin density units: 0.45\n    - Protein base units: none (does not add to protein)\n\n- Coastal Kelp Meal\n  - Cost: $4.97 per unit.\n  - Availability: whole-unit sacks only (no partials), from 0 up to 17.51 units on hand.\n  - Contribution per unit:\n    - Protein base units: 4.46\n    - Calcium units: 8.72\n    - Iron units: 8.07\n    - Dietary fiber units: 2.06\n    - Omega complex units: 1.57\n    - Vitamin density units: 5.06\n\n- Whey Protein Concentrate A\n  - Cost: $8.09 per unit.\n  - Availability: whole-unit drums only (no partials), from 0 up to 14.71 units.\n  - Contribution per unit:\n    - Protein base units: 9.96\n    - Calcium units: 6.23\n    - Omega complex units: 7.38\n    - Vitamin density units: 9.47\n    - Iron units: none\n    - Dietary fiber units: none\n\n- Fortified Molasses Syrup\n  - Cost: $4.32 per unit.\n  - Availability: can be dosed in fractional amounts from 0 up to 9.68 units.\n  - Contribution per unit:\n    - Protein base units: 1.06\n    - Calcium units: 2.06\n    - Iron units: 7.81\n    - Omega complex units: 8.15\n    - Vitamin density units: 9.10\n    - Dietary fiber units: none\n\n- Oat Bran Base\n  - Cost: $8.45 per unit.\n  - Availability: can be dosed in fractional amounts from 0 up to 13.05 units.\n  - Contribution per unit:\n    - Protein base units: 2.34\n    - Calcium units: 6.59\n    - Iron units: 4.35\n    - Dietary fiber units: 3.41\n    - Omega complex units: 3.95\n    - Vitamin density units: none\n\n- Iron & Vitamin Premix B\n  - Cost: $1.87 per unit.\n  - Availability: whole-unit cartons only (no partials), from 0 up to 15.64 units.\n  - Contribution per unit:\n    - Protein base units: 6.00\n    - Iron units: 9.87\n    - Vitamin density units: 9.73\n    - Calcium units: none\n    - Dietary fiber units: none\n    - Omega complex units: none\n\n- Chickpea Flour C\n  - Cost: $7.66 per unit.\n  - Availability: whole-unit bags only (no partials), from 0 up to 8.00 units.\n  - Contribution per unit:\n    - Protein base units: 9.27\n    - Calcium units: 0.20\n    - Iron units: 1.28\n    - Dietary fiber units: 5.20\n    - Omega complex units: none\n    - Vitamin density units: none\n\n- Fruit & Herb Blend D\n  - Cost: $3.20 per unit.\n  - Availability: can be dosed in fractional amounts from 0 up to 5.04 units.\n  - Contribution per unit:\n    - Protein base units: 8.52\n    - Calcium units: 6.14\n    - Dietary fiber units: 6.69\n    - Omega complex units: 6.46\n    - Vitamin density units: 8.51\n    - Iron units: none\n\nQuality standards we must meet (minimums across the full blend)\n- Protein base units: at least 132.10\n- Calcium units: at least 111.44\n- Iron units: at least 117.60\n- Dietary fiber units: at least 52.56\n- Omega complex units: at least 113.72\n- Vitamin density units: at least 119.01\n\nOur objective is to achieve the above nutrition floors at the lowest possible total ingredient spend, using the permitted fractional dosing or whole-unit ordering rules noted for each item. Please let me know if you\u2019d like this cast into a sourcing plan with supplier assignments and a preliminary costed mix."
+}

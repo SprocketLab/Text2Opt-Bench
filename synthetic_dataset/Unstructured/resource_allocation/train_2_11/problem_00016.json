@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, variable types, and constraint senses are explicit. A reader can reconstruct the LP exactly without guessing.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Narrative is somewhat verbose with contextual fluff, but parameters are precise. Could be shorter without losing clarity.",
+      "realism": 95,
+      "realism_comment": "A plausible planning scenario with capacity limits and sustainability credits; logic and numbers are consistent and realistic."
+    },
+    "prompt_tokens_with_data": 647,
+    "prompt_tokens_without_data": 647
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 69.59224444444445,
+    "optimal_values": {
+      "Var_0": 9.168518518518518,
+      "Var_1": 7.56
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 49.51
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 35.29
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -20.53
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.73
+      ],
+      "objective_linear_coefficient": 4.02,
+      "resource_costs": {
+        "C0": 5.4,
+        "C1": 3.76
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.56
+      ],
+      "objective_linear_coefficient": 4.33,
+      "resource_costs": {
+        "C2": -6.48
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=19.73, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.02 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=7.56, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.33 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(5.4 * vars['Var_0'] <= 49.51, name='C0')\n    m.addConstr(3.76 * vars['Var_0'] <= 35.29, name='C1')\n    m.addConstr(-6.48 * vars['Var_1'] <= -20.53, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix decision to maximize contribution within capacity and compliance limits\n\nTeam,\n\nFor the upcoming planning window, please propose a mix that maximizes total contribution while staying within our operating capacities and our sustainability commitment. We can allocate volumes in fractional amounts (no whole-unit requirement), but each lever below has strict upper limits.\n\nThe levers we can pull\n\n- Atlas Pro assemblies (premium build-to-order line)\n  - Financial impact: each assembly adds 4.02 to operating contribution after direct variable charges.\n  - Capacity usage: every unit draws 5.4 hours from the CNC machining center and 3.76 hours from the assembly crew. This line does not materially move our net grid draw ledger (no credit or debit recorded there).\n  - Volume boundaries: we will not schedule a negative number of assemblies; the program can take at most 19.73 units this period.\n\n- Emerald REC lots (renewable export and credit sales)\n  - Financial impact: each lot brings in 4.33 in contribution from contracted green power exports and associated certificate sales.\n  - Capacity and compliance effects: this activity does not claim any CNC machining center time and does not require assembly crew hours. However, each lot creates a sustainability credit that is recorded as a 6.48 reduction on our net grid draw ledger (we book credits as negative values in that ledger).\n  - Volume boundaries: we won\u2019t transact a negative volume; we can place up to 7.56 lots this period.\n\nFacility specs and market limits\n\n- CNC machining center: available time for the period is capped at 49.51 hours, and total scheduled machining draw must not exceed this.\n- Assembly crew: available time for the period is capped at 35.29 hours, and total scheduled assembly draw must not exceed this.\n- Net grid draw ledger: under our sustainability agreement, the ledger must not exceed \u221220.53 for the period (i.e., we must be at or below \u221220.53 once all credits and debits are recorded).\n\nPlease use these parameters exactly as stated when preparing the proposed mix and highlight any tradeoffs you see between contribution and the above limits."
+}

@@ -1,0 +1,186 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, variable types, and KPI coefficients are explicit; meet-or-exceed minima set >= constraints; objective is minimize total cost. The model is fully reconstructible.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Some email-style framing and minor fluff, but most content is necessary to specify costs, bounds, and KPI coefficients. Limited repetition.",
+      "realism": 88,
+      "realism_comment": "Healthcare KPI planning is plausible. Fractional units and a lever with zero KPI impact are slightly unrealistic, but overall the scenario feels real and coherent."
+    },
+    "prompt_tokens_with_data": 1395,
+    "prompt_tokens_without_data": 1395
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 158.11090138071097,
+    "optimal_values": {
+      "Var_0": 8.44,
+      "Var_1": 2.5206377551020402,
+      "Var_2": -0.0,
+      "Var_3": 13.443653512840546,
+      "Var_4": 0.0,
+      "Var_5": 0.0,
+      "Var_6": 10.02,
+      "Var_7": 2.884233001225895
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 118.09
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 53.01
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 36.52
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.71
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 135.06
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 146.56
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 182.54
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.44
+      ],
+      "objective_linear_coefficient": 4.58,
+      "resource_costs": {
+        "C4": 7.46,
+        "C5": 2.43,
+        "C6": 7.83
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.03
+      ],
+      "objective_linear_coefficient": 6.29,
+      "resource_costs": {
+        "C0": 1.85,
+        "C1": 0.55,
+        "C5": 5.42,
+        "C6": 7.84
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.11
+      ],
+      "objective_linear_coefficient": 2.02,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.84
+      ],
+      "objective_linear_coefficient": 3.54,
+      "resource_costs": {
+        "C0": 4.76,
+        "C4": 6.94,
+        "C5": 8.36
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.27
+      ],
+      "objective_linear_coefficient": 2.87,
+      "resource_costs": {
+        "C0": 5.35,
+        "C1": 4.72,
+        "C3": 1.5,
+        "C4": 2.74,
+        "C5": 0.35
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.56
+      ],
+      "objective_linear_coefficient": 7.68,
+      "resource_costs": {
+        "C0": 6.76,
+        "C2": 0.66,
+        "C3": 0.94,
+        "C4": 3.34,
+        "C5": 8.69
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.02
+      ],
+      "objective_linear_coefficient": 4.26,
+      "resource_costs": {
+        "C0": 2.13,
+        "C1": 4.31,
+        "C2": 3.39,
+        "C3": 9.59,
+        "C6": 9.65
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.96
+      ],
+      "objective_linear_coefficient": 4.62,
+      "resource_costs": {
+        "C0": 9.74,
+        "C1": 3.95,
+        "C2": 5.51,
+        "C3": 4.55,
+        "C4": 7.28
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=8.44, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.58 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.03, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 6.29 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.11, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.02 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.84, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.54 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.27, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.87 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=6.56, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.68 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=10.02, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 4.26 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=16.96, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 4.62 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.85 * vars['Var_1'] + 4.76 * vars['Var_3'] + 5.35 * vars['Var_4'] + 6.76 * vars['Var_5'] + 2.13 * vars['Var_6'] + 9.74 * vars['Var_7'] >= 118.09, name='C0')\n    m.addConstr(0.55 * vars['Var_1'] + 4.72 * vars['Var_4'] + 4.31 * vars['Var_6'] + 3.95 * vars['Var_7'] >= 53.01, name='C1')\n    m.addConstr(0.66 * vars['Var_5'] + 3.39 * vars['Var_6'] + 5.51 * vars['Var_7'] >= 36.52, name='C2')\n    m.addConstr(1.5 * vars['Var_4'] + 0.94 * vars['Var_5'] + 9.59 * vars['Var_6'] + 4.55 * vars['Var_7'] >= 89.71, name='C3')\n    m.addConstr(7.46 * vars['Var_0'] + 6.94 * vars['Var_3'] + 2.74 * vars['Var_4'] + 3.34 * vars['Var_5'] + 7.28 * vars['Var_7'] >= 135.06, name='C4')\n    m.addConstr(2.43 * vars['Var_0'] + 5.42 * vars['Var_1'] + 8.36 * vars['Var_3'] + 0.35 * vars['Var_4'] + 8.69 * vars['Var_5'] >= 146.56, name='C5')\n    m.addConstr(7.83 * vars['Var_0'] + 7.84 * vars['Var_1'] + 9.65 * vars['Var_6'] >= 182.54, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Portfolio to Meet Our Service Commitments\n\nTeam,\n\nWe\u2019re putting together the next-period operating mix with a simple goal: meet or exceed our minimum service commitments across seven KPIs while minimizing total run-rate cost. Below are the levers we can pull, with unit costs, operating limits, and exactly how each option contributes to the KPIs. Unless noted otherwise, partial deployments are allowed; we can select any level from zero up to each lever\u2019s cap.\n\n1) Integrated Digital Care Modules\n- Cost: 4.58 per module.\n- Operating range: 0.00 to 8.44 modules; fractional deployment permitted.\n- Per-module contribution to our KPIs:\n  Core Service Hours: 0.00\n  Rural Outreach Visits: 0.00\n  Diagnostics Cases: 0.00\n  Emergency Preparedness Drills: 0.00\n  Chronic Care Management Credits: 7.46\n  Wellness & Education Sessions: 2.43\n  Digital Engagement Interactions: 7.83\n\n2) Community Navigator Teams\n- Cost: 6.29 per team.\n- Operating range: 0.00 to 11.03 teams; fractional deployment permitted.\n- Per-team contribution to our KPIs:\n  Core Service Hours: 1.85\n  Rural Outreach Visits: 0.55\n  Diagnostics Cases: 0.00\n  Emergency Preparedness Drills: 0.00\n  Chronic Care Management Credits: 0.00\n  Wellness & Education Sessions: 5.42\n  Digital Engagement Interactions: 7.84\n\n3) Licensing Reserve Packs\n- Cost: 2.02 per pack.\n- Operating range: 0.00 to 17.11 packs; whole units only (no partial packs).\n- Per-pack contribution to our KPIs:\n  Core Service Hours: 0.00\n  Rural Outreach Visits: 0.00\n  Diagnostics Cases: 0.00\n  Emergency Preparedness Drills: 0.00\n  Chronic Care Management Credits: 0.00\n  Wellness & Education Sessions: 0.00\n  Digital Engagement Interactions: 0.00\n\n4) Primary Care Clinic Slots\n- Cost: 3.54 per slot.\n- Operating range: 0.00 to 14.84 slots; fractional deployment permitted.\n- Per-slot contribution to our KPIs:\n  Core Service Hours: 4.76\n  Rural Outreach Visits: 0.00\n  Diagnostics Cases: 0.00\n  Emergency Preparedness Drills: 0.00\n  Chronic Care Management Credits: 6.94\n  Wellness & Education Sessions: 8.36\n  Digital Engagement Interactions: 0.00\n\n5) Mobile Outreach Vans\n- Cost: 2.87 per van.\n- Operating range: 0.00 to 11.27 vans; fractional deployment permitted.\n- Per-van contribution to our KPIs:\n  Core Service Hours: 5.35\n  Rural Outreach Visits: 4.72\n  Diagnostics Cases: 0.00\n  Emergency Preparedness Drills: 1.50\n  Chronic Care Management Credits: 2.74\n  Wellness & Education Sessions: 0.35\n  Digital Engagement Interactions: 0.00\n\n6) Diagnostic Hubs\n- Cost: 7.68 per hub.\n- Operating range: 0.00 to 6.56 hubs; fractional deployment permitted.\n- Per-hub contribution to our KPIs:\n  Core Service Hours: 6.76\n  Rural Outreach Visits: 0.00\n  Diagnostics Cases: 0.66\n  Emergency Preparedness Drills: 0.94\n  Chronic Care Management Credits: 3.34\n  Wellness & Education Sessions: 8.69\n  Digital Engagement Interactions: 0.00\n\n7) Rapid Response Telemedicine Units\n- Cost: 4.26 per unit.\n- Operating range: 0.00 to 10.02 units; fractional deployment permitted.\n- Per-unit contribution to our KPIs:\n  Core Service Hours: 2.13\n  Rural Outreach Visits: 4.31\n  Diagnostics Cases: 3.39\n  Emergency Preparedness Drills: 9.59\n  Chronic Care Management Credits: 0.00\n  Wellness & Education Sessions: 0.00\n  Digital Engagement Interactions: 9.65\n\n8) Regional Partner Hospital Blocks\n- Cost: 4.62 per block.\n- Operating range: 0.00 to 16.96 blocks; fractional deployment permitted.\n- Per-block contribution to our KPIs:\n  Core Service Hours: 9.74\n  Rural Outreach Visits: 3.95\n  Diagnostics Cases: 5.51\n  Emergency Preparedness Drills: 4.55\n  Chronic Care Management Credits: 7.28\n  Wellness & Education Sessions: 0.00\n  Digital Engagement Interactions: 0.00\n\nMarket Commitments (minimums we must meet or exceed)\n- Core Service Hours: at least 118.09\n- Rural Outreach Visits: at least 53.01\n- Diagnostics Cases: at least 36.52\n- Emergency Preparedness Drills: at least 89.71\n- Chronic Care Management Credits: at least 135.06\n- Wellness & Education Sessions: at least 146.56\n- Digital Engagement Interactions: at least 182.54\n\nPlease use the above to recommend the lowest-cost mix that satisfies all seven commitments. Let me know if you need any additional operating assumptions or unit definitions clarified."
+}

@@ -1,0 +1,216 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Each lever\u2019s bounds and unit costs are given, with explicit per-metric impacts and nine floor constraints (>=). 'No effect' clarifies zeros. Objective is minimize run-rate cost. Fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Corporate narrative and repeated headings add verbosity; however, per-metric impacts and 'no effect' lines are necessary. Some fluff (subject, team, phrasing) could be trimmed.",
+      "realism": 88,
+      "realism_comment": "Feels like a real operations planning problem with budgeted levers and scorecard floors. Negative floors are unusual but plausible as deficits/ledgers. Coefficients and ranges are realistic."
+    },
+    "prompt_tokens_with_data": 1831,
+    "prompt_tokens_without_data": 1831
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 32.69532872317047,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 12.94,
+      "Var_2": 0.0,
+      "Var_3": 0.0,
+      "Var_4": 3.3668668961980805,
+      "Var_5": 0.0,
+      "Var_6": 0.0,
+      "Var_7": 0.0811764705882358
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -63.17
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 45.34
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -130.12
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 27.73
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -70.16
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -4.43
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -90.81
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -48.25
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -157.04
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.6
+      ],
+      "objective_linear_coefficient": 4.74,
+      "resource_costs": {
+        "C0": -7.75,
+        "C1": 0.15,
+        "C2": -9.6,
+        "C3": -8.36,
+        "C4": 2.88,
+        "C5": -5.08,
+        "C8": -9.3
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.94
+      ],
+      "objective_linear_coefficient": 1.17,
+      "resource_costs": {
+        "C0": 2.56,
+        "C1": 3.49,
+        "C2": 6.91,
+        "C4": 0.2,
+        "C6": -6.53,
+        "C7": -0.84,
+        "C8": -8.27
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.64
+      ],
+      "objective_linear_coefficient": 5.62,
+      "resource_costs": {
+        "C0": -9.39,
+        "C2": -1.94,
+        "C5": 1.79,
+        "C7": -4.68
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.49
+      ],
+      "objective_linear_coefficient": 6.77,
+      "resource_costs": {
+        "C1": 0.51,
+        "C2": -7.03,
+        "C7": 9.59
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.97
+      ],
+      "objective_linear_coefficient": 5.03,
+      "resource_costs": {
+        "C0": 7.29,
+        "C2": -8.82,
+        "C3": 8.03,
+        "C4": -6.13,
+        "C5": 2.55
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.32
+      ],
+      "objective_linear_coefficient": 4.54,
+      "resource_costs": {
+        "C0": -1.44,
+        "C1": 1.14,
+        "C2": -5.86,
+        "C3": -4.66,
+        "C4": -3.55,
+        "C5": 3.03,
+        "C6": 2.61,
+        "C7": -2.11
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.74
+      ],
+      "objective_linear_coefficient": 1.19,
+      "resource_costs": {
+        "C0": 0.86,
+        "C1": -3.34,
+        "C2": 5.26,
+        "C3": -1.32,
+        "C5": -1.89,
+        "C6": -0.84,
+        "C7": -4.69,
+        "C8": 0.84
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.11
+      ],
+      "objective_linear_coefficient": 7.64,
+      "resource_costs": {
+        "C0": -6.67,
+        "C1": 2.21,
+        "C2": 0.92,
+        "C3": 8.55,
+        "C4": -1.7,
+        "C6": -5.24,
+        "C7": -1.43
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.6, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.74 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.94, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 1.17 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.64, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.62 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.49, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.77 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=9.97, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.03 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.32, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.54 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=9.74, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.19 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.11, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.64 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-7.75 * vars['Var_0'] + 2.56 * vars['Var_1'] + -9.39 * vars['Var_2'] + 7.29 * vars['Var_4'] + -1.44 * vars['Var_5'] + 0.86 * vars['Var_6'] + -6.67 * vars['Var_7'] >= -63.17, name='C0')\n    m.addConstr(0.15 * vars['Var_0'] + 3.49 * vars['Var_1'] + 0.51 * vars['Var_3'] + 1.14 * vars['Var_5'] + -3.34 * vars['Var_6'] + 2.21 * vars['Var_7'] >= 45.34, name='C1')\n    m.addConstr(-9.6 * vars['Var_0'] + 6.91 * vars['Var_1'] + -1.94 * vars['Var_2'] + -7.03 * vars['Var_3'] + -8.82 * vars['Var_4'] + -5.86 * vars['Var_5'] + 5.26 * vars['Var_6'] + 0.92 * vars['Var_7'] >= -130.12, name='C2')\n    m.addConstr(-8.36 * vars['Var_0'] + 8.03 * vars['Var_4'] + -4.66 * vars['Var_5'] + -1.32 * vars['Var_6'] + 8.55 * vars['Var_7'] >= 27.73, name='C3')\n    m.addConstr(2.88 * vars['Var_0'] + 0.2 * vars['Var_1'] + -6.13 * vars['Var_4'] + -3.55 * vars['Var_5'] + -1.7 * vars['Var_7'] >= -70.16, name='C4')\n    m.addConstr(-5.08 * vars['Var_0'] + 1.79 * vars['Var_2'] + 2.55 * vars['Var_4'] + 3.03 * vars['Var_5'] + -1.89 * vars['Var_6'] >= -4.43, name='C5')\n    m.addConstr(-6.53 * vars['Var_1'] + 2.61 * vars['Var_5'] + -0.84 * vars['Var_6'] + -5.24 * vars['Var_7'] >= -90.81, name='C6')\n    m.addConstr(-0.84 * vars['Var_1'] + -4.68 * vars['Var_2'] + 9.59 * vars['Var_3'] + -2.11 * vars['Var_5'] + -4.69 * vars['Var_6'] + -1.43 * vars['Var_7'] >= -48.25, name='C7')\n    m.addConstr(-9.3 * vars['Var_0'] + -8.27 * vars['Var_1'] + 0.84 * vars['Var_6'] >= -157.04, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing the Q2 Balanced Operations Plan \u2014 minimizing spend while protecting our scorecard floors\n\nTeam,\n\nFor Q2, we need to decide how much to allocate across eight operational levers so that we keep total run\u2011rate spend as low as possible while holding nine cross\u2011functional scorecards at or above their required floors. Each lever below can be dialed up or down within the specified range (no negative allocations), and each has a distinct per\u2011unit operating cost and measurable impact\u2014positive or negative\u2014on the scorecards.\n\n1) Backhaul Fill Campaign\n- Budgetable range: 0 to 9.6 units.\n- Run\u2011rate cost: 4.74 per unit.\n- Emissions Offset Ledger: each unit draws down the ledger by 7.75 credits.\n- Customer Service Hours: each unit adds 0.15 hours.\n- Supply Continuity Reserve: each unit draws down the reserve by 9.6 points.\n- On\u2011Time Delivery Index: each unit lowers the index by 8.36 points.\n- Water Stewardship Balance: each unit adds 2.88 units to the balance.\n- Training & Wellness Hours: each unit reduces available hours by 5.08.\n- Grid Reliability Buffer: no effect.\n- Neighborhood Impact Score: no effect.\n- Long\u2011Term Credit Reserve: each unit reduces the reserve by 9.3 credits.\n\n2) Urban Micro\u2011Delivery Fleet\n- Budgetable range: 0 to 12.94 units.\n- Run\u2011rate cost: 1.17 per unit.\n- Emissions Offset Ledger: each unit adds 2.56 credits.\n- Customer Service Hours: each unit adds 3.49 hours.\n- Supply Continuity Reserve: each unit adds 6.91 points.\n- On\u2011Time Delivery Index: no effect.\n- Water Stewardship Balance: each unit adds 0.20 units.\n- Training & Wellness Hours: no effect.\n- Grid Reliability Buffer: each unit reduces the buffer by 6.53 points.\n- Neighborhood Impact Score: each unit lowers the score by 0.84 points.\n- Long\u2011Term Credit Reserve: each unit reduces the reserve by 8.27 credits.\n\n3) Night Sorting Overtime\n- Budgetable range: 0 to 14.64 units.\n- Run\u2011rate cost: 5.62 per unit.\n- Emissions Offset Ledger: each unit draws down the ledger by 9.39 credits.\n- Customer Service Hours: no effect.\n- Supply Continuity Reserve: each unit draws down the reserve by 1.94 points.\n- On\u2011Time Delivery Index: no effect.\n- Water Stewardship Balance: no effect.\n- Training & Wellness Hours: each unit adds 1.79 hours.\n- Grid Reliability Buffer: no effect.\n- Neighborhood Impact Score: each unit lowers the score by 4.68 points.\n- Long\u2011Term Credit Reserve: no effect.\n\n4) 3PL Surge Capacity\n- Budgetable range: 0 to 19.49 units.\n- Run\u2011rate cost: 6.77 per unit.\n- Emissions Offset Ledger: no effect.\n- Customer Service Hours: each unit adds 0.51 hours.\n- Supply Continuity Reserve: each unit draws down the reserve by 7.03 points.\n- On\u2011Time Delivery Index: no effect.\n- Water Stewardship Balance: no effect.\n- Training & Wellness Hours: no effect.\n- Grid Reliability Buffer: no effect.\n- Neighborhood Impact Score: each unit raises the score by 9.59 points.\n- Long\u2011Term Credit Reserve: no effect.\n\n5) Riverport Cross\u2011Dock\n- Budgetable range: 0 to 9.97 units.\n- Run\u2011rate cost: 5.03 per unit.\n- Emissions Offset Ledger: each unit adds 7.29 credits.\n- Customer Service Hours: no effect.\n- Supply Continuity Reserve: each unit draws down the reserve by 8.82 points.\n- On\u2011Time Delivery Index: each unit raises the index by 8.03 points.\n- Water Stewardship Balance: each unit reduces the balance by 6.13 units.\n- Training & Wellness Hours: each unit adds 2.55 hours.\n- Grid Reliability Buffer: no effect.\n- Neighborhood Impact Score: no effect.\n- Long\u2011Term Credit Reserve: no effect.\n\n6) Automation Retrofit (Phase I)\n- Budgetable range: 0 to 10.32 units.\n- Run\u2011rate cost: 4.54 per unit.\n- Emissions Offset Ledger: each unit draws down the ledger by 1.44 credits.\n- Customer Service Hours: each unit adds 1.14 hours.\n- Supply Continuity Reserve: each unit draws down the reserve by 5.86 points.\n- On\u2011Time Delivery Index: each unit lowers the index by 4.66 points.\n- Water Stewardship Balance: each unit reduces the balance by 3.55 units.\n- Training & Wellness Hours: each unit adds 3.03 hours.\n- Grid Reliability Buffer: each unit adds 2.61 points.\n- Neighborhood Impact Score: each unit lowers the score by 2.11 points.\n- Long\u2011Term Credit Reserve: no effect.\n\n7) Supplier Consolidation\n- Budgetable range: 0 to 9.74 units.\n- Run\u2011rate cost: 1.19 per unit.\n- Emissions Offset Ledger: each unit adds 0.86 credits.\n- Customer Service Hours: each unit reduces available hours by 3.34.\n- Supply Continuity Reserve: each unit adds 5.26 points.\n- On\u2011Time Delivery Index: each unit lowers the index by 1.32 points.\n- Water Stewardship Balance: no effect.\n- Training & Wellness Hours: each unit reduces available hours by 1.89.\n- Grid Reliability Buffer: each unit reduces the buffer by 0.84 points.\n- Neighborhood Impact Score: each unit lowers the score by 4.69 points.\n- Long\u2011Term Credit Reserve: each unit adds 0.84 credits.\n\n8) Peak Rail Slots\n- Budgetable range: 0 to 13.11 units.\n- Run\u2011rate cost: 7.64 per unit.\n- Emissions Offset Ledger: each unit draws down the ledger by 6.67 credits.\n- Customer Service Hours: each unit adds 2.21 hours.\n- Supply Continuity Reserve: each unit adds 0.92 points.\n- On\u2011Time Delivery Index: each unit raises the index by 8.55 points.\n- Water Stewardship Balance: each unit reduces the balance by 1.70 units.\n- Training & Wellness Hours: no effect.\n- Grid Reliability Buffer: each unit reduces the buffer by 5.24 points.\n- Neighborhood Impact Score: each unit lowers the score by 1.43 points.\n- Long\u2011Term Credit Reserve: no effect.\n\nFacility and Market Minimums (scorecard floors we must meet or exceed)\n- Emissions Offset Ledger must be at least \u221263.17 credits.\n- Customer Service Hours must be at least 45.34 hours.\n- Supply Continuity Reserve must be at least \u2212130.12 points.\n- On\u2011Time Delivery Index must be at least 27.73 points.\n- Water Stewardship Balance must be at least \u221270.16 units.\n- Training & Wellness Hours must be at least \u22124.43 hours.\n- Grid Reliability Buffer must be at least \u221290.81 points.\n- Neighborhood Impact Score must be at least \u221248.25 points.\n- Long\u2011Term Credit Reserve must be at least \u2212157.04 credits.\n\nPlease use the above as the working definition for our Q2 allocation modeling. The objective is to dial the eight levers within their ranges to keep total run\u2011rate expense as low as possible without letting any of the nine scorecards fall below their stated floors."
+}

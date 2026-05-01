@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, and constraint senses are explicit; credits/debits and net-change definitions clarify signs. A human can reconstruct the LP exactly.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some corporate narrative and repeated explanations plus coding boilerplate, but the key data is clear and not overly repetitive.",
+      "realism": 92,
+      "realism_comment": "Plausible initiative mix planning with labor caps, backlog and emissions targets; sign conventions are unusual but explained and realistic."
+    },
+    "prompt_tokens_with_data": 884,
+    "prompt_tokens_without_data": 884
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 196.55490839895023,
+    "optimal_values": {
+      "Var_0": 5.133202099737539,
+      "Var_1": 8.91,
+      "Var_2": 7.41,
+      "Var_3": 12.201443569553811
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 42.12
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -14.13
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": -44.23
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.07
+      ],
+      "objective_linear_coefficient": 9.97,
+      "resource_costs": {
+        "C0": -5.89,
+        "C1": -6.3,
+        "C2": 8.26
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.91
+      ],
+      "objective_linear_coefficient": 7.57,
+      "resource_costs": {}
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.41
+      ],
+      "objective_linear_coefficient": 4.49,
+      "resource_costs": {}
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.09
+      ],
+      "objective_linear_coefficient": 3.66,
+      "resource_costs": {
+        "C0": 5.93,
+        "C2": -7.1
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.07, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.97 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=8.91, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 7.57 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=7.41, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 4.49 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.09, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 3.66 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-5.89 * vars['Var_0'] + 5.93 * vars['Var_3'] <= 42.12, name='C0')\n    m.addConstr(-6.3 * vars['Var_0'] <= -14.13, name='C1')\n    m.addConstr(8.26 * vars['Var_0'] + -7.1 * vars['Var_3'] <= -44.23, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Guidance Needed on Maximizing Return from Q1\u2013Q2 Initiative Mix\n\nTeam,\n\nWe\u2019re looking to set our operating plan for the next two quarters by choosing the right mix of initiatives to maximize total contribution while staying within our labor availability and hitting two non-negotiable reduction targets. Below are the levers we can pull and exactly how each one affects our resources and targets.\n\n\u2022 Lean Automation Wave A\n  - Financial impact: Each unit delivers a contribution of 9.97.\n  - Feasible range: We can execute anywhere from 0 up to 10.07 units.\n  - Plant Crew Hours: Every unit frees up 5.89 hours of internal labor (counts as -5.89 against the hours cap).\n  - Legacy Backlog Clearance: Every unit cuts the legacy backlog by 6.3 units (counts as -6.3 toward the backlog target).\n  - Net CO2e Reduction Ledger: Each unit adds 8.26 units to the emissions ledger (this is a positive entry and makes the emissions target harder to reach).\n\n\u2022 Digital Subscription Push\n  - Financial impact: Each unit delivers a contribution of 7.57.\n  - Feasible range: We can schedule between 0 and 8.91 units.\n  - Plant Crew Hours: No draw or credit (0).\n  - Legacy Backlog Clearance: No impact (0).\n  - Net CO2e Reduction Ledger: No impact (0).\n\n\u2022 Training Services Bundle\n  - Financial impact: Each unit delivers a contribution of 4.49.\n  - Feasible range: We can schedule between 0 and 7.41 units.\n  - Plant Crew Hours: No draw or credit (0).\n  - Legacy Backlog Clearance: No impact (0).\n  - Net CO2e Reduction Ledger: No impact (0).\n\n\u2022 Green Retrofit Packages\n  - Financial impact: Each unit delivers a contribution of 3.66.\n  - Feasible range: We can execute anywhere from 0 up to 13.09 units.\n  - Plant Crew Hours: Each unit consumes 5.93 hours of internal labor (counts as +5.93 toward the hours cap).\n  - Legacy Backlog Clearance: No impact (0).\n  - Net CO2e Reduction Ledger: Each unit reduces the ledger by 7.1 units (counts as -7.1 toward the emissions target).\n\nFacility Specs & Targets (apply to the combined effects of all initiatives above)\n- Plant Crew Hours: Total net hours used (consumption minus credits) must not exceed 42.12.\n- Legacy Backlog Clearance: We must achieve a net change at or below -14.13 (i.e., a reduction of at least 14.13 units).\n- Net CO2e Reduction Ledger: We must achieve a net change at or below -44.23 (i.e., a reduction of at least 44.23 units).\n\nPlease propose the mix of the four initiatives that maximizes total contribution while adhering to the labor cap of 42.12, meeting the backlog target of -14.13 or lower, and meeting the emissions target of -44.23 or lower. We can execute partial units where practical; all initiatives have a minimum of 0 units and are capped as noted above."
+}

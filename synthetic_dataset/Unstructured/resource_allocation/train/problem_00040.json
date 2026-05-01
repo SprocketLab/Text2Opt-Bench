@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 2,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, resource limits, integrality, and bounds (0-10.08, 0-9.41) are explicit; objective is clear. Easy to build exact MIP. Minor quirk: fractional UBs with whole-unit variables.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Business-memo style adds context; some fluff (Subject/Team, repeated integrality note). Otherwise concise bullet lists with exact data; minimal repetition.",
+      "realism": 90,
+      "realism_comment": "A plausible planning problem with staff, travel, compute, and media limits and per-unit margins. Slight oddity: fractional max counts despite whole-unit commitments."
+    },
+    "prompt_tokens_with_data": 695,
+    "prompt_tokens_without_data": 695
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 13.86,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 2.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 19.62
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 3.48
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.73
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.18
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 14.64
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.08
+      ],
+      "objective_linear_coefficient": 5.28,
+      "resource_costs": {
+        "C0": 7.01,
+        "C1": 4.94,
+        "C2": 1.21,
+        "C3": 8.05
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.41
+      ],
+      "objective_linear_coefficient": 6.93,
+      "resource_costs": {
+        "C0": 8.61,
+        "C1": 0.43,
+        "C2": 8.08,
+        "C3": 6.64,
+        "C4": 6.9
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.08, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.28 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.41, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.93 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.01 * vars['Var_0'] + 8.61 * vars['Var_1'] <= 19.62, name='C0')\n    m.addConstr(4.94 * vars['Var_0'] + 0.43 * vars['Var_1'] <= 3.48, name='C1')\n    m.addConstr(1.21 * vars['Var_0'] + 8.08 * vars['Var_1'] <= 16.73, name='C2')\n    m.addConstr(8.05 * vars['Var_0'] + 6.64 * vars['Var_1'] <= 16.18, name='C3')\n    m.addConstr(6.9 * vars['Var_1'] <= 14.64, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Choosing Our Q1 Mix to Maximize Contribution Within Resource Limits\n\nTeam,\n\nWe need to choose the mix of two offerings for the upcoming planning window to maximize total contribution while staying inside our operating limits. All commitments must be made in whole engagements only (no fractional runs).\n\nLevers we can move\n\n- Enterprise Migration Packages (Aurora track)\n  \u2022 Value: Each package contributes 5.28 units of net margin to the quarter.\n  \u2022 Resource draw per package:\n    - 7.01 senior-strategist day-equivalents\n    - 4.94 creative/legal review day-equivalents\n    - 1.21 cloud-compute credit units\n    - 8.05 field travel day-equivalents\n    - 0 media inventory slots (no draw on our media pool)\n  \u2022 Scale limits: We may schedule anywhere from 0 up to 10.08 of these packages in the period, but we must commit them as whole packages only.\n\n- Digital Campaign Blitz (Nova track)\n  \u2022 Value: Each campaign contributes 6.93 units of net margin to the quarter.\n  \u2022 Resource draw per campaign:\n    - 8.61 senior-strategist day-equivalents\n    - 0.43 creative/legal review day-equivalents\n    - 8.08 cloud-compute credit units\n    - 6.64 field travel day-equivalents\n    - 6.90 media inventory slots\n  \u2022 Scale limits: We may schedule anywhere from 0 up to 9.41 of these campaigns in the period, again only in whole campaigns.\n\nFacility specs and market limits we must respect\n\n- Senior-strategist availability: no more than 19.62 day-equivalents across all work.\n- Creative/legal review capacity: no more than 3.48 day-equivalents across all work.\n- Cloud-compute budget: no more than 16.73 credit units across all work.\n- Field travel capacity: no more than 16.18 day-equivalents across all work.\n- Media inventory: no more than 14.64 slots across all work.\n\nOur aim is to select the combination of Aurora packages and Nova campaigns that yields the highest total net margin (using the 5.28 and 6.93 per-unit contributions above) without breaching any of the resource ceilings listed."
+}

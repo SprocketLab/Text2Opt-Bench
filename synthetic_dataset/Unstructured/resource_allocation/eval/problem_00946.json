@@ -1,0 +1,388 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 16,
+    "num_constraints": 15,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All levers specify caps, per-unit resource use, types (integer vs continuous), and contributions; facility limits are clear; sums <= limits; objective MAX contribution. Model reconstructable.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Lengthy catalog-style listing; mostly necessary coefficients and bounds with minor narrative fluff increasing verbosity.",
+      "realism": 98,
+      "realism_comment": "Credible production mix planning with multi-resource limits and per-unit consumptions; aligns with real chemical manufacturing operations."
+    },
+    "prompt_tokens_with_data": 2260,
+    "prompt_tokens_without_data": 2260
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 530.1549335702032,
+    "optimal_values": {
+      "Var_0": 6.0,
+      "Var_1": 0.38124854722718976,
+      "Var_2": 9.0,
+      "Var_3": -0.0,
+      "Var_4": 0.7682107884461029,
+      "Var_5": 7.0,
+      "Var_6": 0.5955020349780165,
+      "Var_7": 9.0,
+      "Var_8": 7.0,
+      "Var_9": 10.0,
+      "Var_10": -0.0,
+      "Var_11": 6.0,
+      "Var_12": -0.0,
+      "Var_13": 7.7294798511372775,
+      "Var_14": 4.838215533638176,
+      "Var_15": 8.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 164.88
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 170.24
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 181.99
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 106.31
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 195.91
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 257.54
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 147.54
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 199.52
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 128.01
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 122.29
+    },
+    "C10": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 204.35
+    },
+    "C11": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 67.04
+    },
+    "C12": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 214.38
+    },
+    "C13": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 237.28
+    },
+    "C14": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 109.5
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.16
+      ],
+      "objective_linear_coefficient": 7.76,
+      "resource_costs": {
+        "C9": 8.8,
+        "C14": 3.72
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.58
+      ],
+      "objective_linear_coefficient": 4.56,
+      "resource_costs": {
+        "C0": 4.13,
+        "C2": 3.47,
+        "C3": 1.77,
+        "C4": 3.56,
+        "C5": 4.09,
+        "C9": 7.5,
+        "C10": 2.81
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 7.47,
+      "resource_costs": {
+        "C1": 2.11,
+        "C2": 6.05,
+        "C4": 2.78,
+        "C5": 9.92,
+        "C6": 1.65,
+        "C7": 3.25,
+        "C8": 1.36,
+        "C10": 8.67,
+        "C13": 4.44
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.78
+      ],
+      "objective_linear_coefficient": 4.85,
+      "resource_costs": {
+        "C3": 5.88,
+        "C5": 4.89,
+        "C7": 6.19,
+        "C8": 9.94,
+        "C10": 4.52,
+        "C12": 0.47,
+        "C14": 3.03
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.84
+      ],
+      "objective_linear_coefficient": 7.32,
+      "resource_costs": {
+        "C0": 3.9,
+        "C4": 5.92,
+        "C7": 8.83,
+        "C8": 8.79,
+        "C10": 1.74,
+        "C11": 1.62,
+        "C13": 6.19
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.0
+      ],
+      "objective_linear_coefficient": 8.58,
+      "resource_costs": {
+        "C0": 7.92,
+        "C2": 3.37,
+        "C4": 5.53,
+        "C7": 4.19,
+        "C8": 7.28,
+        "C11": 2.07,
+        "C12": 9.77
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.93
+      ],
+      "objective_linear_coefficient": 2.72,
+      "resource_costs": {
+        "C0": 3.42,
+        "C2": 3.72,
+        "C3": 3.79,
+        "C4": 9.25,
+        "C5": 0.63,
+        "C7": 5.15,
+        "C10": 0.85
+      }
+    },
+    "Var_7": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 5.97,
+      "resource_costs": {
+        "C5": 9.36,
+        "C8": 6.41,
+        "C9": 1.64,
+        "C10": 4.36,
+        "C13": 9.23
+      }
+    },
+    "Var_8": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.54
+      ],
+      "objective_linear_coefficient": 2.82,
+      "resource_costs": {
+        "C0": 7.19,
+        "C2": 9.15,
+        "C3": 9.81,
+        "C5": 0.53,
+        "C7": 1.83,
+        "C10": 2.71,
+        "C11": 3.9,
+        "C14": 0.2
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        17.63
+      ],
+      "objective_linear_coefficient": 9.96,
+      "resource_costs": {
+        "C1": 4.62,
+        "C4": 4.73,
+        "C7": 3.62,
+        "C9": 2.27,
+        "C12": 2.53,
+        "C13": 4.82,
+        "C14": 8.18
+      }
+    },
+    "Var_10": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.84
+      ],
+      "objective_linear_coefficient": 4.28,
+      "resource_costs": {
+        "C1": 6.33,
+        "C5": 0.43,
+        "C6": 7.13,
+        "C7": 7.13,
+        "C10": 7.12,
+        "C12": 7.34,
+        "C13": 9.64,
+        "C14": 7.69
+      }
+    },
+    "Var_11": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.47
+      ],
+      "objective_linear_coefficient": 4.2,
+      "resource_costs": {
+        "C2": 0.88,
+        "C3": 0.87,
+        "C6": 6.78,
+        "C7": 5.76,
+        "C9": 3.96,
+        "C10": 2.81,
+        "C11": 0.34
+      }
+    },
+    "Var_12": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.29
+      ],
+      "objective_linear_coefficient": 2.08,
+      "resource_costs": {
+        "C0": 2.1,
+        "C1": 4.38,
+        "C6": 2.62,
+        "C7": 8.9,
+        "C13": 7.25
+      }
+    },
+    "Var_13": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.16
+      ],
+      "objective_linear_coefficient": 8.76,
+      "resource_costs": {
+        "C1": 3.94,
+        "C4": 8.86,
+        "C5": 2.49,
+        "C6": 2.15,
+        "C9": 0.7,
+        "C12": 8.77,
+        "C13": 7.93
+      }
+    },
+    "Var_14": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.05
+      ],
+      "objective_linear_coefficient": 5.42,
+      "resource_costs": {
+        "C0": 1.18,
+        "C4": 1.03,
+        "C5": 8.99,
+        "C6": 0.35,
+        "C7": 3.67,
+        "C11": 4.54,
+        "C12": 9.38
+      }
+    },
+    "Var_15": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        18.51
+      ],
+      "objective_linear_coefficient": 6.89,
+      "resource_costs": {
+        "C1": 9.3,
+        "C6": 9.12,
+        "C12": 0.94
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.16, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 7.76 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.58, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.56 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=15.84, vtype=GRB.INTEGER, name='Var_10')\n    lin_expr += 4.28 * vars['Var_10']\n    vars['Var_11'] = m.addVar(lb=0.0, ub=13.47, vtype=GRB.INTEGER, name='Var_11')\n    lin_expr += 4.2 * vars['Var_11']\n    vars['Var_12'] = m.addVar(lb=0.0, ub=11.29, vtype=GRB.INTEGER, name='Var_12')\n    lin_expr += 2.08 * vars['Var_12']\n    vars['Var_13'] = m.addVar(lb=0.0, ub=13.16, vtype=GRB.CONTINUOUS, name='Var_13')\n    lin_expr += 8.76 * vars['Var_13']\n    vars['Var_14'] = m.addVar(lb=0.0, ub=14.05, vtype=GRB.CONTINUOUS, name='Var_14')\n    lin_expr += 5.42 * vars['Var_14']\n    vars['Var_15'] = m.addVar(lb=0.0, ub=18.51, vtype=GRB.INTEGER, name='Var_15')\n    lin_expr += 6.89 * vars['Var_15']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.47 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=14.78, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.85 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=13.84, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.32 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.0, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 8.58 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=18.93, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 2.72 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_7')\n    lin_expr += 5.97 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=18.54, vtype=GRB.INTEGER, name='Var_8')\n    lin_expr += 2.82 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=17.63, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 9.96 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(4.13 * vars['Var_1'] + 2.1 * vars['Var_12'] + 1.18 * vars['Var_14'] + 3.9 * vars['Var_4'] + 7.92 * vars['Var_5'] + 3.42 * vars['Var_6'] + 7.19 * vars['Var_8'] <= 164.88, name='C0')\n    m.addConstr(6.33 * vars['Var_10'] + 4.38 * vars['Var_12'] + 3.94 * vars['Var_13'] + 9.3 * vars['Var_15'] + 2.11 * vars['Var_2'] + 4.62 * vars['Var_9'] <= 170.24, name='C1')\n    m.addConstr(2.81 * vars['Var_1'] + 7.12 * vars['Var_10'] + 2.81 * vars['Var_11'] + 8.67 * vars['Var_2'] + 4.52 * vars['Var_3'] + 1.74 * vars['Var_4'] + 0.85 * vars['Var_6'] + 4.36 * vars['Var_7'] + 2.71 * vars['Var_8'] <= 204.35, name='C10')\n    m.addConstr(0.34 * vars['Var_11'] + 4.54 * vars['Var_14'] + 1.62 * vars['Var_4'] + 2.07 * vars['Var_5'] + 3.9 * vars['Var_8'] <= 67.04, name='C11')\n    m.addConstr(7.34 * vars['Var_10'] + 8.77 * vars['Var_13'] + 9.38 * vars['Var_14'] + 0.94 * vars['Var_15'] + 0.47 * vars['Var_3'] + 9.77 * vars['Var_5'] + 2.53 * vars['Var_9'] <= 214.38, name='C12')\n    m.addConstr(9.64 * vars['Var_10'] + 7.25 * vars['Var_12'] + 7.93 * vars['Var_13'] + 4.44 * vars['Var_2'] + 6.19 * vars['Var_4'] + 9.23 * vars['Var_7'] + 4.82 * vars['Var_9'] <= 237.28, name='C13')\n    m.addConstr(3.72 * vars['Var_0'] + 7.69 * vars['Var_10'] + 3.03 * vars['Var_3'] + 0.2 * vars['Var_8'] + 8.18 * vars['Var_9'] <= 109.5, name='C14')\n    m.addConstr(3.47 * vars['Var_1'] + 0.88 * vars['Var_11'] + 6.05 * vars['Var_2'] + 3.37 * vars['Var_5'] + 3.72 * vars['Var_6'] + 9.15 * vars['Var_8'] <= 181.99, name='C2')\n    m.addConstr(1.77 * vars['Var_1'] + 0.87 * vars['Var_11'] + 5.88 * vars['Var_3'] + 3.79 * vars['Var_6'] + 9.81 * vars['Var_8'] <= 106.31, name='C3')\n    m.addConstr(3.56 * vars['Var_1'] + 8.86 * vars['Var_13'] + 1.03 * vars['Var_14'] + 2.78 * vars['Var_2'] + 5.92 * vars['Var_4'] + 5.53 * vars['Var_5'] + 9.25 * vars['Var_6'] + 4.73 * vars['Var_9'] <= 195.91, name='C4')\n    m.addConstr(4.09 * vars['Var_1'] + 0.43 * vars['Var_10'] + 2.49 * vars['Var_13'] + 8.99 * vars['Var_14'] + 9.92 * vars['Var_2'] + 4.89 * vars['Var_3'] + 0.63 * vars['Var_6'] + 9.36 * vars['Var_7'] + 0.53 * vars['Var_8'] <= 257.54, name='C5')\n    m.addConstr(7.13 * vars['Var_10'] + 6.78 * vars['Var_11'] + 2.62 * vars['Var_12'] + 2.15 * vars['Var_13'] + 0.35 * vars['Var_14'] + 9.12 * vars['Var_15'] + 1.65 * vars['Var_2'] <= 147.54, name='C6')\n    m.addConstr(7.13 * vars['Var_10'] + 5.76 * vars['Var_11'] + 8.9 * vars['Var_12'] + 3.67 * vars['Var_14'] + 3.25 * vars['Var_2'] + 6.19 * vars['Var_3'] + 8.83 * vars['Var_4'] + 4.19 * vars['Var_5'] + 5.15 * vars['Var_6'] + 1.83 * vars['Var_8'] + 3.62 * vars['Var_9'] <= 199.52, name='C7')\n    m.addConstr(1.36 * vars['Var_2'] + 9.94 * vars['Var_3'] + 8.79 * vars['Var_4'] + 7.28 * vars['Var_5'] + 6.41 * vars['Var_7'] <= 128.01, name='C8')\n    m.addConstr(8.8 * vars['Var_0'] + 7.5 * vars['Var_1'] + 3.96 * vars['Var_11'] + 0.7 * vars['Var_13'] + 1.64 * vars['Var_7'] + 2.27 * vars['Var_9'] <= 122.29, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Production mix planning: maximizing contribution while staying within plant limits\n\nTeam,\n\nFor the upcoming planning window, we want to maximize total contribution from our Specialty Polymers portfolio while staying within the plant\u2019s operating, material, packaging, power, and compliance limits. Below are the decision levers available to us and how each product line draws on constrained assets. Each item can be set anywhere from 0 up to its stated cap; items noted as \u201cwhole batches\u201d must be scheduled in full runs only, while others can be flexed in partial runs.\n\nLevers we can pull (in the sequence our internal dashboards present them):\n- AquaShield Primer (whole batches): Delivers 7.76 contribution per batch. We can run from 0 up to 11.16 batches this period. Each batch consumes 8.80 units of Special Additive D and generates 3.72 units of waste to be treated.\n- BlueBond Resin (scalable, partial runs allowed): Delivers 4.56 contribution per unit. We can schedule from 0 up to 9.58 units. Per unit, this draws 4.13 hours on Polymerization Kettle A, 3.47 tons of Base Monomer M, 1.77 hours in the Catalyst Lab, 3.56 hours on the Hydrogenation Reactor, 4.09 units of Utility Steam, 7.50 units of Special Additive D, and 2.81 QA testing slots.\n- CobaltFlex Adhesive (whole batches): Delivers 7.47 contribution per batch. We may run 0 to 9.00 batches. Each batch uses 2.11 hours on Polymerization Kettle B, 6.05 tons of Base Monomer M, 2.78 hours on the Hydrogenation Reactor, 9.92 units of Utility Steam, 1.65 skilled operator hours, 3.25 hours on the Finishing Line, 1.36 tons of Solvent S, 8.67 QA testing slots, and 4.44 pallet-equivalents of bulk packaging throughput.\n- DuraSeal Coating (whole batches): Delivers 4.85 contribution per batch, with 0 to 14.78 batches permitted. Per batch, it requires 5.88 hours in the Catalyst Lab, 4.89 units of Utility Steam, 6.19 hours on the Finishing Line, 9.94 tons of Solvent S, 4.52 QA testing slots, 0.47 MWh of electric power, and produces 3.03 units of waste for treatment.\n- EcoFoam Blend (scalable): Delivers 7.32 contribution per unit. We can produce 0 to 13.84 units. Each unit uses 3.90 hours on Polymerization Kettle A, 5.92 hours on the Hydrogenation Reactor, 8.83 hours on the Finishing Line, 8.79 tons of Solvent S, 1.74 QA testing slots, 1.62 hazardous-storage pallet-units, and 6.19 pallet-equivalents of bulk packaging throughput.\n- FusionGrip Sealant (whole batches): Delivers 8.58 contribution per batch. We can run 0 to 8.00 batches. Per batch, it consumes 7.92 hours on Polymerization Kettle A, 3.37 tons of Base Monomer M, 5.53 hours on the Hydrogenation Reactor, 4.19 hours on the Finishing Line, 7.28 tons of Solvent S, 2.07 hazardous-storage pallet-units, and 9.77 MWh of electric power.\n- GreenCure Elastomer (scalable): Delivers 2.72 contribution per unit, with 0 to 18.93 units allowed. Each unit draws 3.42 hours on Polymerization Kettle A, 3.72 tons of Base Monomer M, 3.79 hours in the Catalyst Lab, 9.25 hours on the Hydrogenation Reactor, 0.63 units of Utility Steam, 5.15 hours on the Finishing Line, and 0.85 QA testing slots.\n- HydraBond Putty (whole batches): Delivers 5.97 contribution per batch. We may run 0 to 9.00 batches. Per batch usage: 9.36 units of Utility Steam, 6.41 tons of Solvent S, 1.64 units of Special Additive D, 4.36 QA testing slots, and 9.23 pallet-equivalents of bulk packaging throughput.\n- Ionex Catalyst Pellets (whole batches): Delivers 2.82 contribution per batch, with 0 to 18.54 batches. Each batch needs 7.19 hours on Polymerization Kettle A, 9.15 tons of Base Monomer M, 9.81 hours in the Catalyst Lab, 0.53 units of Utility Steam, 1.83 hours on the Finishing Line, 2.71 QA testing slots, 3.90 hazardous-storage pallet-units, and produces 0.20 units of waste for treatment.\n- JetSeal Epoxy (whole batches): Delivers 9.96 contribution per batch. We can run 0 to 17.63 batches. Per batch, this requires 4.62 hours on Polymerization Kettle B, 4.73 hours on the Hydrogenation Reactor, 3.62 hours on the Finishing Line, 2.27 units of Special Additive D, 2.53 MWh of electric power, 4.82 pallet-equivalents of bulk packaging throughput, and produces 8.18 units of waste for treatment.\n- KappaBond Structural Adhesive (whole batches): Delivers 4.28 contribution per batch, with 0 to 15.84 batches permitted. Each batch uses 6.33 hours on Polymerization Kettle B, 0.43 units of Utility Steam, 7.13 skilled operator hours, 7.13 hours on the Finishing Line, 7.12 QA testing slots, 7.34 MWh of electric power, 9.64 pallet-equivalents of bulk packaging throughput, and generates 7.69 waste-treatment units.\n- LumaShield Varnish (whole batches): Delivers 4.20 contribution per batch. We can run 0 to 13.47 batches. Per batch, it draws 0.88 tons of Base Monomer M, 0.87 hours in the Catalyst Lab, 6.78 skilled operator hours, 5.76 hours on the Finishing Line, 3.96 units of Special Additive D, 2.81 QA testing slots, and 0.34 hazardous-storage pallet-units.\n- MonoFlex Primer (whole batches): Delivers 2.08 contribution per batch, with 0 to 11.29 batches allowed. Per batch, it needs 2.10 hours on Polymerization Kettle A, 4.38 hours on Polymerization Kettle B, 2.62 skilled operator hours, 8.90 hours on the Finishing Line, and 7.25 pallet-equivalents of bulk packaging throughput.\n- NovaFoam Insulation (scalable): Delivers 8.76 contribution per unit. We may produce 0 to 13.16 units. Per unit, this uses 3.94 hours on Polymerization Kettle B, 8.86 hours on the Hydrogenation Reactor, 2.49 units of Utility Steam, 2.15 skilled operator hours, 0.70 units of Special Additive D, 8.77 MWh of electric power, and 7.93 pallet-equivalents of bulk packaging throughput.\n- OptiSeal Barrier (scalable): Delivers 5.42 contribution per unit, with 0 to 14.05 units permitted. Each unit draws 1.18 hours on Polymerization Kettle A, 1.03 hours on the Hydrogenation Reactor, 8.99 units of Utility Steam, 0.35 skilled operator hours, 3.67 hours on the Finishing Line, 4.54 hazardous-storage pallet-units, and 9.38 MWh of electric power.\n- ProBond Catalyst Pack (whole batches): Delivers 6.89 contribution per batch. We can run 0 to 18.51 batches. Each batch requires 9.30 hours on Polymerization Kettle B, 9.12 skilled operator hours, and 0.94 MWh of electric power.\n\nFacility specs and period limits (do not exceed):\n- Polymerization Kettle A time: up to 164.88 hours.\n- Polymerization Kettle B time: up to 170.24 hours.\n- Base Monomer M supply: up to 181.99 tons.\n- Catalyst Lab time: up to 106.31 hours.\n- Hydrogenation Reactor capacity: up to 195.91 hours.\n- Utility Steam allocation: up to 257.54 units.\n- Skilled operator crew hours: up to 147.54 hours.\n- Finishing Line capacity: up to 199.52 hours.\n- Solvent S inventory: up to 128.01 tons.\n- Special Additive D availability: up to 122.29 units.\n- QA testing slots: up to 204.35 slots.\n- Hazardous-storage allowance: up to 67.04 pallet-units.\n- Electric power budget: up to 214.38 MWh.\n- Bulk packaging throughput: up to 237.28 pallets.\n- Waste treatment capacity: up to 109.50 units.\n\nOur objective is to push the mix toward the highest total contribution while respecting these equipment, material, power, storage, packaging, testing, and environmental limits. Please proceed to model this portfolio accordingly and share the recommended run plan."
+}

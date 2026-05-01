@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, caps, integer/continuous types, and contributions per lever are explicit; six floors map to >= constraints; objective is minimize total spend; lower bounds are zero.",
+      "ambiguity": false,
+      "redundancy": 35,
+      "redundancy_comment": "Email-style narrative adds fluff and repeated 'no contribution' entries, but all technical parameters are clearly specified.",
+      "realism": 95,
+      "realism_comment": "Plausible capacity planning with service-level obligations and procurement limits; fractional caps on integer items are slightly odd but overall realistic."
+    },
+    "prompt_tokens_with_data": 1139,
+    "prompt_tokens_without_data": 1139
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 83.79633717831216,
+    "optimal_values": {
+      "Var_0": 2.0,
+      "Var_1": -0.0,
+      "Var_2": 1.4551408116613969,
+      "Var_3": 7.0,
+      "Var_4": 5.675324675324676,
+      "Var_5": 0.5905950915622095
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 58.44
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 43.2
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 55.03
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 56.4
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 24.07
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 49.61
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.93
+      ],
+      "objective_linear_coefficient": 5.42,
+      "resource_costs": {
+        "C1": 2.35,
+        "C3": 2.36,
+        "C4": 0.69
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        11.84
+      ],
+      "objective_linear_coefficient": 3.3,
+      "resource_costs": {
+        "C1": 4.05,
+        "C2": 8.41,
+        "C4": 1.45
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.11
+      ],
+      "objective_linear_coefficient": 1.28,
+      "resource_costs": {
+        "C0": 9.86,
+        "C1": 0.8,
+        "C2": 3.22,
+        "C5": 8.75
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.82
+      ],
+      "objective_linear_coefficient": 2.19,
+      "resource_costs": {
+        "C0": 4.48,
+        "C1": 7.52,
+        "C3": 1.14
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.81
+      ],
+      "objective_linear_coefficient": 9.22,
+      "resource_costs": {
+        "C0": 4.84,
+        "C1": 1.94,
+        "C2": 9.12,
+        "C3": 7.7,
+        "C4": 3.46,
+        "C5": 6.45
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.16
+      ],
+      "objective_linear_coefficient": 5.82,
+      "resource_costs": {
+        "C0": 4.99,
+        "C2": 7.33,
+        "C4": 5.17,
+        "C5": 0.46
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=11.93, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.42 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.84, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 3.3 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=19.11, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.28 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=7.82, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 2.19 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=5.81, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 9.22 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.16, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 5.82 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(9.86 * vars['Var_2'] + 4.48 * vars['Var_3'] + 4.84 * vars['Var_4'] + 4.99 * vars['Var_5'] >= 58.44, name='C0')\n    m.addConstr(2.35 * vars['Var_0'] + 4.05 * vars['Var_1'] + 0.8 * vars['Var_2'] + 7.52 * vars['Var_3'] + 1.94 * vars['Var_4'] >= 43.2, name='C1')\n    m.addConstr(8.41 * vars['Var_1'] + 3.22 * vars['Var_2'] + 9.12 * vars['Var_4'] + 7.33 * vars['Var_5'] >= 55.03, name='C2')\n    m.addConstr(2.36 * vars['Var_0'] + 1.14 * vars['Var_3'] + 7.7 * vars['Var_4'] >= 56.4, name='C3')\n    m.addConstr(0.69 * vars['Var_0'] + 1.45 * vars['Var_1'] + 3.46 * vars['Var_4'] + 5.17 * vars['Var_5'] >= 24.07, name='C4')\n    m.addConstr(8.75 * vars['Var_2'] + 6.45 * vars['Var_4'] + 0.46 * vars['Var_5'] >= 49.61, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing capacity plan to meet the new platform commitments\n\nTeam,\n\nAs we prepare for the upcoming service window, we need to assemble a mix of capacity options that meets or exceeds our six service-level obligations while keeping total acquisition spend as low as possible. The six obligations cover processing capacity, memory service, storage performance, network headroom, security/compliance, and high availability. Below are the levers available to us, with the unit economics, procurement limits, and how each option contributes to the required service levels.\n\nThe levers\n\n1) Memory-Optimized Nodes\n- Commercials and availability: Each node costs 5.42. We may purchase none or up to 11.93 nodes, but only in whole units.\n- Service-level impacts per node:\n  \u2022 Processing capacity: no contribution.\n  \u2022 Memory service: adds 2.35 units.\n  \u2022 Storage performance: no contribution.\n  \u2022 Network headroom: adds 2.36 units.\n  \u2022 Security/compliance: adds 0.69 units.\n  \u2022 High availability: no contribution.\n\n2) Storage-Optimized Appliances\n- Commercials and availability: Each appliance costs 3.3. We may purchase none or up to 11.84 appliances, in whole units only.\n- Service-level impacts per appliance:\n  \u2022 Processing capacity: no contribution.\n  \u2022 Memory service: adds 4.05 units.\n  \u2022 Storage performance: adds 8.41 units.\n  \u2022 Network headroom: no contribution.\n  \u2022 Security/compliance: adds 1.45 units.\n  \u2022 High availability: no contribution.\n\n3) On-Demand Compute Blocks\n- Commercials and availability: Each block costs 1.28. We may provision any fractional amount up to 19.11 blocks.\n- Service-level impacts per block:\n  \u2022 Processing capacity: adds 9.86 units.\n  \u2022 Memory service: adds 0.8 units.\n  \u2022 Storage performance: adds 3.22 units.\n  \u2022 Network headroom: no contribution.\n  \u2022 Security/compliance: no contribution.\n  \u2022 High availability: adds 8.75 units.\n\n4) Rack-Mounted Systems\n- Commercials and availability: Each system costs 2.19. We may purchase none or up to 7.82 systems, in whole units only.\n- Service-level impacts per system:\n  \u2022 Processing capacity: adds 4.48 units.\n  \u2022 Memory service: adds 7.52 units.\n  \u2022 Storage performance: no contribution.\n  \u2022 Network headroom: adds 1.14 units.\n  \u2022 Security/compliance: no contribution.\n  \u2022 High availability: no contribution.\n\n5) Premium Converged Clusters\n- Commercials and availability: Each cluster costs 9.22. We may scope fractional capacity up to 5.81 clusters.\n- Service-level impacts per cluster:\n  \u2022 Processing capacity: adds 4.84 units.\n  \u2022 Memory service: adds 1.94 units.\n  \u2022 Storage performance: adds 9.12 units.\n  \u2022 Network headroom: adds 7.7 units.\n  \u2022 Security/compliance: adds 3.46 units.\n  \u2022 High availability: adds 6.45 units.\n\n6) Edge Gateway Capacity\n- Commercials and availability: Each package costs 5.82. We may procure any fractional amount up to 10.16 packages.\n- Service-level impacts per package:\n  \u2022 Processing capacity: adds 4.99 units.\n  \u2022 Memory service: no contribution.\n  \u2022 Storage performance: adds 7.33 units.\n  \u2022 Network headroom: no contribution.\n  \u2022 Security/compliance: adds 5.17 units.\n  \u2022 High availability: adds 0.46 units.\n\nMarket limits and service-level floors\n\nTo be considered compliant, our combined plan across the above options must meet the following minimums:\n- Processing capacity: at least 58.44 units.\n- Memory service: at least 43.2 units.\n- Storage performance: at least 55.03 units.\n- Network headroom: at least 56.4 units.\n- Security/compliance: at least 24.07 units.\n- High availability: at least 49.61 units.\n\nAll quantities can be set to zero if not needed, subject to the availability caps and whether the item must be purchased in whole units or can be provisioned fractionally, as noted above. Our objective is to find the least-cost combination that satisfies or exceeds every one of these thresholds."
+}

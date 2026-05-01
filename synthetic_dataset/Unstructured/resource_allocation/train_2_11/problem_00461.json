@@ -1,0 +1,242 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 9,
+    "num_constraints": 9,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, RHS, and objective are explicit. Variables are continuous in [0, cap]. 'Not assigned to' implies zero coefficients. Constraints are meet-or-exceed (>=).",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business email adds fluff, but the data is structured and necessary. 'Not assigned to' repeats but clarifies zeros. Overall moderately verbose.",
+      "realism": 95,
+      "realism_comment": "Realistic staffing LP with capacities, costs, productivity, and service-level minima. Service credits are plausible; multi-metric per hour is a simplification."
+    },
+    "prompt_tokens_with_data": 1630,
+    "prompt_tokens_without_data": 1630
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 311.5144039046711,
+    "optimal_values": {
+      "Var_0": 3.4821310470760225,
+      "Var_1": 13.577998963905323,
+      "Var_2": 13.18020788562269,
+      "Var_3": 0.0,
+      "Var_4": 10.94,
+      "Var_5": 8.990413930057223,
+      "Var_6": 0.0,
+      "Var_7": 2.3285324247251746,
+      "Var_8": 1.4175669181080546
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 151.53
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 178.14
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 178.52
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 140.51
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 268.94
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 188.64
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 294.95
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 182.4
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 150.87
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.99
+      ],
+      "objective_linear_coefficient": 5.58,
+      "resource_costs": {
+        "C0": 2.82,
+        "C2": 8.14,
+        "C3": 5.08,
+        "C5": 4.59,
+        "C6": 6.74,
+        "C7": 9.91,
+        "C8": 5.91
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.54
+      ],
+      "objective_linear_coefficient": 9.46,
+      "resource_costs": {
+        "C0": 0.31,
+        "C1": 4.28,
+        "C2": 1.59,
+        "C4": 8.59,
+        "C6": 7.55,
+        "C7": 2.44,
+        "C8": 7.54
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.8
+      ],
+      "objective_linear_coefficient": 3.05,
+      "resource_costs": {
+        "C0": 3.35,
+        "C1": 6.13,
+        "C3": 3.35,
+        "C4": 2.42,
+        "C6": 6.29,
+        "C7": 3.52,
+        "C8": 2.05
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.54
+      ],
+      "objective_linear_coefficient": 8.66,
+      "resource_costs": {
+        "C1": 0.01,
+        "C2": 1.69,
+        "C3": 5.16,
+        "C4": 5.02,
+        "C5": 2.15,
+        "C6": 6.11,
+        "C7": 1.11,
+        "C8": 4.75
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.94
+      ],
+      "objective_linear_coefficient": 8.21,
+      "resource_costs": {
+        "C0": 3.83,
+        "C1": 3.82,
+        "C2": 9.41,
+        "C4": 9.93,
+        "C5": 6.94,
+        "C6": 2.62
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.01
+      ],
+      "objective_linear_coefficient": 2.23,
+      "resource_costs": {
+        "C0": 6.66,
+        "C1": 5.62,
+        "C2": 0.88,
+        "C3": 7.69,
+        "C5": 9.35,
+        "C6": 2.69,
+        "C7": 5.34
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.52
+      ],
+      "objective_linear_coefficient": 5.06,
+      "resource_costs": {
+        "C0": 4.33,
+        "C1": 4.19,
+        "C3": 4.16,
+        "C5": 2.95,
+        "C7": 7.35,
+        "C8": 3.66
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.43
+      ],
+      "objective_linear_coefficient": 1.81,
+      "resource_costs": {
+        "C0": 3.16,
+        "C1": 2.96,
+        "C2": 6.92,
+        "C3": 0.97,
+        "C4": 0.71,
+        "C6": 9.18,
+        "C7": 8.25
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.77
+      ],
+      "objective_linear_coefficient": 6.6,
+      "resource_costs": {
+        "C0": 3.43,
+        "C1": 0.61,
+        "C2": 1.14,
+        "C3": 5.13,
+        "C4": 7.14,
+        "C5": 8.94,
+        "C6": 9.33,
+        "C7": 0.81,
+        "C8": 0.63
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.99, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.58 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.54, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 9.46 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=17.8, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 3.05 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.54, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.66 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=10.94, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 8.21 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=16.01, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 2.23 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=7.52, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 5.06 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.43, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 1.81 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=14.77, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 6.6 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.82 * vars['Var_0'] + 0.31 * vars['Var_1'] + 3.35 * vars['Var_2'] + 3.83 * vars['Var_4'] + 6.66 * vars['Var_5'] + 4.33 * vars['Var_6'] + 3.16 * vars['Var_7'] + 3.43 * vars['Var_8'] >= 151.53, name='C0')\n    m.addConstr(4.28 * vars['Var_1'] + 6.13 * vars['Var_2'] + 0.01 * vars['Var_3'] + 3.82 * vars['Var_4'] + 5.62 * vars['Var_5'] + 4.19 * vars['Var_6'] + 2.96 * vars['Var_7'] + 0.61 * vars['Var_8'] >= 178.14, name='C1')\n    m.addConstr(8.14 * vars['Var_0'] + 1.59 * vars['Var_1'] + 1.69 * vars['Var_3'] + 9.41 * vars['Var_4'] + 0.88 * vars['Var_5'] + 6.92 * vars['Var_7'] + 1.14 * vars['Var_8'] >= 178.52, name='C2')\n    m.addConstr(5.08 * vars['Var_0'] + 3.35 * vars['Var_2'] + 5.16 * vars['Var_3'] + 7.69 * vars['Var_5'] + 4.16 * vars['Var_6'] + 0.97 * vars['Var_7'] + 5.13 * vars['Var_8'] >= 140.51, name='C3')\n    m.addConstr(8.59 * vars['Var_1'] + 2.42 * vars['Var_2'] + 5.02 * vars['Var_3'] + 9.93 * vars['Var_4'] + 0.71 * vars['Var_7'] + 7.14 * vars['Var_8'] >= 268.94, name='C4')\n    m.addConstr(4.59 * vars['Var_0'] + 2.15 * vars['Var_3'] + 6.94 * vars['Var_4'] + 9.35 * vars['Var_5'] + 2.95 * vars['Var_6'] + 8.94 * vars['Var_8'] >= 188.64, name='C5')\n    m.addConstr(6.74 * vars['Var_0'] + 7.55 * vars['Var_1'] + 6.29 * vars['Var_2'] + 6.11 * vars['Var_3'] + 2.62 * vars['Var_4'] + 2.69 * vars['Var_5'] + 9.18 * vars['Var_7'] + 9.33 * vars['Var_8'] >= 294.95, name='C6')\n    m.addConstr(9.91 * vars['Var_0'] + 2.44 * vars['Var_1'] + 3.52 * vars['Var_2'] + 1.11 * vars['Var_3'] + 5.34 * vars['Var_5'] + 7.35 * vars['Var_6'] + 8.25 * vars['Var_7'] + 0.81 * vars['Var_8'] >= 182.4, name='C7')\n    m.addConstr(5.91 * vars['Var_0'] + 7.54 * vars['Var_1'] + 2.05 * vars['Var_2'] + 4.75 * vars['Var_3'] + 3.66 * vars['Var_6'] + 0.63 * vars['Var_8'] >= 150.87, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for a cost-minimizing staffing plan that meets our minimum service levels\n\nTeam,\n\nWe\u2019re looking to finalize the upcoming period\u2019s staffing plan for our Customer Operations organization. The mandate is straightforward: meet or exceed the minimum service delivery commitments across our nine service lines while keeping total staffing spend as low as possible. All assignments can range from zero up to the availability cap for each team, and we can blend hours fractionally as needed.\n\nBelow are the levers we can pull this period, listed in the order we need you to consider them. For each team, I\u2019ve included the fully loaded cost per scheduled hour, the maximum available hours, and the expected productivity (service credits per scheduled hour) across our service lines:\n- Billing Inquiries\n- Technical Support Cases\n- New Sales Leads\n- Account Management Sessions\n- Compliance Outreach Calls\n- Returns & Refunds Processed\n- After-Hours Coverage Units\n- Outbound Retention Touches\n- VIP Concierge Tickets\n\n1) Silver Specialists\n- Availability: up to 17.99 hours (can be set anywhere from 0.00 to 17.99).\n- Cost: 5.58 per hour.\n- Per hour, this team typically delivers: 2.82 Billing Inquiries; 8.14 New Sales Leads; 5.08 Account Management Sessions; 4.59 Returns & Refunds Processed; 6.74 After-Hours Coverage Units; 9.91 Outbound Retention Touches; 5.91 VIP Concierge Tickets.\n- Not trained for: Technical Support Cases; Compliance Outreach Calls.\n\n2) Blue Tier Techs\n- Availability: up to 16.54 hours.\n- Cost: 9.46 per hour.\n- Per hour, this team delivers: 0.31 Billing Inquiries; 4.28 Technical Support Cases; 1.59 New Sales Leads; 8.59 Compliance Outreach Calls; 7.55 After-Hours Coverage Units; 2.44 Outbound Retention Touches; 7.54 VIP Concierge Tickets.\n- Not assigned to: Account Management Sessions; Returns & Refunds Processed.\n\n3) Green Hybrid Agents\n- Availability: up to 17.80 hours.\n- Cost: 3.05 per hour.\n- Per hour, this team delivers: 3.35 Billing Inquiries; 6.13 Technical Support Cases; 3.35 Account Management Sessions; 2.42 Compliance Outreach Calls; 6.29 After-Hours Coverage Units; 3.52 Outbound Retention Touches; 2.05 VIP Concierge Tickets.\n- Not assigned to: New Sales Leads; Returns & Refunds Processed.\n\n4) Platinum Advisors\n- Availability: up to 18.54 hours.\n- Cost: 8.66 per hour.\n- Per hour, this team delivers: 0.01 Technical Support Cases; 1.69 New Sales Leads; 5.16 Account Management Sessions; 5.02 Compliance Outreach Calls; 2.15 Returns & Refunds Processed; 6.11 After-Hours Coverage Units; 1.11 Outbound Retention Touches; 4.75 VIP Concierge Tickets.\n- Not assigned to: Billing Inquiries.\n\n5) Amber Outreach Team\n- Availability: up to 10.94 hours.\n- Cost: 8.21 per hour.\n- Per hour, this team delivers: 3.83 Billing Inquiries; 3.82 Technical Support Cases; 9.41 New Sales Leads; 9.93 Compliance Outreach Calls; 6.94 Returns & Refunds Processed; 2.62 After-Hours Coverage Units.\n- Not assigned to: Account Management Sessions; Outbound Retention Touches; VIP Concierge Tickets.\n\n6) Crimson Returns Crew\n- Availability: up to 16.01 hours.\n- Cost: 2.23 per hour.\n- Per hour, this team delivers: 6.66 Billing Inquiries; 5.62 Technical Support Cases; 0.88 New Sales Leads; 7.69 Account Management Sessions; 9.35 Returns & Refunds Processed; 2.69 After-Hours Coverage Units; 5.34 Outbound Retention Touches.\n- Not assigned to: Compliance Outreach Calls; VIP Concierge Tickets.\n\n7) Indigo Flex Pool\n- Availability: up to 7.52 hours.\n- Cost: 5.06 per hour.\n- Per hour, this team delivers: 4.33 Billing Inquiries; 4.19 Technical Support Cases; 4.16 Account Management Sessions; 2.95 Returns & Refunds Processed; 7.35 Outbound Retention Touches; 3.66 VIP Concierge Tickets.\n- Not assigned to: New Sales Leads; Compliance Outreach Calls; After-Hours Coverage Units.\n\n8) Teal Growth Reps\n- Availability: up to 13.43 hours.\n- Cost: 1.81 per hour.\n- Per hour, this team delivers: 3.16 Billing Inquiries; 2.96 Technical Support Cases; 6.92 New Sales Leads; 0.97 Account Management Sessions; 0.71 Compliance Outreach Calls; 9.18 After-Hours Coverage Units; 8.25 Outbound Retention Touches.\n- Not assigned to: Returns & Refunds Processed; VIP Concierge Tickets.\n\n9) Gold Premium Desk\n- Availability: up to 14.77 hours.\n- Cost: 6.60 per hour.\n- Per hour, this team delivers: 3.43 Billing Inquiries; 0.61 Technical Support Cases; 1.14 New Sales Leads; 5.13 Account Management Sessions; 7.14 Compliance Outreach Calls; 8.94 Returns & Refunds Processed; 9.33 After-Hours Coverage Units; 0.81 Outbound Retention Touches; 0.63 VIP Concierge Tickets.\n\nService-level commitments (minimums for the period)\n- Billing Inquiries: at least 151.53 service credits.\n- Technical Support Cases: at least 178.14 service credits.\n- New Sales Leads: at least 178.52 service credits.\n- Account Management Sessions: at least 140.51 service credits.\n- Compliance Outreach Calls: at least 268.94 service credits.\n- Returns & Refunds Processed: at least 188.64 service credits.\n- After-Hours Coverage Units: at least 294.95 service credits.\n- Outbound Retention Touches: at least 182.40 service credits.\n- VIP Concierge Tickets: at least 150.87 service credits.\n\nPlease come back with a staffing mix (hours per team, not exceeding the availabilities above) that meets or exceeds each of these minimums while minimizing total spend. If you need any clarifications on the productivity assumptions, let me know.\n\nThanks."
+}

@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 7,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "Clear bounds, per-unit costs, and contributions for each lever; \u2265 floors specified; crews integral; objective is minimize spend. A human can reconstruct the exact LP. Only tiny quirk: integer UB 14.43.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business email framing and narrative add length, but details are precise and not repetitive; most text carries necessary context.",
+      "realism": 95,
+      "realism_comment": "Plausible staffing/resource mix problem with coverage targets; fractional levers and integer crews are realistic, with credible metrics and costs."
+    },
+    "prompt_tokens_with_data": 1105,
+    "prompt_tokens_without_data": 1105
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 156.5194169997835,
+    "optimal_values": {
+      "Var_0": 2.8607784431137717,
+      "Var_1": 0.0,
+      "Var_2": 6.0,
+      "Var_3": 8.12704559085327,
+      "Var_4": 8.25,
+      "Var_5": 5.170380950636954
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 53.25
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 176.51
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 125.13
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 119.29
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 24.8
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 107.9
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 140.3
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.15
+      ],
+      "objective_linear_coefficient": 4.25,
+      "resource_costs": {
+        "C2": 5.01,
+        "C3": 0.53,
+        "C5": 1.52,
+        "C6": 4.32
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.76
+      ],
+      "objective_linear_coefficient": 4.94,
+      "resource_costs": {
+        "C2": 8.36
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.43
+      ],
+      "objective_linear_coefficient": 5.77,
+      "resource_costs": {
+        "C0": 6.73,
+        "C1": 6.86,
+        "C2": 4.73,
+        "C3": 1.12,
+        "C4": 5.15,
+        "C5": 7.13
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.32
+      ],
+      "objective_linear_coefficient": 1.85,
+      "resource_costs": {
+        "C0": 0.23,
+        "C1": 8.62,
+        "C5": 6.29
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.25
+      ],
+      "objective_linear_coefficient": 7.08,
+      "resource_costs": {
+        "C1": 9.22,
+        "C2": 9.99,
+        "C3": 8.68,
+        "C5": 1.17,
+        "C6": 9.36
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.32
+      ],
+      "objective_linear_coefficient": 7.02,
+      "resource_costs": {
+        "C0": 3.26,
+        "C3": 9.26,
+        "C6": 9.81
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.15, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 4.25 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.76, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.94 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=14.43, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.77 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.32, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.85 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=8.25, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 7.08 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.32, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.02 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.73 * vars['Var_2'] + 0.23 * vars['Var_3'] + 3.26 * vars['Var_5'] >= 53.25, name='C0')\n    m.addConstr(6.86 * vars['Var_2'] + 8.62 * vars['Var_3'] + 9.22 * vars['Var_4'] >= 176.51, name='C1')\n    m.addConstr(5.01 * vars['Var_0'] + 8.36 * vars['Var_1'] + 4.73 * vars['Var_2'] + 9.99 * vars['Var_4'] >= 125.13, name='C2')\n    m.addConstr(0.53 * vars['Var_0'] + 1.12 * vars['Var_2'] + 8.68 * vars['Var_4'] + 9.26 * vars['Var_5'] >= 119.29, name='C3')\n    m.addConstr(5.15 * vars['Var_2'] >= 24.8, name='C4')\n    m.addConstr(1.52 * vars['Var_0'] + 7.13 * vars['Var_2'] + 6.29 * vars['Var_3'] + 1.17 * vars['Var_4'] >= 107.9, name='C5')\n    m.addConstr(4.32 * vars['Var_0'] + 9.36 * vars['Var_4'] + 9.81 * vars['Var_5'] >= 140.3, name='C6')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Proposed Q1 service mix to minimize spend while honoring our coverage commitments\n\nTeam,\n\nAs discussed, our intention this quarter is to assemble the lowest\u2011cost mix of staffing and program levers that still meets or exceeds our minimum service levels across seven areas: On\u2011Call Baseline Coverage, Client Appointments Completed, Training & Certification Hours, Quality Assurance Audits, Specialist Case Closures, Emergency Response Coverage, and Rural Outreach Mileage. Below is how each lever performs and where it helps (or does not), with the feasible operating range and per\u2011unit cost noted for each.\n\n- Blue\u2011Shift Flex FTEs (no minimum commitment; up to 6.15 FTEs; $4.25 per FTE)\n  Each FTE contributes 5.01 units toward Training & Certification Hours, 0.53 toward Quality Assurance Audits, 1.52 toward Emergency Response Coverage, and 4.32 toward Rural Outreach Mileage. These FTEs do not move On\u2011Call Baseline Coverage, Client Appointments Completed, or Specialist Case Closures.\n\n- Digital Academy Seats (no minimum commitment; up to 16.76 seat\u2011equivalents; $4.94 per seat\u2011equivalent)\n  Each seat delivers 8.36 units toward Training & Certification Hours only. There is no effect on On\u2011Call Baseline Coverage, Client Appointments Completed, Quality Assurance Audits, Specialist Case Closures, Emergency Response Coverage, or Rural Outreach Mileage.\n\n- Core Field Crew Hires (no minimum commitment; up to 14.43 crews; whole crews only; $5.77 per crew)\n  Each crew provides 6.73 units of On\u2011Call Baseline Coverage, 6.86 Client Appointments Completed, 4.73 Training & Certification Hours, 1.12 Quality Assurance Audits, 5.15 Specialist Case Closures, and 7.13 Emergency Response Coverage. Crews do not contribute to Rural Outreach Mileage.\n\n- Agency Surge Blocks (no minimum commitment; up to 10.32 blocks; $1.85 per block)\n  Each block adds 0.23 units to On\u2011Call Baseline Coverage, 8.62 to Client Appointments Completed, and 6.29 to Emergency Response Coverage. There is no impact on Training & Certification Hours, Quality Assurance Audits, Specialist Case Closures, or Rural Outreach Mileage.\n\n- Specialist Strike Team Months (no minimum commitment; up to 8.25 team\u2011months; $7.08 per team\u2011month)\n  Each team\u2011month contributes 9.22 Client Appointments Completed, 9.99 Training & Certification Hours, 8.68 Quality Assurance Audits, 1.17 Emergency Response Coverage, and 9.36 Rural Outreach Mileage. These teams do not affect On\u2011Call Baseline Coverage or Specialist Case Closures.\n\n- Rural Outreach Van\u2011Days (no minimum commitment; up to 14.32 vehicle\u2011days; $7.02 per vehicle\u2011day)\n  Each vehicle\u2011day delivers 3.26 units of On\u2011Call Baseline Coverage, 9.26 Quality Assurance Audits, and 9.81 Rural Outreach Mileage. There is no contribution to Client Appointments Completed, Training & Certification Hours, Specialist Case Closures, or Emergency Response Coverage.\n\nFacility and market limits (service floors we must meet or exceed)\n- On\u2011Call Baseline Coverage: at least 53.25 units\n- Client Appointments Completed: at least 176.51 units\n- Training & Certification Hours: at least 125.13 units\n- Quality Assurance Audits: at least 119.29 units\n- Specialist Case Closures: at least 24.8 units\n- Emergency Response Coverage: at least 107.9 units\n- Rural Outreach Mileage: at least 140.3 units\n\nOur optimization will minimize total spend across the six levers above while honoring these floors. Note that Blue\u2011Shift Flex FTEs, Digital Academy Seats, Agency Surge Blocks, Specialist Strike Team Months, and Rural Outreach Van\u2011Days can be dialed in fractionally within their ranges, whereas Core Field Crew Hires must be contracted as whole crews and cannot exceed 14.43 crews.\n\nPlease let me know if you\u2019d like sensitivity tests on any single metric or if we should explore scenario caps different from the ranges shown above."
+}

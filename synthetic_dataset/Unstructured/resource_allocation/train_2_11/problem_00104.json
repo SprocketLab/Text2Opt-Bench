@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 96,
+      "prompt_inducibility_comment": "All costs, bounds, integrality, and coverage coefficients are explicit; objective and constraints are clear. Only variable names (Var_0..Var_3) aren\u2019t specified.",
+      "ambiguity": false,
+      "redundancy": 32,
+      "redundancy_comment": "Clear bullet points with minor narrative and LP/QP mention; some fluff but most details are necessary.",
+      "realism": 93,
+      "realism_comment": "Plausible sourcing/coverage planning with caps and budgets. Fractional caps on integer orders are slightly unusual but acceptable."
+    },
+    "prompt_tokens_with_data": 751,
+    "prompt_tokens_without_data": 751
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 132.57,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 2.0,
+      "Var_2": 15.0,
+      "Var_3": 7.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 108.04
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 63.5
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 143.61
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.16
+      ],
+      "objective_linear_coefficient": 8.84,
+      "resource_costs": {
+        "C0": 3.79
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.0
+      ],
+      "objective_linear_coefficient": 6.99,
+      "resource_costs": {
+        "C0": 9.92,
+        "C2": 7.46
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.48
+      ],
+      "objective_linear_coefficient": 3.79,
+      "resource_costs": {
+        "C0": 5.99,
+        "C2": 8.41
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        19.49
+      ],
+      "objective_linear_coefficient": 8.82,
+      "resource_costs": {
+        "C1": 9.38,
+        "C2": 8.68
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=15.16, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 8.84 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.0, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.99 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.48, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.79 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=19.49, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 8.82 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.79 * vars['Var_0'] + 9.92 * vars['Var_1'] + 5.99 * vars['Var_2'] >= 108.04, name='C0')\n    m.addConstr(9.38 * vars['Var_3'] >= 63.5, name='C1')\n    m.addConstr(7.46 * vars['Var_1'] + 8.41 * vars['Var_2'] + 8.68 * vars['Var_3'] >= 143.61, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Sourcing plan to meet coverage commitments at the lowest possible spend\n\nTeam,\n\nFor the upcoming period, we need to decide how many units of four pre-defined service packages to procure so that we meet or exceed our coverage commitments in three areas while keeping total spend as low as possible. We count coverage in \u201ccredits\u201d across core support, after\u2011hours care, and field response. All orders must be in whole packages only; we don\u2019t split packages. There is no minimum order requirement on any package, but each comes with an operational cap.\n\nOur levers\n\n- Dayline Core Analyst Kits\n  \u2022 Unit economics: each kit costs 8.84 (budget units per period).\n  \u2022 Availability: we may source anywhere from 0.0 up to 15.16 kits this period; whole kits only.\n  \u2022 Coverage contribution: each kit provides 3.79 credits toward Core Support. It does not provide any After\u2011Hours/Care credits and does not add to Field Response credits.\n\n- Hybrid Field Support Teams\n  \u2022 Unit economics: each team costs 6.99.\n  \u2022 Availability: we may source anywhere from 0.0 up to 10.0 teams; whole teams only.\n  \u2022 Coverage contribution: each team provides 9.92 credits toward Core Support and 7.46 credits toward Field Response. It does not provide any After\u2011Hours/Care credits.\n\n- Rover Dispatch Blocks\n  \u2022 Unit economics: each block costs 3.79.\n  \u2022 Availability: we may source anywhere from 0.0 up to 15.48 blocks; whole blocks only.\n  \u2022 Coverage contribution: each block provides 5.99 credits toward Core Support and 8.41 credits toward Field Response. It does not provide any After\u2011Hours/Care credits.\n\n- On\u2011Call Specialist Crews\n  \u2022 Unit economics: each crew costs 8.82.\n  \u2022 Availability: we may source anywhere from 0.0 up to 19.49 crews; whole crews only.\n  \u2022 Coverage contribution: each crew provides 9.38 credits toward After\u2011Hours/Care and 8.68 credits toward Field Response. It does not provide any Core Support credits.\n\nService level commitments and operating limits\n\n- Core Support: provide at least 108.04 coverage credits.\n- After\u2011Hours/Care: provide at least 63.5 coverage credits.\n- Field Response: provide at least 143.61 coverage credits.\n\nPlease configure the sourcing plan to minimize total spend using the packages above, honoring their whole\u2011unit ordering rules and per\u2011package caps, while meeting or exceeding all three coverage minimums."
+}

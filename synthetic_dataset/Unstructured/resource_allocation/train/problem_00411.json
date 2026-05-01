@@ -1,0 +1,212 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 8,
+    "num_constraints": 10,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, and per-category contributions are explicit; fractional use allowed; zero effects noted. Minimums listed. Objective and constraints can be reconstructed exactly.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Some business prose and repeated \u201cno impact\u201d statements add verbosity, but most content maps directly to coefficients, bounds, and goals.",
+      "realism": 96,
+      "realism_comment": "A plausible service-mix planning problem with capacities, costs, and SLA-like minimums; coherent and consistent with real OR applications."
+    },
+    "prompt_tokens_with_data": 1370,
+    "prompt_tokens_without_data": 1370
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 144.4018885651817,
+    "optimal_values": {
+      "Var_0": 6.963095961755288,
+      "Var_1": 0.0,
+      "Var_2": 7.952750545425799,
+      "Var_3": 0.0,
+      "Var_4": 0.0,
+      "Var_5": 8.46,
+      "Var_6": 5.30696876426037,
+      "Var_7": 2.6738631536621345
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 154.69
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 85.61
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 75.21
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 83.59
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 54.46
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 84.47
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 24.74
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 78.33
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 89.54
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 172.46
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.14
+      ],
+      "objective_linear_coefficient": 5.12,
+      "resource_costs": {
+        "C0": 6.94,
+        "C3": 6.17,
+        "C8": 2.26,
+        "C9": 5.59
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.69
+      ],
+      "objective_linear_coefficient": 4.0,
+      "resource_costs": {
+        "C1": 7.2,
+        "C2": 0.35,
+        "C7": 4.03,
+        "C8": 5.88,
+        "C9": 3.33
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.37
+      ],
+      "objective_linear_coefficient": 8.04,
+      "resource_costs": {
+        "C0": 7.93,
+        "C1": 8.26,
+        "C2": 5.83,
+        "C5": 3.07,
+        "C6": 1.69,
+        "C7": 4.37,
+        "C9": 7.66
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.53
+      ],
+      "objective_linear_coefficient": 1.44,
+      "resource_costs": {
+        "C3": 3.99,
+        "C5": 2.96,
+        "C6": 6.16
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.25
+      ],
+      "objective_linear_coefficient": 5.75,
+      "resource_costs": {
+        "C0": 8.76,
+        "C6": 4.74,
+        "C7": 9.34,
+        "C9": 0.48
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.46
+      ],
+      "objective_linear_coefficient": 3.38,
+      "resource_costs": {
+        "C0": 4.56,
+        "C2": 1.02,
+        "C3": 1.08,
+        "C4": 7.58,
+        "C5": 7.99,
+        "C8": 7.74,
+        "C9": 6.7
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.31
+      ],
+      "objective_linear_coefficient": 1.01,
+      "resource_costs": {
+        "C0": 0.89,
+        "C2": 8.65,
+        "C3": 8.76,
+        "C5": 0.58,
+        "C6": 2.83,
+        "C7": 4.12
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.59
+      ],
+      "objective_linear_coefficient": 4.06,
+      "resource_costs": {
+        "C1": 7.45,
+        "C7": 8.12,
+        "C8": 3.71,
+        "C9": 5.96
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.14, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.12 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.69, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.0 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.37, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 8.04 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.53, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 1.44 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=11.25, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.75 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=8.46, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 3.38 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=5.31, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.01 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.59, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 4.06 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.94 * vars['Var_0'] + 7.93 * vars['Var_2'] + 8.76 * vars['Var_4'] + 4.56 * vars['Var_5'] + 0.89 * vars['Var_6'] >= 154.69, name='C0')\n    m.addConstr(7.2 * vars['Var_1'] + 8.26 * vars['Var_2'] + 7.45 * vars['Var_7'] >= 85.61, name='C1')\n    m.addConstr(0.35 * vars['Var_1'] + 5.83 * vars['Var_2'] + 1.02 * vars['Var_5'] + 8.65 * vars['Var_6'] >= 75.21, name='C2')\n    m.addConstr(6.17 * vars['Var_0'] + 3.99 * vars['Var_3'] + 1.08 * vars['Var_5'] + 8.76 * vars['Var_6'] >= 83.59, name='C3')\n    m.addConstr(7.58 * vars['Var_5'] >= 54.46, name='C4')\n    m.addConstr(3.07 * vars['Var_2'] + 2.96 * vars['Var_3'] + 7.99 * vars['Var_5'] + 0.58 * vars['Var_6'] >= 84.47, name='C5')\n    m.addConstr(1.69 * vars['Var_2'] + 6.16 * vars['Var_3'] + 4.74 * vars['Var_4'] + 2.83 * vars['Var_6'] >= 24.74, name='C6')\n    m.addConstr(4.03 * vars['Var_1'] + 4.37 * vars['Var_2'] + 9.34 * vars['Var_4'] + 4.12 * vars['Var_6'] + 8.12 * vars['Var_7'] >= 78.33, name='C7')\n    m.addConstr(2.26 * vars['Var_0'] + 5.88 * vars['Var_1'] + 7.74 * vars['Var_5'] + 3.71 * vars['Var_7'] >= 89.54, name='C8')\n    m.addConstr(5.59 * vars['Var_0'] + 3.33 * vars['Var_1'] + 7.66 * vars['Var_2'] + 0.48 * vars['Var_4'] + 6.7 * vars['Var_5'] + 5.96 * vars['Var_7'] >= 172.46, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimizing service mix for the upcoming period\n\nTeam,\n\nAs discussed, we need your help designing a cost-efficient mix of delivery options for the upcoming period. The objective is to minimize our run-rate while meeting or exceeding our commitments across ten service categories. We can deploy each option in fractional effort blocks, with the flexibility to use anywhere from zero up to its available maximum.\n\nThe levers we can pull\n\n- Bluefield Core Crew\n  - Available up to 12.14 effort blocks (no minimum); run-rate cost is 5.12 per block.\n  - Each block provides 6.94 units toward Core Operations, 6.17 units toward Compliance Audits, 2.26 units toward Reporting & Analytics, and 5.59 units toward Backlog burn-down.\n  - It has no direct impact on Premium Support, Field Visits, Specialty Installations, Training & Enablement, Emergency Coverage, or Regional Outreach.\n\n- Silver Support Desk\n  - Available up to 12.69 effort blocks (no minimum); run-rate cost is 4.00 per block.\n  - Each block contributes 7.20 units to Premium Support, 0.35 units to Field Visits, 4.03 units to Regional Outreach, 5.88 units to Reporting & Analytics, and 3.33 units to Backlog burn-down.\n  - It does not contribute to Core Operations, Compliance Audits, Specialty Installations, Training & Enablement, or Emergency Coverage.\n\n- Gold Integrated Pods\n  - Available up to 8.37 effort blocks (no minimum); run-rate cost is 8.04 per block.\n  - Each block yields 7.93 units of Core Operations, 8.26 units of Premium Support, 5.83 units of Field Visits, 3.07 units of Training & Enablement, 1.69 units of Emergency Coverage, 4.37 units of Regional Outreach, and 7.66 units of Backlog burn-down.\n  - It does not impact Compliance Audits, Specialty Installations, or Reporting & Analytics.\n\n- Rapid Response Unit\n  - Available up to 10.53 effort blocks (no minimum); run-rate cost is 1.44 per block.\n  - Each block provides 3.99 units of Compliance Audits, 2.96 units of Training & Enablement, and 6.16 units of Emergency Coverage.\n  - It has no effect on Core Operations, Premium Support, Field Visits, Specialty Installations, Regional Outreach, Reporting & Analytics, or Backlog burn-down.\n\n- Regional Project Crew\n  - Available up to 11.25 effort blocks (no minimum); run-rate cost is 5.75 per block.\n  - Each block contributes 8.76 units to Core Operations, 4.74 units to Emergency Coverage, 9.34 units to Regional Outreach, and 0.48 units to Backlog burn-down.\n  - It does not contribute to Premium Support, Field Visits, Compliance Audits, Specialty Installations, Training & Enablement, or Reporting & Analytics.\n\n- Special Projects Task Force\n  - Available up to 8.46 effort blocks (no minimum); run-rate cost is 3.38 per block.\n  - Each block adds 4.56 units of Core Operations, 1.02 units of Field Visits, 1.08 units of Compliance Audits, 7.58 units of Specialty Installations, 7.99 units of Training & Enablement, 7.74 units of Reporting & Analytics, and 6.70 units of Backlog burn-down.\n  - It does not impact Premium Support, Emergency Coverage, or Regional Outreach.\n\n- Technical Support Lab\n  - Available up to 5.31 effort blocks (no minimum); run-rate cost is 1.01 per block.\n  - Each block supplies 0.89 units of Core Operations, 8.65 units of Field Visits, 8.76 units of Compliance Audits, 0.58 units of Training & Enablement, 2.83 units of Emergency Coverage, and 4.12 units of Regional Outreach.\n  - It does not contribute to Premium Support, Specialty Installations, Reporting & Analytics, or Backlog burn-down.\n\n- Client Success Ambassadors\n  - Available up to 13.59 effort blocks (no minimum); run-rate cost is 4.06 per block.\n  - Each block delivers 7.45 units of Premium Support, 8.12 units of Regional Outreach, 3.71 units of Reporting & Analytics, and 5.96 units of Backlog burn-down.\n  - It has no effect on Core Operations, Field Visits, Compliance Audits, Specialty Installations, Training & Enablement, or Emergency Coverage.\n\nService commitments to be met (minimums)\n\n- Core Operations: at least 154.69 units\n- Premium Support: at least 85.61 units\n- Field Visits: at least 75.21 units\n- Compliance Audits: at least 83.59 units\n- Specialty Installations: at least 54.46 units\n- Training & Enablement: at least 84.47 units\n- Emergency Coverage: at least 24.74 units\n- Regional Outreach: at least 78.33 units\n- Reporting & Analytics: at least 89.54 units\n- Backlog burn-down: at least 172.46 units\n\nPlease use this as the basis to recommend the most cost-efficient mix while satisfying all the above minimums. We are fine with fractional allocations of effort across the options, subject to the availability limits noted."
+}

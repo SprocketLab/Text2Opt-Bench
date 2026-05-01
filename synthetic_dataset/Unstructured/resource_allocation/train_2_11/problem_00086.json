@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 6,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and resource caps are explicit; 'do not exceed' implies <=. Minor issue: variable names aren't specified, but the mathematical model is fully determined.",
+      "ambiguity": false,
+      "redundancy": 22,
+      "redundancy_comment": "Business memo style adds minor fluff, but bullet data is concise and maps directly to variables and constraints with no repetition.",
+      "realism": 98,
+      "realism_comment": "Highly realistic capacity planning with shared resources (CIP, reactor, lab, blending, warehouse, HazMat) and plausible limits and units."
+    },
+    "prompt_tokens_with_data": 782,
+    "prompt_tokens_without_data": 782
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 39.14882063882064,
+    "optimal_values": {
+      "Var_0": 4.422604422604423,
+      "Var_1": 8.0,
+      "Var_2": 1.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.87
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 77.48
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 22.86
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 15.63
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 91.13
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 8.66
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.18
+      ],
+      "objective_linear_coefficient": 3.31,
+      "resource_costs": {
+        "C2": 4.1,
+        "C3": 1.08,
+        "C4": 4.07
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.52
+      ],
+      "objective_linear_coefficient": 2.62,
+      "resource_costs": {
+        "C0": 0.46,
+        "C1": 8.28,
+        "C4": 8.99,
+        "C5": 0.85
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.66
+      ],
+      "objective_linear_coefficient": 3.55,
+      "resource_costs": {
+        "C0": 8.37,
+        "C1": 9.75,
+        "C2": 3.21,
+        "C3": 8.5,
+        "C4": 1.21
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=14.18, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.31 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.52, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 2.62 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.66, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 3.55 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.46 * vars['Var_1'] + 8.37 * vars['Var_2'] <= 12.87, name='C0')\n    m.addConstr(8.28 * vars['Var_1'] + 9.75 * vars['Var_2'] <= 77.48, name='C1')\n    m.addConstr(4.1 * vars['Var_0'] + 3.21 * vars['Var_2'] <= 22.86, name='C2')\n    m.addConstr(1.08 * vars['Var_0'] + 8.5 * vars['Var_2'] <= 15.63, name='C3')\n    m.addConstr(4.07 * vars['Var_0'] + 8.99 * vars['Var_1'] + 1.21 * vars['Var_2'] <= 91.13, name='C4')\n    m.addConstr(0.85 * vars['Var_1'] <= 8.66, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Request for a capacity plan to maximize contribution across three product lines\n\nTeam,\n\nWe need your help setting our mix for the current planning period to maximize total contribution, given tight bottlenecks across several shared resources. Below are the three levers we can pull and exactly how each one affects our limited capacities.\n\n- CrystalBright Concentrate (bulk blend)\n  - Economic impact: each tote contributes 3.31 in margin.\n  - Volume flexibility: we can produce anywhere from 0 up to 14.18 totes, and partial totes are feasible.\n  - Resource usage per tote:\n    - Quality Lab: 4.1 test-hours.\n    - Blending Room B: 1.08 operating-hours.\n    - Warehouse: 4.07 pallet-days.\n    - No Clean-in-Place crew time required.\n    - No Reactor Suite time required.\n    - No HazMat handling credits required.\n\n- FoamShield Industrial Kits (reactor-based SKU)\n  - Economic impact: each batch contributes 2.62 in margin.\n  - Volume flexibility: up to 13.52 batches can be committed this period, but due to tooling we must run whole batches only.\n  - Resource usage per batch:\n    - Clean-in-Place (CIP) Crew: 0.46 hours.\n    - Reactor Suite A: 8.28 operating-hours.\n    - Warehouse: 8.99 pallet-days.\n    - HazMat handling: 0.85 compliance credits per batch.\n    - No Quality Lab time required.\n    - No Blending Room time required.\n\n- AquaPro Resin (high-touch reactor campaign)\n  - Economic impact: each drum contributes 3.55 in margin.\n  - Volume flexibility: we can produce up to 10.66 drums, and these must be scheduled as whole drums only.\n  - Resource usage per drum:\n    - Clean-in-Place (CIP) Crew: 8.37 hours.\n    - Reactor Suite A: 9.75 operating-hours.\n    - Quality Lab: 3.21 test-hours.\n    - Blending Room B: 8.5 operating-hours.\n    - Warehouse: 1.21 pallet-days.\n    - No HazMat handling credits required.\n\nFacility Specs and Policy Limits (do not exceed)\n- Clean-in-Place (CIP) Crew availability: 12.87 hours total.\n- Reactor Suite A availability: 77.48 operating-hours total.\n- Quality Lab availability: 22.86 test-hours total.\n- Blending Room B availability: 15.63 operating-hours total.\n- Warehouse capacity: 91.13 pallet-days total.\n- HazMat handling: 8.66 compliance credits total.\n\nPlease propose the production plan that respects these limits while maximizing total contribution from the three offerings above."
+}

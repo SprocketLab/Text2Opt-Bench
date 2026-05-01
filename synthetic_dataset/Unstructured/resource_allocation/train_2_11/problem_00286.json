@@ -1,0 +1,176 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 6,
+    "num_constraints": 9,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "Per-unit resource uses, bounds, integer types, and objective coefficients are explicitly stated; resource caps are clear. The model maps directly without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Managerial tone and repeated listing of zero consumptions add verbosity, but details are relevant and structured.",
+      "realism": 97,
+      "realism_comment": "Realistic production planning with plausible resources (mixer, lab, reactor, packaging, energy, emissions, pallets, trucking) and reasonable caps."
+    },
+    "prompt_tokens_with_data": 1062,
+    "prompt_tokens_without_data": 1062
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 95.78,
+    "optimal_values": {
+      "Var_0": 1.0,
+      "Var_1": 6.0,
+      "Var_2": -0.0,
+      "Var_3": 3.0,
+      "Var_4": -0.0,
+      "Var_5": 6.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 30.56
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 24.87
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 43.28
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 44.79
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.42
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 104.05
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 7.98
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 96.32
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 27.01
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.33
+      ],
+      "objective_linear_coefficient": 1.7,
+      "resource_costs": {
+        "C2": 2.37,
+        "C3": 1.15,
+        "C5": 6.93,
+        "C6": 0.98
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.02
+      ],
+      "objective_linear_coefficient": 6.9,
+      "resource_costs": {
+        "C0": 2.16,
+        "C1": 3.15,
+        "C2": 3.87,
+        "C3": 2.92,
+        "C4": 0.29,
+        "C5": 8.94,
+        "C7": 5.05
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.96
+      ],
+      "objective_linear_coefficient": 5.36,
+      "resource_costs": {
+        "C0": 8.23,
+        "C1": 3.78,
+        "C2": 6.91,
+        "C4": 1.3,
+        "C5": 6.03,
+        "C7": 3.06,
+        "C8": 8.71
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.3
+      ],
+      "objective_linear_coefficient": 7.46,
+      "resource_costs": {
+        "C2": 2.89,
+        "C3": 8.15,
+        "C5": 5.4,
+        "C6": 0.81,
+        "C7": 8.17
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.57
+      ],
+      "objective_linear_coefficient": 1.04,
+      "resource_costs": {
+        "C1": 1.61,
+        "C3": 0.32,
+        "C4": 3.9,
+        "C7": 7.49,
+        "C8": 8.18
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.2
+      ],
+      "objective_linear_coefficient": 5.05,
+      "resource_costs": {
+        "C0": 2.5,
+        "C5": 3.56,
+        "C7": 6.56
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=10.33, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 1.7 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.02, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.9 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.96, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 5.36 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=10.3, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 7.46 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.57, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 1.04 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=13.2, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 5.05 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.16 * vars['Var_1'] + 8.23 * vars['Var_2'] + 2.5 * vars['Var_5'] <= 30.56, name='C0')\n    m.addConstr(3.15 * vars['Var_1'] + 3.78 * vars['Var_2'] + 1.61 * vars['Var_4'] <= 24.87, name='C1')\n    m.addConstr(2.37 * vars['Var_0'] + 3.87 * vars['Var_1'] + 6.91 * vars['Var_2'] + 2.89 * vars['Var_3'] <= 43.28, name='C2')\n    m.addConstr(1.15 * vars['Var_0'] + 2.92 * vars['Var_1'] + 8.15 * vars['Var_3'] + 0.32 * vars['Var_4'] <= 44.79, name='C3')\n    m.addConstr(0.29 * vars['Var_1'] + 1.3 * vars['Var_2'] + 3.9 * vars['Var_4'] <= 12.42, name='C4')\n    m.addConstr(6.93 * vars['Var_0'] + 8.94 * vars['Var_1'] + 6.03 * vars['Var_2'] + 5.4 * vars['Var_3'] + 3.56 * vars['Var_5'] <= 104.05, name='C5')\n    m.addConstr(0.98 * vars['Var_0'] + 0.81 * vars['Var_3'] <= 7.98, name='C6')\n    m.addConstr(5.05 * vars['Var_1'] + 3.06 * vars['Var_2'] + 8.17 * vars['Var_3'] + 7.49 * vars['Var_4'] + 6.56 * vars['Var_5'] <= 96.32, name='C7')\n    m.addConstr(8.71 * vars['Var_2'] + 8.18 * vars['Var_4'] <= 27.01, name='C8')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Team,\n\nWe need to decide how many runs of each product line to schedule for the upcoming period, with the aim of maximizing total contribution while staying within our plant and market limits. All counts are whole runs; the ranges below reflect contractual caps, but we will commit only in integers.\n\n- Aurora Resin Batches: Each batch adds 1.70 to contribution. We can schedule from 0 up to 10.33 batches. Per batch, this line draws 0 mixer hours, 0 lab test slots, 2.37 units of reactor capacity, 1.15 hours on the packaging line, 0 units of premium additive, 6.93 MWh of energy, 0.98 emissions credits, 0 pallet positions in the warehouse, and 0 outbound trucking slots.\n\n- Beacon Hardener Runs: Each run adds 6.90 to contribution. We can schedule from 0 up to 12.02 runs. Per run, it uses 2.16 mixer hours, 3.15 lab test slots, 3.87 units of reactor capacity, 2.92 hours on the packaging line, 0.29 units of premium additive, 8.94 MWh of energy, 0 emissions credits, 5.05 pallet positions, and 0 outbound trucking slots.\n\n- Cascade Sealant Lots: Each lot adds 5.36 to contribution. We can schedule from 0 up to 9.96 lots. Per lot, it consumes 8.23 mixer hours, 3.78 lab test slots, 6.91 units of reactor capacity, 0 hours on the packaging line, 1.30 units of premium additive, 6.03 MWh of energy, 0 emissions credits, 3.06 pallet positions, and 8.71 outbound trucking slots.\n\n- Driftbond Adhesive Campaigns: Each campaign adds 7.46 to contribution. We can schedule from 0 up to 10.3 campaigns. Per campaign, this line draws 0 mixer hours, 0 lab test slots, 2.89 units of reactor capacity, 8.15 hours on the packaging line, 0 units of premium additive, 5.40 MWh of energy, 0.81 emissions credits, 8.17 pallet positions, and 0 outbound trucking slots.\n\n- Eclipse Primer Releases: Each release adds 1.04 to contribution. We can schedule from 0 up to 15.57 releases. Per release, it uses 0 mixer hours, 1.61 lab test slots, 0 units of reactor capacity, 0.32 hours on the packaging line, 3.90 units of premium additive, 0 MWh of energy, 0 emissions credits, 7.49 pallet positions, and 8.18 outbound trucking slots.\n\n- Forge Enamel Production Cases: Each case adds 5.05 to contribution. We can schedule from 0 up to 13.2 cases. Per case, it consumes 2.50 mixer hours, 0 lab test slots, 0 units of reactor capacity, 0 hours on the packaging line, 0 units of premium additive, 3.56 MWh of energy, 0 emissions credits, 6.56 pallet positions, and 0 outbound trucking slots.\n\nFacility and Market Limits for the planning horizon:\n- Mixer Line A time is capped at 30.56 hours.\n- QC Lab testing capacity is capped at 24.87 slots.\n- Reactor tank capacity is capped at 43.28 units.\n- Packaging line time is capped at 44.79 hours.\n- Premium additive inventory is capped at 12.42 units.\n- Energy budget is capped at 104.05 MWh.\n- Emissions credits are capped at 7.98 units.\n- Warehouse pallet positions are capped at 96.32.\n- Outbound trucking slots are capped at 27.01.\n\nPlease use this as the basis to assemble a production plan that maximizes our overall contribution without breaching the limits above. Let me know if any of the caps need adjustment or if you see a material risk in any specific resource."
+}

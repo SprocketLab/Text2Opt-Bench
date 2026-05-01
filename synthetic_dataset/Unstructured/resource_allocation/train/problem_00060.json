@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All coefficients, bounds, integrality, and capacities are explicit; objective is maximize contribution. Zero finishing for kits is clear. No missing data.",
+      "ambiguity": false,
+      "redundancy": 20,
+      "redundancy_comment": "Business context adds some length, but the data map directly to the model and are not repetitive.",
+      "realism": 96,
+      "realism_comment": "Highly realistic production mix problem with resource capacities and integer lot sizing; parameters and logic are plausible."
+    },
+    "prompt_tokens_with_data": 648,
+    "prompt_tokens_without_data": 648
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 86.21323887910833,
+    "optimal_values": {
+      "Var_0": 8.0,
+      "Var_1": 0.5183002724856773,
+      "Var_2": 5.469740634005764
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 68.79
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 78.34
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 91.62
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.0
+      ],
+      "objective_linear_coefficient": 5.27,
+      "resource_costs": {
+        "C0": 3.09,
+        "C1": 7.4,
+        "C2": 9.08
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.35
+      ],
+      "objective_linear_coefficient": 4.58,
+      "resource_costs": {
+        "C0": 5.14,
+        "C1": 1.52
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.81
+      ],
+      "objective_linear_coefficient": 7.62,
+      "resource_costs": {
+        "C0": 7.57,
+        "C1": 3.16,
+        "C2": 3.47
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=9.0, vtype=GRB.INTEGER, name='Var_0')\n    lin_expr += 5.27 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=5.35, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.58 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=13.81, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 7.62 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(3.09 * vars['Var_0'] + 5.14 * vars['Var_1'] + 7.57 * vars['Var_2'] <= 68.79, name='C0')\n    m.addConstr(7.4 * vars['Var_0'] + 1.52 * vars['Var_1'] + 3.16 * vars['Var_2'] <= 78.34, name='C1')\n    m.addConstr(9.08 * vars['Var_0'] + 3.47 * vars['Var_2'] <= 91.62, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix Decision for the Upcoming Run \u2014 Maximizing Contribution Within Shop Constraints\n\nTeam,\n\nFor the next scheduling window, our objective is to maximize total contribution while staying within the available capacity of three shared resources: CNC machining, assembly, and finishing. Below are the levers we can adjust, including the per\u2011unit contribution, how each option draws on our resources, and the practical limits on how much of each we can plan.\n\n- Precision Valve Lots (discrete runs)\n  - Each lot adds 5.27 to contribution.\n  - Resource draw per lot: 3.09 units of CNC machining time, 7.4 units of assembly time, and 9.08 units of finishing time.\n  - Planning limits: we may schedule anywhere from 0 up to 9 whole lots; this one must be planned in whole\u2011lot increments (no partial lots).\n\n- Custom Retrofit Kits (flexible runs)\n  - Each kit equivalent adds 4.58 to contribution.\n  - Resource draw per kit equivalent: 5.14 units of CNC machining time and 1.52 units of assembly time; no finishing time required.\n  - Planning limits: we may schedule anywhere from 0 up to 5.35 kit equivalents, including partial allocations.\n\n- Standard Pump Batches (flexible runs)\n  - Each batch adds 7.62 to contribution.\n  - Resource draw per batch: 7.57 units of CNC machining time, 3.16 units of assembly time, and 3.47 units of finishing time.\n  - Planning limits: we may schedule anywhere from 0 up to 13.81 batches, including partial allocations.\n\nMarket and Facility Limits (do not exceed):\n- CNC machining time available: 68.79 units in total across all selected work.\n- Assembly time available: 78.34 units in total across all selected work.\n- Finishing time available: 91.62 units in total across all selected work.\n\nPlease review. With these parameters, we\u2019ll choose the mix of lots, kits, and batches that delivers the highest combined contribution without overrunning machining, assembly, or finishing capacity."
+}

@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 2,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All coefficients, bounds, and >= constraints are explicit; variables are continuous and nonnegative; objective is minimize cost. Minor nit: exact variable names aren\u2019t specified.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Clear and structured, but somewhat verbose with narrative and code requirements that aren\u2019t needed for the model specification.",
+      "realism": 95,
+      "realism_comment": "Very plausible deployment planning with coverage, service hours, and compliance targets; fractional scheduling and cost minimization match real operations."
+    },
+    "prompt_tokens_with_data": 603,
+    "prompt_tokens_without_data": 603
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 72.25869989984594,
+    "optimal_values": {
+      "Var_0": 5.945409429280397,
+      "Var_1": 8.884917960873851
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 97.52
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 47.92
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 3.99
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.29
+      ],
+      "objective_linear_coefficient": 7.79,
+      "resource_costs": {
+        "C0": 2.37,
+        "C1": 8.06
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.92
+      ],
+      "objective_linear_coefficient": 2.92,
+      "resource_costs": {
+        "C0": 9.39,
+        "C2": 0.59
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=12.29, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 7.79 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=9.92, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 2.92 * vars['Var_1']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(2.37 * vars['Var_0'] + 9.39 * vars['Var_1'] >= 97.52, name='C0')\n    m.addConstr(8.06 * vars['Var_0'] >= 47.92, name='C1')\n    m.addConstr(0.59 * vars['Var_1'] >= 3.99, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimized Coverage Plan for This Period\n\nTeam,\n\nWe need to set our field deployment plan to meet three minimum service and compliance commitments at the lowest total spend. We\u2019ll do this by balancing two levers: our In\u2011House Specialist Shifts and our Contracted Rapid\u2011Response Crews. Both can be scheduled in fractional day/shift equivalents as needed, and we are not obligated to use either lever if it isn\u2019t required.\n\nThe levers\n\n1) In\u2011House Specialist Shifts\n- Cost profile: $7.79 per shift-equivalent scheduled.\n- Availability: can be set anywhere from 0 up to 12.29 shift-equivalents.\n- Impact on our commitments:\n  \u2022 Each shift adds 2.37 units toward our total field coverage requirement.\n  \u2022 Each shift adds 8.06 hours toward our specialist service obligations.\n  \u2022 These shifts do not count toward the compliance inspection metric.\n\n2) Contracted Rapid\u2011Response Crews\n- Cost profile: $2.92 per crew\u2011day equivalent.\n- Availability: can be set anywhere from 0 up to 9.92 crew\u2011day equivalents.\n- Impact on our commitments:\n  \u2022 Each crew\u2011day adds 9.39 units toward our total field coverage requirement.\n  \u2022 Each crew\u2011day adds 0.59 units toward our compliance inspections metric.\n  \u2022 These crews do not contribute to specialist service hours.\n\nMarket and regulatory minimums for this period\n- Total field coverage must reach at least 97.52 units (combined contributions from both levers).\n- Specialist service hours must reach at least 47.92 hours (delivered by In\u2011House Specialist Shifts).\n- Compliance inspections must reach at least 3.99 units (delivered by Contracted Rapid\u2011Response Crews).\n\nPlease prepare a deployment mix that satisfies all three minimums while minimizing total spend, without exceeding the availability limits noted above."
+}

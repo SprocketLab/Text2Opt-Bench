@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 9,
+    "num_constraints": 6,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All variables, bounds, objective coefficients, and resource footprints are specified; caps are clear; fractional runs imply continuous vars. Exact model can be reconstructed without guessing.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Slightly verbose with narrative and repeated \u2018No draw\u2019 notes, but most text maps directly to coefficients and bounds.",
+      "realism": 100,
+      "realism_comment": "Highly realistic production planning with equipment, staffing, QA, packaging, and logistics capacities; data and structure are plausible."
+    },
+    "prompt_tokens_with_data": 1327,
+    "prompt_tokens_without_data": 1327
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 337.8135599649843,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 5.4254851228978,
+      "Var_2": 10.12,
+      "Var_3": 5.89,
+      "Var_4": 9.780055690492711,
+      "Var_5": 10.07,
+      "Var_6": 7.2,
+      "Var_7": 0.0,
+      "Var_8": 10.685284090909091
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 289.43
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 91.89
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 170.15
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 312.75
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 136.79
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 163.9
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.96
+      ],
+      "objective_linear_coefficient": 2.87,
+      "resource_costs": {
+        "C0": 8.48,
+        "C1": 9.24,
+        "C3": 8.63,
+        "C4": 0.35
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.97
+      ],
+      "objective_linear_coefficient": 5.77,
+      "resource_costs": {
+        "C4": 7.58,
+        "C5": 7.73
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.12
+      ],
+      "objective_linear_coefficient": 5.62,
+      "resource_costs": {
+        "C0": 8.43,
+        "C2": 9.38,
+        "C3": 9.21
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        5.89
+      ],
+      "objective_linear_coefficient": 8.29,
+      "resource_costs": {
+        "C0": 5.74,
+        "C3": 2.67,
+        "C4": 5.84,
+        "C5": 5.08
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        19.44
+      ],
+      "objective_linear_coefficient": 2.51,
+      "resource_costs": {
+        "C3": 6.55
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.07
+      ],
+      "objective_linear_coefficient": 7.65,
+      "resource_costs": {
+        "C0": 8.4,
+        "C5": 9.14
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.2
+      ],
+      "objective_linear_coefficient": 6.88,
+      "resource_costs": {
+        "C0": 8.44,
+        "C3": 4.6
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        8.7
+      ],
+      "objective_linear_coefficient": 2.99,
+      "resource_costs": {
+        "C1": 0.7,
+        "C2": 3.97,
+        "C4": 9.28,
+        "C5": 5.95
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        14.13
+      ],
+      "objective_linear_coefficient": 4.65,
+      "resource_costs": {
+        "C0": 2.08,
+        "C2": 7.04,
+        "C3": 9.98,
+        "C4": 0.4
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=17.96, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.87 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=17.97, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 5.77 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=10.12, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.62 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=5.89, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 8.29 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=19.44, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 2.51 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=10.07, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 7.65 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=7.2, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 6.88 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=8.7, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 2.99 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=14.13, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 4.65 * vars['Var_8']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(8.48 * vars['Var_0'] + 8.43 * vars['Var_2'] + 5.74 * vars['Var_3'] + 8.4 * vars['Var_5'] + 8.44 * vars['Var_6'] + 2.08 * vars['Var_8'] <= 289.43, name='C0')\n    m.addConstr(9.24 * vars['Var_0'] + 0.7 * vars['Var_7'] <= 91.89, name='C1')\n    m.addConstr(9.38 * vars['Var_2'] + 3.97 * vars['Var_7'] + 7.04 * vars['Var_8'] <= 170.15, name='C2')\n    m.addConstr(8.63 * vars['Var_0'] + 9.21 * vars['Var_2'] + 2.67 * vars['Var_3'] + 6.55 * vars['Var_4'] + 4.6 * vars['Var_6'] + 9.98 * vars['Var_8'] <= 312.75, name='C3')\n    m.addConstr(0.35 * vars['Var_0'] + 7.58 * vars['Var_1'] + 5.84 * vars['Var_3'] + 9.28 * vars['Var_7'] + 0.4 * vars['Var_8'] <= 136.79, name='C4')\n    m.addConstr(7.73 * vars['Var_1'] + 5.08 * vars['Var_3'] + 9.14 * vars['Var_5'] + 5.95 * vars['Var_7'] <= 163.9, name='C5')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Framing our weekly production mix to maximize contribution\n\nTeam,\n\nFor the upcoming cycle, we need to decide how to allocate plant time across nine product campaigns to maximize total contribution while respecting the practical limits of our equipment, staffing, and logistics. We can schedule fractional runs (no requirement to run whole batches), and each campaign can be set anywhere from zero up to its stated cap.\n\nHere is the lineup, in the order we\u2019ll consider them:\n\n- Atlantic Blend A1\n  - Per\u2011unit contribution: 2.87\n  - Scheduling window: 0 to 17.96 units\n  - Footprint per unit:\n    - Mixer Bank Alpha: 8.48 hours\n    - Senior Chemist Oversight: 9.24 hours\n    - Distillation Column B: 8.63 hours\n    - Packaging Line 3: 0.35 hours\n    - No draw on Quality Assurance Lab or Loading Bay Scheduling Windows\n\n- Breakwater Additive B2\n  - Per\u2011unit contribution: 5.77\n  - Scheduling window: 0 to 17.97 units\n  - Footprint per unit:\n    - Packaging Line 3: 7.58 hours\n    - Loading Bay Scheduling Windows: 7.73 slots\n    - No draw on Mixer Bank Alpha, Senior Chemist Oversight, Quality Assurance Lab, or Distillation Column B\n\n- Cerulean Solvent C3\n  - Per\u2011unit contribution: 5.62\n  - Scheduling window: 0 to 10.12 units\n  - Footprint per unit:\n    - Mixer Bank Alpha: 8.43 hours\n    - Quality Assurance Lab: 9.38 hours\n    - Distillation Column B: 9.21 hours\n    - No draw on Senior Chemist Oversight, Packaging Line 3, or Loading Bay Scheduling Windows\n\n- Delta Resin D4\n  - Per\u2011unit contribution: 8.29\n  - Scheduling window: 0 to 5.89 units\n  - Footprint per unit:\n    - Mixer Bank Alpha: 5.74 hours\n    - Distillation Column B: 2.67 hours\n    - Packaging Line 3: 5.84 hours\n    - Loading Bay Scheduling Windows: 5.08 slots\n    - No draw on Senior Chemist Oversight or Quality Assurance Lab\n\n- Epsilon Blend E5\n  - Per\u2011unit contribution: 2.51\n  - Scheduling window: 0 to 19.44 units\n  - Footprint per unit:\n    - Distillation Column B: 6.55 hours\n    - No draw on Mixer Bank Alpha, Senior Chemist Oversight, Quality Assurance Lab, Packaging Line 3, or Loading Bay Scheduling Windows\n\n- Fjord Polymer F6\n  - Per\u2011unit contribution: 7.65\n  - Scheduling window: 0 to 10.07 units\n  - Footprint per unit:\n    - Mixer Bank Alpha: 8.4 hours\n    - Loading Bay Scheduling Windows: 9.14 slots\n    - No draw on Senior Chemist Oversight, Quality Assurance Lab, Distillation Column B, or Packaging Line 3\n\n- Granite Gel G7\n  - Per\u2011unit contribution: 6.88\n  - Scheduling window: 0 to 7.2 units\n  - Footprint per unit:\n    - Mixer Bank Alpha: 8.44 hours\n    - Distillation Column B: 4.6 hours\n    - No draw on Senior Chemist Oversight, Quality Assurance Lab, Packaging Line 3, or Loading Bay Scheduling Windows\n\n- Harbor Agent H8\n  - Per\u2011unit contribution: 2.99\n  - Scheduling window: 0 to 8.7 units\n  - Footprint per unit:\n    - Senior Chemist Oversight: 0.7 hours\n    - Quality Assurance Lab: 3.97 hours\n    - Packaging Line 3: 9.28 hours\n    - Loading Bay Scheduling Windows: 5.95 slots\n    - No draw on Mixer Bank Alpha or Distillation Column B\n\n- Indigo Emulsion I9\n  - Per\u2011unit contribution: 4.65\n  - Scheduling window: 0 to 14.13 units\n  - Footprint per unit:\n    - Mixer Bank Alpha: 2.08 hours\n    - Quality Assurance Lab: 7.04 hours\n    - Distillation Column B: 9.98 hours\n    - Packaging Line 3: 0.4 hours\n    - No draw on Senior Chemist Oversight or Loading Bay Scheduling Windows\n\nFacility specs and limits (do not exceed):\n- Mixer Bank Alpha: up to 289.43 hours available\n- Senior Chemist Oversight: up to 91.89 hours available\n- Quality Assurance Lab: up to 170.15 hours available\n- Distillation Column B: up to 312.75 hours available\n- Packaging Line 3: up to 136.79 hours available\n- Loading Bay Scheduling Windows: up to 163.9 slots available\n\nOur aim is to set the mix to maximize total contribution across these nine campaigns while staying within the above equipment, staffing, lab, and logistics caps, and respecting each campaign\u2019s scheduling window. Please proceed with this framework and share the recommended allocation."
+}

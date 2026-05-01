@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 8,
+    "num_constraints": 5,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "Precise coefficients, bounds, integrality, and <= caps. 'None' implies zero use. Minor naming mismatch (no Var_i given) but math is fully reconstructable.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Narrative and repeated per-product sections add length; some fluff (greeting/approval). However most details are necessary to define the LP/MIP.",
+      "realism": 98,
+      "realism_comment": "Highly realistic chemical production planning with multiple resource caps and margins; values and constraints plausible and coherent."
+    },
+    "prompt_tokens_with_data": 1307,
+    "prompt_tokens_without_data": 1307
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 317.77464709371293,
+    "optimal_values": {
+      "Var_0": 7.19,
+      "Var_1": 12.0,
+      "Var_2": -0.0,
+      "Var_3": 0.0,
+      "Var_4": -0.0,
+      "Var_5": 14.0,
+      "Var_6": 16.64,
+      "Var_7": 2.074816132858836
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 121.84
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 165.07
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 127.74
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 117.36
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 12.88
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.19
+      ],
+      "objective_linear_coefficient": 5.7,
+      "resource_costs": {
+        "C0": 0.96,
+        "C1": 7.44,
+        "C2": 3.47,
+        "C4": 1.31
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        13.22
+      ],
+      "objective_linear_coefficient": 8.36,
+      "resource_costs": {
+        "C2": 1.03,
+        "C3": 7.03
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        8.3
+      ],
+      "objective_linear_coefficient": 2.08,
+      "resource_costs": {
+        "C0": 6.21,
+        "C1": 6.07,
+        "C3": 2.65
+      }
+    },
+    "Var_3": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.77
+      ],
+      "objective_linear_coefficient": 4.98,
+      "resource_costs": {
+        "C0": 5.93,
+        "C1": 0.01,
+        "C3": 4.48,
+        "C4": 8.54
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.35
+      ],
+      "objective_linear_coefficient": 3.86,
+      "resource_costs": {
+        "C0": 5.25,
+        "C1": 9.05,
+        "C2": 9.44,
+        "C3": 9.84
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        14.97
+      ],
+      "objective_linear_coefficient": 9.43,
+      "resource_costs": {
+        "C0": 3.74,
+        "C1": 2.72,
+        "C2": 5.21,
+        "C3": 2.3
+      }
+    },
+    "Var_6": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.64
+      ],
+      "objective_linear_coefficient": 1.72,
+      "resource_costs": {
+        "C0": 0.44,
+        "C1": 0.18
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.51
+      ],
+      "objective_linear_coefficient": 7.63,
+      "resource_costs": {
+        "C0": 6.43,
+        "C1": 8.76,
+        "C2": 8.43
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=7.19, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 5.7 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=13.22, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 8.36 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=8.3, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 2.08 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=15.77, vtype=GRB.INTEGER, name='Var_3')\n    lin_expr += 4.98 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=12.35, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 3.86 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=14.97, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 9.43 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=16.64, vtype=GRB.CONTINUOUS, name='Var_6')\n    lin_expr += 1.72 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=12.51, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 7.63 * vars['Var_7']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(0.96 * vars['Var_0'] + 6.21 * vars['Var_2'] + 5.93 * vars['Var_3'] + 5.25 * vars['Var_4'] + 3.74 * vars['Var_5'] + 0.44 * vars['Var_6'] + 6.43 * vars['Var_7'] <= 121.84, name='C0')\n    m.addConstr(7.44 * vars['Var_0'] + 6.07 * vars['Var_2'] + 0.01 * vars['Var_3'] + 9.05 * vars['Var_4'] + 2.72 * vars['Var_5'] + 0.18 * vars['Var_6'] + 8.76 * vars['Var_7'] <= 165.07, name='C1')\n    m.addConstr(3.47 * vars['Var_0'] + 1.03 * vars['Var_1'] + 9.44 * vars['Var_4'] + 5.21 * vars['Var_5'] + 8.43 * vars['Var_7'] <= 127.74, name='C2')\n    m.addConstr(7.03 * vars['Var_1'] + 2.65 * vars['Var_2'] + 4.48 * vars['Var_3'] + 9.84 * vars['Var_4'] + 2.3 * vars['Var_5'] <= 117.36, name='C3')\n    m.addConstr(1.31 * vars['Var_0'] + 8.54 * vars['Var_3'] <= 12.88, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix planning for the next cycle \u2013 maximizing margin within plant and compliance limits\n\nTeam,\n\nAs we finalize the upcoming production cycle, our goal is to maximize total contribution margin by selecting the right mix of eight product campaigns while staying within equipment hours, material quotas, lab throughput, and disposal caps. Below is the proposed structure of choices, including how each option draws on the facility and compliance resources.\n\n- Blue Catalyst Additive (blendable; can be set in fractional amounts)\n  - Financials and volume: yields 5.70 in margin per unit produced; we may schedule anywhere from zero up to 7.19 units.\n  - Plant and compliance impact per unit:\n    - Polymer Reactor hours: 0.96\n    - Distillation Column B hours: 7.44\n    - Solvent A use (tons): 3.47\n    - QA Lab time: none\n    - Hazardous disposal requirement: 1.31\n\n- Amber Filtration Media (whole-batch only)\n  - Financials and volume: yields 8.36 in margin per batch; we may schedule anywhere from zero up to 13.22 batches (practically whole numbers only).\n  - Plant and compliance impact per batch:\n    - Polymer Reactor hours: none\n    - Distillation Column B hours: none\n    - Solvent A use (tons): 1.03\n    - QA Lab time: 7.03 hours\n    - Hazardous disposal requirement: none\n\n- Cerulean Cleaning Compound (whole-batch only)\n  - Financials and volume: yields 2.08 in margin per batch; we may schedule anywhere from zero up to 8.30 batches (whole numbers only).\n  - Plant and compliance impact per batch:\n    - Polymer Reactor hours: 6.21\n    - Distillation Column B hours: 6.07\n    - Solvent A use (tons): none\n    - QA Lab time: 2.65 hours\n    - Hazardous disposal requirement: none\n\n- Crimson Catalyst Batches (whole-batch only)\n  - Financials and volume: yields 4.98 in margin per batch; we may schedule anywhere from zero up to 15.77 batches (whole numbers only).\n  - Plant and compliance impact per batch:\n    - Polymer Reactor hours: 5.93\n    - Distillation Column B hours: 0.01\n    - Solvent A use (tons): none\n    - QA Lab time: 4.48 hours\n    - Hazardous disposal requirement: 8.54\n\n- Emerald Emulsifier Series (whole-batch only)\n  - Financials and volume: yields 3.86 in margin per batch; we may schedule anywhere from zero up to 12.35 batches (whole numbers only).\n  - Plant and compliance impact per batch:\n    - Polymer Reactor hours: 5.25\n    - Distillation Column B hours: 9.05\n    - Solvent A use (tons): 9.44\n    - QA Lab time: 9.84 hours\n    - Hazardous disposal requirement: none\n\n- Onyx Oxidizer Kits (whole-batch only)\n  - Financials and volume: yields 9.43 in margin per batch; we may schedule anywhere from zero up to 14.97 batches (whole numbers only).\n  - Plant and compliance impact per batch:\n    - Polymer Reactor hours: 3.74\n    - Distillation Column B hours: 2.72\n    - Solvent A use (tons): 5.21\n    - QA Lab time: 2.30 hours\n    - Hazardous disposal requirement: none\n\n- Silver Stabilizer Blend (blendable; can be set in fractional amounts)\n  - Financials and volume: yields 1.72 in margin per unit produced; we may schedule anywhere from zero up to 16.64 units.\n  - Plant and compliance impact per unit:\n    - Polymer Reactor hours: 0.44\n    - Distillation Column B hours: 0.18\n    - Solvent A use (tons): none\n    - QA Lab time: none\n    - Hazardous disposal requirement: none\n\n- Gold Premium Polymer (blendable; can be set in fractional amounts)\n  - Financials and volume: yields 7.63 in margin per unit produced; we may schedule anywhere from zero up to 12.51 units.\n  - Plant and compliance impact per unit:\n    - Polymer Reactor hours: 6.43\n    - Distillation Column B hours: 8.76\n    - Solvent A use (tons): 8.43\n    - QA Lab time: none\n    - Hazardous disposal requirement: none\n\nFacility specs and compliance caps we must not exceed:\n- Polymer Reactor availability: up to 121.84 hours\n- Distillation Column B availability: up to 165.07 hours\n- Solvent A purchase quota: up to 127.74 tons\n- QA Lab throughput: up to 117.36 hours\n- Hazardous disposal capacity: up to 12.88 units\n\nIf the team approves these assumptions, we\u2019ll finalize the production plan that maximizes total margin while staying safely within the above limits. Please confirm so we can proceed."
+}

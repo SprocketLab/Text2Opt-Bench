@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 6,
+    "num_constraints": 8,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 98,
+      "prompt_inducibility_comment": "All variables, bounds, costs, and scorecard effects are explicit with clear signs; floors are precise. Assumes zero baseline for scorecards, which is standard and unambiguous here.",
+      "ambiguity": false,
+      "redundancy": 40,
+      "redundancy_comment": "Some business narrative and repeated \u2018no measurable effect\u2019 lists add verbosity, but the structure is clear and systematic.",
+      "realism": 90,
+      "realism_comment": "Plausible planning scenario with costs and performance floors. Minor oddity with negative floors, but overall realistic and coherent for an OR model."
+    },
+    "prompt_tokens_with_data": 1118,
+    "prompt_tokens_without_data": 1118
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 46.26493052099919,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 3.5526471250974514,
+      "Var_2": 3.109947643979058,
+      "Var_3": 0.0,
+      "Var_4": 1.7919940776153482,
+      "Var_5": 4.381729200652528
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -12.3
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 26.86
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 10.83
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 6.33
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -29.25
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 11.88
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -21.99
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": -32.52
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.24
+      ],
+      "objective_linear_coefficient": 2.07,
+      "resource_costs": {
+        "C4": -6.71
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        16.52
+      ],
+      "objective_linear_coefficient": 4.12,
+      "resource_costs": {
+        "C3": 5.01,
+        "C4": 1.21,
+        "C7": -7.28
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        9.55
+      ],
+      "objective_linear_coefficient": 1.26,
+      "resource_costs": {
+        "C2": 0.1,
+        "C5": 3.82,
+        "C6": -5.93
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.65
+      ],
+      "objective_linear_coefficient": 4.73,
+      "resource_costs": {
+        "C0": -6.25,
+        "C2": -0.03,
+        "C3": 0.77
+      }
+    },
+    "Var_4": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        7.48
+      ],
+      "objective_linear_coefficient": 5.56,
+      "resource_costs": {
+        "C2": 5.87,
+        "C3": -6.4
+      }
+    },
+    "Var_5": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.23
+      ],
+      "objective_linear_coefficient": 4.05,
+      "resource_costs": {
+        "C1": 6.13
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=13.24, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 2.07 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=16.52, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.12 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.55, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 1.26 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=13.65, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 4.73 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=7.48, vtype=GRB.CONTINUOUS, name='Var_4')\n    lin_expr += 5.56 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=6.23, vtype=GRB.CONTINUOUS, name='Var_5')\n    lin_expr += 4.05 * vars['Var_5']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(-6.25 * vars['Var_3'] >= -12.3, name='C0')\n    m.addConstr(6.13 * vars['Var_5'] >= 26.86, name='C1')\n    m.addConstr(0.1 * vars['Var_2'] + -0.03 * vars['Var_3'] + 5.87 * vars['Var_4'] >= 10.83, name='C2')\n    m.addConstr(5.01 * vars['Var_1'] + 0.77 * vars['Var_3'] + -6.4 * vars['Var_4'] >= 6.33, name='C3')\n    m.addConstr(-6.71 * vars['Var_0'] + 1.21 * vars['Var_1'] >= -29.25, name='C4')\n    m.addConstr(3.82 * vars['Var_2'] >= 11.88, name='C5')\n    m.addConstr(-5.93 * vars['Var_2'] >= -21.99, name='C6')\n    m.addConstr(-7.28 * vars['Var_1'] >= -32.52, name='C7')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-Minimizing Allocation Plan and Operating Floors for the Upcoming Period\n\nTeam,\n\nAs we finalize the upcoming period\u2019s plan, our goal is to minimize total operating spend while still meeting our environmental, service, quality, readiness, backlog, training, contingency, and liquidity floors. Below are the levers we can allocate (fractional allocations are fine) and how each one influences our scorecards.\n\nDecision levers\n\n1) Backlog Clearance Credits\n- Budget impact: $2.07 per unit.\n- Allocation range: between 0 and 13.24 units.\n- Effects on our scorecards:\n  \u2022 Maintenance Backlog Ledger: every unit reduces the ledger by 6.71 units.\n  \u2022 No measurable effect on the Environmental Offsets Ledger, Service Level Score, Quality Assurance Index, Operational Readiness Index, Training Hours Completed, Contingency Fund Balance, or Cash Flow Buffer.\n\n2) Union Weekend Overtime\n- Budget impact: $4.12 per unit.\n- Allocation range: between 0 and 16.52 units.\n- Effects on our scorecards:\n  \u2022 Operational Readiness Index: every unit adds 5.01 points.\n  \u2022 Maintenance Backlog Ledger: every unit adds 1.21 units.\n  \u2022 Cash Flow Buffer: every unit reduces the buffer by 7.28 units.\n  \u2022 No measurable effect on the Environmental Offsets Ledger, Service Level Score, Quality Assurance Index, Training Hours Completed, or Contingency Fund Balance.\n\n3) Cross-Training Sprints\n- Budget impact: $1.26 per unit.\n- Allocation range: between 0 and 9.55 units.\n- Effects on our scorecards:\n  \u2022 Quality Assurance Index: every unit adds 0.10 points.\n  \u2022 Training Hours Completed: every unit adds 3.82 hours.\n  \u2022 Contingency Fund Balance: every unit reduces the balance by 5.93 units.\n  \u2022 No measurable effect on the Environmental Offsets Ledger, Service Level Score, Operational Readiness Index, Maintenance Backlog Ledger, or Cash Flow Buffer.\n\n4) Emergency Contractor Call\u2011Ins\n- Budget impact: $4.73 per unit.\n- Allocation range: between 0 and 13.65 units.\n- Effects on our scorecards:\n  \u2022 Environmental Offsets Ledger: every unit draws down the ledger by 6.25 units.\n  \u2022 Quality Assurance Index: every unit reduces the index by 0.03 points.\n  \u2022 Operational Readiness Index: every unit adds 0.77 points.\n  \u2022 No measurable effect on the Service Level Score, Maintenance Backlog Ledger, Training Hours Completed, Contingency Fund Balance, or Cash Flow Buffer.\n\n5) Capital Quick Fixes\n- Budget impact: $5.56 per unit.\n- Allocation range: between 0 and 7.48 units.\n- Effects on our scorecards:\n  \u2022 Quality Assurance Index: every unit adds 5.87 points.\n  \u2022 Operational Readiness Index: every unit reduces readiness by 6.40 points.\n  \u2022 No measurable effect on the Environmental Offsets Ledger, Service Level Score, Maintenance Backlog Ledger, Training Hours Completed, Contingency Fund Balance, or Cash Flow Buffer.\n\n6) Priority Order Expedites\n- Budget impact: $4.05 per unit.\n- Allocation range: between 0 and 6.23 units.\n- Effects on our scorecards:\n  \u2022 Service Level Score: every unit adds 6.13 points.\n  \u2022 No measurable effect on the Environmental Offsets Ledger, Quality Assurance Index, Operational Readiness Index, Maintenance Backlog Ledger, Training Hours Completed, Contingency Fund Balance, or Cash Flow Buffer.\n\nOperating floors for the period\n\n- Environmental Offsets Ledger must be at least \u221212.30 units.\n- Service Level Score must be at least 26.86 points.\n- Quality Assurance Index must be at least 10.83 points.\n- Operational Readiness Index must be at least 6.33 points.\n- Maintenance Backlog Ledger must be at least \u221229.25 units.\n- Training Hours Completed must be at least 11.88 hours.\n- Contingency Fund Balance must be at least \u221221.99 units.\n- Cash Flow Buffer must be at least \u221232.52 units.\n\nPlease use this as the basis for the allocation scenario planning so we can hit all floors at the lowest total cost. If anything needs clarification, let me know."
+}

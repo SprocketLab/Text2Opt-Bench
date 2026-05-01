@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 4,
+    "num_constraints": 5,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All costs, bounds, and per-block contributions to each requirement are explicit; constraints are 'at least' totals; fractional availability noted. Objective to minimize total spend is clear.",
+      "ambiguity": false,
+      "redundancy": 30,
+      "redundancy_comment": "Business memo style adds some nonessential text and coding boilerplate, but specs are listed once and clearly. Slight verbosity from context and notes; no repetition.",
+      "realism": 95,
+      "realism_comment": "A plausible energy procurement mix problem with costs, limits, and multi-metric minimums; matches real planning constraints for reliability, clean energy, capacity, peak, and resilience."
+    },
+    "prompt_tokens_with_data": 897,
+    "prompt_tokens_without_data": 897
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 54.70333830084925,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 2.953593856766343,
+      "Var_2": 0.0,
+      "Var_3": 6.232779097387173
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 39.2
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 1.36
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 52.48
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 10.95
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 20.13
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        6.29
+      ],
+      "objective_linear_coefficient": 9.11,
+      "resource_costs": {
+        "C0": 6.49
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        12.25
+      ],
+      "objective_linear_coefficient": 4.72,
+      "resource_costs": {
+        "C0": 7.3,
+        "C1": 7.75,
+        "C3": 2.47,
+        "C4": 3.59
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.8
+      ],
+      "objective_linear_coefficient": 6.13,
+      "resource_costs": {
+        "C1": 8.36,
+        "C3": 0.34,
+        "C4": 1.01
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.24
+      ],
+      "objective_linear_coefficient": 6.54,
+      "resource_costs": {
+        "C0": 2.83,
+        "C2": 8.42,
+        "C3": 1.69,
+        "C4": 3.03
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=6.29, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.11 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=12.25, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.72 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.8, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 6.13 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=18.24, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 6.54 * vars['Var_3']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(6.49 * vars['Var_0'] + 7.3 * vars['Var_1'] + 2.83 * vars['Var_3'] >= 39.2, name='C0')\n    m.addConstr(7.75 * vars['Var_1'] + 8.36 * vars['Var_2'] >= 1.36, name='C1')\n    m.addConstr(8.42 * vars['Var_3'] >= 52.48, name='C2')\n    m.addConstr(2.47 * vars['Var_1'] + 0.34 * vars['Var_2'] + 1.69 * vars['Var_3'] >= 10.95, name='C3')\n    m.addConstr(3.59 * vars['Var_1'] + 1.01 * vars['Var_2'] + 3.03 * vars['Var_3'] >= 20.13, name='C4')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Cost-minimized sourcing mix to meet 2025 reliability and community commitments\n\nTeam,\n\nAs we align the 2025 plan, our objective is to meet or exceed the minimum required levels for reliability coverage, clean-energy content, firm capacity, peak response, and community resilience while keeping total spend as low as possible. We can blend fractional \u201cblocks\u201d from four sourcing options below; each block has a unit price and delivers specific credits toward our five program requirements. Please see the levers and the obligations summarized here.\n\nOption 1 \u2014 Granite Reliability Retainers\n- Commercial terms: $9.11 per block; available in any fractional amount from 0 up to 6.29 blocks.\n- Performance profile:\n  - Reliability Coverage: +6.49 credits per block.\n  - Clean-Energy Certificates: +0.00 per block.\n  - Firm Capacity: +0.00 per block.\n  - Peak Response Score: +0.00 per block.\n  - Community Resilience Index: +0.00 per block.\n\nOption 2 \u2014 Rivertown Hydro Shares\n- Commercial terms: $4.72 per block; available in any fractional amount from 0 up to 12.25 blocks.\n- Performance profile:\n  - Reliability Coverage: +7.30 credits per block.\n  - Clean-Energy Certificates: +7.75 per block.\n  - Firm Capacity: +0.00 per block.\n  - Peak Response Score: +2.47 per block.\n  - Community Resilience Index: +3.59 per block.\n\nOption 3 \u2014 Sunrise Solar Blocks\n- Commercial terms: $6.13 per block; available in any fractional amount from 0 up to 15.80 blocks.\n- Performance profile:\n  - Reliability Coverage: +0.00 credits per block.\n  - Clean-Energy Certificates: +8.36 per block.\n  - Firm Capacity: +0.00 per block.\n  - Peak Response Score: +0.34 per block.\n  - Community Resilience Index: +1.01 per block.\n\nOption 4 \u2014 Northline Flexible Capacity\n- Commercial terms: $6.54 per block; available in any fractional amount from 0 up to 18.24 blocks.\n- Performance profile:\n  - Reliability Coverage: +2.83 credits per block.\n  - Clean-Energy Certificates: +0.00 per block.\n  - Firm Capacity: +8.42 per block.\n  - Peak Response Score: +1.69 per block.\n  - Community Resilience Index: +3.03 per block.\n\nFacility & Program Requirements (minimums we must meet or exceed)\n- Reliability Coverage: at least 39.20 credits in total.\n- Clean-Energy Certificates: at least 1.36 in total.\n- Firm Capacity: at least 52.48 in total.\n- Peak Response Score: at least 10.95 in total.\n- Community Resilience Index: at least 20.13 in total.\n\nNotes\n- We may procure partial blocks for each option (e.g., 3.4 blocks), up to each option\u2019s maximum availability listed above.\n- Options that show \u201c+0.00\u201d on a metric do not contribute to that requirement.\n\nOnce you confirm these boundaries, I\u2019ll assemble the recommended mix that delivers the required coverage at the lowest total spend."
+}

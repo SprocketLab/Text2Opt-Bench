@@ -1,0 +1,247 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MINIMIZE",
+    "num_vars": 11,
+    "num_constraints": 10,
+    "is_integer": true,
+    "quality": {
+      "prompt_inducibility": 100,
+      "prompt_inducibility_comment": "All levers have explicit costs, bounds, integrality, and per-category contributions; each category has a clear minimum. Objective is total cost. A human can reconstruct the exact >= LP.",
+      "ambiguity": false,
+      "redundancy": 28,
+      "redundancy_comment": "Some business narrative and extra instructions (e.g., noting binding caps), but minimal repetition; most content is precise data.",
+      "realism": 92,
+      "realism_comment": "Plausible operations planning mix with meaningful KPIs. Minor quirk: integer levers with non-integer maxima (e.g., 10.5); otherwise realistic."
+    },
+    "prompt_tokens_with_data": 1525,
+    "prompt_tokens_without_data": 1525
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 255.30549543058444,
+    "optimal_values": {
+      "Var_0": 0.0,
+      "Var_1": 2.0,
+      "Var_2": 9.0,
+      "Var_3": 3.877387669801462,
+      "Var_4": -0.0,
+      "Var_5": 3.0,
+      "Var_6": -0.0,
+      "Var_7": 8.181601601601601,
+      "Var_8": 11.78,
+      "Var_9": -0.0,
+      "Var_10": 10.555164319248826
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 59.31
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 54.53
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 109.13
+    },
+    "C3": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 115.13
+    },
+    "C4": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 208.99
+    },
+    "C5": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 111.78
+    },
+    "C6": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 54.65
+    },
+    "C7": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 136.97
+    },
+    "C8": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 72.04
+    },
+    "C9": {
+      "type": "Constraint",
+      "sense": ">=",
+      "rhs": 88.92
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.65
+      ],
+      "objective_linear_coefficient": 9.92,
+      "resource_costs": {
+        "C1": 9.59,
+        "C3": 1.53
+      }
+    },
+    "Var_1": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        10.5
+      ],
+      "objective_linear_coefficient": 6.53,
+      "resource_costs": {
+        "C1": 0.76,
+        "C4": 7.18,
+        "C5": 7.6,
+        "C6": 5.81,
+        "C7": 5.23
+      }
+    },
+    "Var_2": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        9.96
+      ],
+      "objective_linear_coefficient": 7.51,
+      "resource_costs": {
+        "C3": 0.08,
+        "C7": 9.24
+      }
+    },
+    "Var_3": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        17.46
+      ],
+      "objective_linear_coefficient": 9.44,
+      "resource_costs": {
+        "C4": 8.81,
+        "C7": 9.57
+      }
+    },
+    "Var_4": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        15.12
+      ],
+      "objective_linear_coefficient": 6.98,
+      "resource_costs": {
+        "C2": 5.69,
+        "C3": 4.64,
+        "C4": 7.86,
+        "C5": 9.95,
+        "C6": 5.04,
+        "C8": 4.5
+      }
+    },
+    "Var_5": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        12.01
+      ],
+      "objective_linear_coefficient": 5.23,
+      "resource_costs": {
+        "C3": 8.16,
+        "C6": 0.42,
+        "C8": 1.0
+      }
+    },
+    "Var_6": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        7.77
+      ],
+      "objective_linear_coefficient": 5.91,
+      "resource_costs": {
+        "C1": 6.99,
+        "C2": 2.15,
+        "C3": 3.04,
+        "C5": 9.8
+      }
+    },
+    "Var_7": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        13.35
+      ],
+      "objective_linear_coefficient": 3.41,
+      "resource_costs": {
+        "C2": 4.99,
+        "C9": 9.99
+      }
+    },
+    "Var_8": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.28
+      ],
+      "objective_linear_coefficient": 3.96,
+      "resource_costs": {
+        "C0": 7.79,
+        "C1": 4.5,
+        "C2": 6.88,
+        "C4": 9.71,
+        "C5": 2.12,
+        "C7": 0.53,
+        "C8": 7.06,
+        "C9": 0.61
+      }
+    },
+    "Var_9": {
+      "type": "Integer",
+      "range": [
+        0.0,
+        6.32
+      ],
+      "objective_linear_coefficient": 4.53,
+      "resource_costs": {
+        "C4": 0.58,
+        "C5": 0.24,
+        "C6": 3.06,
+        "C8": 0.85
+      }
+    },
+    "Var_10": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        10.56
+      ],
+      "objective_linear_coefficient": 4.53,
+      "resource_costs": {
+        "C3": 8.52,
+        "C4": 4.74,
+        "C5": 8.58,
+        "C6": 4.42
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.65, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 9.92 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=10.5, vtype=GRB.INTEGER, name='Var_1')\n    lin_expr += 6.53 * vars['Var_1']\n    vars['Var_10'] = m.addVar(lb=0.0, ub=10.56, vtype=GRB.CONTINUOUS, name='Var_10')\n    lin_expr += 4.53 * vars['Var_10']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=9.96, vtype=GRB.INTEGER, name='Var_2')\n    lin_expr += 7.51 * vars['Var_2']\n    vars['Var_3'] = m.addVar(lb=0.0, ub=17.46, vtype=GRB.CONTINUOUS, name='Var_3')\n    lin_expr += 9.44 * vars['Var_3']\n    vars['Var_4'] = m.addVar(lb=0.0, ub=15.12, vtype=GRB.INTEGER, name='Var_4')\n    lin_expr += 6.98 * vars['Var_4']\n    vars['Var_5'] = m.addVar(lb=0.0, ub=12.01, vtype=GRB.INTEGER, name='Var_5')\n    lin_expr += 5.23 * vars['Var_5']\n    vars['Var_6'] = m.addVar(lb=0.0, ub=7.77, vtype=GRB.INTEGER, name='Var_6')\n    lin_expr += 5.91 * vars['Var_6']\n    vars['Var_7'] = m.addVar(lb=0.0, ub=13.35, vtype=GRB.CONTINUOUS, name='Var_7')\n    lin_expr += 3.41 * vars['Var_7']\n    vars['Var_8'] = m.addVar(lb=0.0, ub=15.28, vtype=GRB.CONTINUOUS, name='Var_8')\n    lin_expr += 3.96 * vars['Var_8']\n    vars['Var_9'] = m.addVar(lb=0.0, ub=6.32, vtype=GRB.INTEGER, name='Var_9')\n    lin_expr += 4.53 * vars['Var_9']\n\n    m.setObjective(lin_expr, GRB.MINIMIZE)\n\n    # 3. Constraints\n    m.addConstr(7.79 * vars['Var_8'] >= 59.31, name='C0')\n    m.addConstr(9.59 * vars['Var_0'] + 0.76 * vars['Var_1'] + 6.99 * vars['Var_6'] + 4.5 * vars['Var_8'] >= 54.53, name='C1')\n    m.addConstr(5.69 * vars['Var_4'] + 2.15 * vars['Var_6'] + 4.99 * vars['Var_7'] + 6.88 * vars['Var_8'] >= 109.13, name='C2')\n    m.addConstr(1.53 * vars['Var_0'] + 8.52 * vars['Var_10'] + 0.08 * vars['Var_2'] + 4.64 * vars['Var_4'] + 8.16 * vars['Var_5'] + 3.04 * vars['Var_6'] >= 115.13, name='C3')\n    m.addConstr(7.18 * vars['Var_1'] + 4.74 * vars['Var_10'] + 8.81 * vars['Var_3'] + 7.86 * vars['Var_4'] + 9.71 * vars['Var_8'] + 0.58 * vars['Var_9'] >= 208.99, name='C4')\n    m.addConstr(7.6 * vars['Var_1'] + 8.58 * vars['Var_10'] + 9.95 * vars['Var_4'] + 9.8 * vars['Var_6'] + 2.12 * vars['Var_8'] + 0.24 * vars['Var_9'] >= 111.78, name='C5')\n    m.addConstr(5.81 * vars['Var_1'] + 4.42 * vars['Var_10'] + 5.04 * vars['Var_4'] + 0.42 * vars['Var_5'] + 3.06 * vars['Var_9'] >= 54.65, name='C6')\n    m.addConstr(5.23 * vars['Var_1'] + 9.24 * vars['Var_2'] + 9.57 * vars['Var_3'] + 0.53 * vars['Var_8'] >= 136.97, name='C7')\n    m.addConstr(4.5 * vars['Var_4'] + 1.0 * vars['Var_5'] + 7.06 * vars['Var_8'] + 0.85 * vars['Var_9'] >= 72.04, name='C8')\n    m.addConstr(9.99 * vars['Var_7'] + 0.61 * vars['Var_8'] >= 88.92, name='C9')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Team,\n\nAs discussed, we need to choose the mix of our eleven service modules to satisfy ten contractual and operational commitments at the lowest overall spend. Below is the allocation brief with the levers we can pull and how each one contributes to our obligations. The intent is to meet all minimums while minimizing the total weekly cost.\n\nLevers we can adjust\n- Blue Response Crew\n  - Cost profile: $9.92 per unit deployed.\n  - Availability: we can deploy anywhere between 0 and 18.65 units; fractional deployment is allowed.\n  - Contribution to commitments: adds 9.59 points per unit toward the North Zone On\u2011Time Score; adds 1.53 points per unit toward QA Audit Coverage; no impact on our other categories.\n\n- Overnight Linehaul Blocks\n  - Cost profile: $6.53 per block.\n  - Availability: up to 10.5 blocks; blocks are scheduled in whole numbers only (we are not obligated to take any if not needed).\n  - Contribution to commitments: per block provides 0.76 points to the North Zone On\u2011Time Score, 7.18 units of Network Throughput, 7.6 units of Safety Stock Coverage, 5.81 hours of Regulatory Compliance, and 5.23 units of Rural Outreach Delivery; does not affect the remaining categories.\n\n- Rural Drop Points\n  - Cost profile: $7.51 per site.\n  - Availability: up to 9.96 sites; sites are added in whole numbers only.\n  - Contribution to commitments: each site contributes 0.08 points to QA Audit Coverage and 9.24 units to Rural Outreach Delivery; no contribution elsewhere.\n\n- Saturday Hub Operations\n  - Cost profile: $9.44 per shift.\n  - Availability: up to 17.46 shifts; fractional shifts can be scheduled as needed.\n  - Contribution to commitments: each shift yields 8.81 units of Network Throughput and 9.57 units of Rural Outreach Delivery; no effect on other categories.\n\n- Field Distribution Teams\n  - Cost profile: $6.98 per team.\n  - Availability: up to 15.12 teams; scheduled in whole teams only.\n  - Contribution to commitments: per team delivers 5.69 units toward the Metro Volume Commitment, 4.64 points of QA Audit Coverage, 7.86 units of Network Throughput, 9.95 units of Safety Stock Coverage, 5.04 hours of Regulatory Compliance, and 4.5 Engagement & Training Sessions; no contribution to other categories.\n\n- Quality Auditors on Call\n  - Cost profile: $5.23 per auditor shift.\n  - Availability: up to 12.01 shifts; scheduled in whole shifts only.\n  - Contribution to commitments: each shift adds 8.16 points to QA Audit Coverage, 0.42 hours to Regulatory Compliance, and 1.0 Engagement & Training Session; does not contribute to the remaining categories.\n\n- Union Day\u2011Shift Couriers\n  - Cost profile: $5.91 per team.\n  - Availability: up to 7.77 teams; scheduled in whole teams only.\n  - Contribution to commitments: per team contributes 6.99 points to the North Zone On\u2011Time Score, 2.15 units to the Metro Volume Commitment, 3.04 points to QA Audit Coverage, and 9.8 units to Safety Stock Coverage; no impact on other categories.\n\n- Community Outreach Vans\n  - Cost profile: $3.41 per van\u2011day.\n  - Availability: up to 13.35 van\u2011days; fractional van\u2011days can be used.\n  - Contribution to commitments: per van\u2011day adds 4.99 units to the Metro Volume Commitment and 9.99 Customer Survey Completions; does not affect other categories.\n\n- Digital Engagement Campaign\n  - Cost profile: $3.96 per campaign unit.\n  - Availability: up to 15.28 campaign units; fractional scaling is allowed.\n  - Contribution to commitments: per unit contributes 7.79 Core Baseline Deliveries, 4.5 North Zone On\u2011Time points, 6.88 Metro Volume units, 9.71 Network Throughput units, 2.12 Safety Stock units, 0.53 Rural Outreach units, 7.06 Engagement & Training Sessions, and 0.61 Customer Survey Completions; no effect on QA Audit Coverage or Regulatory Compliance.\n\n- Regulatory Training Workshops\n  - Cost profile: $4.53 per workshop.\n  - Availability: up to 6.32 workshops; scheduled in whole workshops only.\n  - Contribution to commitments: per workshop provides 0.58 units of Network Throughput, 0.24 units of Safety Stock Coverage, 3.06 hours of Regulatory Compliance, and 0.85 Engagement & Training Sessions; no impact on other categories.\n\n- Third\u2011Party QA Contract\n  - Cost profile: $4.53 per contract unit.\n  - Availability: up to 10.56 contract units; fractional contracting is allowed.\n  - Contribution to commitments: per unit contributes 8.52 points to QA Audit Coverage, 4.74 units to Network Throughput, 8.58 units to Safety Stock Coverage, and 4.42 hours to Regulatory Compliance; does not contribute to the other categories.\n\nFacility specs and market limits (minimums to be met)\n- Core Baseline Deliveries: at least 59.31 units.\n- North Zone On\u2011Time Score: at least 54.53 points.\n- Metro Volume Commitment: at least 109.13 units.\n- QA Audit Coverage: at least 115.13 points.\n- Network Throughput Requirement: at least 208.99 units.\n- Safety Stock Coverage: at least 111.78 units.\n- Regulatory Compliance Hours: at least 54.65 hours.\n- Rural Outreach Deliveries: at least 136.97 units.\n- Engagement & Training Sessions: at least 72.04 sessions.\n- Customer Survey Completions: at least 88.92 completions.\n\nPlease use this as the basis to recommend the lowest\u2011cost mix of modules that still satisfies all the above minimums. If any cap (e.g., the maximum available units noted for each lever) becomes binding in your proposal, highlight that so we can consider short\u2011term procurement or contracting adjustments."
+}

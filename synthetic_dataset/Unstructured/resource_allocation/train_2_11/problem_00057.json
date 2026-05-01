@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "optimization_type": "LP",
+    "problem_type": "resource allocation",
+    "goal": "MAXIMIZE",
+    "num_vars": 3,
+    "num_constraints": 3,
+    "is_integer": false,
+    "quality": {
+      "prompt_inducibility": 99,
+      "prompt_inducibility_comment": "Explicit coefficients, bounds, and resource limits; partial batches imply continuous vars; objective clearly maximize gross contribution. Variable names aren\u2019t specified, but the math model is exact.",
+      "ambiguity": false,
+      "redundancy": 25,
+      "redundancy_comment": "Business email styling adds some verbosity, but the quantitative details are clear, non-repetitive, and directly map to the model.",
+      "realism": 97,
+      "realism_comment": "Very realistic production planning with machine hours, QA, and storage capacity constraints and plausible bounds and margins."
+    },
+    "prompt_tokens_with_data": 651,
+    "prompt_tokens_without_data": 651
+  },
+  "instance_data": {},
+  "gurobi_result": {
+    "solver_status": 2,
+    "theoretical_optimum": 41.4468613138686,
+    "optimal_values": {
+      "Var_0": 13.67883211678832,
+      "Var_1": 0.0,
+      "Var_2": 0.0
+    }
+  },
+  "constraints": {
+    "C0": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 18.74
+    },
+    "C1": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 2.91
+    },
+    "C2": {
+      "type": "Constraint",
+      "sense": "<=",
+      "rhs": 16.2
+    }
+  },
+  "variables": {
+    "Var_0": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        18.83
+      ],
+      "objective_linear_coefficient": 3.03,
+      "resource_costs": {
+        "C0": 1.37,
+        "C1": 0.03
+      }
+    },
+    "Var_1": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        11.37
+      ],
+      "objective_linear_coefficient": 4.76,
+      "resource_costs": {
+        "C0": 2.77
+      }
+    },
+    "Var_2": {
+      "type": "Continuous",
+      "range": [
+        0.0,
+        15.58
+      ],
+      "objective_linear_coefficient": 5.49,
+      "resource_costs": {
+        "C0": 4.34,
+        "C2": 6.93
+      }
+    }
+  },
+  "gold_solution": "```python\nfrom gurobipy import *\n\ndef solve_problem():\n    # Create a new model\n    m = Model(\"Optimization_Problem\")\n\n    # 2. Variables\n    vars = {}\n    lin_expr = 0\n    vars['Var_0'] = m.addVar(lb=0.0, ub=18.83, vtype=GRB.CONTINUOUS, name='Var_0')\n    lin_expr += 3.03 * vars['Var_0']\n    vars['Var_1'] = m.addVar(lb=0.0, ub=11.37, vtype=GRB.CONTINUOUS, name='Var_1')\n    lin_expr += 4.76 * vars['Var_1']\n    vars['Var_2'] = m.addVar(lb=0.0, ub=15.58, vtype=GRB.CONTINUOUS, name='Var_2')\n    lin_expr += 5.49 * vars['Var_2']\n\n    m.setObjective(lin_expr, GRB.MAXIMIZE)\n\n    # 3. Constraints\n    m.addConstr(1.37 * vars['Var_0'] + 2.77 * vars['Var_1'] + 4.34 * vars['Var_2'] <= 18.74, name='C0')\n    m.addConstr(0.03 * vars['Var_0'] <= 2.91, name='C1')\n    m.addConstr(6.93 * vars['Var_2'] <= 16.2, name='C2')\n\n    # 4. Optimize\n    m.optimize()\n    return m\n```",
+  "LLM_description": "Subject: Mix decision for the upcoming run window \u2014 maximize gross contribution under current plant limits\n\nTeam,\n\nFor the next production window, please set up the mix to maximize total gross contribution while staying within our current operating limits. We\u2019re able to run partial lots where that makes sense.\n\nHere are the levers we can pull, in the order I\u2019d like you to consider them:\n\n- Summit Light Blend\n  - Financials: Each batch contributes $3.03k in gross margin.\n  - Resource draw: Every batch requires 1.37 run-hours on Blending Line Theta and 0.03 hours of Regulatory QA review. It does not consume any Cryo Storage capacity.\n  - Practical bounds: We can schedule anywhere from 0 up to 18.83 batches this window (no negatives; partial batches are allowed).\n\n- Crimson Reserve\n  - Financials: Each batch contributes $4.76k in gross margin.\n  - Resource draw: Every batch requires 2.77 run-hours on Blending Line Theta. It requires no Regulatory QA review time and no Cryo Storage capacity.\n  - Practical bounds: We can schedule anywhere from 0 up to 11.37 batches this window (no negatives; partial batches are allowed).\n\n- Azure Cold-Brew Concentrate\n  - Financials: Each batch contributes $5.49k in gross margin.\n  - Resource draw: Every batch requires 4.34 run-hours on Blending Line Theta and 6.93 capacity credits in Cryo Storage. It does not require any Regulatory QA review time.\n  - Practical bounds: We can schedule anywhere from 0 up to 15.58 batches this window (no negatives; partial batches are allowed).\n\nFacility specs and market limits for this window:\n- Blending Line Theta available run-time: up to 18.74 hours total.\n- Regulatory QA review availability: up to 2.91 hours total.\n- Cryo Storage capacity credits available: up to 16.2 total.\n\nPlease use the above economics and resource draws to determine the most profitable mix without exceeding any of the stated limits.\n\nThanks,\nMorgan\nVP, Operations & Supply Chain"
+}
