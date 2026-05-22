@@ -23,7 +23,7 @@ pretty_name: Text2Opt-Bench
 A benchmark for evaluating LLMs on operations-research optimization problems (LP, MILP, MIQP, nonlinear) with **solver-verified ground truth**. Text-to-optimization requires two separable capabilities — *modeling* (choosing the right optimization structure) and *binding* (grounding every coefficient, index, and parameter in the concrete problem data) — and Text2Opt-Bench is built to expose binding as the bottleneck for current LLMs.
 
 - **Code & evaluators:** https://github.com/SprocketLab/Text2Opt-Bench
-- **Paper:** coming soon
+- **Paper:** [Models Can Model, But Can't Bind: Structured Grounding in Text-to-Optimization](https://arxiv.org/abs/2605.21751) (arXiv:2605.21751)
 - **License:** MIT
 
 ## Assets
@@ -149,4 +149,14 @@ The per-category prompts live as `SYSTEM_PROMPT` class attributes under [`main/g
 
 ## Citation
 
-_Coming soon._
+```bibtex
+@misc{gao2026modelsmodelcantbind,
+      title={Models Can Model, But Can't Bind: Structured Grounding in Text-to-Optimization}, 
+      author={Zhiqi Gao and Albert Ge and Alexander Berenbeim and Nathaniel D. Bastian and Frederic Sala},
+      year={2026},
+      eprint={2605.21751},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2605.21751}, 
+}
+```

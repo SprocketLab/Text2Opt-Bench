@@ -2,7 +2,7 @@
 
 A scalable benchmark for evaluating LLMs on operations research optimization problems (LP, MILP, MIQP, nonlinear) with solver-verified ground truth.
 
-[Paper] — coming soon
+**Paper:** [Models Can Model, But Can't Bind: Structured Grounding in Text-to-Optimization](https://arxiv.org/abs/2605.21751) (arXiv:2605.21751)
 
 ## Setup
 
@@ -232,16 +232,19 @@ ruler/
 | Standard | GPT-5-Nano, DeepSeek-V3.2 |
 | Open-weight | Llama-3.3-70B, Qwen2.5-7B |
 
-<!-- ## Citation
+## Citation
 
 ```bibtex
-@inproceedings{gao2025orllmbench,
-  title={Models Can Model, But Can't Bind: Structured Grounding in Text-to-Optimization},
-  author={Gao, Zhiqi and Ge, Albert and Berenbeim, Alexander and Bastian, Nathaniel D. and Sala, Frederic},
-  booktitle={Conference on Language Modeling (COLM)},
-  year={2025}
+@misc{gao2026modelsmodelcantbind,
+      title={Models Can Model, But Can't Bind: Structured Grounding in Text-to-Optimization}, 
+      author={Zhiqi Gao and Albert Ge and Alexander Berenbeim and Nathaniel D. Bastian and Frederic Sala},
+      year={2026},
+      eprint={2605.21751},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2605.21751}, 
 }
-``` -->
+```
 
 ## License
 
